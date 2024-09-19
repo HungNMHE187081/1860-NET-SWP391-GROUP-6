@@ -8,6 +8,14 @@
         <servlet-name>ServicesListServlet</servlet-name>
         <servlet-class>controller.ServicesListServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EditProvinces</servlet-name>
+        <servlet-class>controller.EditProvinces</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManagerAddress</servlet-name>
+        <servlet-class>controller.ManagerAddress</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegistryServlet</servlet-name>
         <url-pattern>/registryservlet</url-pattern>
@@ -15,5 +23,13 @@
     <servlet-mapping>
         <servlet-name>ServicesListServlet</servlet-name>
         <url-pattern>/serviceslist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditProvinces</servlet-name>
+        <url-pattern>/EditProvinces</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManagerAddress</servlet-name>
+        <url-pattern>/ManagerAddress</url-pattern>
     </servlet-mapping>
 </web-app>
