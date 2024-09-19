@@ -11,7 +11,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Staff Service List</title>
-    <link rel="stylesheet" href="staff.css">
+    <link rel="stylesheet" href="css/staff.css">
     <script>
         function showSection(sectionId) {
             var sections = document.getElementsByClassName('section');
@@ -26,20 +26,20 @@
     <div class="wrapper">
         <nav class="sidebar">
             <div class="sidebar-header">
-                <h2>Dashboard</h2>
+                <img src="src" alt="logo"/>
             </div>
             <ul class="list-unstyled components">
-                <li><a href="#" onclick="showSection('home')">Home</a></li>
+                <li><a href="#" onclick="showSection('reservations')">Reservations</a></li>
                 <li><a href="#" onclick="showSection('services')">Services</a></li>
-                <li><a href="#" onclick="showSection('staff')">Staff</a></li>
-                <li><a href="#" onclick="showSection('reports')">Reports</a></li>
-                <li><a href="#" onclick="showSection('settings')">Settings</a></li>
+                <li><a href="#" onclick="showSection('history')">History Examinations</a></li>
+                <li><a href="#" onclick="showSection('medicine')">Medicine</a></li>
+                <li><a href="#" onclick="showSection('feedback')">Feedback</a></li>
             </ul>
         </nav>
 
         <div class="content">
             <header>
-                <h1>Staff Service List</h1>
+                <h1>Staff Services List</h1>
             </header>
             <div id="home" class="section">
                 <h2>Welcome to the Dashboard</h2>
@@ -81,4 +81,3 @@
     </footer>
 </body>
 </html>
-

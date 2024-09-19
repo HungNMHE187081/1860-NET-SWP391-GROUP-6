@@ -4,8 +4,16 @@
         <servlet-name>RegistryServlet</servlet-name>
         <servlet-class>controller.Manager.RegistryServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServicesListServlet</servlet-name>
+        <servlet-class>controller.ServicesListServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegistryServlet</servlet-name>
         <url-pattern>/registryservlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServicesListServlet</servlet-name>
+        <url-pattern>/serviceslist</url-pattern>
     </servlet-mapping>
 </web-app>
