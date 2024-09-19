@@ -37,39 +37,39 @@ public class ServiceDAO extends DBContext {
         return listServices;
     }
 
-    public void insertService(Service service) {
-        String sql = "INSERT INTO Services ([ServiceName]\n"
-                + "           ,[Description]\n"
-                + "           ,[Price]\n"
-                + "           ,[Duration]\n"
-                + "           ,[ServiceImage]\n"
-                + "           ,[IsActive]) VALUES (?, ?, ?, ?, ?, ?)";
-        try {
-            PreparedStatement pre = connection.prepareStatement(sql);
-            pre.setString(0, service.getServiceName());
-            pre.setString(1, service.getDescription());
-            pre.setDouble(3, service.getPrice());
-            pre.setInt(4, service.getDuration());
-            pre.setString(5, service.getServiceImage());
-            pre.setBoolean(6, service.isIsActive());
-            pre.executeUpdate();
-            ResultSet rs = pre.getGeneratedKeys();
-            if (rs.next()) {
-                service.setServiceID(rs.getInt(1));
-            }
-        } catch (SQLException e) {
-        }
-    }
-
-    public void deleteService(int ServiceID) {
-        String sql = "DELETE FROM [Services]\n"
-                + "WHERE ServiceID = ?";
-        try {
-            PreparedStatement pre = connection.prepareStatement(sql);
-            pre.executeUpdate();
-        } catch (SQLException e) {
-        }
-    }
+//    public void insertService(Service service) {
+//        String sql = "INSERT INTO Services ([ServiceName]\n"
+//                + "           ,[Description]\n"
+//                + "           ,[Price]\n"
+//                + "           ,[Duration]\n"
+//                + "           ,[ServiceImage]\n"
+//                + "           ,[IsActive]) VALUES (?, ?, ?, ?, ?, ?)";
+//        try {
+//            PreparedStatement pre = connection.prepareStatement(sql);
+//            pre.setString(0, service.getServiceName());
+//            pre.setString(1, service.getDescription());
+//            pre.setDouble(3, service.getPrice());
+//            pre.setInt(4, service.getDuration());
+//            pre.setString(5, service.getServiceImage());
+//            pre.setBoolean(6, service.isIsActive());
+//            pre.executeUpdate();
+//            ResultSet rs = pre.getGeneratedKeys();
+//            if (rs.next()) {
+//                service.setServiceID(rs.getInt(1));
+//            }
+//        } catch (SQLException e) {
+//        }
+//    }
+//
+//    public void deleteService(int ServiceID) {
+//        String sql = "DELETE FROM [Services]\n"
+//                + "WHERE ServiceID = ?";
+//        try {
+//            PreparedStatement pre = connection.prepareStatement(sql);
+//            pre.executeUpdate();
+//        } catch (SQLException e) {
+//        }
+//    }
 
     public static void main(String[] args) {
         ServiceDAO dao = new ServiceDAO();
