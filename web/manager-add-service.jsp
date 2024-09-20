@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,7 +15,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Main CSS-->
-  <link rel="stylesheet" type="text/css" href="css/main.css">
+  <link rel="stylesheet" type="text/css" href="css/manager//main.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
   <!-- or -->
   <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
@@ -194,7 +195,7 @@
   <main class="app-content">
     <div class="app-title">
       <ul class="app-breadcrumb breadcrumb">
-        <li class="breadcrumb-item">Services List</li>
+          <li class="breadcrumb-item"><a href="#">Services List</a></li>
         <li class="breadcrumb-item"><a href="#">Add Service</a></li>
       </ul>
     </div>
@@ -214,68 +215,38 @@
             </div>
             <form class="row">
               <div class="form-group col-md-4">
-                <label class="control-label">ID nhân viên</label>
+                <label class="control-label">Service Name</label>
                 <input class="form-control" type="text">
               </div>
               <div class="form-group col-md-4">
-                <label class="control-label">Họ và tên</label>
+                <label class="control-label">Image</label>
                 <input class="form-control" type="text" required>
               </div>
               <div class="form-group col-md-4">
-                <label class="control-label">Địa chỉ email</label>
-                <input class="form-control" type="text" required>
+                <label class="control-label">Age</label>
+                <select class="form-control" id="agelimits">
+                  <option>-- Chọn độ tuổi --</option>
+                  <c:forEach var="agelimit" items="${sessionScope.agelimits}">
+                      <option>${agelimit}</option>
+                  </c:forEach>
+                </select>
               </div>
               <div class="form-group col-md-4">
-                <label class="control-label">Địa chỉ thường trú</label>
+                <label class="control-label">Price</label>
                 <input class="form-control" type="text" required>
               </div>
               <div class="form-group  col-md-4">
-                <label class="control-label">Số điện thoại</label>
+                <label class="control-label">Duration</label>
                 <input class="form-control" type="number" required>
               </div>
               <div class="form-group col-md-4">
-                <label class="control-label">Ngày sinh</label>
+                <label class="control-label">Description</label>
                 <input class="form-control" type="date">
-              </div>
-              <div class="form-group  col-md-3">
-                <label class="control-label">Nơi sinh</label>
-                <input class="form-control" type="text" required>
-              </div>
-              <div class="form-group col-md-3">
-                <label class="control-label">Số CMND</label>
-                <input class="form-control" type="number" required>
-              </div>
-              <div class="form-group col-md-3">
-                <label class="control-label">Ngày cấp</label>
-                <input class="form-control" type="date" required>
-              </div>
-              <div class="form-group col-md-3">
-                <label class="control-label">Nơi cấp</label>
-                <input class="form-control" type="text" required>
-              </div>
-              <div class="form-group col-md-3">
-                <label class="control-label">Giới tính</label>
-                <select class="form-control" id="exampleSelect2" required>
-                  <option>-- Chọn giới tính --</option>
-                  <option>Nam</option>
-                  <option>Nữ</option>
-                </select>
               </div>
 
               <div class="form-group  col-md-3">
                 <label for="exampleSelect1" class="control-label">Chức vụ</label>
-                <select class="form-control" id="exampleSelect1">
-                  <option>-- Chọn chức vụ --</option>
-                  <option>Bán hàng</option>
-                  <option>Tư vấn</option>
-                  <option>Dịch vụ</option>
-                  <option>Thu Ngân</option>
-                  <option>Quản kho</option>
-                  <option>Bảo trì</option>
-                  <option>Kiểm hàng</option>
-                  <option>Bảo vệ</option>
-                  <option>Tạp vụ</option>
-                </select>
+                
               </div>
               <div class="form-group col-md-3">
                 <label class="control-label">Bằng cấp</label>

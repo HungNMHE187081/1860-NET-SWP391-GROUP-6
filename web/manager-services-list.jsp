@@ -31,6 +31,7 @@
     </head>
 
     <body onload="time()" class="app sidebar-mini rtl">
+        <form action="manager-services-list">
         <!-- Navbar-->
         <header class="app-header">
             <!-- Sidebar toggle button--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar"
@@ -384,6 +385,7 @@
                 $("#ModalUP").modal({backdrop: false, keyboard: false})
             });
         </script>
+        </form>
     </body>
 
 </html>

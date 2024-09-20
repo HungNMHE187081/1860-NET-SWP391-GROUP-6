@@ -21,9 +21,9 @@ public class AgeLimitDAO extends DBContext{
             PreparedStatement pre = connection.prepareStatement(sql);
             ResultSet rs = pre.executeQuery();
             while (rs.next()){
-                int ID = rs.getInt("ID");
+                int AgeLimitID = rs.getInt("AgeLimitID");
                 String AgeLimit = rs.getString("AgeLimit");
-                list.add(new AgeLimits(ID, AgeLimit));
+                list.add(new AgeLimits(AgeLimitID, AgeLimit));
             }
         } catch (SQLException e) {
         }

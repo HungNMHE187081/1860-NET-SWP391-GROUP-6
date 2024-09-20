@@ -9,23 +9,23 @@ package model;
  * @author LENOVO
  */
 public class AgeLimits {
-    int ID;
+    int AgeLimitID;
     String AgeLimit;
 
     public AgeLimits() {
     }
 
-    public AgeLimits(int ID, String AgeLimit) {
-        this.ID = ID;
+    public AgeLimits(int AgeLimitID, String AgeLimit) {
+        this.AgeLimitID = AgeLimitID;
         this.AgeLimit = AgeLimit;
     }
 
-    public int getID() {
-        return ID;
+    public int getAgeLimitID() {
+        return AgeLimitID;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
+    public void setAgeLimitID(int AgeLimitID) {
+        this.AgeLimitID = AgeLimitID;
     }
 
     public String getAgeLimit() {
