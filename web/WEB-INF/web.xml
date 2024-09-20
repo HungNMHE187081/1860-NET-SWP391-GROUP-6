@@ -16,6 +16,10 @@
         <servlet-name>ManagerAddress</servlet-name>
         <servlet-class>controller.ManagerAddress</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AgeLimitsServlet</servlet-name>
+        <servlet-class>controller.AgeLimitsServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegistryServlet</servlet-name>
         <url-pattern>/registryservlet</url-pattern>
@@ -31,5 +35,9 @@
     <servlet-mapping>
         <servlet-name>ManagerAddress</servlet-name>
         <url-pattern>/ManagerAddress</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AgeLimitsServlet</servlet-name>
+        <url-pattern>/agelimits</url-pattern>
     </servlet-mapping>
 </web-app>
