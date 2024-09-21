@@ -23,13 +23,14 @@ public class ServiceDAO extends DBContext {
             ResultSet rs = pre.executeQuery();
             while (rs.next()) {
                 int ServiceID = rs.getInt("ServiceID");
-                String ServiceName = rs.getString("ServiceName"),
-                        Description = rs.getString("Description");
+                String ServiceName = rs.getString("ServiceName");
+                String Description = rs.getString("Description");
                 double Price = rs.getDouble("Price");
                 int Duration = rs.getInt("Duration");
                 String ServiceImage = rs.getString("ServiceImage");
                 boolean IsActive = rs.getBoolean("IsActive");
-                listServices.add(new Service(ServiceID, ServiceName, Description, Price, Duration, ServiceImage, IsActive));
+                int AgeLimitID = rs.getInt("AgeLimitID");
+                listServices.add(new Service(ServiceID, ServiceName, Description, Price, Duration, ServiceImage, IsActive, AgeLimitID));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -43,7 +44,8 @@ public class ServiceDAO extends DBContext {
                 + "           ,[Price]\n"
                 + "           ,[Duration]\n"
                 + "           ,[ServiceImage]\n"
-                + "           ,[IsActive]) VALUES (?, ?, ?, ?, ?, ?)";
+                + "           ,[IsActive],"
+                + "            ,[AgeLimitID] ) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement pre = connection.prepareStatement(sql);
             pre.setString(1, service.getServiceName());
@@ -52,6 +54,7 @@ public class ServiceDAO extends DBContext {
             pre.setInt(4, service.getDuration());
             pre.setString(5, service.getServiceImage());
             pre.setBoolean(6, service.isIsActive());
+            pre.setInt(7, service.getAgeLimitID());
             pre.executeUpdate();
             ResultSet rs = pre.getGeneratedKeys();
             if (rs.next()) {
@@ -73,7 +76,7 @@ public class ServiceDAO extends DBContext {
 
     public static void main(String[] args) {
         ServiceDAO dao = new ServiceDAO();
-        //dao.insertService(new Service(0, "a", "a", 1, 30, "a", true));
+//        dao.insertService(new Service(0, "Tư vấn về chăm sóc trẻ sơ sinh", "Nhân viên thực hiện: Bác sĩ\nTiêm các loại vắc xin theo lịch tiêm chủng, theo dõi phản ứng sau tiêm", 200000, 60, "", false, 1));
         System.out.println(dao.getAllServices().size());
     }
 }

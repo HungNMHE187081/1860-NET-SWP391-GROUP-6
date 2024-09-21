@@ -16,7 +16,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Main CSS-->
-        <link rel="stylesheet" type="text/css" href="css/manager//main.css">
+        <link rel="stylesheet" type="text/css" href="css/manager/services.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
         <!-- or -->
         <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
@@ -31,7 +31,7 @@
     </head>
 
     <body onload="time()" class="app sidebar-mini rtl">
-        <form action="manager-services-list">
+        
         <!-- Navbar-->
         <header class="app-header">
             <!-- Sidebar toggle button--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar"
@@ -86,9 +86,10 @@
             </ul>
         </aside>
         <main class="app-content">
+            
             <div class="app-title">
                 <ul class="app-breadcrumb breadcrumb side">
-                    <li class="breadcrumb-item active"><a href="#"><b>Services List</b></a></li>
+                    <li class="breadcrumb-item active"><a href="#"><b>Danh sách dịch vụ</b></a></li>
                 </ul>
                 <div id="clock"></div>
             </div>
@@ -102,7 +103,7 @@
                                 <div class="col-sm-2">
 
                                     <a class="btn btn-add btn-sm" href="manager-add-service.jsp" title="Thêm"><i class="fas fa-plus"></i>
-                                        Add Service</a>
+                                        Thêm dịch vụ</a>
                                 </div>
                                 <div class="col-sm-2">
                                     <a class="btn btn-delete btn-sm nhap-tu-file" type="button" title="Nhập" onclick="myFunction(this)"><i
@@ -130,33 +131,36 @@
                                             class="fas fa-trash-alt"></i> Delete All </a>
                                 </div>
                             </div>
-                            <table class="table table-hover table-bordered js-copytextarea" cellpadding="0" cellspacing="0" border="0"
+                            
+                            <table cellpadding="0" cellspacing="0" border="0"
                                    id="sampleTable">
                                 <thead>
                                     <tr>
-                                        <th width="10"><input type="checkbox" id="all"></th>
-                                        <th>#</th>
-                                        <th width="150">Service Name</th>
-                                        <th width="20">Image</th>
-                                        <th>Age</th>
-                                        <th>Price</th>
-                                        <th>Duration</th>
-                                        <th width="300">Description</th>
-                                        <th>Active</th>
-                                        <th width="100">Function</th>
+                                        <th><input type="checkbox" id="all"></th>
+                                        <!--<th>STT</th>-->
+                                        <th width="150">Tên Dịch Vụ</th>
+                                        <th width="20">Ảnh</th>
+                                        <th>Độ tuổi</th>
+                                        <th>Giá</th>
+                                        <th>Thời gian tối đa</th>
+                                        <th width="300">Mô tả</th>
+                                        <th>Trạng thái hoạt động</th>
+                                        <th>Chức năng</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <c:forEach var="services" items="${sessionScope.services}">
+                                    <c:forEach var="service" items="${services}">
                                         <tr>
-                                            <td width="10"><input type="checkbox" name="check1" value="1"></td>
-                                            <td>#CD12837</td>
+                                            <td><input type="checkbox" name="check1" value="1"></td>
+                                            <!--<td>1</td>-->
                                             <td>${service.ServiceName}</td>
-                                            <td><img class="img-card-person" src=${service.ServiceImage} alt="ServiceImage"></td>
+                                            <td><img class="img-card-person" src=${service.ServiceImage} alt="${service.ServiceName}"></td>
                                             <td>
-                                                <c:if>
-
+                                                <c:forEach var="age" items="${age}">
+                                                <c:if test="${service.AgeLimitID == age.AgeLimit}">
+                                                    ${age.AgeLimit}
                                                 </c:if>
+                                                </c:forEach>
                                             </td>
                                             <td>${service.Price}</td>
                                             <td>${service.Duration}</td>
@@ -184,78 +188,8 @@
                     </div>
                 </div>
             </div>
+            
         </main>
-
-        <!--
-        MODAL
-        -->
-        <div class="modal fade" id="ModalUP" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static"
-             data-keyboard="false">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="form-group  col-md-12">
-                                <span class="thong-tin-thanh-toan">
-                                    <h5>Chỉnh sửa thông tin nhân viên cơ bản</h5>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-md-6">
-                                <label class="control-label">ID nhân viên</label>
-                                <input class="form-control" type="text" required value="#CD2187" disabled>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label class="control-label">Họ và tên</label>
-                                <input class="form-control" type="text" required value="Võ Trường">
-                            </div>
-                            <div class="form-group  col-md-6">
-                                <label class="control-label">Số điện thoại</label>
-                                <input class="form-control" type="number" required value="09267312388">
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label class="control-label">Địa chỉ email</label>
-                                <input class="form-control" type="text" required value="truong.vd2000@gmail.com">
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label class="control-label">Ngày sinh</label>
-                                <input class="form-control" type="date" value="15/03/2000">
-                            </div>
-                            <div class="form-group  col-md-6">
-                                <label for="exampleSelect1" class="control-label">Chức vụ</label>
-                                <select class="form-control" id="exampleSelect1">
-                                    <option>Bán hàng</option>
-                                    <option>Tư vấn</option>
-                                    <option>Dịch vụ</option>
-                                    <option>Thu Ngân</option>
-                                    <option>Quản kho</option>
-                                    <option>Bảo trì</option>
-                                    <option>Kiểm hàng</option>
-                                    <option>Bảo vệ</option>
-                                    <option>Tạp vụ</option>
-                                </select>
-                            </div>
-                        </div>
-                        <BR>
-                        <a href="#" style="    float: right;
-                           font-weight: 600;
-                           color: #ea0000;">Chỉnh sửa nâng cao</a>
-                        <BR>
-                        <BR>
-                        <button class="btn btn-save" type="button">Lưu lại</button>
-                        <a class="btn btn-cancel" data-dismiss="modal" href="#">Hủy bỏ</a>
-                        <BR>
-                    </div>
-                    <div class="modal-footer">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--
-        MODAL
-        -->
 
         <!-- Essential javascripts for application to work-->
         <script src="js/manager/jquery-3.2.1.min.js"></script>
@@ -385,7 +319,7 @@
                 $("#ModalUP").modal({backdrop: false, keyboard: false})
             });
         </script>
-        </form>
+        
     </body>
 
 </html>

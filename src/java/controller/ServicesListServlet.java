@@ -5,6 +5,7 @@
 
 package controller;
 
+import dal.AgeLimitDAO;
 import dal.ServiceDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,6 +15,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
+import model.AgeLimits;
 import model.Service;
 
 /**
@@ -26,10 +28,9 @@ public class ServicesListServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         ServiceDAO dao = new ServiceDAO();
-        List<Service> Services = dao.getAllServices();
-        HttpSession session = request.getSession();
-        session.setAttribute("services", Services);
-        response.sendRedirect("manager-services-list.jsp");
+        List<Service> services = dao.getAllServices();
+        request.setAttribute("services", services);
+        request.getRequestDispatcher("manager-services-list.jsp").forward(request, response);
     } 
 
     @Override

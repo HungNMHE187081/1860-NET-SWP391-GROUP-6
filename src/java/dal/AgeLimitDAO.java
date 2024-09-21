@@ -29,4 +29,9 @@ public class AgeLimitDAO extends DBContext{
         }
         return list;
     }
+    
+    public static void main(String[] args) {
+        AgeLimitDAO dao = new AgeLimitDAO();
+        System.out.println(dao.getAllAgeLimits().size());
+    }
 }

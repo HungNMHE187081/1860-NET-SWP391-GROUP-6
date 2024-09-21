@@ -30,11 +30,11 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>EditProvinces</servlet-name>
-        <url-pattern>/EditProvinces</url-pattern>
+        <url-pattern>/editprovinces</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ManagerAddress</servlet-name>
-        <url-pattern>/ManagerAddress</url-pattern>
+        <url-pattern>/manageraddress</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AgeLimitsServlet</servlet-name>

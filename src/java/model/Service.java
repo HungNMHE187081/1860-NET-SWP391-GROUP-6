@@ -15,11 +15,12 @@ public class Service {
     int Duration;
     String ServiceImage;
     boolean IsActive;
+    int AgeLimitID;
 
     public Service() {
     }
 
-    public Service(int ServiceID, String ServiceName, String Description, double Price, int Duration, String ServiceImage, boolean IsActive) {
+    public Service(int ServiceID, String ServiceName, String Description, double Price, int Duration, String ServiceImage, boolean IsActive, int AgeLimitID) {
         this.ServiceID = ServiceID;
         this.ServiceName = ServiceName;
         this.Description = Description;
@@ -27,6 +28,7 @@ public class Service {
         this.Duration = Duration;
         this.ServiceImage = ServiceImage;
         this.IsActive = IsActive;
+        this.AgeLimitID = AgeLimitID;
     }
 
     public int getServiceID() {
@@ -83,6 +85,14 @@ public class Service {
 
     public void setIsActive(boolean IsActive) {
         this.IsActive = IsActive;
+    }
+
+    public int getAgeLimitID() {
+        return AgeLimitID;
+    }
+
+    public void setAgeLimitID(int AgeLimitID) {
+        this.AgeLimitID = AgeLimitID;
     }
     
 }
