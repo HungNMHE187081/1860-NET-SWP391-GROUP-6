@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -31,7 +32,7 @@
     </head>
 
     <body onload="time()" class="app sidebar-mini rtl">
-        
+
         <!-- Navbar-->
         <header class="app-header">
             <!-- Sidebar toggle button--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar"
@@ -62,8 +63,8 @@
                         <span class="app-menu__label">POS Bán Hàng</span></a></li>
                 <li><a class="app-menu__item " href="index.html"><i class='app-menu__icon bx bx-tachometer'></i><span
                             class="app-menu__label">Bảng điều khiển</span></a></li>
-                <li><a class="app-menu__item active" href="table-data-table.html"><i class='app-menu__icon bx bx-id-card'></i>
-                        <span class="app-menu__label">Quản lý nhân viên</span></a></li>
+                <li><a class="app-menu__item active" href="serviceslist"><i class='app-menu__icon bx bx-id-card'></i>
+                        <span class="app-menu__label">Quản lý dịch vụ</span></a></li>
                 <li><a class="app-menu__item" href="#"><i class='app-menu__icon bx bx-user-voice'></i><span
                             class="app-menu__label">Quản lý khách hàng</span></a></li>
                 <li><a class="app-menu__item" href="table-data-product.html"><i
@@ -86,7 +87,7 @@
             </ul>
         </aside>
         <main class="app-content">
-            
+
             <div class="app-title">
                 <ul class="app-breadcrumb breadcrumb side">
                     <li class="breadcrumb-item active"><a href="#"><b>Danh sách dịch vụ</b></a></li>
@@ -131,50 +132,54 @@
                                             class="fas fa-trash-alt"></i> Delete All </a>
                                 </div>
                             </div>
-                            
-                            <table cellpadding="0" cellspacing="0" border="0"
-                                   id="sampleTable">
+
+                            <table>
                                 <thead>
                                     <tr>
-                                        <th><input type="checkbox" id="all"></th>
-                                        <!--<th>STT</th>-->
-                                        <th width="150">Tên Dịch Vụ</th>
-                                        <th width="20">Ảnh</th>
+                                        <th>STT</th>
+                                        <th>Tên dịch vụ</th>
+                                        <th>Ảnh</th>
                                         <th>Độ tuổi</th>
                                         <th>Giá</th>
                                         <th>Thời gian tối đa</th>
-                                        <th width="300">Mô tả</th>
-                                        <th>Trạng thái hoạt động</th>
+                                        <th>Mô tả</th>
+                                        <th>Trạng thái</th>
                                         <th>Chức năng</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <c:forEach var="service" items="${services}">
+                                    <c:forEach var="service" items="${services}" varStatus="status">
                                         <tr>
-                                            <td><input type="checkbox" name="check1" value="1"></td>
-                                            <!--<td>1</td>-->
-                                            <td>${service.ServiceName}</td>
-                                            <td><img class="img-card-person" src=${service.ServiceImage} alt="${service.ServiceName}"></td>
+                                            <td>${status.index + 1}</td>
+                                            <td>${service.serviceName}</td>
+                                            <td><img src="${service.serviceImage}" alt="${service.serviceName}" width="50"></td>
                                             <td>
-                                                <c:forEach var="age" items="${age}">
-                                                <c:if test="${service.AgeLimitID == age.AgeLimit}">
-                                                    ${age.AgeLimit}
-                                                </c:if>
+                                                <c:forEach var="ageLimit" items="${ageLimits}">
+                                                    <c:if test="${ageLimit.ageLimitID == service.ageLimitID}">
+                                                        ${ageLimit.ageLimit}
+                                                    </c:if>
                                                 </c:forEach>
                                             </td>
-                                            <td>${service.Price}</td>
-                                            <td>${service.Duration}</td>
-                                            <td>${service.Description}</td>
+                                            <td><fmt:formatNumber value="${service.price}" type="number" groupingUsed="true" />,000₫</td>
                                             <td>
-                                                <c:if test="${service.IsActive} == true">
+                                                <c:if test="${service.duration == 0}">
+                                                    Theo lịch đặt
+                                                </c:if>
+                                                <c:if test="${service.duration != 0}">
+                                                    ${service.duration}
+                                                </c:if>
+                                            </td>
+                                            <td>${service.description}</td>
+                                            <td>
+                                                <c:if test="${service.isActive}">
                                                     Active
                                                 </c:if>
-                                                <c:if test="${service.IsActive} == false">
-                                                    InActive
+                                                <c:if test="${!service.isActive}">
+                                                    Inactive
                                                 </c:if>
                                             </td>
                                             <td class="table-td-center"><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
-                                                                                onclick="myFunction(this)"><i class="fas fa-trash-alt"></i>
+                                                                                onclick="EditProvinces('${provinces.provinceID}')"><i class="fas fa-trash-alt"></i>
                                                 </button>
                                                 <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp"
                                                         data-toggle="modal" data-target="#ModalUP"><i class="fas fa-edit"></i>
@@ -188,7 +193,7 @@
                     </div>
                 </div>
             </div>
-            
+
         </main>
 
         <!-- Essential javascripts for application to work-->
@@ -319,7 +324,7 @@
                 $("#ModalUP").modal({backdrop: false, keyboard: false})
             });
         </script>
-        
+
     </body>
 
 </html>

@@ -27,9 +27,12 @@ public class ServicesListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        ServiceDAO dao = new ServiceDAO();
-        List<Service> services = dao.getAllServices();
+        ServiceDAO serviceDAO = new ServiceDAO();
+        AgeLimitDAO ageLimitDAO = new AgeLimitDAO();
+        List<Service> services = serviceDAO.getAllServices();
+        List<AgeLimits> ageLimits = ageLimitDAO.getAllAgeLimits();
         request.setAttribute("services", services);
+        request.setAttribute("ageLimits", ageLimits);
         request.getRequestDispatcher("manager-services-list.jsp").forward(request, response);
     } 
 
