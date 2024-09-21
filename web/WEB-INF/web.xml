@@ -20,6 +20,14 @@
         <servlet-name>DeleteServiceServlet</servlet-name>
         <servlet-class>controller.DeleteServiceServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EditServiceServlet</servlet-name>
+        <servlet-class>controller.EditServiceServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddServiceServlet</servlet-name>
+        <servlet-class>controller.AddServiceServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegistryServlet</servlet-name>
         <url-pattern>/registryservlet</url-pattern>
@@ -39,5 +47,13 @@
     <servlet-mapping>
         <servlet-name>DeleteServiceServlet</servlet-name>
         <url-pattern>/deleteservice</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditServiceServlet</servlet-name>
+        <url-pattern>/editservice</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddServiceServlet</servlet-name>
+        <url-pattern>/addservice</url-pattern>
     </servlet-mapping>
 </web-app>
