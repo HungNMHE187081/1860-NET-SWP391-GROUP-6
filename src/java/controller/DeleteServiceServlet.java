@@ -20,15 +20,12 @@ import model.AgeLimits;
  *
  * @author LENOVO
  */
-public class AgeLimitsServlet extends HttpServlet {
+public class DeleteServiceServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-//        HttpSession session = request.getSession();
-//        AgeLimitDAO dao = new AgeLimitDAO();
-//        List<AgeLimits> AgeLimits = dao.getAllAgeLimits();
-//        session.setAttribute("age", AgeLimits);
+
         
     } 
 
