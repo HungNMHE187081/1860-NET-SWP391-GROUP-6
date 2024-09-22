@@ -204,76 +204,48 @@
 
         <div class="tile">
 
-          <h3 class="tile-title">Tạo mới nhân viên</h3>
+          <h3 class="tile-title">Tạo mới dịch vụ</h3>
           <div class="tile-body">
-            <div class="row element-button">
-              <div class="col-sm-2">
-                <a class="btn btn-add btn-sm" data-toggle="modal" data-target="#exampleModalCenter"><b><i
-                      class="fas fa-folder-plus"></i> Tạo chức vụ mới</b></a>
-              </div>
-
-            </div>
             <form class="row">
               <div class="form-group col-md-4">
-                <label class="control-label">Service Name</label>
-                <input class="form-control" type="text">
+                <label class="control-label">Tên dịch vụ</label>
+                <input class="form-control" type="text" id="serviceName" name="serviceName">
               </div>
               <div class="form-group col-md-4">
-                <label class="control-label">Image</label>
-                <input class="form-control" type="text" required>
-              </div>
-              <div class="form-group col-md-4">
-                <label class="control-label">Age</label>
-                <select class="form-control" id="agelimits">
+                <label class="control-label">Độ tuổi</label>
+                <select class="form-control" id="ageLimit" name="ageLimit">
                   <option>-- Chọn độ tuổi --</option>
-                  <c:forEach var="agelimit" items="${sessionScope.agelimits}">
-                      <option>${agelimit}</option>
+                  <c:forEach var="agelimit" items="${ageLimits}">
+                      <option>${agelimit.ageLimit}</option>
                   </c:forEach>
                 </select>
               </div>
               <div class="form-group col-md-4">
-                <label class="control-label">Price</label>
-                <input class="form-control" type="text" required>
+                <label class="control-label">Giá</label>
+                <input class="form-control" type="number" id="price" name="price" required>
               </div>
               <div class="form-group  col-md-4">
-                <label class="control-label">Duration</label>
-                <input class="form-control" type="number" required>
+                <label class="control-label">Thời gian khám tối đa</label>
+                <input class="form-control" type="number" id="duration" name="duration" required>
               </div>
               <div class="form-group col-md-4">
-                <label class="control-label">Description</label>
-                <input class="form-control" type="date">
+                <label class="control-label">Mô tả</label>
+                <input class="form-control" type="text" id="description" name="description">
               </div>
 
-              <div class="form-group  col-md-3">
-                <label for="exampleSelect1" class="control-label">Chức vụ</label>
-                
-              </div>
               <div class="form-group col-md-3">
-                <label class="control-label">Bằng cấp</label>
-                <select class="form-control" id="exampleSelect3">
-                  <option>-- Chọn bằng cấp --</option>
-                  <option>Tốt nghiệp Đại Học</option>
-                  <option>Tốt nghiệp Cao Đẳng</option>
-                  <option>Tốt nghiệp Phổ Thông</option>
-                  <option>Chưa tốt nghiệp</option>
-                  <option>Không bằng cấp</option>
-                </select>
-              </div>
-              <div class="form-group col-md-3">
-                <label class="control-label">Tình trạng hôn nhân</label>
-                <select class="form-control" id="exampleSelect2">
-                  <option>-- Chọn tình trạng hôn nhân --</option>
-                  <option>Độc thân</option>
-                  <option>Đã kết hôn</option>
-                  <option>Góa</option>
-                  <option>Khác</option>
+                <label for="exampleSelect1" class="control-label">Tình trạng hoạt động</label>
+                <select class="form-control" id="isActive" name="isActive">
+                  <option>-- Chọn trạng thái --</option>
+                      <option>Hoạt động</option>
+                      <option>Chưa hoạt động</option>
                 </select>
               </div>
 
               <div class="form-group col-md-12">
-                <label class="control-label">Ảnh 3x4 nhân viên</label>
+                <label class="control-label">Ảnh dịch vụ</label>
                 <div id="myfileupload">
-                  <input type="file" id="uploadfile" name="ImageUpload" onchange="readURL(this);" />
+                  <input type="file" id="serviceImage" name="serviceImage" onchange="readURL(this);" />
                 </div>
                 <div id="thumbbox">
                   <img height="300" width="300" alt="Thumb image" id="thumbimage" style="display: none" />
@@ -289,8 +261,8 @@
 
 
           </div>
-          <button class="btn btn-save" type="button">Lưu lại</button>
-          <a class="btn btn-cancel" href="/doc/table-data-table.html">Hủy bỏ</a>
+          <button class="btn btn-save" type="button"><form action="addservice">Thêm dịch vụ</form></button>
+          <a class="btn btn-cancel" href="serviceslist">Hủy bỏ</a>
         </div>
 
   </main>

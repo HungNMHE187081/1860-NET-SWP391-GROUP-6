@@ -170,7 +170,7 @@
       <li><a class="app-menu__item " href="index.html"><i class='app-menu__icon bx bx-tachometer'></i><span
             class="app-menu__label">Bảng điều khiển</span></a></li>
       <li><a class="app-menu__item active" href="table-data-table.html"><i class='app-menu__icon bx bx-id-card'></i>
-          <span class="app-menu__label">Quản lý nhân viên</span></a></li>
+          <span class="app-menu__label">Quản lý dịch vụ</span></a></li>
       <li><a class="app-menu__item" href="#"><i class='app-menu__icon bx bx-user-voice'></i><span
             class="app-menu__label">Quản lý khách hàng</span></a></li>
       <li><a class="app-menu__item" href="table-data-product.html"><i
@@ -195,8 +195,8 @@
   <main class="app-content">
     <div class="app-title">
       <ul class="app-breadcrumb breadcrumb">
-          <li class="breadcrumb-item"><a href="#">Services List</a></li>
-        <li class="breadcrumb-item"><a href="#">Add Service</a></li>
+          <li class="breadcrumb-item"><a href="serviceslist">Danh sách dịch vụ</a></li>
+        <li class="breadcrumb-item"><a href="addservice">Thêm dịch vụ</a></li>
       </ul>
     </div>
     <div class="row">
@@ -204,7 +204,7 @@
 
         <div class="tile">
 
-          <h3 class="tile-title">Tạo mới nhân viên</h3>
+          <h3 class="tile-title">Tạo mới dịch vụ</h3>
           <div class="tile-body">
             <div class="row element-button">
               <div class="col-sm-2">
@@ -215,25 +215,25 @@
             </div>
             <form class="row">
               <div class="form-group col-md-4">
-                <label class="control-label">Service Name</label>
-                <input class="form-control" type="text">
+                <label class="control-label">Tên dịch vụ</label>
+                <input class="form-control" type="text" id="name" name="name" required>
               </div>
               <div class="form-group col-md-4">
-                <label class="control-label">Image</label>
+                <label class="control-label">Ảnh</label>
                 <input class="form-control" type="text" required>
               </div>
               <div class="form-group col-md-4">
-                <label class="control-label">Age</label>
-                <select class="form-control" id="agelimits">
+                <label class="control-label">Độ tuổi</label>
+                <select class="form-control" id="agelimits" required>
                   <option>-- Chọn độ tuổi --</option>
-                  <c:forEach var="agelimit" items="${sessionScope.agelimits}">
-                      <option>${agelimit}</option>
+                  <c:forEach var="agelimit" items="${ageLimits}">
+                      <option>${agelimit.ageLimit}</option>
                   </c:forEach>
                 </select>
               </div>
               <div class="form-group col-md-4">
-                <label class="control-label">Price</label>
-                <input class="form-control" type="text" required>
+                <label class="control-label">Giá</label>
+                <input class="form-control" type="number" required>
               </div>
               <div class="form-group  col-md-4">
                 <label class="control-label">Duration</label>
@@ -241,7 +241,7 @@
               </div>
               <div class="form-group col-md-4">
                 <label class="control-label">Description</label>
-                <input class="form-control" type="date">
+                <input class="form-control" type="text" required>
               </div>
 
               <div class="form-group  col-md-3">

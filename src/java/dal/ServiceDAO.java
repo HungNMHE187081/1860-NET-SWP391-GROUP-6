@@ -38,16 +38,10 @@ public class ServiceDAO extends DBContext {
         return listServices;
     }
 
-    public void insertService(Service service) {
-        String sql = "INSERT INTO Services ([ServiceName]\n"
-                + "           ,[Description]\n"
-                + "           ,[Price]\n"
-                + "           ,[Duration]\n"
-                + "           ,[ServiceImage]\n"
-                + "           ,[IsActive],"
-                + "            ,[AgeLimitID] ) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        public void insertService(Service service) {
+        String sql = "INSERT INTO Services (ServiceName, Description, Price, Duration, ServiceImage, IsActive, AgeLimitID) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try {
-            PreparedStatement pre = connection.prepareStatement(sql);
+            PreparedStatement pre = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             pre.setString(1, service.getServiceName());
             pre.setString(2, service.getDescription());
             pre.setDouble(3, service.getPrice());
@@ -56,13 +50,17 @@ public class ServiceDAO extends DBContext {
             pre.setBoolean(6, service.isIsActive());
             pre.setInt(7, service.getAgeLimitID());
             pre.executeUpdate();
+            
             ResultSet rs = pre.getGeneratedKeys();
             if (rs.next()) {
                 service.setServiceID(rs.getInt(1));
             }
         } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Error inserting service: " + e.getMessage());
         }
     }
+
 
     public void deleteService(int ServiceID) {
         String sql = "DELETE FROM [Services]\n"
@@ -76,7 +74,7 @@ public class ServiceDAO extends DBContext {
 
     public static void main(String[] args) {
         ServiceDAO dao = new ServiceDAO();
-//        dao.insertService(new Service(0, "Tư vấn về chăm sóc trẻ sơ sinh", "Nhân viên thực hiện: Bác sĩ\nTiêm các loại vắc xin theo lịch tiêm chủng, theo dõi phản ứng sau tiêm", 200000, 60, "", false, 1));
+        dao.insertService(new Service(0, "Test", "Test", 200000, 60, "", true, 1));
         System.out.println(dao.getAllServices().size());
     }
 }
