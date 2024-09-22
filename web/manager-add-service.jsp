@@ -195,8 +195,8 @@
   <main class="app-content">
     <div class="app-title">
       <ul class="app-breadcrumb breadcrumb">
-          <li class="breadcrumb-item"><a href="#">Services List</a></li>
-        <li class="breadcrumb-item"><a href="#">Add Service</a></li>
+          <li class="breadcrumb-item"><a href="serviceslist">Danh sách dịch vụ</a></li>
+        <li class="breadcrumb-item"><a href="addservice">Thêm dịch vụ</a></li>
       </ul>
     </div>
     <div class="row">
@@ -205,15 +205,16 @@
         <div class="tile">
 
           <h3 class="tile-title">Tạo mới dịch vụ</h3>
+                        
           <div class="tile-body">
-            <form class="row">
+            <form class="row" method="post" action="addservice" enctype="multipart/form-data">
               <div class="form-group col-md-4">
                 <label class="control-label">Tên dịch vụ</label>
-                <input class="form-control" type="text" id="serviceName" name="serviceName">
+                <input class="form-control" type="text" id="serviceName" name="serviceName" required>
               </div>
               <div class="form-group col-md-4">
                 <label class="control-label">Độ tuổi</label>
-                <select class="form-control" id="ageLimit" name="ageLimit">
+                <select class="form-control" id="ageLimit" name="ageLimit" required>
                   <option>-- Chọn độ tuổi --</option>
                   <c:forEach var="agelimit" items="${ageLimits}">
                       <option>${agelimit.ageLimit}</option>
@@ -230,12 +231,12 @@
               </div>
               <div class="form-group col-md-4">
                 <label class="control-label">Mô tả</label>
-                <input class="form-control" type="text" id="description" name="description">
+                <input class="form-control" type="text" id="description" name="description" required="">
               </div>
 
               <div class="form-group col-md-3">
                 <label for="exampleSelect1" class="control-label">Tình trạng hoạt động</label>
-                <select class="form-control" id="isActive" name="isActive">
+                <select class="form-control" id="isActive" name="isActive" required>
                   <option>-- Chọn trạng thái --</option>
                       <option>Hoạt động</option>
                       <option>Chưa hoạt động</option>
@@ -245,58 +246,29 @@
               <div class="form-group col-md-12">
                 <label class="control-label">Ảnh dịch vụ</label>
                 <div id="myfileupload">
-                  <input type="file" id="serviceImage" name="serviceImage" onchange="readURL(this);" />
+                    <input type="file" id="serviceImage" name="serviceImage" onchange="readURL(this);" required=""/>
                 </div>
                 <div id="thumbbox">
                   <img height="300" width="300" alt="Thumb image" id="thumbimage" style="display: none" />
                   <a class="removeimg" href="javascript:"></a>
                 </div>
                 <div id="boxchoice">
-                  <a href="javascript:" class="Choicefile"><i class='bx bx-upload'></i></a>
+                
                   <p style="clear:both"></p>
                 </div>
 
               </div>
 
-
-
+              <div class="form-group col-md-12">
+                <button class="btn btn-save" type="submit">Thêm dịch vụ</button>
+                <a class="btn btn-cancel" href="serviceslist">Hủy bỏ</a>
+              </div>
+            </form>
           </div>
-          <button class="btn btn-save" type="button"><form action="addservice">Thêm dịch vụ</form></button>
-          <a class="btn btn-cancel" href="serviceslist">Hủy bỏ</a>
-        </div>
-
-  </main>
-
-
-  <!--
-  MODAL
--->
-  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-    data-backdrop="static" data-keyboard="false">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-
-        <div class="modal-body">
-          <div class="row">
-            <div class="form-group  col-md-12">
-              <span class="thong-tin-thanh-toan">
-                <h5>Tạo chức vụ mới</h5>
-              </span>
-            </div>
-            <div class="form-group col-md-12">
-              <label class="control-label">Nhập tên chức vụ mới</label>
-              <input class="form-control" type="text" required>
-            </div>
-          </div>
-          <BR>
-          <button class="btn btn-save" type="button">Lưu lại</button>
-          <a class="btn btn-cancel" data-dismiss="modal" href="#">Hủy bỏ</a>
-          <BR>
-        </div>
-        <div class="modal-footer">
         </div>
       </div>
     </div>
+  </main>
   </div>
   <!--
   MODAL

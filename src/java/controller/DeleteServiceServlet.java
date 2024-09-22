@@ -6,6 +6,7 @@
 package controller;
 
 import dal.AgeLimitDAO;
+import dal.ServiceDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -25,8 +26,10 @@ public class DeleteServiceServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-
-        
+        ServiceDAO dao = new ServiceDAO();
+        int ServiceID = Integer.parseInt(request.getParameter("serviceID"));
+        dao.deleteService(ServiceID);
+        response.sendRedirect("serviceslist");
     } 
 
     @Override

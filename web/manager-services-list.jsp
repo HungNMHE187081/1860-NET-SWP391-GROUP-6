@@ -103,7 +103,7 @@
                             <div class="row mb-3 d-flex justify-content-between align-items-center">
                                 <div class="d-flex">
                                     <div class="col-sm-2">
-                                        <a class="btn btn-add btn-sm" href="manager-add-service.jsp" title="Thêm">
+                                        <a class="btn btn-add btn-sm" href="addservice" title="Thêm">
                                             <i class="fas fa-plus"></i> Thêm dịch vụ
                                         </a>
                                     </div>
@@ -152,7 +152,7 @@
                                         <tr>
                                             <td>${status.index + 1}</td>
                                             <td>${service.serviceName}</td>
-                                            <td><img src="${service.serviceImage}" alt="${service.serviceName}" width="50"></td>
+                                            <td><img src="${service.serviceImage}" alt="${service.serviceName}" width="75" height="50"></td>
                                             <td>
                                                 <c:forEach var="ageLimit" items="${ageLimits}">
                                                     <c:if test="${ageLimit.ageLimitID == service.ageLimitID}">
@@ -178,10 +178,12 @@
                                                     Inactive
                                                 </c:if>
                                             </td>
-                                            <td class="table-td-center"><button class="btn btn-primary btn-sm trash" type="button" title="delete"
-                                                                                onclick="editservice('${service.serviceID}')"><i class="fas fa-trash-alt"></i>
+                                            <td class="table-td-center"><button class="btn btn-primary btn-sm" type="button" title="delete"
+                                                                                onclick="return confirm('Are you sure you want to delete this product?')">
+                                                    <a href="deleteservice?serviceID=${service.serviceID}"><i class="fas fa-trash-alt"></i></a>
                                                 </button>
-                                                <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp"
+                                                <button class="btn btn-primary btn-sm" type="button" title="Sửa" id="show-emp"
+                                                        onclick="editservice('${service.serviceID}')"
                                                         data-toggle="modal" data-target="#ModalUP"><i class="fas fa-edit"></i>
                                                 </button>
                                             </td>
@@ -212,32 +214,6 @@
         <script type="text/javascript" src="js/plugins/dataTables.bootstrap.min.js"></script>
         <script type="text/javascript">$('#sampleTable').DataTable();</script>
         <script>
-            function deleteRow(r) {
-                var i = r.parentNode.parentNode.rowIndex;
-                document.getElementById("${service.serviceID}").deleteRow(i);
-            }
-            jQuery(function () {
-                jQuery(".trash").click(function () {
-                    swal({
-                        title: "Cảnh báo",
-
-                        text: "Bạn có chắc chắn là muốn xóa dịch vụ này?",
-                        buttons: ["Hủy bỏ", "Đồng ý"],
-                    })
-                            .then((willDelete) => {
-                                if (willDelete) {
-                                    swal("Đã xóa thành công.!", {
-
-                                    });
-                                }
-                            });
-                });
-            });
-            oTable = $('#sampleTable').dataTable();
-            $('#all').click(function (e) {
-                $('#sampleTable tbody :checkbox').prop('checked', $(this).is(':checked'));
-                e.stopImmediatePropagation();
-            });
 
             //EXCEL
             // $(document).ready(function () {

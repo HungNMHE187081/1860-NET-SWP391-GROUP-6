@@ -14,6 +14,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import model.AgeLimits;
 import model.Service;
@@ -31,6 +33,12 @@ public class ServicesListServlet extends HttpServlet {
         AgeLimitDAO ageLimitDAO = new AgeLimitDAO();
         List<Service> services = serviceDAO.getAllServices();
         List<AgeLimits> ageLimits = ageLimitDAO.getAllAgeLimits();
+        Collections.sort(services, new Comparator<Service>() {
+            @Override
+            public int compare(Service s1, Service s2) {
+                return Integer.compare(s1.getAgeLimitID(), s2.getAgeLimitID());
+            }
+        });
         request.setAttribute("services", services);
         request.setAttribute("ageLimits", ageLimits);
         request.getRequestDispatcher("manager-services-list.jsp").forward(request, response);

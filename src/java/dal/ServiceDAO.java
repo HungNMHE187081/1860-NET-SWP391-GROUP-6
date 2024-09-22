@@ -67,6 +67,7 @@ public class ServiceDAO extends DBContext {
                 + "WHERE ServiceID = ?";
         try {
             PreparedStatement pre = connection.prepareStatement(sql);
+            pre.setInt(1, ServiceID);
             pre.executeUpdate();
         } catch (SQLException e) {
         }
@@ -74,7 +75,7 @@ public class ServiceDAO extends DBContext {
 
     public static void main(String[] args) {
         ServiceDAO dao = new ServiceDAO();
-        dao.insertService(new Service(0, "Test", "Test", 200000, 60, "", true, 1));
+        dao.deleteService(32);
         System.out.println(dao.getAllServices().size());
     }
 }
