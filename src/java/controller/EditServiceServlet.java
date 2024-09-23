@@ -1,61 +1,79 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package controller;
 
+import dal.AgeLimitDAO;
 import dal.ServiceDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
+import java.io.File;
+import java.nio.file.Paths;
+import java.util.List;
+import model.AgeLimits;
 import model.Service;
 
-/**
- *
- * @author LENOVO
- */
+@MultipartConfig
 public class EditServiceServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ServiceDAO dao = new ServiceDAO();
-//        int ServiceID = request.getParameter("ServiceID");
-//        String ServiceName = rs.getString("ServiceName");
-//        String Description = rs.getString("Description");
-//        double Price = rs.getDouble("Price");
-//        int Duration = rs.getInt("Duration");
-//        String ServiceImage = rs.getString("ServiceImage");
-//        boolean IsActive = rs.getBoolean("IsActive");
-//        int AgeLimitID = rs.getInt("AgeLimitID");
-//        listServices.add(new Service(ServiceID, ServiceName, Description, Price, Duration, ServiceImage, IsActive, AgeLimitID));
+        AgeLimitDAO ageLimitDAO = new AgeLimitDAO();
+        List<AgeLimits> ageLimits = ageLimitDAO.getAllAgeLimits();
+        request.setAttribute("ageLimits", ageLimits);
+
+        // Lấy thông tin dịch vụ hiện tại để hiển thị trên form
+        int serviceID = Integer.parseInt(request.getParameter("serviceID"));
+        ServiceDAO serviceDAO = new ServiceDAO();
+        Service service = serviceDAO.getServiceByID(serviceID);
+        request.setAttribute("service", service);
+
+        request.getRequestDispatcher("manager-edit-service.jsp").forward(request, response);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        int serviceID = Integer.parseInt(request.getParameter("serviceID"));
+        String serviceName = request.getParameter("serviceName");
+        String description = request.getParameter("description");
+        double price = Double.parseDouble(request.getParameter("price"));
+        int duration = Integer.parseInt(request.getParameter("duration"));
+        boolean isActive = request.getParameter("isActive").equals("Hoạt động");
+        int ageLimitID = Integer.parseInt(request.getParameter("ageLimit"));
 
+        Part filePart = request.getPart("serviceImage");
+        String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+        String serviceImage = null;
+
+        if (fileName != null && !fileName.isEmpty()) {
+            String uploadDir = getServletContext().getRealPath("/") + "uploads";
+            File uploadDirFile = new File(uploadDir);
+            if (!uploadDirFile.exists()) {
+                uploadDirFile.mkdir();
+            }
+            String filePath = uploadDir + File.separator + fileName;
+            filePart.write(filePath);
+            serviceImage = "uploads" + File.separator + fileName;
+        } else {
+            // Nếu không có ảnh mới, giữ nguyên ảnh cũ
+            ServiceDAO serviceDAO = new ServiceDAO();
+            Service service = serviceDAO.getServiceByID(serviceID);
+            serviceImage = service.getServiceImage();
+        }
+
+        ServiceDAO serviceDAO = new ServiceDAO();
+        serviceDAO.editService(new Service(serviceID, serviceName, description, price, duration, serviceImage, isActive, ageLimitID));
+
+        response.sendRedirect("serviceslist");
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
-
+    }
 }

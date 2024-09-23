@@ -21,7 +21,6 @@ public class AddServiceServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Retrieve form data
         String serviceName = request.getParameter("serviceName");
         String description = request.getParameter("description");
         String priceStr = request.getParameter("price");

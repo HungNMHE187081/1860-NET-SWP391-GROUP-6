@@ -52,6 +52,10 @@
         <servlet-name>DeleteDistrictsServlet</servlet-name>
         <servlet-class>controller.DeleteDistrictsServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SearchServiceServlet</servlet-name>
+        <servlet-class>controller.SearchServiceServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegistryServlet</servlet-name>
         <url-pattern>/registryservlet</url-pattern>
@@ -100,8 +104,12 @@
         <servlet-name>EditDistrictsServlet</servlet-name>
         <url-pattern>/editdistricts</url-pattern>
     </servlet-mapping>
-     <servlet-mapping>
+    <servlet-mapping>
         <servlet-name>DeleteDistrictsServlet</servlet-name>
         <url-pattern>/deletedistricts</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchServiceServlet</servlet-name>
+        <url-pattern>/searchservice</url-pattern>
     </servlet-mapping>
 </web-app>

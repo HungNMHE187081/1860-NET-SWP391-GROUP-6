@@ -90,7 +90,7 @@
 
             <div class="app-title">
                 <ul class="app-breadcrumb breadcrumb side">
-                    <li class="breadcrumb-item active"><a href="#"><b>Danh sách dịch vụ</b></a></li>
+                    <li class="breadcrumb-item active"><a href="serviceslist"><b>Danh sách dịch vụ</b></a></li>
                 </ul>
                 <div id="clock"></div>
             </div>
@@ -178,13 +178,12 @@
                                                     Inactive
                                                 </c:if>
                                             </td>
-                                            <td class="table-td-center"><button class="btn btn-primary btn-sm" type="button" title="delete"
+                                            <td class="table-td-center"><button class="btn btn-primary btn-sm trash" type="button" title="delete"
                                                                                 onclick="return confirm('Are you sure you want to delete this product?')">
                                                     <a href="deleteservice?serviceID=${service.serviceID}"><i class="fas fa-trash-alt"></i></a>
                                                 </button>
-                                                <button class="btn btn-primary btn-sm" type="button" title="Sửa" id="show-emp"
-                                                        onclick="editservice('${service.serviceID}')"
-                                                        data-toggle="modal" data-target="#ModalUP"><i class="fas fa-edit"></i>
+                                                <button class="btn btn-primary btn-sm" type="button" title="Sửa" id="show-emp">
+                                                    <a href="editservice?serviceID=${service.serviceID}"><i class="fas fa-edit"></i></a>
                                                 </button>
                                             </td>
                                         </tr>
