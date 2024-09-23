@@ -12,13 +12,13 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.Provinces;
+import model.District;
 
 /**
  *
  * @author LENOVO
  */
-public class EditProvinces extends HttpServlet {
+public class AddDistrictServlet extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -35,10 +35,10 @@ public class EditProvinces extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet EditProvinces</title>");  
+            out.println("<title>Servlet AddDistrict</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet EditProvinces at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet AddDistrict at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -68,18 +68,15 @@ public class EditProvinces extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-       int id = Integer.parseInt(request.getParameter("id"));
-        String name = request.getParameter("name");
         
-        // Tạo đối tượng Provinces với thông tin lấy được
-        Provinces province = new Provinces(id, name);
-        
-        // Tạo đối tượng DAO và gọi phương thức update
         ManagerDAO dao = new ManagerDAO();
-        dao.updateProvinces(province);
-        
-        // Chuyển hướng hoặc thông báo thành công
-        response.sendRedirect("ManagerAddress"); // Ví dụ
+        int provinceID = Integer.parseInt(request.getParameter("provinceID"));
+        String name = request.getParameter("districtName");
+        District district = new District();
+        district.setDistrictName(name);
+        district.setProvinceID(provinceID);
+        dao.addDistricts(district);
+        response.sendRedirect("manageDistrict?id="+ provinceID);
     }
 
     /** 

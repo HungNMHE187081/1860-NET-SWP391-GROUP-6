@@ -4,6 +4,8 @@
  */
 package model;
 
+
+
 /**
  *
  * @author LENOVO
@@ -11,18 +13,21 @@ package model;
 public class District {
     private int id;
     private String districtName;
-    private Provinces province; // Quan hệ với Province
+    private int provinceID; // Quan hệ với Province
+   private int totalWards;
 
     // Constructors
-    public District() {}
+    public District() {
 
-    public District(int id, String districtName, Provinces province) {
-        this.id = id;
-        this.districtName = districtName;
-        this.province = province;
     }
 
-    // Getters and Setters
+    public District(int id, String districtName, int provinceID, int totalWards) {
+        this.id = id;
+        this.districtName = districtName;
+        this.provinceID = provinceID;
+        this.totalWards = totalWards;
+    }
+
     public int getId() {
         return id;
     }
@@ -39,18 +44,21 @@ public class District {
         this.districtName = districtName;
     }
 
-    public Provinces getProvince() {
-        return province;
+    public int getProvinceID() {
+        return provinceID;
     }
 
-    public void setProvince(Provinces province) {
-        this.province = province;
+    public void setProvinceID(int provinceID) {
+        this.provinceID = provinceID;
     }
 
-    // toString method for easy debugging
-    @Override
-    public String toString() {
-        return "District{id=" + id + ", districtName='" + districtName + '\'' +
-                ", province=" + province.getProvinceName() + '}';
+    public int getTotalWards() {
+        return totalWards;
     }
+
+    public void setTotalWards(int totalWards) {
+        this.totalWards = totalWards;
+    }
+
+   
 }

@@ -12,14 +12,13 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
 import model.Provinces;
 
 /**
  *
  * @author LENOVO
  */
-public class ManagerAddress extends HttpServlet {
+public class AddProvincesServlet extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -31,10 +30,18 @@ public class ManagerAddress extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-         ManagerDAO m = new ManagerDAO();
-        List<Provinces> listP = m.getAllProvinces();
-        request.setAttribute("listP", listP);
-        request.getRequestDispatcher("manager-address.jsp").forward(request, response);
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet AddProvinces</title>");  
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet AddProvinces at " + request.getContextPath () + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -61,7 +68,12 @@ public class ManagerAddress extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        String provinceName = request.getParameter("name");
+        Provinces province = new Provinces();
+        province.setProvinceName(provinceName);
+        ManagerDAO m = new ManagerDAO();
+        m.addProvinces(province);
+        response.sendRedirect("ManagerAddress");
     }
 
     /** 

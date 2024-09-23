@@ -9,12 +9,12 @@
         <servlet-class>controller.ServicesListServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>EditProvinces</servlet-name>
-        <servlet-class>controller.EditProvinces</servlet-class>
+        <servlet-name>EditProvincesServlet</servlet-name>
+        <servlet-class>controller.EditProvincesServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ManagerAddress</servlet-name>
-        <servlet-class>controller.ManagerAddress</servlet-class>
+        <servlet-name>ManagerAddressServlet</servlet-name>
+        <servlet-class>controller.ManagerAddressServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>DeleteServiceServlet</servlet-name>
@@ -28,6 +28,26 @@
         <servlet-name>AddServiceServlet</servlet-name>
         <servlet-class>controller.AddServiceServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddProvincesServlet</servlet-name>
+        <servlet-class>controller.AddProvincesServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteProvincesServlet</servlet-name>
+        <servlet-class>controller.DeleteProvincesServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManageDistrictServlet</servlet-name>
+        <servlet-class>controller.ManageDistrictServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditDistrictsServlet</servlet-name>
+        <servlet-class>controller.EditDistrictsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteDistrictsServlet</servlet-name>
+        <servlet-class>controller.DeleteDistrictsServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegistryServlet</servlet-name>
         <url-pattern>/registryservlet</url-pattern>
@@ -37,11 +57,11 @@
         <url-pattern>/serviceslist</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>EditProvinces</servlet-name>
+        <servlet-name>EditProvincesServlet</servlet-name>
         <url-pattern>/editprovinces</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ManagerAddress</servlet-name>
+        <servlet-name>ManagerAddressServlet</servlet-name>
         <url-pattern>/manageraddress</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
@@ -55,5 +75,29 @@
     <servlet-mapping>
         <servlet-name>AddServiceServlet</servlet-name>
         <url-pattern>/addservice</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddProvincesServlet</servlet-name>
+        <url-pattern>/addprovinces</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteProvincesServlet</servlet-name>
+        <url-pattern>/deleteprovinces</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageDistrictServlet</servlet-name>
+        <url-pattern>/managedistrict</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddDistrictServlet</servlet-name>
+        <url-pattern>/adddistrict</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditDistrictsServlet</servlet-name>
+        <url-pattern>/editdistricts</url-pattern>
+    </servlet-mapping>
+     <servlet-mapping>
+        <servlet-name>DeleteDistrictsServlet</servlet-name>
+        <url-pattern>/deletedistricts</url-pattern>
     </servlet-mapping>
 </web-app>

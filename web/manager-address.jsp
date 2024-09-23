@@ -99,8 +99,8 @@
                             <div class="row element-button">
                                 <div class="col-sm-2">
 
-                                    <a class="btn btn-add btn-sm" href="form-add-nhan-vien.html" title="Thêm"><i class="fas fa-plus"></i>
-                                        Tạo mới nhân viên</a>
+                                    <button class="btn btn-add btn-sm" id="show-emp" data-toggle="modal" data-target="#ModalAdd" title="Thêm"><i class="fas fa-plus"></i>
+                                        Tạo mới nhân viên</button>
                                 </div>
                                 <div class="col-sm-2">
                                     <a class="btn btn-delete btn-sm nhap-tu-file" type="button" title="Nhập" onclick="myFunction(this)"><i
@@ -144,16 +144,23 @@
                                         <tr>
                                             <td width="10"><input type="checkbox" name="check1" value="1"></td>
                                             <td>${provinces.provinceID}</td>
-                                            <td>${provinces.provinceName}</td>
+                                            <td><a href="managedistrict?id=${provinces.provinceID}">${provinces.provinceName}</a></td>
                                             <td>${provinces.totalDistricts}</td>
                                             <td>${provinces.totalWards}</td>
-                                            <td class="table-td-center"><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
-                                                                                onclick="EditProvinces('${provinces.provinceID}')"><i class="fas fa-trash-alt"></i>
-                                                </button>
-                                                <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp"
-                                                        data-toggle="modal" data-target="#ModalUP"><i class="fas fa-edit"></i>
+                                            <td class="table-td-center">
+                                                <form action="deleteprovinces" method="post" onsubmit="return confirm('Are you sure you want to delete this province?');">
+                                                    <input type="hidden" name="provinceID" value="${provinces.provinceID}">
+                                                    <button type="submit" class="btn btn-primary btn-sm trash" title="Xóa">
+                                                        <i class="fas fa-trash-alt"></i>
+                                                    </button>
+                                                </form>
+                                                <button class="btn btn-primary btn-sm edit" type="button" title="Sửa"
+                                                        data-toggle="modal" data-target="#ModalUP"
+                                                        onclick="editProvince(${provinces.provinceID}, '${provinces.provinceName}')">
+                                                    <i class="fas fa-edit"></i>
                                                 </button>
                                             </td>
+
                                         </tr>
                                     </c:forEach>
                                 </tbody>
@@ -168,35 +175,59 @@
         MODAL
         -->
         <!-- MODAL -->
-       <!-- MODAL -->
-<div class="modal fade" id="ModalUP" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Chỉnh sửa thông tin Tỉnh thành</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="updateProvinceForm" action="UpdateProvinceServlet" method="post">
-                    <input type="hidden" id="provinceID" name="id">
-                    <div class="form-group">
-                        <label for="provinceName">Tên Tỉnh Thành</label>
-                        <input type="text" class="form-control" id="provinceName" name="name">
+        <!-- MODAL -->
+        <div class="modal fade" id="ModalUP" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Chỉnh sửa thông tin Tỉnh thành</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
-                    <button type="submit" class="btn btn-save">Lưu lại</button>
-                    <button type="button" class="btn btn-cancel" data-dismiss="modal">Hủy bỏ</button>
-                </form>
+                    <div class="modal-body">
+                        <form id="updateProvinceForm" action="editprovinces" method="post">
+                            <input type="hidden" id="provinceID" name="id">
+                            <div class="form-group">
+                                <label for="provinceName">Tên Tỉnh Thành</label>
+                                <input type="text" class="form-control" id="provinceName" name="name">
+                            </div>
+                            <button type="submit" class="btn btn-save">Lưu lại</button>
+                            <button type="button" class="btn btn-cancel" data-dismiss="modal">Hủy bỏ</button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
-
-
         <!--
         MODAL
         -->
+        <!--  
+        <!-- MODAL Tạo mới nhân viên -->
+        <div class="modal fade" id="ModalAdd" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Tạo mới tỉnh thành</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="addEmployeeForm" action="addprovinces" method="post">
+                            <input type="hidden" id="provinceID" name="id">
+                            <div class="form-group">
+                                <label for="newEmployeeName">Tên tỉnh thành</label>
+                                <input type="text" class="form-control" id="newEmployeeName" name="name" required>
+                            </div>
+                            <button type="submit" class="btn btn-save">Lưu lại</button>
+                            <button type="button" class="btn btn-cancel" data-dismiss="modal">Hủy bỏ</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
         <!-- Essential javascripts for application to work-->
         <script src="js/manager/jquery-3.2.1.min.js"></script>
@@ -309,16 +340,10 @@
             });
         </script>
         <script>
-            function EditProvinces(id) {
-    // Lấy dữ liệu tỉnh thành từ bảng (nếu bạn sử dụng AJAX để lấy dữ liệu)
-    // Cập nhật các trường input trong modal với dữ liệu
-    var provinceName = document.getElementById("provinceName_" + id).innerText;
-    document.getElementById("provinceID").value = id;
-    document.getElementById("provinceName").value = provinceName;
-    
-    // Hiển thị modal
-    $("#ModalUP").modal({backdrop: false, keyboard: false});
-}
+            function editProvince(id, name) {
+                document.getElementById('provinceID').value = id;
+                document.getElementById('provinceName').value = name;
+            }
         </script>
     </body>
 </html>
