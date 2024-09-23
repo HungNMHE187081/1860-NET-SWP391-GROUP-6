@@ -67,7 +67,7 @@ public class EditServiceServlet extends HttpServlet {
         }
 
         ServiceDAO serviceDAO = new ServiceDAO();
-        serviceDAO.editService(new Service(serviceID, serviceName, description, price, duration, serviceImage, isActive, ageLimitID));
+        serviceDAO.editService(serviceID, serviceName, description, price, duration, serviceImage, isActive, ageLimitID);
 
         response.sendRedirect("serviceslist");
     }

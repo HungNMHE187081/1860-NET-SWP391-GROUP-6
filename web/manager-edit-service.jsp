@@ -201,61 +201,72 @@
             <div class="row">
                 <div class="col-md-12">
 
-                    <div class="tile">
-
-                        <h3 class="tile-title">Sửa dịch vụ</h3>
-
-                        <div class="tile-body">
-                            <form class="row" method="post" action="editservice" enctype="multipart/form-data">
-                                <input type="hidden" name="serviceID" value="${service.serviceID}">
-                                <div class="form-group col-md-4">
-                                    <label class="control-label">Tên dịch vụ</label>
-                                    <input class="form-control" type="text" id="serviceName" name="serviceName" value="${service.serviceName}" required>
+                    <div class="container">
+                        <h2>Sửa dịch vụ</h2>
+                        <form class="row" method="post" action="editservice" enctype="multipart/form-data">
+                            <input type="hidden" name="serviceID" value="${service.serviceID}">
+                            <div class="form-group col-md-4">
+                                <label class="control-label">Tên dịch vụ</label>
+                                <input class="form-control" type="text" id="serviceName" name="serviceName" value="${service.serviceName}" required>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class="control-label">Độ tuổi</label>
+                                <select class="form-control" id="ageLimit" name="ageLimit" required>
+                                    <c:forEach var="ageLimit" items="${ageLimits}">
+                                        <option value="${ageLimit.ageLimitID}" ${ageLimit.ageLimitID == service.ageLimitID ? 'selected' : ''}>${ageLimit.ageLimit}</option>
+                                    </c:forEach>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class="control-label">Giá</label>
+                                <input class="form-control" type="number" id="price" name="price" value="${service.price}" required>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class="control-label">Thời gian khám tối đa</label>
+                                <input class="form-control" type="number" id="duration" name="duration" value="${service.duration}" required>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class="control-label">Mô tả</label>
+                                <input class="form-control" type="text" id="description" name="description" value="${service.description}" required>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="exampleSelect1" class="control-label">Tình trạng hoạt động</label>
+                                <select class="form-control" id="isActive" name="isActive" required>
+                                    <option value="Hoạt động" ${service.isActive ? 'selected' : ''}>Hoạt động</option>
+                                    <option value="Chưa hoạt động" ${!service.isActive ? 'selected' : ''}>Chưa hoạt động</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="control-label">Ảnh dịch vụ</label>
+                                <div id="myfileupload">
+                                    <input type="file" id="serviceImage" name="serviceImage" onchange="readURL(this);" />
                                 </div>
-                                <div class="form-group col-md-4">
-                                    <label class="control-label">Độ tuổi</label>
-                                    <select class="form-control" id="ageLimit" name="ageLimit" required>
-                                        <c:forEach var="ageLimit" items="${ageLimits}">
-                                            <option value="${ageLimit.ageLimitID}" ${ageLimit.ageLimitID == service.ageLimitID ? 'selected' : ''}>${ageLimit.ageLimit}</option>
-                                        </c:forEach>
-                                    </select>
+                                <div id="thumbbox">
+                                    <img height="300" width="300" alt="Thumb image" id="thumbimage" src="${service.serviceImage}" style="display: block" />
+                                    <a class="removeimg" href="javascript:"></a>
                                 </div>
-                                <div class="form-group col-md-4">
-                                    <label class="control-label">Giá</label>
-                                    <input class="form-control" type="number" id="price" name="price" value="${service.price}" required>
+                                <div id="boxchoice">
+                                    <p style="clear:both"></p>
                                 </div>
-                                <div class="form-group col-md-4">
-                                    <label class="control-label">Thời gian khám tối đa</label>
-                                    <input class="form-control" type="number" id="duration" name="duration" value="${service.duration}" required>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label class="control-label">Mô tả</label>
-                                    <input class="form-control" type="text" id="description" name="description" value="${service.description}" required>
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <label for="exampleSelect1" class="control-label">Tình trạng hoạt động</label>
-                                    <select class="form-control" id="isActive" name="isActive" required>
-                                        <option value="Hoạt động" ${service.isActive ? 'selected' : ''}>Hoạt động</option>
-                                        <option value="Chưa hoạt động" ${!service.isActive ? 'selected' : ''}>Chưa hoạt động</option>
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-12">
-                                    <label class="control-label">Ảnh dịch vụ</label>
-                                    <div id="myfileupload">
-                                        <input type="file" id="uploadfile" name="serviceImage" onchange="readURL(this);" />
-                                    </div>
-                                    <div id="thumbbox">
-                                        <img id="thumbimage" src="${service.serviceImage}" style="display: block;" />
-                                        <a class="removeimg" href="javascript:"></a>
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-12">
-                                    <button class="btn btn-save" type="submit">Lưu thay đổi</button>
-                                    <a class="btn btn-cancel" href="serviceslist">Hủy bỏ</a>
-                                </div>
-                            </form>
-                        </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <button class="btn btn-save" type="submit">Lưu thay đổi</button>
+                                <a class="btn btn-cancel" href="serviceslist">Hủy bỏ</a>
+                            </div>
+                        </form>
                     </div>
+                    <script>
+                        function readURL(input) {
+                            if (input.files && input.files[0]) {
+                                var reader = new FileReader();
+                                reader.onload = function (e) {
+                                    document.getElementById('thumbimage').src = e.target.result;
+                                    document.getElementById('thumbimage').style.display = 'block';
+                                };
+                                reader.readAsDataURL(input.files[0]);
+                            }
+                        }
+                    </script>
                 </div>
             </div>
         </main>

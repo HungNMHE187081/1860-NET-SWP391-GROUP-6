@@ -71,11 +71,11 @@ public class ServiceDAO extends DBContext {
             System.out.println("Error inserting service: " + e.getMessage());
         }
     }
-    
+
     public Service getServiceByID(int serviceID) {
         String sql = "SELECT * FROM Services WHERE serviceID = ?";
         try {
-             PreparedStatement pre = connection.prepareStatement(sql);
+            PreparedStatement pre = connection.prepareStatement(sql);
             pre.setInt(1, serviceID);
             try (ResultSet rs = pre.executeQuery()) {
                 if (rs.next()) {
@@ -97,33 +97,21 @@ public class ServiceDAO extends DBContext {
         return null;
     }
 
-    public void editService(Service service) {
-        String sql = "UPDATE [dbo].[Services]\n"
-                + "   SET [ServiceName] = <?>\n"
-                + "      ,[Description] = <?>\n"
-                + "      ,[Price] = <?>\n"
-                + "      ,[Duration] = <?>\n"
-                + "      ,[ServiceImage] = <?>\n"
-                + "      ,[IsActive] = <?>\n"
-                + "      ,[AgeLimitID] = <?>\n"
-                + " WHERE ServiceID = ?";
+    public void editService(int serviceID, String serviceName, String description, double price, int duration, String serviceImage, boolean isActive, int ageLimitID) {
+        String sql = "UPDATE Services SET serviceName = ?, description = ?, price = ?, duration = ?, serviceImage = ?, isActive = ?, ageLimitID = ? WHERE serviceID = ?";
         try {
-            PreparedStatement pre = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            pre.setString(1, service.getServiceName());
-            pre.setString(2, service.getDescription());
-            pre.setDouble(3, service.getPrice());
-            pre.setInt(4, service.getDuration());
-            pre.setString(5, service.getServiceImage());
-            pre.setBoolean(6, service.isIsActive());
-            pre.setInt(7, service.getAgeLimitID());
-            pre.setInt(8, service.getServiceID());
+            PreparedStatement pre = connection.prepareStatement(sql);
+            pre.setString(1, serviceName);
+            pre.setString(2, description);
+            pre.setDouble(3, price);
+            pre.setInt(4, duration);
+            pre.setString(5, serviceImage);
+            pre.setBoolean(6, isActive);
+            pre.setInt(7, ageLimitID);
+            pre.setInt(8, serviceID);
             pre.executeUpdate();
-
-            ResultSet rs = pre.getGeneratedKeys();
-            if (rs.next()) {
-                service.setServiceID(rs.getInt(1));
-            }
         } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
@@ -140,7 +128,6 @@ public class ServiceDAO extends DBContext {
 
     public static void main(String[] args) {
         ServiceDAO dao = new ServiceDAO();
-        dao.editService(dao.getAllServices().get(26));
         System.out.println(dao.getAllServices().get(26).getServiceName());
     }
 }
