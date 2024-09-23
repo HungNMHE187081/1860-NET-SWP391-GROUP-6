@@ -70,13 +70,13 @@ public class AddDistrictServlet extends HttpServlet {
     throws ServletException, IOException {
         
         ManagerDAO dao = new ManagerDAO();
-        int provinceID = Integer.parseInt(request.getParameter("provinceID"));
+        int provinceID = Integer.parseInt(request.getParameter("id"));
         String name = request.getParameter("districtName");
         District district = new District();
         district.setDistrictName(name);
         district.setProvinceID(provinceID);
         dao.addDistricts(district);
-        response.sendRedirect("manageDistrict?id="+ provinceID);
+        response.sendRedirect("managedistrict?id="+ provinceID);
     }
 
     /** 

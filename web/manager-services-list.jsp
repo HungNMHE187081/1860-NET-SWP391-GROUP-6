@@ -122,15 +122,76 @@
                                             <i class="fas fa-file-pdf"></i> Xuất PDF
                                         </a>
                                     </div>
-                                    <div class="col-sm-2">
-                                        <a class="btn btn-delete btn-sm" type="button" title="Xóa" onclick="myFunction(this)">
-                                            <i class="fas fa-trash-alt"></i> Delete All
-                                        </a>
-                                    </div>
                                 </div>
-                                <div class="col-sm-3">
-                                    <input type="text" class="form-control search-input" id="searchInput" placeholder="Tìm kiếm...">
+                                <div>
+                                    <form method="get" action="searchservice" class="form-inline">
+                                        <!-- Search Input -->
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control search-input" id="searchInput" name="keyword" placeholder="Tìm kiếm...">
+                                            <div class="input-group-append">
+                                                <button type="submit" class="btn custom-search-btn">Tìm kiếm</button>
+                                            </div>
+                                        </div>
+                                        <div class="input-group mb-3">
+                                            <select class="form-control" id="ageLimit" name="ageLimit">
+                                                <option value="">Chọn độ tuổi</option>
+                                                <c:forEach var="ageLimit" items="${ageLimits}">
+                                                    <option value="${ageLimit.ageLimitID}">${ageLimit.ageLimit}</option>
+                                                </c:forEach>
+                                            </select>
+                                            <div class="input-group-append">
+                                                <button type="submit" class="btn custom-filter-btn">Lọc</button>
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
+
+                                <style>
+                                    /* Style for Input Groups */
+                                    .input-group .form-control {
+                                        border-right: none;
+                                    }
+
+                                    .input-group .input-group-append .btn {
+                                        border-left: none;
+                                        border-radius: 0 4px 4px 0;
+                                    }
+
+                                    /* Button Styles */
+                                    .custom-search-btn, .custom-filter-btn {
+                                        height: 45px;
+                                        padding: 0 20px;
+                                        font-size: 14px;
+                                    }
+
+                                    .custom-search-btn {
+                                        background-color: #F5CBA7;
+                                        color: #D35400;
+                                        border: 1px solid #D35400;
+                                    }
+
+                                    .custom-search-btn:hover {
+                                        background-color: #D35400;
+                                        color: #FFFFFF;
+                                    }
+
+                                    .custom-filter-btn {
+                                        background-color: #1B2631;
+                                        color: #FFFFFF;
+                                        border: 1px solid #1B2631;
+                                    }
+
+                                    .custom-filter-btn:hover {
+                                        background-color: #154360;
+                                    }
+
+                                    /* General Form Control */
+                                    .form-control {
+                                        height: 45px;
+                                    }
+
+                                </style>
+
                             </div>
 
                             <table>
@@ -179,7 +240,7 @@
                                                 </c:if>
                                             </td>
                                             <td class="table-td-center"><button class="btn btn-primary btn-sm trash" type="button" title="delete"
-                                                                                onclick="return confirm('Are you sure you want to delete this product?')">
+                                                                                onclick="return confirm('Are you sure you want to delete this service?')">
                                                     <a href="deleteservice?serviceID=${service.serviceID}"><i class="fas fa-trash-alt"></i></a>
                                                 </button>
                                                 <button class="btn btn-primary btn-sm" type="button" title="Sửa" id="show-emp">

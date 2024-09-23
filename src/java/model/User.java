@@ -23,13 +23,16 @@ public class User {
     private String[] profileImages;  // String array to store image URLs
     private Date createdAt;
     private Date updatedAt;
-
+    private String streetAddress;
+    private String districtName;
+    private String provinceName;
+    private String wardName;
+    private String username;
+   private String fullAddress;
     // Constructors
     public User() {}
 
-    public User(int userID, String firstName, String middleName, String lastName, String email, String phoneNumber,
-                Date dateOfBirth, String gender, String citizenIdentification, String[] profileImages, 
-                Date createdAt, Date updatedAt) {
+    public User(int userID, String firstName, String middleName, String lastName, String email, String phoneNumber, Date dateOfBirth, String gender, String citizenIdentification, String[] profileImages, Date createdAt, Date updatedAt, String streetAddress, String districtName, String provinceName, String wardName, String username, String fullAddress) {
         this.userID = userID;
         this.firstName = firstName;
         this.middleName = middleName;
@@ -42,9 +45,14 @@ public class User {
         this.profileImages = profileImages;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.streetAddress = streetAddress;
+        this.districtName = districtName;
+        this.provinceName = provinceName;
+        this.wardName = wardName;
+        this.username = username;
+        this.fullAddress = fullAddress;
     }
 
-    // Getters and Setters
     public int getUserID() {
         return userID;
     }
@@ -140,4 +148,54 @@ public class User {
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
     }
+
+    public String getStreetAddress() {
+        return streetAddress;
+    }
+
+    public void setStreetAddress(String streetAddress) {
+        this.streetAddress = streetAddress;
+    }
+
+    public String getDistrictName() {
+        return districtName;
+    }
+
+    public void setDistrictName(String districtName) {
+        this.districtName = districtName;
+    }
+
+    public String getProvinceName() {
+        return provinceName;
+    }
+
+    public void setProvinceName(String provinceName) {
+        this.provinceName = provinceName;
+    }
+
+    public String getWardName() {
+        return wardName;
+    }
+
+    public void setWardName(String wardName) {
+        this.wardName = wardName;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getFullAddress() {
+        return fullAddress;
+    }
+
+    public void setFullAddress(String fullAddress) {
+        this.fullAddress = fullAddress;
+    }
+   
+   
 }

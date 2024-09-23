@@ -38,15 +38,86 @@ public class ServiceDAO extends DBContext {
         return listServices;
     }
 
-    public void searchServiceByName(String search) {
-        String sql = "SELECT * FROM Services\n"
-                + "WHERE ServiceName LIKE %?%";
+    public List<Service> searchServicesByKeyword(String keyword) {
+        List<Service> listServices = new ArrayList<>();
+        String sql = "SELECT * FROM Services WHERE serviceName LIKE ?";
         try {
             PreparedStatement pre = connection.prepareStatement(sql);
-            pre.setString(1, search);
-            pre.executeUpdate();
+            pre.setString(1, "%" + keyword + "%");
+            try (ResultSet rs = pre.executeQuery()) {
+                while (rs.next()) {
+                    Service service = new Service();
+                    service.setServiceID(rs.getInt("serviceID"));
+                    service.setServiceName(rs.getString("serviceName"));
+                    service.setDescription(rs.getString("description"));
+                    service.setPrice(rs.getDouble("price"));
+                    service.setDuration(rs.getInt("duration"));
+                    service.setServiceImage(rs.getString("serviceImage"));
+                    service.setIsActive(rs.getBoolean("isActive"));
+                    service.setAgeLimitID(rs.getInt("ageLimitID"));
+                    listServices.add(service);
+                }
+            }
         } catch (SQLException e) {
+            e.printStackTrace();
         }
+        return listServices;
+    }
+
+    public List<Service> searchServicesByAgeLimitID(int ageLimitID) {
+        List<Service> listServices = new ArrayList<>();
+        String sql = "SELECT * FROM Services WHERE ageLimitID = ?";
+        try {
+            PreparedStatement pre = connection.prepareStatement(sql);
+            pre.setInt(1, ageLimitID);
+            try (ResultSet rs = pre.executeQuery()) {
+                while (rs.next()) {
+                    Service service = new Service();
+                    service.setServiceID(rs.getInt("serviceID"));
+                    service.setServiceName(rs.getString("serviceName"));
+                    service.setDescription(rs.getString("description"));
+                    service.setPrice(rs.getDouble("price"));
+                    service.setDuration(rs.getInt("duration"));
+                    service.setServiceImage(rs.getString("serviceImage"));
+                    service.setIsActive(rs.getBoolean("isActive"));
+                    service.setAgeLimitID(rs.getInt("ageLimitID"));
+                    listServices.add(service);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listServices;
+    }
+
+    public List<Service> searchServicesByKeywordAndAgeLimit(String keyword, int ageLimitID) {
+        List<Service> services = new ArrayList<>();
+        String sql = "SELECT * FROM Services WHERE name LIKE ? AND ageLimitID = ?";
+
+        try {
+            PreparedStatement pre = connection.prepareStatement(sql);
+            pre.setString(1, "%" + keyword + "%");
+            pre.setInt(2, ageLimitID);
+
+            try (ResultSet rs = pre.executeQuery()) {
+                while (rs.next()) {
+                    Service service = new Service();
+                    service.setServiceID(rs.getInt("id"));
+                    service.setServiceName(rs.getString("name"));
+                    service.setDescription(rs.getString("description"));
+                    service.setPrice(rs.getDouble("price"));
+                    service.setDuration(rs.getInt("duration"));
+                    service.setServiceImage(rs.getString("serviceImage"));
+                    service.setIsActive(rs.getBoolean("isActive"));
+                    service.setAgeLimitID(rs.getInt("ageLimitID"));
+                    services.add(service);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return services;
     }
 
     public void insertService(Service service) {
@@ -121,6 +192,15 @@ public class ServiceDAO extends DBContext {
         try {
             PreparedStatement pre = connection.prepareStatement(sql);
             pre.setInt(1, ServiceID);
+            pre.executeUpdate();
+        } catch (SQLException e) {
+        }
+    }
+    
+    public void deleteAllServices() {
+        String sql = "DELETE FROM [Services]";
+        try {
+            PreparedStatement pre = connection.prepareStatement(sql);
             pre.executeUpdate();
         } catch (SQLException e) {
         }

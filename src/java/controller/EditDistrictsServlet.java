@@ -68,7 +68,7 @@ public class EditDistrictsServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("provinceID"));
+        int id = Integer.parseInt(request.getParameter("id"));
         String name = request.getParameter("districtNameInput");
         int provinceID = Integer.parseInt(request.getParameter("provinceID"));
         ManagerDAO m = new ManagerDAO();

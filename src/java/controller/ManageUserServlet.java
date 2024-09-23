@@ -5,20 +5,21 @@
 
 package controller;
 
-import dal.ManagerDAO;
+import dal.ManagerUserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.Provinces;
+import java.util.List;
+import model.Users;
 
 /**
  *
  * @author LENOVO
  */
-public class AddProvincesServlet extends HttpServlet {
+public class ManageUserServlet extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -35,10 +36,10 @@ public class AddProvincesServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AddProvinces</title>");  
+            out.println("<title>Servlet ManageUser</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AddProvinces at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet ManageUser at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -53,10 +54,13 @@ public class AddProvincesServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        processRequest(request, response);
-    } 
+  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    ManagerUserDAO userDAO = new ManagerUserDAO();
+    List<Users> users = userDAO.getAllUsers();
+    request.setAttribute("userList", users);
+   request.getRequestDispatcher("manager-user-list.jsp").forward(request, response);
+}
+
 
     /** 
      * Handles the HTTP <code>POST</code> method.
@@ -68,12 +72,7 @@ public class AddProvincesServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        String provinceName = request.getParameter("name");
-        Provinces province = new Provinces();
-        province.setProvinceName(provinceName);
-        ManagerDAO m = new ManagerDAO();
-        m.addProvinces(province);
-        response.sendRedirect("manageraddress");
+        processRequest(request, response);
     }
 
     /** 

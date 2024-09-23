@@ -82,7 +82,7 @@ public class EditProvincesServlet extends HttpServlet {
     dao.updateProvinces(province);
     
     // Redirect or forward to another page after successful update
-    response.sendRedirect("ManagerAddress");
+    response.sendRedirect("manageraddress");
 }
 
     /** 

@@ -9,26 +9,30 @@ import java.sql.Timestamp;
 import java.util.List;
 
 public class Users {
-    private int userID;
+     private int userID;
     private String firstName;
     private String middleName;
     private String lastName;
     private String email;
-    private String phoneNumber;
+    private String phoneNumber; 
     private Date dateOfBirth;
     private String gender;
     private String citizenIdentification;
     private String profileImage;
     private Timestamp createdAt;
     private Timestamp updatedAt;
-    private List<Roles> roles; //List of Users Role
-
-    // Constructors
+    private List<Roles> roles; // Danh sách vai trò của người dùng
+    private String streetAddress; // Địa chỉ
+    private String districtName; // Tên quận
+    private String provinceName; // Tên tỉnh
+    private String username; // Tên đăng nhập
+    private String fullAddress;
 
     public Users() {
     }
 
-    public Users(int userID, String firstName, String middleName, String lastName, String email, String phoneNumber, Date dateOfBirth, String gender, String citizenIdentification, String profileImage, Timestamp createdAt, Timestamp updatedAt, List<Roles> roles) {
+    
+    public Users(int userID, String firstName, String middleName, String lastName, String email, String phoneNumber, Date dateOfBirth, String gender, String citizenIdentification, String profileImage, Timestamp createdAt, Timestamp updatedAt, List<Roles> roles, String streetAddress, String districtName, String provinceName, String username, String fullAddress) {
         this.userID = userID;
         this.firstName = firstName;
         this.middleName = middleName;
@@ -42,7 +46,14 @@ public class Users {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.roles = roles;
+        this.streetAddress = streetAddress;
+        this.districtName = districtName;
+        this.provinceName = provinceName;
+        this.username = username;
+        this.fullAddress = fullAddress;
     }
+    
+    // Constructors
 
     public int getUserID() {
         return userID;
@@ -143,9 +154,53 @@ public class Users {
     public List<Roles> getRoles() {
         return roles;
     }
-
+   
     public void setRoles(List<Roles> roles) {
         this.roles = roles;
     }
+
+    public String getStreetAddress() {
+        return streetAddress;
+    }
+
+    public void setStreetAddress(String streetAddress) {
+        this.streetAddress = streetAddress;
+    }
+
+    public String getDistrictName() {
+        return districtName;
+    }
+
+    public void setDistrictName(String districtName) {
+        this.districtName = districtName;
+    }
+
+    public String getProvinceName() {
+        return provinceName;
+    }
+
+    public void setProvinceName(String provinceName) {
+        this.provinceName = provinceName;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getFullAddress() {
+        return fullAddress;
+    }
+
+    public void setFullAddress(String fullAddress) {
+        this.fullAddress = fullAddress;
+    }
+
+    
+
+    
     
 }
