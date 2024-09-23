@@ -99,7 +99,7 @@
                             <div class="row element-button">
                                 <div class="col-sm-2">
 
-                                     <button class="btn btn-add btn-sm" id="show-emp" data-toggle="modal" data-target="#ModalAdd" title="Thêm"><i class="fas fa-plus"></i>
+                                     <button onclick="setProvinceID(1)" class="btn btn-add btn-sm" id="show-emp" data-toggle="modal" data-target="#ModalAdd" title="Thêm"><i class="fas fa-plus"></i>
                                         Tạo mới Quận</button>
                                 </div>
                             </div>
@@ -185,7 +185,7 @@
                     </div>
                     <div class="modal-body">
                         <form id="addDistrictForm" action="adddistrict" method="post">
-                            <input type="hidden" id="provinceID" name="provinceID" value="${provinceID}">
+                            <input type="hidden" id="provinceID" name="id">
                             <input type="hidden" id="districtID" name="districtID">
                             <div class="form-group">
                                 <label for="newEmployeeName">Tên Quận</label>
@@ -317,6 +317,9 @@
             document.getElementById("districtNameInput").value = name;
             document.getElementById("provinceIDInput").value = provinceID;
         }
+        function setProvinceID(provinceID) {
+        document.getElementById('provinceID').value = provinceID;
+    }
 
     </script>
 </body>

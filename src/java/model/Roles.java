@@ -12,13 +12,15 @@ public class Roles {
     
     private int roleID;
     private String roleName;
+   private int userID;
 
     public Roles() {
     }
 
-    public Roles(int roleID, String roleName) {
+    public Roles(int roleID, String roleName, int userID) {
         this.roleID = roleID;
         this.roleName = roleName;
+        this.userID = userID;
     }
 
     public int getRoleID() {
@@ -35,6 +37,14 @@ public class Roles {
 
     public void setRoleName(String roleName) {
         this.roleName = roleName;
+    }
+
+    public int getUserID() {
+        return userID;
+    }
+
+    public void setUserID(int userID) {
+        this.userID = userID;
     }
     
     

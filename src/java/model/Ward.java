@@ -11,18 +11,17 @@ package model;
 public class Ward {
     private int id;
     private String wardName;
-    private District district; // Quan hệ với District
+    private int districtID; // Quan hệ với District
 
     // Constructors
     public Ward() {}
 
-    public Ward(int id, String wardName, District district) {
+    public Ward(int id, String wardName, int districtID) {
         this.id = id;
         this.wardName = wardName;
-        this.district = district;
+        this.districtID = districtID;
     }
 
-    // Getters and Setters
     public int getId() {
         return id;
     }
@@ -39,18 +38,13 @@ public class Ward {
         this.wardName = wardName;
     }
 
-    public District getDistrict() {
-        return district;
+    public int getDistrictID() {
+        return districtID;
     }
 
-    public void setDistrict(District district) {
-        this.district = district;
+    public void setDistrictID(int districtID) {
+        this.districtID = districtID;
     }
 
-    // toString method for easy debugging
-    @Override
-    public String toString() {
-        return "Ward{id=" + id + ", wardName='" + wardName + '\'' +
-                ", district=" + district.getDistrictName() + '}';
-    }
+    
 }
