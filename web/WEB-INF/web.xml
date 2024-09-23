@@ -2,7 +2,7 @@
 <web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
     <servlet>
         <servlet-name>RegistryServlet</servlet-name>
-        <servlet-class>controller.Manager.RegistryServlet</servlet-class>
+        <servlet-class>controller.RegistryServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ServicesListServlet</servlet-name>
@@ -35,6 +35,10 @@
     <servlet>
         <servlet-name>DeleteProvincesServlet</servlet-name>
         <servlet-class>controller.DeleteProvincesServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddDistrictServlet</servlet-name>
+        <servlet-class>controller.AddDistrictServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ManageDistrictServlet</servlet-name>

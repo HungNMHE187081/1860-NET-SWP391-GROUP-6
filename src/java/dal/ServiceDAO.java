@@ -75,7 +75,7 @@ public class ServiceDAO extends DBContext {
 
     public static void main(String[] args) {
         ServiceDAO dao = new ServiceDAO();
-        dao.deleteService(32);
-        System.out.println(dao.getAllServices().size());
+//        dao.deleteService(38);
+        System.out.println(dao.getAllServices().get(2).getDescription());
     }
 }
