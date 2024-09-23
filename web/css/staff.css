@@ -1,12 +1,4 @@
-/*
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
-*/
-/* 
-    Created on : Sep 18, 2024, 9:00:56 PM
-    Author     : LENOVO
-*/
-
+/* General body styling */
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
@@ -14,28 +6,33 @@ body {
     padding: 0;
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    min-height: 100vh; /* Ensures the body covers full viewport height */
 }
 
+/* Main wrapper for content */
 .wrapper {
     display: flex;
     width: 100%;
-    flex: 1;
+    flex: 1; /* Allows the wrapper to grow */
 }
 
+/* Sidebar styling */
 .sidebar {
     width: 250px;
     background: #333;
     color: #fff;
-    height: 100vh;
-    position: fixed;
+    height: 100vh; /* Fixed height */
+    position: fixed; /* Keeps sidebar in place */
+    overflow-y: auto; /* Allows sidebar to scroll if content exceeds height */
 }
 
+/* Sidebar header */
 .sidebar-header {
     padding: 20px;
     background: #444;
 }
 
+/* Sidebar list */
 .sidebar ul {
     list-style: none;
     padding: 0;
@@ -56,12 +53,15 @@ body {
     background: #575757;
 }
 
+/* Content area */
 .content {
-    margin-left: 250px;
+    margin-left: 250px; /* Space for sidebar */
     padding: 20px;
-    width: 100%;
+    width: calc(100% - 250px); /* Adjust width based on sidebar */
+    overflow-y: auto; /* Allows content to scroll if it exceeds height */
 }
 
+/* Header styling */
 header {
     background: #333;
     color: #fff;
@@ -69,6 +69,7 @@ header {
     margin-bottom: 20px;
 }
 
+/* Section styling */
 .section {
     background: #fff;
     padding: 20px;
@@ -76,6 +77,7 @@ header {
     margin-bottom: 20px;
 }
 
+/* Service item styling */
 .service-item {
     padding: 10px;
     border-bottom: 1px solid #ddd;
@@ -85,12 +87,12 @@ header {
     border-bottom: none;
 }
 
+/* Footer styling */
 footer {
     background: #333;
     color: #fff;
     text-align: center;
     padding: 10px 0;
-    position: relative;
-    bottom: 0;
+    position: relative; /* Ensure footer is at the bottom */
     width: 100%;
 }
