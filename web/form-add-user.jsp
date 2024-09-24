@@ -181,35 +181,7 @@
                         <h3 class="tile-title">Tạo mới nhân viên</h3>
                         <div class="tile-body">
 
-                            <form action="adduser" method="post">
-                                <div class="form-group col-md-4">
-                                    <label class="control-label">First Name</label>
-                                    <input class="form-control" type="text" name="firstName" required>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label class="control-label">Middle name</label>
-                                    <input class="form-control" type="text" name="middleName" required>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label class="control-label">Last name</label>
-                                    <input class="form-control" type="text" name="lastName" required>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label class="control-label">Email</label>
-                                    <input class="form-control" type="email" name="email" required>
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <label class="control-label">Số CMND</label>
-                                    <input class="form-control" type="number" name="citizenIdentification" required>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label class="control-label">Số điện thoại</label>
-                                    <input class="form-control" type="tel" name="phoneNumber" required>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label class="control-label">Ngày sinh</label>
-                                    <input class="form-control" type="date" name="dateOfBirth" required>
-                                </div>
+                            <form action="addUserForm" method="post">
                                 <div class="form-group col-md-4">
                                     <label class="control-label">Username</label>
                                     <input class="form-control" type="text" name="username" required>
@@ -227,7 +199,6 @@
                                         <option value="other">Khác</option>
                                     </select>
                                 </div>
-                               
                                 <div class="form-group col-md-3">
                                     <label class="control-label">Tỉnh/Thành phố</label>
                                     <select class="form-control" id="provinceSelect" name="provinceID" onchange="loadDistricts(this.value)" required>
@@ -249,19 +220,50 @@
                                 <div class="form-group col-md-3">
                                     <label class="control-label">Phường/Xã</label>
                                     <select class="form-control" id="wardSelect" name="wardID" required>
-                                        <option value="">-- Chọn Phường --</option>
+                                        <option value="">-- Chọn Xã --</option>
                                         <c:forEach var="ward" items="${wards}">
                                             <option value="${ward.id}">${ward.wardName}</option>
                                         </c:forEach>
                                     </select>
                                 </div>
                                 <div class="form-group col-md-4">
-                                    <label class="control-label">Địa chỉ chi tiết</label>
+                                    <label class="control-label">Địa chỉ</label>
                                     <input class="form-control" type="text" name="streetAddress" required>
                                 </div>
+                                <div class="form-group col-md-4">
+                                    <label class="control-label">Họ</label>
+                                    <input class="form-control" type="text" name="firstName" required>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label class="control-label">Tên đệm</label>
+                                    <input class="form-control" type="text" name="middleName" required>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label class="control-label">Tên</label>
+                                    <input class="form-control" type="text" name="lastName" required>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label class="control-label">Email</label>
+                                    <input class="form-control" type="email" name="email" required>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label class="control-label">Số điện thoại</label>
+                                    <input class="form-control" type="text" name="phoneNumber" required>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label class="control-label">Ngày sinh</label>
+                                    <input class="form-control" type="date" name="dateOfBirth" required>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label class="control-label">CMND/CCCD</label>
+                                    <input class="form-control" type="text" name="citizenIdentification" required>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label class="control-label">Ảnh đại diện</label>
+                                    <input class="form-control" type="text" name="profileImage">
+                                </div>
                                 <div class="form-group col-md-12">
-                                    <button class="btn btn-primary" type="submit">Thêm</button>
-                                    <button class="btn btn-danger" type="reset">Hủy</button>
+                                    <button type="submit" class="btn btn-primary">Thêm người dùng</button>
                                 </div>
                             </form>
                         </div>

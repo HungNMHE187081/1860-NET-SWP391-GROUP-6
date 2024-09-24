@@ -195,7 +195,7 @@
             <div class="app-title">
                 <ul class="app-breadcrumb breadcrumb">
                     <li class="breadcrumb-item"><a href="serviceslist">Danh sách dịch vụ</a></li>
-                    <li class="breadcrumb-item"><a href="editservice">Sửa dịch vụ</a></li>
+                    <li class="breadcrumb-item"><a href="editservice?serviceID=${service.serviceID}">Sửa dịch vụ</a></li>
                 </ul>
             </div>
             <div class="row">

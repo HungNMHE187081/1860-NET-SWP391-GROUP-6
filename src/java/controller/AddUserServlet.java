@@ -62,10 +62,18 @@ public class AddUserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-   ManagerUserDAO dao = new ManagerUserDAO();
-   List<Provinces> provinces = dao.getAllProvinces();
-   request.setAttribute("provinces", provinces);
-   request.getRequestDispatcher("form-add-user").forward(request, response);
+        ManagerUserDAO userDAO = new ManagerUserDAO();
+        List<Provinces> provinces = userDAO.getAllProvinces();
+        List<District> districts = userDAO.getDistrictsByProvince(provinces.get(0).getProvinceID()); // Lấy districts của province đầu tiên
+        List<Ward> wards = userDAO.getWardsByDistrict(districts.get(0).getId()); // Lấy wards của district đầu tiên
+
+        // Thiết lập các biến trong request
+        request.setAttribute("provinces", provinces);
+        request.setAttribute("districts", districts);
+        request.setAttribute("wards", wards);
+
+        // Chuyển tiếp đến trang form-add-user.jsp
+        request.getRequestDispatcher("form-add-user.jsp").forward(request, response);
    
 }
     
