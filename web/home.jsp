@@ -20,7 +20,7 @@
         <link rel="stylesheet" href="styles.css">
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="icon" type="image/jpg" href="Images/1.png" />
+        <link rel="icon" type="image/jpg" href="img/1.png" />
         <title>Tiny Tots - Trang Chủ</title>
     </head>
 
@@ -30,7 +30,7 @@
                 <div class="header_top">
                     <div class="logo">
                         <a href="<%= request.getContextPath() %>/home.jsp">
-                            <img src="Images/final.png" alt="Logo">
+                            <img src="img/final.png" alt="Logo">
                         </a>
                     </div>
                     <div class="headsearch">
@@ -172,13 +172,13 @@
 </div>
 <div class="color-container">
     <div class="color1">
-        <img class="bordered-image" src="Images/cam1.jpg" alt="">
+        <img class="bordered-image" src="img/cam1.jpg" alt="">
     </div>
     <div class="color1">
-        <img class="bordered-image" src="Images/cam2.jpg" alt="">
+        <img class="bordered-image" src="img/cam2.jpg" alt="">
     </div>
     <div class="color1">
-        <img class="bordered-image" src="Images/cam3.jpg" alt="">
+        <img class="bordered-image" src="img/cam3.jpg" alt="">
     </div>
 </div>
 <div class="video-text-container1">

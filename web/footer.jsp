@@ -15,10 +15,10 @@
         <!-- Added a container for both images -->
         <div class="tick-images-container">
             <div class="tick-image">
-                <img src="<%= request.getContextPath() %>/Images/tick.png" alt="Dấu tích">
+                <img src="<%= request.getContextPath() %>/img/tick.png" alt="Dấu tích">
             </div>
             <div class="tick-image">
-                <img src="<%= request.getContextPath() %>/Images/tick2.png" alt="Dấu tích 2">
+                <img src="<%= request.getContextPath() %>/img/tick2.png" alt="Dấu tích 2">
             </div>
         </div>
         

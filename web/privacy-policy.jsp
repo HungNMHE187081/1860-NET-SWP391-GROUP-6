@@ -30,7 +30,7 @@
                 <div class="header_top">
                     <div class="logo">
                         <a href="<%= request.getContextPath() %>/home.jsp">
-                            <img src="Images/final.png" alt="Logo">
+                            <img src="img/final.png" alt="Logo">
                         </a>
                     </div>
                     <div class="headsearch">
