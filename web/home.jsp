@@ -222,10 +222,11 @@
 <br>
 <br>
 <div class="flex-container">
+    
     <div class="flex-box">
         <p class="center-text underline">
-            Trung Tâm Chăm Sóc Trẻ</p>
-        <button class="shop-now-btn shop-now-btn-third" onclick="window.location.href = ''">Kiểm Tra</button>
+            Danh Sách các Dịch Vụ</p>
+        <button class="shop-now-btn shop-now-btn-third" onclick="window.location.href = 'homepageserviceslist'">Xem Ngay</button>
     </div>
     <div class="flex-box">
         <p class="center-text underline">Dịch Vụ Hỗ Trợ Phụ Huynh </p>

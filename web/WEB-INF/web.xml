@@ -56,7 +56,7 @@
         <servlet-name>SearchServiceServlet</servlet-name>
         <servlet-class>controller.SearchServiceServlet</servlet-class>
     </servlet>
-     <servlet>
+    <servlet>
         <servlet-name>AddMedicineServlet</servlet-name>
         <servlet-class>controller.AddMedicineServlet</servlet-class>
     </servlet>
@@ -68,13 +68,17 @@
         <servlet-name>EditMedicineServlet</servlet-name>
         <servlet-class>controller.EditMedicineServlet</servlet-class>
     </servlet>
-      <servlet>
+    <servlet>
         <servlet-name>DeleteMedicineServlet</servlet-name>
         <servlet-class>controller.DeleteMedicineServlet</servlet-class>
     </servlet>
-        <servlet>
+    <servlet>
         <servlet-name>MedicineDetail</servlet-name>
         <servlet-class>controller.MedicineDetail</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>HomepageServicesListServlet</servlet-name>
+        <servlet-class>controller.HomepageServicesListServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>RegistryServlet</servlet-name>
@@ -132,11 +136,11 @@
         <servlet-name>SearchServiceServlet</servlet-name>
         <url-pattern>/searchservice</url-pattern>
     </servlet-mapping>
-       <servlet-mapping>
+    <servlet-mapping>
         <servlet-name>AddMedicineServlet</servlet-name>
         <url-pattern>/addmedicine</url-pattern>
     </servlet-mapping>
-       <servlet-mapping>
+    <servlet-mapping>
         <servlet-name>MedicineListServlet</servlet-name>
         <url-pattern>/medicinelist</url-pattern>
     </servlet-mapping>
@@ -152,5 +156,8 @@
         <servlet-name>DeleteMedicineServlet</servlet-name>
         <url-pattern>/deletemedicine</url-pattern>
     </servlet-mapping>
-  
+    <servlet-mapping>
+        <servlet-name>HomepageServicesListServlet</servlet-name>
+        <url-pattern>/homepageserviceslist</url-pattern>
+    </servlet-mapping>
 </web-app>
