@@ -21,18 +21,13 @@ public class Users {
     private String profileImage;
     private Timestamp createdAt;
     private Timestamp updatedAt;
-    private List<Roles> roles; // Danh sách vai trò của người dùng
-    private String streetAddress; // Địa chỉ
-    private String districtName; // Tên quận
-    private String provinceName; // Tên tỉnh
-    private String username; // Tên đăng nhập
-    private String fullAddress;
-
+    private List<Roles> roles; 
+    private UserAddresses address;
+   private UserAuthentication user;
     public Users() {
     }
 
-    
-    public Users(int userID, String firstName, String middleName, String lastName, String email, String phoneNumber, Date dateOfBirth, String gender, String citizenIdentification, String profileImage, Timestamp createdAt, Timestamp updatedAt, List<Roles> roles, String streetAddress, String districtName, String provinceName, String username, String fullAddress) {
+    public Users(int userID, String firstName, String middleName, String lastName, String email, String phoneNumber, Date dateOfBirth, String gender, String citizenIdentification, String profileImage, Timestamp createdAt, Timestamp updatedAt, List<Roles> roles, UserAddresses address, UserAuthentication user) {
         this.userID = userID;
         this.firstName = firstName;
         this.middleName = middleName;
@@ -46,14 +41,9 @@ public class Users {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.roles = roles;
-        this.streetAddress = streetAddress;
-        this.districtName = districtName;
-        this.provinceName = provinceName;
-        this.username = username;
-        this.fullAddress = fullAddress;
+        this.address = address;
+        this.user = user;
     }
-    
-    // Constructors
 
     public int getUserID() {
         return userID;
@@ -154,53 +144,27 @@ public class Users {
     public List<Roles> getRoles() {
         return roles;
     }
-   
+
     public void setRoles(List<Roles> roles) {
         this.roles = roles;
     }
 
-    public String getStreetAddress() {
-        return streetAddress;
+    public UserAddresses getAddress() {
+        return address;
     }
 
-    public void setStreetAddress(String streetAddress) {
-        this.streetAddress = streetAddress;
+    public void setAddress(UserAddresses address) {
+        this.address = address;
     }
 
-    public String getDistrictName() {
-        return districtName;
+    public UserAuthentication getUser() {
+        return user;
     }
 
-    public void setDistrictName(String districtName) {
-        this.districtName = districtName;
+    public void setUser(UserAuthentication user) {
+        this.user = user;
     }
-
-    public String getProvinceName() {
-        return provinceName;
-    }
-
-    public void setProvinceName(String provinceName) {
-        this.provinceName = provinceName;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getFullAddress() {
-        return fullAddress;
-    }
-
-    public void setFullAddress(String fullAddress) {
-        this.fullAddress = fullAddress;
-    }
-
+ 
     
-
-    
-    
+   
 }

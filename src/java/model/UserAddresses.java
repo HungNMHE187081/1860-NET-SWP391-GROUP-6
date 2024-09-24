@@ -14,17 +14,20 @@ public class UserAddresses {
     private int userID;
     private String streetAddress;
     private int wardID;
-
+   private Provinces provinces;
+   private District district;
     // Getters and Setters
     // ...
     public UserAddresses() {
     }
 
-    public UserAddresses(int addressID, int userID, String streetAddress, int wardID) {
+    public UserAddresses(int addressID, int userID, String streetAddress, int wardID, Provinces provinces, District district) {
         this.addressID = addressID;
         this.userID = userID;
         this.streetAddress = streetAddress;
         this.wardID = wardID;
+        this.provinces = provinces;
+        this.district = district;
     }
 
     public int getAddressID() {
@@ -59,4 +62,21 @@ public class UserAddresses {
         this.wardID = wardID;
     }
 
+    public Provinces getProvinces() {
+        return provinces;
+    }
+
+    public void setProvinces(Provinces provinces) {
+        this.provinces = provinces;
+    }
+
+    public District getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(District district) {
+        this.district = district;
+    }
+
+  
 }
