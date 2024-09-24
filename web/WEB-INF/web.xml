@@ -80,6 +80,10 @@
         <servlet-name>HomepageServicesListServlet</servlet-name>
         <servlet-class>controller.HomepageServicesListServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ManageUserServlet</servlet-name>
+        <servlet-class>controller.ManageUserServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegistryServlet</servlet-name>
         <url-pattern>/registryservlet</url-pattern>
@@ -159,5 +163,9 @@
     <servlet-mapping>
         <servlet-name>HomepageServicesListServlet</servlet-name>
         <url-pattern>/homepageserviceslist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageUserServlet</servlet-name>
+        <url-pattern>/manageuser</url-pattern>
     </servlet-mapping>
 </web-app>
