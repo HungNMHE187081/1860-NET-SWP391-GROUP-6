@@ -196,15 +196,6 @@ public class ServiceDAO extends DBContext {
         } catch (SQLException e) {
         }
     }
-    
-    public void deleteAllServices() {
-        String sql = "DELETE FROM [Services]";
-        try {
-            PreparedStatement pre = connection.prepareStatement(sql);
-            pre.executeUpdate();
-        } catch (SQLException e) {
-        }
-    }
 
     public static void main(String[] args) {
         ServiceDAO dao = new ServiceDAO();
