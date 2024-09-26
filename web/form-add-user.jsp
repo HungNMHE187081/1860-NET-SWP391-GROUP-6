@@ -227,7 +227,6 @@
                                         <option value="other">Khác</option>
                                     </select>
                                 </div>
-                               
                                 <div class="form-group col-md-3">
                                     <label class="control-label">Tỉnh/Thành phố</label>
                                     <select class="form-control" id="provinceSelect" name="provinceID" onchange="loadDistricts(this.value)" required>
@@ -249,14 +248,14 @@
                                 <div class="form-group col-md-3">
                                     <label class="control-label">Phường/Xã</label>
                                     <select class="form-control" id="wardSelect" name="wardID" required>
-                                        <option value="">-- Chọn Phường --</option>
+                                        <option value="">-- Chọn Xã --</option>
                                         <c:forEach var="ward" items="${wards}">
                                             <option value="${ward.id}">${ward.wardName}</option>
                                         </c:forEach>
                                     </select>
                                 </div>
                                 <div class="form-group col-md-4">
-                                    <label class="control-label">Địa chỉ chi tiết</label>
+                                    <label class="control-label">Địa chỉ</label>
                                     <input class="form-control" type="text" name="streetAddress" required>
                                 </div>
                                 <div class="form-group col-md-4">
@@ -292,8 +291,7 @@
                                     <input class="form-control" type="text" name="profileImage">
                                 </div>
                                 <div class="form-group col-md-12">
-                                    <button class="btn btn-primary" type="submit">Thêm</button>
-                                    <button class="btn btn-danger" type="reset">Hủy</button>
+                                    <button type="submit" class="btn btn-primary">Thêm người dùng</button>
                                 </div>
                             </form>
                         </div>
