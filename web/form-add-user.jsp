@@ -181,35 +181,7 @@
                         <h3 class="tile-title">Tạo mới nhân viên</h3>
                         <div class="tile-body">
 
-                            <form action="adduser" method="post">
-                                <div class="form-group col-md-4">
-                                    <label class="control-label">First Name</label>
-                                    <input class="form-control" type="text" name="firstName" required>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label class="control-label">Middle name</label>
-                                    <input class="form-control" type="text" name="middleName" required>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label class="control-label">Last name</label>
-                                    <input class="form-control" type="text" name="lastName" required>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label class="control-label">Email</label>
-                                    <input class="form-control" type="email" name="email" required>
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <label class="control-label">Số CMND</label>
-                                    <input class="form-control" type="number" name="citizenIdentification" required>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label class="control-label">Số điện thoại</label>
-                                    <input class="form-control" type="tel" name="phoneNumber" required>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label class="control-label">Ngày sinh</label>
-                                    <input class="form-control" type="date" name="dateOfBirth" required>
-                                </div>
+                            <form action="addUserForm" method="post">
                                 <div class="form-group col-md-4">
                                     <label class="control-label">Username</label>
                                     <input class="form-control" type="text" name="username" required>
