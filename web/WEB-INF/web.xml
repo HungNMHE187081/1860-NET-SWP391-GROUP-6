@@ -80,6 +80,31 @@
         <servlet-name>HomepageServicesListServlet</servlet-name>
         <servlet-class>controller.HomepageServicesListServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AdminUsersListServlet</servlet-name>
+        <servlet-class>controller.AdminUsersListServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminAddRoleServlet</servlet-name>
+        <servlet-class>controller.AdminAddRoleServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminRemoveRoleServlet</servlet-name>
+        <servlet-class>controller.AdminRemoveRoleServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminSearchUserServlet</servlet-name>
+        <servlet-class>controller.AdminSearchUserServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminDeleteUserServlet</servlet-name>
+        <servlet-class>controller.AdminDeleteUserServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminEditUserServlet</servlet-name>
+        <servlet-class>controller.AdminEditUserServlet</servlet-class>
+    </servlet>
+
     <servlet-mapping>
         <servlet-name>RegistryServlet</servlet-name>
         <url-pattern>/registryservlet</url-pattern>
@@ -159,5 +184,29 @@
     <servlet-mapping>
         <servlet-name>HomepageServicesListServlet</servlet-name>
         <url-pattern>/homepageserviceslist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminUsersListServlet</servlet-name>
+        <url-pattern>/admin/adminuserslist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminAddRoleServlet</servlet-name>
+        <url-pattern>/admin/addrole</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminRemoveRoleServlet</servlet-name>
+        <url-pattern>/admin/removerole</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminSearchUserServlet</servlet-name>
+        <url-pattern>/admin/adminsearchuser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminDeleteUserServlet</servlet-name>
+        <url-pattern>/admin/admindeleteuser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminEditUserServlet</servlet-name>
+        <url-pattern>/admin/adminedituser</url-pattern>
     </servlet-mapping>
 </web-app>
