@@ -111,6 +111,7 @@
 
                                 <button type="submit"><i class="fas fa-filter"></i> Lọc và tìm kiếm</button>
                                 <a href="addmedicine" class="btn"><i class="fas fa-plus"></i> Thêm thuốc mới</a>
+                                <a href="latestmedicine" class="btn"><i class="fas fa-plus"></i> Thuốc thêm gần đây</a>
                             </div>
                         </form>
 

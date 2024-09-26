@@ -116,7 +116,10 @@
         <servlet-name>AdminEditUserServlet</servlet-name>
         <servlet-class>controller.AdminEditUserServlet</servlet-class>
     </servlet>
-
+    <servlet>
+        <servlet-name>LatestMedicineServlet</servlet-name>
+        <servlet-class>controller.LatestMedicineServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegistryServlet</servlet-name>
         <url-pattern>/registryservlet</url-pattern>
@@ -232,5 +235,9 @@
     <servlet-mapping>
         <servlet-name>ServiceDetailServlet</servlet-name>
         <url-pattern>/servicedetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LatestMedicineServlet</servlet-name>
+        <url-pattern>/latestmedicine</url-pattern>
     </servlet-mapping>
 </web-app>
