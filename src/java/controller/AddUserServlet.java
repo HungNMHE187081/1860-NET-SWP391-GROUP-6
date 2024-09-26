@@ -80,10 +80,6 @@ public class AddUserServlet extends HttpServlet {
 }
     
 
-        // Chuyển tiếp đến trang form-add-user.jsp
-        request.getRequestDispatcher("form-add-user.jsp").forward(request, response);
-
-    }
 
     /**
      * Handles the HTTP <code>POST</code> method.
