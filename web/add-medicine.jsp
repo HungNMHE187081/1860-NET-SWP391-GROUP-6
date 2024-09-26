@@ -134,13 +134,13 @@
                 <input type="text" id="manufactureName" name="manufactureName" required />
 
                 <label for="userManual">Hướng dẫn sử dụng:</label>
-                <textarea id="userManual" name="userManual"></textarea>
+                <textarea id="userManual" name="userManual" required></textarea>
 
                 <label for="contraindications">Chống chỉ định:</label>
-                <textarea id="contraindications" name="contraindications"></textarea>
+                <textarea id="contraindications" name="contraindications" required></textarea>
 
                 <label>Loại thuốc:</label>
-                <select name="categoryID">
+                <select name="categoryID" required>
                     <c:forEach var="category" items="${categories}">
                         <option value="${category.categoryID}" 
                                 <c:if test="${category.categoryID == medicine.categoryID}">selected</c:if>>
