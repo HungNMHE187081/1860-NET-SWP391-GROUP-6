@@ -1,32 +1,13 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
-  <aside class="app-sidebar">
-    <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" src="${sessionScope.account.image}" width="50px"
-        alt="User Image">
-      <div>
-          <p class="app-sidebar__user-name"><b>${sessionScope.account.fullName}</b></p>
-        <p class="app-sidebar__user-designation">Welcom back</p>
-      </div>
-    </div>
-    <hr>
-    <ul class="app-menu">
-
-      <li><a class="app-menu__item active" href="admin"><i class='app-menu__icon bx bx-tachometer'></i><span
-            class="app-menu__label">Dash board</span></a></li>
-    
-      <li><a class="app-menu__item" href="managerUser"><i class='app-menu__icon bx bx-user-voice'></i><span
-            class="app-menu__label">Manage User</span></a></li>
-      <li><a class="app-menu__item" href="manager"><i
-            class='app-menu__icon bx bx-purchase-tag-alt'></i><span class="app-menu__label">Manage Product</span></a>
-      </li>
-      <li><a class="app-menu__item" href="managerOrder"><i class='app-menu__icon bx bx-task'></i><span
-            class="app-menu__label">Manage Orders</span></a></li>
-    
-     
-      <li><a class="app-menu__item" href="quan-ly-bao-cao.html"><i
-            class='app-menu__icon bx bx-pie-chart-alt-2'></i><span class="app-menu__label">B�o c�o doanh thu</span></a>
-      </li>
-      
-      
-    </ul>
-  </aside>
+  <aside class="sidebar">
+                <h2><i class="fas fa-list"></i> Danh mục</h2>
+                <ul>
+                    <li><a href="staffservices"><i class="fas fa-concierge-bell"></i> Danh sách dịch vụ</a></li>
+                    <li><a href="reservations-list.jsp"><i class="fas fa-calendar-check"></i> Danh sách đặt lịch</a></li>
+                    <li><a href="medical-history.jsp"><i class="fas fa-notes-medical"></i> Lịch sử khám bệnh</a></li>
+                    <li><a href="medicinelist" class="active"><i class="fas fa-prescription-bottle-alt"></i> Thuốc</a></li>
+                    <li><a href="customers-list.jsp"><i class="fas fa-users"></i> Danh sách khách hàng</a></li>
+                    <li><a href="feedback-list.jsp"><i class="fas fa-comments"></i> Danh sách phản hồi</a></li>
+                </ul>
+            </aside>

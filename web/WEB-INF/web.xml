@@ -120,6 +120,10 @@
         <servlet-name>LatestMedicineServlet</servlet-name>
         <servlet-class>controller.LatestMedicineServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>StaffSearchServiceServlet</servlet-name>
+        <servlet-class>controller.StaffSearchServiceServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegistryServlet</servlet-name>
         <url-pattern>/registryservlet</url-pattern>
@@ -239,5 +243,9 @@
     <servlet-mapping>
         <servlet-name>LatestMedicineServlet</servlet-name>
         <url-pattern>/latestmedicine</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StaffSearchServiceServlet</servlet-name>
+        <url-pattern>/staffsearchservice</url-pattern>
     </servlet-mapping>
 </web-app>

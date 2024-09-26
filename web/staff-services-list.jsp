@@ -1,37 +1,15 @@
 <%@ page contentType="text/html" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <link rel="stylesheet" href="css/styles.css"/>
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Staff Service List</title>
-    <link rel="stylesheet" href="css/staff.css">
-    <script>
-        function showSection(sectionId) {
-            var sections = document.getElementsByClassName('section');
-            for (var i = 0; i < sections.length; i++) {
-                sections[i].style.display = 'none';
-            }
-            document.getElementById(sectionId).style.display = 'block';
-            }
-    </script>
-    </head>
-    <body>
-    <div class="wrapper">
-        <nav class="sidebar">
-            <div class="sidebar-header">
-                <img src="src" alt="logo"/>
-            </div>
-            <ul class="list-unstyled components">
-                <li><a href="#" onclick="showSection('reservations')">Reservations</a></li>
-                <li><a href="#" onclick="showSection('services')">Services</a></li>
-                <li><a href="#" onclick="showSection('history')">History Examinations</a></li>
-                <li><a href="#" onclick="showSection('medicine')">Medicine</a></li>
-                <li><a href="#" onclick="showSection('feedback')">Feedback</a></li>
-                    </ul>
-                </nav>
+        <title>Danh sách thuốc</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
         <style>
             /* Filter Form Styling */
@@ -108,78 +86,57 @@
             <!-- Main Content -->
             <main>
                 <section class="dashboard">
-                    <h2><i class="fas fa-prescription-bottle-alt"></i> Danh sách dịch vụ</h2>
-                    
+                    <h2><i class="fas fa-concierge-bell"></i> Danh sách dịch vụ</h2>
+
                     <!-- Filter and Search Form -->
 
-                    <form action="searchservice" method="get" class="filter-form">
+                    <form action="staffsearchservice" method="get" class="filter-form">
                         <div class="filter-group">
-                            <input type="text" name="search" value="${param.search}" placeholder="Tìm dịch vụ theo tên" />
+                            <input type="text" id="searchInput" name="keyword" placeholder="Tìm theo tên dịch vụ" />
 
-                            <select name="ageLimit" id="ageLimit">
-                                <option value="">Tất cả độ tuổi</option>
-                                <c:forEach var="ageLimit" items="${ageLimit}">
-                                    <option value="${ageLimit.ageLimit}" 
-                                            <c:if test="${ageLimit.ageLimitID == service.ageLimitID}">selected</c:if>>
-                                        ${ageLimit.ageLimit}
-                                    </option>
+                            <select class="form-control" id="ageLimit" name="ageLimit">
+                                <option value="">Chọn độ tuổi</option>
+                                <c:forEach var="ageLimit" items="${ageLimits}">
+                                    <option value="${ageLimit.ageLimitID}">${ageLimit.ageLimit}</option>
                                 </c:forEach>
                             </select>
-
-                            <select name="sort" id="sort">
-                                <option value="">Sắp xếp theo</option>
-                                <option value="ageLimit" <c:if test="${param.sort == 'ageLimit'}">selected</c:if>>Tên thuốc</option>
-                                <option value="category" <c:if test="${param.sort == 'category'}">selected</c:if>>Loại thuốc</option>
-                                <option value="manufacturer" <c:if test="${param.sort == 'manufacturer'}">selected</c:if>>Nhà sản xuất</option>
-                                </select>
 
                                 <button type="submit"><i class="fas fa-filter"></i> Lọc và tìm kiếm</button>
                             </div>
                         </form>
 
-                                <table>
-                                <thead>
-                                    <tr>
-                                        <th>STT</th>
-                                        <th>Tên dịch vụ</th>
-                                        <th>Ảnh</th>
-                                        <th>Độ tuổi</th>
-                                        <th>Giá</th>
-                                        <th>Thời gian tối đa</th>
-                                        <th>Mô tả</th>
-                                        <th>Chức năng</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <c:forEach var="service" items="${services}" varStatus="status">
-                                        <tr>
-                                            <td>${status.index + 1}</td>
-                                            <td>${service.serviceName}</td>
-                                            <td><img src="${service.serviceImage}" alt="${service.serviceName}" width="75" height="50"></td>
-                                            <td>
-                                                <c:forEach var="ageLimit" items="${ageLimits}">
-                                                    <c:if test="${ageLimit.ageLimitID == service.ageLimitID}">
-                                                        ${ageLimit.ageLimit}
-                                                    </c:if>
-                                                </c:forEach>
-                                            </td>
-                                            <td><fmt:formatNumber value="${service.price}" type="number" groupingUsed="true" /></td>
-                                            <td>
-                                                <c:if test="${service.duration == 0}">
-                                                    Theo lịch đặt
-                                                </c:if>
-                                                <c:if test="${service.duration != 0}">
-                                                    ${service.duration} phút
-                                                </c:if>
-                                            </td>
-                                            <td>${service.description}</td>
-                                            <td>
-                                            <a href="servicedetail?id=${service.serviceID}" class="btn"><i class="fas fa-eye"></i></a>
-                                        </td>
-                                        </tr>
-                                    </c:forEach>
-                                </tbody>
-                            </table>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Tên dịch vụ</th>
+                                    <th>Ảnh</th>
+                                    <th>Độ tuổi</th>
+                                    <th>Giá</th>
+                                    <th>Chức năng</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <c:forEach var="service" items="${services}" varStatus="status">
+                                <tr>
+                                    <td>${status.index + 1}</td>
+                                    <td>${service.serviceName}</td>
+                                    <td><img src="${service.serviceImage}" alt="${service.serviceName}" width="75" height="50"></td>
+                                    <td>
+                                        <c:forEach var="ageLimit" items="${ageLimits}">
+                                            <c:if test="${ageLimit.ageLimitID == service.ageLimitID}">
+                                                ${ageLimit.ageLimit}
+                                            </c:if>
+                                        </c:forEach>
+                                    </td>
+                                    <td><fmt:formatNumber value="${service.price}" type="number" groupingUsed="true" /></td>
+                                    <td>
+                                        <a href="servicedetail?id=${service.serviceID}" class="btn"><i class="fas fa-eye"></i></a>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        </tbody>
+                    </table>
 
                     <div class="pagination">
                         <c:if test="${pageIndex > 1}">
@@ -196,10 +153,10 @@
             </main>
         </div>
     </div>
-        <footer>
-            <div class="container">
-            <p>&copy; 2023 Staff Service Management. All rights reserved.</p>
-            </div>
-        </footer>
-    </body>
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Child Care. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
 </html>
