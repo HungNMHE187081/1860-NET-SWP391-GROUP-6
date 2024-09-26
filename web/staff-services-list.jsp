@@ -7,9 +7,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Staff Service List</title>
     <link rel="stylesheet" href="css/staff.css">
     <script>
@@ -19,10 +19,10 @@
                 sections[i].style.display = 'none';
             }
             document.getElementById(sectionId).style.display = 'block';
-        }
+            }
     </script>
-</head>
-<body>
+    </head>
+    <body>
     <div class="wrapper">
         <nav class="sidebar">
             <div class="sidebar-header">
@@ -34,27 +34,27 @@
                 <li><a href="#" onclick="showSection('history')">History Examinations</a></li>
                 <li><a href="#" onclick="showSection('medicine')">Medicine</a></li>
                 <li><a href="#" onclick="showSection('feedback')">Feedback</a></li>
-            </ul>
-        </nav>
+                    </ul>
+                </nav>
 
         <div class="content">
             <header>
                 <h1>Staff Services List</h1>
-            </header>
+        </header>
             <div id="home" class="section">
                 <h2>Welcome to the Dashboard</h2>
                 <p>This is the home section. Click on the links in the sidebar to navigate to different sections.</p>
-            </div>
+                            </div>
             <div id="services" class="section" style="display:none;">
                 <h2>Available Services</h2>
                 <div class="service-item">
                     <h3>Service 1</h3>
                     <p>Description of Service 1.</p>
-                </div>
+                    </div>
                 <div class="service-item">
                     <h3>Service 2</h3>
                     <p>Description of Service 2.</p>
-                </div>
+        </div>
                 <div class="service-item">
                     <h3>Service 3</h3>
                     <p>Description of Service 3.</p>
@@ -74,10 +74,10 @@
             </div>
         </div>
     </div>
-    <footer>
-        <div class="container">
+        <footer>
+            <div class="container">
             <p>&copy; 2023 Staff Service Management. All rights reserved.</p>
-        </div>
-    </footer>
-</body>
+            </div>
+        </footer>
+    </body>
 </html>
