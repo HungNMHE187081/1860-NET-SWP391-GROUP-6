@@ -84,6 +84,14 @@
         <servlet-name>ManageUserServlet</servlet-name>
         <servlet-class>controller.ManageUserServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>StaffServicesServlet</servlet-name>
+        <servlet-class>controller.StaffServicesServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServiceDetailServlet</servlet-name>
+        <servlet-class>controller.ServiceDetailServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegistryServlet</servlet-name>
         <url-pattern>/registryservlet</url-pattern>
@@ -167,5 +175,13 @@
     <servlet-mapping>
         <servlet-name>ManageUserServlet</servlet-name>
         <url-pattern>/manageuser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StaffServicesServlet</servlet-name>
+        <url-pattern>/staffservices</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServiceDetailServlet</servlet-name>
+        <url-pattern>/servicedetail</url-pattern>
     </servlet-mapping>
 </web-app>
