@@ -27,39 +27,39 @@ public class ManagerUserDAO extends DBContext {
     public List<Users> getAllUsers() {
         List<Users> usersList = new ArrayList<>();
         String sql = "SELECT \n"
-                + "    u.UserID, \n"
-                + "    u.FirstName, \n"
+                + "    u.UserID,\n"
+                + "    u.FirstName,\n"
                 + "    u.MiddleName,\n"
-                + "    u.LastName, \n"
-                + "    u.Email, \n"
+                + "    u.LastName,\n"
+                + "    u.Email,\n"
                 + "    u.DateOfBirth,\n"
                 + "    u.Gender,\n"
                 + "    u.PhoneNumber,\n"
-                + "    a.StreetAddress, \n"
+                + "    a.StreetAddress,\n"
                 + "    w.WardID,   -- Chỉ lấy WardID\n"
                 + "    w.WardName as Ward,\n"
                 + "    d.DistrictID, -- Thêm DistrictID để lấy\n"
-                + "    d.DistrictName AS District, \n"
+                + "    d.DistrictName AS District,\n"
                 + "    p.ProvinceID, -- Thêm ProvinceID để lấy\n"
-                + "    p.ProvinceName AS Province, \n"
-                + "    r.RoleName as roleName, \n"
-                + "    ua.Username \n"
+                + "    p.ProvinceName AS Province,\n"
+                + "    r.RoleName as roleName,\n"
+                + "    ua.Username\n"
                 + "FROM \n"
-                + "    Users u \n"
-                + "JOIN \n"
-                + "    UserAddresses a ON u.UserID = a.UserID \n"
-                + "JOIN \n"
-                + "    Wards w ON a.WardID = w.WardID \n"
-                + "JOIN \n"
-                + "    Districts d ON w.DistrictID = d.DistrictID \n"
-                + "JOIN \n"
-                + "    Provinces p ON d.ProvinceID = p.ProvinceID \n"
-                + "JOIN \n"
-                + "    UserRoles ur ON u.UserID = ur.UserID \n"
-                + "JOIN \n"
-                + "    Roles r ON ur.RoleID = r.RoleID \n"
-                + "JOIN \n"
-                + "    UserAuthentication ua ON u.UserID = ua.UserID;";
+                + "    Users u\n"
+                + "left JOIN \n"
+                + "    UserAddresses a ON u.UserID = a.UserID\n"
+                + "left JOIN \n"
+                + "    Wards w ON a.WardID = w.WardID\n"
+                + "left JOIN \n"
+                + "    Districts d ON w.DistrictID = d.DistrictID\n"
+                + "left JOIN \n"
+                + "    Provinces p ON d.ProvinceID = p.ProvinceID\n"
+                + "left JOIN \n"
+                + "    UserRoles ur ON u.UserID = ur.UserID\n"
+                + "left JOIN \n"
+                + "    Roles r ON ur.RoleID = r.RoleID\n"
+                + "left JOIN \n"
+                + "    UserAuthentication ua ON u.UserID = ua.UserID";
 
         try (
                 PreparedStatement ps = connection.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
@@ -90,7 +90,7 @@ public class ManagerUserDAO extends DBContext {
                 province.setProvinceName(rs.getString("Province")); // Gán tên tỉnh
                 address.setProvinces(province);
                 user.setAddress(address);
-                
+
                 List<Roles> rolesList = new ArrayList<>();
                 Roles role = new Roles();
                 role.setRoleName(rs.getString("roleName"));
@@ -202,8 +202,8 @@ public class ManagerUserDAO extends DBContext {
                 psUser.setString(7, user.getGender());
                 psUser.setString(8, user.getCitizenIdentification());
                 psUser.setString(9, user.getProfileImage());
-               psUser.setTimestamp(10, new Timestamp(System.currentTimeMillis()));
-               psUser.setTimestamp(11, new Timestamp(System.currentTimeMillis()));
+                psUser.setTimestamp(10, new Timestamp(System.currentTimeMillis()));
+                psUser.setTimestamp(11, new Timestamp(System.currentTimeMillis()));
                 int affectedRows = psUser.executeUpdate();
                 if (affectedRows == 0) {
                     throw new SQLException("Creating user failed, no rows affected.");
