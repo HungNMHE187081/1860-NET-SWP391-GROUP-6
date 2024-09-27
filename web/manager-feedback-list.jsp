@@ -204,7 +204,7 @@
                                             <td>
                                                 <c:forEach var="user" items="${user}">
                                                     <c:if test="${user.UserID == feedback.UserID}">
-                                                        ${user.firstName} ${user.middleName}  ${user.lastName} 
+                                                         ${user.firstName} ${user.middleName}  ${user.lastName} 
                                                     </c:if>
                                                 </c:forEach>
                                             </td>
