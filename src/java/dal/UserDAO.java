@@ -239,4 +239,22 @@ public class UserDAO extends DBContext{
             return false;
         }
     }
+    
+    public List<String> getUserRoles(int userID) {
+        List<String> roles = new ArrayList<>();
+        String sql = "SELECT r.RoleName FROM Roles r " +
+                     "JOIN UserRoles ur ON r.RoleID = ur.RoleID " +
+                     "WHERE ur.UserID = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, userID);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    roles.add(rs.getString("RoleName"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return roles;
+    }
 }
