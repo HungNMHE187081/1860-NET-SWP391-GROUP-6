@@ -201,7 +201,8 @@ public class ManagerUserDAO extends DBContext {
                 psUser.setDate(6, new java.sql.Date(user.getDateOfBirth().getTime()));
                 psUser.setString(7, user.getGender());
                 psUser.setString(8, user.getCitizenIdentification());
-                psUser.setString(9, user.getProfileImage());
+                psUser.setString(9, user.getProfileImage());               psUser.setTimestamp(10, new Timestamp(System.currentTimeMillis()));
+               psUser.setTimestamp(11, new Timestamp(System.currentTimeMillis()));
                 psUser.setTimestamp(10, new Timestamp(System.currentTimeMillis()));
                 psUser.setTimestamp(11, new Timestamp(System.currentTimeMillis()));
                 int affectedRows = psUser.executeUpdate();
