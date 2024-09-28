@@ -71,7 +71,8 @@
         <!-- Main Wrapper -->
         <div class="main-wrapper">
             <!-- Sidebar -->
-            <%@ include file="/Staff_JSP/leftside.jsp" %>
+            <%@ include file="leftside.jsp" %>
+
             <!-- Main Content -->
             <main>
                 <section class="dashboard">

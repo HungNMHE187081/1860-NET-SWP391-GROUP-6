@@ -29,7 +29,7 @@ public class DeleteServiceServlet extends HttpServlet {
         ServiceDAO dao = new ServiceDAO();
         int ServiceID = Integer.parseInt(request.getParameter("serviceID"));
         dao.deleteService(ServiceID);
-        response.sendRedirect(request.getContextPath() + "/manager/serviceslist");
+        response.sendRedirect("serviceslist");
     } 
 
     @Override

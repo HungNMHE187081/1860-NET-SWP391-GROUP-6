@@ -45,7 +45,7 @@
             </ul>
         </header>
         <!-- Sidebar menu-->
-        <%@ include file="/Manager_JSP/dashboardleft.jsp" %>
+        <%@ include file="dashboardleft.jsp" %>
         <main class="app-content">
             <div class="app-title">
                 <ul class="app-breadcrumb breadcrumb side">

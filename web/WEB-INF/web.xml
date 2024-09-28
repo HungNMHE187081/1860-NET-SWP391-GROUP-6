@@ -138,7 +138,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ServicesListServlet</servlet-name>
-        <url-pattern>/manager/serviceslist</url-pattern>
+        <url-pattern>/serviceslist</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>EditProvincesServlet</servlet-name>
@@ -150,15 +150,15 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>DeleteServiceServlet</servlet-name>
-        <url-pattern>/manager/deleteservice</url-pattern>
+        <url-pattern>/deleteservice</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>EditServiceServlet</servlet-name>
-        <url-pattern>/manager/editservice</url-pattern>
+        <url-pattern>/editservice</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddServiceServlet</servlet-name>
-        <url-pattern>/manager/addservice</url-pattern>
+        <url-pattern>/addservice</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddProvincesServlet</servlet-name>
@@ -186,7 +186,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SearchServiceServlet</servlet-name>
-        <url-pattern>/manager/searchservice</url-pattern>
+        <url-pattern>/searchservice</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddMedicineServlet</servlet-name>
@@ -242,11 +242,11 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>StaffServicesServlet</servlet-name>
-        <url-pattern>/staff/staffservices</url-pattern>
+        <url-pattern>/staffservices</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ServiceDetailServlet</servlet-name>
-        <url-pattern>/staff/servicedetail</url-pattern>
+        <url-pattern>/servicedetail</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LatestMedicineServlet</servlet-name>
@@ -254,6 +254,6 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>StaffSearchServiceServlet</servlet-name>
-        <url-pattern>/staff/staffsearchservice</url-pattern>
+        <url-pattern>/staffsearchservice</url-pattern>
     </servlet-mapping>
 </web-app>

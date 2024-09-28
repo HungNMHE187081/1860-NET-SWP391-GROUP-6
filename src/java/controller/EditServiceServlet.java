@@ -32,7 +32,7 @@ public class EditServiceServlet extends HttpServlet {
         Service service = serviceDAO.getServiceByID(serviceID);
         request.setAttribute("service", service);
 
-        request.getRequestDispatcher("/Manager_JSP/manager-edit-service.jsp").forward(request, response);
+        request.getRequestDispatcher("manager-edit-service.jsp").forward(request, response);
     }
 
     @Override
@@ -69,7 +69,7 @@ public class EditServiceServlet extends HttpServlet {
         ServiceDAO serviceDAO = new ServiceDAO();
         serviceDAO.editService(serviceID, serviceName, description, price, duration, serviceImage, isActive, ageLimitID);
 
-        response.sendRedirect(request.getContextPath() + "/manager/serviceslist");
+        response.sendRedirect("serviceslist");
     }
 
     @Override

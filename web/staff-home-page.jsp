@@ -30,7 +30,7 @@
         </header>
 
         <div class="main-wrapper">
-            <%@ include file="/Staff_JSP/leftside.jsp" %>
+            <%@ include file="leftside.jsp" %>
 
             <main>
                 <section class="dashboard">
