@@ -192,6 +192,7 @@ public class MedicineDAO extends DBContext {
         }
         return medicine;
     }
+    
     public String getCategoryById(int categoryID) {
         String sql = "SELECT categoryName FROM MedicineCategory WHERE categoryID = ?";
 

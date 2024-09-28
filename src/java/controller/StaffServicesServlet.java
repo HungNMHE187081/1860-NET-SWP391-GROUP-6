@@ -5,17 +5,17 @@
 
 package controller;
 
+import java.io.IOException;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
 import dal.AgeLimitDAO;
 import dal.ServiceDAO;
-import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
 import model.AgeLimits;
 import model.Service;
 
@@ -40,7 +40,7 @@ public class StaffServicesServlet extends HttpServlet {
         });
         request.setAttribute("services", services);
         request.setAttribute("ageLimits", ageLimits);
-        request.getRequestDispatcher("staff-services-list.jsp").forward(request, response);
+        request.getRequestDispatcher("/Staff_JSP/staff-services-list.jsp").forward(request, response);
     } 
 
     /** 

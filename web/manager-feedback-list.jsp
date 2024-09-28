@@ -1,8 +1,4 @@
-<%-- 
-    Document   : manager-services-list
-    Created on : Sep 20, 2024, 10:35:21 AM
-    Author     : LENOVO
---%>
+
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -17,7 +13,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Main CSS-->
-        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/manager/services.css">
+        <link rel="stylesheet" type="text/css" href="css/manager/services.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
         <!-- or -->
         <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
@@ -48,12 +44,48 @@
             </ul>
         </header>
         <!-- Sidebar menu-->
-        <%@ include file="dashboardleft.jsp" %>
+        <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
+        <aside class="app-sidebar">
+            <div class="app-sidebar__user">
+                <div>
+                    <p class="app-sidebar__user-name"><b>User name</b></p>
+                    <p class="app-sidebar__user-designation">Chào mừng bạn trở lại</p>
+                </div>
+            </div>
+            <hr>
+            <ul class="app-menu">
+                <li><a class="app-menu__item haha" href="phan-mem-ban-hang.html"><i class='app-menu__icon bx bx-cart-alt'></i>
+                        <span class="app-menu__label">POS Bán Hàng</span></a></li>
+                <li><a class="app-menu__item " href="index.html"><i class='app-menu__icon bx bx-tachometer'></i><span
+                            class="app-menu__label">Bảng điều khiển</span></a></li>
+                <li><a class="app-menu__item active" href="serviceslist"><i class='app-menu__icon bx bx-id-card'></i>
+                        <span class="app-menu__label">Quản lý dịch vụ</span></a></li>
+                <li><a class="app-menu__item" href="#"><i class='app-menu__icon bx bx-user-voice'></i><span
+                            class="app-menu__label">Quản lý khách hàng</span></a></li>
+                <li><a class="app-menu__item" href="table-data-product.html"><i
+                            class='app-menu__icon bx bx-purchase-tag-alt'></i><span class="app-menu__label">Quản lý sản phẩm</span></a>
+                </li>
+                <li><a class="app-menu__item" href="table-data-oder.html"><i class='app-menu__icon bx bx-task'></i><span
+                            class="app-menu__label">Quản lý đơn hàng</span></a></li>
+                <li><a class="app-menu__item" href="table-data-banned.html"><i class='app-menu__icon bx bx-run'></i><span
+                            class="app-menu__label">Quản lý nội bộ
+                        </span></a></li>
+                <li><a class="app-menu__item" href="table-data-money.html"><i class='app-menu__icon bx bx-dollar'></i><span
+                            class="app-menu__label">Bảng kê lương</span></a></li>
+                <li><a class="app-menu__item" href="quan-ly-bao-cao.html"><i
+                            class='app-menu__icon bx bx-pie-chart-alt-2'></i><span class="app-menu__label">Báo cáo doanh thu</span></a>
+                </li>
+                <li><a class="app-menu__item" href="page-calendar.html"><i class='app-menu__icon bx bx-calendar-check'></i><span
+                            class="app-menu__label">Lịch công tác </span></a></li>
+                <li><a class="app-menu__item" href="#"><i class='app-menu__icon bx bx-cog'></i><span class="app-menu__label">Cài
+                            đặt hệ thống</span></a></li>
+            </ul>
+        </aside>
         <main class="app-content">
 
             <div class="app-title">
                 <ul class="app-breadcrumb breadcrumb side">
-                    <li class="breadcrumb-item active"><a href="serviceslist"><b>Danh sách dịch vụ</b></a></li>
+                    <li class="breadcrumb-item active"><a href="feedbacklist"><b>Danh sách phản hồi</b></a></li>
                 </ul>
                 <div id="clock"></div>
             </div>
@@ -65,11 +97,6 @@
 
                             <div class="row mb-3 d-flex justify-content-between align-items-center">
                                 <div class="d-flex">
-                                    <div class="col-sm-2">
-                                        <a class="btn btn-add btn-sm" href="addservice" title="Thêm">
-                                            <i class="fas fa-plus"></i> Thêm dịch vụ
-                                        </a>
-                                    </div>
                                     <div class="col-sm-2">
                                         <a class="btn btn-delete btn-sm nhap-tu-file" type="button" title="Nhập" onclick="myFunction(this)">
                                             <i class="fas fa-file-upload"></i> Tải từ file
@@ -87,7 +114,7 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <form method="get" action="searchservice" class="form-inline">
+                                    <form method="get" action="searchfeedback" class="form-inline">
                                         <!-- Search Input -->
                                         <div class="input-group mb-3">
                                             <input type="text" class="form-control search-input" id="searchInput" name="keyword" placeholder="Tìm kiếm...">
@@ -96,10 +123,10 @@
                                             </div>
                                         </div>
                                         <div class="input-group mb-3">
-                                            <select class="form-control" id="ageLimit" name="ageLimit">
+                                            <select class="form-control" id="rating" name="rating">
                                                 <option value="">Chọn độ tuổi</option>
-                                                <c:forEach var="ageLimit" items="${ageLimits}">
-                                                    <option value="${ageLimit.ageLimitID}">${ageLimit.ageLimit}</option>
+                                                <c:forEach var="feedback" items="${feedback}">
+                                                    <option value="${feedback.rating}">${feedback.rating}</option>
                                                 </c:forEach>
                                             </select>
                                             <div class="input-group-append">
@@ -109,7 +136,7 @@
                                     </form>
                                 </div>
 
-                                <style>
+<!--                                <style>
                                     /* Style for Input Groups */
                                     .input-group .form-control {
                                         border-right: none;
@@ -154,7 +181,7 @@
                                     }
 
                                     
-                                </style>
+                                </style>-->
 
                             </div>
 
@@ -162,53 +189,42 @@
                                 <thead>
                                     <tr>
                                         <th>STT</th>
+                                        <th>Người dùng phản hồi</th>
                                         <th>Tên dịch vụ</th>
-                                        <th>Ảnh</th>
-                                        <th>Độ tuổi</th>
-                                        <th>Giá</th>
-                                        <th>Thời gian tối đa</th>
-                                        <th>Mô tả</th>
-                                        <th>Trạng thái</th>
+                                        <th>Đánh giá(sao)</th>
+                                        <th>Đánh giá cụ thể</th>
+                                        <th>Thời gian phản hồi</th>
                                         <th>Chức năng</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <c:forEach var="service" items="${services}" varStatus="status">
+                                    <c:forEach var="feedback" items="${feedback}" varStatus="status">
                                         <tr>
                                             <td>${status.index + 1}</td>
-                                            <td>${service.serviceName}</td>
-                                            <td><img src="${pageContext.request.contextPath}/${service.serviceImage}" alt="${service.serviceName}" width="75" height="50"></td>
                                             <td>
-                                                <c:forEach var="ageLimit" items="${ageLimits}">
-                                                    <c:if test="${ageLimit.ageLimitID == service.ageLimitID}">
-                                                        ${ageLimit.ageLimit}
+                                                <c:forEach var="user" items="${user}">
+                                                    <c:if test="${user.UserID == feedback.UserID}">
+                                                         ${user.firstName} ${user.middleName}  ${user.lastName} 
                                                     </c:if>
                                                 </c:forEach>
                                             </td>
-                                            <td><fmt:formatNumber value="${service.price}" type="number" groupingUsed="true" /></td>
                                             <td>
-                                                <c:if test="${service.duration == 0}">
-                                                    Theo lịch đặt
-                                                </c:if>
-                                                <c:if test="${service.duration != 0}">
-                                                    ${service.duration} phút
-                                                </c:if>
+                                                <c:forEach var="service" items="${service}">
+                                                    <c:if test="${service.serviceID == feedback.serviceID}">
+                                                        ${service.serviceName}
+                                                    </c:if>
+                                                </c:forEach>
                                             </td>
-                                            <td>${service.description}</td>
-                                            <td>
-                                                <c:if test="${service.isActive}">
-                                                    Active
-                                                </c:if>
-                                                <c:if test="${!service.isActive}">
-                                                    Inactive
-                                                </c:if>
-                                            </td>
-                                            <td class="table-td-center"><button class="btn btn-primary btn-sm trash" type="button" title="delete"
-                                                                                onclick="return confirm('Are you sure you want to delete this service?')">
-                                                    <a href="deleteservice?serviceID=${service.serviceID}"><i class="fas fa-trash-alt"></i></a>
+                                            <td>${feedback.rating}</td>
+                                            <td>${feedback.comment}</td>
+                                            <td>${feedback.feedbackDate}</td>
+                                            <td class="table-td-center">
+                                                <button class="btn btn-primary btn-sm trash" type="button" title="delete"
+                                                        onclick="return confirm('Are you sure you want to delete this feedback?')">
+                                                    <a href="deletefeedback?feedbackID=${feedback.feedbackID}"><i class="fas fa-trash-alt"></i></a>
                                                 </button>
                                                 <button class="btn btn-primary btn-sm" type="button" title="Sửa" id="show-emp">
-                                                    <a href="editservice?serviceID=${service.serviceID}"><i class="fas fa-edit"></i></a>
+                                                    <a href="editfeedback?feedbackID=${feedback.feedbackID}"><i class="fas fa-edit"></i></a>
                                                 </button>
                                             </td>
                                         </tr>

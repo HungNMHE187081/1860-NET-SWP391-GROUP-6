@@ -1,5 +1,7 @@
 <%@ page contentType="text/html" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <link rel="stylesheet" href="css/styles.css"/>
 <!DOCTYPE html>
 <html lang="en">
@@ -70,79 +72,61 @@
         <div class="main-wrapper">
             <!-- Sidebar -->
             <%@ include file="/Staff_JSP/leftside.jsp" %>
-
             <!-- Main Content -->
             <main>
                 <section class="dashboard">
-                    <h2><i class="fas fa-prescription-bottle-alt"></i> Danh sách thuốc</h2>
-                    
+                    <h2><i class="fas fa-concierge-bell"></i> Danh sách dịch vụ</h2>
+
                     <!-- Filter and Search Form -->
 
-                    <form action="medicinelist" method="get" class="filter-form">
+                    <form action="staffsearchservice" method="get" class="filter-form">
                         <div class="filter-group">
-                            <input type="text" name="search" value="${param.search}" placeholder="Tìm theo tên thuốc" />
+                            <input type="text" id="searchInput" name="keyword" placeholder="Tìm theo tên dịch vụ" />
 
-                            <select name="category" id="category">
-                                <option value="">Tất cả loại thuốc</option>
-                                <c:forEach var="category" items="${categories}">
-                                    <option value="${category.categoryID}" 
-                                            <c:if test="${category.categoryID == param.category}">selected</c:if>>
-                                        ${category.categoryName}
-                                    </option>
+                            <select class="form-control" id="ageLimit" name="ageLimit">
+                                <option value="">Chọn độ tuổi</option>
+                                <c:forEach var="ageLimit" items="${ageLimits}">
+                                    <option value="${ageLimit.ageLimitID}">${ageLimit.ageLimit}</option>
                                 </c:forEach>
                             </select>
 
-                            <select name="sort" id="sort">
-                                <option value="">Sắp xếp theo</option>
-                                <option value="name" <c:if test="${param.sort == 'name'}">selected</c:if>>Tên thuốc</option>
-                                <option value="category" <c:if test="${param.sort == 'category'}">selected</c:if>>Loại thuốc</option>
-                                <option value="manufacturer" <c:if test="${param.sort == 'manufacturer'}">selected</c:if>>Nhà sản xuất</option>
-                                </select>
-
                                 <button type="submit"><i class="fas fa-filter"></i> Lọc và tìm kiếm</button>
-                                <a href="addmedicine" class="btn"><i class="fas fa-plus"></i> Thêm thuốc mới</a>
-                                <a href="latestmedicine" class="btn"><i class="fas fa-plus"></i> Thuốc thêm gần đây</a>
                             </div>
                         </form>
 
-
-
-                        <!-- Medicine List Table -->
                         <table>
                             <thead>
                                 <tr>
-                                    <th>Tên thuốc</th>
-                                    <th>Công dụng</th>
-                                    <th>Loại thuốc</th>
-                                    <th>Nhà sản xuất</th>
+                                    <th>STT</th>
+                                    <th>Tên dịch vụ</th>
+                                    <th>Ảnh</th>
+                                    <th>Độ tuổi</th>
+                                    <th>Giá</th>
                                     <th>Chức năng</th>
                                 </tr>
                             </thead>
                             <tbody>
-                            <c:if test="${not empty medicineList}">
-                                <c:forEach var="medicine" items="${medicineList}">
-                                    <tr>
-                                        <td><c:out value="${medicine.name}" /></td>
-                                        <td><c:out value="${medicine.uses}" /></td>
-                                        <td><c:out value="${medicine.categoryName}" /></td>
-                                        <td><c:out value="${medicine.manufactureName}" /></td>
-                                        <td>
-                                            <a href="medicinedetail?id=${medicine.medicineID}" class="btn"><i class="fas fa-eye"></i> Xem chi tiết</a>
-                                        </td>
-                                    </tr>
-                                </c:forEach>
-                            </c:if>
-                            <c:if test="${empty medicineList}">
+                            <c:forEach var="service" items="${services}" varStatus="status">
                                 <tr>
-                                    <td colspan="5" style="text-align: center;">Không tìm thấy thuốc</td>
+                                    <td>${status.index + 1}</td>
+                                    <td>${service.serviceName}</td>
+                                    <td><img src="${service.serviceImage}" alt="${service.serviceName}" width="75" height="50"></td>
+                                    <td>
+                                        <c:forEach var="ageLimit" items="${ageLimits}">
+                                            <c:if test="${ageLimit.ageLimitID == service.ageLimitID}">
+                                                ${ageLimit.ageLimit}
+                                            </c:if>
+                                        </c:forEach>
+                                    </td>
+                                    <td><fmt:formatNumber value="${service.price}" type="number" groupingUsed="true" /></td>
+                                    <td>
+                                        <a href="servicedetail?id=${service.serviceID}" class="btn"><i class="fas fa-eye"></i></a>
+                                    </td>
                                 </tr>
-                            </c:if>
+                            </c:forEach>
                         </tbody>
                     </table>
 
-
-
-                    <!-- Pagination -->
                     <div class="pagination">
                         <c:if test="${pageIndex > 1}">
                             <a href="medicinelist?page=${pageIndex - 1}&search=${param.search}&category=${param.category}&manufacturer=${param.manufacturer}">« Trước</a>
@@ -157,12 +141,11 @@
                 </section>
             </main>
         </div>
-
-        <!-- Footer -->
-        <footer>
-            <div class="container">
-                <p>&copy; 2024 Child Care. All rights reserved.</p>
-            </div>
-        </footer>
-    </body>
+    </div>
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Child Care. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
 </html>
