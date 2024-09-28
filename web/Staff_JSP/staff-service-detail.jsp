@@ -85,8 +85,7 @@
         </header>
 
         <div class="main-wrapper">
-            <%@ include file="leftside.jsp" %>
-
+            <%@ include file="/Staff_JSP/leftside.jsp" %>
             <main>
                 <section class="dashboard">
                     <h2><i class="fas fa-concierge-bell"></i> Thông tin chi tiết của dịch vụ</h2>

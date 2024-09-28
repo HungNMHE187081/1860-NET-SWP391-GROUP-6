@@ -69,7 +69,7 @@
         <!-- Main Wrapper -->
         <div class="main-wrapper">
             <!-- Sidebar -->
-            <%@ include file="leftside.jsp" %>
+            <%@ include file="/Staff_JSP/leftside.jsp" %>
 
             <!-- Main Content -->
             <main>

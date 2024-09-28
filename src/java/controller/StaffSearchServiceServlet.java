@@ -48,7 +48,7 @@ public class StaffSearchServiceServlet extends HttpServlet {
 
         request.setAttribute("services", services);
         request.setAttribute("ageLimits", ageLimits);
-        request.getRequestDispatcher("staff-services-list.jsp").forward(request, response);
+        request.getRequestDispatcher("/Staff_JSP/staff-services-list.jsp").forward(request, response);
     } 
 
     /** 
