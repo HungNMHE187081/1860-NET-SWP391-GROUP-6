@@ -130,9 +130,6 @@
                 <label for="dosage">Liều dùng:</label>
                 <input type="text" id="dosage" name="dosage" required />
 
-                <label for="manufactureName">Cách sử dụng:</label>
-                <input type="text" id="manufactureName" name="manufactureName" required />
-
                 <label for="userManual">Hướng dẫn sử dụng:</label>
                 <textarea id="userManual" name="userManual" required></textarea>
 
