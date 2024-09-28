@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
+<!--    <filter>
+        <filter-name>AuthorizationFilter</filter-name>
+        <filter-class>filter.AuthorizationFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AuthorizationFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>-->
     <servlet>
         <servlet-name>RegistryServlet</servlet-name>
         <servlet-class>controller.RegistryServlet</servlet-class>
@@ -81,8 +89,48 @@
         <servlet-class>controller.HomepageServicesListServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>FeedbackListServlet</servlet-name>
-        <servlet-class>controller.FeedbackListServlet</servlet-class>
+        <servlet-name>ManageUserServlet</servlet-name>
+        <servlet-class>controller.ManageUserServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>StaffServicesServlet</servlet-name>
+        <servlet-class>controller.StaffServicesServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServiceDetailServlet</servlet-name>
+        <servlet-class>controller.ServiceDetailServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminUsersListServlet</servlet-name>
+        <servlet-class>controller.AdminUsersListServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminAddRoleServlet</servlet-name>
+        <servlet-class>controller.AdminAddRoleServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminRemoveRoleServlet</servlet-name>
+        <servlet-class>controller.AdminRemoveRoleServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminSearchUserServlet</servlet-name>
+        <servlet-class>controller.AdminSearchUserServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminDeleteUserServlet</servlet-name>
+        <servlet-class>controller.AdminDeleteUserServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminEditUserServlet</servlet-name>
+        <servlet-class>controller.AdminEditUserServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LatestMedicineServlet</servlet-name>
+        <servlet-class>controller.LatestMedicineServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>StaffSearchServiceServlet</servlet-name>
+        <servlet-class>controller.StaffSearchServiceServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>RegistryServlet</servlet-name>
@@ -165,7 +213,47 @@
         <url-pattern>/homepageserviceslist</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>FeedbackListServlet</servlet-name>
-        <url-pattern>/feedbacklist</url-pattern>
+        <servlet-name>AdminUsersListServlet</servlet-name>
+        <url-pattern>/admin/adminuserslist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminAddRoleServlet</servlet-name>
+        <url-pattern>/admin/addrole</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminRemoveRoleServlet</servlet-name>
+        <url-pattern>/admin/removerole</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminSearchUserServlet</servlet-name>
+        <url-pattern>/admin/adminsearchuser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminDeleteUserServlet</servlet-name>
+        <url-pattern>/admin/admindeleteuser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminEditUserServlet</servlet-name>
+        <url-pattern>/admin/adminedituser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageUserServlet</servlet-name>
+        <url-pattern>/manageuser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StaffServicesServlet</servlet-name>
+        <url-pattern>/staffservices</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServiceDetailServlet</servlet-name>
+        <url-pattern>/servicedetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LatestMedicineServlet</servlet-name>
+        <url-pattern>/latestmedicine</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StaffSearchServiceServlet</servlet-name>
+        <url-pattern>/staffsearchservice</url-pattern>
     </servlet-mapping>
 </web-app>
