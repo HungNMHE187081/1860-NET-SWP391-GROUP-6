@@ -46,63 +46,59 @@
         </header>
 
         <div class="main-wrapper">
-            <aside class="sidebar">
-                <h2><i class="fas fa-list"></i> Danh mục</h2>
-                <ul>
-                    <li><a href="services-list.jsp"><i class="fas fa-concierge-bell"></i> Danh sách dịch vụ</a></li>
-                    <li><a href="reservations-list.jsp"><i class="fas fa-calendar-check"></i> Danh sách đặt lịch</a></li>
-                    <li><a href="medical-history.jsp"><i class="fas fa-notes-medical"></i> Lịch sử khám bệnh</a></li>
-                    <li><a href="medicine list"><i class="fas fa-prescription-bottle-alt"></i> Thuốc</a></li>
-                    <li><a href="customers-list.jsp"><i class="fas fa-users"></i> Danh sách khách hàng</a></li>
-                    <li><a href="feedback-list.jsp"><i class="fas fa-comments"></i> Danh sách phản hồi</a></li>
-                </ul>
-            </aside>
+            <%@ include file="leftside.jsp" %>
 
-            <main>
-                <section class="dashboard">
-                    <h2><i class="fas fa-prescription-bottle-alt"></i> Thông tin chi tiết của thuốc</h2>
-                    <a href="medicinelist" class="back-link">Trở về danh sách thuốc</a>
+          <main>
+    <section class="dashboard">
+        <h2><i class="fas fa-prescription-bottle-alt"></i> Thông tin chi tiết của thuốc</h2>
+        <a href="medicinelist" class="back-link">Trở về danh sách thuốc</a>
 
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Tên thuốc</th>
-                                <th>Công dụng</th>
-                                <th>Liều lượng</th>
-                                <th>Nhà sản xuất</th>
-                                <th>Hướng dẫn sử dụng</th>
-                                <th>Chống chỉ định</th>
-                                <th>Loại thuốc</th>
-                                <th>Chức năng</th>
-                            </tr> 
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><c:out value="${medicine.name}" /></td>
-                                <td><c:out value="${medicine.uses}" /></td>
-                                <td><c:out value="${medicine.dosage}" /></td>
-                                <td><c:out value="${medicine.manufactureName}" /></td>
-                                <td><c:out value="${medicine.userManual}" /></td>
-                                <td><c:out value="${medicine.contraindications}" /></td>
-                                <td><c:out value="${medicine.categoryName}" /></td>
-                                <td>
-                                    <a href="medicineupdate?id=${medicine.medicineID}" class="btn">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                    <form action="deletemedicine" method="post" style="display:inline;">
-                                        <input type="hidden" name="id" value="${medicine.medicineID}" />
-                                        <button type="submit" class="btn" onclick="return confirm('Bạn có chắc chắn muốn xóa thuốc này?');">
-                                            <i class="fas fa-trash-alt"></i>
-                                        </button>
-                                    </form>
-                                </td>
+        <table>
+            <thead>
+                <tr>
+                    <th>Tên thuốc</th>
+                    <th>Công dụng</th>
+                    <th>Liều lượng</th>
+                    <th>Nhà sản xuất</th>
+                    <th>Hướng dẫn sử dụng</th>
+                    <th>Chống chỉ định</th>
+                    <th>Loại thuốc</th>
+                    <th>Chức năng</th>
+                </tr> 
+            </thead>
+            <tbody>
+                <c:if test="${empty medicine}">
+                    <tr>
+                        <td colspan="8" style="text-align:center;">Không tìm thấy thuốc</td>
+                    </tr>
+                </c:if>
+                <c:if test="${not empty medicine}">
+                    <tr>
+                        <td><c:out value="${medicine.name}" /></td>
+                        <td><c:out value="${medicine.uses}" /></td>
+                        <td><c:out value="${medicine.dosage}" /></td>
+                        <td><c:out value="${medicine.manufactureName}" /></td>
+                        <td><c:out value="${medicine.userManual}" /></td>
+                        <td><c:out value="${medicine.contraindications}" /></td>
+                        <td><c:out value="${medicine.categoryName}" /></td>
+                        <td>
+                            <a href="medicineupdate?id=${medicine.medicineID}" class="btn">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <form action="deletemedicine" method="post" style="display:inline;">
+                                <input type="hidden" name="id" value="${medicine.medicineID}" />
+                                <button type="submit" class="btn" onclick="return confirm('Bạn có chắc chắn muốn xóa thuốc này?');">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                </c:if>
+            </tbody>
+        </table>
+    </section>
+</main>
 
-                            </tr>
-                        </tbody>
-                    </table>
-
-                </section>
-            </main>
         </div>
 
         <footer>

@@ -1,82 +1,151 @@
-<%-- 
-    Document   : staffserviceslist
-    Created on : Sep 18, 2024, 9:00:09 PM
-    Author     : LENOVO
---%>
+<%@ page contentType="text/html" pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<link rel="stylesheet" href="css/styles.css"/>
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Staff Service List</title>
-    <link rel="stylesheet" href="css/staff.css">
-    <script>
-        function showSection(sectionId) {
-            var sections = document.getElementsByClassName('section');
-            for (var i = 0; i < sections.length; i++) {
-                sections[i].style.display = 'none';
-            }
-            document.getElementById(sectionId).style.display = 'block';
-        }
-    </script>
-</head>
-<body>
-    <div class="wrapper">
-        <nav class="sidebar">
-            <div class="sidebar-header">
-                <img src="src" alt="logo"/>
-            </div>
-            <ul class="list-unstyled components">
-                <li><a href="#" onclick="showSection('reservations')">Reservations</a></li>
-                <li><a href="#" onclick="showSection('services')">Services</a></li>
-                <li><a href="#" onclick="showSection('history')">History Examinations</a></li>
-                <li><a href="#" onclick="showSection('medicine')">Medicine</a></li>
-                <li><a href="#" onclick="showSection('feedback')">Feedback</a></li>
-            </ul>
-        </nav>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Danh sách thuốc</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-        <div class="content">
-            <header>
-                <h1>Staff Services List</h1>
-            </header>
-            <div id="home" class="section">
-                <h2>Welcome to the Dashboard</h2>
-                <p>This is the home section. Click on the links in the sidebar to navigate to different sections.</p>
+        <style>
+            /* Filter Form Styling */
+            .filter-form {
+                display: flex; /* Use flexbox for layout */
+                align-items: center; /* Center items vertically */
+                margin-bottom: 20px; /* Space below the form */
+            }
+
+            .filter-group {
+                display: flex; /* Use flexbox for group layout */
+                gap: 10px; /* Space between elements */
+                flex-wrap: nowrap; /* Prevent wrapping */
+            }
+
+            .filter-group input,
+            .filter-group select {
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                font-size: 16px;
+                width: 200px; /* Set a fixed width for inputs and selects */
+            }
+
+            .filter-group button,
+            .filter-group .btn {
+                background-color: #333;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                padding: 10px 15px;
+                cursor: pointer;
+                font-size: 16px;
+                transition: background-color 0.3s ease;
+            }
+
+            .filter-group button:hover,
+            .filter-group .btn:hover {
+                background-color: #575757; /* Darker shade on hover */
+            }
+
+        </style>
+    </head>
+    <body>
+        <!-- Header -->
+        <header>
+            <div class="container">
+                <h1><i class="fas fa-hospital"></i> Child Care</h1>
+                <nav>
+                    <ul>
+                        <li><a href="staff-home-page.jsp"><i class="fas fa-home"></i> Trang chủ</a></li>
+                        <li><a href="profile.jsp"><i class="fas fa-user"></i> Thông tin cá nhân</a></li>
+                        <li><a href="logout.jsp" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
+                    </ul>
+                </nav>
             </div>
-            <div id="services" class="section" style="display:none;">
-                <h2>Available Services</h2>
-                <div class="service-item">
-                    <h3>Service 1</h3>
-                    <p>Description of Service 1.</p>
-                </div>
-                <div class="service-item">
-                    <h3>Service 2</h3>
-                    <p>Description of Service 2.</p>
-                </div>
-                <div class="service-item">
-                    <h3>Service 3</h3>
-                    <p>Description of Service 3.</p>
-                </div>
-            </div>
-            <div id="staff" class="section" style="display:none;">
-                <h2>Staff Members</h2>
-                <p>Details about staff members will be displayed here.</p>
-            </div>
-            <div id="reports" class="section" style="display:none;">
-                <h2>Reports</h2>
-                <p>Reports and analytics will be displayed here.</p>
-            </div>
-            <div id="settings" class="section" style="display:none;">
-                <h2>Settings</h2>
-                <p>Settings and configurations will be displayed here.</p>
-            </div>
+        </header>
+
+        <!-- Main Wrapper -->
+        <div class="main-wrapper">
+            <!-- Sidebar -->
+            <%@ include file="leftside.jsp" %>
+
+            <!-- Main Content -->
+            <main>
+                <section class="dashboard">
+                    <h2><i class="fas fa-concierge-bell"></i> Danh sách dịch vụ</h2>
+
+                    <!-- Filter and Search Form -->
+
+                    <form action="staffsearchservice" method="get" class="filter-form">
+                        <div class="filter-group">
+                            <input type="text" id="searchInput" name="keyword" placeholder="Tìm theo tên dịch vụ" />
+
+                            <select class="form-control" id="ageLimit" name="ageLimit">
+                                <option value="">Chọn độ tuổi</option>
+                                <c:forEach var="ageLimit" items="${ageLimits}">
+                                    <option value="${ageLimit.ageLimitID}">${ageLimit.ageLimit}</option>
+                                </c:forEach>
+                            </select>
+
+                                <button type="submit"><i class="fas fa-filter"></i> Lọc và tìm kiếm</button>
+                            </div>
+                        </form>
+
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Tên dịch vụ</th>
+                                    <th>Ảnh</th>
+                                    <th>Độ tuổi</th>
+                                    <th>Giá</th>
+                                    <th>Chức năng</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <c:forEach var="service" items="${services}" varStatus="status">
+                                <tr>
+                                    <td>${status.index + 1}</td>
+                                    <td>${service.serviceName}</td>
+                                    <td><img src="${service.serviceImage}" alt="${service.serviceName}" width="75" height="50"></td>
+                                    <td>
+                                        <c:forEach var="ageLimit" items="${ageLimits}">
+                                            <c:if test="${ageLimit.ageLimitID == service.ageLimitID}">
+                                                ${ageLimit.ageLimit}
+                                            </c:if>
+                                        </c:forEach>
+                                    </td>
+                                    <td><fmt:formatNumber value="${service.price}" type="number" groupingUsed="true" /></td>
+                                    <td>
+                                        <a href="servicedetail?id=${service.serviceID}" class="btn"><i class="fas fa-eye"></i></a>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        </tbody>
+                    </table>
+
+                    <div class="pagination">
+                        <c:if test="${pageIndex > 1}">
+                            <a href="medicinelist?page=${pageIndex - 1}&search=${param.search}&category=${param.category}&manufacturer=${param.manufacturer}">« Trước</a>
+                        </c:if>
+                        <c:forEach begin="1" end="${totalPages}" var="i">
+                            <a href="medicinelist?page=${i}&search=${param.search}&category=${param.category}&manufacturer=${param.manufacturer}" class="<c:if test='${i == pageIndex}'>active</c:if>">${i}</a>
+                        </c:forEach>
+                        <c:if test="${pageIndex < totalPages}">
+                            <a href="medicinelist?page=${pageIndex + 1}&search=${param.search}&category=${param.category}&manufacturer=${param.manufacturer}">Tiếp theo »</a>
+                        </c:if>
+                    </div>
+                </section>
+            </main>
         </div>
     </div>
     <footer>
         <div class="container">
-            <p>&copy; 2023 Staff Service Management. All rights reserved.</p>
+            <p>&copy; 2024 Child Care. All rights reserved.</p>
         </div>
     </footer>
 </body>

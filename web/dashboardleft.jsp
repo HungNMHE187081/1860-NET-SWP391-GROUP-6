@@ -4,30 +4,32 @@
     Author     : LENOVO
 --%>
 
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
         <aside class="app-sidebar">
             <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" src="/images/hay.jpg" width="50px"
                                                 alt="User Image">
                 <div>
-                    <p class="app-sidebar__user-name"><b>V� Tr??ng</b></p>
-                    <p class="app-sidebar__user-designation">Ch�o m?ng b?n tr? l?i</p>
+                    <p class="app-sidebar__user-name"><b>User</b></p>
+                    <p class="app-sidebar__user-designation">Chào mừng bạn trở lại</p>
                 </div>
             </div>
             <hr>
             <ul class="app-menu">
-                <li><a class="app-menu__item haha" href="phan-mem-ban-hang.html"><i class='app-menu__icon bx bx-cart-alt'></i>
-                        <span class="app-menu__label">POS B�n H�ng</span></a></li>
+                <li><a class="app-menu__item haha" href="serviceslist"><i class='app-menu__icon bx bx-cart-alt'></i>
+                        <span class="app-menu__label">Quản lí dịch vụ</span></a></li>
                 <li><a class="app-menu__item " href="index.html"><i class='app-menu__icon bx bx-tachometer'></i><span
-                            class="app-menu__label">B?ng ?i?u khi?n</span></a></li>
+                            class="app-menu__label">Quản lí đơn đặt hàng</span></a></li>
                 <li><a class="app-menu__item active" href="manageraddress"><i class='app-menu__icon bx bx-id-card'></i>
-                        <span class="app-menu__label">Manage Address</span></a></li>
+                        <span class="app-menu__label">Quản lí địa chỉ</span></a></li>
                 <li><a class="app-menu__item" href="manageuser"><i class='app-menu__icon bx bx-user-voice'></i><span
-                            class="app-menu__label">Manage Customer</span></a></li>
+                            class="app-menu__label">Quản lí khách hàng</span></a></li>
                 <li><a class="app-menu__item" href="table-data-product.html"><i
-                            class='app-menu__icon bx bx-purchase-tag-alt'></i><span class="app-menu__label">Qu?n l� s?n ph?m</span></a>
+                            class='app-menu__icon bx bx-purchase-tag-alt'></i><span class="app-menu__label">Quản lý bài viết</span></a>
                 </li>
                 <li><a class="app-menu__item" href="table-data-oder.html"><i class='app-menu__icon bx bx-task'></i><span
-                            class="app-menu__label"></span></a></li>
+                            class="app-menu__label">Quản lí phản hồi</span></a></li>
                 <li><a class="app-menu__item" href="table-data-banned.html"><i class='app-menu__icon bx bx-run'></i><span
                             class="app-menu__label">
                         </span></a></li>

@@ -126,7 +126,7 @@
                 <input type="text" id="medicineName" name="name" value="${medicine.name}" required />
 
                 <label for="uses">Công dụng: </label>
-                <textarea id="uses" name="uses">${medicine.uses}</textarea>
+                <textarea id="uses" name="uses" required>${medicine.uses}</textarea>
 
                 <label for="dosage">Liều dùng: </label>
                 <input type="text" id="dosage" name="dosage" value="${medicine.dosage}" required />
@@ -135,13 +135,13 @@
                 <input type="text" id="manufactureName" name="manufactureName" value="${medicine.manufactureName}" required />
 
                 <label for="userManual">Cách sử dụng:</label>
-                <textarea id="userManual" name="userManual">${medicine.userManual}</textarea>
+                <textarea id="userManual" name="userManual" required>${medicine.userManual}</textarea>
 
                 <label for="contraindications">Chóng chỉ định:</label>
-                <textarea id="contraindications" name="contraindications">${medicine.contraindications}</textarea>
+                <textarea id="contraindications" name="contraindications" required>${medicine.contraindications}</textarea>
 
                 <label>Loại thuốc:</label>
-                <select name="categoryID">
+                <select name="categoryID" required>
                     <c:forEach var="category" items="${categories}">
                         <option value="${category.categoryID}" 
                                 <c:if test="${category.categoryID == medicine.categoryID}">selected</c:if>>

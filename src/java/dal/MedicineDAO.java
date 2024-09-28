@@ -163,6 +163,36 @@ public class MedicineDAO extends DBContext {
         return medicine;
     }
 
+    public Medicine getLatestMedicine() {
+        Medicine medicine = null;
+        String sql = "SELECT TOP 1 *\n" +
+"FROM Medicine\n" +
+"JOIN MedicineCategory ON Medicine.CategoryID = MedicineCategory.CategoryID\n" +
+"WHERE Medicine.MedicineID > 10\n" +
+"ORDER BY Medicine.MedicineID DESC;";
+
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    medicine = new Medicine(
+                            rs.getInt("MedicineID"),
+                            rs.getString("Name"),
+                            rs.getString("Description"), // Added manufactureName
+                            rs.getString("Uses"),
+                            rs.getString("Dosage"),
+                            rs.getString("UserManual"), // Added userManual
+                            rs.getString("Contraindications"), // Added contraindications
+                            rs.getString("CategoryName"), // Category name
+                            rs.getInt("CategoryID") // Category ID
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return medicine;
+    }
+    
     public String getCategoryById(int categoryID) {
         String sql = "SELECT categoryName FROM MedicineCategory WHERE categoryID = ?";
 

@@ -45,6 +45,18 @@ public class Users {
         this.user = user;
     }
 
+    public Users(int userID, String firstName, String middleName, String lastName, String email, String phoneNumber, Date dateOfBirth, String gender, String citizenIdentification) {
+    this.userID = userID;
+    this.firstName = firstName;
+    this.middleName = middleName;
+    this.lastName = lastName;
+    this.email = email;
+    this.phoneNumber = phoneNumber;
+    this.dateOfBirth = dateOfBirth;
+    this.gender = gender;
+    this.citizenIdentification = citizenIdentification;
+}
+    
     public int getUserID() {
         return userID;
     }
