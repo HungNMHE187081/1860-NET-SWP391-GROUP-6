@@ -41,7 +41,7 @@ public class ServicesListServlet extends HttpServlet {
         });
         request.setAttribute("services", services);
         request.setAttribute("ageLimits", ageLimits);
-        request.getRequestDispatcher("manager-services-list.jsp").forward(request, response);
+        request.getRequestDispatcher("/Manager_JSP/manager-services-list.jsp").forward(request, response);
     } 
 
     @Override

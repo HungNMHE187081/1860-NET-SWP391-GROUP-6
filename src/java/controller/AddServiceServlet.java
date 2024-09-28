@@ -50,7 +50,7 @@ public class AddServiceServlet extends HttpServlet {
             filePart == null || filePart.getSubmittedFileName().trim().isEmpty() ||
             isActive == null || isActive.trim().isEmpty() ||
             ageLimitIDStr == null || ageLimitIDStr.trim().isEmpty()) {
-            response.sendRedirect("manager-add-service.jsp");
+            response.sendRedirect(request.getContextPath() + "/Manager_JSP/manager-add-service.jsp");
             return;
         }
         
@@ -76,7 +76,7 @@ public class AddServiceServlet extends HttpServlet {
         ServiceDAO serviceDAO = new ServiceDAO();
         serviceDAO.insertService(service);
 
-        response.sendRedirect("serviceslist");
+        response.sendRedirect(request.getContextPath() + "/manager/serviceslist");
     }
 
     @Override
@@ -85,6 +85,6 @@ public class AddServiceServlet extends HttpServlet {
         AgeLimitDAO ageLimitDAO = new AgeLimitDAO();
         List<AgeLimits> ageLimits = ageLimitDAO.getAllAgeLimits();
         request.setAttribute("ageLimits", ageLimits);
-        request.getRequestDispatcher("manager-add-service.jsp").forward(request, response);
+        request.getRequestDispatcher("/Manager_JSP/manager-add-service.jsp").forward(request, response);
     }
 }

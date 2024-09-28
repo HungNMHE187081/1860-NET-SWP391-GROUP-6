@@ -17,7 +17,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Main CSS-->
-        <link rel="stylesheet" type="text/css" href="css/manager/services.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/manager/services.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
         <!-- or -->
         <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
@@ -153,7 +153,7 @@
                                         height: 45px;
                                     }
 
-                                    
+
                                 </style>
 
                             </div>
@@ -177,7 +177,7 @@
                                         <tr>
                                             <td>${status.index + 1}</td>
                                             <td>${service.serviceName}</td>
-                                            <td><img src="${service.serviceImage}" alt="${service.serviceName}" width="75" height="50"></td>
+                                            <td><img src="${pageContext.request.contextPath}/${service.serviceImage}" alt="${service.serviceName}" width="75" height="50"></td>
                                             <td>
                                                 <c:forEach var="ageLimit" items="${ageLimits}">
                                                     <c:if test="${ageLimit.ageLimitID == service.ageLimitID}">
