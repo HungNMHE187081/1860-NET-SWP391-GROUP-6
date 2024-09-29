@@ -57,7 +57,6 @@ public class ManagerDAO extends DBContext {
         }
     }
 
-
     public void updateWards(Ward ward) {
         String sql = "UPDATE Wards SET WardName = ? WHERE WardID = ?";
         try {
@@ -105,7 +104,7 @@ public class ManagerDAO extends DBContext {
                 + "WHERE \n"
                 + "    d.ProvinceID = ? "
                 + "GROUP BY \n"
-                + "    d.DistrictID, d.DistrictName;"; 
+                + "    d.DistrictID, d.DistrictName;";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, provinceID);
@@ -121,46 +120,77 @@ public class ManagerDAO extends DBContext {
         }
         return districts;
     }
-   public void deleteDistricts(int id){
-       String sql = "delete from Districts where DistrictID = ?";
-       try{
-           PreparedStatement pre = connection.prepareStatement(sql);
-           pre.setInt(1, id);
-           pre.executeUpdate();
-       }catch(SQLException e){
-           e.printStackTrace();
-       }
-   }
-public void updateDistricts(int districtId, String districtName, int provinceID) {
-    String sql = "UPDATE Districts SET DistrictName = ?, ProvinceID = ? WHERE DistrictID = ?";
-    try {
-        PreparedStatement pre = connection.prepareStatement(sql);
-        pre.setString(1, districtName);
-        pre.setInt(2, provinceID); // thêm provinceID vào câu lệnh
-        pre.setInt(3, districtId);
-        pre.executeUpdate();
-    } catch (SQLException e) {
-        e.printStackTrace();
+
+    public List<Ward> getWardByDistrict(int districtID) {
+        List<Ward> ward = new ArrayList<>();
+        String sql = "select * from Wards where DistrictID =?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, districtID);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("WardID");
+                String wardName = rs.getString("WardName");
+                ward.add(new Ward(id, wardName, districtID));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ward;
     }
-}
-public void addDistricts(District district){
-    String sql = "INSERT INTO Districts(ProvinceID, DistrictName) VALUES (?, ?)";
-    try{
-        PreparedStatement pre = connection.prepareStatement(sql);
-        pre.setInt(1, district.getProvinceID());
-        pre.setString(2, district.getDistrictName());
-        
-        pre.executeUpdate();
-    }catch(SQLException e){
-        e.printStackTrace();
+
+    public void deleteDistricts(int id) {
+        String sql = "delete from Districts where DistrictID = ?";
+        try {
+            PreparedStatement pre = connection.prepareStatement(sql);
+            pre.setInt(1, id);
+            pre.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
-}
+
+    public void deleteWards(int id) {
+        String sql = "delete from Wards where WardID = ?";
+        try {
+            PreparedStatement pre = connection.prepareStatement(sql);
+            pre.setInt(1, id);
+            pre.executeUpdate();
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void updateDistricts(int districtId, String districtName, int provinceID) {
+        String sql = "UPDATE Districts SET DistrictName = ?, ProvinceID = ? WHERE DistrictID = ?";
+        try {
+            PreparedStatement pre = connection.prepareStatement(sql);
+            pre.setString(1, districtName);
+            pre.setInt(2, provinceID); // thêm provinceID vào câu lệnh
+            pre.setInt(3, districtId);
+            pre.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void addDistricts(District district) {
+        String sql = "INSERT INTO Districts(ProvinceID, DistrictName) VALUES (?, ?)";
+        try {
+            PreparedStatement pre = connection.prepareStatement(sql);
+            pre.setInt(1, district.getProvinceID());
+            pre.setString(2, district.getDistrictName());
+
+            pre.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     public static void main(String[] args) {
-    ManagerDAO m = new ManagerDAO();
-    int id = 2;
-    m.deleteDistricts(id);
-        System.out.println(m);
+        ManagerDAO m = new ManagerDAO();
+        int id = 2;
+        List<Ward> wardByDistrict = m.getWardByDistrict(id);
+        System.out.println(wardByDistrict);
     }
 }
-

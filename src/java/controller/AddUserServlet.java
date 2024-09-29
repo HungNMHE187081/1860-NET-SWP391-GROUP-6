@@ -19,12 +19,19 @@ import model.UserAddresses;
 import model.UserAuthentication;
 import model.Users;
 import model.Ward;
+import jakarta.servlet.annotation.MultipartConfig;
+import jakarta.servlet.http.Part;
+import java.io.File;
+import java.nio.file.Paths;
 
 /**
  *
  * @author LENOVO
  */
+@MultipartConfig
 public class AddUserServlet extends HttpServlet {
+
+    private static final String UPLOAD_DIR = "img";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -63,23 +70,37 @@ public class AddUserServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         ManagerUserDAO userDAO = new ManagerUserDAO();
+
+        // Lấy tất cả tỉnh thành để luôn hiển thị
         List<Provinces> provinces = userDAO.getAllProvinces();
-        List<District> districts = userDAO.getDistrictsByProvince(provinces.get(0).getProvinceID()); // Lấy districts của province đầu tiên
-        List<Ward> wards = userDAO.getWardsByDistrict(districts.get(0).getId()); // Lấy wards của district đầu tiên
-
-        // Thiết lập các biến trong request
         request.setAttribute("provinces", provinces);
-        request.setAttribute("districts", districts);
-        request.setAttribute("wards", wards);
 
-        // Chuyển tiếp đến trang form-add-user.jsp
+        // Kiểm tra nếu provinceID được chọn để lấy districts
+        String selectedProvinceID = request.getParameter("provinceID");
+        List<District> districts = new ArrayList<>();
+        if (selectedProvinceID != null && !selectedProvinceID.isEmpty()) {
+            int provinceID = Integer.parseInt(selectedProvinceID);
+            districts = userDAO.getDistrictsByProvince(provinceID);
+            request.setAttribute("districts", districts);
+        }
+
+        // Kiểm tra nếu districtID được chọn để lấy wards
+        String selectedDistrictID = request.getParameter("districtID");
+        List<Ward> wards = new ArrayList<>();
+        if (selectedDistrictID != null && !selectedDistrictID.isEmpty()) {
+            int districtID = Integer.parseInt(selectedDistrictID);
+            wards = userDAO.getWardsByDistrict(districtID);
+            request.setAttribute("wards", wards);
+        }
+
+        request.setAttribute("selectedProvinceID", selectedProvinceID);
+        request.setAttribute("selectedDistrictID", selectedDistrictID);
+
+        // Chuyển tiếp đến form JSP
         request.getRequestDispatcher("form-add-user.jsp").forward(request, response);
-   
-}
-    
-
+    }
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -89,43 +110,80 @@ public class AddUserServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Users user = new Users();
-        user.setFirstName(request.getParameter("firstName"));
-        user.setMiddleName(request.getParameter("middleName"));
-        user.setLastName(request.getParameter("lastName"));
-        user.setEmail(request.getParameter("email"));
-        user.setPhoneNumber(request.getParameter("phoneNumber"));
-        user.setDateOfBirth(java.sql.Date.valueOf(request.getParameter("dateOfBirth")));
-        user.setGender(request.getParameter("gender"));
-        user.setCitizenIdentification(request.getParameter("citizenIdentification"));
-        user.setProfileImage(request.getParameter("profileImage"));
+        try {
+            // Lấy thông tin người dùng từ form
+            String firstName = request.getParameter("firstName");
+            String middleName = request.getParameter("middleName");
+            String lastName = request.getParameter("lastName");
+            String email = request.getParameter("email");
+            String phoneNumber = request.getParameter("phoneNumber");
+            String gender = request.getParameter("gender");
+            String citizenIdentification = request.getParameter("citizenIdentification");
+            String streetAddress = request.getParameter("streetAddress");
+            int wardID = Integer.parseInt(request.getParameter("wardID"));
+            String username = request.getParameter("username");
+            String passwordHash = request.getParameter("passwordHash");
+            java.sql.Date dateOfBirth = java.sql.Date.valueOf(request.getParameter("dateOfBirth"));
+            Part filePart = request.getPart("profileImage");
+            // Thiết lập đường dẫn upload file
+            String uploadPath = getServletContext().getRealPath("") + File.separator + UPLOAD_DIR;
 
-        // Thêm địa chỉ
-        UserAddresses address = new UserAddresses();
-        address.setStreetAddress(request.getParameter("streetAddress"));
-        address.setWardID(Integer.parseInt(request.getParameter("wardID")));
-        user.setAddress(address);
+            // Tạo thư mục upload nếu chưa tồn tại
+            File uploadDir = new File(uploadPath);
+            if (!uploadDir.exists()) {
+                uploadDir.mkdir();
+            }
 
-        // Thêm thông tin đăng nhập
-        UserAuthentication userAuth = new UserAuthentication();
-        userAuth.setUsername(request.getParameter("username"));
-        userAuth.setPasswordHash(request.getParameter("passwordHash"));
-        user.setUser(userAuth);
+            // Xử lý file upload
+            String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+            String filePath = uploadPath + File.separator + fileName;
 
-        // Gọi phương thức addUser trong UserDAO
-        ManagerUserDAO userDAO = new ManagerUserDAO();
-        userDAO.addUser(user);
+            // Lưu file vào thư mục chỉ định
+            filePart.write(filePath);
+            // Tạo đối tượng Users và thiết lập các thuộc tính
+            Users user = new Users();
+            user.setFirstName(firstName);
+            user.setMiddleName(middleName);
+            user.setLastName(lastName);
+            user.setEmail(email);
+            user.setPhoneNumber(phoneNumber);
+            user.setDateOfBirth(dateOfBirth);
+            user.setGender(gender);
+            user.setCitizenIdentification(citizenIdentification);
+            user.setProfileImage(UPLOAD_DIR + "/" + fileName);
 
-        // Chuyển hướng đến trang thành công hoặc trang khác
-        response.sendRedirect("success.jsp");
+            // Thêm địa chỉ
+            UserAddresses address = new UserAddresses();
+            address.setStreetAddress(streetAddress);
+            address.setWardID(wardID);
+            user.setAddress(address);
+
+            // Thêm thông tin đăng nhập
+            UserAuthentication userAuth = new UserAuthentication();
+            userAuth.setUsername(username);
+            userAuth.setPasswordHash(passwordHash);
+            user.setUser(userAuth);
+
+            // Gọi phương thức addUser trong ManagerUserDAO
+            ManagerUserDAO userDAO = new ManagerUserDAO();
+            userDAO.addUser(user);
+
+            // Chuyển hướng đến trang quản lý người dùng sau khi thêm thành công
+            response.sendRedirect("manageuser");
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Xử lý lỗi và chuyển hướng đến trang lỗi nếu cần
+            request.setAttribute("errorMessage", "Lỗi khi thêm người dùng: " + e.getMessage());
+            request.getRequestDispatcher("form-add-user.jsp").forward(request, response);
+        }
     }
 
     /**
      * Returns a short description of the servlet.
+     *
      * @return a String containing servlet description
      */
     @Override

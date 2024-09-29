@@ -9,25 +9,24 @@ package model;
  * @author LENOVO
  */
 public class UserAddresses {
-
     private int addressID;
     private int userID;
     private String streetAddress;
     private int wardID;
-   private Provinces provinces;
-   private District district;
-    // Getters and Setters
-    // ...
+    private Provinces provinces;
+    private District district;
+    private Ward ward;
     public UserAddresses() {
     }
 
-    public UserAddresses(int addressID, int userID, String streetAddress, int wardID, Provinces provinces, District district) {
+    public UserAddresses(int addressID, int userID, String streetAddress, int wardID, Provinces provinces, District district, Ward ward) {
         this.addressID = addressID;
         this.userID = userID;
         this.streetAddress = streetAddress;
         this.wardID = wardID;
         this.provinces = provinces;
         this.district = district;
+        this.ward = ward;
     }
 
     public int getAddressID() {
@@ -78,5 +77,14 @@ public class UserAddresses {
         this.district = district;
     }
 
-  
+    public Ward getWard() {
+        return ward;
+    }
+
+    public void setWard(Ward ward) {
+        this.ward = ward;
+    }
+
+   
+
 }

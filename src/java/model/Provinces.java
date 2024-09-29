@@ -31,6 +31,10 @@ public class Provinces {
         
     }
 
+    public Provinces(int provinceID) {
+        this.provinceID = provinceID;
+    }
+
     // Getters and Setters
     public int getProvinceID() { return provinceID; }
     public void setProvinceID(int provinceID) { this.provinceID = provinceID; }

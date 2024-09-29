@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
-<!--    <filter>
+    <!--    <filter>
         <filter-name>AuthorizationFilter</filter-name>
         <filter-class>filter.AuthorizationFilter</filter-class>
     </filter>
@@ -132,6 +132,26 @@
         <servlet-name>StaffSearchServiceServlet</servlet-name>
         <servlet-class>controller.StaffSearchServiceServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ManageUserServlet</servlet-name>
+        <servlet-class>controller.ManageUserServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddUserServlet</servlet-name>
+        <servlet-class>controller.AddUserServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LoadDistrictsServlet</servlet-name>
+        <servlet-class>controller.LoadDistrictsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LoadWardsServlet</servlet-name>
+        <servlet-class>controller.LoadWardsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteUserServlet</servlet-name>
+        <servlet-class>controller.DeleteUserServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegistryServlet</servlet-name>
         <url-pattern>/registryservlet</url-pattern>
@@ -255,5 +275,21 @@
     <servlet-mapping>
         <servlet-name>StaffSearchServiceServlet</servlet-name>
         <url-pattern>/staff/staffsearchservice</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoadDistrictsServlet</servlet-name>
+        <url-pattern>/loadDistricts</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoadWardsServlet</servlet-name>
+        <url-pattern>/loadWards</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddUserServlet</servlet-name>
+        <url-pattern>/adduser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteUserServlet</servlet-name>
+        <url-pattern>/deleteuser</url-pattern>
     </servlet-mapping>
 </web-app>

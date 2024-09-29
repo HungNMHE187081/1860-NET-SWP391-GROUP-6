@@ -4,19 +4,20 @@
  */
 package dal;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import model.Users;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.AbstractList;
 import model.District;
 import model.Provinces;
 import model.Roles;
 import model.UserAddresses;
 import model.Ward;
+import model.UserAuthentication;
+import java.sql.Date;
+import java.sql.Statement;
 
 /**
  *
@@ -35,6 +36,7 @@ public class ManagerUserDAO extends DBContext {
                 + "    u.DateOfBirth,\n"
                 + "    u.Gender,\n"
                 + "    u.PhoneNumber,\n"
+                + "	u.ProfileImage,\n"
                 + "    a.StreetAddress,\n"
                 + "    w.WardID,   -- Chỉ lấy WardID\n"
                 + "    w.WardName as Ward,\n"
@@ -42,6 +44,7 @@ public class ManagerUserDAO extends DBContext {
                 + "    d.DistrictName AS District,\n"
                 + "    p.ProvinceID, -- Thêm ProvinceID để lấy\n"
                 + "    p.ProvinceName AS Province,\n"
+                + "	r.RoleID as RoleID,\n"
                 + "    r.RoleName as roleName,\n"
                 + "    ua.Username\n"
                 + "FROM \n"
@@ -59,7 +62,9 @@ public class ManagerUserDAO extends DBContext {
                 + "left JOIN \n"
                 + "    Roles r ON ur.RoleID = r.RoleID\n"
                 + "left JOIN \n"
-                + "    UserAuthentication ua ON u.UserID = ua.UserID";
+                + "    UserAuthentication ua ON u.UserID = ua.UserID\n"
+                + "	where \n"
+                + "	r.RoleID = 5;";
 
         try (
                 PreparedStatement ps = connection.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
@@ -74,10 +79,14 @@ public class ManagerUserDAO extends DBContext {
                 user.setDateOfBirth(rs.getDate("DateOfBirth"));
                 user.setGender(rs.getString("Gender"));
                 user.setPhoneNumber(rs.getString("PhoneNumber"));
+                user.setProfileImage(rs.getNString("ProfileImage"));
                 // Tạo địa chỉ đầy đủ
                 UserAddresses address = new UserAddresses();
                 address.setStreetAddress(rs.getString("StreetAddress"));
-                address.setWardID(rs.getInt("WardID")); // Assuming WardID is also needed
+
+                Ward ward = new Ward();
+                ward.setWardName(rs.getString("Ward")); // Assuming WardID is also needed
+                address.setWard(ward);
 
                 District district = new District();
                 district.setId(rs.getInt("DistrictID")); // Đảm bảo rằng bạn đã chọn DistrictID trong câu truy vấn
@@ -93,6 +102,7 @@ public class ManagerUserDAO extends DBContext {
 
                 List<Roles> rolesList = new ArrayList<>();
                 Roles role = new Roles();
+                role.setRoleID(rs.getInt("RoleID"));
                 role.setRoleName(rs.getString("roleName"));
                 rolesList.add(role);
                 user.setRoles(rolesList);
@@ -182,9 +192,9 @@ public class ManagerUserDAO extends DBContext {
     }
 
     public void addUser(Users user) {
-        String sqlUser = "INSERT INTO Users (FirstName, MiddleName, LastName, Email, PhoneNumber, DateOfBirth, Gender, CitizenIdentification, ProfileImage, CreatedAt, UpdatedAt) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sqlUser = "INSERT INTO Users (FirstName, MiddleName, LastName, Email, PhoneNumber, DateOfBirth, Gender, CitizenIdentification, ProfileImage) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         String sqlAddress = "INSERT INTO UserAddresses (StreetAddress, WardID, UserID) VALUES (?, ?, ?)";
-        String sqlAuth = "INSERT INTO UserAuthentication (Username, PasswordHash, Salt, UserID) VALUES (?, ?, ?, ?)";
+        String sqlAuth = "INSERT INTO UserAuthentication (Username, PasswordHash, UserID) VALUES (?, ?,?)";
         String sqlRole = "INSERT INTO UserRoles (UserID, RoleID) VALUES (?, ?)"; // Câu lệnh thêm vai trò
 
         try {
@@ -192,7 +202,7 @@ public class ManagerUserDAO extends DBContext {
             connection.setAutoCommit(false);
 
             // Thêm người dùng vào bảng Users
-            try (PreparedStatement psUser = connection.prepareStatement(sqlUser)) {
+            try (PreparedStatement psUser = connection.prepareStatement(sqlUser, Statement.RETURN_GENERATED_KEYS)) {
                 psUser.setString(1, user.getFirstName());
                 psUser.setString(2, user.getMiddleName());
                 psUser.setString(3, user.getLastName());
@@ -201,10 +211,7 @@ public class ManagerUserDAO extends DBContext {
                 psUser.setDate(6, new java.sql.Date(user.getDateOfBirth().getTime()));
                 psUser.setString(7, user.getGender());
                 psUser.setString(8, user.getCitizenIdentification());
-                psUser.setString(9, user.getProfileImage());               psUser.setTimestamp(10, new Timestamp(System.currentTimeMillis()));
-               psUser.setTimestamp(11, new Timestamp(System.currentTimeMillis()));
-                psUser.setTimestamp(10, new Timestamp(System.currentTimeMillis()));
-                psUser.setTimestamp(11, new Timestamp(System.currentTimeMillis()));
+                psUser.setString(9, user.getProfileImage());
                 int affectedRows = psUser.executeUpdate();
                 if (affectedRows == 0) {
                     throw new SQLException("Creating user failed, no rows affected.");
@@ -233,8 +240,7 @@ public class ManagerUserDAO extends DBContext {
             try (PreparedStatement psAuth = connection.prepareStatement(sqlAuth)) {
                 psAuth.setString(1, user.getUser().getUsername());
                 psAuth.setString(2, user.getUser().getPasswordHash());
-                psAuth.setString(3, user.getUser().getSalt());
-                psAuth.setInt(4, user.getUserID()); // Sử dụng UserID vừa tạo
+                psAuth.setInt(3, user.getUserID()); // Sử dụng UserID vừa tạo
 
                 psAuth.executeUpdate();
             }
@@ -267,9 +273,51 @@ public class ManagerUserDAO extends DBContext {
         }
     }
 
-    public static void main(String[] args) {
-        String id = "Customer";
-        ManagerUserDAO dao = new ManagerUserDAO();
-        System.out.println(dao.getRoleIdByName(id));
+    public void deleteUser(int userId) throws SQLException {
+        String sqlDeleteUserRoles = "DELETE FROM UserRoles WHERE UserID = ?";
+        String sqlDeleteUserAuth = "DELETE FROM UserAuthentication WHERE UserID = ?";
+        String sqlDeleteUserAddresses = "DELETE FROM UserAddresses WHERE UserID = ?";
+        String sqlDeleteUser = "DELETE FROM Users WHERE UserID = ?";
+
+        try {
+            // Bắt đầu transaction
+            connection.setAutoCommit(false);
+
+            // Xóa trong bảng UserRoles
+            try (PreparedStatement psDeleteUserRoles = connection.prepareStatement(sqlDeleteUserRoles)) {
+                psDeleteUserRoles.setInt(1, userId);
+                psDeleteUserRoles.executeUpdate();
+            }
+
+            // Xóa trong bảng UserAuthentication
+            try (PreparedStatement psDeleteUserAuth = connection.prepareStatement(sqlDeleteUserAuth)) {
+                psDeleteUserAuth.setInt(1, userId);
+                psDeleteUserAuth.executeUpdate();
+            }
+
+            // Xóa trong bảng UserAddresses
+            try (PreparedStatement psDeleteUserAddresses = connection.prepareStatement(sqlDeleteUserAddresses)) {
+                psDeleteUserAddresses.setInt(1, userId);
+                psDeleteUserAddresses.executeUpdate();
+            }
+
+            // Cuối cùng, xóa trong bảng Users
+            try (PreparedStatement psDeleteUser = connection.prepareStatement(sqlDeleteUser)) {
+                psDeleteUser.setInt(1, userId);
+                psDeleteUser.executeUpdate();
+            }
+
+            // Commit transaction
+            connection.commit();
+
+        } catch (SQLException e) {
+            // Rollback nếu có lỗi xảy ra
+            connection.rollback();
+            throw e;
+        } finally {
+            // Đặt lại chế độ auto-commit
+            connection.setAutoCommit(true);
+        }
     }
+
 }

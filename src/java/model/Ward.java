@@ -22,6 +22,10 @@ public class Ward {
         this.districtID = districtID;
     }
 
+    public Ward(int id) {
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }

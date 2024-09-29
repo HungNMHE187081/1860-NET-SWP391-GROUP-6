@@ -28,6 +28,10 @@ public class District {
         this.totalWards = totalWards;
     }
 
+    public District(int id) {
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }

@@ -1,16 +1,15 @@
 <%-- 
-    Document   : manager-user-list
-    Created on : Sep 23, 2024, 11:11:08 PM
+    Document   : manage-ward
+    Created on : Sep 27, 2024, 11:56:18 AM
     Author     : LENOVO
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
     <head>
-        <title>Danh sách nhân viên | Quản trị Admin</title>
+        <title>Danh s�ch nh�n vi�n | Qu?n tr? Admin</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -45,11 +44,11 @@
             </ul>
         </header>
         <!-- Sidebar menu-->
-        <%@ include file="Manager_JSP/dashboardleft.jsp" %>
+        <%@include file="dashboardleft.jsp" %>
         <main class="app-content">
             <div class="app-title">
                 <ul class="app-breadcrumb breadcrumb side">
-                    <li class="breadcrumb-item active"><a href="#"><b>Danh sách nhân viên</b></a></li>
+                    <li class="breadcrumb-item active"><a href="#"><b>Danh s�ch nh�n vi�n</b></a></li>
                 </ul>
                 <div id="clock"></div>
             </div>
@@ -62,33 +61,33 @@
                             <div class="row element-button">
                                 <div class="col-sm-2">
 
-                                    <a class="btn btn-add btn-sm" href="adduser" title="Thêm"><i class="fas fa-plus"></i>
-                                        Tạo mới nhân viên</a>
+                                    <a class="btn btn-add btn-sm" href="form-add-nhan-vien.html" title="Th�m"><i class="fas fa-plus"></i>
+                                        T?o m?i nh�n vi�n</a>
                                 </div>
                                 <div class="col-sm-2">
-                                    <a class="btn btn-delete btn-sm nhap-tu-file" type="button" title="Nhập" onclick="myFunction(this)"><i
-                                            class="fas fa-file-upload"></i> Tải từ file</a>
+                                    <a class="btn btn-delete btn-sm nhap-tu-file" type="button" title="Nh?p" onclick="myFunction(this)"><i
+                                            class="fas fa-file-upload"></i> T?i t? file</a>
                                 </div>
 
                                 <div class="col-sm-2">
                                     <a class="btn btn-delete btn-sm print-file" type="button" title="In" onclick="myApp.printTable()"><i
-                                            class="fas fa-print"></i> In dữ liệu</a>
+                                            class="fas fa-print"></i> In d? li?u</a>
                                 </div>
                                 <div class="col-sm-2">
-                                    <a class="btn btn-delete btn-sm print-file js-textareacopybtn" type="button" title="Sao chép"><i
-                                            class="fas fa-copy"></i> Sao chép</a>
+                                    <a class="btn btn-delete btn-sm print-file js-textareacopybtn" type="button" title="Sao ch�p"><i
+                                            class="fas fa-copy"></i> Sao ch�p</a>
                                 </div>
 
                                 <div class="col-sm-2">
-                                    <a class="btn btn-excel btn-sm" href="" title="In"><i class="fas fa-file-excel"></i> Xuất Excel</a>
+                                    <a class="btn btn-excel btn-sm" href="" title="In"><i class="fas fa-file-excel"></i> Xu?t Excel</a>
                                 </div>
                                 <div class="col-sm-2">
                                     <a class="btn btn-delete btn-sm pdf-file" type="button" title="In" onclick="myFunction(this)"><i
-                                            class="fas fa-file-pdf"></i> Xuất PDF</a>
+                                            class="fas fa-file-pdf"></i> Xu?t PDF</a>
                                 </div>
                                 <div class="col-sm-2">
-                                    <a class="btn btn-delete btn-sm" type="button" title="Xóa" onclick="myFunction(this)"><i
-                                            class="fas fa-trash-alt"></i> Xóa tất cả </a>
+                                    <a class="btn btn-delete btn-sm" type="button" title="X�a" onclick="myFunction(this)"><i
+                                            class="fas fa-trash-alt"></i> X�a t?t c? </a>
                                 </div>
                             </div>
                             <table class="table table-hover table-bordered js-copytextarea" cellpadding="0" cellspacing="0" border="0"
@@ -96,52 +95,31 @@
                                 <thead>
                                     <tr>
                                         <th width="10"><input type="checkbox" id="all"></th>
-                                        <th>ID nhân viên</th>
-                                        <th width="150">Họ và tên</th>
-                                        <th width="20">Ảnh thẻ</th>
-                                        <th width="300">Địa chỉ</th>
-                                        <th>Ngày sinh</th>
-                                        <th>Giới tính</th>
-                                        <th>SĐT</th>
-                                        <th>Vai trò</th>
-                                        <th width="100">Tính năng</th>
+                                        <th width="10">ID nh�n vi�n</th>
+                                        <th width="150">H? v� t�n</th>
+                                        <th width="100">T�nh n?ng</th>
                                     </tr>
                                 </thead>
-
                                 <tbody>
-                                    <c:forEach var="user" items="${userList}">
-
+                                    <c:forEach items="${ward}" var="ward">
                                         <tr>
-                                            <td width="10"><input type="checkbox" name="check1" value="${user.userID}"></td>
-                                            <td>${user.userID}</td>
-                                            <td>${user.firstName} ${user.middleName} ${user.lastName}</td>
-                                            <td><img class="img-card-person" src="${user.profileImage}" alt=""></td>
-                                            <td>${user.address.streetAddress},${user.address.ward.wardName}, ${user.address.district.districtName}, ${user.address.provinces.provinceName}</td>
-                                            <td>${user.dateOfBirth}</td>
-                                            <td>${user.gender}</td>
-                                            <td>${user.phoneNumber}</td>
+                                            <td width="10"><input type="checkbox"></td>
+                                            <td>${ward.id}</td>
+                                            <td>${ward.wardName}</td>
                                             <td>
-                                                <c:forEach var="role" items="${user.roles}">
-                                                    ${role.roleName}<br />
-                                                </c:forEach>
-                                            </td>
-                                            <td class="table-td-center">
-                                                <form action="deleteuser" method="post" style="display: inline;">
-                                                    <input type="hidden" name="userid" value="${user.userID}">
-                                                    <button class="btn btn-primary btn-sm trash" type="submit" title="Xóa" 
-                                                            onclick="return confirm('Bạn có chắc chắn muốn xóa người dùng này không?')">
-                                                        <i class="fas fa-trash-alt"></i>
+                                                <form action="deleteward" method="post" style="display:inline;">
+                                                    <input type="hidden" name="id" value="${ward.id}">
+                                                    <input type="hidden" name="districtID" value="${ward.districtID}">
+                                                    <button class="btn btn-primary btn-sm trash" title="X�a" onclick="confirmDelete('deleteForm${districts.id}')"><i
+                                                            class="fas fa-trash-alt"></i>
                                                     </button>
                                                 </form>
-                                                <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp" data-toggle="modal" data-target="#ModalUP">
-                                                    <i class="fas fa-edit"></i>
+                                                <button class="btn btn-primary btn-sm edit" title="S?a" id="show-emp" data-toggle="modal"
+                                                        data-target="#ModalUP"><i class="fas fa-edit"></i>
                                                 </button>
                                             </td>
                                         </tr>
-
                                     </c:forEach>
-
-
                                 </tbody>
                             </table>
                         </div>
@@ -162,54 +140,20 @@
                         <div class="row">
                             <div class="form-group  col-md-12">
                                 <span class="thong-tin-thanh-toan">
-                                    <h5>Chỉnh sửa thông tin nhân viên cơ bản</h5>
+                                    <h5>Ch?nh s?a th�ng tin nh�n vi�n c? b?n</h5>
                                 </span>
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group col-md-6">
-                                <label class="control-label">ID nhân viên</label>
+                                <label class="control-label">ID nh�n vi�n</label>
                                 <input class="form-control" type="text" required value="#CD2187" disabled>
                             </div>
-                            <div class="form-group col-md-6">
-                                <label class="control-label">Họ và tên</label>
-                                <input class="form-control" type="text" required value="Võ Trường">
-                            </div>
-                            <div class="form-group  col-md-6">
-                                <label class="control-label">Số điện thoại</label>
-                                <input class="form-control" type="number" required value="09267312388">
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label class="control-label">Địa chỉ email</label>
-                                <input class="form-control" type="text" required value="truong.vd2000@gmail.com">
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label class="control-label">Ngày sinh</label>
-                                <input class="form-control" type="date" value="15/03/2000">
-                            </div>
-                            <div class="form-group  col-md-6">
-                                <label for="exampleSelect1" class="control-label">Chức vụ</label>
-                                <select class="form-control" id="exampleSelect1">
-                                    <option>Bán hàng</option>
-                                    <option>Tư vấn</option>
-                                    <option>Dịch vụ</option>
-                                    <option>Thu Ngân</option>
-                                    <option>Quản kho</option>
-                                    <option>Bảo trì</option>
-                                    <option>Kiểm hàng</option>
-                                    <option>Bảo vệ</option>
-                                    <option>Tạp vụ</option>
-                                </select>
-                            </div>
                         </div>
+                        
                         <BR>
-                        <a href="#" style="    float: right;
-                           font-weight: 600;
-                           color: #ea0000;">Chỉnh sửa nâng cao</a>
-                        <BR>
-                        <BR>
-                        <button class="btn btn-save" type="button">Lưu lại</button>
-                        <a class="btn btn-cancel" data-dismiss="modal" href="#">Hủy bỏ</a>
+                        <button class="btn btn-save" type="button">L?u l?i</button>
+                        <a class="btn btn-cancel" data-dismiss="modal" href="#">H?y b?</a>
                         <BR>
                     </div>
                     <div class="modal-footer">
@@ -224,7 +168,7 @@
         <!-- Essential javascripts for application to work-->
         <script src="js/manager/jquery-3.2.1.min.js"></script>
         <script src="js/manager/popper.min.js"></script>
-        <script src="js/manager/bootstrap.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script src="src/jquery.table2excel.js"></script>
         <script src="js/manager/main.js"></script>
@@ -237,7 +181,27 @@
         <script type="text/javascript" src="js/plugins/dataTables.bootstrap.min.js"></script>
         <script type="text/javascript">$('#sampleTable').DataTable();</script>
         <script>
-            
+            function deleteRow(r) {
+                var i = r.parentNode.parentNode.rowIndex;
+                document.getElementById("myTable").deleteRow(i);
+            }
+            jQuery(function () {
+                jQuery(".trash").click(function () {
+                    swal({
+                        title: "C?nh b�o",
+
+                        text: "B?n c� ch?c ch?n l� mu?n x�a nh�n vi�n n�y?",
+                        buttons: ["H?y b?", "??ng �"],
+                    })
+                            .then((willDelete) => {
+                                if (willDelete) {
+                                    swal("?� x�a th�nh c�ng.!", {
+
+                                    });
+                                }
+                            });
+                });
+            });
             oTable = $('#sampleTable').dataTable();
             $('#all').click(function (e) {
                 $('#sampleTable tbody :checkbox').prop('checked', $(this).is(':checked'));
@@ -256,17 +220,17 @@
             // });
 
 
-            //Thời Gian
+            //Th?i Gian
             function time() {
                 var today = new Date();
                 var weekday = new Array(7);
-                weekday[0] = "Chủ Nhật";
-                weekday[1] = "Thứ Hai";
-                weekday[2] = "Thứ Ba";
-                weekday[3] = "Thứ Tư";
-                weekday[4] = "Thứ Năm";
-                weekday[5] = "Thứ Sáu";
-                weekday[6] = "Thứ Bảy";
+                weekday[0] = "Ch? Nh?t";
+                weekday[1] = "Th? Hai";
+                weekday[2] = "Th? Ba";
+                weekday[3] = "Th? T?";
+                weekday[4] = "Th? N?m";
+                weekday[5] = "Th? S�u";
+                weekday[6] = "Th? B?y";
                 var day = weekday[today.getDay()];
                 var dd = today.getDate();
                 var mm = today.getMonth() + 1;
@@ -276,7 +240,7 @@
                 var s = today.getSeconds();
                 m = checkTime(m);
                 s = checkTime(s);
-                nowTime = h + " giờ " + m + " phút " + s + " giây";
+                nowTime = h + " gi? " + m + " ph�t " + s + " gi�y";
                 if (dd < 10) {
                     dd = '0' + dd
                 }
@@ -296,7 +260,7 @@
                     return i;
                 }
             }
-            //In dữ liệu
+            //In d? li?u
             var myApp = new function () {
                 this.printTable = function () {
                     var tab = document.getElementById('sampleTable');
@@ -306,7 +270,7 @@
                     win.print();
                 }
             }
-            //     //Sao chép dữ liệu
+            //     //Sao ch�p d? li?u
             //     var copyTextareaBtn = document.querySelector('.js-textareacopybtn');
 
             // copyTextareaBtn.addEventListener('click', function(event) {

@@ -16,7 +16,6 @@ public class UserAuthentication {
     private String passwordHash;
     private String salt;
     private Timestamp lastLogin;
-
     // Constructor mặc định
     public UserAuthentication() {
     }
@@ -28,6 +27,11 @@ public class UserAuthentication {
         this.passwordHash = passwordHash;
         this.salt = salt;
         this.lastLogin = lastLogin;
+    }
+
+    public UserAuthentication(String username, String passwordHash) {
+        this.username = username;
+        this.passwordHash = passwordHash;
     }
 
     // Getters and Setters

@@ -7,18 +7,17 @@ package controller;
 
 import dal.ManagerDAO;
 import java.io.IOException;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
-import model.Provinces;
 
 /**
  *
  * @author LENOVO
  */
-public class ManagerAddressServlet extends HttpServlet {
+public class DeleteWardServlet extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -30,10 +29,18 @@ public class ManagerAddressServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-         ManagerDAO m = new ManagerDAO();
-        List<Provinces> listP = m.getAllProvinces();
-        request.setAttribute("listP", listP);
-        request.getRequestDispatcher("manager-address.jsp").forward(request, response);
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet DeleteWardServlet</title>");  
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet DeleteWardServlet at " + request.getContextPath () + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -60,7 +67,16 @@ public class ManagerAddressServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+         String ward = request.getParameter("id");
+         int district = Integer.parseInt(request.getParameter("districtID"));
+         try{
+             int w = Integer.parseInt(ward);
+             ManagerDAO dao = new ManagerDAO();
+             dao.deleteWards(w);
+             response.sendRedirect("manageward?districtid="+district);
+         }catch(Exception e){
+             e.printStackTrace();
+         }
     }
 
     /** 

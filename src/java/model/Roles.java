@@ -9,11 +9,9 @@ package model;
  * @author HÙNG
  */
 public class Roles {
-    
     private int roleID;
     private String roleName;
    private int userID;
-
     public Roles() {
     }
 

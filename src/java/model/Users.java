@@ -9,21 +9,21 @@ import java.sql.Timestamp;
 import java.util.List;
 
 public class Users {
-     private int userID;
+    private int userID;
     private String firstName;
     private String middleName;
     private String lastName;
     private String email;
-    private String phoneNumber; 
+    private String phoneNumber;
     private Date dateOfBirth;
     private String gender;
     private String citizenIdentification;
     private String profileImage;
     private Timestamp createdAt;
     private Timestamp updatedAt;
-    private List<Roles> roles; 
+    private List<Roles> roles;
     private UserAddresses address;
-   private UserAuthentication user;
+    private UserAuthentication user;
     public Users() {
     }
 
@@ -46,17 +46,17 @@ public class Users {
     }
 
     public Users(int userID, String firstName, String middleName, String lastName, String email, String phoneNumber, Date dateOfBirth, String gender, String citizenIdentification) {
-    this.userID = userID;
-    this.firstName = firstName;
-    this.middleName = middleName;
-    this.lastName = lastName;
-    this.email = email;
-    this.phoneNumber = phoneNumber;
-    this.dateOfBirth = dateOfBirth;
-    this.gender = gender;
-    this.citizenIdentification = citizenIdentification;
-}
-    
+        this.userID = userID;
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.dateOfBirth = dateOfBirth;
+        this.gender = gender;
+        this.citizenIdentification = citizenIdentification;
+    }
+
     public int getUserID() {
         return userID;
     }
@@ -176,7 +176,26 @@ public class Users {
     public void setUser(UserAuthentication user) {
         this.user = user;
     }
- 
-    
-   
+
+    @Override
+    public String toString() {
+        return "Users{"
+                + "userID=" + userID
+                + ", firstName='" + firstName + '\''
+                + ", middleName='" + middleName + '\''
+                + ", lastName='" + lastName + '\''
+                + ", email='" + email + '\''
+                + ", phoneNumber='" + phoneNumber + '\''
+                + ", dateOfBirth=" + dateOfBirth
+                + ", gender='" + gender + '\''
+                + ", citizenIdentification='" + citizenIdentification + '\''
+                + ", profileImage='" + profileImage + '\''
+                + ", createdAt=" + createdAt
+                + ", updatedAt=" + updatedAt
+                + ", roles=" + roles
+                + ", address=" + address
+                + ", user=" + user
+                + '}';
+    }
+
 }
