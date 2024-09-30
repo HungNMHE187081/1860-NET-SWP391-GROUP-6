@@ -110,14 +110,16 @@
         <header>
             <h1>Child Care</h1>
             <nav>
-                <a href="staff-home-page.jsp">Home</a>
-                <a href="profile.jsp">Profile</a>
-                <a href="logout.jsp">Logout</a>
+                <a href="staff-home-page.jsp">Trang chủ</a>
+                <a href="profile.jsp">Thông tin cá nhân</a>
+                <a href="logout.jsp">Đăng xuất</a>
             </nav>
         </header>
 
         <main>
-            <h2>Edit Medicine</h2>
+            <center>
+            <h2 style="color: green">Chỉnh sửa thông tin của thuốc</h2>
+            </center>
             <form action="medicineupdate" method="post">
                 <input type="hidden" name="action" value="update" />
                 <input type="hidden" name="medicineID" value="${medicine.medicineID}" />
@@ -153,8 +155,11 @@
 
 
 
-                <button type="submit">Save</button>
+                <button type="submit">Lưu</button><br>
             </form>
+                <center>
+                <a href="medicinelist">Hủy</a>
+                </center>
         </main>
 
         <footer>
