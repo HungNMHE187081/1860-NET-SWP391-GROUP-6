@@ -181,9 +181,9 @@
                                     <label class="control-label">Giới tính</label>
                                     <select class="form-control" id="genderSelect" name="gender" required>
                                         <option value="">-- Chọn giới tính --</option>
-                                        <option value="male">Nam</option>
-                                        <option value="female">Nữ</option>
-                                        <option value="other">Khác</option>
+                                        <option value="Male">Nam</option>
+                                        <option value="Female">Nữ</option>
+                                        <option value="Other">Khác</option>
                                     </select>
                                 </div>
                                 <div class="form-group col-md-3">
@@ -224,7 +224,7 @@
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label class="control-label">Họ</label>
-                                    <input class="form-control" type="text" name="firstName" required>
+                                    <input class="form-control" type="text" name="firstName" pattern="^[a-zA-Z\s]+$" title="Full name should only contain letters and spaces." required>
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label class="control-label">Tên đệm</label>

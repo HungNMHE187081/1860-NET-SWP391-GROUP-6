@@ -262,7 +262,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>StaffServicesServlet</servlet-name>
-        <url-pattern>/staff/staffservices</url-pattern>
+        <url-pattern>/staff/serviceslist</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ServiceDetailServlet</servlet-name>
@@ -274,7 +274,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>StaffSearchServiceServlet</servlet-name>
-        <url-pattern>/staff/staffsearchservice</url-pattern>
+        <url-pattern>/staff/searchservice</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LoadDistrictsServlet</servlet-name>
