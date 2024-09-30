@@ -46,7 +46,7 @@
         </header>
 
         <div class="main-wrapper">
-            <%@ include file="leftside.jsp" %>
+            <%@ include file="Staff_JSP/leftside.jsp" %>
 
           <main>
     <section class="dashboard">
