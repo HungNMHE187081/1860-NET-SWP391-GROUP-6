@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.Provinces;
-
+import java.sql.SQLException;
 /**
  *
  * @author LENOVO
@@ -70,20 +70,35 @@ public class EditProvincesServlet extends HttpServlet {
     throws ServletException, IOException {
     // Get the parameters from the form
     int provinceID = Integer.parseInt(request.getParameter("id"));
-    String provinceName = request.getParameter("name");
+    String provinceName = request.getParameter("name").trim();
     
-    // Create a Provinces object and set the data
-    Provinces province = new Provinces();
-    province.setProvinceID(provinceID);
-    province.setProvinceName(provinceName);
-    
-    // Call the DAO to update the province
     ManagerDAO dao = new ManagerDAO();
-    dao.updateProvinces(province);
-    
-    // Redirect or forward to another page after successful update
-    response.sendRedirect("manageraddress");
+
+    try {
+        // Check if the province name already exists (case-insensitive and without accents)
+        if (dao.isProvinceNameExist(provinceName)) {
+            request.setAttribute("errorMessage", "Tên tỉnh thành đã tồn tại.");
+            request.getRequestDispatcher("manageraddress").forward(request, response);
+            return;
+        }
+
+        // If not, create a Provinces object and update it
+        Provinces province = new Provinces();
+        province.setProvinceID(provinceID);
+        province.setProvinceName(provinceName);
+        
+        // Call the DAO to update the province
+        dao.updateProvinces(province);
+        
+        // Redirect to manageraddress after successful update
+        response.sendRedirect("manageraddress");
+    } catch (SQLException e) {
+        e.printStackTrace();
+        request.setAttribute("errorMessage", "Có lỗi xảy ra khi cập nhật tỉnh thành.");
+        request.getRequestDispatcher("manageraddress").forward(request, response);
+    }
 }
+
 
     /** 
      * Returns a short description of the servlet.
