@@ -4,10 +4,14 @@
  */
 package dal;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import model.Roles;
+import model.UserAuthentication;
 import model.Users;
 /**
  *
@@ -256,5 +260,73 @@ public class UserDAO extends DBContext{
             e.printStackTrace();
         }
         return roles;
+    }
+    
+    public void registerUser(Users user) {
+        String sqlUsers = "INSERT INTO Users (Email) VALUES (?)";
+        String sqlUserAuth = "INSERT INTO UserAuthentication (UserID, Username, PasswordHash, Salt, LastLogin) VALUES (?, ?, ?, ?, ?)";
+        
+        try (PreparedStatement stmtUsers = connection.prepareStatement(sqlUsers, Statement.RETURN_GENERATED_KEYS);
+             PreparedStatement stmtUserAuth = connection.prepareStatement(sqlUserAuth)) {
+            
+            // Insert into Users table
+            stmtUsers.setString(1, user.getEmail());
+            stmtUsers.executeUpdate();
+            
+            // Get the generated UserID
+            try (ResultSet generatedKeys = stmtUsers.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    int userID = generatedKeys.getInt(1);
+                    user.setUserID(userID);
+                    
+                    // Insert into UserAuthentication table
+                    UserAuthentication userAuth = user.getUser();
+                    stmtUserAuth.setInt(1, userID);
+                    stmtUserAuth.setString(2, userAuth.getUsername());
+                    stmtUserAuth.setString(3, userAuth.getPasswordHash());
+                    stmtUserAuth.setString(4, userAuth.getSalt());
+                    stmtUserAuth.setTimestamp(5, userAuth.getLastLogin());
+                    stmtUserAuth.executeUpdate();
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private String hashPassword(String password, String salt) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            md.update(Base64.getDecoder().decode(salt));
+            byte[] hashedPassword = md.digest(password.getBytes());
+            return Base64.getEncoder().encodeToString(hashedPassword);
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    
+    public UserAuthentication loginUser(String username, String password) {
+        String sql = "SELECT * FROM UserAuthentication WHERE Username = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, username);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    String storedHash = rs.getString("PasswordHash");
+                    String salt = rs.getString("Salt");
+                    if (storedHash.equals(hashPassword(password, salt))) {
+                        UserAuthentication userAuth = new UserAuthentication();
+                        userAuth.setUserID(rs.getInt("UserID"));
+                        userAuth.setUsername(rs.getString("Username"));
+                        userAuth.setPasswordHash(storedHash);
+                        userAuth.setSalt(salt);
+                        userAuth.setLastLogin(rs.getTimestamp("LastLogin"));
+                        return userAuth;
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

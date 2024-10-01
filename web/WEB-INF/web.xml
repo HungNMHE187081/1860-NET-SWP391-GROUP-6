@@ -9,8 +9,8 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>-->
     <servlet>
-        <servlet-name>RegistryServlet</servlet-name>
-        <servlet-class>controller.RegistryServlet</servlet-class>
+        <servlet-name>RegisterServlet</servlet-name>
+        <servlet-class>controller.RegisterServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ServicesListServlet</servlet-name>
@@ -152,9 +152,13 @@
         <servlet-name>DeleteUserServlet</servlet-name>
         <servlet-class>controller.DeleteUserServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LoginServlet</servlet-name>
+        <servlet-class>controller.LoginServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
-        <servlet-name>RegistryServlet</servlet-name>
-        <url-pattern>/registryservlet</url-pattern>
+        <servlet-name>RegisterServlet</servlet-name>
+        <url-pattern>/register</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ServicesListServlet</servlet-name>
@@ -291,5 +295,9 @@
     <servlet-mapping>
         <servlet-name>DeleteUserServlet</servlet-name>
         <url-pattern>/deleteuser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoginServlet</servlet-name>
+        <url-pattern>/login</url-pattern>
     </servlet-mapping>
 </web-app>
