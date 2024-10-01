@@ -150,8 +150,6 @@
         <servlet-class>controller.DeleteUserServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>LoginServlet</servlet-name>
-        <servlet-class>controller.LoginServlet</servlet-class>
         <servlet-name>FeedbackListServlet</servlet-name>
         <servlet-class>controller.FeedbackListServlet</servlet-class>
     </servlet>
@@ -309,8 +307,6 @@
         <url-pattern>/deleteuser</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>LoginServlet</servlet-name>
-        <url-pattern>/login</url-pattern>
         <servlet-name>ManageWardServlet</servlet-name>
         <url-pattern>/manageward</url-pattern>
     </servlet-mapping>
