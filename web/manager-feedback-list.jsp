@@ -59,7 +59,7 @@
                 <li><a class="app-menu__item " href="index.html"><i class='app-menu__icon bx bx-tachometer'></i><span
                             class="app-menu__label">Bảng điều khiển</span></a></li>
                 <li><a class="app-menu__item active" href="serviceslist"><i class='app-menu__icon bx bx-id-card'></i>
-                        <span class="app-menu__label">Quản lý dịch vụ</span></a></li>
+                        <span class="app-menu__label">Quản lý phản hồi</span></a></li>
                 <li><a class="app-menu__item" href="#"><i class='app-menu__icon bx bx-user-voice'></i><span
                             class="app-menu__label">Quản lý khách hàng</span></a></li>
                 <li><a class="app-menu__item" href="table-data-product.html"><i
@@ -114,6 +114,7 @@
                                     </div>
                                 </div>
                                 <div>
+
                                     <form method="get" action="searchfeedback" class="form-inline">
                                         <!-- Search Input -->
                                         <div class="input-group mb-3">
@@ -124,7 +125,7 @@
                                         </div>
                                         <div class="input-group mb-3">
                                             <select class="form-control" id="rating" name="rating">
-                                                <option value="">Chọn độ tuổi</option>
+                                                <option value="" disabled selected>Chọn số sao</option>
                                                 <c:forEach var="feedback" items="${feedback}">
                                                     <option value="${feedback.rating}">${feedback.rating}</option>
                                                 </c:forEach>
@@ -135,54 +136,6 @@
                                         </div>
                                     </form>
                                 </div>
-
-<!--                                <style>
-                                    /* Style for Input Groups */
-                                    .input-group .form-control {
-                                        border-right: none;
-                                    }
-
-                                    .input-group .input-group-append .btn {
-                                        border-left: none;
-                                        border-radius: 0 4px 4px 0;
-                                    }
-
-                                    /* Button Styles */
-                                    .custom-search-btn, .custom-filter-btn {
-                                        height: 45px;
-                                        padding: 0 20px;
-                                        font-size: 14px;
-                                    }
-
-                                    .custom-search-btn {
-                                        background-color: #F5CBA7;
-                                        color: #D35400;
-                                        border: 1px solid #D35400;
-                                    }
-
-                                    .custom-search-btn:hover {
-                                        background-color: #D35400;
-                                        color: #FFFFFF;
-                                    }
-
-                                    .custom-filter-btn {
-                                        background-color: #1B2631;
-                                        color: #FFFFFF;
-                                        border: 1px solid #1B2631;
-                                    }
-
-                                    .custom-filter-btn:hover {
-                                        background-color: #154360;
-                                    }
-
-                                    /* General Form Control */
-                                    .form-control {
-                                        height: 45px;
-                                    }
-
-                                    
-                                </style>-->
-
                             </div>
 
                             <table>
@@ -190,24 +143,25 @@
                                     <tr>
                                         <th>STT</th>
                                         <th>Người dùng phản hồi</th>
-                                        <th>Tên dịch vụ</th>
-                                        <th>Đánh giá(sao)</th>
-                                        <th>Đánh giá cụ thể</th>
-                                        <th>Thời gian phản hồi</th>
-                                        <th>Chức năng</th>
+                                        <th>Email</th>
+                                        <th>Số điện thoại</th>
+                                        <th>Dịch vụ</th>
+                                        <th>Đánh giá dịch vụ(theo sao)</th>
+                                        <th>Chi tiết phản hồi</th>
+                                        <th>Đóng góp ý kiến</th>
+                                        <th>Đính kèm tệp</th>
+                                        <th>Đánh giá trải nghiệm</th>
+                                        <!--<th>Ngày gửi phản hồi</th>-->
+                                        <th>Trạng thái hoạt động</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <c:forEach var="feedback" items="${feedback}" varStatus="status">
                                         <tr>
                                             <td>${status.index + 1}</td>
-                                            <td>
-                                                <c:forEach var="user" items="${user}">
-                                                    <c:if test="${user.UserID == feedback.UserID}">
-                                                         ${user.firstName} ${user.middleName}  ${user.lastName} 
-                                                    </c:if>
-                                                </c:forEach>
-                                            </td>
+                                            <td>${feedback.userName}</td>
+                                            <td>${feedback.email}</td>
+                                            <td>${feedback.phoneNumber}</td>
                                             <td>
                                                 <c:forEach var="service" items="${service}">
                                                     <c:if test="${service.serviceID == feedback.serviceID}">
@@ -215,18 +169,13 @@
                                                     </c:if>
                                                 </c:forEach>
                                             </td>
-                                            <td>${feedback.rating}</td>
+                                            <td>${feedback.rating}</td>     
                                             <td>${feedback.comment}</td>
-                                            <td>${feedback.feedbackDate}</td>
-                                            <td class="table-td-center">
-                                                <button class="btn btn-primary btn-sm trash" type="button" title="delete"
-                                                        onclick="return confirm('Are you sure you want to delete this feedback?')">
-                                                    <a href="deletefeedback?feedbackID=${feedback.feedbackID}"><i class="fas fa-trash-alt"></i></a>
-                                                </button>
-                                                <button class="btn btn-primary btn-sm" type="button" title="Sửa" id="show-emp">
-                                                    <a href="editfeedback?feedbackID=${feedback.feedbackID}"><i class="fas fa-edit"></i></a>
-                                                </button>
-                                            </td>
+                                            <td>${feedback.suggestion}</td>
+                                            <td><img src="${feedback.attachmentPath}" alt="${feedback.attachmentPath}" width="75" height="50"></td>
+                                            <td>${feedback.experienceRating}</td>    
+
+                                            <td>${feedback.status ? 'Đã phản hồi' : 'Chưa phản hồi'}</td>
                                         </tr>
                                     </c:forEach>
                                 </tbody>
@@ -340,7 +289,6 @@
                 $("#ModalUP").modal({backdrop: false, keyboard: false})
             });
         </script>
-
     </body>
 
 </html>

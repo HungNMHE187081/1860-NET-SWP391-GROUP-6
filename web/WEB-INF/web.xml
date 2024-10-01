@@ -152,6 +152,18 @@
         <servlet-name>DeleteUserServlet</servlet-name>
         <servlet-class>controller.DeleteUserServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>FeedbackListServlet</servlet-name>
+        <servlet-class>controller.FeedbackListServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddFeedbackServlet</servlet-name>
+        <servlet-class>controller.AddFeedbackServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchFeedbackServlet</servlet-name>
+        <servlet-class>controller.SearchFeedbackServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegistryServlet</servlet-name>
         <url-pattern>/registryservlet</url-pattern>
@@ -291,5 +303,17 @@
     <servlet-mapping>
         <servlet-name>DeleteUserServlet</servlet-name>
         <url-pattern>/deleteuser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddFeedbackServlet</servlet-name>
+        <url-pattern>/addfeedback</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FeedbackListServlet</servlet-name>
+        <url-pattern>/feedbacklist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchFeedbackServlet</servlet-name>
+        <url-pattern>/searchfeedback</url-pattern>
     </servlet-mapping>
 </web-app>

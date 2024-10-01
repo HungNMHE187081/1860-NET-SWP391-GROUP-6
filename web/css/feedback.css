@@ -1,0 +1,177 @@
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Outfit", sans-serif;
+}
+
+body {
+    background: white;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 20px;
+    overflow-y: ; /* Add vertical scrolling if necessary */
+}
+
+.form-container {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+    max-height: 90vh; /* Limit the height of the form */
+    overflow-y: auto; /* Enable scroll if content overflows */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+    font-size: 26px;
+    margin-bottom: 15px;
+    color: #111; /* Darker text for better contrast */
+}
+
+p {
+    font-size: 16px;
+    margin-bottom: 25px;
+    color: #555; /* Softer black for descriptions */
+}
+
+label {
+    font-size: 15px;
+    margin-top: 15px;
+    color: #111;
+    display: block;
+}
+
+input[type="text"], input[type="email"], input[type="tel"], input[type="url"], input[type="date"],
+input[type="number"], select, textarea, input[type="file"] {
+    width: 100%;
+    padding: 12px;
+    margin-top: 8px;
+    border-radius: 8px;
+    border: 1px solid #bbb; /* Light grey border */
+    font-size: 14px;
+    background-color: #f9f9f9; /* Very light background for fields */
+    color: #111;
+    transition: border 0.3s ease;
+}
+
+input:focus, textarea:focus, select:focus {
+    border-color: black; /* Highlight input with black on focus */
+    outline: none;
+}
+
+textarea {
+    height: 120px;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 25px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+    background-color: #333;
+    transform: translateY(-2px);
+}
+
+.rating {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.emoji {
+    font-size: 30px;
+    cursor: pointer;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.emoji:hover {
+    transform: scale(1.4) rotate(10deg);
+    color: black; /* Black for the hover effect */
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+input[type="radio"]:checked + label {
+    border: 3px solid black;
+    padding: 10px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.1); /* Light black background for selected emoji */
+    transform: scale(1.3);
+}
+
+.terms {
+    margin-top: 25px;
+    display: flex;
+    align-items: center;
+}
+
+.terms input {
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+/* Smooth background transitions when emojis are selected */
+body.rating-selected {
+    background: linear-gradient(135deg, #ececec, #f5f5f5); /* Subtle gradient with white dominance */
+    transition: background 0.5s ease;
+}
+
+#preview-container img {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.required-label::after {
+    content: " *";
+    color: red;
+}
+
+.rating {
+    display: flex;
+    gap: 50px; /* Tạo khoảng cách giữa các emoji */
+    justify-content: center;
+    margin-bottom: 10px; /* Tạo khoảng cách phía dưới để hiển thị tin nhắn */
+}
+
+.emoji {
+    font-size: 2.5rem;
+    cursor: pointer;
+    display: inline-block;
+    text-align: center;
+    margin-bottom: 10px; /* Khoảng cách giữa emoji và chữ */
+}
+
+.chat-message {
+    margin-top: 10px;
+    font-size: 1.2rem;
+    color: #333;
+    text-align: center;
+}
+
+.hidden {
+    display: none;
+}
