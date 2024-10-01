@@ -35,9 +35,9 @@ public class ServiceDetailServlet extends HttpServlet {
             List<AgeLimits> ageLimitList = ageLimitDAO.getAllAgeLimits();
             request.setAttribute("service", service);
             request.setAttribute("ageLimit", ageLimitList);
-            request.getRequestDispatcher("staff-service-detail.jsp").forward(request, response);
+            request.getRequestDispatcher("/Staff_JSP/staff-service-detail.jsp").forward(request, response);
         } else {
-            response.sendRedirect("staff-services-list.jsp");
+            response.sendRedirect(request.getContextPath() + "/Staff_JSP/staff-services-list.jsp");
         }
     } 
 
