@@ -162,54 +162,62 @@
                 </ul>
             </div>
             <div class="row">
-                <div class="col-md-12">
-                    <div class="tile">
+    <div class="col-md-12">
+        <div class="tile">
+            <h3 class="tile-title">Tạo mới nhân viên</h3>
+            <div class="tile-body">
+                <form action="adduser" method="post" enctype="multipart/form-data">
+                    <div class="row">
+                        <!-- Avatar Section -->
+                        <div class="col-md-3 text-center">
+                            <div class="form-group">
+                                <label class="control-label">Ảnh đại diện</label>
+                                <div class="profile-img-container">
+                                    <img id="imagePreview" src="https://via.placeholder.com/150" alt="Image Preview" class="rounded-circle img-fluid">
+                                </div>
+                                <input class="form-control-file mt-3" type="file" name="profileImage" id="profileImage" onchange="previewImage(event)">
+                            </div>
+                        </div>
 
-                        <h3 class="tile-title">Tạo mới nhân viên</h3>
-                        <div class="tile-body">
-
-                            <form action="adduser" method="post" enctype="multipart/form-data">
-                                <div class="form-group col-md-4">
+                        <!-- Information Section -->
+                        <div class="col-md-9">
+                            <div class="row">
+                                <div class="form-group col-md-6">
                                     <label class="control-label">Username</label>
                                     <input class="form-control" type="text" name="username" required>
                                 </div>
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-6">
                                     <label class="control-label">Password</label>
                                     <input class="form-control" type="password" name="passwordHash" required>
                                 </div>
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md-4">
                                     <label class="control-label">Giới tính</label>
-                                    <select class="form-control" id="genderSelect" name="gender" required>
+                                    <select class="form-control" name="gender" required>
                                         <option value="">-- Chọn giới tính --</option>
-                                        <option value="Male">Nam</option>
-                                        <option value="Female">Nữ</option>
+                                        <option value="Nam">Nam</option>
+                                        <option value="Nữ">Nữ</option>
                                         <option value="Other">Khác</option>
                                     </select>
                                 </div>
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md-4">
                                     <label class="control-label">Tỉnh/Thành phố</label>
                                     <select class="form-control" id="provinceID" name="provinceID" onchange="loadDistricts()">
                                         <option value="">-- Chọn Tỉnh --</option>
                                         <c:forEach var="province" items="${provinces}">
-                                            <option value="${province.provinceID}" 
-                                                    <c:if test="${province.provinceID == selectedProvinceID}">selected</c:if> >
-                                                ${province.provinceName}
-                                            </option>
+                                            <option value="${province.provinceID}">${province.provinceName}</option>
                                         </c:forEach>
                                     </select>
                                 </div>
-
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md-4">
                                     <label class="control-label">Quận/Huyện</label>
                                     <select class="form-control" id="districtSelect" name="districtID" onchange="loadWards()">
                                         <option value="">-- Chọn Huyện --</option>
                                         <c:forEach var="district" items="${districts}">
-                                            <option value="${district.id}" <c:if test="${district.id == selectedDistrictID}">selected</c:if>>${district.districtName}</option>
+                                            <option value="${district.id}">${district.districtName}</option>
                                         </c:forEach>
                                     </select>
                                 </div>
-
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md-4">
                                     <label class="control-label">Phường/Xã</label>
                                     <select class="form-control" id="wardSelect" name="wardID">
                                         <option value="">-- Chọn Xã --</option>
@@ -224,7 +232,7 @@
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label class="control-label">Họ</label>
-                                    <input class="form-control" type="text" name="firstName" pattern="^[a-zA-Z\s]+$" title="Full name should only contain letters and spaces." required>
+                                    <input class="form-control" type="text" name="firstName" required>
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label class="control-label">Tên đệm</label>
@@ -250,20 +258,18 @@
                                     <label class="control-label">CMND/CCCD</label>
                                     <input class="form-control" type="text" name="citizenIdentification" required>
                                 </div>
-                                <div class="form-group col-md-4">
-                                    <label class="control-label">Ảnh đại diện</label>
-                                    <input class="form-control" type="file" name="profileImage" id="profileImage" onchange="previewImage(event)">
-                                    <img id="imagePreview" src="#" alt="Image Preview" style="display:none; margin-top:10px; max-width:100%;"/>
-                                </div>
                                 <div class="form-group col-md-12">
                                     <button type="submit" class="btn btn-primary">Thêm người dùng</button>
                                 </div>
-                            </form>
+                            </div>
                         </div>
-
                     </div>
-                </div>
-            </div>          
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+        
         </main>
 
 
@@ -335,7 +341,25 @@
                 }
               
     </script>
+<style>
+    .profile-img-container {
+        width: 150px;
+        height: 150px;
+        overflow: hidden;
+        border-radius: 50%;
+        margin: 0 auto;
+    }
 
+    .profile-img-container img {
+        width: 100%;
+        height: auto;
+    }
+
+    .form-control-file {
+        display: block;
+        margin-top: 10px;
+    }
+</style>
 
     <!-- Essential javascripts for application to work-->
     <script src="js/manager/jquery-3.2.1.min.js"></script>

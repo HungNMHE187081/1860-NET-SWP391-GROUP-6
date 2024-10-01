@@ -168,6 +168,7 @@
         <servlet-name>RegistryServlet</servlet-name>
         <url-pattern>/registryservlet</url-pattern>
     </servlet-mapping>
+    
     <servlet-mapping>
         <servlet-name>ServicesListServlet</servlet-name>
         <url-pattern>/manager/serviceslist</url-pattern>
@@ -305,15 +306,7 @@
         <url-pattern>/deleteuser</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AddFeedbackServlet</servlet-name>
-        <url-pattern>/addfeedback</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>FeedbackListServlet</servlet-name>
-        <url-pattern>/feedbacklist</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>SearchFeedbackServlet</servlet-name>
-        <url-pattern>/searchfeedback</url-pattern>
+        <servlet-name>ManageWardServlet</servlet-name>
+        <url-pattern>/manageward</url-pattern>
     </servlet-mapping>
 </web-app>
