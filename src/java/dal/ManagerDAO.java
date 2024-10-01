@@ -7,8 +7,10 @@ package dal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 import model.District;
 import model.Provinces;
 import model.Ward;
@@ -70,15 +72,51 @@ public class ManagerDAO extends DBContext {
     }
 
     public void addProvinces(Provinces provinces) {
-        String sql = "INSERT INTO Provinces(ProvinceName) VALUES (?)";
-        try {
-            PreparedStatement pre = connection.prepareStatement(sql);
-            pre.setString(1, provinces.getProvinceName());
-            pre.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
+    try {
+        // Kiểm tra nếu tên tỉnh đã tồn tại trước khi thêm
+        if (!isProvinceNameExist(provinces.getProvinceName())) {
+            String query = "INSERT INTO Provinces(ProvinceName) VALUES (TRIM(?))";
+            try (PreparedStatement pre = connection.prepareStatement(query)) {
+                pre.setString(1, provinces.getProvinceName().trim());
+                pre.executeUpdate();
+                System.out.println("Đã thêm tỉnh thành: " + provinces.getProvinceName());
+            }
+        } else {
+            System.out.println("Tên tỉnh đã tồn tại: " + provinces.getProvinceName());
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
+    
+ public boolean isProvinceNameExist(String provinceName) throws SQLException {
+    // Loại bỏ dấu và chuyển đổi về chữ thường
+    String normalizedProvinceName = removeAccent(provinceName.trim()).toLowerCase();
+    System.out.println("Kiểm tra tên tỉnh: " + provinceName + ", Normalized: " + normalizedProvinceName); // Debug thông tin đầu vào
+    
+     String query = "SELECT COUNT(*) FROM Provinces WHERE LOWER(dbo.removeAccent(ProvinceName)) = LOWER(?)";
+    
+    try (PreparedStatement ps = connection.prepareStatement(query)) {
+        ps.setString(1, normalizedProvinceName); // So sánh với tên đã chuẩn hóa
+        try (ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                boolean exists = rs.getInt(1) > 0; // Nếu số lượng > 0, tên tỉnh đã tồn tại
+                System.out.println("Tên tỉnh đã tồn tại: " + exists); // Debug thông tin kết quả
+                return exists;
+            }
         }
     }
+    return false;
+}
+   public String removeAccent(String s) {
+    if (s == null) {
+        return null;
+    }
+    String normalized = Normalizer.normalize(s, Normalizer.Form.NFD);
+    Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+    return pattern.matcher(normalized).replaceAll("");
+}
+
 
     public void deleteProvinces(int provinceID) {
         String sql = "delete from Provinces where ProvinceID = ?";
@@ -173,6 +211,26 @@ public class ManagerDAO extends DBContext {
             e.printStackTrace();
         }
     }
+public boolean isDistrictNameExist(int provinceID, String districtName) throws SQLException {
+    // Loại bỏ dấu và chuyển tên về dạng chữ thường
+    String normalizedDistrictName = removeAccent(districtName.trim()).toLowerCase();
+    System.out.println("Kiểm tra tên quận/huyện: " + districtName + ", Normalized: " + normalizedDistrictName); // Debug thông tin đầu vào
+    
+    String query = "SELECT COUNT(*) FROM Districts WHERE ProvinceID = ? AND LOWER(dbo.removeAccent(DistrictName)) = LOWER(?)";
+    
+    try (PreparedStatement ps = connection.prepareStatement(query)) {
+        ps.setInt(1, provinceID); // Kiểm tra dựa trên ID tỉnh
+        ps.setString(2, normalizedDistrictName); // So sánh với tên quận/huyện đã chuẩn hóa
+        try (ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                boolean exists = rs.getInt(1) > 0; // Nếu số lượng > 0, tên quận/huyện đã tồn tại
+                System.out.println("Tên quận/huyện đã tồn tại: " + exists); // Debug kết quả
+                return exists;
+            }
+        }
+    }
+    return false;
+}
 
     public void addDistricts(District district) {
         String sql = "INSERT INTO Districts(ProvinceID, DistrictName) VALUES (?, ?)";
@@ -189,8 +247,11 @@ public class ManagerDAO extends DBContext {
 
     public static void main(String[] args) {
         ManagerDAO m = new ManagerDAO();
-        int id = 2;
-        List<Ward> wardByDistrict = m.getWardByDistrict(id);
-        System.out.println(wardByDistrict);
+        Provinces provicnes = new Provinces();
+        String p = "Vinh Phuc";
+        provicnes.setProvinceName(p);
+        m.addProvinces(provicnes);
+        
+       
     }
 }

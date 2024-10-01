@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.District;
-
+import java.sql.SQLException;
 /**
  *
  * @author LENOVO
@@ -69,15 +69,29 @@ public class AddDistrictServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         
-        ManagerDAO dao = new ManagerDAO();
-        int provinceID = Integer.parseInt(request.getParameter("id"));
-        String name = request.getParameter("districtName");
-        District district = new District();
-        district.setDistrictName(name);
-        district.setProvinceID(provinceID);
-        dao.addDistricts(district);
-        response.sendRedirect("managedistrict?id="+ provinceID);
+    ManagerDAO dao = new ManagerDAO();
+    int provinceID = Integer.parseInt(request.getParameter("id"));
+    String name = request.getParameter("districtName");
+    
+    try {
+        // Kiểm tra xem tên quận/huyện đã tồn tại chưa
+        if (dao.isDistrictNameExist(provinceID, name)) {
+            // Quận/huyện đã tồn tại, xử lý trường hợp này (ví dụ thông báo lỗi)
+            request.setAttribute("errorMessage", "Tên quận/huyện đã tồn tại!");
+            request.getRequestDispatcher("manager-DistrictWard-form.jsp").forward(request, response);
+        } else {
+            // Nếu chưa tồn tại, tiếp tục thêm mới quận/huyện
+            District district = new District();
+            district.setDistrictName(name);
+            district.setProvinceID(provinceID);
+            dao.addDistricts(district);
+            response.sendRedirect("managedistrict?id=" + provinceID); // Chuyển hướng sau khi thêm thành công
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+        response.sendRedirect("error.jsp"); // Chuyển hướng khi có lỗi
     }
+}
 
     /** 
      * Returns a short description of the servlet.

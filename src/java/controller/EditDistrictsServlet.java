@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.District;
-
+import java.sql.SQLException;
 /**
  *
  * @author LENOVO
@@ -66,15 +66,34 @@ public class EditDistrictsServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
-        String name = request.getParameter("districtNameInput");
-        int provinceID = Integer.parseInt(request.getParameter("provinceID"));
-        ManagerDAO m = new ManagerDAO();
-        m.updateDistricts(id, name, provinceID);
-        response.sendRedirect("managedistrict?id="+ provinceID);
+    
+    int id = Integer.parseInt(request.getParameter("id")); // Lấy ID của quận/huyện đang được chỉnh sửa
+    String name = request.getParameter("districtNameInput"); // Lấy tên quận/huyện mới từ form
+    int provinceID = Integer.parseInt(request.getParameter("provinceID")); // Lấy ID tỉnh
+
+    ManagerDAO dao = new ManagerDAO();
+    
+    try {
+        // Kiểm tra tên quận/huyện có tồn tại hay không
+        if (dao.isDistrictNameExist(provinceID, name)) {
+            // Nếu tên đã tồn tại, gửi lại trang chỉnh sửa với thông báo lỗi
+            request.setAttribute("errorMessage", "Tên quận/huyện đã tồn tại!"); // Thiết lập thông báo lỗi
+         request.getRequestDispatcher("manager-DistrictWard-form.jsp").forward(request, response);
+        } else {
+            // Nếu không trùng lặp, tiến hành cập nhật
+            dao.updateDistricts(id, name, provinceID);
+            response.sendRedirect("managedistrict?id=" + provinceID); // Điều hướng về trang quản lý quận/huyện
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+        request.setAttribute("errorMessage", "Đã xảy ra lỗi khi cập nhật!"); // Thiết lập thông báo lỗi khác
+        request.getRequestDispatcher("manager-DistrictWard-form.jsp").forward(request, response);
     }
+}
+
 
     /** 
      * Returns a short description of the servlet.

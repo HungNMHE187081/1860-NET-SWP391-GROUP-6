@@ -85,7 +85,6 @@ public class AddMedicineServlet extends HttpServlet {
         String description = request.getParameter("description");
         String uses = request.getParameter("uses");
         String dosage = request.getParameter("dosage");
-        String manufactureName = request.getParameter("manufactureName");
         String userManual = request.getParameter("userManual");
         String contraindications = request.getParameter("contraindications");
         int categoryID = Integer.parseInt(request.getParameter("categoryID"));

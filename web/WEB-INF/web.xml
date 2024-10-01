@@ -132,10 +132,7 @@
         <servlet-name>StaffSearchServiceServlet</servlet-name>
         <servlet-class>controller.StaffSearchServiceServlet</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>ManageUserServlet</servlet-name>
-        <servlet-class>controller.ManageUserServlet</servlet-class>
-    </servlet>
+
     <servlet>
         <servlet-name>AddUserServlet</servlet-name>
         <servlet-class>controller.AddUserServlet</servlet-class>
@@ -155,11 +152,26 @@
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>controller.LoginServlet</servlet-class>
+        <servlet-name>FeedbackListServlet</servlet-name>
+        <servlet-class>controller.FeedbackListServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddFeedbackServlet</servlet-name>
+        <servlet-class>controller.AddFeedbackServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchFeedbackServlet</servlet-name>
+        <servlet-class>controller.SearchFeedbackServlet</servlet-class>
+    </servlet>
+        <servlet>
+        <servlet-name>ManageWardServlet</servlet-name>
+        <servlet-class>controller.ManageWardServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/register</url-pattern>
     </servlet-mapping>
+    
     <servlet-mapping>
         <servlet-name>ServicesListServlet</servlet-name>
         <url-pattern>/manager/serviceslist</url-pattern>
@@ -299,5 +311,7 @@
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/login</url-pattern>
+        <servlet-name>ManageWardServlet</servlet-name>
+        <url-pattern>/manageward</url-pattern>
     </servlet-mapping>
 </web-app>

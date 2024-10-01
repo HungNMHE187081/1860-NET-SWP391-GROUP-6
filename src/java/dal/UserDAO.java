@@ -46,6 +46,7 @@ public class UserDAO extends DBContext{
         return users;
     }
     
+    
     public Users getUserById(int userId) {
         Users user = null;
         String sql = "SELECT * FROM Users WHERE UserID = ?";
@@ -122,12 +123,12 @@ public class UserDAO extends DBContext{
         UserDAO userDAO = new UserDAO();
 
         // Gọi phương thức getAllUsers
-        List<Users> users = userDAO.getAllUsers();
+        Users users = userDAO.getUserById(1);
 
         // In kết quả ra màn hình
-        for (Users user : users) {
-            System.out.println(user);
-        }
+
+            System.out.println(users.getFirstName());
+       
     }
     
     public List<Users> searchUsers(String searchTerm) {
