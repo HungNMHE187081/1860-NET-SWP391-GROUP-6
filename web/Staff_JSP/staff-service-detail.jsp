@@ -7,9 +7,9 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Danh sách thuốc</title>
+        <title>Chi tiết dịch vụ</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-        <link rel="stylesheet" href="css/styles.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
     </head>
     <body>
         <style>
@@ -85,16 +85,17 @@
         </header>
 
         <div class="main-wrapper">
-            <%@ include file="/Staff_JSP/leftside.jsp" %>
+            <%@ include file="leftside.jsp" %>
             <main>
                 <section class="dashboard">
                     <h2><i class="fas fa-concierge-bell"></i> Thông tin chi tiết của dịch vụ</h2>
-                    <a href="staffservices" class="back-link">Trở về</a>
+                    <a href="${pageContext.request.contextPath}/staff/serviceslist" class="back-link">Trở về</a>
 
                     <div class="detail-container">
                         <c:choose>
                             <c:when test="${not empty service}">
-                                <img src="${service.serviceImage}" alt="${service.serviceName}" class="service-image"/>
+                                <img src="${pageContext.request.contextPath}/${service.serviceImage}" 
+                                     alt="${service.serviceName}" class="service-image">
                                 <div class="detail-item">
                                     <label>Tên dịch vụ:</label>
                                     <span>${service.serviceName}</span>
