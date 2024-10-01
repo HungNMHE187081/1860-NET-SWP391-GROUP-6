@@ -211,6 +211,26 @@ public class ManagerDAO extends DBContext {
             e.printStackTrace();
         }
     }
+public boolean isDistrictNameExist(int provinceID, String districtName) throws SQLException {
+    // Loại bỏ dấu và chuyển tên về dạng chữ thường
+    String normalizedDistrictName = removeAccent(districtName.trim()).toLowerCase();
+    System.out.println("Kiểm tra tên quận/huyện: " + districtName + ", Normalized: " + normalizedDistrictName); // Debug thông tin đầu vào
+    
+    String query = "SELECT COUNT(*) FROM Districts WHERE ProvinceID = ? AND LOWER(dbo.removeAccent(DistrictName)) = LOWER(?)";
+    
+    try (PreparedStatement ps = connection.prepareStatement(query)) {
+        ps.setInt(1, provinceID); // Kiểm tra dựa trên ID tỉnh
+        ps.setString(2, normalizedDistrictName); // So sánh với tên quận/huyện đã chuẩn hóa
+        try (ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                boolean exists = rs.getInt(1) > 0; // Nếu số lượng > 0, tên quận/huyện đã tồn tại
+                System.out.println("Tên quận/huyện đã tồn tại: " + exists); // Debug kết quả
+                return exists;
+            }
+        }
+    }
+    return false;
+}
 
     public void addDistricts(District district) {
         String sql = "INSERT INTO Districts(ProvinceID, DistrictName) VALUES (?, ?)";
