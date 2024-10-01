@@ -132,10 +132,7 @@
         <servlet-name>StaffSearchServiceServlet</servlet-name>
         <servlet-class>controller.StaffSearchServiceServlet</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>ManageUserServlet</servlet-name>
-        <servlet-class>controller.ManageUserServlet</servlet-class>
-    </servlet>
+
     <servlet>
         <servlet-name>AddUserServlet</servlet-name>
         <servlet-class>controller.AddUserServlet</servlet-class>
@@ -163,6 +160,10 @@
     <servlet>
         <servlet-name>SearchFeedbackServlet</servlet-name>
         <servlet-class>controller.SearchFeedbackServlet</servlet-class>
+    </servlet>
+        <servlet>
+        <servlet-name>ManageWardServlet</servlet-name>
+        <servlet-class>controller.ManageWardServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>RegistryServlet</servlet-name>
