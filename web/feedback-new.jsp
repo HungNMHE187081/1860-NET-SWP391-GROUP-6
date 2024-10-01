@@ -50,7 +50,7 @@
 
                 <style>
                     label, input, #preview-container, #clear-images-btn {
-                        margin-bottom: 10px; /* Adds space below each element */
+                        margin-bottom: 10px;
                     }
                 </style>
 
