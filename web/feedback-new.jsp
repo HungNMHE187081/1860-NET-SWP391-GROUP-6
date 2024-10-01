@@ -48,15 +48,23 @@
                 <label for="suggestion">Góp Ý Dịch Vụ</label>
                 <textarea id="suggestion" name="suggestion" placeholder="Chia sẻ ý kiến của bạn về cách chúng tôi có thể cải thiện" required></textarea>
 
-                <label for="attachment">Đính Kèm Tệp (tùy chọn)</label>
-                <input type="file" id="attachment" name="attachment" multiple accept=".jpg, .jpeg, .png">
+                <style>
+                    label, input, #preview-container, #clear-images-btn {
+                        margin-bottom: 10px; /* Adds space below each element */
+                    }
+                </style>
+
+                <label for="attachment">Đính Kèm Tệp</label>
+                <input type="file" id="attachment" name="attachment" required multiple accept=".jpg, .jpeg, .png">
                 <!-- Thêm phần xem trước ở đây -->
                 <div id="preview-container"></div>
 
                 <!-- Thêm nút Xóa hình ảnh ở đây -->
                 <button type="button" id="clear-images-btn" style="display:none;">Xóa Hình Ảnh</button>
+
+                <button type="button" id="clear-images-btn" style="display:none;">Xóa Hình Ảnh</button>
                 <label>Đánh Giá Trải Nghiệm Của Bạn</label>
-                <div class="rating">
+                <div class="rating" required >
                     <input type="radio" name="experienceRating" id="very-bad" value="Rất tức giận">
                     <label for="very-bad" class="emoji" data-chat="Rất tức giận">&#128544;</label>
 
