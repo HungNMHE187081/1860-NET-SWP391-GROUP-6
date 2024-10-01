@@ -346,7 +346,7 @@
         width: 150px;
         height: 150px;
         overflow: hidden;
-        border-radius: 50%;
+        border-radius: 20%;
         margin: 0 auto;
     }
 

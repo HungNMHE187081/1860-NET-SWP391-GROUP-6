@@ -67,7 +67,7 @@
                                 <div class="col-sm-2">
 
                                     <button class="btn btn-add btn-sm" id="show-emp" data-toggle="modal" data-target="#ModalAdd" title="Thêm"><i class="fas fa-plus"></i>
-                                        Tạo mới nhân viên</button>
+                                        Tạo mới Tỉnh thành</button>
                                 </div>
                                 <div class="col-sm-2">
                                     <a class="btn btn-delete btn-sm nhap-tu-file" type="button" title="Nhập" onclick="myFunction(this)"><i
