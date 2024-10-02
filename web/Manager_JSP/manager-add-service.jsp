@@ -178,7 +178,7 @@
                                 <div class="form-group col-md-4">
                                     <label class="control-label">Độ tuổi</label>
                                     <select class="form-control" id="ageLimit" name="ageLimit" required>
-                                        <!--<option>-- Chọn độ tuổi --</option>-->
+                                        <option value="" disabled selected>-- Chọn độ tuổi --</option>
                                         <c:forEach var="agelimit" items="${ageLimits}">
                                             <option>${agelimit.ageLimit}</option>
                                         </c:forEach>
@@ -200,7 +200,7 @@
                                 <div class="form-group col-md-3">
                                     <label for="exampleSelect1" class="control-label">Tình trạng hoạt động</label>
                                     <select class="form-control" id="isActive" name="isActive" required>
-                                        <!--<option>-- Chọn trạng thái --</option>-->
+                                        <option value="" disabled selected>Chọn trạng thái</option>
                                         <option>Hoạt động</option>
                                         <option>Chưa hoạt động</option>
                                     </select>
