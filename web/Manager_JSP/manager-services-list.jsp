@@ -53,7 +53,7 @@
 
             <div class="app-title">
                 <ul class="app-breadcrumb breadcrumb side">
-                    <li class="breadcrumb-item active"><a href="serviceslist"><b>Danh sách dịch vụ</b></a></li>
+                    <li class="breadcrumb-item active"><a href="${pageContext.request.contextPath}/manager/serviceslist"><b>Danh sách dịch vụ</b></a></li>
                 </ul>
                 <div id="clock"></div>
             </div>

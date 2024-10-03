@@ -2,6 +2,7 @@ package controller;
 
 import dal.AgeLimitDAO;
 import dal.CategoryDAO;
+import dal.DegreeDAO;
 import dal.ServiceDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -16,6 +17,7 @@ import java.nio.file.Paths;
 import java.util.List;
 import model.AgeLimits;
 import model.Category;
+import model.Degree;
 import model.Service;
 
 @MultipartConfig
@@ -30,8 +32,10 @@ public class ManagerEditServiceServlet extends HttpServlet {
         CategoryDAO categoryDAO = new CategoryDAO();
         List<Category> categories = categoryDAO.getAllCategories();
         request.setAttribute("categories", categories);
+        DegreeDAO degreeDAO = new DegreeDAO();
+        List<Degree> degrees = degreeDAO.getAllDegrees();
+        request.setAttribute("degrees", degrees);
         
-        // Lấy thông tin dịch vụ hiện tại để hiển thị trên form
         int serviceID = Integer.parseInt(request.getParameter("serviceID"));
         ServiceDAO serviceDAO = new ServiceDAO();
         Service service = serviceDAO.getServiceByID(serviceID);
@@ -75,7 +79,7 @@ public class ManagerEditServiceServlet extends HttpServlet {
         }
 
         ServiceDAO serviceDAO = new ServiceDAO();
-//        serviceDAO.editService(serviceID, serviceName, description, price, duration, serviceImage, isActive, ageLimitID);
+        serviceDAO.editService(serviceID, categoryID, degreeID, serviceName, description, price, duration, serviceImage, isActive, ageLimitID);
 
         response.sendRedirect(request.getContextPath() + "/manager/serviceslist");
     }

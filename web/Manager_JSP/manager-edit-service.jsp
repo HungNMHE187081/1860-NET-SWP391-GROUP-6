@@ -212,10 +212,9 @@
                                     <option value="Chưa hoạt động" ${!service.isActive ? 'selected' : ''}>Chưa hoạt động</option>
                                 </select>
                             </div>
-                                <div class="form-group col-md-6">
+                            <div class="form-group col-md-6">
                                 <label class="control-label">Mô tả</label>
-                                <input class="form-control" type="text" id="description" name="description" value="${service.description}" 
-                                       style="resize: none; overflow-y: auto; min-height: 200px;"required>
+                                <textarea class="form-control" id="description" name="description" rows="5" style="resize: none; overflow-y: auto; min-height: 200px;" required>${service.description}</textarea>
                             </div>
                             <div class="form-group col-md-12">
                                 <label class="control-label">Ảnh dịch vụ</label>
