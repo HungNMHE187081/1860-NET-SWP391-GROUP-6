@@ -164,14 +164,18 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-
                     <div class="container">
                         <h2>Chi tiết dịch vụ</h2>
-                            <input type="hidden" name="serviceID" value="${service.serviceID}">
-                            <div class="form-group col-md-12">
-                                <label class="control-label">Tên dịch vụ</label>
-                                <input class="form-control" type="text" id="serviceName" name="serviceName" value="${service.serviceName}" readonly="">
-                            </div>
+                        <input type="hidden" name="serviceID" value="${service.serviceID}">
+                        
+                        <!-- Tên dịch vụ -->
+                        <div class="form-group">
+                            <label class="control-label">Tên dịch vụ</label>
+                            <input class="form-control" type="text" id="serviceName" name="serviceName" value="${service.serviceName}" readonly="">
+                        </div>
+                        
+                        <!-- 6 cái tiếp theo chia đều thành 2 hàng, 3 cột -->
+                        <div class="row">
                             <div class="form-group col-md-4">
                                 <label class="control-label">Độ tuổi</label>
                                 <input class="form-control" type="text" id="ageLimit" name="ageLimit" value="<c:forEach var='ageLimit' items='${ageLimits}'><c:if test='${ageLimit.ageLimitID == service.ageLimitID}'>${ageLimit.ageLimit}</c:if></c:forEach>" readonly>
@@ -184,6 +188,8 @@
                                 <label class="control-label">Người thực hiện dịch vụ</label>
                                 <input class="form-control" type="text" id="degree" name="degree" value="<c:forEach var='degree' items='${degrees}'><c:if test='${degree.degreeID == service.degreeID}'>${degree.degreeName}</c:if></c:forEach>" readonly>
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="form-group col-md-4">
                                 <label class="control-label">Giá (VNĐ)</label>
                                 <input class="form-control" type="number" id="price" name="price" value="${service.price}" readonly="">
@@ -196,36 +202,41 @@
                                 <label class="control-label">Tình trạng hoạt động</label>
                                 <input class="form-control" type="text" id="isActive" name="isActive" value="${service.isActive ? 'Hoạt động' : 'Chưa hoạt động'}" readonly="">
                             </div>
-                            <div class="form-group col-md-4">
+                        </div>
+                        
+                        <!-- 2 cái date chia đôi -->
+                        <div class="row">
+                            <div class="form-group col-md-6">
                                 <label class="control-label">Ngày tạo</label>
                                 <input class="form-control" type="date" id="createdAt" name="createdAt" value="${service.createdAt}" readonly>
                             </div>
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-6">
                                 <label class="control-label">Ngày cập nhật</label>
                                 <input class="form-control" type="date" id="updatedAt" name="updatedAt" value="${service.updatedAt}" readonly>
                             </div>
-                            <div class="form-group col-md-6">
-                                <label class="control-label">Mô tả</label>
-                                <textarea class="form-control" id="description" name="description" readonly style="resize: none; overflow-y: auto; min-height: 200px;">${service.description}</textarea>
+                        </div>
+                        
+                        <!-- Mô tả và ảnh dịch vụ full màn -->
+                        <div class="form-group">
+                            <label class="control-label">Mô tả</label>
+                            <textarea class="form-control" id="description" name="description" readonly style="resize: none; overflow-y: auto; min-height: 200px;">${service.description}</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Ảnh dịch vụ</label>
+                            <div id="thumbbox">
+                                <img src="${pageContext.request.contextPath}/${service.serviceImage}" alt="${service.serviceName}" height="300" width="300" alt="Thumb image" id="thumbimage" style="display: block">
+                                <a class="removeimg" href="javascript:"></a>
                             </div>
-                            <div class="form-group col-md-12">
-                                <label class="control-label">Ảnh dịch vụ</label>
-                                <div id="thumbbox">
-                                    <img src="${pageContext.request.contextPath}/${service.serviceImage}" 
-                                             alt="${service.serviceName}" height="300" width="300" 
-                                             alt="Thumb image" id="thumbimage" style="display: block">
-                                    <a class="removeimg" href="javascript:"></a>
-                                </div>
-                                <div id="boxchoice">
-                                    <p style="clear:both"></p>
-                                </div>
+                            <div id="boxchoice">
+                                <p style="clear:both"></p>
                             </div>
-                            <div class="form-group col-md-12">
-                                <a class="btn btn-save" href="${pageContext.request.contextPath}/manager/editservice?serviceID=${service.serviceID}">Sửa dịch vụ</a>
-                                <a class="btn btn-cancel" onclick="return confirm('Are you sure you want to delete this service?')" 
-                                   href="${pageContext.request.contextPath}/manager/deleteservice?serviceID=${service.serviceID}">Xóa dịch vụ</a>
-                            </div>
-                        </form>
+                        </div>
+                        
+                        <!-- Buttons -->
+                        <div class="form-group">
+                            <a class="btn btn-save" href="${pageContext.request.contextPath}/manager/editservice?serviceID=${service.serviceID}">Sửa dịch vụ</a>
+                            <a class="btn btn-cancel" onclick="return confirm('Are you sure you want to delete this service?')" href="${pageContext.request.contextPath}/manager/deleteservice?serviceID=${service.serviceID}">Xóa dịch vụ</a>
+                        </div>
                     </div>
                     <script>
                         function readURL(input) {

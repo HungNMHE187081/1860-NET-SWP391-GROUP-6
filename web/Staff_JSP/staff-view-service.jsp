@@ -91,6 +91,74 @@
                     <h2><i class="fas fa-concierge-bell"></i> Thông tin chi tiết của dịch vụ</h2>
                     <a href="${pageContext.request.contextPath}/staff/serviceslist" class="back-link">Trở về</a>
 
+                    <style>
+                        .detail-container {
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            padding: 30px;
+                            border: 1px solid #ccc;
+                            border-radius: 10px;
+                            background-color: #ffffff;
+                            max-width: 800px;
+                            margin: 30px auto;
+                            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                        }
+                    
+                        .service-image {
+                            max-width: 100%;
+                            height: auto;
+                            border-radius: 10px;
+                            margin-bottom: 25px;
+                        }
+                    
+                        .detail-item {
+                            display: flex;
+                            justify-content: space-between;
+                            width: 100%;
+                            margin-bottom: 20px;
+                            padding: 15px 0;
+                            border-bottom: 1px solid #e0e0e0;
+                        }
+                    
+                        .detail-item label {
+                            font-weight: bold;
+                            margin-right: 15px;
+                            color: #333;
+                            font-size: 1.1em;
+                            flex-basis: 30%;
+                        }
+                    
+                        .detail-item span {
+                            flex-grow: 1;
+                            text-align: right;
+                            color: #666;
+                            font-size: 1.1em;
+                        }
+                    
+                        .pagination {
+                            display: flex;
+                            justify-content: center;
+                            margin-top: 30px;
+                        }
+                    
+                        .pagination a {
+                            margin: 0 8px;
+                            padding: 12px 18px;
+                            border: 1px solid #ccc;
+                            border-radius: 5px;
+                            text-decoration: none;
+                            color: #333;
+                            background-color: #f9f9f9;
+                            transition: background-color 0.3s, color 0.3s;
+                        }
+                    
+                        .pagination a:hover {
+                            background-color: #e0e0e0;
+                            color: #000;
+                        }
+                    </style>
+                    
                     <div class="detail-container">
                         <c:choose>
                             <c:when test="${not empty service}">
@@ -110,11 +178,13 @@
                                 </div>
                                 <div class="detail-item">
                                     <label>Độ tuổi:</label>
-                                    <span><c:forEach var="ageLimit" items="${ageLimit}">
-                                        <c:if test="${ageLimit.ageLimitID == service.ageLimitID}">
-                                            ${ageLimit.ageLimit}
-                                        </c:if>
-                                    </c:forEach></span>
+                                    <span>
+                                        <c:forEach var="ageLimit" items="${ageLimit}">
+                                            <c:if test="${ageLimit.ageLimitID == service.ageLimitID}">
+                                                ${ageLimit.ageLimit}
+                                            </c:if>
+                                        </c:forEach>
+                                    </span>
                                 </div>
                             </c:when>
                             <c:otherwise>

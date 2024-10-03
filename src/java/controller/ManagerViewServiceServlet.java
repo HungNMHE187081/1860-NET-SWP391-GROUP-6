@@ -46,7 +46,7 @@ public class ManagerViewServiceServlet extends HttpServlet {
         request.setAttribute("service", service);
 
 
-        request.getRequestDispatcher("/Manager_JSP/manager-service-detail.jsp").forward(request, response);
+        request.getRequestDispatcher("/Manager_JSP/manager-view-service.jsp").forward(request, response);
     } 
 
     /** 

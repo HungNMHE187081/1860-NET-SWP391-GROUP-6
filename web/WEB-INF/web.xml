@@ -97,8 +97,8 @@
         <servlet-class>controller.StaffServicesListServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>StaffServiceDetailServlet</servlet-name>
-        <servlet-class>controller.StaffServiceDetailServlet</servlet-class>
+        <servlet-name>StaffViewServiceServlet</servlet-name>
+        <servlet-class>controller.StaffViewServiceServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AdminUsersListServlet</servlet-name>
@@ -281,8 +281,8 @@
         <url-pattern>/staff/serviceslist</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>StaffServiceDetailServlet</servlet-name>
-        <url-pattern>/staff/servicedetail</url-pattern>
+        <servlet-name>StaffViewServiceServlet</servlet-name>
+        <url-pattern>/staff/viewservice</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LatestMedicineServlet</servlet-name>
