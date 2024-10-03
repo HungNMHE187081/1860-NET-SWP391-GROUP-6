@@ -158,8 +158,8 @@
         <main class="app-content">
             <div class="app-title">
                 <ul class="app-breadcrumb breadcrumb">
-                    <li class="breadcrumb-item"><a href="serviceslist">Danh sách dịch vụ</a></li>
-                    <li class="breadcrumb-item"><a href="editservice?serviceID=${service.serviceID}">Sửa dịch vụ</a></li>
+                    <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/manager/serviceslist">Danh sách dịch vụ</a></li>
+                    <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/manager/editservice?serviceID=${service.serviceID}">Sửa dịch vụ</a></li>
                 </ul>
             </div>
             <div class="row">
@@ -169,7 +169,7 @@
                         <h2>Sửa dịch vụ</h2>
                         <form class="row" method="post" action="editservice" enctype="multipart/form-data">
                             <input type="hidden" name="serviceID" value="${service.serviceID}">
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-12">
                                 <label class="control-label">Tên dịch vụ</label>
                                 <input class="form-control" type="text" id="serviceName" name="serviceName" value="${service.serviceName}" required>
                             </div>
@@ -182,6 +182,22 @@
                                 </select>
                             </div>
                             <div class="form-group col-md-4">
+                                <label class="control-label">Loại dịch vụ</label>
+                                <select class="form-control" id="category" name="category" required>
+                                    <c:forEach var="category" items="${categories}">
+                                        <option value="${category.categoryID}" ${category.categoryID == service.categoryID ? 'selected' : ''}>${category.categoryName}</option>
+                                    </c:forEach>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class="control-label">Người thực hiện dịch vụ</label>
+                                <select class="form-control" id="degree" name="degree" required>
+                                    <c:forEach var="degree" items="${degrees}">
+                                        <option value="${degree.degreeID}" ${degree.degreeID == service.degreeID ? 'selected' : ''}>${degree.degreeName}</option>
+                                    </c:forEach>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-4">
                                 <label class="control-label">Giá</label>
                                 <input class="form-control" type="number" id="price" name="price" value="${service.price}" required>
                             </div>
@@ -190,21 +206,22 @@
                                 <input class="form-control" type="number" id="duration" name="duration" value="${service.duration}" required>
                             </div>
                             <div class="form-group col-md-4">
-                                <label class="control-label">Mô tả</label>
-                                <input class="form-control" type="text" id="description" name="description" value="${service.description}" required>
-                            </div>
-                            <div class="form-group col-md-3">
                                 <label for="exampleSelect1" class="control-label">Tình trạng hoạt động</label>
                                 <select class="form-control" id="isActive" name="isActive" required>
                                     <option value="Hoạt động" ${service.isActive ? 'selected' : ''}>Hoạt động</option>
                                     <option value="Chưa hoạt động" ${!service.isActive ? 'selected' : ''}>Chưa hoạt động</option>
                                 </select>
                             </div>
+                                <div class="form-group col-md-6">
+                                <label class="control-label">Mô tả</label>
+                                <input class="form-control" type="text" id="description" name="description" value="${service.description}" required>
+                            </div>
                             <div class="form-group col-md-12">
                                 <label class="control-label">Ảnh dịch vụ</label>
                                 <div id="myfileupload">
                                     <input type="file" id="serviceImage" name="serviceImage" onchange="readURL(this);" />
                                 </div>
+                                <br>
                                 <div id="thumbbox">
                                     <img src="${pageContext.request.contextPath}/${service.serviceImage}" 
                                              alt="${service.serviceName}" height="300" width="300" 
@@ -217,7 +234,7 @@
                             </div>
                             <div class="form-group col-md-12">
                                 <button class="btn btn-save" type="submit">Lưu thay đổi</button>
-                                <a class="btn btn-cancel" href="serviceslist">Hủy bỏ</a>
+                                <a class="btn btn-cancel" href="${pageContext.request.contextPath}/manager/serviceslist">Hủy bỏ</a>
                             </div>
                         </form>
                     </div>

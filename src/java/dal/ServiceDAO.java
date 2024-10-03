@@ -153,7 +153,7 @@ public class ServiceDAO extends DBContext {
                 + "           ,[AgeLimitID]\n"
                 + "           ,[CreatedAt]\n"
                 + "           ,[UpdatedAt])\n"
-                + "     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                + "     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, GETDATE(), GETDATE())";
         try {
             PreparedStatement pre = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             pre.setString(1, service.getServiceName());
@@ -165,8 +165,6 @@ public class ServiceDAO extends DBContext {
             pre.setString(7, service.getServiceImage());
             pre.setBoolean(8, service.isIsActive());
             pre.setInt(9, service.getAgeLimitID());
-            pre.setString(10, service.getUpdatedAt());
-            pre.setString(11, service.getUpdatedAt());
             pre.executeUpdate();
 
             ResultSet rs = pre.getGeneratedKeys();
@@ -209,9 +207,9 @@ public class ServiceDAO extends DBContext {
         return null;
     }
 
-    public void editService(int serviceID, int categoryID, int degreeID, 
-            String serviceName, String description, double price, 
-            int duration, String serviceImage, boolean isActive, 
+    public void editService(int serviceID, int categoryID, int degreeID,
+            String serviceName, String description, double price,
+            int duration, String serviceImage, boolean isActive,
             int ageLimitID, String createdAt, String updatedAt) {
         String sql = "UPDATE [dbo].[Services]\n"
                 + "   SET [ServiceName] = ?\n"
@@ -259,6 +257,17 @@ public class ServiceDAO extends DBContext {
 
     public static void main(String[] args) {
         ServiceDAO dao = new ServiceDAO();
+        Service newService = new Service();
+        newService.setServiceName("Dịch vụ khám tổng quát");
+        newService.setCategoryID(1); // Giả sử CategoryID là 1
+        newService.setDegreeID(2); // Giả sử DegreeID là 2
+        newService.setDescription("Dịch vụ khám tổng quát bao gồm kiểm tra sức khỏe toàn diện.");
+        newService.setPrice(500000); // Giá 500,000 VNĐ
+        newService.setDuration(60); // Thời gian khám 60 phút
+        newService.setServiceImage("uploads/service_image.jpg"); // Đường dẫn tới hình ảnh dịch vụ
+        newService.setIsActive(true); // Dịch vụ đang hoạt động
+        newService.setAgeLimitID(3); // Giả sử AgeLimitID là 3
+        dao.insertService(newService);
         System.out.println(dao.getAllServices().size());
     }
 }

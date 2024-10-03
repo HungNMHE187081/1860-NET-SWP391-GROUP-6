@@ -5,6 +5,7 @@
 package controller;
 
 import dal.AgeLimitDAO;
+import dal.CategoryDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -15,6 +16,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.AgeLimits;
+import model.Category;
 import model.Service;
 
 /**
@@ -32,6 +34,7 @@ public class ManagerSearchServiceServlet extends HttpServlet {
 
         ServiceDAO serviceDAO = new ServiceDAO();
         AgeLimitDAO ageLimitDAO = new AgeLimitDAO();
+        CategoryDAO categoryDAO = new CategoryDAO();
         List<Service> services;
 
         if (keyword != null && !keyword.isEmpty() && ageLimitID > 0) {
@@ -45,9 +48,11 @@ public class ManagerSearchServiceServlet extends HttpServlet {
         }
 
         List<AgeLimits> ageLimits = ageLimitDAO.getAllAgeLimits();
+        List<Category> categories = categoryDAO.getAllCategories();
 
         request.setAttribute("services", services);
         request.setAttribute("ageLimits", ageLimits);
+        request.setAttribute("categories", categories);
         request.getRequestDispatcher("/Manager_JSP/manager-services-list.jsp").forward(request, response);
     }
 

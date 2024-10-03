@@ -10,7 +10,7 @@
 <html lang="en">
 
     <head>
-        <title>Manager | Add Service</title>
+        <title>Manager | Sửa dịch vụ</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -159,97 +159,97 @@
             <div class="app-title">
                 <ul class="app-breadcrumb breadcrumb">
                     <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/manager/serviceslist">Danh sách dịch vụ</a></li>
-                    <li class="breadcrumb-item"><a href="addservice">Thêm dịch vụ</a></li>
+                    <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/manager/viewservice?serviceID=${service.serviceID}">Chi tiết dịch vụ</a></li>
                 </ul>
             </div>
             <div class="row">
                 <div class="col-md-12">
 
-                    <div class="tile">
-
-                        <h3 class="tile-title">Tạo mới dịch vụ</h3>
-
-                        <div class="tile-body">
-                            <form class="row" method="post" action="addservice" enctype="multipart/form-data">
-                                <div class="form-group col-md-12">
-                                    <label class="control-label">Tên dịch vụ</label>
-                                    <input class="form-control" type="text" id="serviceName" name="serviceName" required>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label class="control-label">Độ tuổi</label>
-                                    <select class="form-control" id="ageLimit" name="ageLimit" required>
-                                        <option value="" disabled selected>-- Chọn độ tuổi --</option>
-                                        <c:forEach var="agelimit" items="${ageLimits}">
-                                            <option>${agelimit.ageLimit}</option>
-                                        </c:forEach>
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label class="control-label">Loại dịch vụ</label>
-                                    <select class="form-control" id="category" name="category" required>
-                                        <option value="" disabled selected>-- Chọn dịch vụ --</option>
-                                        <c:forEach var="category" items="${categories}">
-                                            <option>${category.categoryName}</option>
-                                        </c:forEach>
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label class="control-label">Người thực hiện dịch vụ</label>
-                                    <select class="form-control" id="degree" name="degree" required>
-                                        <option value="" disabled selected>-- Chọn chức vụ --</option>
-                                        <c:forEach var="degree" items="${degrees}">
-                                            <option>${degree.degreeName}</option>
-                                        </c:forEach>
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label class="control-label">Giá (VNĐ)</label>
-                                    <input class="form-control" type="number" id="price" name="price" required>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label class="control-label">Thời gian khám tối đa (Phút)</label>
-                                    <input class="form-control" type="number" id="duration" name="duration" required>
-                                </div>
-                                
-
-                                <div class="form-group col-md-4">
-                                    <label for="exampleSelect1" class="control-label">Tình trạng hoạt động</label>
-                                    <select class="form-control" id="isActive" name="isActive" required>
-                                        <option value="" disabled selected>Chọn trạng thái</option>
-                                        <option>Hoạt động</option>
-                                        <option>Chưa hoạt động</option>
-                                    </select>
-                                </div>
-
+                    <div class="container">
+                        <h2>Chi tiết dịch vụ</h2>
+                        <form class="row" method="post" action="editservice" enctype="multipart/form-data">
+                            <input type="hidden" name="serviceID" value="${service.serviceID}">
+                            <div class="form-group col-md-12">
+                                <label class="control-label">Tên dịch vụ</label>
+                                <input class="form-control" type="text" id="serviceName" name="serviceName" value="${service.serviceName}" readonly="">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class="control-label">Độ tuổi</label>
+                                <select class="form-control" id="ageLimit" name="ageLimit" readonly>
+                                    <c:forEach var="ageLimit" items="${ageLimits}">
+                                        <option value="${ageLimit.ageLimitID}" ${ageLimit.ageLimitID == service.ageLimitID ? 'selected' : ''}>${ageLimit.ageLimit}</option>
+                                    </c:forEach>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class="control-label">Loại dịch vụ</label>
+                                <select class="form-control" id="category" name="category" readonly>
+                                    <c:forEach var="category" items="${categories}">
+                                        <option value="${category.categoryID}" ${category.categoryID == service.categoryID ? 'selected' : ''}>${category.categoryName}</option>
+                                    </c:forEach>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class="control-label">Người thực hiện dịch vụ</label>
+                                <select class="form-control" id="degree" name="degree" readonly>
+                                    <c:forEach var="degree" items="${degrees}">
+                                        <option value="${degree.degreeID}" ${degree.degreeID == service.degreeID ? 'selected' : ''}>${degree.degreeName}</option>
+                                    </c:forEach>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class="control-label">Giá</label>
+                                <input class="form-control" type="number" id="price" name="price" value="${service.price}" readonly="">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class="control-label">Thời gian khám tối đa</label>
+                                <input class="form-control" type="number" id="duration" name="duration" value="${service.duration}" readonly="">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="exampleSelect1" class="control-label">Tình trạng hoạt động</label>
+                                <select class="form-control" id="isActive" name="isActive" readonly>
+                                    <option value="Hoạt động" ${service.isActive ? 'selected' : ''}>Hoạt động</option>
+                                    <option value="Chưa hoạt động" ${!service.isActive ? 'selected' : ''}>Chưa hoạt động</option>
+                                </select>
+                            </div>
                                 <div class="form-group col-md-6">
-                                    <label class="control-label">Mô tả chi tiết dịch vụ</label>
-                                    <textarea class="form-control" type="text" id="description" name="description" required=""></textarea>
+                                <label class="control-label">Mô tả</label>
+                                <input class="form-control" type="text" id="description" name="description" value="${service.description}" readonly="">
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="control-label">Ảnh dịch vụ</label>
+                                <div id="myfileupload">
+                                    <input type="file" id="serviceImage" name="serviceImage" onchange="readURL(this);" />
                                 </div>
-                                
-                                <div class="form-group col-md-12">
-                                    <label class="control-label">Ảnh dịch vụ</label>
-                                    <div id="myfileupload">
-                                        <input type="file" id="serviceImage" name="serviceImage" onchange="readURL(this);" required=""/>
-                                    </div>
-                                    <div id="thumbbox">
-                                        <img src="${pageContext.request.contextPath}/${service.serviceImage}" 
+                                <br>
+                                <div id="thumbbox">
+                                    <img src="${pageContext.request.contextPath}/${service.serviceImage}" 
                                              alt="${service.serviceName}" height="300" width="300" 
-                                             alt="Thumb image" id="thumbimage" style="display: none">
-                                        <a class="removeimg" href="javascript:"></a>
-                                    </div>
-                                    <div id="boxchoice">
-
-                                        <p style="clear:both"></p>
-                                    </div>
-
+                                             alt="Thumb image" id="thumbimage" style="display: block">
+                                    <a class="removeimg" href="javascript:"></a>
                                 </div>
-                                <div class="form-group col-md-12">
-                                    <button class="btn btn-save" type="submit">Thêm dịch vụ</button>
-                                    <a class="btn btn-cancel" href="${pageContext.request.contextPath}/manager/serviceslist">Hủy bỏ</a>
+                                <div id="boxchoice">
+                                    <p style="clear:both"></p>
                                 </div>
-                            </form>
-                        </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <button class="btn btn-save" type="submit">Lưu thay đổi</button>
+                                <a class="btn btn-cancel" href="${pageContext.request.contextPath}/manager/serviceslist">Hủy bỏ</a>
+                            </div>
+                        </form>
                     </div>
+                    <script>
+                        function readURL(input) {
+                            if (input.files && input.files[0]) {
+                                var reader = new FileReader();
+                                reader.onload = function (e) {
+                                    document.getElementById('thumbimage').src = e.target.result;
+                                    document.getElementById('thumbimage').style.display = 'block';
+                                };
+                                reader.readAsDataURL(input.files[0]);
+                            }
+                        }
+                    </script>
                 </div>
             </div>
         </main>

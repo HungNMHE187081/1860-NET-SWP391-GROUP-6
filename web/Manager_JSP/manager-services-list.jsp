@@ -87,7 +87,7 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <form method="get" action="searchservice" class="form-inline">
+                                    <form method="get" action="${pageContext.request.contextPath}/manager/searchservice" class="form-inline">
                                         <!-- Search Input -->
                                         <div class="input-group mb-3">
                                             <input type="text" class="form-control search-input" id="searchInput" name="keyword" placeholder="Tìm kiếm...">
@@ -153,7 +153,7 @@
                                         height: 45px;
                                     }
 
-                                    
+
                                 </style>
 
                             </div>
@@ -185,14 +185,14 @@
                                                     </c:if>
                                                 </c:forEach>
                                             </td>
-                                            <td><fmt:formatNumber value="${service.price}" type="number" groupingUsed="true" /></td>
                                             <td>
-                                                <c:forEach var="ageLimit" items="${ageLimits}">
-                                                    <c:if test="${ageLimit.ageLimitID == service.ageLimitID}">
-                                                        ${ageLimit.ageLimit}
+                                                <c:forEach var="category" items="${categories}">
+                                                    <c:if test="${category.categoryID == service.categoryID}">
+                                                        ${category.categoryName}
                                                     </c:if>
                                                 </c:forEach>
                                             </td>
+                                            <td><fmt:formatNumber value="${service.price}" type="number" groupingUsed="true" /></td>
                                             <td>
                                                 <c:if test="${service.duration == 0}">
                                                     Theo lịch đặt
@@ -213,8 +213,9 @@
                                                                                 onclick="return confirm('Are you sure you want to delete this service?')">
                                                     <a href="deleteservice?serviceID=${service.serviceID}"><i class="fas fa-trash-alt"></i></a>
                                                 </button>
-                                                <button class="btn btn-primary btn-sm" type="button" title="Sửa" id="show-emp">
-                                                    <a href="editservice?serviceID=${service.serviceID}"><i class="fas fa-edit"></i></a>
+                                                <button class="btn btn-primary btn-sm" type="button" title="detail" id="show-emp">
+                                                    <!--<a href="editservice?serviceID="><i class="fas fa-edit"></i></a>-->
+                                                    <a href="/manager/servicedetail?id=${service.serviceID}"><i class="fas fa-eye"></i></a>
                                                 </button>
                                             </td>
                                         </tr>
