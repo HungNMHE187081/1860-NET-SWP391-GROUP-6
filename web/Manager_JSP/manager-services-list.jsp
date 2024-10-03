@@ -166,8 +166,8 @@
                                         <th>Ảnh</th>
                                         <th>Độ tuổi</th>
                                         <th>Giá</th>
+                                        <th>Loại dịch vụ</th>
                                         <th>Thời gian tối đa</th>
-                                        <th>Mô tả</th>
                                         <th>Trạng thái</th>
                                         <th>Chức năng</th>
                                     </tr>
@@ -187,6 +187,13 @@
                                             </td>
                                             <td><fmt:formatNumber value="${service.price}" type="number" groupingUsed="true" /></td>
                                             <td>
+                                                <c:forEach var="ageLimit" items="${ageLimits}">
+                                                    <c:if test="${ageLimit.ageLimitID == service.ageLimitID}">
+                                                        ${ageLimit.ageLimit}
+                                                    </c:if>
+                                                </c:forEach>
+                                            </td>
+                                            <td>
                                                 <c:if test="${service.duration == 0}">
                                                     Theo lịch đặt
                                                 </c:if>
@@ -194,7 +201,6 @@
                                                     ${service.duration} phút
                                                 </c:if>
                                             </td>
-                                            <td>${service.description}</td>
                                             <td>
                                                 <c:if test="${service.isActive}">
                                                     Active
