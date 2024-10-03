@@ -87,10 +87,16 @@ CREATE TABLE Degrees (
     DegreeName NVARCHAR(50) UNIQUE
 );
 
+-- Tạo bảng Categories
+CREATE TABLE Categories (
+    CategoryID INT PRIMARY KEY IDENTITY(1,1),
+    CategoryName NVARCHAR(100) UNIQUE
+);
+
 -- Tạo bảng Staff
 CREATE TABLE Staff (
     StaffID INT PRIMARY KEY,
-    StaffName AS (FirstName + ' ' + MiddleName + ' ' + LastName) PERSISTED,
+    StaffName NVARCHAR(150),
     YearsOfExperience INT,
     SpecializationID INT,
     DegreeID INT,
@@ -100,11 +106,6 @@ CREATE TABLE Staff (
     FOREIGN KEY (SpecializationID) REFERENCES Specializations(SpecializationID),
     FOREIGN KEY (DegreeID) REFERENCES Degrees(DegreeID)
 );
-
-UPDATE Staff
-SET StaffName = U.FirstName + ' ' + U.MiddleName + ' ' + U.LastName
-FROM Staff S
-JOIN Users U ON S.StaffID = U.UserID;
 
 -- Create Children table
 CREATE TABLE Children (
@@ -448,12 +449,6 @@ INSERT INTO Specializations (SpecializationName) VALUES (N'Răng miệng');
 INSERT INTO Degrees (DegreeName) VALUES (N'Bác sĩ'), (N'Y tá'), (N'Điều dưỡng'), (N'Tư vấn viên');
 
 
-INSERT INTO Staff (StaffID, YearsOfExperience, SpecializationID, DegreeID, HireDate, Salary)
-VALUES 
-(1, 3, 1, 1, '2010-05-15', 12000000),
-(2, 5, 2, 2, '2015-08-20', 9000000);
-
-
 -- Thêm dữ liệu vào bảng Categories
 INSERT INTO Categories (CategoryName) VALUES (N'Khám và điều trị bệnh'), (N'Tiêm chủng'),
  (N'Tư vấn'), (N'Chăm sóc'), (N'Gói dịch vụ');
@@ -607,6 +602,12 @@ VALUES
     (1, 1, N'Nguyễn Văn A', N'nguyenvana@example.com', '1234567890', 5, N'Xuất sắc', N'Dịch vụ tuyệt vời!', N'Không có', '/attachments/feedback1.jpg',  1),
     (2, 2, N'Trần Thị B', N'tranthib@example.com', '0987654321', 4, N'Tốt', N'Hài lòng với dịch vụ', N'Tùy chọn giá cả tốt hơn', '/attachments/feedback2.jpg', 1),
     (3, 3, N'Lê Minh C', N'leminhc@example.com', '1231231234', 3, N'Trung bình', N'Dịch vụ tạm ổn', N'Cải thiện thời gian phản hồi', '/attachments/feedback3.jpg', 0);
+
+
+INSERT INTO Staff (StaffID, YearsOfExperience, SpecializationID, DegreeID, HireDate, Salary)
+VALUES 
+(1, 3, 1, 1, '2010-05-15', 12000000),
+(2, 5, 2, 2, '2015-08-20', 9000000);
 
 
 /* CREATE FUNCTION dbo.removeAccent(@input NVARCHAR(MAX))
