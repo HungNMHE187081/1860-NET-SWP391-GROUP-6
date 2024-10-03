@@ -24,13 +24,18 @@ public class ServiceDAO extends DBContext {
             while (rs.next()) {
                 int ServiceID = rs.getInt("ServiceID");
                 String ServiceName = rs.getString("ServiceName");
+                int CategoryID = rs.getInt("CategoryID");
+                int DegreeID = rs.getInt("DegreeID");
                 String Description = rs.getString("Description");
                 double Price = rs.getDouble("Price");
                 int Duration = rs.getInt("Duration");
                 String ServiceImage = rs.getString("ServiceImage");
                 boolean IsActive = rs.getBoolean("IsActive");
                 int AgeLimitID = rs.getInt("AgeLimitID");
-                listServices.add(new Service(ServiceID, ServiceName, Description, Price, Duration, ServiceImage, IsActive, AgeLimitID));
+                String CreatedAt = rs.getString("CreatedAt");
+                String UpdatedAt = rs.getString("UpdatedAt");
+
+                listServices.add(new Service(ServiceID, ServiceName, CategoryID, DegreeID, Description, Price, Duration, ServiceImage, IsActive, AgeLimitID, CreatedAt, UpdatedAt));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -49,12 +54,17 @@ public class ServiceDAO extends DBContext {
                     Service service = new Service();
                     service.setServiceID(rs.getInt("serviceID"));
                     service.setServiceName(rs.getString("serviceName"));
+                    service.setServiceID(rs.getInt("CategoryID"));
+                    service.setServiceID(rs.getInt("DegreeID"));
                     service.setDescription(rs.getString("description"));
                     service.setPrice(rs.getDouble("price"));
                     service.setDuration(rs.getInt("duration"));
                     service.setServiceImage(rs.getString("serviceImage"));
                     service.setIsActive(rs.getBoolean("isActive"));
                     service.setAgeLimitID(rs.getInt("ageLimitID"));
+                    service.setServiceImage(rs.getString("CreatedAt"));
+                    service.setServiceImage(rs.getString("UpdatedAt"));
+
                     listServices.add(service);
                 }
             }
@@ -75,12 +85,17 @@ public class ServiceDAO extends DBContext {
                     Service service = new Service();
                     service.setServiceID(rs.getInt("serviceID"));
                     service.setServiceName(rs.getString("serviceName"));
+                    service.setServiceID(rs.getInt("CategoryID"));
+                    service.setServiceID(rs.getInt("DegreeID"));
                     service.setDescription(rs.getString("description"));
                     service.setPrice(rs.getDouble("price"));
                     service.setDuration(rs.getInt("duration"));
                     service.setServiceImage(rs.getString("serviceImage"));
                     service.setIsActive(rs.getBoolean("isActive"));
                     service.setAgeLimitID(rs.getInt("ageLimitID"));
+                    service.setServiceImage(rs.getString("CreatedAt"));
+                    service.setServiceImage(rs.getString("UpdatedAt"));
+
                     listServices.add(service);
                 }
             }
@@ -102,14 +117,19 @@ public class ServiceDAO extends DBContext {
             try (ResultSet rs = pre.executeQuery()) {
                 while (rs.next()) {
                     Service service = new Service();
-                    service.setServiceID(rs.getInt("id"));
-                    service.setServiceName(rs.getString("name"));
+                    service.setServiceID(rs.getInt("serviceID"));
+                    service.setServiceName(rs.getString("serviceName"));
+                    service.setServiceID(rs.getInt("CategoryID"));
+                    service.setServiceID(rs.getInt("DegreeID"));
                     service.setDescription(rs.getString("description"));
                     service.setPrice(rs.getDouble("price"));
                     service.setDuration(rs.getInt("duration"));
                     service.setServiceImage(rs.getString("serviceImage"));
                     service.setIsActive(rs.getBoolean("isActive"));
                     service.setAgeLimitID(rs.getInt("ageLimitID"));
+                    service.setServiceImage(rs.getString("CreatedAt"));
+                    service.setServiceImage(rs.getString("UpdatedAt"));
+
                     services.add(service);
                 }
             }
