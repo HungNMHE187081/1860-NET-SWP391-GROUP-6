@@ -165,8 +165,8 @@
                                         <th>Tên dịch vụ</th>
                                         <th>Ảnh</th>
                                         <th>Độ tuổi</th>
-                                        <th>Giá</th>
                                         <th>Loại dịch vụ</th>
+                                        <th>Giá (VNĐ)</th>
                                         <th>Thời gian tối đa</th>
                                         <th>Trạng thái</th>
                                         <th>Chức năng</th>

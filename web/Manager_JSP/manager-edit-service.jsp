@@ -198,11 +198,11 @@
                                 </select>
                             </div>
                             <div class="form-group col-md-4">
-                                <label class="control-label">Giá</label>
+                                <label class="control-label">Giá (VNĐ)</label>
                                 <input class="form-control" type="number" id="price" name="price" value="${service.price}" required>
                             </div>
                             <div class="form-group col-md-4">
-                                <label class="control-label">Thời gian khám tối đa</label>
+                                <label class="control-label">Thời gian khám tối đa (Phút)</label>
                                 <input class="form-control" type="number" id="duration" name="duration" value="${service.duration}" required>
                             </div>
                             <div class="form-group col-md-4">

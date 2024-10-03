@@ -185,11 +185,11 @@
                                 <input class="form-control" type="text" id="degree" name="degree" value="<c:forEach var='degree' items='${degrees}'><c:if test='${degree.degreeID == service.degreeID}'>${degree.degreeName}</c:if></c:forEach>" readonly>
                             </div>
                             <div class="form-group col-md-4">
-                                <label class="control-label">Giá</label>
+                                <label class="control-label">Giá (VNĐ)</label>
                                 <input class="form-control" type="number" id="price" name="price" value="${service.price}" readonly="">
                             </div>
                             <div class="form-group col-md-4">
-                                <label class="control-label">Thời gian khám tối đa</label>
+                                <label class="control-label">Thời gian khám tối đa (Phút)</label>
                                 <input class="form-control" type="number" id="duration" name="duration" value="${service.duration}" readonly="">
                             </div>
                             <div class="form-group col-md-4">
