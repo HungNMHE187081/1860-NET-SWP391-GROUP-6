@@ -167,7 +167,7 @@
 
                     <div class="container">
                         <h2>Sửa dịch vụ</h2>
-                        <form class="row" method="post" action="editservice" enctype="multipart/form-data">
+                        <form class="row" method="post" action="${pageContext.request.contextPath}/manager/editservice" enctype="multipart/form-data">
                             <input type="hidden" name="serviceID" value="${service.serviceID}">
                             <div class="form-group col-md-12">
                                 <label class="control-label">Tên dịch vụ</label>
@@ -214,7 +214,8 @@
                             </div>
                                 <div class="form-group col-md-6">
                                 <label class="control-label">Mô tả</label>
-                                <input class="form-control" type="text" id="description" name="description" value="${service.description}" required>
+                                <input class="form-control" type="text" id="description" name="description" value="${service.description}" 
+                                       style="resize: none; overflow-y: auto; min-height: 200px;"required>
                             </div>
                             <div class="form-group col-md-12">
                                 <label class="control-label">Ảnh dịch vụ</label>

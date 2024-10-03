@@ -118,11 +118,11 @@ public class Service {
         this.DegreeID = DegreeID;
     }
 
-    public String getCreatdAt() {
+    public String getCreatedAt() {
         return CreatedAt;
     }
 
-    public void setCreatdAt(String CreatedAt) {
+    public void setCreatedAt(String CreatedAt) {
         this.CreatedAt = CreatedAt;
     }
 

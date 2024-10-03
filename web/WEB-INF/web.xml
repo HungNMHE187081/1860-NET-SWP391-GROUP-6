@@ -132,7 +132,6 @@
         <servlet-name>StaffSearchServiceServlet</servlet-name>
         <servlet-class>controller.StaffSearchServiceServlet</servlet-class>
     </servlet>
-
     <servlet>
         <servlet-name>AddUserServlet</servlet-name>
         <servlet-class>controller.AddUserServlet</servlet-class>
@@ -165,11 +164,14 @@
         <servlet-name>ManageWardServlet</servlet-name>
         <servlet-class>controller.ManageWardServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ManagerViewServiceServlet</servlet-name>
+        <servlet-class>controller.ManagerViewServiceServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegistryServlet</servlet-name>
         <url-pattern>/registryservlet</url-pattern>
     </servlet-mapping>
-    
     <servlet-mapping>
         <servlet-name>ManagerServicesListServlet</servlet-name>
         <url-pattern>/manager/serviceslist</url-pattern>
@@ -321,5 +323,9 @@
     <servlet-mapping>
         <servlet-name>SearchFeedbackServlet</servlet-name>
         <url-pattern>/searchfeedback</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManagerViewServiceServlet</servlet-name>
+        <url-pattern>/manager/viewservice</url-pattern>
     </servlet-mapping>
 </web-app>

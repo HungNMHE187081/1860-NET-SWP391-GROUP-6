@@ -78,19 +78,19 @@ CREATE TABLE UserAddresses (
 -- Tạo bảng Specializations
 CREATE TABLE Specializations (
     SpecializationID INT PRIMARY KEY IDENTITY(1,1),
-    SpecializationName NVARCHAR(100) NOT NULL
+    SpecializationName NVARCHAR(100) UNIQUE
 );
 
 -- Tạo bảng Degrees
 CREATE TABLE Degrees (
     DegreeID INT PRIMARY KEY IDENTITY(1,1),
-    DegreeName NVARCHAR(50) NOT NULL
+    DegreeName NVARCHAR(50) UNIQUE
 );
 
 -- Tạo bảng Categories
 CREATE TABLE Categories (
     CategoryID INT PRIMARY KEY IDENTITY(1,1),
-    CategoryName NVARCHAR(100) NOT NULL
+    CategoryName NVARCHAR(100) UNIQUE
 );
 
 -- Tạo bảng Staff
@@ -123,7 +123,7 @@ CREATE TABLE Children (
 -- Create AgeLimits table
 CREATE TABLE AgeLimits (
     AgeLimitID INT PRIMARY KEY IDENTITY(1,1),
-    AgeLimit NVARCHAR(50) NOT NULL
+    AgeLimit NVARCHAR(50) UNIQUE
 );
 
 -- Create Services table

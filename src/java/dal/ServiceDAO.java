@@ -1,19 +1,14 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package dal;
 
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import model.Service;
 
-/**
- *
- * @author LENOVO
- */
 public class ServiceDAO extends DBContext {
+
+    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
     public List<Service> getAllServices() {
         List<Service> listServices = new ArrayList<>();
@@ -22,20 +17,21 @@ public class ServiceDAO extends DBContext {
             PreparedStatement pre = connection.prepareStatement(sql);
             ResultSet rs = pre.executeQuery();
             while (rs.next()) {
-                int ServiceID = rs.getInt("ServiceID");
-                String ServiceName = rs.getString("ServiceName");
-                int CategoryID = rs.getInt("CategoryID");
-                int DegreeID = rs.getInt("DegreeID");
-                String Description = rs.getString("Description");
-                double Price = rs.getDouble("Price");
-                int Duration = rs.getInt("Duration");
-                String ServiceImage = rs.getString("ServiceImage");
-                boolean IsActive = rs.getBoolean("IsActive");
-                int AgeLimitID = rs.getInt("AgeLimitID");
-                String CreatedAt = rs.getString("CreatedAt");
-                String UpdatedAt = rs.getString("UpdatedAt");
+                Service service = new Service();
+                service.setServiceID(rs.getInt("ServiceID"));
+                service.setServiceName(rs.getString("ServiceName"));
+                service.setCategoryID(rs.getInt("CategoryID"));
+                service.setDegreeID(rs.getInt("DegreeID"));
+                service.setDescription(rs.getString("Description"));
+                service.setPrice(rs.getDouble("Price"));
+                service.setDuration(rs.getInt("Duration"));
+                service.setServiceImage(rs.getString("ServiceImage"));
+                service.setIsActive(rs.getBoolean("IsActive"));
+                service.setAgeLimitID(rs.getInt("AgeLimitID"));
+                service.setCreatedAt(rs.getDate("CreatedAt") != null ? sdf.format(rs.getDate("CreatedAt")) : null);
+                service.setUpdatedAt(rs.getDate("UpdatedAt") != null ? sdf.format(rs.getDate("UpdatedAt")) : null);
 
-                listServices.add(new Service(ServiceID, ServiceName, CategoryID, DegreeID, Description, Price, Duration, ServiceImage, IsActive, AgeLimitID, CreatedAt, UpdatedAt));
+                listServices.add(service);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -54,16 +50,16 @@ public class ServiceDAO extends DBContext {
                     Service service = new Service();
                     service.setServiceID(rs.getInt("serviceID"));
                     service.setServiceName(rs.getString("serviceName"));
-                    service.setServiceID(rs.getInt("CategoryID"));
-                    service.setServiceID(rs.getInt("DegreeID"));
+                    service.setCategoryID(rs.getInt("CategoryID"));
+                    service.setDegreeID(rs.getInt("DegreeID"));
                     service.setDescription(rs.getString("description"));
                     service.setPrice(rs.getDouble("price"));
                     service.setDuration(rs.getInt("duration"));
                     service.setServiceImage(rs.getString("serviceImage"));
                     service.setIsActive(rs.getBoolean("isActive"));
                     service.setAgeLimitID(rs.getInt("ageLimitID"));
-                    service.setServiceImage(rs.getString("CreatedAt"));
-                    service.setServiceImage(rs.getString("UpdatedAt"));
+                    service.setCreatedAt(rs.getDate("CreatedAt") != null ? sdf.format(rs.getDate("CreatedAt")) : null);
+                    service.setUpdatedAt(rs.getDate("UpdatedAt") != null ? sdf.format(rs.getDate("UpdatedAt")) : null);
 
                     listServices.add(service);
                 }
@@ -85,16 +81,16 @@ public class ServiceDAO extends DBContext {
                     Service service = new Service();
                     service.setServiceID(rs.getInt("serviceID"));
                     service.setServiceName(rs.getString("serviceName"));
-                    service.setServiceID(rs.getInt("CategoryID"));
-                    service.setServiceID(rs.getInt("DegreeID"));
+                    service.setCategoryID(rs.getInt("CategoryID"));
+                    service.setDegreeID(rs.getInt("DegreeID"));
                     service.setDescription(rs.getString("description"));
                     service.setPrice(rs.getDouble("price"));
                     service.setDuration(rs.getInt("duration"));
                     service.setServiceImage(rs.getString("serviceImage"));
                     service.setIsActive(rs.getBoolean("isActive"));
                     service.setAgeLimitID(rs.getInt("ageLimitID"));
-                    service.setServiceImage(rs.getString("CreatedAt"));
-                    service.setServiceImage(rs.getString("UpdatedAt"));
+                    service.setCreatedAt(rs.getDate("CreatedAt") != null ? sdf.format(rs.getDate("CreatedAt")) : null);
+                    service.setUpdatedAt(rs.getDate("UpdatedAt") != null ? sdf.format(rs.getDate("UpdatedAt")) : null);
 
                     listServices.add(service);
                 }
@@ -107,28 +103,26 @@ public class ServiceDAO extends DBContext {
 
     public List<Service> searchServicesByKeywordAndAgeLimit(String keyword, int ageLimitID) {
         List<Service> services = new ArrayList<>();
-        String sql = "SELECT * FROM Services WHERE name LIKE ? AND ageLimitID = ?";
-
+        String sql = "SELECT * FROM Services WHERE serviceName LIKE ? AND ageLimitID = ?";
         try {
             PreparedStatement pre = connection.prepareStatement(sql);
             pre.setString(1, "%" + keyword + "%");
             pre.setInt(2, ageLimitID);
-
             try (ResultSet rs = pre.executeQuery()) {
                 while (rs.next()) {
                     Service service = new Service();
                     service.setServiceID(rs.getInt("serviceID"));
                     service.setServiceName(rs.getString("serviceName"));
-                    service.setServiceID(rs.getInt("CategoryID"));
-                    service.setServiceID(rs.getInt("DegreeID"));
+                    service.setCategoryID(rs.getInt("CategoryID"));
+                    service.setDegreeID(rs.getInt("DegreeID"));
                     service.setDescription(rs.getString("description"));
                     service.setPrice(rs.getDouble("price"));
                     service.setDuration(rs.getInt("duration"));
                     service.setServiceImage(rs.getString("serviceImage"));
                     service.setIsActive(rs.getBoolean("isActive"));
                     service.setAgeLimitID(rs.getInt("ageLimitID"));
-                    service.setServiceImage(rs.getString("CreatedAt"));
-                    service.setServiceImage(rs.getString("UpdatedAt"));
+                    service.setCreatedAt(rs.getDate("CreatedAt") != null ? sdf.format(rs.getDate("CreatedAt")) : null);
+                    service.setUpdatedAt(rs.getDate("UpdatedAt") != null ? sdf.format(rs.getDate("UpdatedAt")) : null);
 
                     services.add(service);
                 }
@@ -136,7 +130,6 @@ public class ServiceDAO extends DBContext {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return services;
     }
 
@@ -157,7 +150,7 @@ public class ServiceDAO extends DBContext {
         try {
             PreparedStatement pre = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             pre.setString(1, service.getServiceName());
-            pre.setInt(2, service.getDuration());
+            pre.setInt(2, service.getCategoryID());
             pre.setInt(3, service.getDegreeID());
             pre.setString(4, service.getDescription());
             pre.setDouble(5, service.getPrice());
@@ -187,16 +180,16 @@ public class ServiceDAO extends DBContext {
                     Service service = new Service();
                     service.setServiceID(rs.getInt("serviceID"));
                     service.setServiceName(rs.getString("serviceName"));
-                    service.setServiceID(rs.getInt("CategoryID"));
-                    service.setServiceID(rs.getInt("DegreeID"));
+                    service.setCategoryID(rs.getInt("CategoryID"));
+                    service.setDegreeID(rs.getInt("DegreeID"));
                     service.setDescription(rs.getString("description"));
                     service.setPrice(rs.getDouble("price"));
                     service.setDuration(rs.getInt("duration"));
                     service.setServiceImage(rs.getString("serviceImage"));
                     service.setIsActive(rs.getBoolean("isActive"));
                     service.setAgeLimitID(rs.getInt("ageLimitID"));
-                    service.setServiceImage(rs.getString("CreatedAt"));
-                    service.setServiceImage(rs.getString("UpdatedAt"));
+                    service.setCreatedAt(rs.getDate("CreatedAt") != null ? sdf.format(rs.getDate("CreatedAt")) : null);
+                    service.setUpdatedAt(rs.getDate("UpdatedAt") != null ? sdf.format(rs.getDate("UpdatedAt")) : null);
 
                     return service;
                 }
@@ -223,20 +216,20 @@ public class ServiceDAO extends DBContext {
                 + "      ,[AgeLimitID] = ?\n"
                 + "      ,[CreatedAt] = ?\n"
                 + "      ,[UpdatedAt] = ?\n"
-                + " WHERE WHERE serviceID = ?";
+                + " WHERE serviceID = ?";
         try {
             PreparedStatement pre = connection.prepareStatement(sql);
             pre.setString(1, serviceName);
             pre.setInt(2, categoryID);
-            pre.setInt(3, categoryID);
+            pre.setInt(3, degreeID);
             pre.setString(4, description);
             pre.setDouble(5, price);
             pre.setInt(6, duration);
             pre.setString(7, serviceImage);
             pre.setBoolean(8, isActive);
             pre.setInt(9, ageLimitID);
-            pre.setString(10, createdAt);
-            pre.setString(11, updatedAt);
+            pre.setDate(10, createdAt != null ? Date.valueOf(createdAt) : null);
+            pre.setDate(11, updatedAt != null ? Date.valueOf(updatedAt) : null);
             pre.setInt(12, serviceID);
             pre.executeUpdate();
         } catch (SQLException e) {
@@ -252,22 +245,12 @@ public class ServiceDAO extends DBContext {
             pre.setInt(1, ServiceID);
             pre.executeUpdate();
         } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
     public static void main(String[] args) {
         ServiceDAO dao = new ServiceDAO();
-        Service newService = new Service();
-        newService.setServiceName("Dịch vụ khám tổng quát");
-        newService.setCategoryID(1); // Giả sử CategoryID là 1
-        newService.setDegreeID(2); // Giả sử DegreeID là 2
-        newService.setDescription("Dịch vụ khám tổng quát bao gồm kiểm tra sức khỏe toàn diện.");
-        newService.setPrice(500000); // Giá 500,000 VNĐ
-        newService.setDuration(60); // Thời gian khám 60 phút
-        newService.setServiceImage("uploads/service_image.jpg"); // Đường dẫn tới hình ảnh dịch vụ
-        newService.setIsActive(true); // Dịch vụ đang hoạt động
-        newService.setAgeLimitID(3); // Giả sử AgeLimitID là 3
-        dao.insertService(newService);
         System.out.println(dao.getAllServices().size());
     }
 }

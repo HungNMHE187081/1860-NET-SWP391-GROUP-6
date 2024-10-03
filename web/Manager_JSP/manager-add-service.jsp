@@ -223,7 +223,8 @@
 
                                 <div class="form-group col-md-6">
                                     <label class="control-label">Mô tả chi tiết dịch vụ</label>
-                                    <textarea class="form-control" type="text" id="description" name="description" required=""></textarea>
+                                    <textarea class="form-control" type="text" id="description" name="description" required=""
+                                              style="resize: none; overflow-y: auto; min-height: 200px;"></textarea>
                                 </div>
                                 
                                 <div class="form-group col-md-12">

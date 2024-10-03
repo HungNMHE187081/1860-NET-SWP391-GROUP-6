@@ -167,7 +167,6 @@
 
                     <div class="container">
                         <h2>Chi tiết dịch vụ</h2>
-                        <form class="row" method="post" action="editservice" enctype="multipart/form-data">
                             <input type="hidden" name="serviceID" value="${service.serviceID}">
                             <div class="form-group col-md-12">
                                 <label class="control-label">Tên dịch vụ</label>
@@ -175,27 +174,15 @@
                             </div>
                             <div class="form-group col-md-4">
                                 <label class="control-label">Độ tuổi</label>
-                                <select class="form-control" id="ageLimit" name="ageLimit" readonly>
-                                    <c:forEach var="ageLimit" items="${ageLimits}">
-                                        <option value="${ageLimit.ageLimitID}" ${ageLimit.ageLimitID == service.ageLimitID ? 'selected' : ''}>${ageLimit.ageLimit}</option>
-                                    </c:forEach>
-                                </select>
+                                <input class="form-control" type="text" id="ageLimit" name="ageLimit" value="<c:forEach var='ageLimit' items='${ageLimits}'><c:if test='${ageLimit.ageLimitID == service.ageLimitID}'>${ageLimit.ageLimit}</c:if></c:forEach>" readonly>
                             </div>
                             <div class="form-group col-md-4">
                                 <label class="control-label">Loại dịch vụ</label>
-                                <select class="form-control" id="category" name="category" readonly>
-                                    <c:forEach var="category" items="${categories}">
-                                        <option value="${category.categoryID}" ${category.categoryID == service.categoryID ? 'selected' : ''}>${category.categoryName}</option>
-                                    </c:forEach>
-                                </select>
+                                <input class="form-control" type="text" id="category" name="category" value="<c:forEach var='category' items='${categories}'><c:if test='${category.categoryID == service.categoryID}'>${category.categoryName}</c:if></c:forEach>" readonly>
                             </div>
                             <div class="form-group col-md-4">
                                 <label class="control-label">Người thực hiện dịch vụ</label>
-                                <select class="form-control" id="degree" name="degree" readonly>
-                                    <c:forEach var="degree" items="${degrees}">
-                                        <option value="${degree.degreeID}" ${degree.degreeID == service.degreeID ? 'selected' : ''}>${degree.degreeName}</option>
-                                    </c:forEach>
-                                </select>
+                                <input class="form-control" type="text" id="degree" name="degree" value="<c:forEach var='degree' items='${degrees}'><c:if test='${degree.degreeID == service.degreeID}'>${degree.degreeName}</c:if></c:forEach>" readonly>
                             </div>
                             <div class="form-group col-md-4">
                                 <label class="control-label">Giá</label>
@@ -206,22 +193,23 @@
                                 <input class="form-control" type="number" id="duration" name="duration" value="${service.duration}" readonly="">
                             </div>
                             <div class="form-group col-md-4">
-                                <label for="exampleSelect1" class="control-label">Tình trạng hoạt động</label>
-                                <select class="form-control" id="isActive" name="isActive" readonly>
-                                    <option value="Hoạt động" ${service.isActive ? 'selected' : ''}>Hoạt động</option>
-                                    <option value="Chưa hoạt động" ${!service.isActive ? 'selected' : ''}>Chưa hoạt động</option>
-                                </select>
+                                <label class="control-label">Tình trạng hoạt động</label>
+                                <input class="form-control" type="text" id="isActive" name="isActive" value="${service.isActive ? 'Hoạt động' : 'Chưa hoạt động'}" readonly="">
                             </div>
-                                <div class="form-group col-md-6">
+                            <div class="form-group col-md-4">
+                                <label class="control-label">Ngày tạo</label>
+                                <input class="form-control" type="date" id="createdAt" name="createdAt" value="${service.createdAt}" readonly>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class="control-label">Ngày cập nhật</label>
+                                <input class="form-control" type="date" id="updatedAt" name="updatedAt" value="${service.updatedAt}" readonly>
+                            </div>
+                            <div class="form-group col-md-6">
                                 <label class="control-label">Mô tả</label>
-                                <input class="form-control" type="text" id="description" name="description" value="${service.description}" readonly="">
+                                <textarea class="form-control" id="description" name="description" readonly style="resize: none; overflow-y: auto; min-height: 200px;">${service.description}</textarea>
                             </div>
                             <div class="form-group col-md-12">
                                 <label class="control-label">Ảnh dịch vụ</label>
-                                <div id="myfileupload">
-                                    <input type="file" id="serviceImage" name="serviceImage" onchange="readURL(this);" />
-                                </div>
-                                <br>
                                 <div id="thumbbox">
                                     <img src="${pageContext.request.contextPath}/${service.serviceImage}" 
                                              alt="${service.serviceName}" height="300" width="300" 
@@ -233,8 +221,9 @@
                                 </div>
                             </div>
                             <div class="form-group col-md-12">
-                                <button class="btn btn-save" type="submit">Lưu thay đổi</button>
-                                <a class="btn btn-cancel" href="${pageContext.request.contextPath}/manager/serviceslist">Hủy bỏ</a>
+                                <a class="btn btn-save" href="${pageContext.request.contextPath}/manager/editservice?serviceID=${service.serviceID}">Sửa dịch vụ</a>
+                                <a class="btn btn-cancel" onclick="return confirm('Are you sure you want to delete this service?')" 
+                                   href="${pageContext.request.contextPath}/manager/deleteservice?serviceID=${service.serviceID}">Xóa dịch vụ</a>
                             </div>
                         </form>
                     </div>
