@@ -12,7 +12,7 @@
 <html lang="en">
 
     <head>
-        <title>Manager | Services List</title>
+        <title>Manager | Danh sách dịch vụ</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -28,7 +28,47 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+        <style>
+            /* Filter Form Styling */
+            .filter-form {
+                display: flex; /* Use flexbox for layout */
+                align-items: center; /* Center items vertically */
+                margin-bottom: 20px; /* Space below the form */
+            }
 
+            .filter-group {
+                display: flex; /* Use flexbox for group layout */
+                gap: 10px; /* Space between elements */
+                flex-wrap: nowrap; /* Prevent wrapping */
+            }
+
+            .filter-group input,
+            .filter-group select {
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                font-size: 16px;
+                width: 200px; /* Set a fixed width for inputs and selects */
+            }
+
+            .filter-group button,
+            .filter-group .btn {
+                background-color: #333;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                padding: 10px 15px;
+                cursor: pointer;
+                font-size: 16px;
+                transition: background-color 0.3s ease;
+            }
+
+            .filter-group button:hover,
+            .filter-group .btn:hover {
+                background-color: #575757; /* Darker shade on hover */
+            }
+
+        </style>
     </head>
 
     <body onload="time()" class="app sidebar-mini rtl">
@@ -87,24 +127,18 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <form method="get" action="${pageContext.request.contextPath}/manager/searchservice" class="form-inline">
-                                        <!-- Search Input -->
-                                        <div class="input-group mb-3">
-                                            <input type="text" class="form-control search-input" id="searchInput" name="keyword" placeholder="Tìm kiếm...">
-                                            <div class="input-group-append">
-                                                <button type="submit" class="btn custom-search-btn">Tìm kiếm</button>
-                                            </div>
-                                        </div>
-                                        <div class="input-group mb-3">
+                                    <form action="${pageContext.request.contextPath}/manager/searchservice" method="get" class="filter-form">
+                                        <div class="filter-group">
+                                            <input type="text" id="searchInput" name="keyword" placeholder="Tìm theo tên dịch vụ" />
+
                                             <select class="form-control" id="ageLimit" name="ageLimit">
                                                 <option value="">Chọn độ tuổi</option>
                                                 <c:forEach var="ageLimit" items="${ageLimits}">
                                                     <option value="${ageLimit.ageLimitID}">${ageLimit.ageLimit}</option>
                                                 </c:forEach>
                                             </select>
-                                            <div class="input-group-append">
-                                                <button type="submit" class="btn custom-filter-btn">Lọc</button>
-                                            </div>
+
+                                            <button type="submit"><i class="fas fa-filter"></i> Lọc và tìm kiếm</button>
                                         </div>
                                     </form>
                                 </div>
@@ -214,7 +248,7 @@
                                                     <a href="${pageContext.request.contextPath}/manager/deleteservice?serviceID=${service.serviceID}"><i class="fas fa-trash-alt"></i></a>
                                                 </button>
                                                 <button class="btn btn-primary btn-sm" type="button" title="detail" id="show-emp">
-                                                    
+
                                                     <a href="${pageContext.request.contextPath}/manager/viewservice?serviceID=${service.serviceID}"><i class="fas fa-eye"></i></a>
                                                 </button>
                                             </td>

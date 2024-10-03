@@ -93,8 +93,8 @@
         <servlet-class>controller.ManageUserServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>StaffServicesServlet</servlet-name>
-        <servlet-class>controller.StaffServicesServlet</servlet-class>
+        <servlet-name>StaffServicesListServlet</servlet-name>
+        <servlet-class>controller.StaffServicesListServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>StaffServiceDetailServlet</servlet-name>
@@ -277,7 +277,7 @@
         <url-pattern>/manageuser</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>StaffServicesServlet</servlet-name>
+        <servlet-name>StaffServicesListServlet</servlet-name>
         <url-pattern>/staff/serviceslist</url-pattern>
     </servlet-mapping>
     <servlet-mapping>

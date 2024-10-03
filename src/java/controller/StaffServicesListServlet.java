@@ -11,27 +11,31 @@ import java.util.Comparator;
 import java.util.List;
 
 import dal.AgeLimitDAO;
+import dal.CategoryDAO;
 import dal.ServiceDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.AgeLimits;
+import model.Category;
 import model.Service;
 
 /**
  *
  * @author LENOVO
  */
-public class StaffServicesServlet extends HttpServlet {
+public class StaffServicesListServlet extends HttpServlet {
    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         ServiceDAO serviceDAO = new ServiceDAO();
         AgeLimitDAO ageLimitDAO = new AgeLimitDAO();
+        CategoryDAO categoryDAO = new CategoryDAO();
         List<Service> services = serviceDAO.getAllServices();
         List<AgeLimits> ageLimits = ageLimitDAO.getAllAgeLimits();
+        List<Category> categories = categoryDAO.getAllCategories();
         Collections.sort(services, new Comparator<Service>() {
             @Override
             public int compare(Service s1, Service s2) {
@@ -40,6 +44,7 @@ public class StaffServicesServlet extends HttpServlet {
         });
         request.setAttribute("services", services);
         request.setAttribute("ageLimits", ageLimits);
+        request.setAttribute("categories", categories);
         request.getRequestDispatcher("/Staff_JSP/staff-services-list.jsp").forward(request, response);
     } 
 
