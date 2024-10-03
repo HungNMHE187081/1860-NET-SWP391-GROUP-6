@@ -21,7 +21,7 @@ import model.Service;
  *
  * @author LENOVO
  */
-public class SearchServiceServlet extends HttpServlet {
+public class ManagerSearchServiceServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

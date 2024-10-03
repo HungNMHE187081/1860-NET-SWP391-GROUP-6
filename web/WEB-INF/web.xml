@@ -13,8 +13,8 @@
         <servlet-class>controller.RegistryServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ServicesListServlet</servlet-name>
-        <servlet-class>controller.ServicesListServlet</servlet-class>
+        <servlet-name>ManagerServicesListServlet</servlet-name>
+        <servlet-class>controller.ManagerServicesListServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>EditProvincesServlet</servlet-name>
@@ -25,16 +25,16 @@
         <servlet-class>controller.ManagerAddressServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>DeleteServiceServlet</servlet-name>
-        <servlet-class>controller.DeleteServiceServlet</servlet-class>
+        <servlet-name>ManagerDeleteServiceServlet</servlet-name>
+        <servlet-class>controller.ManagerDeleteServiceServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>EditServiceServlet</servlet-name>
-        <servlet-class>controller.EditServiceServlet</servlet-class>
+        <servlet-name>ManagerEditServiceServlet</servlet-name>
+        <servlet-class>controller.ManagerEditServiceServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AddServiceServlet</servlet-name>
-        <servlet-class>controller.AddServiceServlet</servlet-class>
+        <servlet-name>ManagerAddServiceServlet</servlet-name>
+        <servlet-class>controller.ManagerAddServiceServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AddProvincesServlet</servlet-name>
@@ -61,8 +61,8 @@
         <servlet-class>controller.DeleteDistrictsServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>SearchServiceServlet</servlet-name>
-        <servlet-class>controller.SearchServiceServlet</servlet-class>
+        <servlet-name>ManagerSearchServiceServlet</servlet-name>
+        <servlet-class>controller.ManagerSearchServiceServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AddMedicineServlet</servlet-name>
@@ -97,8 +97,8 @@
         <servlet-class>controller.StaffServicesServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ServiceDetailServlet</servlet-name>
-        <servlet-class>controller.ServiceDetailServlet</servlet-class>
+        <servlet-name>StaffServiceDetailServlet</servlet-name>
+        <servlet-class>controller.StaffServiceDetailServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AdminUsersListServlet</servlet-name>
@@ -171,7 +171,7 @@
     </servlet-mapping>
     
     <servlet-mapping>
-        <servlet-name>ServicesListServlet</servlet-name>
+        <servlet-name>ManagerServicesListServlet</servlet-name>
         <url-pattern>/manager/serviceslist</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
@@ -183,15 +183,15 @@
         <url-pattern>/manageraddress</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>DeleteServiceServlet</servlet-name>
+        <servlet-name>ManagerDeleteServiceServlet</servlet-name>
         <url-pattern>/manager/deleteservice</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>EditServiceServlet</servlet-name>
+        <servlet-name>ManagerEditServiceServlet</servlet-name>
         <url-pattern>/manager/editservice</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AddServiceServlet</servlet-name>
+        <servlet-name>ManagerAddServiceServlet</servlet-name>
         <url-pattern>/manager/addservice</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
@@ -219,7 +219,7 @@
         <url-pattern>/deletedistricts</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>SearchServiceServlet</servlet-name>
+        <servlet-name>ManagerSearchServiceServlet</servlet-name>
         <url-pattern>/manager/searchservice</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
@@ -279,7 +279,7 @@
         <url-pattern>/staff/serviceslist</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ServiceDetailServlet</servlet-name>
+        <servlet-name>StaffServiceDetailServlet</servlet-name>
         <url-pattern>/staff/servicedetail</url-pattern>
     </servlet-mapping>
     <servlet-mapping>

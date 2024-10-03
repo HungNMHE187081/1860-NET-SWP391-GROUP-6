@@ -17,7 +17,7 @@ import model.AgeLimits;
 import model.Service;
 
 @MultipartConfig
-public class EditServiceServlet extends HttpServlet {
+public class ManagerEditServiceServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

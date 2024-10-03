@@ -21,7 +21,7 @@ import model.AgeLimits;
  *
  * @author LENOVO
  */
-public class DeleteServiceServlet extends HttpServlet {
+public class ManagerDeleteServiceServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
