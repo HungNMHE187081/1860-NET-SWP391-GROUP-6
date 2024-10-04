@@ -21,12 +21,12 @@ import model.Service;
  *
  * @author LENOVO
  */
-public class ServiceDetailServlet extends HttpServlet {
+public class StaffViewServiceServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        String serviceIdStr = request.getParameter("id");
+        String serviceIdStr = request.getParameter("serviceID");
         if (serviceIdStr != null && !serviceIdStr.isEmpty()) {
             int serviceId = Integer.parseInt(serviceIdStr);
             ServiceDAO serviceDAO = new ServiceDAO();
@@ -35,9 +35,9 @@ public class ServiceDetailServlet extends HttpServlet {
             List<AgeLimits> ageLimitList = ageLimitDAO.getAllAgeLimits();
             request.setAttribute("service", service);
             request.setAttribute("ageLimit", ageLimitList);
-            request.getRequestDispatcher("staff-service-detail.jsp").forward(request, response);
+            request.getRequestDispatcher("/Staff_JSP/staff-view-service.jsp").forward(request, response);
         } else {
-            response.sendRedirect("staff-services-list.jsp");
+            response.sendRedirect(request.getContextPath() + "/Staff_JSP/staff-services-list.jsp");
         }
     } 
 

@@ -2,15 +2,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<link rel="stylesheet" href="css/styles.css"/>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Danh sách thuốc</title>
+        <title>Danh sách dịch vụ</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css"/>
         <style>
             /* Filter Form Styling */
             .filter-form {
@@ -71,7 +71,7 @@
         <!-- Main Wrapper -->
         <div class="main-wrapper">
             <!-- Sidebar -->
-            <%@ include file="/Staff_JSP/leftside.jsp" %>
+            <%@ include file="leftside.jsp" %>
             <!-- Main Content -->
             <main>
                 <section class="dashboard">
@@ -79,7 +79,7 @@
 
                     <!-- Filter and Search Form -->
 
-                    <form action="staffsearchservice" method="get" class="filter-form">
+                    <form action="${pageContext.request.contextPath}/staff/searchservice" method="get" class="filter-form">
                         <div class="filter-group">
                             <input type="text" id="searchInput" name="keyword" placeholder="Tìm theo tên dịch vụ" />
 
@@ -90,39 +90,64 @@
                                 </c:forEach>
                             </select>
 
-                                <button type="submit"><i class="fas fa-filter"></i> Lọc và tìm kiếm</button>
-                            </div>
-                        </form>
+                            <button type="submit"><i class="fas fa-filter"></i> Lọc và tìm kiếm</button>
+                        </div>
+                    </form>
 
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>STT</th>
-                                    <th>Tên dịch vụ</th>
-                                    <th>Ảnh</th>
-                                    <th>Độ tuổi</th>
-                                    <th>Giá</th>
-                                    <th>Chức năng</th>
-                                </tr>
-                            </thead>
-                            <tbody>
+                    <table>
+                        <thead>
+                            <tr>
+                            <tr>
+                                <th>STT</th>
+                                <th>Tên dịch vụ</th>
+                                <th>Ảnh</th>
+                                <th>Độ tuổi</th>
+                                <th>Loại dịch vụ</th>
+                                <th>Giá (VNĐ)</th>
+                                <th>Thời gian tối đa</th>
+                                <th>Chức năng</th>
+                            </tr>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:set var="stt" value="0" />
                             <c:forEach var="service" items="${services}" varStatus="status">
-                                <tr>
-                                    <td>${status.index + 1}</td>
-                                    <td>${service.serviceName}</td>
-                                    <td><img src="${service.serviceImage}" alt="${service.serviceName}" width="75" height="50"></td>
-                                    <td>
-                                        <c:forEach var="ageLimit" items="${ageLimits}">
-                                            <c:if test="${ageLimit.ageLimitID == service.ageLimitID}">
-                                                ${ageLimit.ageLimit}
+                                <c:if test="${service.isActive == true}">
+                                    <c:set var="stt" value="${stt + 1}" />
+                                    <tr>
+                                        <td>${stt}</td>
+                                        <td>${service.serviceName}</td>
+                                        <td><img src="${pageContext.request.contextPath}/${service.serviceImage}" alt="${service.serviceName}" width="75" height="50"></td>
+                                        <td>
+                                            <c:forEach var="ageLimit" items="${ageLimits}">
+                                                <c:if test="${ageLimit.ageLimitID == service.ageLimitID}">
+                                                    ${ageLimit.ageLimit}
+                                                </c:if>
+                                            </c:forEach>
+                                        </td>
+                                        <td>
+                                            <c:forEach var="category" items="${categories}">
+                                                <c:if test="${category.categoryID == service.categoryID}">
+                                                    ${category.categoryName}
+                                                </c:if>
+                                            </c:forEach>
+                                        </td>
+                                        <td><fmt:formatNumber value="${service.price}" type="number" groupingUsed="true" /></td>
+                                        <td>
+                                            <c:if test="${service.duration == 0}">
+                                                Theo lịch đặt
                                             </c:if>
-                                        </c:forEach>
-                                    </td>
-                                    <td><fmt:formatNumber value="${service.price}" type="number" groupingUsed="true" /></td>
-                                    <td>
-                                        <a href="servicedetail?id=${service.serviceID}" class="btn"><i class="fas fa-eye"></i></a>
-                                    </td>
-                                </tr>
+                                            <c:if test="${service.duration != 0}">
+                                                ${service.duration} phút
+                                            </c:if>
+                                        </td>
+                                        <td class="table-td-center">
+                                            <button class="btn btn-primary btn-sm" type="button" title="detail" id="show-emp">
+                                                <a href="${pageContext.request.contextPath}/staff/viewservice?serviceID=${service.serviceID}"><i class="fas fa-eye"></i></a>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </c:if>
                             </c:forEach>
                         </tbody>
                     </table>

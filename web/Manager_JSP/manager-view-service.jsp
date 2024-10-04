@@ -10,7 +10,7 @@
 <html lang="en">
 
     <head>
-        <title>Manager | Thêm dịch vụ</title>
+        <title>Manager | Chi tiết dịch vụ</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -159,98 +159,97 @@
             <div class="app-title">
                 <ul class="app-breadcrumb breadcrumb">
                     <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/manager/serviceslist">Danh sách dịch vụ</a></li>
-                    <li class="breadcrumb-item"><a href="addservice">Thêm dịch vụ</a></li>
+                    <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/manager/viewservice?serviceID=${service.serviceID}">Chi tiết dịch vụ</a></li>
                 </ul>
             </div>
             <div class="row">
                 <div class="col-md-12">
-
-                    <div class="tile">
-
-                        <h3 class="tile-title">Tạo mới dịch vụ</h3>
-
-                        <div class="tile-body">
-                            <form class="row" method="post" action="addservice" enctype="multipart/form-data">
-                                <div class="form-group col-md-12">
-                                    <label class="control-label">Tên dịch vụ</label>
-                                    <input class="form-control" type="text" id="serviceName" name="serviceName" required>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label class="control-label">Độ tuổi</label>
-                                    <select class="form-control" id="ageLimit" name="ageLimit" required>
-                                        <option value="" disabled selected>-- Chọn độ tuổi --</option>
-                                        <c:forEach var="agelimit" items="${ageLimits}">
-                                            <option>${agelimit.ageLimit}</option>
-                                        </c:forEach>
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label class="control-label">Loại dịch vụ</label>
-                                    <select class="form-control" id="category" name="category" required>
-                                        <option value="" disabled selected>-- Chọn dịch vụ --</option>
-                                        <c:forEach var="category" items="${categories}">
-                                            <option>${category.categoryName}</option>
-                                        </c:forEach>
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label class="control-label">Người thực hiện dịch vụ</label>
-                                    <select class="form-control" id="degree" name="degree" required>
-                                        <option value="" disabled selected>-- Chọn chức vụ --</option>
-                                        <c:forEach var="degree" items="${degrees}">
-                                            <option>${degree.degreeName}</option>
-                                        </c:forEach>
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label class="control-label">Giá (VNĐ)</label>
-                                    <input class="form-control" type="number" id="price" name="price" required>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label class="control-label">Thời gian khám tối đa (Phút)</label>
-                                    <input class="form-control" type="number" id="duration" name="duration" required>
-                                </div>
-                                
-
-                                <div class="form-group col-md-4">
-                                    <label for="exampleSelect1" class="control-label">Tình trạng hoạt động</label>
-                                    <select class="form-control" id="isActive" name="isActive" required>
-                                        <option value="" disabled selected>Chọn trạng thái</option>
-                                        <option>Hoạt động</option>
-                                        <option>Chưa hoạt động</option>
-                                    </select>
-                                </div>
-
-                                <div class="form-group col-md-6">
-                                    <label class="control-label">Mô tả chi tiết dịch vụ</label>
-                                    <textarea class="form-control" type="text" id="description" name="description" required=""
-                                              style="resize: none; overflow-y: auto; min-height: 200px;"></textarea>
-                                </div>
-                                
-                                <div class="form-group col-md-12">
-                                    <label class="control-label">Ảnh dịch vụ</label>
-                                    <div id="myfileupload">
-                                        <input type="file" id="serviceImage" name="serviceImage" onchange="readURL(this);" required=""/>
-                                    </div>
-                                    <div id="thumbbox">
-                                        <img src="${pageContext.request.contextPath}/${service.serviceImage}" 
-                                             alt="${service.serviceName}" height="300" width="300" 
-                                             alt="Thumb image" id="thumbimage" style="display: none">
-                                        <a class="removeimg" href="javascript:"></a>
-                                    </div>
-                                    <div id="boxchoice">
-
-                                        <p style="clear:both"></p>
-                                    </div>
-
-                                </div>
-                                <div class="form-group col-md-12">
-                                    <button class="btn btn-save" type="submit">Thêm dịch vụ</button>
-                                    <a class="btn btn-cancel" href="${pageContext.request.contextPath}/manager/serviceslist">Hủy bỏ</a>
-                                </div>
-                            </form>
+                    <div class="container">
+                        <h2>Chi tiết dịch vụ</h2>
+                        <input type="hidden" name="serviceID" value="${service.serviceID}">
+                        
+                        <!-- Tên dịch vụ -->
+                        <div class="form-group">
+                            <label class="control-label">Tên dịch vụ</label>
+                            <input class="form-control" type="text" id="serviceName" name="serviceName" value="${service.serviceName}" readonly="">
+                        </div>
+                        
+                        <!-- 6 cái tiếp theo chia đều thành 2 hàng, 3 cột -->
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <label class="control-label">Độ tuổi</label>
+                                <input class="form-control" type="text" id="ageLimit" name="ageLimit" value="<c:forEach var='ageLimit' items='${ageLimits}'><c:if test='${ageLimit.ageLimitID == service.ageLimitID}'>${ageLimit.ageLimit}</c:if></c:forEach>" readonly>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class="control-label">Loại dịch vụ</label>
+                                <input class="form-control" type="text" id="category" name="category" value="<c:forEach var='category' items='${categories}'><c:if test='${category.categoryID == service.categoryID}'>${category.categoryName}</c:if></c:forEach>" readonly>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class="control-label">Người thực hiện dịch vụ</label>
+                                <input class="form-control" type="text" id="degree" name="degree" value="<c:forEach var='degree' items='${degrees}'><c:if test='${degree.degreeID == service.degreeID}'>${degree.degreeName}</c:if></c:forEach>" readonly>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <label class="control-label">Giá (VNĐ)</label>
+                                <input class="form-control" type="number" id="price" name="price" value="${service.price}" readonly="">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class="control-label">Thời gian khám tối đa (Phút)</label>
+                                <input class="form-control" type="number" id="duration" name="duration" value="${service.duration}" readonly="">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class="control-label">Tình trạng hoạt động</label>
+                                <input class="form-control" type="text" id="isActive" name="isActive" value="${service.isActive ? 'Hoạt động' : 'Chưa hoạt động'}" readonly="">
+                            </div>
+                        </div>
+                        
+                        <!-- 2 cái date chia đôi -->
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label class="control-label">Ngày tạo</label>
+                                <input class="form-control" type="date" id="createdAt" name="createdAt" value="${service.createdAt}" readonly>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="control-label">Ngày cập nhật</label>
+                                <input class="form-control" type="date" id="updatedAt" name="updatedAt" value="${service.updatedAt}" readonly>
+                            </div>
+                        </div>
+                        
+                        <!-- Mô tả và ảnh dịch vụ full màn -->
+                        <div class="form-group">
+                            <label class="control-label">Mô tả</label>
+                            <textarea class="form-control" id="description" name="description" readonly style="resize: none; overflow-y: auto; min-height: 200px;">${service.description}</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Ảnh dịch vụ</label>
+                            <div id="thumbbox">
+                                <img src="${pageContext.request.contextPath}/${service.serviceImage}" alt="${service.serviceName}" height="300" width="300" alt="Thumb image" id="thumbimage" style="display: block">
+                                <a class="removeimg" href="javascript:"></a>
+                            </div>
+                            <div id="boxchoice">
+                                <p style="clear:both"></p>
+                            </div>
+                        </div>
+                        
+                        <!-- Buttons -->
+                        <div class="form-group">
+                            <a class="btn btn-save" href="${pageContext.request.contextPath}/manager/editservice?serviceID=${service.serviceID}">Sửa dịch vụ</a>
+                            <a class="btn btn-cancel" onclick="return confirm('Are you sure you want to delete this service?')" href="${pageContext.request.contextPath}/manager/deleteservice?serviceID=${service.serviceID}">Xóa dịch vụ</a>
                         </div>
                     </div>
+                    <script>
+                        function readURL(input) {
+                            if (input.files && input.files[0]) {
+                                var reader = new FileReader();
+                                reader.onload = function (e) {
+                                    document.getElementById('thumbimage').src = e.target.result;
+                                    document.getElementById('thumbimage').style.display = 'block';
+                                };
+                                reader.readAsDataURL(input.files[0]);
+                            }
+                        }
+                    </script>
                 </div>
             </div>
         </main>

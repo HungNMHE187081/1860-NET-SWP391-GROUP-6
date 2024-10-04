@@ -10,25 +10,32 @@ package model;
  */
 public class Service {
     int ServiceID;
-    String ServiceName, Description;
+    String ServiceName;
+    int CategoryID, DegreeID;
+    String Description;
     double Price;
     int Duration;
     String ServiceImage;
     boolean IsActive;
     int AgeLimitID;
+    String CreatedAt, UpdatedAt;
 
     public Service() {
     }
 
-    public Service(int ServiceID, String ServiceName, String Description, double Price, int Duration, String ServiceImage, boolean IsActive, int AgeLimitID) {
+    public Service(int ServiceID, String ServiceName, int CategoryID, int DegreeID, String Description, double Price, int Duration, String ServiceImage, boolean IsActive, int AgeLimitID, String CreatedAt, String UpdatedAt) {
         this.ServiceID = ServiceID;
         this.ServiceName = ServiceName;
+        this.CategoryID = CategoryID;
+        this.DegreeID = DegreeID;
         this.Description = Description;
         this.Price = Price;
         this.Duration = Duration;
         this.ServiceImage = ServiceImage;
         this.IsActive = IsActive;
         this.AgeLimitID = AgeLimitID;
+        this.CreatedAt = CreatedAt;
+        this.UpdatedAt = UpdatedAt;
     }
 
     public int getServiceID() {
@@ -94,5 +101,38 @@ public class Service {
     public void setAgeLimitID(int AgeLimitID) {
         this.AgeLimitID = AgeLimitID;
     }
+
+    public int getCategoryID() {
+        return CategoryID;
+    }
+
+    public void setCategoryID(int CategoryID) {
+        this.CategoryID = CategoryID;
+    }
+
+    public int getDegreeID() {
+        return DegreeID;
+    }
+
+    public void setDegreeID(int DegreeID) {
+        this.DegreeID = DegreeID;
+    }
+
+    public String getCreatedAt() {
+        return CreatedAt;
+    }
+
+    public void setCreatedAt(String CreatedAt) {
+        this.CreatedAt = CreatedAt;
+    }
+
+    public String getUpdatedAt() {
+        return UpdatedAt;
+    }
+
+    public void setUpdatedAt(String UpdatedAt) {
+        this.UpdatedAt = UpdatedAt;
+    }
+    
     
 }
