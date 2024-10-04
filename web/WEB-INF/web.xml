@@ -145,6 +145,10 @@
         <servlet-class>controller.LoadWardsServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>UpdateFeedbackStatusServlet</servlet-name>
+        <servlet-class>controller.UpdateFeedbackStatusServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>DeleteUserServlet</servlet-name>
         <servlet-class>controller.DeleteUserServlet</servlet-class>
     </servlet>
@@ -335,6 +339,10 @@
     <servlet-mapping>
         <servlet-name>SearchFeedbackServlet</servlet-name>
         <url-pattern>/searchfeedback</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateFeedbackStatusServlet</servlet-name>
+        <url-pattern>/updatefeedbackstatus</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ManagerViewServiceServlet</servlet-name>
