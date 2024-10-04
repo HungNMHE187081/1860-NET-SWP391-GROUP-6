@@ -69,6 +69,31 @@
                                     <button onclick="setProvinceID(1)" class="btn btn-add btn-sm" id="show-emp" data-toggle="modal" data-target="#ModalAdd" title="Thêm"><i class="fas fa-plus"></i>
                                         Tạo mới Quận</button>
                                 </div>
+                                <div class="col-sm-2">
+                                    <a class="btn btn-delete btn-sm nhap-tu-file" type="button" title="Nhập" onclick="myFunction(this)"><i
+                                            class="fas fa-file-upload"></i> Tải từ file</a>
+                                </div>
+
+                                <div class="col-sm-2">
+                                    <a class="btn btn-delete btn-sm print-file" type="button" title="In" onclick="myApp.printTable()"><i
+                                            class="fas fa-print"></i> In dữ liệu</a>
+                                </div>
+                                <div class="col-sm-2">
+                                    <a class="btn btn-delete btn-sm print-file js-textareacopybtn" type="button" title="Sao chép"><i
+                                            class="fas fa-copy"></i> Sao chép</a>
+                                </div>
+
+                                <div class="col-sm-2">
+                                    <a class="btn btn-excel btn-sm" href="" title="In"><i class="fas fa-file-excel"></i> Xuất Excel</a>
+                                </div>
+                                <div class="col-sm-2">
+                                    <a class="btn btn-delete btn-sm pdf-file" type="button" title="In" onclick="myFunction(this)"><i
+                                            class="fas fa-file-pdf"></i> Xuất PDF</a>
+                                </div>
+                                <div class="col-sm-2">
+                                    <a class="btn btn-delete btn-sm" type="button" title="Xóa" onclick="myFunction(this)"><i
+                                            class="fas fa-trash-alt"></i> Xóa tất cả </a>
+                                </div>
                             </div>
                         </div>
                         <table class="table table-hover table-bordered js-copytextarea" cellpadding="0" cellspacing="0" border="0"
@@ -78,7 +103,7 @@
                                     <th width="10"><input type="checkbox" id="all"></th>
                                     <th>ID</th>
                                     <th width="150">Tên Quận</th>
-                                    <th width="20">Tên Phường</th>
+                                    <th width="20">Tổng số Phường</th>
                                 </tr>
                             </thead>
                             <tbody>

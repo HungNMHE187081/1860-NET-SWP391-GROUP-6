@@ -28,7 +28,7 @@ CREATE TABLE UserAuthentication (
     PasswordHash NVARCHAR(255),
     Salt NVARCHAR(255),
     LastLogin DATETIME,
-    FOREIGN KEY (UserID) REFERENCES Users(UserID)
+    FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE
 );
 
 -- Create Roles table
@@ -42,8 +42,8 @@ CREATE TABLE UserRoles (
     UserID INT,
     RoleID INT,
     PRIMARY KEY (UserID, RoleID),
-    FOREIGN KEY (UserID) REFERENCES Users(UserID),
-    FOREIGN KEY (RoleID) REFERENCES Roles(RoleID)
+    FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE,
+    FOREIGN KEY (RoleID) REFERENCES Roles(RoleID) 
 );
 
 -- Create Address tables

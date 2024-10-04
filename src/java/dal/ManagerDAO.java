@@ -244,6 +244,7 @@ public boolean isDistrictNameExist(int provinceID, String districtName) throws S
             e.printStackTrace();
         }
     }
+    
 
     public static void main(String[] args) {
         ManagerDAO m = new ManagerDAO();
