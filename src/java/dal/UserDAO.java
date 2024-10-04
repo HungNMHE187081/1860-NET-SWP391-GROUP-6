@@ -120,20 +120,16 @@ public class UserDAO extends DBContext{
     }
     
     public static void main(String[] args) {
-        // Tạo đối tượng UserDAO
-//        UserDAO userDAO = new UserDAO();
-//
-//        // Gọi phương thức getAllUsers
-////        Users users = userDAO.getUserById(1);
-////        Users users = userDAO.getUserById(1);
-//
-//        // In kết quả ra màn hình
-//
-//            System.out.println(users.getFirstName());
-//       
-//
-//            System.out.println(users.getFirstName());
-       
+
+        UserDAO userDAO = new UserDAO();
+        int userIdToDelete = 1; // Thay đổi giá trị này thành ID của user bạn muốn xóa
+        boolean result = userDAO.deleteUser(userIdToDelete);
+        if (result) {
+            System.out.println("User deleted successfully.");
+        } else {
+            System.out.println("Failed to delete user.");
+        }
+        
     }
     
     public List<Users> searchUsers(String searchTerm) {
@@ -213,10 +209,11 @@ public class UserDAO extends DBContext{
     }
     
     public boolean deleteUser(int userId) {
-        String sql = "DELETE FROM Users WHERE UserID = ?";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setInt(1, userId);
-            int affectedRows = stmt.executeUpdate();
+        String deleteUserSql = "DELETE FROM Users WHERE UserID = ?";
+        try (
+             PreparedStatement deleteUserStmt = connection.prepareStatement(deleteUserSql)) {
+            deleteUserStmt.setInt(1, userId);
+            int affectedRows = deleteUserStmt.executeUpdate();
             return affectedRows > 0;
         } catch (SQLException e) {
             e.printStackTrace();
