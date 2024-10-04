@@ -116,4 +116,14 @@ public List<Feedback> searchFeedbacks(String userName, Integer rating) {
         
 //        System.out.println(dao.searchFeedbacks("John").size());
     }
+    public void updatefeedbackstatus(int feedbackID, boolean status) {
+        String sql = "UPDATE Feedback SET Status = ? WHERE FeedbackID = ?";
+        try (PreparedStatement pre = connection.prepareStatement(sql)) {
+            pre.setBoolean(1, status);
+            pre.setInt(2, feedbackID);
+            pre.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace(); // Consider logging the error or rethrowing a custom exception
+        }
+    }
 }

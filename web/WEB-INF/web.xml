@@ -9,12 +9,12 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>-->
     <servlet>
-        <servlet-name>RegistryServlet</servlet-name>
-        <servlet-class>controller.RegistryServlet</servlet-class>
+        <servlet-name>RegisterServlet</servlet-name>
+        <servlet-class>controller.RegisterServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ServicesListServlet</servlet-name>
-        <servlet-class>controller.ServicesListServlet</servlet-class>
+        <servlet-name>ManagerServicesListServlet</servlet-name>
+        <servlet-class>controller.ManagerServicesListServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>EditProvincesServlet</servlet-name>
@@ -25,16 +25,16 @@
         <servlet-class>controller.ManagerAddressServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>DeleteServiceServlet</servlet-name>
-        <servlet-class>controller.DeleteServiceServlet</servlet-class>
+        <servlet-name>ManagerDeleteServiceServlet</servlet-name>
+        <servlet-class>controller.ManagerDeleteServiceServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>EditServiceServlet</servlet-name>
-        <servlet-class>controller.EditServiceServlet</servlet-class>
+        <servlet-name>ManagerEditServiceServlet</servlet-name>
+        <servlet-class>controller.ManagerEditServiceServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AddServiceServlet</servlet-name>
-        <servlet-class>controller.AddServiceServlet</servlet-class>
+        <servlet-name>ManagerAddServiceServlet</servlet-name>
+        <servlet-class>controller.ManagerAddServiceServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AddProvincesServlet</servlet-name>
@@ -61,8 +61,8 @@
         <servlet-class>controller.DeleteDistrictsServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>SearchServiceServlet</servlet-name>
-        <servlet-class>controller.SearchServiceServlet</servlet-class>
+        <servlet-name>ManagerSearchServiceServlet</servlet-name>
+        <servlet-class>controller.ManagerSearchServiceServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AddMedicineServlet</servlet-name>
@@ -93,12 +93,12 @@
         <servlet-class>controller.ManageUserServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>StaffServicesServlet</servlet-name>
-        <servlet-class>controller.StaffServicesServlet</servlet-class>
+        <servlet-name>StaffServicesListServlet</servlet-name>
+        <servlet-class>controller.StaffServicesListServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ServiceDetailServlet</servlet-name>
-        <servlet-class>controller.ServiceDetailServlet</servlet-class>
+        <servlet-name>StaffViewServiceServlet</servlet-name>
+        <servlet-class>controller.StaffViewServiceServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AdminUsersListServlet</servlet-name>
@@ -132,7 +132,6 @@
         <servlet-name>StaffSearchServiceServlet</servlet-name>
         <servlet-class>controller.StaffSearchServiceServlet</servlet-class>
     </servlet>
-
     <servlet>
         <servlet-name>AddUserServlet</servlet-name>
         <servlet-class>controller.AddUserServlet</servlet-class>
@@ -165,13 +164,28 @@
         <servlet-name>ManageWardServlet</servlet-name>
         <servlet-class>controller.ManageWardServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ManagerViewServiceServlet</servlet-name>
+        <servlet-class>controller.ManagerViewServiceServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LoginServlet</servlet-name>
+        <servlet-class>controller.LoginServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ForgotPasswordServlet</servlet-name>
+        <servlet-class>controller.ForgotPasswordServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewDetailsUserServlet</servlet-name>
+        <servlet-class>controller.ViewDetailsUserServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
-        <servlet-name>RegistryServlet</servlet-name>
-        <url-pattern>/registryservlet</url-pattern>
+        <servlet-name>RegisterServlet</servlet-name>
+        <url-pattern>/register</url-pattern>
     </servlet-mapping>
-    
     <servlet-mapping>
-        <servlet-name>ServicesListServlet</servlet-name>
+        <servlet-name>ManagerServicesListServlet</servlet-name>
         <url-pattern>/manager/serviceslist</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
@@ -183,15 +197,15 @@
         <url-pattern>/manageraddress</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>DeleteServiceServlet</servlet-name>
+        <servlet-name>ManagerDeleteServiceServlet</servlet-name>
         <url-pattern>/manager/deleteservice</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>EditServiceServlet</servlet-name>
+        <servlet-name>ManagerEditServiceServlet</servlet-name>
         <url-pattern>/manager/editservice</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AddServiceServlet</servlet-name>
+        <servlet-name>ManagerAddServiceServlet</servlet-name>
         <url-pattern>/manager/addservice</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
@@ -219,7 +233,7 @@
         <url-pattern>/deletedistricts</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>SearchServiceServlet</servlet-name>
+        <servlet-name>ManagerSearchServiceServlet</servlet-name>
         <url-pattern>/manager/searchservice</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
@@ -275,12 +289,12 @@
         <url-pattern>/manageuser</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>StaffServicesServlet</servlet-name>
+        <servlet-name>StaffServicesListServlet</servlet-name>
         <url-pattern>/staff/serviceslist</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ServiceDetailServlet</servlet-name>
-        <url-pattern>/staff/servicedetail</url-pattern>
+        <servlet-name>StaffViewServiceServlet</servlet-name>
+        <url-pattern>/staff/viewservice</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LatestMedicineServlet</servlet-name>
@@ -322,4 +336,18 @@
         <servlet-name>SearchFeedbackServlet</servlet-name>
         <url-pattern>/searchfeedback</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManagerViewServiceServlet</servlet-name>
+        <url-pattern>/manager/viewservice</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoginServlet</servlet-name>
+        <url-pattern>/login</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ForgotPasswordServlet</servlet-name>
+        <url-pattern>/forgotpassword</url-pattern>
+    </servlet-mapping>
+    <servlet-name>ViewDetailsUserServlet</servlet-name>
+        <url-pattern>/viewdetailsuser</url-pattern>
 </web-app>
