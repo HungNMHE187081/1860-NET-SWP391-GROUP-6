@@ -71,7 +71,7 @@ CREATE TABLE UserAddresses (
     UserID INT,
     WardID INT,
     StreetAddress NVARCHAR(255),
-    FOREIGN KEY (UserID) REFERENCES Users(UserID),
+    FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE,
     FOREIGN KEY (WardID) REFERENCES Wards(WardID) ON DELETE CASCADE
 );
 
@@ -95,14 +95,14 @@ CREATE TABLE Categories (
 
 -- Tạo bảng Staff
 CREATE TABLE Staff (
-    StaffID INT PRIMARY KEY IDENTITY(1,1),
+    StaffID INT PRIMARY KEY,
     StaffName NVARCHAR(150),
     YearsOfExperience INT,
     SpecializationID INT,
     DegreeID INT,
     HireDate DATE,
     Salary FLOAT,
-    FOREIGN KEY (StaffID) REFERENCES Users(UserID),
+    FOREIGN KEY (StaffID) REFERENCES Users(UserID) ON DELETE CASCADE,
     FOREIGN KEY (SpecializationID) REFERENCES Specializations(SpecializationID),
     FOREIGN KEY (DegreeID) REFERENCES Degrees(DegreeID)
 );
@@ -117,7 +117,7 @@ CREATE TABLE Children (
     DateOfBirth DATE,
     Gender NVARCHAR(10),
     ChildImage NVARCHAR(MAX),
-    FOREIGN KEY (CustomerID) REFERENCES Users(UserID)
+    FOREIGN KEY (CustomerID) REFERENCES Users(UserID) ON DELETE CASCADE
 );
 
 -- Create AgeLimits table
@@ -155,10 +155,9 @@ CREATE TABLE Reservations (
     ReservationDate DATE,
     StartTime TIME,
     Status NVARCHAR(20),
-    FOREIGN KEY (CustomerID) REFERENCES Users(UserID),
+    FOREIGN KEY (CustomerID) REFERENCES Users(UserID) ON DELETE CASCADE,
     FOREIGN KEY (ChildID) REFERENCES Children(ChildID),
     FOREIGN KEY (ServiceID) REFERENCES Services(ServiceID),
-    FOREIGN KEY (StaffID) REFERENCES Staff(StaffID)
 );
 -- Create MedicalRecords table
 CREATE TABLE MedicalRecords (
@@ -171,7 +170,7 @@ CREATE TABLE MedicalRecords (
     Notes NVARCHAR(MAX),
     RecordDate DATE,
     FOREIGN KEY (ChildID) REFERENCES Children(ChildID),
-    FOREIGN KEY (StaffID) REFERENCES Staff(StaffID),
+    FOREIGN KEY (StaffID) REFERENCES Staff(StaffID) ON DELETE CASCADE,
     FOREIGN KEY (ReservationID) REFERENCES Reservations(ReservationID)
 );
 
@@ -222,7 +221,7 @@ CREATE TABLE Feedback (
     AttachmentPath NVARCHAR(MAX),
     --FeedbackDate DATE,
     Status BIT,
-    FOREIGN KEY (UserID) REFERENCES Users(UserID),
+    FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE,
     FOREIGN KEY (ServiceID) REFERENCES Services(ServiceID)
 );
 
@@ -234,7 +233,7 @@ CREATE TABLE Posts (
     Content NVARCHAR(MAX),
     PublishedDate DATE,
     IsPublished BIT DEFAULT 0,
-    FOREIGN KEY (AuthorID) REFERENCES Users(UserID)
+    FOREIGN KEY (AuthorID) REFERENCES Users(UserID) ON DELETE CASCADE
 );
 
 -- Create Settings table
@@ -254,7 +253,7 @@ CREATE TABLE Notifications (
     IsRead BIT DEFAULT 0,
     ScheduledDate DATETIME,
     ReminderSent BIT DEFAULT 0,
-    FOREIGN KEY (UserID) REFERENCES Users(UserID)
+    FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE
 );
 
 -- Create Payments table
@@ -325,7 +324,7 @@ CREATE TABLE ActivityLog (
     ActivityType NVARCHAR(50),
     ActivityDescription NVARCHAR(MAX),
     ActivityTimestamp DATETIME DEFAULT GETDATE(),
-    FOREIGN KEY (UserID) REFERENCES Users(UserID)
+    FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE
 );
 
 -- Create PaymentMethods table
@@ -336,7 +335,7 @@ CREATE TABLE PaymentMethods (
     AccountNumber NVARCHAR(255),  -- Encrypted
     ExpiryDate DATE,
     IsDefault BIT DEFAULT 0,
-    FOREIGN KEY (UserID) REFERENCES Users(UserID)
+    FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE
 );
 
 -- Add PaymentMethodID to Payments table
@@ -351,7 +350,7 @@ CREATE TABLE StaffAvailability (
     DayOfWeek INT,  -- 1 for Monday, 7 for Sunday
     StartTime TIME,
     EndTime TIME,
-    FOREIGN KEY (StaffID) REFERENCES Staff(StaffID)
+    FOREIGN KEY (StaffID) REFERENCES Staff(StaffID) ON DELETE CASCADE
 );
 
 -- Create Reports table
@@ -366,7 +365,7 @@ CREATE TABLE Reports (
     ReportStatus NVARCHAR(20) DEFAULT 'Processing',
     DataStartDate DATETIME,
     DataEndDate DATETIME,
-    FOREIGN KEY (GeneratedBy) REFERENCES Users(UserID)
+    FOREIGN KEY (GeneratedBy) REFERENCES Users(UserID) ON DELETE CASCADE
 );
 
 -- Create Blogs table
@@ -408,7 +407,7 @@ CREATE TABLE BlogComments (
     CreatedDate DATETIME DEFAULT GETDATE(),
     IsApproved BIT DEFAULT 0,
     FOREIGN KEY (BlogID) REFERENCES Blogs(BlogID),
-    FOREIGN KEY (UserID) REFERENCES Users(UserID)
+    FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE
 );
 
 -- Add indexes to improve query performance
@@ -498,6 +497,12 @@ VALUES
 (N'Thuốc kháng sinh'),
 (N'Thuốc giảm đau'),
 (N'Thực phẩm chức năng');
+
+INSERT INTO MedicineCategory (CategoryName) 
+VALUES 
+(N'Thuốc bổ'),
+(N'Thuốc dị ứng');
+
 
 INSERT INTO Medicine (Name, Description, Uses, Dosage, UserManual, Contraindications, CategoryID) 
 VALUES 
