@@ -18,6 +18,7 @@ import model.Ward;
 import model.UserAuthentication;
 import java.sql.Date;
 import java.sql.Statement;
+import java.util.Collections;
 
 /**
  *
@@ -318,6 +319,120 @@ public class ManagerUserDAO extends DBContext {
             // Đặt lại chế độ auto-commit
             connection.setAutoCommit(true);
         }
+    }
+
+    public Users getDetailUserByUserID(int userID) {
+        String sql = "SELECT \n"
+                + "u.UserID,\n"
+                + "u.FirstName,\n"
+                + "u.MiddleName,\n"
+                + "u.LastName,\n"
+                + "u.Email,\n"
+                + "u.DateOfBirth,\n"
+                + "u.Gender,\n"
+                + "u.PhoneNumber,\n"
+                + "u.CitizenIdentification,\n"
+                + "u.ProfileImage,\n"
+                + "a.StreetAddress,\n"
+                + "w.WardID, \n"
+                + "w.WardName as Ward,\n"
+                + "d.DistrictID, \n"
+                + "d.DistrictName AS District,\n"
+                + "p.ProvinceID, \n"
+                + "p.ProvinceName AS Province,\n"
+                + "r.RoleID as RoleID,\n"
+                + "r.RoleName as roleName,\n"
+                + "ua.Username\n"
+                + "FROM \n"
+                + "Users u\n"
+                + "left JOIN \n"
+                + "UserAddresses a ON u.UserID = a.UserID\n"
+                + "left JOIN \n"
+                + "Wards w ON a.WardID = w.WardID\n"
+                + "left JOIN \n"
+                + "Districts d ON w.DistrictID = d.DistrictID\n"
+                + "left JOIN \n"
+                + "Provinces p ON d.ProvinceID = p.ProvinceID\n"
+                + "left JOIN \n"
+                + "UserRoles ur ON u.UserID = ur.UserID\n"
+                + "left JOIN \n"
+                + "Roles r ON ur.RoleID = r.RoleID\n"
+                + "left JOIN \n"
+                + "UserAuthentication ua ON u.UserID = ua.UserID\n"
+                + "where \n"
+                + "u.UserID = ?";
+        try (
+                PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, userID);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                // Create a new Users object
+                Users user = new Users();
+                user.setUserID(rs.getInt("UserID"));
+                user.setFirstName(rs.getString("FirstName"));
+                user.setMiddleName(rs.getString("MiddleName"));
+                user.setLastName(rs.getString("LastName"));
+                user.setEmail(rs.getString("Email"));
+                user.setDateOfBirth(rs.getDate("DateOfBirth"));
+                user.setGender(rs.getString("Gender"));
+                user.setPhoneNumber(rs.getString("PhoneNumber"));
+                user.setCitizenIdentification(rs.getString("CitizenIdentification"));
+                user.setProfileImage(rs.getString("ProfileImage"));
+
+                // Populate address information
+                UserAddresses address = new UserAddresses();
+                address.setStreetAddress(rs.getString("StreetAddress"));
+
+                // Set province, district, and ward
+                Provinces province = new Provinces();
+                province.setProvinceID(rs.getInt("ProvinceID"));
+                province.setProvinceName(rs.getString("Province"));
+
+                District district = new District();
+                district.setId(rs.getInt("DistrictID"));
+                district.setDistrictName(rs.getString("District"));
+
+                Ward ward = new Ward();
+                ward.setId(rs.getInt("WardID"));
+                ward.setWardName(rs.getString("Ward"));
+
+                // Set the relationships
+                address.setProvinces(province);
+                address.setDistrict(district);
+                address.setWard(ward);
+                user.setAddress(address);
+
+                // Populate role information
+                Roles role = new Roles();
+                role.setRoleID(rs.getInt("RoleID"));
+                role.setRoleName(rs.getString("roleName"));
+                user.setRoles(Collections.singletonList(role));
+
+                // Populate user authentication information
+                UserAuthentication auth = new UserAuthentication();
+                auth.setUsername(rs.getString("Username"));
+                user.setUser(auth);
+
+                return user;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    public void UpdateUsers(Users user){
+        String sqlUsers = "UPDATE Users SET FirstName = ?, MiddleName = ?, LastName = ?, PhoneNumber = ?, DateOfBirth = ?, Gender = ?, CitizenIdentification = ?, ProfileImage = ? WHERE UserID = ?";
+        String sqlUserAddress = "UPDATE UserAddresses SET WardID = ?, StreetAddress WHERE UserID = ?";
+        
+    }
+
+    public static void main(String[] args) {
+        int id = 1;
+        ManagerUserDAO dao = new ManagerUserDAO();
+        Users u = dao.getDetailUserByUserID(id);
+        System.out.println(u);
     }
 
 }

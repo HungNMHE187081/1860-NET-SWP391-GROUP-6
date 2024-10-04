@@ -343,5 +343,7 @@
     <servlet-mapping>
         <servlet-name>ForgotPasswordServlet</servlet-name>
         <url-pattern>/forgotpassword</url-pattern>
+        <servlet-name>ViewDetailsUserServlet</servlet-name>
+        <url-pattern>/viewdetailsuser</url-pattern>
     </servlet-mapping>
 </web-app>
