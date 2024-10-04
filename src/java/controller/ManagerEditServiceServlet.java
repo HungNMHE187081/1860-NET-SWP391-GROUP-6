@@ -1,6 +1,8 @@
 package controller;
 
 import dal.AgeLimitDAO;
+import dal.CategoryDAO;
+import dal.DegreeDAO;
 import dal.ServiceDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,10 +16,12 @@ import java.io.File;
 import java.nio.file.Paths;
 import java.util.List;
 import model.AgeLimits;
+import model.Category;
+import model.Degree;
 import model.Service;
 
 @MultipartConfig
-public class EditServiceServlet extends HttpServlet {
+public class ManagerEditServiceServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -25,12 +29,18 @@ public class EditServiceServlet extends HttpServlet {
         AgeLimitDAO ageLimitDAO = new AgeLimitDAO();
         List<AgeLimits> ageLimits = ageLimitDAO.getAllAgeLimits();
         request.setAttribute("ageLimits", ageLimits);
-
-        // Lấy thông tin dịch vụ hiện tại để hiển thị trên form
+        CategoryDAO categoryDAO = new CategoryDAO();
+        List<Category> categories = categoryDAO.getAllCategories();
+        request.setAttribute("categories", categories);
+        DegreeDAO degreeDAO = new DegreeDAO();
+        List<Degree> degrees = degreeDAO.getAllDegrees();
+        request.setAttribute("degrees", degrees);
+        
         int serviceID = Integer.parseInt(request.getParameter("serviceID"));
         ServiceDAO serviceDAO = new ServiceDAO();
         Service service = serviceDAO.getServiceByID(serviceID);
         request.setAttribute("service", service);
+
 
         request.getRequestDispatcher("/Manager_JSP/manager-edit-service.jsp").forward(request, response);
     }
@@ -45,6 +55,8 @@ public class EditServiceServlet extends HttpServlet {
         int duration = Integer.parseInt(request.getParameter("duration"));
         boolean isActive = request.getParameter("isActive").equals("Hoạt động");
         int ageLimitID = Integer.parseInt(request.getParameter("ageLimit"));
+        int categoryID = Integer.parseInt(request.getParameter("category"));
+        int degreeID = Integer.parseInt(request.getParameter("degree"));
 
         Part filePart = request.getPart("serviceImage");
         String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
@@ -67,7 +79,7 @@ public class EditServiceServlet extends HttpServlet {
         }
 
         ServiceDAO serviceDAO = new ServiceDAO();
-        serviceDAO.editService(serviceID, serviceName, description, price, duration, serviceImage, isActive, ageLimitID);
+        serviceDAO.editService(serviceID, categoryID, degreeID, serviceName, description, price, duration, serviceImage, isActive, ageLimitID);
 
         response.sendRedirect(request.getContextPath() + "/manager/serviceslist");
     }

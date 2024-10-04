@@ -1,6 +1,8 @@
 package controller;
 
 import dal.AgeLimitDAO;
+import dal.CategoryDAO;
+import dal.DegreeDAO;
 import dal.ServiceDAO;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -13,10 +15,12 @@ import java.io.File;
 import java.nio.file.Paths;
 import java.util.List;
 import model.AgeLimits;
+import model.Category;
+import model.Degree;
 import model.Service;
 
 @MultipartConfig
-public class AddServiceServlet extends HttpServlet {
+public class ManagerAddServiceServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -28,10 +32,14 @@ public class AddServiceServlet extends HttpServlet {
         Part filePart = request.getPart("serviceImage");
         String isActive = request.getParameter("isActive");
         String ageLimitIDStr = request.getParameter("ageLimit");
+        String categoryIDStr = request.getParameter("category");
+        String degreeIDStr = request.getParameter("degree");
 
         double price = Double.parseDouble(priceStr);
         int duration = Integer.parseInt(durationStr);
         int ageLimitID = -1;
+        int categoryID = -1;
+        int degreeID = -1;
 
         AgeLimitDAO ageLimitDAO = new AgeLimitDAO();
         List<AgeLimits> ageLimits = ageLimitDAO.getAllAgeLimits();
@@ -43,17 +51,39 @@ public class AddServiceServlet extends HttpServlet {
             }
         }
         
-        if (serviceName == null || serviceName.trim().isEmpty() ||
-            description == null || description.trim().isEmpty() ||
-            priceStr == null || priceStr.trim().isEmpty() ||
-            durationStr == null || durationStr.trim().isEmpty() ||
-            filePart == null || filePart.getSubmittedFileName().trim().isEmpty() ||
-            isActive == null || isActive.trim().isEmpty() ||
-            ageLimitIDStr == null || ageLimitIDStr.trim().isEmpty()) {
+        CategoryDAO categoryDAO = new CategoryDAO();
+        List<Category> categories = categoryDAO.getAllCategories();
+
+        for (Category category : categories) {
+            if (categoryIDStr.equals(category.getCategoryName())) {
+                categoryID = category.getCategoryID();
+                break;
+            }
+        }
+        
+        DegreeDAO degreeDAO = new DegreeDAO();
+        List<Degree> degrees = degreeDAO.getAllDegrees();
+
+        for (Degree degree : degrees) {
+            if (degreeIDStr.equals(degree.getDegreeName())) {
+                degreeID = degree.getDegreeID();
+                break;
+            }
+        }
+
+        if (serviceName == null || serviceName.trim().isEmpty()
+                || description == null || description.trim().isEmpty()
+                || priceStr == null || priceStr.trim().isEmpty()
+                || durationStr == null || durationStr.trim().isEmpty()
+                || filePart == null || filePart.getSubmittedFileName().trim().isEmpty()
+                || isActive == null || isActive.trim().isEmpty()
+                || ageLimitIDStr == null || ageLimitIDStr.trim().isEmpty()
+                || categoryIDStr == null || categoryIDStr.trim().isEmpty()
+                || degreeIDStr == null || degreeIDStr.trim().isEmpty()) {
             response.sendRedirect(request.getContextPath() + "/Manager_JSP/manager-add-service.jsp");
             return;
         }
-        
+
         String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
         String uploadDir = getServletContext().getRealPath("/") + "uploads";
         File uploadDirFile = new File(uploadDir);
@@ -66,6 +96,8 @@ public class AddServiceServlet extends HttpServlet {
 
         Service service = new Service();
         service.setServiceName(serviceName);
+        service.setCategoryID(categoryID);
+        service.setDegreeID(degreeID);
         service.setDescription(description);
         service.setPrice(price);
         service.setDuration(duration);
@@ -84,7 +116,13 @@ public class AddServiceServlet extends HttpServlet {
             throws ServletException, IOException {
         AgeLimitDAO ageLimitDAO = new AgeLimitDAO();
         List<AgeLimits> ageLimits = ageLimitDAO.getAllAgeLimits();
+        CategoryDAO categoryDAO = new CategoryDAO();
+        List<Category> categories = categoryDAO.getAllCategories();
+        DegreeDAO degreeDAO = new DegreeDAO();
+        List<Degree> degrees = degreeDAO.getAllDegrees();
+        request.setAttribute("categories", categories);
         request.setAttribute("ageLimits", ageLimits);
+        request.setAttribute("degrees", degrees);
         request.getRequestDispatcher("/Manager_JSP/manager-add-service.jsp").forward(request, response);
     }
 }

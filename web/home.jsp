@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="vi">
 
-    <head>
+<head>
         <!-- google font link -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,10 +21,10 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" type="image/jpg" href="img/1.png" />
-        <title>Tiny Tots - Trang Chủ</title>
-    </head>
+        <title>Tiny Tots - Trang Chá»§</title>
+</head>
 
-    <body>
+<body>
         <header>
             <div class="header-container" id="headerContainer">
                 <div class="header_top">
@@ -35,7 +35,7 @@
                     </div>
                     <div class="headsearch">
                         <div class="input_search">
-                            <input type="search" placeholder="Bạn đang tìm gì?">
+                            <input type="search" placeholder="Báº¡n Äang tÃ¬m gÃ¬?">
                         </div>
                         <div class="icon_search">
                             <span class="material-symbols-outlined">
@@ -54,7 +54,7 @@
                         <div class="hs5_para">
                             <a href="" class="link-style">
                                 <p class="up">Blog</p>
-                                <p class="down">Chúng Tôi</p>
+                                <p class="down">ChÃºng TÃ´i</p>
                             </a>
                         </div>
                     </div>
@@ -68,8 +68,8 @@
                     </div>
                     <div class="hs5_para">
                         <a href="" class="link-style">
-                            <p class="up">Giỏ</p>
-                            <p class="down">Hàng</p>
+                            <p class="up">Giá»</p>
+                            <p class="down">HÃ ng</p>
                         </a>
                     </div>
                 </div>
@@ -83,8 +83,8 @@
                     </div>
                     <div class="hs5_para">
                         <a href="" class="link-style">
-                            <p class="up">Đăng Nhập</p>
-                            <p class="down">Tài Khoản</p>
+                            <p class="up">ÄÄng Nháº­p</p>
+                            <p class="down">TÃ i Khoáº£n</p>
                         </a>
                     </div>
                 </div>
@@ -104,7 +104,7 @@
                         <div class="hbleft_info">
                             <!-- Set the href attribute to the desired URL -->
                             <a href="http://localhost:9999/G6_ChildrenCare/feedback.jsp" class="link-style">
-                                <p class="underline">Phản hồi lại chúng tôi </p>
+                                <p class="underline">Pháº£n há»i láº¡i chÃºng tÃ´i </p>
                             </a>
                         </div>
                         <div class="hbleft_icon">
@@ -118,26 +118,26 @@
                         <div class="hbleft_info">
                             <!-- Set the href attribute to the desired URL -->
                             <a href="http://localhost:9999/G6_ChildrenCare/contact-us.jsp" class="link-style">
-                                <p class="underline">Liên Hệ tới Chúng Tôi</p>
+                                <p class="underline">LiÃªn Há» tá»i ChÃºng TÃ´i</p>
                             </a>
                         </div>
                     </div>
                 </div>            
                 <div class="headbtm_right">
                     <a href="" class="link-style">
-                        <p class="underline">Trung Tâm Chăm Sóc Trẻ</p>
+                        <p class="underline">Trung TÃ¢m ChÄm SÃ³c Tráº»</p>
                     </a>
                     <a href="" class="link-style">
-                        <p class="underline">Dịch Vụ Hỗ Trợ Phụ Huynh</p>
+                        <p class="underline">Dá»ch Vá»¥ Há» Trá»£ Phá»¥ Huynh</p>
                     </a>
                     <a href="" class="link-style">
-                        <p class="underline">Chương Trình Đặc Biệt</p>
+                        <p class="underline">ChÆ°Æ¡ng TrÃ¬nh Äáº·c Biá»t</p>
                     </a>
                     <a href="" class="link-style">
-                        <p class="underline">Chăm Sóc Khẩn Cấp</p>
+                        <p class="underline">ChÄm SÃ³c Kháº©n Cáº¥p</p>
                     </a>
                     <a href="" class="link-style">
-                        <p class="underline">Chăm Sóc Sau Giờ Học</p>
+                        <p class="underline">ChÄm SÃ³c Sau Giá» Há»c</p>
                     </a>
                 </div>
             </div>
@@ -149,24 +149,24 @@
     <div class="video-container">
         <video class="video1" width="1080" height="auto" autoplay muted loop>
             <source src="Videos/1campaign.mp4" type="video/mp4">
-            Trình duyệt của bạn không hỗ trợ thẻ video.
+            TrÃ¬nh duyá»t cá»§a báº¡n khÃ´ng há» trá»£ tháº» video.
         </video>
         <div class="text-container">
-            <h2>Hiểu Cách Chăm Sóc Trẻ<br>Được Quy Định để Giữ <br>An Toàn cho Trẻ Em</h2>
-            <p>Tìm hiểu ý nghĩa của việc một chương trình chăm sóc trẻ em được cấp phép<br>và tại sao điều đó quan trọng để giữ an toàn cho trẻ em.</p>
+            <h2>Hiá»u CÃ¡ch ChÄm SÃ³c Tráº»<br>ÄÆ°á»£c Quy Äá»nh Äá» Giá»¯ <br>An ToÃ n cho Tráº» Em</h2>
+            <p>TÃ¬m hiá»u Ã½ nghÄ©a cá»§a viá»c má»t chÆ°Æ¡ng trÃ¬nh chÄm sÃ³c tráº» em ÄÆ°á»£c cáº¥p phÃ©p<br>vÃ  táº¡i sao Äiá»u ÄÃ³ quan trá»ng Äá» giá»¯ an toÃ n cho tráº» em.</p>
             <div class="header_top">
-                <button onclick="window.location.href = ''" class="shop-now-btnget shop-now-btnfooter">Tìm hiểu thêm</button>
+                <button onclick="window.location.href = ''" class="shop-now-btnget shop-now-btnfooter">TÃ¬m hiá»u thÃªm</button>
             </div>
         </div>
     </div>
 </div>
 <div>
-    <p class="mainfont" id="rainbowText">Trung Tâm Chăm Sóc Trẻ: Nuôi Dưỡng Sự Phát Triển và Trưởng Thành</p>
+    <p class="mainfont" id="rainbowText">Trung TÃ¢m ChÄm SÃ³c Tráº»: NuÃ´i DÆ°á»¡ng Sá»± PhÃ¡t Triá»n vÃ  TrÆ°á»ng ThÃ nh</p>
 </div>
 <div>
-    <p class="mainfont1">Tổng quan về các trung tâm chăm sóc trẻ, nơi trẻ em được chăm sóc, giáo dục và xã hội hóa trong một môi trường an toàn và hỗ trợ.</p>
+    <p class="mainfont1">Tá»ng quan vá» cÃ¡c trung tÃ¢m chÄm sÃ³c tráº», nÆ¡i tráº» em ÄÆ°á»£c chÄm sÃ³c, giÃ¡o dá»¥c vÃ  xÃ£ há»i hÃ³a trong má»t mÃ´i trÆ°á»ng an toÃ n vÃ  há» trá»£.</p>
     <div class="header_top">
-        <button class="shop-now-btn shop-now-btn1" onclick="window.location.href = ''">Xem thêm</button>
+        <button class="shop-now-btn shop-now-btn1" onclick="window.location.href = ''">Xem thÃªm</button>
     </div>
 </div>
 </div>
@@ -183,38 +183,38 @@
 </div>
 <div class="video-text-container1">
     <div class="text-container1">
-        <h2>Sức mạnh của người chăm sóc trẻ</h2>
-        <p>Gặp gỡ Sam, một người chăm sóc trẻ và nhà giáo dục mầm non tận tâm. Cô chia sẻ về việc bắt đầu công việc chăm sóc trẻ của mình thông qua một cơ quan chăm sóc trẻ là một quá trình đơn giản đã đưa cô vào một cộng đồng hỗ trợ - và cô không hề hối tiếc kể từ đó. Đọc thêm trên blog của chúng tôi!</p>
+        <h2>Sá»©c máº¡nh cá»§a ngÆ°á»i chÄm sÃ³c tráº»</h2>
+        <p>Gáº·p gá»¡ Sam, má»t ngÆ°á»i chÄm sÃ³c tráº» vÃ  nhÃ  giÃ¡o dá»¥c máº§m non táº­n tÃ¢m. CÃ´ chia sáº» vá» viá»c báº¯t Äáº§u cÃ´ng viá»c chÄm sÃ³c tráº» cá»§a mÃ¬nh thÃ´ng qua má»t cÆ¡ quan chÄm sÃ³c tráº» lÃ  má»t quÃ¡ trÃ¬nh ÄÆ¡n giáº£n ÄÃ£ ÄÆ°a cÃ´ vÃ o má»t cá»ng Äá»ng há» trá»£ - vÃ  cÃ´ khÃ´ng há» há»i tiáº¿c ká» tá»« ÄÃ³. Äá»c thÃªm trÃªn blog cá»§a chÃºng tÃ´i!</p>
     </div>
     <div class="video-container1">
         <video class="video1" width="1080" height="auto" autoplay muted loop>
             <source src="Videos/2campaign.mp4" type="video/mp4">
-            Trình duyệt của bạn không hỗ trợ thẻ video.
+            TrÃ¬nh duyá»t cá»§a báº¡n khÃ´ng há» trá»£ tháº» video.
         </video>
     </div>
 </div>
 <div class="square-container">
     <div class="square-text-box">
-        <p class="member-text">Khám Phá Chương Trình Đặc Biệt Mới của Chúng Tôi cho Chăm Sóc Trẻ</p>
+        <p class="member-text">KhÃ¡m PhÃ¡ ChÆ°Æ¡ng TrÃ¬nh Äáº·c Biá»t Má»i cá»§a ChÃºng TÃ´i cho ChÄm SÃ³c Tráº»</p>
     </div>
 </div>
 <div>
-    <p class="member-text1">Khám phá các chương trình đặc biệt mới được thiết kế để nâng cao sự phát triển của trẻ nhỏ. Từ nghệ thuật sáng tạo đến các hoạt động STEM, những chương trình<br>được điều chỉnh này mang đến những trải nghiệm học tập độc đáo nuôi dưỡng sự tò mò, sáng tạo và phát triển ở mọi trẻ em.</p>
+    <p class="member-text1">KhÃ¡m phÃ¡ cÃ¡c chÆ°Æ¡ng trÃ¬nh Äáº·c biá»t má»i ÄÆ°á»£c thiáº¿t káº¿ Äá» nÃ¢ng cao sá»± phÃ¡t triá»n cá»§a tráº» nhá». Tá»« nghá» thuáº­t sÃ¡ng táº¡o Äáº¿n cÃ¡c hoáº¡t Äá»ng STEM, nhá»¯ng chÆ°Æ¡ng trÃ¬nh<br>ÄÆ°á»£c Äiá»u chá»nh nÃ y mang Äáº¿n nhá»¯ng tráº£i nghiá»m há»c táº­p Äá»c ÄÃ¡o nuÃ´i dÆ°á»¡ng sá»± tÃ² mÃ², sÃ¡ng táº¡o vÃ  phÃ¡t triá»n á» má»i tráº» em.</p>
     <div class="header_top">
-        <button class="shop-now-btn shop-now-btn-second" onclick="window.location.href = ''">Kiểm Tra Ngay</button>
+        <button class="shop-now-btn shop-now-btn-second" onclick="window.location.href = ''">Kiá»m Tra Ngay</button>
     </div>
 </div>
 <div class="video-text-container">
     <div class="video-container">
         <video class="video1" width="1080" height="auto" autoplay muted loop>
             <source src="Videos/4campaign.mp4" type="video/mp4">
-            Trình duyệt của bạn không hỗ trợ thẻ video.
+            TrÃ¬nh duyá»t cá»§a báº¡n khÃ´ng há» trá»£ tháº» video.
         </video>
         <div class="text-container">
-            <h2>Hợp Tác Thú Vị với BayCare</h2>
-            <p>Chúng tôi rất vui mừng thông báo về sự hợp tác của chúng tôi với BayCare,<br>mang đến các bác sĩ và y tá chuyên dụng để hỗ trợ sức khỏe <br>và sự khỏe mạnh của trẻ em trong sự chăm sóc của chúng tôi. Cùng nhau, chúng tôi đang tạo ra<br>một môi trường an toàn và khỏe mạnh hơn cho mọi trẻ em.</p>
+            <h2>Há»£p TÃ¡c ThÃº Vá» vá»i BayCare</h2>
+            <p>ChÃºng tÃ´i ráº¥t vui má»«ng thÃ´ng bÃ¡o vá» sá»± há»£p tÃ¡c cá»§a chÃºng tÃ´i vá»i BayCare,<br>mang Äáº¿n cÃ¡c bÃ¡c sÄ© vÃ  y tÃ¡ chuyÃªn dá»¥ng Äá» há» trá»£ sá»©c khá»e <br>vÃ  sá»± khá»e máº¡nh cá»§a tráº» em trong sá»± chÄm sÃ³c cá»§a chÃºng tÃ´i. CÃ¹ng nhau, chÃºng tÃ´i Äang táº¡o ra<br>má»t mÃ´i trÆ°á»ng an toÃ n vÃ  khá»e máº¡nh hÆ¡n cho má»i tráº» em.</p>
             <div class="header_top">
-                <button class="shop-now-btnget shop-now-btnfooter">Kiểm Tra Trung Tâm Chăm Sóc Trẻ</button>
+                <button class="shop-now-btnget shop-now-btnfooter">Kiá»m Tra Trung TÃ¢m ChÄm SÃ³c Tráº»</button>
             </div>
         </div>
     </div>
@@ -225,11 +225,11 @@
     
     <div class="flex-box">
         <p class="center-text underline">
-            Danh Sách các Dịch Vụ</p>
+            Danh SÃ¡ch cÃ¡c Dá»ch Vá»¥</p>
         <button class="shop-now-btn shop-now-btn-third" onclick="window.location.href = 'homepageserviceslist'">Xem Ngay</button>
     </div>
     <div class="flex-box">
-        <p class="center-text underline">Dịch Vụ Hỗ Trợ Phụ Huynh </p>
+        <p class="center-text underline">Dá»ch Vá»¥ Há» Trá»£ Phá»¥ Huynh </p>
         <button class="rounded-arrow-btn">
             <span class="material-symbols-outlined">
                 arrow_right_alt
@@ -237,7 +237,7 @@
         </button>
     </div>
     <div class="flex-box">
-        <p class="center-text underline">Chương Trình Đặc Biệt</p>
+        <p class="center-text underline">ChÆ°Æ¡ng TrÃ¬nh Äáº·c Biá»t</p>
         <button class="rounded-arrow-btn">
             <span class="material-symbols-outlined">
                 arrow_right_alt
@@ -245,7 +245,7 @@
         </button>
     </div>
     <div class="flex-box">
-        <p class="center-text underline">Chăm Sóc Khẩn Cấp</p>
+        <p class="center-text underline">ChÄm SÃ³c Kháº©n Cáº¥p</p>
         <button class="rounded-arrow-btn">
             <span class="material-symbols-outlined">
                 arrow_right_alt
@@ -253,7 +253,7 @@
         </button>
     </div>
     <div class="flex-box">
-        <p class="center-text underline">Chăm Sóc Sau Giờ Học</p>
+        <p class="center-text underline">ChÄm SÃ³c Sau Giá» Há»c</p>
         <button class="rounded-arrow-btn">
             <span class="material-symbols-outlined">
                 arrow_right_alt
@@ -261,7 +261,7 @@
         </button>
     </div>
     <div class="flex-box">
-        <p class="center-text underline">Giỏ Hàng</p>
+        <p class="center-text underline">Giá» HÃ ng</p>
         <button class="rounded-arrow-btn">
             <span class="material-symbols-outlined">
                 arrow_right_alt
@@ -269,7 +269,7 @@
         </button>
     </div>
     <div class="flex-box">
-        <p class="center-text underline">Phản Hồi</p>
+        <p class="center-text underline">Pháº£n Há»i</p>
         <button class="rounded-arrow-btn">
             <span class="material-symbols-outlined">
                 arrow_right_alt
@@ -278,38 +278,38 @@
     </div>
 </div>
 <div>
-    <p class="mainfont">Chào mừng đến với Bé Nhỏ – Đối Tác Đáng Tin Cậy của Bạn trong Chăm Sóc Trẻ!</p>
+    <p class="mainfont">ChÃ o má»«ng Äáº¿n vá»i BÃ© Nhá» â Äá»i TÃ¡c ÄÃ¡ng Tin Cáº­y cá»§a Báº¡n trong ChÄm SÃ³c Tráº»!</p>
 </div>
 <div>
-    <p class="mainfont1">Tại Bé Nhỏ, chúng tôi cung cấp một loạt các dịch vụ chăm sóc trẻ xuất sắc được thiết kế để đáp ứng nhu cầu của mọi gia đình.<br>Mục tiêu của chúng tôi là tạo ra một môi trường nuôi dưỡng, an toàn và kích thích nơi trẻ em có thể học hỏi, phát triển và thịnh vượng.</p>
+    <p class="mainfont1">Táº¡i BÃ© Nhá», chÃºng tÃ´i cung cáº¥p má»t loáº¡t cÃ¡c dá»ch vá»¥ chÄm sÃ³c tráº» xuáº¥t sáº¯c ÄÆ°á»£c thiáº¿t káº¿ Äá» ÄÃ¡p á»©ng nhu cáº§u cá»§a má»i gia ÄÃ¬nh.<br>Má»¥c tiÃªu cá»§a chÃºng tÃ´i lÃ  táº¡o ra má»t mÃ´i trÆ°á»ng nuÃ´i dÆ°á»¡ng, an toÃ n vÃ  kÃ­ch thÃ­ch nÆ¡i tráº» em cÃ³ thá» há»c há»i, phÃ¡t triá»n vÃ  thá»nh vÆ°á»£ng.</p>
     <br>
 </div>
 <div>
-    <p class="mainfont">Trung Tâm Chăm Sóc Trẻ</p>
+    <p class="mainfont">Trung TÃ¢m ChÄm SÃ³c Tráº»</p>
 </div>
 <div>
-    <p class="mainfont1">Các trung tâm chăm sóc trẻ của Bé Nhỏ cung cấp các lựa chọn chăm sóc toàn thời gian và bán thời gian. Với trọng tâm vào sự phát triển của trẻ nhỏ, <br>các trung tâm của chúng tôi cung cấp một thời gian biểu có cấu trúc đầy các hoạt động giáo dục và vui chơi, bao gồm kể chuyện, chơi sáng tạo <br>và các buổi học tập sớm. Các bữa ăn và đồ ăn nhẹ lành mạnh cũng được cung cấp để hỗ trợ sức khỏe tổng thể <br>của con bạn.</p>
+    <p class="mainfont1">CÃ¡c trung tÃ¢m chÄm sÃ³c tráº» cá»§a BÃ© Nhá» cung cáº¥p cÃ¡c lá»±a chá»n chÄm sÃ³c toÃ n thá»i gian vÃ  bÃ¡n thá»i gian. Vá»i trá»ng tÃ¢m vÃ o sá»± phÃ¡t triá»n cá»§a tráº» nhá», <br>cÃ¡c trung tÃ¢m cá»§a chÃºng tÃ´i cung cáº¥p má»t thá»i gian biá»u cÃ³ cáº¥u trÃºc Äáº§y cÃ¡c hoáº¡t Äá»ng giÃ¡o dá»¥c vÃ  vui chÆ¡i, bao gá»m ká» chuyá»n, chÆ¡i sÃ¡ng táº¡o <br>vÃ  cÃ¡c buá»i há»c táº­p sá»m. CÃ¡c bá»¯a Än vÃ  Äá» Än nháº¹ lÃ nh máº¡nh cÅ©ng ÄÆ°á»£c cung cáº¥p Äá» há» trá»£ sá»©c khá»e tá»ng thá» <br>cá»§a con báº¡n.</p>
     <br>
 </div>
 <div>
-    <p class="mainfont">Dịch Vụ Hỗ Trợ Phụ Huynh</p>
-    <p class="mainfont1">Chúng tôi tin vào việc hỗ trợ không chỉ trẻ em mà còn cả gia đình. Các dịch vụ hỗ trợ phụ huynh của chúng tôi bao gồm các hội thảo, <br>các buổi đào tạo và các nhóm hỗ trợ được thiết kế để giúp phụ huynh vượt qua các thách thức của việc nuôi dạy con cái. Chúng tôi cung cấp <br>các nguồn tài nguyên quý giá về sự phát triển của trẻ em, quản lý gia đình và nhiều hơn nữa.</p>
+    <p class="mainfont">Dá»ch Vá»¥ Há» Trá»£ Phá»¥ Huynh</p>
+    <p class="mainfont1">ChÃºng tÃ´i tin vÃ o viá»c há» trá»£ khÃ´ng chá» tráº» em mÃ  cÃ²n cáº£ gia ÄÃ¬nh. CÃ¡c dá»ch vá»¥ há» trá»£ phá»¥ huynh cá»§a chÃºng tÃ´i bao gá»m cÃ¡c há»i tháº£o, <br>cÃ¡c buá»i ÄÃ o táº¡o vÃ  cÃ¡c nhÃ³m há» trá»£ ÄÆ°á»£c thiáº¿t káº¿ Äá» giÃºp phá»¥ huynh vÆ°á»£t qua cÃ¡c thÃ¡ch thá»©c cá»§a viá»c nuÃ´i dáº¡y con cÃ¡i. ChÃºng tÃ´i cung cáº¥p <br>cÃ¡c nguá»n tÃ i nguyÃªn quÃ½ giÃ¡ vá» sá»± phÃ¡t triá»n cá»§a tráº» em, quáº£n lÃ½ gia ÄÃ¬nh vÃ  nhiá»u hÆ¡n ná»¯a.</p>
 </div>
 <div>
-    <p class="mainfont">Chương Trình Đặc Biệt</p>
-    <p class="mainfont1">Bé Nhỏ cung cấp các chương trình đặc biệt được thiết kế để đáp ứng nhu cầu của mọi trẻ em. Điều này bao gồm các chương trình cho trẻ em <br>có nhu cầu đặc biệt, chương trình ngôn ngữ, và các phương pháp giáo dục độc đáo như Montessori và Waldorf. Chúng tôi <br>cũng cung cấp các trại hè theo mùa và chăm sóc trong kỳ nghỉ để giữ cho con bạn luôn tham gia và học hỏi suốt năm.</p>
+    <p class="mainfont">ChÆ°Æ¡ng TrÃ¬nh Äáº·c Biá»t</p>
+    <p class="mainfont1">BÃ© Nhá» cung cáº¥p cÃ¡c chÆ°Æ¡ng trÃ¬nh Äáº·c biá»t ÄÆ°á»£c thiáº¿t káº¿ Äá» ÄÃ¡p á»©ng nhu cáº§u cá»§a má»i tráº» em. Äiá»u nÃ y bao gá»m cÃ¡c chÆ°Æ¡ng trÃ¬nh cho tráº» em <br>cÃ³ nhu cáº§u Äáº·c biá»t, chÆ°Æ¡ng trÃ¬nh ngÃ´n ngá»¯, vÃ  cÃ¡c phÆ°Æ¡ng phÃ¡p giÃ¡o dá»¥c Äá»c ÄÃ¡o nhÆ° Montessori vÃ  Waldorf. ChÃºng tÃ´i <br>cÅ©ng cung cáº¥p cÃ¡c tráº¡i hÃ¨ theo mÃ¹a vÃ  chÄm sÃ³c trong ká»³ nghá» Äá» giá»¯ cho con báº¡n luÃ´n tham gia vÃ  há»c há»i suá»t nÄm.</p>
 </div>
 <div>
-    <p class="mainfont">Chăm Sóc Khẩn Cấp</p>
-    <p class="mainfont1">Đối với phụ huynh cần các lựa chọn chăm sóc trẻ linh hoạt, Bé Nhỏ cung cấp dịch vụ chăm sóc đột xuất hoặc khẩn cấp. Dịch vụ này <br>hoàn hảo cho những khoảnh khắc bất ngờ khi bạn cần chăm sóc trẻ trong thời gian ngắn. Đội ngũ nhân viên có kinh nghiệm của chúng tôi sẵn sàng <br>cung cấp dịch vụ chăm sóc theo giờ hoặc theo ngày, đảm bảo con bạn an toàn và hạnh phúc.</p>
+    <p class="mainfont">ChÄm SÃ³c Kháº©n Cáº¥p</p>
+    <p class="mainfont1">Äá»i vá»i phá»¥ huynh cáº§n cÃ¡c lá»±a chá»n chÄm sÃ³c tráº» linh hoáº¡t, BÃ© Nhá» cung cáº¥p dá»ch vá»¥ chÄm sÃ³c Äá»t xuáº¥t hoáº·c kháº©n cáº¥p. Dá»ch vá»¥ nÃ y <br>hoÃ n háº£o cho nhá»¯ng khoáº£nh kháº¯c báº¥t ngá» khi báº¡n cáº§n chÄm sÃ³c tráº» trong thá»i gian ngáº¯n. Äá»i ngÅ© nhÃ¢n viÃªn cÃ³ kinh nghiá»m cá»§a chÃºng tÃ´i sáºµn sÃ ng <br>cung cáº¥p dá»ch vá»¥ chÄm sÃ³c theo giá» hoáº·c theo ngÃ y, Äáº£m báº£o con báº¡n an toÃ n vÃ  háº¡nh phÃºc.</p>
 </div>
 </div>
 </div>
-<button id="backToTop" title="Lên đầu trang">
+<button id="backToTop" title="LÃªn Äáº§u trang">
     <span class="material-symbols-outlined" style="font-size: 12px;" color="white">
         arrow_upward
     </span>
-    <span class="back-to-top-text">Lên đầu trang</span>
+    <span class="back-to-top-text">LÃªn Äáº§u trang</span>
 </button>
 <script src="script.js"></script>
 </header>

@@ -244,13 +244,12 @@ public boolean isDistrictNameExist(int provinceID, String districtName) throws S
             e.printStackTrace();
         }
     }
+    
 
     public static void main(String[] args) {
         ManagerDAO m = new ManagerDAO();
         Provinces provicnes = new Provinces();
-        String p = "Vinh Phuc";
-        provicnes.setProvinceName(p);
-        m.addProvinces(provicnes);
+        System.out.println(m.getAllProvinces().size());
         
        
     }

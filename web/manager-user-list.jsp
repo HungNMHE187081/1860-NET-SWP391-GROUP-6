@@ -114,7 +114,7 @@
                                         <tr>
                                             <td width="10"><input type="checkbox" name="check1" value="${user.userID}"></td>
                                             <td>${user.userID}</td>
-                                            <td>${user.firstName} ${user.middleName} ${user.lastName}</td>
+                                            <td><a href="viewdetailsuser?userID=${user.userID}">${user.firstName} ${user.middleName} ${user.lastName}</a></td>
                                             <td><img class="img-card-person" src="${user.profileImage}" alt=""></td>
                                             <td>${user.address.streetAddress},${user.address.ward.wardName}, ${user.address.district.districtName}, ${user.address.provinces.provinceName}</td>
                                             <td>${user.dateOfBirth}</td>
@@ -136,6 +136,9 @@
                                                 <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp" data-toggle="modal" data-target="#ModalUP">
                                                     <i class="fas fa-edit"></i>
                                                 </button>
+                                                <a href="viewdetailsuser?userID=${user.userID}" class="btn btn-primary btn-sm" title="Xem chi tiết" style="background-color: green; color: white;">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
                                             </td>
                                         </tr>
 
@@ -237,7 +240,7 @@
         <script type="text/javascript" src="js/plugins/dataTables.bootstrap.min.js"></script>
         <script type="text/javascript">$('#sampleTable').DataTable();</script>
         <script>
-            
+
             oTable = $('#sampleTable').dataTable();
             $('#all').click(function (e) {
                 $('#sampleTable tbody :checkbox').prop('checked', $(this).is(':checked'));

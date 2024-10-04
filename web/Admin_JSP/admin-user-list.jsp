@@ -107,7 +107,8 @@
                                             name="searchTerm" value="${searchTerm}" id="searchInput"
                                             style="padding-right: 30px;">
                                         <button type="button" id="clearSearch"
-                                            style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); border: none; background: none; font-size: 16px; cursor: pointer;">&times;</button>
+                                            style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); border: none; background: none; font-size: 16px; cursor: pointer;">&times;
+                                        </button>
                                     </div>
                                     <button class="btn btn-primary" type="submit"
                                         style="margin-left: 10px;">Search</button>
@@ -190,6 +191,13 @@
             <script type="text/javascript"
                 src="${pageContext.request.contextPath}/js/plugins/dataTables.bootstrap.min.js"></script>
             <script type="text/javascript">$('#sampleTable').DataTable();</script>
+
+            <script>
+                document.getElementById('clearSearch').addEventListener('click', function() {
+                    document.getElementById('searchInput').value = '';
+                    document.getElementById('searchForm').submit();
+                });
+            </script>
 
             <!-- Add this script for delete confirmation -->
             <script>

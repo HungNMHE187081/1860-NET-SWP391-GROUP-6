@@ -1,0 +1,9 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "libs/jakarta.servlet.jsp.jstl-2.0.0.jar",
+        "libs/jakarta.servlet.jsp.jstl-api-2.0.0.jar",
+        "libs/jaxb-api-2.1.jar",
+        "libs/sqljdbc42.jar"
+    ]
+}
