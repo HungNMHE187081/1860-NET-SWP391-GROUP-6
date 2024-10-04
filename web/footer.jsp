@@ -12,16 +12,6 @@
             </div>
         </div>
         
-        <!-- Added a container for both images -->
-        <div class="tick-images-container">
-            <div class="tick-image">
-                <img src="<%= request.getContextPath() %>/img/tick.png" alt="Dấu tích">
-            </div>
-            <div class="tick-image">
-                <img src="<%= request.getContextPath() %>/img/tick2.png" alt="Dấu tích 2">
-            </div>
-        </div>
-        
         <div class="right-section">
             <a href="<%= request.getContextPath() %>/cookie-policy.jsp" class="footertext underline link-style">Chính sách cookie</a>
             <a href="<%= request.getContextPath() %>/privacy-policy.jsp" class="footertext underline link-style">Chính sách bảo mật</a>

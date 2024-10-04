@@ -145,6 +145,10 @@
         <servlet-class>controller.LoadWardsServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>UpdateFeedbackStatusServlet</servlet-name>
+        <servlet-class>controller.UpdateFeedbackStatusServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>DeleteUserServlet</servlet-name>
         <servlet-class>controller.DeleteUserServlet</servlet-class>
     </servlet>
@@ -337,6 +341,10 @@
         <url-pattern>/searchfeedback</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>UpdateFeedbackStatusServlet</servlet-name>
+        <url-pattern>/updatefeedbackstatus</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>ManagerViewServiceServlet</servlet-name>
         <url-pattern>/manager/viewservice</url-pattern>
     </servlet-mapping>
@@ -348,6 +356,8 @@
         <servlet-name>ForgotPasswordServlet</servlet-name>
         <url-pattern>/forgotpassword</url-pattern>
     </servlet-mapping>
-    <servlet-name>ViewDetailsUserServlet</servlet-name>
+    <servlet-mapping>
+        <servlet-name>ViewDetailsUserServlet</servlet-name>
         <url-pattern>/viewdetailsuser</url-pattern>
+    </servlet-mapping>
 </web-app>

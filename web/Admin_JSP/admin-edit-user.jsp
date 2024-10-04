@@ -118,9 +118,9 @@
                                 <div class="form-group">
                                     <label for="gender">Gender:</label>
                                     <select id="gender" name="gender" class="form-control" required>
-                                        <option value="Male" ${user.gender == 'Male' ? 'selected' : ''}>Male</option>
-                                        <option value="Female" ${user.gender == 'Female' ? 'selected' : ''}>Female</option>
-                                        <option value="Other" ${user.gender == 'Other' ? 'selected' : ''}>Other</option>
+                                        <option value="Nam" ${user.gender == 'Nam' ? 'selected' : ''}>Nam</option>
+                                        <option value="Nữ" ${user.gender == 'Nữ' ? 'selected' : ''}>Nữ</option>
+                                        <option value="Khác" ${user.gender == 'Khác' ? 'selected' : ''}>Khác</option>
                                     </select>
                                 </div>
                                 

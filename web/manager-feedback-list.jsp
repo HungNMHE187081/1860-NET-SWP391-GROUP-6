@@ -90,9 +90,11 @@
                                         <div class="input-group mb-3">
                                             <select class="form-control" id="rating" name="rating">
                                                 <option value="" disabled selected>Chọn số sao</option>
-                                                <c:forEach var="feedback" items="${feedback}">
-                                                    <option value="${feedback.rating}">${feedback.rating}</option>
-                                                </c:forEach>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
                                             </select>
                                             <div class="input-group-append">
                                                 <button type="submit" class="btn custom-filter-btn">Lọc</button>
@@ -101,7 +103,55 @@
                                     </form>
                                 </div>
                             </div>
+                            <style>
+                                /* Style for Input Groups */
+                                .input-group .form-control {
+                                    border-right: none;
+                                    height: 35px; /* Reduced height */
+                                    font-size: 12px; /* Smaller font size */
+                                }
 
+                                .input-group .input-group-append .btn {
+                                    border-left: none;
+                                    border-radius: 0 4px 4px 0;
+                                    height: 35px; /* Reduced height */
+                                    font-size: 12px; /* Smaller font size */
+                                }
+
+                                /* Button Styles */
+                                .custom-search-btn, .custom-filter-btn {
+                                    height: 35px; /* Reduced height */
+                                    padding: 0 15px; /* Adjusted padding */
+                                    font-size: 12px; /* Smaller font size */
+                                }
+
+                                .custom-search-btn {
+                                    background-color: #a2ecb5;
+                                    color: #008c04;
+                                    margin-right: 10px;
+                                }
+
+                                .custom-filter-btn {
+                                    background-color: #e1ec86;
+                                    color: #4b5400;
+                                    margin-right: 10px;
+                                }
+
+                                /* General Form Control */
+                                .form-control {
+                                    height: 35px; /* Reduced height */
+                                    font-size: 12px; /* Smaller font size */
+                                }
+                                /* Style for the select dropdown */
+                                #rating {
+                                    height: 35px; /* Adjust to match other elements */
+                                    font-size: 12px; /* Smaller font size */
+                                    padding: 5px; /* Adjust padding */
+                                }
+
+
+
+                            </style>
                             <table>
                                 <thead>
                                     <tr>
@@ -117,6 +167,7 @@
                                         <th>Đánh giá trải nghiệm</th>
                                         <!--<th>Ngày gửi phản hồi</th>-->
                                         <th>Trạng thái hoạt động</th>
+                                        <th>Chức năng</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -140,6 +191,13 @@
                                             <td>${feedback.experienceRating}</td>    
 
                                             <td>${feedback.status ? 'Đã phản hồi' : 'Chưa phản hồi'}</td>
+                                            <td>
+                                                <form id="updateFeedbackForm${feedback.feedbackID}" action="updatefeedbackstatus" method="post">
+                                                    <input type="hidden" name="feedbackID" value="${feedback.feedbackID}">
+                                                    <button type="button" class="btn btn-excel btn-sm" ${feedback.status ? "disabled" : ""} onclick="confirmUpdate(${feedback.feedbackID})">✓ Xác nhận</button>
+                                                </form>
+                                            </td>
+
                                         </tr>
                                     </c:forEach>
                                 </tbody>
@@ -252,6 +310,11 @@
             $("#show-emp").on("click", function () {
                 $("#ModalUP").modal({backdrop: false, keyboard: false})
             });
+            function confirmUpdate(feedbackID) {
+                if (confirm("Bạn có chắc chắn muốn cập nhật trạng thái không?")) {
+                    document.getElementById('updateFeedbackForm' + feedbackID).submit();
+                }
+            }
         </script>
     </body>
 
