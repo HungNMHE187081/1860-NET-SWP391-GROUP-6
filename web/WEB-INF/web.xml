@@ -176,6 +176,10 @@
         <servlet-name>ForgotPasswordServlet</servlet-name>
         <servlet-class>controller.ForgotPasswordServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ViewDetailsUserServlet</servlet-name>
+        <servlet-class>controller.ViewDetailsUserServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -343,7 +347,7 @@
     <servlet-mapping>
         <servlet-name>ForgotPasswordServlet</servlet-name>
         <url-pattern>/forgotpassword</url-pattern>
-        <servlet-name>ViewDetailsUserServlet</servlet-name>
-        <url-pattern>/viewdetailsuser</url-pattern>
     </servlet-mapping>
+    <servlet-name>ViewDetailsUserServlet</servlet-name>
+        <url-pattern>/viewdetailsuser</url-pattern>
 </web-app>
