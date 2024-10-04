@@ -1,10 +1,3 @@
-<%-- 
-    Document   : Login
-    Created on : Sep 13, 2024, 3:31:29 PM
-    Author     : LENOVO
---%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,26 +26,26 @@
             <div class="logo rounded-full"></div>
         </div>
         <h2 class="text-center text-3xl font-bold text-gray-700 mb-4">Login</h2>
-        <form>
+        <form action="${pageContext.request.contextPath}/login" method="POST">
             <div class="mb-4">
-                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="email" placeholder="Username">
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name="username" placeholder="Username" required>
             </div>
             <div class="mb-6">
-                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" type="password" placeholder="Password">
-                <a href="#" class="text-blue-500 hover:text-blue-700 text-sm float-right">Forgot Password?</a>
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" type="password" name="password" placeholder="Password" required>
+                <a href="${pageContext.request.contextPath}/forgot-password.jsp" class="text-blue-500 hover:text-blue-700 text-sm float-right">Forgot Password?</a>
             </div>
             <div class="mb-6">
-                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 w-full rounded focus:outline-none focus:shadow-outline" type="button">Login</button>
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 w-full rounded focus:outline-none focus:shadow-outline" type="submit">Login</button>
             </div>
             <div class="flex items-center justify-between mb-6">
                 <hr class="w-full" /> <span class="p-2 text-gray-400 mb-1">OR</span> <hr class="w-full" />
             </div>
-            <div class="mb-4">
-                <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 w-full rounded focus:outline-none focus:shadow-outline" type="button">Sign Up with Email</button>
-            </div>
             <p class="text-center text-gray-600 text-sm">
-                Don't have an account? <a href="#" class="text-blue-500 hover:text-blue-700">Sign Up</a>
+                Don't have an account? <a href="${pageContext.request.contextPath}/register.jsp" class="text-blue-500 hover:text-blue-700">Register</a>
             </p>
+            <% if (request.getParameter("error") != null) { %>
+                <p class="text-center text-red-500 text-sm"><%= request.getParameter("error") %></p>
+            <% } %>
         </form>
     </div>
 </body>
