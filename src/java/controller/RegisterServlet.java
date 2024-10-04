@@ -60,7 +60,7 @@ public class RegisterServlet extends HttpServlet {
         // Lưu thông tin người dùng vào cơ sở dữ liệu
         userDAO.registerUser(user);
 
-        response.sendRedirect("login.jsp");
+        response.sendRedirect(request.getContextPath() + "/login");
     }
 
     private String generateSalt() {
