@@ -121,18 +121,18 @@ public class UserDAO extends DBContext{
     
     public static void main(String[] args) {
         // Tạo đối tượng UserDAO
-        UserDAO userDAO = new UserDAO();
-
-        // Gọi phương thức getAllUsers
-        Users users = userDAO.getUserById(1);
-        Users users = userDAO.getUserById(1);
-
-        // In kết quả ra màn hình
-
-            System.out.println(users.getFirstName());
-       
-
-            System.out.println(users.getFirstName());
+//        UserDAO userDAO = new UserDAO();
+//
+//        // Gọi phương thức getAllUsers
+////        Users users = userDAO.getUserById(1);
+////        Users users = userDAO.getUserById(1);
+//
+//        // In kết quả ra màn hình
+//
+//            System.out.println(users.getFirstName());
+//       
+//
+//            System.out.println(users.getFirstName());
        
     }
     
