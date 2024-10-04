@@ -167,14 +167,12 @@
                     <div class="container">
                         <h2>Chi tiết dịch vụ</h2>
                         <input type="hidden" name="serviceID" value="${service.serviceID}">
-                        
-                        <!-- Tên dịch vụ -->
+
                         <div class="form-group">
                             <label class="control-label">Tên dịch vụ</label>
                             <input class="form-control" type="text" id="serviceName" name="serviceName" value="${service.serviceName}" readonly="">
                         </div>
-                        
-                        <!-- 6 cái tiếp theo chia đều thành 2 hàng, 3 cột -->
+
                         <div class="row">
                             <div class="form-group col-md-4">
                                 <label class="control-label">Độ tuổi</label>
@@ -203,8 +201,7 @@
                                 <input class="form-control" type="text" id="isActive" name="isActive" value="${service.isActive ? 'Hoạt động' : 'Chưa hoạt động'}" readonly="">
                             </div>
                         </div>
-                        
-                        <!-- 2 cái date chia đôi -->
+
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label class="control-label">Ngày tạo</label>
@@ -215,8 +212,7 @@
                                 <input class="form-control" type="date" id="updatedAt" name="updatedAt" value="${service.updatedAt}" readonly>
                             </div>
                         </div>
-                        
-                        <!-- Mô tả và ảnh dịch vụ full màn -->
+
                         <div class="form-group">
                             <label class="control-label">Mô tả</label>
                             <textarea class="form-control" id="description" name="description" readonly style="resize: none; overflow-y: auto; min-height: 200px;">${service.description}</textarea>
@@ -231,8 +227,7 @@
                                 <p style="clear:both"></p>
                             </div>
                         </div>
-                        
-                        <!-- Buttons -->
+
                         <div class="form-group">
                             <a class="btn btn-save" href="${pageContext.request.contextPath}/manager/editservice?serviceID=${service.serviceID}">Sửa dịch vụ</a>
                             <a class="btn btn-cancel" onclick="return confirm('Are you sure you want to delete this service?')" href="${pageContext.request.contextPath}/manager/deleteservice?serviceID=${service.serviceID}">Xóa dịch vụ</a>

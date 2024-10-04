@@ -14,27 +14,27 @@
     <body>
         <style>
             .main a {
-        background: center;
-        margin-bottom: 20px;
-        margin-top: 20px;
-        display: flex;
-    }
+                background: center;
+                margin-bottom: 20px;
+                margin-top: 20px;
+                display: flex;
+            }
 
-    a.back-link {
-        display: inline-block;
-        background-color: #007bff; /* Bootstrap primary color */
-        color: white;
-        padding: 10px 15px;
-        text-decoration: none; /* Remove underline */
-        border-radius: 5px;
-        margin-bottom: 20px;
-    }
+            a.back-link {
+                display: inline-block;
+                background-color: #007bff; /* Bootstrap primary color */
+                color: white;
+                padding: 10px 15px;
+                text-decoration: none; /* Remove underline */
+                border-radius: 5px;
+                margin-bottom: 20px;
+            }
 
-    a.back-link:hover {
-        background-color: #0056b3; /* Darker blue on hover */
-    }
+            a.back-link:hover {
+                background-color: #0056b3; /* Darker blue on hover */
+            }
 
-    .detail-container {
+            .detail-container {
                 margin-top: 20px;
                 padding: 20px;
                 border: 1px solid #ddd;
@@ -42,12 +42,13 @@
                 background-color: #f9f9f9;
                 display: flex;
                 align-items: flex-start;
+                flex-direction: column;
             }
 
             .service-image {
                 max-width: 300px;
                 max-height: 300px;
-                margin-right: 20px;
+                margin-bottom: 20px;
             }
 
             .detail-info {
@@ -64,11 +65,34 @@
 
             .detail-item label {
                 font-weight: bold;
-                width: 50px;
+                width: 30%;
             }
 
             .detail-item span {
                 text-align: left;
+                width: 70%;
+            }
+
+            .pagination {
+                display: flex;
+                justify-content: center;
+                margin-top: 30px;
+            }
+
+            .pagination a {
+                margin: 0 8px;
+                padding: 12px 18px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                text-decoration: none;
+                color: #333;
+                background-color: #f9f9f9;
+                transition: background-color 0.3s, color 0.3s;
+            }
+
+            .pagination a:hover {
+                background-color: #e0e0e0;
+                color: #000;
             }
         </style>
         <header>
@@ -104,14 +128,14 @@
                             margin: 30px auto;
                             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
                         }
-                    
+
                         .service-image {
                             max-width: 100%;
                             height: auto;
                             border-radius: 10px;
                             margin-bottom: 25px;
                         }
-                    
+
                         .detail-item {
                             display: flex;
                             justify-content: space-between;
@@ -120,7 +144,7 @@
                             padding: 15px 0;
                             border-bottom: 1px solid #e0e0e0;
                         }
-                    
+
                         .detail-item label {
                             font-weight: bold;
                             margin-right: 15px;
@@ -128,20 +152,20 @@
                             font-size: 1.1em;
                             flex-basis: 30%;
                         }
-                    
+
                         .detail-item span {
                             flex-grow: 1;
                             text-align: right;
                             color: #666;
                             font-size: 1.1em;
                         }
-                    
+
                         .pagination {
                             display: flex;
                             justify-content: center;
                             margin-top: 30px;
                         }
-                    
+
                         .pagination a {
                             margin: 0 8px;
                             padding: 12px 18px;
@@ -152,45 +176,58 @@
                             background-color: #f9f9f9;
                             transition: background-color 0.3s, color 0.3s;
                         }
-                    
+
                         .pagination a:hover {
                             background-color: #e0e0e0;
                             color: #000;
                         }
                     </style>
-                    
+
                     <div class="detail-container">
-                        <c:choose>
-                            <c:when test="${not empty service}">
-                                <img src="${pageContext.request.contextPath}/${service.serviceImage}" 
-                                     alt="${service.serviceName}" class="service-image">
-                                <div class="detail-item">
-                                    <label>Tên dịch vụ:</label>
-                                    <span>${service.serviceName}</span>
-                                </div>
-                                <div class="detail-item">
-                                    <label>Mô tả:</label>
-                                    <span>${service.description}</span>
-                                </div>
-                                <div class="detail-item">
-                                    <label>Giá:</label>
-                                    <span><fmt:formatNumber value="${service.price}" type="number" groupingUsed="true" />₫</span>
-                                </div>
-                                <div class="detail-item">
-                                    <label>Độ tuổi:</label>
-                                    <span>
-                                        <c:forEach var="ageLimit" items="${ageLimit}">
-                                            <c:if test="${ageLimit.ageLimitID == service.ageLimitID}">
-                                                ${ageLimit.ageLimit}
-                                            </c:if>
-                                        </c:forEach>
-                                    </span>
-                                </div>
-                            </c:when>
-                            <c:otherwise>
-                                <p>Dịch vụ không tồn tại.</p>
-                            </c:otherwise>
-                        </c:choose>
+                        <img src="${pageContext.request.contextPath}/${service.serviceImage}" 
+                             alt="${service.serviceName}" class="service-image">
+                        <div class="detail-item">
+                            <label>Tên dịch vụ:</label>
+                            <span>${service.serviceName}</span>
+                        </div>
+                        <div class="detail-item">
+                            <label>Độ tuổi:</label>
+                            <span>
+                                <c:forEach var="ageLimit" items="${ageLimits}">
+                                    <c:if test="${ageLimit.ageLimitID == service.ageLimitID}">
+                                        ${ageLimit.ageLimit}
+                                    </c:if>
+                                </c:forEach>
+                            </span>
+                        </div>
+                        <div class="detail-item">
+                            <label>Loại dịch vụ:</label>
+                            <span>
+                                <c:forEach var="category" items="${categories}">
+                                    <c:if test="${category.categoryID == service.categoryID}">
+                                        ${category.categoryName}
+                                    </c:if>
+                                </c:forEach>
+                            </span>
+                        </div>
+                        <div class="detail-item">
+                            <label>Nhân viên thực hiện dịch vụ:</label>
+                            <span>
+                                <c:forEach var="degree" items="${degrees}">
+                                    <c:if test="${degree.degreeID == service.degreeID}">
+                                        ${degree.degreeName}
+                                    </c:if>
+                                </c:forEach>
+                            </span>
+                        </div>
+                        <div class="detail-item">
+                            <label>Giá:</label>
+                            <span><fmt:formatNumber value="${service.price}" type="number" groupingUsed="true" />₫</span>
+                        </div>
+                        <div class="detail-item">
+                            <label>Mô tả:</label>
+                            <span style="white-space: pre-line;">${service.description}</span>
+                        </div>
                     </div>
 
                     <div class="pagination">
