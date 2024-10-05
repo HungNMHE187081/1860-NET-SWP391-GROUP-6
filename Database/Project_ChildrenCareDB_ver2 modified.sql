@@ -151,14 +151,15 @@ CREATE TABLE Reservations (
     CustomerID INT,
     ChildID INT,
     ServiceID INT,
-    StaffID INT,
     ReservationDate DATE,
     StartTime TIME,
-    Status NVARCHAR(20),
+    Status BIT,
+	isExam BIT,
     FOREIGN KEY (CustomerID) REFERENCES Users(UserID) ON DELETE CASCADE,
-    FOREIGN KEY (ChildID) REFERENCES Children(ChildID),
+    FOREIGN KEY (ChildID) REFERENCES Children(ChildID) ON DELETE CASCADE,
     FOREIGN KEY (ServiceID) REFERENCES Services(ServiceID),
 );
+
 -- Create MedicalRecords table
 CREATE TABLE MedicalRecords (
     RecordID INT PRIMARY KEY IDENTITY(1,1),
@@ -486,9 +487,6 @@ INSERT INTO Services (ServiceName, CategoryID, DegreeID, Description, Price, Dur
 
 
 
-select * from Staff
-
-
 INSERT INTO MedicineCategory (CategoryName) 
 VALUES 
 (N'Thuốc da liễu'),
@@ -609,3 +607,19 @@ VALUES
     (2, 2, N'Trần Thị B', N'tranthib@example.com', '0987654321', 4, N'Tốt', N'Hài lòng với dịch vụ', N'Tùy chọn giá cả tốt hơn', '/attachments/feedback2.jpg', 1),
     (3, 3, N'Lê Minh C', N'leminhc@example.com', '1231231234', 3, N'Trung bình', N'Dịch vụ tạm ổn', N'Cải thiện thời gian phản hồi', '/attachments/feedback3.jpg', 0);
 
+
+-- Insert dữ liệu vào bảng Staff
+INSERT INTO Staff (StaffID, StaffName, YearsOfExperience, SpecializationID, DegreeID, HireDate, Salary) VALUES
+(1, N'Nguyễn Văn A', 5, 1, 1, '2015-01-01', 5000000),
+(2, N'Trần Thị B', 3, 2, 2, '2018-05-15', 4000000),
+(3, N'Lê Minh C', 2, 3, 3, '2020-10-20', 3000000);
+
+
+-- Insert dữ liệu vào bảng Reservations
+INSERT INTO Reservations (CustomerID, ChildID, ServiceID, ReservationDate, StartTime, Status, isExam) VALUES
+(1, 1, 1, '2023-10-01', '09:00:00', 1, 1),
+(2, 2, 2, '2023-10-02', '10:00:00', 1, 0),
+(3, 3, 3, '2023-10-03', '11:00:00', 0, 1);
+
+
+select * from Reservations

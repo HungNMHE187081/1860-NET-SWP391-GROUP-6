@@ -16,7 +16,7 @@ import model.Staff;
 public class StaffDAO extends DBContext{
     public List<Staff> getAllStaffs(){
         List<Staff> list = new ArrayList<>();
-        String sql = "SELECT * FROM Staffs";
+        String sql = "SELECT * FROM Staff";
         try {
             PreparedStatement pre = connection.prepareStatement(sql);
             ResultSet rs = pre.executeQuery();

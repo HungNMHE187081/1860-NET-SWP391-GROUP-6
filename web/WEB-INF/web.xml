@@ -184,6 +184,10 @@
         <servlet-name>ViewDetailsUserServlet</servlet-name>
         <servlet-class>controller.ViewDetailsUserServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ManagerStaffsListServlet</servlet-name>
+        <servlet-class>controller.ManagerStaffsListServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -359,5 +363,9 @@
     <servlet-mapping>
         <servlet-name>ViewDetailsUserServlet</servlet-name>
         <url-pattern>/viewdetailsuser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManagerStaffsListServlet</servlet-name>
+        <url-pattern>/manager/staffslist</url-pattern>
     </servlet-mapping>
 </web-app>
