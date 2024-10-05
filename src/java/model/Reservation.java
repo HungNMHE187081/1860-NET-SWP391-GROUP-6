@@ -10,12 +10,13 @@ package model;
  */
 public class Reservation {
     int ReservationID, CustomerID, ChildrenID, ServiceID;
-    String ReservationDate, StartTime, Status;
+    String ReservationDate, StartTime;
+    boolean Status, isExam;
 
     public Reservation() {
     }
 
-    public Reservation(int ReservationID, int CustomerID, int ChildrenID, int ServiceID, String ReservationDate, String StartTime, String Status) {
+    public Reservation(int ReservationID, int CustomerID, int ChildrenID, int ServiceID, String ReservationDate, String StartTime, boolean Status, boolean isExam) {
         this.ReservationID = ReservationID;
         this.CustomerID = CustomerID;
         this.ChildrenID = ChildrenID;
@@ -23,6 +24,7 @@ public class Reservation {
         this.ReservationDate = ReservationDate;
         this.StartTime = StartTime;
         this.Status = Status;
+        this.isExam = isExam;
     }
 
     public int getReservationID() {
@@ -73,12 +75,21 @@ public class Reservation {
         this.StartTime = StartTime;
     }
 
-    public String getStatus() {
+    public boolean isStatus() {
         return Status;
     }
 
-    public void setStatus(String Status) {
+    public void setStatus(boolean Status) {
         this.Status = Status;
     }
+
+    public boolean isIsExam() {
+        return isExam;
+    }
+
+    public void setIsExam(boolean isExam) {
+        this.isExam = isExam;
+    }
+
     
 }

@@ -13,14 +13,18 @@ import model.Staff;
  *
  * @author LENOVO
  */
-public class StaffDAO extends DBContext{
-    public List<Staff> getAllStaffs(){
+public class StaffDAO extends DBContext {
+
+    public List<Staff> getAllStaffs() {
         List<Staff> list = new ArrayList<>();
-        String sql = "SELECT * FROM Staff";
+        String sql = "SELECT s.StaffID, u.FirstName + ' ' + u.MiddleName + ' ' + u.LastName AS StaffName, " +
+                     "s.YearsOfExperience, SpecializationID, DegreeID, s.HireDate, s.Salary " +
+                     "FROM Staff s " +
+                     "JOIN Users u ON s.StaffID = u.UserID ";
         try {
             PreparedStatement pre = connection.prepareStatement(sql);
             ResultSet rs = pre.executeQuery();
-            while (rs.next()){
+            while (rs.next()) {
                 int StaffID = rs.getInt("StaffID");
                 String StaffName = rs.getString("StaffName");
                 int YearsOfExperience = rs.getInt("YearsOfExperience");
@@ -34,7 +38,11 @@ public class StaffDAO extends DBContext{
         }
         return list;
     }
-    
+
+    public void addStaff(Staff staff) {
+
+    }
+
     public static void main(String[] args) {
         StaffDAO dao = new StaffDAO();
         System.out.println(dao.getAllStaffs().size());

@@ -27,12 +27,17 @@ public class ReservationDAO extends DBContext{
                 int ServiceID = rs.getInt("ServiceID");
                 String ReservationDate = rs.getString("ReservationDate");
                 String StartTime = rs.getString("StartTime");
-                String Status = rs.getString("Status");
-                list.add(new Reservation(ReservationID, CustomerID, ChildID, ServiceID, ReservationDate, StartTime, Status));
+                boolean Status = rs.getBoolean("Status");
+                boolean isExam = rs.getBoolean("isExam");
+                list.add(new Reservation(ReservationID, CustomerID, ChildID, ServiceID, ReservationDate, StartTime, Status, isExam));
             }
         } catch (SQLException e) {
         }
         return list;
+    }
+    
+    public void addReservation(Reservation reservation){
+        
     }
     
     public static void main(String[] args) {

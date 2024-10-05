@@ -8,6 +8,7 @@ package controller;
 import dal.DegreeDAO;
 import dal.SpecializationDAO;
 import dal.StaffDAO;
+import dal.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -18,6 +19,7 @@ import java.util.List;
 import model.Degree;
 import model.Specialization;
 import model.Staff;
+import model.Users;
 
 /**
  *
@@ -34,10 +36,13 @@ public class ManagerStaffsListServlet extends HttpServlet {
         List<Degree> degrees = degreeDAO.getAllDegrees();
         SpecializationDAO specializationDAO = new SpecializationDAO();
         List<Specialization> specializations = specializationDAO.getAllSpecializations();
+        UserDAO userDAO = new UserDAO();
+        List<Users> users = userDAO.getAllUsers();
         
-        request.setAttribute("staff", staffs);
+        request.setAttribute("staffs", staffs);
         request.setAttribute("degrees", degrees);
         request.setAttribute("specializations", specializations);
+        request.setAttribute("users", users);
         request.getRequestDispatcher("/Manager_JSP/manager-staffs-list.jsp").forward(request, response);
     } 
 

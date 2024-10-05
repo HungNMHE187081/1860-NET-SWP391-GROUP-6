@@ -121,10 +121,10 @@
                                         <div class="filter-group">
                                             <input type="text" id="searchInput" name="keyword" placeholder="Tìm theo tên nhân viên" />
 
-                                            <select class="form-control" id="ageLimit" name="ageLimit">
+                                            <select class="form-control" id="specialization" name="specialization">
                                                 <option value="">Chọn chức vụ</option>
-                                                <c:forEach var="ageLimit" items="${ageLimits}">
-                                                    <option value="${ageLimit.ageLimitID}">${ageLimit.ageLimit}</option>
+                                                <c:forEach var="specializations" items="${specializations}">
+                                                    <option value="${specializations.specializationID}">${specializations.specializationName}</option>
                                                 </c:forEach>
                                             </select>
 
@@ -186,60 +186,45 @@
                                 <thead>
                                     <tr>
                                         <th>STT</th>
-                                        <th>Tên dịch vụ</th>
+                                        <th>Tên nhân viên</th>
                                         <th>Ảnh</th>
-                                        <th>Độ tuổi</th>
-                                        <th>Loại dịch vụ</th>
-                                        <th>Giá (VNĐ)</th>
-                                        <th>Thời gian tối đa</th>
-                                        <th>Trạng thái</th>
+                                        <th>Chức vụ</th>
+                                        <th>Khoa</th>
+                                        <th>Ngày được nhận</th>
                                         <th>Chức năng</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <c:forEach var="service" items="${services}" varStatus="status">
+                                    <c:forEach var="staff" items="${staffs}" varStatus="status">
                                         <tr>
                                             <td>${status.index + 1}</td>
-                                            <td>${service.serviceName}</td>
-                                            <td><img src="${pageContext.request.contextPath}/${service.serviceImage}" alt="${service.serviceName}" width="75" height="50"></td>
+                                            <td>${staff.staffName}</td>
                                             <td>
-                                                <c:forEach var="ageLimit" items="${ageLimits}">
-                                                    <c:if test="${ageLimit.ageLimitID == service.ageLimitID}">
-                                                        ${ageLimit.ageLimit}
+                                                <c:forEach var="user" items="${users}">
+                                                    <c:if test="${user.UserID == staff.staffID}">
+                                                        <img src="${pageContext.request.contextPath}/${user.profileImage}" alt="${service.serviceName}" width="75" height="50">
                                                     </c:if>
                                                 </c:forEach>
                                             </td>
                                             <td>
-                                                <c:forEach var="category" items="${categories}">
-                                                    <c:if test="${category.categoryID == service.categoryID}">
-                                                        ${category.categoryName}
+                                                <c:forEach var="degree" items="${degrees}">
+                                                    <c:if test="${degree.degreeID == staff.degreeID}">
+                                                        ${degree.degreeName}
                                                     </c:if>
                                                 </c:forEach>
                                             </td>
-                                            <td><fmt:formatNumber value="${service.price}" type="number" groupingUsed="true" /></td>
                                             <td>
-                                                <c:if test="${service.duration == 0}">
-                                                    Theo lịch đặt
-                                                </c:if>
-                                                <c:if test="${service.duration != 0}">
-                                                    ${service.duration} phút
-                                                </c:if>
+                                                <c:forEach var="specialization" items="${specializations}">
+                                                    <c:if test="${specialization.specializationID == staff.specializationID}">
+                                                        ${specialization.specializationName}
+                                                    </c:if>
+                                                </c:forEach>
                                             </td>
-                                            <td>
-                                                <c:if test="${service.isActive}">
-                                                    Active
-                                                </c:if>
-                                                <c:if test="${!service.isActive}">
-                                                    Inactive
-                                                </c:if>
-                                            </td>
-                                            <td class="table-td-center"><button class="btn btn-primary btn-sm trash" type="button" title="delete"
-                                                                                onclick="return confirm('Are you sure you want to delete this service?')">
-                                                    <a href="${pageContext.request.contextPath}/manager/deleteservice?serviceID=${service.serviceID}"><i class="fas fa-trash-alt"></i></a>
-                                                </button>
-                                                <button class="btn btn-primary btn-sm" type="button" title="detail" id="show-emp">
+                                            <td></td>
 
-                                                    <a href="${pageContext.request.contextPath}/manager/viewservice?serviceID=${service.serviceID}"><i class="fas fa-eye"></i></a>
+                                            <td class="table-td-center">
+                                                <button class="btn btn-primary btn-sm" type="button" title="detail" id="show-emp">
+                                                    <a href="${pageContext.request.contextPath}/manager/viewstaff?staffID=${staff.staffID}"><i class="fas fa-eye"></i></a>
                                                 </button>
                                             </td>
                                         </tr>
