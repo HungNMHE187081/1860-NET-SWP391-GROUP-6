@@ -108,7 +108,7 @@
                                     <form action="${pageContext.request.contextPath}/manager/searchstaff" method="get" class="filter-form">
                                         <div class="filter-group">
                                             <input type="text" id="searchInput" name="keyword" placeholder="Tìm theo tên nhân viên" />
-                                            <select class="form-control" id="specialization" name="specialization">
+                                            <select class="form-control" id="specializationID" name="specializationID">
                                                 <option value="">Chọn chức vụ</option>
                                                 <c:forEach var="specialization" items="${specializations}">
                                                     <option value="${specialization.specializationID}">${specialization.specializationName}</option>

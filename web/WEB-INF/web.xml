@@ -192,6 +192,10 @@
         <servlet-name>ManagerViewStaffServlet</servlet-name>
         <servlet-class>controller.ManagerViewStaffServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ManagerSearchStaffServlet</servlet-name>
+        <servlet-class>controller.ManagerSearchStaffServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -375,5 +379,9 @@
     <servlet-mapping>
         <servlet-name>ManagerViewStaffServlet</servlet-name>
         <url-pattern>/manager/viewstaff</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManagerSearchStaffServlet</servlet-name>
+        <url-pattern>/manager/searchstaff</url-pattern>
     </servlet-mapping>
 </web-app>

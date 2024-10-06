@@ -184,7 +184,7 @@
                                 <div class="row">
                                     <div class="form-group col-md-6">
                                         <label class="control-label">Tên nhân viên</label>
-                                        <input class="form-control" type="text" id="staffName" name="staffName" value="${user.firstName} ${user.middleName} ${user.lastName}" readonly="">
+                                        <input class="form-control" type="text" id="staffName" name="staffName" value="${staff.staffName}" readonly="">
                                     </div>
                                     <div class="form-group col-md-4">
                                         <label class="control-label">Giới tính</label>

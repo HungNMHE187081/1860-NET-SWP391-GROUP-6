@@ -439,7 +439,6 @@ INSERT INTO Specializations (SpecializationName) VALUES (N'Khoa Mắt');
 INSERT INTO Specializations (SpecializationName) VALUES (N'Khoa Da liễu');
 INSERT INTO Specializations (SpecializationName) VALUES (N'Khoa Tâm lý');
 INSERT INTO Specializations (SpecializationName) VALUES (N'Tiêm chủng');
-INSERT INTO Specializations (SpecializationName) VALUES (N'Điều dưỡng');
 INSERT INTO Specializations (SpecializationName) VALUES (N'Khoa Sản');
 INSERT INTO Specializations (SpecializationName) VALUES (N'Tuổi dậy thì');
 INSERT INTO Specializations (SpecializationName) VALUES (N'Răng miệng');
@@ -627,5 +626,18 @@ INSERT INTO Reservations (CustomerID, ChildID, ServiceID, ReservationDate, Start
 (2, 2, 2, '2023-10-02', '10:00:00', 1, 0),
 (3, 3, 3, '2023-10-03', '11:00:00', 0, 1);
 
+CREATE VIEW StaffView AS
+SELECT u.UserID AS StaffID, 
+       u.FirstName + ' ' + u.MiddleName + ' ' + u.LastName AS StaffName, 
+       s.YearsOfExperience, 
+       s.SpecializationID, 
+       s.DegreeID, 
+       s.HireDate, 
+       s.Salary
+FROM Users u
+JOIN UserRoles ur ON u.UserID = ur.UserID
+JOIN Roles r ON ur.RoleID = r.RoleID
+JOIN Staff s ON u.UserID = s.StaffID
+WHERE r.RoleID IN (3, 4); 
 
-select * from Specializations
+select * from StaffView

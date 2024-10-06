@@ -9,11 +9,12 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import model.Degree;
 import model.Specialization;
 import model.Staff;
-import model.Users;
 
 public class ManagerStaffsListServlet extends HttpServlet {
 
@@ -26,14 +27,17 @@ public class ManagerStaffsListServlet extends HttpServlet {
         List<Degree> degrees = degreeDAO.getAllDegrees();
         SpecializationDAO specializationDAO = new SpecializationDAO();
         List<Specialization> specializations = specializationDAO.getAllSpecializations();
-        UserDAO userDAO = new UserDAO();
-        List<Users> users = userDAO.getAllUsers();
-
+        
+        Collections.sort(staffs, new Comparator<Staff>() {
+            @Override
+            public int compare(Staff s1, Staff s2) {
+                return s1.getStaffName().compareTo(s2.getStaffName());
+            }
+        });
 
         request.setAttribute("staffs", staffs);
         request.setAttribute("degrees", degrees);
         request.setAttribute("specializations", specializations);
-        request.setAttribute("users", users);
         request.getRequestDispatcher("/Manager_JSP/manager-staffs-list.jsp").forward(request, response);
     } 
 
