@@ -1,11 +1,5 @@
-<%-- 
-    Document   : manager-services-list
-    Created on : Sep 20, 2024, 10:35:21 AM
-    Author     : LENOVO
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
@@ -21,7 +15,6 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
         <!-- or -->
         <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
-
         <!-- Font-icon css-->
         <link rel="stylesheet" type="text/css"
               href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -79,21 +72,17 @@
                                             aria-label="Hide Sidebar"></a>
             <!-- Navbar Right Menu-->
             <ul class="app-nav">
-
-
                 <!-- User Menu-->
                 <li><a class="app-nav__item" href="/index.html"><i class='bx bx-log-out bx-rotate-180'></i> </a>
-
                 </li>
             </ul>
         </header>
         <!-- Sidebar menu-->
         <%@ include file="dashboardleft.jsp" %>
         <main class="app-content">
-
             <div class="app-title">
                 <ul class="app-breadcrumb breadcrumb side">
-                    <li class="breadcrumb-item active"><a href="${pageContext.request.contextPath}/manager/staffslist"><b>Danh sách dịch vụ</b></a></li>
+                    <li class="breadcrumb-item active"><a href="${pageContext.request.contextPath}/manager/staffslist"><b>Danh sách nhân viên</b></a></li>
                 </ul>
                 <div id="clock"></div>
             </div>
@@ -102,7 +91,6 @@
                 <div class="col-md-12">
                     <div class="tile">
                         <div class="tile-body">
-
                             <div class="row mb-3 d-flex justify-content-between align-items-center">
                                 <div class="d-flex">
                                     <div class="col-sm-2">
@@ -120,69 +108,18 @@
                                     <form action="${pageContext.request.contextPath}/manager/searchstaff" method="get" class="filter-form">
                                         <div class="filter-group">
                                             <input type="text" id="searchInput" name="keyword" placeholder="Tìm theo tên nhân viên" />
-
                                             <select class="form-control" id="specialization" name="specialization">
                                                 <option value="">Chọn chức vụ</option>
-                                                <c:forEach var="specializations" items="${specializations}">
-                                                    <option value="${specializations.specializationID}">${specializations.specializationName}</option>
+                                                <c:forEach var="specialization" items="${specializations}">
+                                                    <option value="${specialization.specializationID}">${specialization.specializationName}</option>
                                                 </c:forEach>
                                             </select>
-
                                             <button type="submit"><i class="fas fa-filter"></i> Lọc và tìm kiếm</button>
                                         </div>
                                     </form>
                                 </div>
-
-                                <style>
-                                    /* Style for Input Groups */
-                                    .input-group .form-control {
-                                        border-right: none;
-                                    }
-
-                                    .input-group .input-group-append .btn {
-                                        border-left: none;
-                                        border-radius: 0 4px 4px 0;
-                                    }
-
-                                    /* Button Styles */
-                                    .custom-search-btn, .custom-filter-btn {
-                                        height: 45px;
-                                        padding: 0 20px;
-                                        font-size: 14px;
-                                    }
-
-                                    .custom-search-btn {
-                                        background-color: #F5CBA7;
-                                        color: #D35400;
-                                        border: 1px solid #D35400;
-                                    }
-
-                                    .custom-search-btn:hover {
-                                        background-color: #D35400;
-                                        color: #FFFFFF;
-                                    }
-
-                                    .custom-filter-btn {
-                                        background-color: #1B2631;
-                                        color: #FFFFFF;
-                                        border: 1px solid #1B2631;
-                                    }
-
-                                    .custom-filter-btn:hover {
-                                        background-color: #154360;
-                                    }
-
-                                    /* General Form Control */
-                                    .form-control {
-                                        height: 45px;
-                                    }
-
-
-                                </style>
-
                             </div>
-
-                            <table>
+                            <table class="table table-hover">
                                 <thead>
                                     <tr>
                                         <th>STT</th>
@@ -200,11 +137,7 @@
                                             <td>${status.index + 1}</td>
                                             <td>${staff.staffName}</td>
                                             <td>
-                                                <c:forEach var="user" items="${users}">
-                                                    <c:if test="${user.UserID == staff.staffID}">
-                                                        <img src="${pageContext.request.contextPath}/${user.profileImage}" alt="${service.serviceName}" width="75" height="50">
-                                                    </c:if>
-                                                </c:forEach>
+                                                <img src="${pageContext.request.contextPath}/${user.profileImage}" alt="${staff.staffName}" width="75" height="50">
                                             </td>
                                             <td>
                                                 <c:forEach var="degree" items="${degrees}">
@@ -220,8 +153,7 @@
                                                     </c:if>
                                                 </c:forEach>
                                             </td>
-                                            <td></td>
-
+                                            <td>${staff.hireDate}</td>
                                             <td class="table-td-center">
                                                 <button class="btn btn-primary btn-sm" type="button" title="detail" id="show-emp">
                                                     <a href="${pageContext.request.contextPath}/manager/viewstaff?staffID=${staff.staffID}"><i class="fas fa-eye"></i></a>
@@ -235,7 +167,6 @@
                     </div>
                 </div>
             </div>
-
         </main>
 
         <!-- Essential javascripts for application to work-->
@@ -254,19 +185,6 @@
         <script type="text/javascript" src="js/plugins/dataTables.bootstrap.min.js"></script>
         <script type="text/javascript">$('#sampleTable').DataTable();</script>
         <script>
-
-            //EXCEL
-            // $(document).ready(function () {
-            //   $('#').DataTable({
-
-            //     dom: 'Bfrtip',
-            //     "buttons": [
-            //       'excel'
-            //     ]
-            //   });
-            // });
-
-
             //Thời Gian
             function time() {
                 var today = new Date();
@@ -317,31 +235,10 @@
                     win.print();
                 }
             }
-            //     //Sao chép dữ liệu
-            //     var copyTextareaBtn = document.querySelector('.js-textareacopybtn');
-
-            // copyTextareaBtn.addEventListener('click', function(event) {
-            //   var copyTextarea = document.querySelector('.js-copytextarea');
-            //   copyTextarea.focus();
-            //   copyTextarea.select();
-
-            //   try {
-            //     var successful = document.execCommand('copy');
-            //     var msg = successful ? 'successful' : 'unsuccessful';
-            //     console.log('Copying text command was ' + msg);
-            //   } catch (err) {
-            //     console.log('Oops, unable to copy');
-            //   }
-            // });
-
-
             //Modal
             $("#show-emp").on("click", function () {
                 $("#ModalUP").modal({backdrop: false, keyboard: false})
             });
         </script>
-
     </body>
-
 </html>
-

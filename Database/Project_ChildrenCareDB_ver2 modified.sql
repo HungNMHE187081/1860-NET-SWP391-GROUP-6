@@ -615,6 +615,12 @@ INSERT INTO Staff (StaffID, StaffName, YearsOfExperience, SpecializationID, Degr
 (3, N'Lê Minh C', 2, 3, 3, '2020-10-20', 3000000);
 
 
+INSERT INTO Children (CustomerID, FirstName, MiddleName, LastName, DateOfBirth, Gender, ChildImage)
+VALUES 
+(1, N'Nguyễn', N'Văn', N'D', '2010-01-01', N'Nam', NULL),
+(2, N'Trần', N'Thị', N'E', '2012-05-15', N'Nữ', NULL),
+(3, N'Lê', N'Minh', N'F', '2015-10-20', N'Nam', NULL);
+
 -- Insert dữ liệu vào bảng Reservations
 INSERT INTO Reservations (CustomerID, ChildID, ServiceID, ReservationDate, StartTime, Status, isExam) VALUES
 (1, 1, 1, '2023-10-01', '09:00:00', 1, 1),
@@ -622,4 +628,4 @@ INSERT INTO Reservations (CustomerID, ChildID, ServiceID, ReservationDate, Start
 (3, 3, 3, '2023-10-03', '11:00:00', 0, 1);
 
 
-select * from Reservations
+select * from Specializations
