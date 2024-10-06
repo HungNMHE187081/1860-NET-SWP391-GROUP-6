@@ -138,6 +138,11 @@
                 transform: rotate(-45deg);
                 margin-top: -2px;
             }
+
+            .right-align {
+                display: flex;
+                justify-content: flex-end;
+            }
         </style>
         <!-- Navbar-->
         <header class="app-header">
@@ -187,21 +192,19 @@
                                     </div>
                                     <div class="form-group col-md-4">
                                         <label class="control-label">Chức vụ</label>
-                                        <input class="form-control" type="text" id="degree" name="degree" value="
-                                               <c:forEach var="degree" items="${degrees}">
-                                                    <c:if test="${degree.degreeID == staff.degreeID}">
-                                                        ${degree.degreeName}
-                                                    </c:if>
-                                                </c:forEach>" readonly="">
+                                        <c:forEach var="degree" items="${degrees}">
+                                            <c:if test="${degree.degreeID == staff.degreeID}">
+                                                <input class="form-control" type="text" id="degree" name="degree" value="${degree.degreeName}" readonly="">
+                                            </c:if>
+                                        </c:forEach>
                                     </div>
                                     <div class="form-group col-md-4">
                                         <label class="control-label">Khoa</label>
-                                        <input class="form-control" type="text" id="specialization" name="specialization" value="
-                                               <c:forEach var="specialization" items="${specializations}">
-                                                    <c:if test="${specialization.specializationID == staff.specializationID}">
-                                                        ${specialization.specializationName}
-                                                    </c:if>
-                                                </c:forEach>" readonly="">
+                                        <c:forEach var="specialization" items="${specializations}">
+                                            <c:if test="${specialization.specializationID == staff.specializationID}">
+                                                <input class="form-control" type="text" id="specialization" name="specialization" value="${specialization.specializationName}" readonly="">
+                                            </c:if>
+                                        </c:forEach>
                                     </div>
                                     <div class="form-group col-md-4">
                                         <label class="control-label">Tỉnh/Thành phố</label>
@@ -226,7 +229,7 @@
                                     <div class="form-group col-md-4">
                                         <label class="control-label">Số điện thoại</label>
                                         <input class="form-control" type="text" id="phoneNumber" name="phoneNumber" value="${user.phoneNumber}" readonly="">
-                                        </div>
+                                    </div>
                                     <div class="form-group col-md-4">
                                         <label class="control-label">Ngày sinh</label>
                                         <input class="form-control" type="text" id="dateOfBirth" name="dateOfBirth" value="${user.dateOfBirth}" readonly="">
@@ -244,6 +247,9 @@
                                         <input class="form-control" type="text" id="salary" name="salary" value="${staff.salary}" readonly="">
                                     </div>
                                 </div>
+                            </div>
+                            <div class="form-group col-md-12 right-align">
+                                <a class="btn btn-save" href="${pageContext.request.contextPath}/manager/staffslist">Trở về</a>
                             </div>
                         </div>
                     </div>
