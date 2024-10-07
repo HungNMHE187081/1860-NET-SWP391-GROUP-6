@@ -196,6 +196,26 @@
         <servlet-name>ManagerSearchStaffServlet</servlet-name>
         <servlet-class>controller.ManagerSearchStaffServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>StaffStaffsListServlet</servlet-name>
+        <servlet-class>controller.StaffStaffsListServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>StaffViewStaffServlet</servlet-name>
+        <servlet-class>controller.StaffViewStaffServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>StaffSearchStaffServlet</servlet-name>
+        <servlet-class>controller.StaffSearchStaffServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>StaffNewReservationsListServlet</servlet-name>
+        <servlet-class>controller.StaffNewReservationsListServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>StaffOldReservationsListServlet</servlet-name>
+        <servlet-class>controller.StaffOldReservationsListServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -383,5 +403,25 @@
     <servlet-mapping>
         <servlet-name>ManagerSearchStaffServlet</servlet-name>
         <url-pattern>/manager/searchstaff</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StaffStaffsListServlet</servlet-name>
+        <url-pattern>/staff/staffslist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StaffViewStaffServlet</servlet-name>
+        <url-pattern>/staff/viewstaff</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StaffSearchStaffServlet</servlet-name>
+        <url-pattern>/staff/searchstaff</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StaffNewReservationsListServlet</servlet-name>
+        <url-pattern>/staff/newreservationslist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StaffOldReservationsListServlet</servlet-name>
+        <url-pattern>/staff/oldreservationslist</url-pattern>
     </servlet-mapping>
 </web-app>

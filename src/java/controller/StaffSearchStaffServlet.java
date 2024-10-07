@@ -7,7 +7,6 @@ package controller;
 import dal.DegreeDAO;
 import dal.SpecializationDAO;
 import dal.StaffDAO;
-import dal.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -18,13 +17,12 @@ import java.util.List;
 import model.Degree;
 import model.Specialization;
 import model.Staff;
-import model.Users;
 
 /**
  *
  * @author LENOVO
  */
-public class ManagerSearchStaffServlet extends HttpServlet {
+public class StaffSearchStaffServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -54,17 +52,9 @@ public class ManagerSearchStaffServlet extends HttpServlet {
         request.setAttribute("staffs", staffs);
         request.setAttribute("degrees", degrees);
         request.setAttribute("specializations", specializations);
-        request.getRequestDispatcher("/Manager_JSP/manager-staffs-list.jsp").forward(request, response);
+        request.getRequestDispatcher("/Staff_JSP/staff-staffs-list.jsp").forward(request, response);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
