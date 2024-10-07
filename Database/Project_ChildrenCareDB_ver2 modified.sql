@@ -626,6 +626,19 @@ INSERT INTO Reservations (CustomerID, ChildID, ServiceID, ReservationDate, Start
 (2, 2, 2, '2023-10-02', '10:00:00', 1, 0),
 (3, 3, 3, '2023-10-03', '11:00:00', 0, 1);
 
+INSERT INTO HealthMetrics (ChildID, Height, Weight, BMI, RecordDate)
+VALUES (1, 120.5, 45.6, 18.7, '2024-10-07');
+INSERT INTO Allergies (ChildID, AllergyName, Severity, DiagnosedDate)
+VALUES (1, 'Peanut Allergy', 'Severe', '2022-05-15');
+INSERT INTO Immunizations (ChildID, VaccineName, DateAdministered, NextDueDate)
+VALUES (1, 'MMR Vaccine', '2023-03-10', '2024-03-10');
+INSERT INTO DietaryRestrictions (ChildID, Restriction, Reason)
+VALUES (1, 'Lactose Intolerance', 'Causes stomach pain and discomfort');
+INSERT INTO EmergencyContacts (ChildID, ContactName, Relationship, PhoneNumber)
+VALUES (1, 'John Doe', 'Father', '0987654321');
+
+
+
 CREATE VIEW StaffView AS
 SELECT u.UserID AS StaffID, 
        u.FirstName + ' ' + u.MiddleName + ' ' + u.LastName AS StaffName, 
