@@ -5,68 +5,56 @@
 
 package controller;
 
+import dal.ChildrenDAO;
+import dal.ManagerUserDAO;
+import dal.ReservationDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import model.Children;
+import model.Reservation;
+import model.Users;
 
 /**
  *
  * @author LENOVO
  */
 public class StaffOldReservationsListServlet extends HttpServlet {
-   
-    /** 
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet StaffOldReservationsListServlet</title>");  
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet StaffOldReservationsListServlet at " + request.getContextPath () + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    } 
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /** 
-     * Handles the HTTP <code>GET</code> method.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        ReservationDAO reservationDAO = new ReservationDAO();
+        List<Reservation> reservations = reservationDAO.getReservationByIsExam(false);
+        ChildrenDAO childrenDAO = new ChildrenDAO();
+        List<Children> children = childrenDAO.getAllChildren();
+        ManagerUserDAO managerUserDAO = new ManagerUserDAO();
+        List<Users> users = managerUserDAO.getAllUsers();
+        
+        Collections.sort(reservations, new Comparator<Reservation>() {
+            @Override
+            public int compare(Reservation s1, Reservation s2) {
+                return s1.getReservationDate().compareTo(s2.getReservationDate());
+            }
+        });
+        
+        request.setAttribute("reservations", reservations);
+        request.setAttribute("children", children);
+        request.setAttribute("users", users);
+        request.getRequestDispatcher("/Staff_JSP/staff-old-reservations-list.jsp").forward(request, response);
     } 
 
-    /** 
-     * Handles the HTTP <code>POST</code> method.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        
     }
 
     /** 

@@ -7,6 +7,9 @@ package dal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import model.Children;
 
 /**
@@ -14,6 +17,30 @@ import model.Children;
  * @author LENOVO
  */
 public class ChildrenDAO extends DBContext{
+    
+    public List<Children> getAllChildren(){
+        List<Children> list = new ArrayList<>();
+        String sql = "select * from Children";
+        try{
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int ChildID = rs.getInt("ChildID");
+                int CustomerID = rs.getInt("CustomerID");
+                String FirstName = rs.getString("FirstName");
+                String MiddleName = rs.getString("MiddleName");
+                String LastName = rs.getString("LastName");
+                Date DateOfBirth = rs.getDate("DateOfBirth");
+                String Gender = rs.getString("Gender");
+                String ChildImage = rs.getString("ChildImage");
+                list.add(new Children(ChildID, CustomerID, FirstName, MiddleName, LastName, DateOfBirth, Gender, ChildImage));
+            }
+        } catch(SQLException e){
+            
+        }
+        return list;
+    }
+    
     public Children getChildrenByID(int customerID){
         String sql = "select * from Children where CustomerID = ?";
         try{
@@ -41,6 +68,6 @@ public class ChildrenDAO extends DBContext{
         Children c = new Children();
         int id = 1;
         ChildrenDAO dao = new ChildrenDAO();
-        System.out.println(dao.getChildrenByID(id));
+        System.out.println(dao.getAllChildren().size());
     }
 }

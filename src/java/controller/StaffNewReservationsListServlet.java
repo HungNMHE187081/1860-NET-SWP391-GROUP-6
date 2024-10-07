@@ -5,6 +5,8 @@
 
 package controller;
 
+import dal.ChildrenDAO;
+import dal.ManagerUserDAO;
 import dal.ReservationDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,7 +17,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import model.Children;
 import model.Reservation;
+import model.Users;
 
 /**
  *
@@ -27,7 +31,11 @@ public class StaffNewReservationsListServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         ReservationDAO reservationDAO = new ReservationDAO();
-        List<Reservation> reservations = reservationDAO.getAllReservations();
+        List<Reservation> reservations = reservationDAO.getReservationByIsExam(false);
+        ChildrenDAO childrenDAO = new ChildrenDAO();
+        List<Children> children = childrenDAO.getAllChildren();
+        ManagerUserDAO managerUserDAO = new ManagerUserDAO();
+        List<Users> users = managerUserDAO.getAllUsers();
         
         Collections.sort(reservations, new Comparator<Reservation>() {
             @Override
@@ -37,6 +45,8 @@ public class StaffNewReservationsListServlet extends HttpServlet {
         });
         
         request.setAttribute("reservations", reservations);
+        request.setAttribute("children", children);
+        request.setAttribute("users", users);
         request.getRequestDispatcher("/Staff_JSP/staff-new-reservations-list.jsp").forward(request, response);
     } 
 

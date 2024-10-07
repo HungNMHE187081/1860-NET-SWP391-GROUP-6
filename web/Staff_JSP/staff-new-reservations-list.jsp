@@ -106,9 +106,8 @@
                                         <th>STT</th>
                                         <th>Tên khách hàng</th>
                                         <th>Tên trẻ</th>
-                                        <th>Chức vụ</th>
-                                        <th>Khoa</th>
-                                        <th>Ngày được nhận</th>
+                                        <th>Ngày khám</th>
+                                        <th>Giờ khám</th>
                                         <th>Chức năng</th>
                                     </tr>
                                 </thead>
