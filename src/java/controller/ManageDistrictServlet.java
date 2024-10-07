@@ -64,7 +64,7 @@ public class ManageDistrictServlet extends HttpServlet {
         // Thiết lập thuộc tính provinceID trong request
         request.setAttribute("district", district);
         request.setAttribute("provinceID", provinceID);
-       request.getRequestDispatcher("manager-DistrictWard-form.jsp?id=" + provinceID).forward(request, response);
+       request.getRequestDispatcher("/Manager_JSP/Address/manager-DistrictWard-form.jsp?id=" + provinceID).forward(request, response);
 
     } 
 

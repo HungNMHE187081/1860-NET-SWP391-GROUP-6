@@ -8,7 +8,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
-
+<% 
+   String errorMessage = (String) request.getAttribute("errorMessage");
+   String successMessage = (String) request.getAttribute("successMessage");
+%>
     <head>
         <title>Danh sách nhân viên | Quản trị Admin</title>
         <meta charset="utf-8">
@@ -58,6 +61,7 @@
                     ${errorMessage}
                 </div>
             </c:if>
+           
             <div class="row">
                 <div class="col-md-12">
                     <div class="tile">
@@ -100,17 +104,18 @@
                                 <thead>
                                     <tr>
                                         <th width="10"><input type="checkbox" id="all"></th>
-                                        <th>ID Tỉnh thành</th>
+                                        <th>STT</th>
                                         <th width="150">Tên Tỉnh thành</th>  
                                         <th width="150">Tổng số quận</th>
                                         <th width="150">Tổng số phường</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <c:set var="counter" value="1"/> <!-- Khởi tạo biến đếm STT -->
                                     <c:forEach var="provinces" items="${listP}">
                                         <tr>
                                             <td width="10"><input type="checkbox" name="check1" value="1"></td>
-                                            <td>${provinces.provinceID}</td>
+                                            <td>${counter}</td> <!-- Hiển thị STT -->
                                             <td><a href="managedistrict?id=${provinces.provinceID}">${provinces.provinceName}</a></td>
                                             <td>${provinces.totalDistricts}</td>
                                             <td>${provinces.totalWards}</td>
@@ -129,7 +134,9 @@
                                             </td>
 
                                         </tr>
+                                         <c:set var="counter" value="${counter + 1}"/> <!-- Tăng STT -->
                                     </c:forEach>
+                                        
                                 </tbody>
                             </table>
                         </div>
@@ -216,23 +223,23 @@
                 var i = r.parentNode.parentNode.rowIndex;
                 document.getElementById("myTable").deleteRow(i);
             }
-            jQuery(function () {
-                jQuery(".trash").click(function () {
-                    swal({
-                        title: "Cảnh báo",
-
-                        text: "Bạn có chắc chắn là muốn xóa nhân viên này?",
-                        buttons: ["Hủy bỏ", "Đồng ý"],
-                    })
-                            .then((willDelete) => {
-                                if (willDelete) {
-                                    swal("Đã xóa thành công.!", {
-
-                                    });
-                                }
-                            });
-                });
-            });
+//            jQuery(function () {
+//                jQuery(".trash").click(function () {
+//                    swal({
+//                        title: "Cảnh báo",
+//
+//                        text: "Bạn có chắc chắn là muốn xóa nhân viên này?",
+//                        buttons: ["Hủy bỏ", "Đồng ý"],
+//                    })
+//                            .then((willDelete) => {
+//                                if (willDelete) {
+//                                    swal("Đã xóa thành công.!", {
+//
+//                                    });
+//                                }
+//                            });
+//                });
+//            });
             oTable = $('#sampleTable').dataTable();
             $('#all').click(function (e) {
                 $('#sampleTable tbody :checkbox').prop('checked', $(this).is(':checked'));

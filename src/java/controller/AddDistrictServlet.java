@@ -82,7 +82,7 @@ public class AddDistrictServlet extends HttpServlet {
         if (dao.isDistrictNameExist(provinceID, name)) {
             // Quận/huyện đã tồn tại, xử lý trường hợp này (ví dụ thông báo lỗi)
             request.setAttribute("errorMessage", "Tên quận/huyện đã tồn tại!");
-            request.getRequestDispatcher("manager-DistrictWard-form.jsp").forward(request, response);
+            request.getRequestDispatcher("managedistrict?id=" + provinceID).forward(request, response);
         } else {
             // Nếu chưa tồn tại, tiếp tục thêm mới quận/huyện
             District district = new District();

@@ -44,7 +44,7 @@
             </ul>
         </header>
         <!-- Sidebar menu-->
-        <%@include file="Manager_JSP/dashboardleft.jsp" %>
+        <%@ include file="/Manager_JSP/dashboardleft.jsp" %>
         <main class="app-content">
             <div class="app-title">
                 <ul class="app-breadcrumb breadcrumb side">
@@ -101,10 +101,11 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <c:set var="counter" value="1"/>
                                     <c:forEach items="${ward}" var="ward">
                                         <tr>
                                             <td width="10"><input type="checkbox"></td>
-                                            <td>${ward.id}</td>
+                                            <td>${counter}</td> <!-- Hi?n th? STT -->
                                             <td>${ward.wardName}</td>
                                             <td>
                                                 <form action="deleteward" method="post" style="display:inline;">
@@ -119,6 +120,7 @@
                                                 </button>
                                             </td>
                                         </tr>
+                                        <c:set var="counter" value="${counter + 1}"/> <!-- T?ng STT -->
                                     </c:forEach>
                                 </tbody>
                             </table>

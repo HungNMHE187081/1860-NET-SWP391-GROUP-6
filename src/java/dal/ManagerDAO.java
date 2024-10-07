@@ -247,10 +247,7 @@ public boolean isDistrictNameExist(int provinceID, String districtName) throws S
     
 
     public static void main(String[] args) {
-        ManagerDAO m = new ManagerDAO();
-        Provinces provicnes = new Provinces();
-        System.out.println(m.getAllProvinces().size());
-        
-       
-    }
+    
+}
+
 }

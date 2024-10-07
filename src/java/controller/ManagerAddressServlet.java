@@ -61,7 +61,7 @@ public class ManagerAddressServlet extends HttpServlet {
         ManagerDAO m = new ManagerDAO();
         List<Provinces> listP = m.getAllProvinces();
         request.setAttribute("listP", listP);
-        request.getRequestDispatcher("manager-address.jsp").forward(request, response);
+        request.getRequestDispatcher("/Manager_JSP/Address/manager-address.jsp").forward(request, response);
     } 
 
     /** 

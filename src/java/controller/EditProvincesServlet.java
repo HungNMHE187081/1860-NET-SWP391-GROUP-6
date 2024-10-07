@@ -78,7 +78,7 @@ public class EditProvincesServlet extends HttpServlet {
         // Check if the province name already exists (case-insensitive and without accents)
         if (dao.isProvinceNameExist(provinceName)) {
             request.setAttribute("errorMessage", "Tên tỉnh thành đã tồn tại.");
-            request.getRequestDispatcher("manageraddress").forward(request, response);
+            request.getRequestDispatcher("manager-address.jsp").forward(request, response);
             return;
         }
 
@@ -94,7 +94,7 @@ public class EditProvincesServlet extends HttpServlet {
         response.sendRedirect("manageraddress");
     } catch (SQLException e) {
         e.printStackTrace();
-        request.setAttribute("errorMessage", "Có lỗi xảy ra khi cập nhật tỉnh thành.");
+        request.setAttribute("error", "Có lỗi xảy ra khi cập nhật tỉnh thành.");
         request.getRequestDispatcher("manageraddress").forward(request, response);
     }
 }

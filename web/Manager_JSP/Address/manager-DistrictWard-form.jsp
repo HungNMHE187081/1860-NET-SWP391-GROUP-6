@@ -45,7 +45,7 @@
             </ul>
         </header>
         <!-- Sidebar menu-->
-        <%@ include file="Manager_JSP/dashboardleft.jsp" %>
+         <%@ include file="/Manager_JSP/dashboardleft.jsp" %>
         <main class="app-content">
             <div class="app-title">
                 <ul class="app-breadcrumb breadcrumb side">
@@ -101,26 +101,26 @@
                             <thead>
                                 <tr>
                                     <th width="10"><input type="checkbox" id="all"></th>
-                                    <th>ID</th>
+                                    <th>STT</th>
                                     <th width="150">Tên Quận</th>
                                     <th width="20">Tổng số Phường</th>
                                 </tr>
                             </thead>
                             <tbody>
-
+                                  <c:set var="counter" value="1"/>
                                 <c:forEach var="districts" items="${district}">
                                     <tr>
                                         <td width="10"><input type="checkbox" name="check1" value="1"></td>
-                                        <td>${districts.id}</td>
+                                       <td>${counter}</td> <!-- Hiển thị STT -->
                                         <td width="120"><a href="manageward?districtid=${districts.id}">${districts.districtName}</a></td>
                                         <td>${districts.totalWards}</td>
 
                                         <td class="table-td-center">
-                                            <form action="deletedistricts" method="post" style="display:inline;">
+                                            <form action="deletedistricts" method="post" onsubmit="return confirm('Are you sure you want to delete this district?');"style="display:inline;" >
                                                 <input type="hidden" name="id" value="${districts.id}">
                                                 <input type="hidden" name="provinceID" value="${districts.provinceID}"> <!-- Thêm dòng này -->
-                                                <button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
-                                                        onclick="confirmDelete('deleteForm${districts.id}')"><i class="fas fa-trash-alt"></i></button>
+                                                <button class="btn btn-primary btn-sm trash" type="submit" title="Xóa"
+                                                       ><i class="fas fa-trash-alt"></i></button>
                                             </form>
                                             <button class="btn btn-primary btn-sm edit" type="button" title="Sửa"
                                                     data-toggle="modal" data-target="#ModalUP" onclick="openEditModal(${districts.id}, '${districts.districtName}', '${districts.provinceID}')">
@@ -129,6 +129,7 @@
                                         </td>
 
                                     </tr>
+                                    <c:set var="counter" value="${counter + 1}"/> <!-- Tăng STT -->
                                 </c:forEach>
                             </tbody>
                         </table>
@@ -211,25 +212,23 @@
                 var i = r.parentNode.parentNode.rowIndex;
                 document.getElementById("myTable").deleteRow(i);
             }
-            jQuery(function () {
-                jQuery(".trash").click(function (event) {
-                    event.preventDefault(); // Ngăn chặn hành động mặc định
-                    var form = $(this).closest('form'); // Lấy biểu mẫu cha
-
-                    swal({
-                        title: "Cảnh báo",
-                        text: "Bạn có chắc chắn là muốn xóa nhân viên này?",
-                        buttons: ["Hủy bỏ", "Đồng ý"],
-                    }).then((willDelete) => {
-                        if (willDelete) {
-                            form.submit(); // Gửi biểu mẫu khi xác nhận
-                            swal("Đã xóa thành công.!", {
-                                icon: "success",
-                            });
-                        }
-                    });
-                });
-            });
+//             jQuery(function () {
+//                jQuery(".trash").click(function () {
+//                    swal({
+//                        title: "Cảnh báo",
+//
+//                        text: "Bạn có chắc chắn là muốn xóa nhân viên này?",
+//                        buttons: ["Hủy bỏ", "Đồng ý"],
+//                    })
+//                            .then((willDelete) => {
+//                                if (willDelete) {
+//                                    swal("Đã xóa thành công.!", {
+//
+//                                    });
+//                                }
+//                            });
+//                });
+//            });
             oTable = $('#sampleTable').dataTable();
             $('#all').click(function (e) {
                 $('#sampleTable tbody :checkbox').prop('checked', $(this).is(':checked'));

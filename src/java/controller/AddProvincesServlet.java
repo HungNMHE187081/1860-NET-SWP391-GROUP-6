@@ -65,22 +65,23 @@ public class AddProvincesServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
+  @Override
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
+    request.setCharacterEncoding("UTF-8");
     response.setCharacterEncoding("UTF-8");
 
     String provinceName = request.getParameter("name").trim();
-      System.out.println("Tên tỉnh thành nhập vào: " + provinceName);
+    System.out.println("Tên tỉnh thành nhập vào: " + provinceName);
     ManagerDAO dao = new ManagerDAO();
     Provinces province = new Provinces();
+    
     try {
         // Kiểm tra xem tên tỉnh thành có tồn tại không
         if (dao.isProvinceNameExist(provinceName)) {
             // Truyền thông báo lỗi về trang addProvince.jsp
             request.setAttribute("errorMessage", "Tên tỉnh thành đã tồn tại. Vui lòng chọn tên khác.");
-            request.getRequestDispatcher("manageraddress").forward(request, response);
+            request.getRequestDispatcher("manager-address.jsp").forward(request, response);
         } else {
             // Thêm tỉnh thành mới
             province.setProvinceName(provinceName);
@@ -90,9 +91,11 @@ public class AddProvincesServlet extends HttpServlet {
     } catch (SQLException e) {
         e.printStackTrace();
         request.setAttribute("errorMessage", "Có lỗi xảy ra, vui lòng thử lại sau.");
-        request.getRequestDispatcher("manageraddress").forward(request, response);
+        request.getRequestDispatcher("/manageraddress").forward(request, response);
     }
 }
+
+
 
 
     /** 

@@ -62,7 +62,7 @@ public class ManageWardServlet extends HttpServlet {
         ManagerDAO dao = new ManagerDAO();
         List<Ward> ward = dao.getWardByDistrict(wid);
         request.setAttribute("ward", ward);
-        request.getRequestDispatcher("manage-ward.jsp").forward(request, response);
+        request.getRequestDispatcher("/Manager_JSP/Address/manage-ward.jsp").forward(request, response);
         }catch(IOException e){
             e.printStackTrace();
         }
