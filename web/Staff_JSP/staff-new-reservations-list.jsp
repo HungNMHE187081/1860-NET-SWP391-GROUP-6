@@ -14,7 +14,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Danh sách lịch khám</title>
+        <title>Danh sách lịch khám mới</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css"/>
         <style>
@@ -81,7 +81,7 @@
             <!-- Main Content -->
             <main>
                 <section class="dashboard">
-                    <h2><i class="fas fa-concierge-bell"></i> Danh sách lịch khám</h2>
+                    <h2><i class="fas fa-concierge-bell"></i> Danh sách lịch khám mới</h2>
 
                     <!-- Filter and Search Form -->
 

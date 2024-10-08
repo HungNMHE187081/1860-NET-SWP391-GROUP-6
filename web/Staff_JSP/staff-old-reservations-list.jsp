@@ -14,7 +14,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Danh sách lịch khám</title>
+        <title>Danh sách lịch đã khám</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css"/>
         <style>
@@ -81,7 +81,7 @@
             <!-- Main Content -->
             <main>
                 <section class="dashboard">
-                    <h2><i class="fas fa-concierge-bell"></i> Danh sách lịch khám</h2>
+                    <h2><i class="fas fa-concierge-bell"></i> Danh sách lịch đã khám</h2>
 
                     <!-- Filter and Search Form -->
 
@@ -106,9 +106,8 @@
                                         <th>STT</th>
                                         <th>Tên khách hàng</th>
                                         <th>Tên trẻ</th>
-                                        <th>Chức vụ</th>
-                                        <th>Khoa</th>
-                                        <th>Ngày được nhận</th>
+                                        <th>Ngày khám</th>
+                                        <th>Giờ khám</th>
                                         <th>Chức năng</th>
                                     </tr>
                                 </thead>
@@ -116,28 +115,25 @@
                                     <c:forEach var="reservation" items="${reservations}" varStatus="status">
                                         <tr>
                                             <td>${status.index + 1}</td>
-                                            <td>${staff.staffName}</td>
                                             <td>
-                                                <img src="${pageContext.request.contextPath}/${user.profileImage}" alt="${staff.staffName}" width="75" height="50">
-                                            </td>
-                                            <td>
-                                                <c:forEach var="degree" items="${degrees}">
-                                                    <c:if test="${degree.degreeID == staff.degreeID}">
-                                                        ${degree.degreeName}
+                                                <c:forEach var="user" items="${users}">
+                                                    <c:if test="${user.userID == reservation.customerID}">
+                                                        ${user.firstName} ${user.middleName} ${user.lastName}
                                                     </c:if>
                                                 </c:forEach>
                                             </td>
                                             <td>
-                                                <c:forEach var="specialization" items="${specializations}">
-                                                    <c:if test="${specialization.specializationID == staff.specializationID}">
-                                                        ${specialization.specializationName}
+                                                <c:forEach var="child" items="${children}">
+                                                    <c:if test="${child.childID == reservation.childID}">
+                                                        ${child.firstName} ${child.middleName} ${child.lastName}
                                                     </c:if>
                                                 </c:forEach>
                                             </td>
-                                            <td>${staff.hireDate}</td>
+                                            <td>${reservation.reservationDate}</td>
+                                            <td>${reservation.startTime}</td>
                                             <td class="table-td-center">
                                                 <button class="btn btn-primary btn-sm" type="button" title="detail" id="show-emp">
-                                                    <a href="${pageContext.request.contextPath}/manager/viewstaff?staffID=${staff.staffID}"><i class="fas fa-eye"></i></a>
+                                                    <a href="${pageContext.request.contextPath}/manager/viewreservation?reservationID=${reservation.reservationID}"><i class="fas fa-eye"></i></a>
                                                 </button>
                                             </td>
                                         </tr>

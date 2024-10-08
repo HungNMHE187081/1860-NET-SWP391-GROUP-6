@@ -6,8 +6,8 @@
 package controller;
 
 import dal.ChildrenDAO;
+import dal.ManagerUserDAO;
 import dal.ReservationDAO;
-import dal.UserDAO;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -33,8 +33,8 @@ public class StaffNewReservationsListServlet extends HttpServlet {
         List<Reservation> reservations = reservationDAO.getReservationByIsExam(true);
         ChildrenDAO childrenDAO = new ChildrenDAO();
         List<Children> children = childrenDAO.getAllChildren();
-        UserDAO UserDAO = new UserDAO();
-        List<Users> users = UserDAO.getAllUsers();
+        ManagerUserDAO managerUserDAO = new ManagerUserDAO();
+        List<Users> users = managerUserDAO.getAllUsers();
         
         Collections.sort(reservations, new Comparator<Reservation>() {
             @Override
