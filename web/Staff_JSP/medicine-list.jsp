@@ -95,13 +95,12 @@
                             <select name="sort" id="sort">
                                 <option value="">Sắp xếp theo</option>
                                 <option value="name" <c:if test="${param.sort == 'name'}">selected</c:if>>Tên thuốc</option>
-                                <option value="category" <c:if test="${param.sort == 'category'}">selected</c:if>>Loại thuốc</option>
-                                <option value="manufacturer" <c:if test="${param.sort == 'manufacturer'}">selected</c:if>>Nhà sản xuất</option>
+                                <option value="latestAdd" <c:if test="${param.sort == 'latestAdd'}">selected</c:if>>Thêm gần đây</option>
+                              
                                 </select>
 
                                 <button type="submit"><i class="fas fa-filter"></i> Lọc và tìm kiếm</button>
                                 <a href="addmedicine" class="btn"><i class="fas fa-plus"></i> Thêm thuốc mới</a>
-                                <a href="latestmedicine" class="btn"><i class="fas fa-plus"></i> Thuốc thêm gần đây</a>
                             </div>
                         </form>
 

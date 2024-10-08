@@ -125,10 +125,6 @@
         <servlet-class>controller.AdminEditUserServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>LatestMedicineServlet</servlet-name>
-        <servlet-class>controller.LatestMedicineServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>StaffSearchServiceServlet</servlet-name>
         <servlet-class>controller.StaffSearchServiceServlet</servlet-class>
     </servlet>
@@ -343,10 +339,6 @@
     <servlet-mapping>
         <servlet-name>StaffViewServiceServlet</servlet-name>
         <url-pattern>/staff/viewservice</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>LatestMedicineServlet</servlet-name>
-        <url-pattern>/latestmedicine</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>StaffSearchServiceServlet</servlet-name>
