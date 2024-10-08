@@ -228,6 +228,10 @@
         <servlet-name>EditWardServlet</servlet-name>
         <servlet-class>controller.EditWardServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddBlogServlet</servlet-name>
+        <servlet-class>controller.AddBlogServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -447,5 +451,9 @@
     <servlet-mapping>
         <servlet-name>ConfirmFeedbackServlet</servlet-name>
         <url-pattern>/confirmfeedback</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddBlogServlet</servlet-name>
+        <url-pattern>/addblog</url-pattern>
     </servlet-mapping>
 </web-app>
