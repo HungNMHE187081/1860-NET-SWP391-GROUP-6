@@ -28,9 +28,8 @@ public class ReservationDAO extends DBContext {
                 int ServiceID = rs.getInt("ServiceID");
                 String ReservationDate = rs.getString("ReservationDate");
                 String StartTime = rs.getString("StartTime");
-                boolean Status = rs.getBoolean("Status");
                 boolean isExam = rs.getBoolean("isExam");
-                list.add(new Reservation(ReservationID, CustomerID, ChildID, ServiceID, ReservationDate, StartTime, Status, isExam));
+                list.add(new Reservation(ReservationID, CustomerID, ChildID, ServiceID, ReservationDate, StartTime, isExam));
             }
         } catch (SQLException e) {
         }
@@ -51,8 +50,7 @@ public class ReservationDAO extends DBContext {
                     int ServiceID = rs.getInt("ServiceID");
                     String ReservationDate = rs.getString("ReservationDate");
                     String StartTime = rs.getString("StartTime");
-                    boolean Status = rs.getBoolean("Status");
-                    list.add(new Reservation(ReservationID, CustomerID, ChildID, ServiceID, ReservationDate, StartTime, Status, isExam));
+                    list.add(new Reservation(ReservationID, CustomerID, ChildID, ServiceID, ReservationDate, StartTime, isExam));
                 }
             }
         } catch (SQLException e) {

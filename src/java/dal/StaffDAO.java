@@ -146,6 +146,6 @@ public class StaffDAO extends DBContext {
     }
     public static void main(String[] args) {
         StaffDAO dao = new StaffDAO();
-        System.out.println(dao.searchStaffBySpecializationID(1).size());
+        System.out.println(dao.searchStaffBySpecializationID(3).size());
     }
 }

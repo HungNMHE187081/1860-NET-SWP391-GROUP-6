@@ -153,10 +153,9 @@ CREATE TABLE Reservations (
     ServiceID INT,
     ReservationDate DATE,
     StartTime TIME,
-    Status BIT,
 	isExam BIT,
     FOREIGN KEY (CustomerID) REFERENCES Users(UserID) ON DELETE CASCADE,
-    FOREIGN KEY (ChildID) REFERENCES Children(ChildID) ON DELETE CASCADE,
+    FOREIGN KEY (ChildID) REFERENCES Children(ChildID),
     FOREIGN KEY (ServiceID) REFERENCES Services(ServiceID),
 );
 
@@ -592,7 +591,7 @@ INSERT INTO UserRoles (UserID, RoleID)
 VALUES 
 (1, 5), -- Người dùng 1 được gán vai trò Customer
 (2, 5), -- Người dùng 2 được gán vai trò Customer
-(3, 5); 
+(3, 3); 
 INSERT INTO UserAuthentication (UserID, Username, PasswordHash, Salt, LastLogin)
 VALUES 
 (1, 'user1', 'hashed_password1', 'salt1', GETDATE()),
@@ -621,10 +620,10 @@ VALUES
 (3, N'Lê', N'Minh', N'F', '2015-10-20', N'Nam', NULL);
 
 -- Insert dữ liệu vào bảng Reservations
-INSERT INTO Reservations (CustomerID, ChildID, ServiceID, ReservationDate, StartTime, Status, isExam) VALUES
-(1, 1, 1, '2023-10-01', '09:00:00', 1, 1),
-(2, 2, 2, '2023-10-02', '10:00:00', 1, 0),
-(3, 3, 3, '2023-10-03', '11:00:00', 0, 1);
+INSERT INTO Reservations (CustomerID, ChildID, ServiceID, ReservationDate, StartTime, isExam) VALUES
+(1, 1, 1, '2023-10-01', '09:00:00', 1),
+(2, 2, 2, '2023-10-02', '10:00:00', 0),
+(3, 3, 3, '2023-10-03', '11:00:00', 1);
 
 INSERT INTO HealthMetrics (ChildID, Height, Weight, BMI, RecordDate)
 VALUES (1, 120.5, 45.6, 18.7, '2024-10-07');
@@ -637,7 +636,6 @@ VALUES (1, 'Lactose Intolerance', 'Causes stomach pain and discomfort');
 INSERT INTO EmergencyContacts (ChildID, ContactName, Relationship, PhoneNumber)
 VALUES (1, 'John Doe', 'Father', '0987654321');
 
-select * from Children where CustomerID = 1;
 
 CREATE VIEW StaffView AS
 SELECT u.UserID AS StaffID, 
@@ -653,3 +651,4 @@ JOIN Roles r ON ur.RoleID = r.RoleID
 JOIN Staff s ON u.UserID = s.StaffID
 WHERE r.RoleID IN (3, 4); 
 
+select * from StaffView
