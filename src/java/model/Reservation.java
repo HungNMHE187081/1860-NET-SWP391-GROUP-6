@@ -9,17 +9,17 @@ package model;
  * @author LENOVO
  */
 public class Reservation {
-    int ReservationID, CustomerID, ChildrenID, ServiceID;
+    int ReservationID, CustomerID, ChildID, ServiceID;
     String ReservationDate, StartTime;
     boolean isExam;
 
     public Reservation() {
     }
 
-    public Reservation(int ReservationID, int CustomerID, int ChildrenID, int ServiceID, String ReservationDate, String StartTime, boolean isExam) {
+    public Reservation(int ReservationID, int CustomerID, int ChildID, int ServiceID, String ReservationDate, String StartTime, boolean isExam) {
         this.ReservationID = ReservationID;
         this.CustomerID = CustomerID;
-        this.ChildrenID = ChildrenID;
+        this.ChildID = ChildID;
         this.ServiceID = ServiceID;
         this.ReservationDate = ReservationDate;
         this.StartTime = StartTime;
@@ -42,12 +42,12 @@ public class Reservation {
         this.CustomerID = CustomerID;
     }
 
-    public int getChildrenID() {
-        return ChildrenID;
+    public int getChildID() {
+        return ChildID;
     }
 
-    public void setChildrenID(int ChildrenID) {
-        this.ChildrenID = ChildrenID;
+    public void setChildID(int ChildID) {
+        this.ChildID = ChildID;
     }
 
     public int getServiceID() {

@@ -117,15 +117,15 @@
                                             <td>${status.index + 1}</td>
                                             <td>
                                                 <c:forEach var="user" items="${users}">
-                                                    <c:if test="${user.userID == reservation.userID}">
-                                                        ${user.userName}
+                                                    <c:if test="${user.userID == reservation.customerID}">
+                                                        ${user.firstName} ${user.middleName} ${user.lastName}
                                                     </c:if>
                                                 </c:forEach>
                                             </td>
                                             <td>
-                                                <c:forEach var="children" items="${children}">
-                                                    <c:if test="${children.childrenID == reservation.childrenID}">
-                                                        ${children.firstName} ${children.middleName} ${children.lastName}
+                                                <c:forEach var="child" items="${children}">
+                                                    <c:if test="${child.childID == reservation.childID}">
+                                                        ${child.firstName} ${child.middleName} ${child.lastName}
                                                     </c:if>
                                                 </c:forEach>
                                             </td>

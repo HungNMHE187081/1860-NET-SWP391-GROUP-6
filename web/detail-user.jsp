@@ -9,7 +9,7 @@
 <html lang="en">
 
     <head>
-        <title>Thêm nhân viên | Quản trị Admin</title>
+        <title>Chi tiết khách hàng | Quản trị Admin</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -156,7 +156,7 @@
         <main class="app-content">
             <div class="app-title">
                 <ul class="app-breadcrumb breadcrumb">
-                    <li class="breadcrumb-item">Danh sách nhân viên</li>
+                    <li class="breadcrumb-item">Danh sách khách hàng</li>
                 </ul>
             </div>
             <div class="row">
@@ -226,7 +226,7 @@
                                                 <div class="form-control">${user.phoneNumber}</div>
                                             </div>
                                             <div class="form-group col-md-4">
-                                                <div class="control-label">Ngày sinh</div>
+                                                <label class="control-label">Ngày sinh</label>
                                                 <div class="form-control">${user.dateOfBirth}</div>
                                             </div>
                                             <div class="form-group col-md-4">
