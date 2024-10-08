@@ -104,7 +104,7 @@ throws ServletException, IOException {
         medicineDAO.updateMedicine(medicine);
         
         // Redirect to the list page
-        response.sendRedirect("medicinelist");
+        response.sendRedirect("medicinedetail?id=" +medicineID);
     }
     }
 
