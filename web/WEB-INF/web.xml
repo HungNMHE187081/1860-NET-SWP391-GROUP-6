@@ -81,6 +81,10 @@
         <servlet-class>controller.DeleteMedicineServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>ConfirmFeedbackServlet</servlet-name>
+        <servlet-class>controller.ConfirmFeedbackServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>MedicineDetail</servlet-name>
         <servlet-class>controller.MedicineDetail</servlet-class>
     </servlet>
@@ -439,5 +443,9 @@
     <servlet-mapping>
         <servlet-name>EditWardServlet</servlet-name>
         <url-pattern>/editward</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ConfirmFeedbackServlet</servlet-name>
+        <url-pattern>/confirmfeedback</url-pattern>
     </servlet-mapping>
 </web-app>
