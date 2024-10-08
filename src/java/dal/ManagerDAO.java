@@ -198,6 +198,19 @@ public class ManagerDAO extends DBContext {
             e.printStackTrace();
         }
     }
+    
+    public void updateWards(int wardId, String wardName, int districtID) {
+        String sql = "UPDATE Wards SET WardName = ?, DistrictID = ? WHERE WardID = ?";
+        try {
+            PreparedStatement pre = connection.prepareStatement(sql);
+           pre.setString(1, wardName);  // Phải đặt wardName ở đây
+        pre.setInt(2, districtID);   // DistrictID ở đây
+        pre.setInt(3, wardId); 
+            pre.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void updateDistricts(int districtId, String districtName, int provinceID) {
         String sql = "UPDATE Districts SET DistrictName = ?, ProvinceID = ? WHERE DistrictID = ?";
@@ -244,7 +257,17 @@ public boolean isDistrictNameExist(int provinceID, String districtName) throws S
             e.printStackTrace();
         }
     }
-    
+    public void addWards(Ward ward){
+        String sql = "INSERT INTO Wards(DistrictID, WardName) VALUES (?, ?)";
+        try{
+            PreparedStatement pre = connection.prepareStatement(sql);
+            pre.setInt(1, ward.getDistrictID());
+            pre.setString(2, ward.getWardName());
+            pre.executeUpdate();
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
 
     public static void main(String[] args) {
     

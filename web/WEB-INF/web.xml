@@ -216,6 +216,18 @@
         <servlet-name>StaffOldReservationsListServlet</servlet-name>
         <servlet-class>controller.StaffOldReservationsListServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddWardServlet</servlet-name>
+        <servlet-class>controller.AddWardServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteWardServlet</servlet-name>
+        <servlet-class>controller.DeleteWardServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditWardServlet</servlet-name>
+        <servlet-class>controller.EditWardServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -423,5 +435,17 @@
     <servlet-mapping>
         <servlet-name>StaffOldReservationsListServlet</servlet-name>
         <url-pattern>/staff/oldreservationslist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddWardServlet</servlet-name>
+        <url-pattern>/addward</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteWardServlet</servlet-name>
+        <url-pattern>/deleteward</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditWardServlet</servlet-name>
+        <url-pattern>/editward</url-pattern>
     </servlet-mapping>
 </web-app>

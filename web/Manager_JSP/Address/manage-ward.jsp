@@ -61,8 +61,8 @@
                             <div class="row element-button">
                                 <div class="col-sm-2">
 
-                                    <a class="btn btn-add btn-sm" href="form-add-nhan-vien.html" title="Thêm"><i class="fas fa-plus"></i>
-                                        T?o m?i nhân viên</a>
+                                    <button class="btn btn-add btn-sm" id="show-emp" data-toggle="modal" data-target="#ModalAdd" title="Thêm"><i class="fas fa-plus"></i>
+                                        T?o m?i Ph??ng</button>
                                 </div>
                                 <div class="col-sm-2">
                                     <a class="btn btn-delete btn-sm nhap-tu-file" type="button" title="Nh?p" onclick="myFunction(this)"><i
@@ -108,15 +108,16 @@
                                             <td>${counter}</td> <!-- Hi?n th? STT -->
                                             <td>${ward.wardName}</td>
                                             <td>
-                                                <form action="deleteward" method="post" style="display:inline;">
+                                                <form action="deleteward" method="post" onsubmit="return confirm('Are you sure you want to delete this ward?');" style="display:inline;">
                                                     <input type="hidden" name="id" value="${ward.id}">
-                                                    <input type="hidden" name="districtID" value="${ward.districtID}">
-                                                    <button class="btn btn-primary btn-sm trash" title="Xóa" onclick="confirmDelete('deleteForm${districts.id}')"><i
+                                                    <input type="hidden" name="districtID" value="${ward.districtID}">                             
+                                                    <button class="btn btn-primary btn-sm trash" title="Xóa" type="submit"><i
                                                             class="fas fa-trash-alt"></i>
                                                     </button>
                                                 </form>
                                                 <button class="btn btn-primary btn-sm edit" title="S?a" id="show-emp" data-toggle="modal"
-                                                        data-target="#ModalUP"><i class="fas fa-edit"></i>
+                                                        data-target="#ModalUP" onclick="openEditModal(${ward.id}, '${ward.wardName}', '${ward.districtID}')">
+                                                    <i class="fas fa-edit"></i>
                                                 </button>
                                             </td>
                                         </tr>
@@ -135,28 +136,21 @@
         -->
         <div class="modal fade" id="ModalUP" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static"
              data-keyboard="false">
-            <div class="modal-dialog modal-dialog-centered" role="document">
+           <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
 
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="form-group  col-md-12">
-                                <span class="thong-tin-thanh-toan">
-                                    <h5>Ch?nh s?a thông tin nhân viên c? b?n</h5>
-                                </span>
+                    <div class="modal-body">       
+                        <form action="editward" method="post">
+                            <input type="hidden" name="id" id="wardIDInput">
+                            <input type="hidden" name="districtID" id="districtIDInput" > <!-- Pass provinceID -->
+                            <div class="form-group">
+                                <label class="control-label">Tên Qu?n</label>
+                                <input type="text" class="form-control" name="wardNameInput" id="wardNameInput" required>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-md-6">
-                                <label class="control-label">ID nhân viên</label>
-                                <input class="form-control" type="text" required value="#CD2187" disabled>
-                            </div>
-                        </div>
-                        
-                        <BR>
-                        <button class="btn btn-save" type="button">L?u l?i</button>
-                        <a class="btn btn-cancel" data-dismiss="modal" href="#">H?y b?</a>
-                        <BR>
+                            <button class="btn btn-save" type="submit">L?u l?i</button>
+                            <a class="btn btn-cancel" data-dismiss="modal" href="#">H?y b?</a>
+                        </form>
+
                     </div>
                     <div class="modal-footer">
                     </div>
@@ -166,6 +160,30 @@
         <!--
         MODAL
         -->
+        <div class="modal fade" id="ModalAdd" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">T?o m?i Ph??ng</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="addWardForm" action="addward" method="post">
+                            <input type="hidden" id="districtID" name="districtID" value="${districtID}">
+                            <input type="hidden" id="wardID" name="wardID">
+                            <div class="form-group">
+                                <label for="newEmployeeName">Tên Qu?n</label>
+                                <input type="text" class="form-control" id="newWardName" name="wardName" required>
+                            </div>
+                            <button type="submit" class="btn btn-save">L?u l?i</button>
+                            <button type="button" class="btn btn-cancel" data-dismiss="modal">H?y b?</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- Essential javascripts for application to work-->
         <script src="js/manager/jquery-3.2.1.min.js"></script>
@@ -187,23 +205,23 @@
                 var i = r.parentNode.parentNode.rowIndex;
                 document.getElementById("myTable").deleteRow(i);
             }
-            jQuery(function () {
-                jQuery(".trash").click(function () {
-                    swal({
-                        title: "C?nh báo",
-
-                        text: "B?n có ch?c ch?n là mu?n xóa nhân viên này?",
-                        buttons: ["H?y b?", "??ng ý"],
-                    })
-                            .then((willDelete) => {
-                                if (willDelete) {
-                                    swal("?ã xóa thành công.!", {
-
-                                    });
-                                }
-                            });
-                });
-            });
+//            jQuery(function () {
+//                jQuery(".trash").click(function () {
+//                    swal({
+//                        title: "C?nh báo",
+//
+//                        text: "B?n có ch?c ch?n là mu?n xóa nhân viên này?",
+//                        buttons: ["H?y b?", "??ng ý"],
+//                    })
+//                            .then((willDelete) => {
+//                                if (willDelete) {
+//                                    swal("?ã xóa thành công.!", {
+//
+//                                    });
+//                                }
+//                            });
+//                });
+//            });
             oTable = $('#sampleTable').dataTable();
             $('#all').click(function (e) {
                 $('#sampleTable tbody :checkbox').prop('checked', $(this).is(':checked'));
@@ -294,6 +312,18 @@
             $("#show-emp").on("click", function () {
                 $("#ModalUP").modal({backdrop: false, keyboard: false})
             });
+        </script>
+        <script>
+            function openEditModal(id, name, districtID) {
+                document.getElementById("wardIDInput").value = id;
+                document.getElementById("wardNameInput").value = name;
+                document.getElementById("districtIDInput").value = districtID;
+                console.log(districtID);
+            }
+            function setDistrictID(districtID) {
+                document.getElementById('disrtictID').value = districtID;
+                console.log(districtID);
+            };
         </script>
     </body>
 

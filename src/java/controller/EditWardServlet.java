@@ -12,14 +12,12 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
-import model.Ward;
 
 /**
  *
  * @author LENOVO
  */
-public class ManageWardServlet extends HttpServlet {
+public class EditWardServlet extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -36,10 +34,10 @@ public class ManageWardServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ManageWard</title>");  
+            out.println("<title>Servlet EditWardServlet</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ManageWard at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet EditWardServlet at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -56,17 +54,7 @@ public class ManageWardServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        String id =request.getParameter("districtid");
-        try{
-        int districtID = Integer.parseInt(id);
-        ManagerDAO dao = new ManagerDAO();
-        List<Ward> ward = dao.getWardByDistrict(districtID);
-        request.setAttribute("ward", ward);
-        request.setAttribute("districtID", districtID);
-        request.getRequestDispatcher("/Manager_JSP/Address/manage-ward.jsp").forward(request, response);
-        }catch(IOException e){
-            e.printStackTrace();
-        }
+        processRequest(request, response);
     } 
 
     /** 
@@ -79,7 +67,12 @@ public class ManageWardServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        int id = Integer.parseInt(request.getParameter("id"));
+        int districtID = Integer.parseInt(request.getParameter("districtID"));
+        String name = request.getParameter("wardNameInput");
+        ManagerDAO dao = new ManagerDAO();
+        dao.updateWards(id, name, districtID);
+        response.sendRedirect("manageward?districtid="+districtID);
     }
 
     /** 

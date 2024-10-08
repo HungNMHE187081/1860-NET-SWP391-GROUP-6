@@ -637,7 +637,7 @@ VALUES (1, 'Lactose Intolerance', 'Causes stomach pain and discomfort');
 INSERT INTO EmergencyContacts (ChildID, ContactName, Relationship, PhoneNumber)
 VALUES (1, 'John Doe', 'Father', '0987654321');
 
-
+select * from Children where CustomerID = 1;
 
 CREATE VIEW StaffView AS
 SELECT u.UserID AS StaffID, 
@@ -653,4 +653,3 @@ JOIN Roles r ON ur.RoleID = r.RoleID
 JOIN Staff s ON u.UserID = s.StaffID
 WHERE r.RoleID IN (3, 4); 
 
-select * from StaffView
