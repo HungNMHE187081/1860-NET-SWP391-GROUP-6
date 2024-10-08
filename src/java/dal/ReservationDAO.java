@@ -43,7 +43,7 @@ public class ReservationDAO extends DBContext {
             PreparedStatement pre = connection.prepareStatement(sql);
             pre.setBoolean(1, isExam);
             try (ResultSet rs = pre.executeQuery()) {
-                if (rs.next()) {
+                while (rs.next()) {
                     int ReservationID = rs.getInt("ReservationID");
                     int CustomerID = rs.getInt("CustomerID");
                     int ChildID = rs.getInt("ChildID");
@@ -60,6 +60,6 @@ public class ReservationDAO extends DBContext {
 
     public static void main(String[] args) {
         ReservationDAO dao = new ReservationDAO();
-        System.out.println(dao.getReservationByIsExam(false).size());
+        System.out.println(dao.getReservationByIsExam(true).size());
     }
 }
