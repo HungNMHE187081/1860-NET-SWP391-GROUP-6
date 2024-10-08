@@ -115,28 +115,25 @@
                                     <c:forEach var="reservation" items="${reservations}" varStatus="status">
                                         <tr>
                                             <td>${status.index + 1}</td>
-                                            <td>${staff.staffName}</td>
                                             <td>
-                                                <img src="${pageContext.request.contextPath}/${user.profileImage}" alt="${staff.staffName}" width="75" height="50">
-                                            </td>
-                                            <td>
-                                                <c:forEach var="degree" items="${degrees}">
-                                                    <c:if test="${degree.degreeID == staff.degreeID}">
-                                                        ${degree.degreeName}
+                                                <c:forEach var="user" items="${users}">
+                                                    <c:if test="${user.userID == reservation.userID}">
+                                                        ${user.userName}
                                                     </c:if>
                                                 </c:forEach>
                                             </td>
                                             <td>
-                                                <c:forEach var="specialization" items="${specializations}">
-                                                    <c:if test="${specialization.specializationID == staff.specializationID}">
-                                                        ${specialization.specializationName}
+                                                <c:forEach var="children" items="${children}">
+                                                    <c:if test="${children.childrenID == reservation.childrenID}">
+                                                        ${children.firstName} ${children.middleName} ${children.lastName}
                                                     </c:if>
                                                 </c:forEach>
                                             </td>
-                                            <td>${staff.hireDate}</td>
+                                            <td>${reservation.reservationDate}</td>
+                                            <td>${reservation.startTime}</td>
                                             <td class="table-td-center">
                                                 <button class="btn btn-primary btn-sm" type="button" title="detail" id="show-emp">
-                                                    <a href="${pageContext.request.contextPath}/manager/viewstaff?staffID=${staff.staffID}"><i class="fas fa-eye"></i></a>
+                                                    <a href="${pageContext.request.contextPath}/manager/viewreservation?reservationID=${reservation.reservationID}"><i class="fas fa-eye"></i></a>
                                                 </button>
                                             </td>
                                         </tr>
