@@ -67,7 +67,7 @@ public class AddMedicineServlet extends HttpServlet {
     List<MedicineCategory> categories = medicineDAO.getAllCategories();
     
     request.setAttribute("categories", categories);
-    request.getRequestDispatcher("add-medicine.jsp").forward(request, response);
+    request.getRequestDispatcher("/Staff_JSP/add-medicine.jsp").forward(request, response);
     }
 
     /**

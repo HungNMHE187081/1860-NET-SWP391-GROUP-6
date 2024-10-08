@@ -62,7 +62,7 @@ public class MedicineDetail extends HttpServlet {
         Medicine medicine = medicineDAO.getMedicineById(medicineId);
         request.setAttribute("medicine", medicine);
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("medicine-details.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/Staff_JSP/medicine-details.jsp");
         dispatcher.forward(request, response);
     } 
 

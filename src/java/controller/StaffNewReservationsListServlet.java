@@ -31,7 +31,7 @@ public class StaffNewReservationsListServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         ReservationDAO reservationDAO = new ReservationDAO();
-        List<Reservation> reservations = reservationDAO.getReservationByIsExam(false);
+        List<Reservation> reservations = reservationDAO.getReservationByIsExam(true);
         ChildrenDAO childrenDAO = new ChildrenDAO();
         List<Children> children = childrenDAO.getAllChildren();
         ManagerUserDAO managerUserDAO = new ManagerUserDAO();

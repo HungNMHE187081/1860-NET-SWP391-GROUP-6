@@ -67,7 +67,7 @@ throws ServletException, IOException {
     
     request.setAttribute("medicine", medicine);
     request.setAttribute("categories", categories);
-    request.getRequestDispatcher("edit-medicine.jsp").forward(request, response);
+    request.getRequestDispatcher("/Staff_JSP/edit-medicine.jsp").forward(request, response);
 }
 
 
@@ -95,7 +95,7 @@ throws ServletException, IOException {
         
         // Fetch the categoryName using the categoryID
         MedicineDAO medicineDAO = new MedicineDAO();
-        String categoryName = medicineDAO.getCategoryById(categoryID);  // Assume this method exists
+        String categoryName = medicineDAO.getCategoryById(categoryID);  
 
         // Pass the categoryName to the constructor
         Medicine medicine = new Medicine(medicineID, name, manufactureName, uses, dosage, userManual, contraindications, categoryName, categoryID);
