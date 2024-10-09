@@ -25,7 +25,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
-  <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
+  <script src="/G6_ChildrenCare/ckeditor/ckeditor.js" type="text/javascript"></script>
+
 
   <script>
 
@@ -242,7 +243,11 @@
 
   </main>
 <script>
-	CKEDITOR.replace('content');
+    // Khởi tạo CKEditor
+    CKEDITOR.replace('content', {
+        height: 300,  // Chiều cao của CKEditor (ví dụ: 300px)
+        width: '100%', // Chiều rộng, có thể để '100%' để nó tự động vừa với container
+    });
 </script>
 
   <!--
@@ -281,12 +286,13 @@
 
 
   <!-- Essential javascripts for application to work-->
-  <script src="js/manager/jquery-3.2.1.min.js"></script>
-  <script src="js/manager/popper.min.js"></script>
-  <script src="js/manager/bootstrap.min.js"></script>
-  <script src="js/manager/main.js"></script>
+  <script src="${pageContext.request.contextPath}/js/manager/jquery-3.2.1.min.js" type="text/javascript"></script>
+  <script src="${pageContext.request.contextPath}/js/manager/popper.min.js" type="text/javascript"></script>
+  <script src="${pageContext.request.contextPath}/js/manager/bootstrap.min.js"></script>
+  <script src="${pageContext.request.contextPath}/js/manager/main.js"></script>
   <!-- The javascript plugin to display page loading on top-->
-  <script src="js/plugins/pace.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
 
 </body>
 

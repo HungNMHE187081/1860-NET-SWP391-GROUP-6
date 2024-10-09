@@ -8,17 +8,15 @@ import java.util.List;
 public class BlogDAO extends DBContext {
 
 public void addBlog(Blog blog) {
-    String sql = "INSERT INTO Blogs (Title, Content, AuthorName, CreatedDate, UpdatedDate, IsPublished, ThumbnailPath, Views) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    String sql = "INSERT INTO Blogs (Title, Content, AuthorName, IsPublished, ThumbnailPath, Views, CreatedDate, UpdatedDate) VALUES (?, ?, ?, ?, ?, ?, GETDATE(), GETDATE())";
     
     try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
         pstmt.setString(1, blog.getTitle());
         pstmt.setString(2, blog.getContent());
         pstmt.setString(3, blog.getAuthorName());
-        pstmt.setDate(4, new java.sql.Date(System.currentTimeMillis()));
-        pstmt.setDate(5, new java.sql.Date(System.currentTimeMillis()));
-        pstmt.setBoolean(6, blog.isPublished());
-        pstmt.setString(7, blog.getThumbnailPath());
-        pstmt.setInt(8, 0); // Default views to 0
+        pstmt.setBoolean(4, blog.isPublished());
+        pstmt.setString(5, blog.getThumbnailPath());
+        pstmt.setInt(6, 0); // Default views to 0
 
         pstmt.executeUpdate();
     } catch (SQLException e) {
