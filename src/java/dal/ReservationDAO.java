@@ -23,13 +23,11 @@ public class ReservationDAO extends DBContext {
             ResultSet rs = pre.executeQuery();
             while (rs.next()) {
                 int ReservationID = rs.getInt("ReservationID");
-                int CustomerID = rs.getInt("CustomerID");
-                int ChildID = rs.getInt("ChildID");
-                int ServiceID = rs.getInt("ServiceID");
+                int OrderItemID = rs.getInt("OrderItemID");
                 String ReservationDate = rs.getString("ReservationDate");
                 String StartTime = rs.getString("StartTime");
                 boolean isExam = rs.getBoolean("isExam");
-                list.add(new Reservation(ReservationID, CustomerID, ChildID, ServiceID, ReservationDate, StartTime, isExam));
+                list.add(new Reservation(ReservationID, OrderItemID, ReservationDate, StartTime, isExam));
             }
         } catch (SQLException e) {
         }
@@ -45,12 +43,10 @@ public class ReservationDAO extends DBContext {
             try (ResultSet rs = pre.executeQuery()) {
                 while (rs.next()) {
                     int ReservationID = rs.getInt("ReservationID");
-                    int CustomerID = rs.getInt("CustomerID");
-                    int ChildID = rs.getInt("ChildID");
-                    int ServiceID = rs.getInt("ServiceID");
+                    int OrderItemID = rs.getInt("OrderItemID");
                     String ReservationDate = rs.getString("ReservationDate");
                     String StartTime = rs.getString("StartTime");
-                    list.add(new Reservation(ReservationID, CustomerID, ChildID, ServiceID, ReservationDate, StartTime, isExam));
+                    list.add(new Reservation(ReservationID, OrderItemID, ReservationDate, StartTime, isExam));
                 }
             }
         } catch (SQLException e) {
@@ -60,6 +56,6 @@ public class ReservationDAO extends DBContext {
 
     public static void main(String[] args) {
         ReservationDAO dao = new ReservationDAO();
-        System.out.println(dao.getReservationByIsExam(true).size());
+        System.out.println(dao.getReservationByIsExam(false).size());
     }
 }

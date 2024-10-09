@@ -9,18 +9,16 @@ package model;
  * @author LENOVO
  */
 public class Reservation {
-    int ReservationID, CustomerID, ChildID, ServiceID;
+    int ReservationID, OrderItemID;
     String ReservationDate, StartTime;
     boolean isExam;
 
     public Reservation() {
     }
 
-    public Reservation(int ReservationID, int CustomerID, int ChildID, int ServiceID, String ReservationDate, String StartTime, boolean isExam) {
+    public Reservation(int ReservationID, int OrderItemID, String ReservationDate, String StartTime, boolean isExam) {
         this.ReservationID = ReservationID;
-        this.CustomerID = CustomerID;
-        this.ChildID = ChildID;
-        this.ServiceID = ServiceID;
+        this.OrderItemID = OrderItemID;
         this.ReservationDate = ReservationDate;
         this.StartTime = StartTime;
         this.isExam = isExam;
@@ -32,30 +30,6 @@ public class Reservation {
 
     public void setReservationID(int ReservationID) {
         this.ReservationID = ReservationID;
-    }
-
-    public int getCustomerID() {
-        return CustomerID;
-    }
-
-    public void setCustomerID(int CustomerID) {
-        this.CustomerID = CustomerID;
-    }
-
-    public int getChildID() {
-        return ChildID;
-    }
-
-    public void setChildID(int ChildID) {
-        this.ChildID = ChildID;
-    }
-
-    public int getServiceID() {
-        return ServiceID;
-    }
-
-    public void setServiceID(int ServiceID) {
-        this.ServiceID = ServiceID;
     }
 
     public String getReservationDate() {
@@ -80,6 +54,14 @@ public class Reservation {
 
     public void setIsExam(boolean isExam) {
         this.isExam = isExam;
+    }
+
+    public int getOrderItemID() {
+        return OrderItemID;
+    }
+
+    public void setOrderItemID(int OrderItemID) {
+        this.OrderItemID = OrderItemID;
     }
 
     

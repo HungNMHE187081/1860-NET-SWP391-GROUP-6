@@ -101,45 +101,48 @@
                     </form>
 
                     <table class="table table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>STT</th>
-                                        <th>Tên khách hàng</th>
-                                        <th>Tên trẻ</th>
-                                        <th>Ngày khám</th>
-                                        <th>Giờ khám</th>
-                                        <th>Chức năng</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <c:forEach var="reservation" items="${reservations}" varStatus="status">
-                                        <tr>
-                                            <td>${status.index + 1}</td>
-                                            <td>
-                                                <c:forEach var="user" items="${users}">
-                                                    <c:if test="${user.userID == reservation.customerID}">
-                                                        ${user.firstName} ${user.middleName} ${user.lastName}
-                                                    </c:if>
-                                                </c:forEach>
-                                            </td>
-                                            <td>
-                                                <c:forEach var="child" items="${children}">
-                                                    <c:if test="${child.childID == reservation.childID}">
-                                                        ${child.firstName} ${child.middleName} ${child.lastName}
-                                                    </c:if>
-                                                </c:forEach>
-                                            </td>
-                                            <td>${reservation.reservationDate}</td>
-                                            <td>${reservation.startTime}</td>
-                                            <td class="table-td-center">
-                                                <button class="btn btn-primary btn-sm" type="button" title="detail" id="show-emp">
-                                                    <a href="${pageContext.request.contextPath}/manager/viewreservation?reservationID=${reservation.reservationID}"><i class="fas fa-eye"></i></a>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    </c:forEach>
-                                </tbody>
-                            </table>
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Tên khách hàng</th>
+                                <th>Tên trẻ</th>
+                                <th>Ngày khám</th>
+                                <th>Giờ khám</th>
+                                <th>Chức năng</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach var="reservation" items="${reservations}" varStatus="status">
+                                <tr>
+                                    <td>${status.index + 1}</td>
+                                    <td>
+                                        <c:forEach var="user" items="${users}">
+                                            <c:if test="${user.userID == reservation.customerID}">
+                                                ${user.firstName} ${user.middleName} ${user.lastName}
+                                            </c:if>
+                                        </c:forEach>
+                                    </td>
+                                    <td>
+                                        <c:forEach var="child" items="${children}">
+                                            <c:if test="${child.childID == reservation.childID}">
+                                                ${child.firstName} ${child.middleName} ${child.lastName}
+                                            </c:if>
+                                        </c:forEach>
+                                    </td>
+                                    <td>${reservation.reservationDate}</td>
+                                    <td>
+                                        <fmt:parseDate value="${reservation.startTime}" pattern="HH:mm:ss" var="parsedStartTime" />
+                                        <fmt:formatDate value="${parsedStartTime}" pattern="hh:mm a" />
+                                    </td>
+                                    <td class="table-td-center">
+                                        <button class="btn btn-primary btn-sm" type="button" title="detail" id="show-emp">
+                                            <a href="${pageContext.request.contextPath}/manager/viewreservation?reservationID=${reservation.reservationID}"><i class="fas fa-eye"></i></a>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        </tbody>
+                    </table>
 
                     <div class="pagination">
                         <c:if test="${pageIndex > 1}">
