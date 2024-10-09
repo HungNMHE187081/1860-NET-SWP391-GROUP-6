@@ -247,6 +247,7 @@ try {
 
     public static void main(String[] args) {
         ServiceDAO dao = new ServiceDAO();
-        System.out.println(dao.getServiceByID(1).getCreatedAt());
+        List<Service> list = dao.getAllServices();
+        System.out.println(list.get(1).isIsActive());
     }
 }

@@ -25,7 +25,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
-  <script src="/G6_ChildrenCare/ckeditor/ckeditor.js" type="text/javascript"></script>
+  <script src="ckeditor/ckeditor.js" type="text/javascript"></script>
 
 
   <script>
@@ -246,7 +246,7 @@
     // Khởi tạo CKEditor
     CKEDITOR.replace('content', {
         height: 300,  // Chiều cao của CKEditor (ví dụ: 300px)
-        width: '100%', // Chiều rộng, có thể để '100%' để nó tự động vừa với container
+        width: '100%' // Chiều rộng, có thể để '100%' để nó tự động vừa với container
     });
 </script>
 

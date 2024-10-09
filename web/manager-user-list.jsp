@@ -91,6 +91,7 @@
                                             class="fas fa-trash-alt"></i> Xóa tất cả </a>
                                 </div>
                             </div>
+                           
                             <table class="table table-hover table-bordered js-copytextarea" cellpadding="0" cellspacing="0" border="0"
                                    id="sampleTable">
                                 <thead>

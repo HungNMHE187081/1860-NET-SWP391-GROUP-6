@@ -57,8 +57,8 @@ public class ManagerBlogServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         BlogDAO dao = new BlogDAO();
-        List<Blog> blog = dao.getAllBlogs();
-        request.setAttribute("blog", blog);
+        List<Blog> blogList = dao.getAllBlogs();
+        request.setAttribute("blogList", blogList);
         request.getRequestDispatcher("/Manager_JSP/manager-blog.jsp").forward(request, response);
     } 
 

@@ -63,7 +63,7 @@ public class AddBlogServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        request.getRequestDispatcher("/Manager_JSP/manager-add-blog.jsp").forward(request, response);
     }
 
     /**
@@ -112,7 +112,7 @@ public class AddBlogServlet extends HttpServlet {
         blogDAO.addBlog(blog);
 
         // Redirect to a success page (or you can show a confirmation message)
-        response.sendRedirect(request.getContextPath() +"/Manager_JSP/manager-add-blog.jsp");
+        response.sendRedirect("manageblog");
 
     }
 

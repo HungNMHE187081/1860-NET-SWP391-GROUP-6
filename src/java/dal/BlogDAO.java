@@ -14,7 +14,7 @@ public void addBlog(Blog blog) {
         pstmt.setString(1, blog.getTitle());
         pstmt.setString(2, blog.getContent());
         pstmt.setString(3, blog.getAuthorName());
-        pstmt.setBoolean(4, blog.isPublished());
+        pstmt.setBoolean(4, blog.getIsPublished());
         pstmt.setString(5, blog.getThumbnailPath());
         pstmt.setInt(6, 0); // Default views to 0
 
@@ -70,6 +70,7 @@ public Blog getBlogById(int blogID) {
                 blog.setUpdatedDate(rs.getDate("UpdatedDate"));
                 blog.setIsPublished(rs.getBoolean("IsPublished"));
                 blog.setThumbnailPath(rs.getString("ThumbnailPath"));
+                System.out.println("Blog ID: " + blog.getBlogID() + ", Is Published: " + blog.getIsPublished()); // Kiểm tra
                 blog.setViews(rs.getInt("Views"));
 
                 blogList.add(blog);
@@ -99,14 +100,16 @@ public Blog getBlogById(int blogID) {
         List<Blog> blogs = blogDAO.getAllBlogs();
         
         // In danh sách blog ra console
-        for (Blog blog : blogs) {
-            System.out.println("Blog ID: " + blog.getBlogID());
-            System.out.println("Title: " + blog.getTitle());
-            System.out.println("Author: " + blog.getAuthorName());
-            System.out.println("Created Date: " + blog.getCreatedDate());
-            System.out.println("Is Published: " + blog.isPublished());
-            System.out.println("Views: " + blog.getViews());
-            System.out.println("-----------------------------------");
-        }
+//        for (Blog blog : blogs) {
+//            System.out.println("Blog ID: " + blog.getBlogID());
+//            System.out.println("Title: " + blog.getTitle());
+//            System.out.println("Author: " + blog.getAuthorName());
+//            System.out.println("Created Date: " + blog.getCreatedDate());
+//            System.out.println("Is Published: " + blog.isPublished());
+//            System.out.println("Image: " + blog.getThumbnailPath());
+//            System.out.println("Views: " + blog.getViews());
+//            System.out.println("-----------------------------------");
+//        }
+System.out.println(blogs.get(1).getContent());
     }
 }
