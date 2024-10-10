@@ -113,33 +113,75 @@
                         </thead>
                         <tbody>
                             <c:forEach var="reservation" items="${reservations}" varStatus="status">
-                                <tr>
-                                    <td>${status.index + 1}</td>
-                                    <td>
-                                        <c:forEach var="user" items="${users}">
-                                            <c:if test="${user.userID == reservation.customerID}">
-                                                ${user.firstName} ${user.middleName} ${user.lastName}
+                                <c:set var="hasCustomer" value="false" />
+                                <c:set var="hasChild" value="false" />
+                                
+                                <c:forEach var="orderItem" items="${orderItems}">
+                                    <c:if test="${orderItem.orderItemID == reservation.orderItemID}">
+                                        <c:forEach var="order" items="${orders}">
+                                            <c:if test="${order.orderID == orderItem.orderID}">
+                                                <c:forEach var="user" items="${users}">
+                                                    <c:if test="${user.userID == order.customerID}">
+                                                        <c:set var="hasCustomer" value="true" />
+                                                    </c:if>
+                                                </c:forEach>
                                             </c:if>
                                         </c:forEach>
-                                    </td>
-                                    <td>
+                                    </c:if>
+                                </c:forEach>
+                                
+                                <c:forEach var="orderItem" items="${orderItems}">
+                                    <c:if test="${orderItem.orderItemID == reservation.orderItemID}">
                                         <c:forEach var="child" items="${children}">
-                                            <c:if test="${child.childID == reservation.childID}">
-                                                ${child.firstName} ${child.middleName} ${child.lastName}
+                                            <c:if test="${child.childID == orderItem.childID}">
+                                                <c:set var="hasChild" value="true" />
                                             </c:if>
                                         </c:forEach>
-                                    </td>
-                                    <td>${reservation.reservationDate}</td>
-                                    <td>
-                                        <fmt:parseDate value="${reservation.startTime}" pattern="HH:mm:ss" var="parsedStartTime" />
-                                        <fmt:formatDate value="${parsedStartTime}" pattern="hh:mm a" />
-                                    </td>
-                                    <td class="table-td-center">
-                                        <button class="btn btn-primary btn-sm" type="button" title="detail" id="show-emp">
-                                            <a href="${pageContext.request.contextPath}/manager/viewreservation?reservationID=${reservation.reservationID}"><i class="fas fa-eye"></i></a>
-                                        </button>
-                                    </td>
-                                </tr>
+                                    </c:if>
+                                </c:forEach>
+                                
+                                <c:if test="${hasCustomer && hasChild}">
+                                    <tr>
+                                        <td>${status.index + 1}</td>
+                                        <td>
+                                            <c:forEach var="orderItem" items="${orderItems}">
+                                                <c:if test="${orderItem.orderItemID == reservation.orderItemID}">
+                                                    <c:forEach var="order" items="${orders}">
+                                                        <c:if test="${order.orderID == orderItem.orderID}">
+                                                            <c:forEach var="user" items="${users}">
+                                                                <c:if test="${user.userID == order.customerID}">
+                                                                    ${user.firstName} ${user.middleName} ${user.lastName}
+                                                                </c:if>
+                                                            </c:forEach>
+                                                        </c:if>
+                                                    </c:forEach>
+                                                </c:if>
+                                            </c:forEach>
+                                        </td>
+                                        <td>
+                                            <c:forEach var="orderItem" items="${orderItems}">
+                                                <c:if test="${orderItem.orderItemID == reservation.orderItemID}">
+                                                    <c:forEach var="child" items="${children}">
+                                                        <c:if test="${child.childID == orderItem.childID}">
+                                                            ${child.firstName} ${child.middleName} ${child.lastName}
+                                                        </c:if>
+                                                    </c:forEach>
+                                                </c:if>
+                                            </c:forEach>
+                                        </td>
+                                        <td>${reservation.reservationDate}</td>
+                                        <td>
+                                            <fmt:parseDate value="${reservation.startTime}" pattern="HH:mm:ss" var="parsedStartTime" />
+                                            <fmt:formatDate value="${parsedStartTime}" pattern="hh:mm a" />
+                                        </td>
+                                        <td class="table-td-center">
+                                            <button class="btn btn-primary btn-sm" type="button" title="detail" id="show-emp">
+                                                <a href="${pageContext.request.contextPath}/manager/viewreservation?reservationID=${reservation.reservationID}"><i class="fas fa-eye"></i>
+                                                Chi tiết</a>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </c:if>
                             </c:forEach>
                         </tbody>
                     </table>

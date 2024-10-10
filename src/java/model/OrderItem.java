@@ -9,16 +9,16 @@ package model;
  * @author LENOVO
  */
 public class OrderItem {
-    int OrderItemID, OrderID, ServiceID, ChildrenID;
+    int OrderItemID, OrderID, ServiceID, ChildID;
 
     public OrderItem() {
     }
 
-    public OrderItem(int OrderItemID, int OrderID, int ServiceID, int ChildrenID) {
+    public OrderItem(int OrderItemID, int OrderID, int ServiceID, int ChildID) {
         this.OrderItemID = OrderItemID;
         this.OrderID = OrderID;
         this.ServiceID = ServiceID;
-        this.ChildrenID = ChildrenID;
+        this.ChildID = ChildID;
     }
 
     public int getOrderItemID() {
@@ -45,12 +45,12 @@ public class OrderItem {
         this.ServiceID = ServiceID;
     }
 
-    public int getChildrenID() {
-        return ChildrenID;
+    public int getChildID() {
+        return ChildID;
     }
 
-    public void setChildrenID(int ChildrenID) {
-        this.ChildrenID = ChildrenID;
+    public void setChildID(int ChildID) {
+        this.ChildID = ChildID;
     }
     
 }

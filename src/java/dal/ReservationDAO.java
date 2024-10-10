@@ -56,6 +56,6 @@ public class ReservationDAO extends DBContext {
 
     public static void main(String[] args) {
         ReservationDAO dao = new ReservationDAO();
-        System.out.println(dao.getReservationByIsExam(false).size());
+        System.out.println(dao.getReservationByIsExam(false).get(3).getOrderItemID());
     }
 }

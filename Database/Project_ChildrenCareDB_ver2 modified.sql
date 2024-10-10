@@ -153,6 +153,7 @@ CREATE TABLE Orders(
 	Quantity INT CHECK (Quantity > 0),
 	TotalPrice FLOAT CHECK (TotalPrice > 0),
 	OrderDate DATETIME DEFAULT GETDATE(),
+	isCheckOut BIT,
 	FOREIGN KEY (CustomerID) REFERENCES Users(UserID) ON DELETE CASCADE
 )
 
@@ -641,11 +642,11 @@ VALUES
 (3, N'Lê', N'Minh', N'F', '2015-10-20', N'Nam', NULL);
 
 
-INSERT INTO Orders (CustomerID, OrderDate, TotalPrice)
-VALUES (1, GETDATE(), 1250000.0);
+INSERT INTO Orders (CustomerID, OrderDate, TotalPrice, isCheckOut)
+VALUES (1, GETDATE(), 1250000.0, 1);
 
-INSERT INTO Orders (CustomerID, OrderDate, TotalPrice)
-VALUES (2, GETDATE(), 750000.0);
+INSERT INTO Orders (CustomerID, OrderDate, TotalPrice, isCheckOut)
+VALUES (2, GETDATE(), 750000.0, 0);
 
 
 INSERT INTO OrderItems (OrderID, ServiceID, ChildID)
@@ -657,11 +658,14 @@ VALUES (1, 2, 1);
 INSERT INTO OrderItems (OrderID, ServiceID, ChildID)
 VALUES (2, 2, 2);
 
+INSERT INTO OrderItems (OrderID, ServiceID, ChildID)
+VALUES (2, 2, 2);
 
 -- Insert dữ liệu vào bảng Reservations
 INSERT INTO Reservations (OrderItemID, ReservationDate, StartTime, isExam)
 VALUES (1, '2023-10-01', '09:00:00', 0),
-       (2, '2023-10-01', '10:00:00', 0),
+	   (2, '2023-10-01', '10:00:00', 0),
+       (2, '2023-10-01', '19:00:00', 0),
        (3, '2023-10-02', '11:00:00', 0);
 
 INSERT INTO HealthMetrics (ChildID, Height, Weight, BMI, RecordDate)
@@ -698,6 +702,11 @@ JOIN Roles r ON ur.RoleID = r.RoleID
 JOIN Staff s ON u.UserID = s.StaffID
 WHERE r.RoleID IN (3, 4); 
 
-select * from OrderItems
+select * from Children
 
-SELECT * FROM Reservations WHERE IsExam = 0
+select * from Orders
+
+select * from OrderItems 
+
+SELECT * FROM Reservations WHERE ReservationID = 4 and IsExam = 0
+
