@@ -646,7 +646,7 @@ INSERT INTO Orders (CustomerID, OrderDate, TotalPrice, isCheckOut)
 VALUES (1, GETDATE(), 1250000.0, 1);
 
 INSERT INTO Orders (CustomerID, OrderDate, TotalPrice, isCheckOut)
-VALUES (2, GETDATE(), 750000.0, 0);
+VALUES (2, GETDATE(), 750000.0, 1);
 
 
 INSERT INTO OrderItems (OrderID, ServiceID, ChildID)
@@ -663,9 +663,9 @@ VALUES (2, 2, 2);
 
 -- Insert dữ liệu vào bảng Reservations
 INSERT INTO Reservations (OrderItemID, ReservationDate, StartTime, isExam)
-VALUES (1, '2023-10-01', '09:00:00', 0),
+VALUES (1, '2023-10-01', '09:00:00', 1),
 	   (2, '2023-10-01', '10:00:00', 0),
-       (2, '2023-10-01', '19:00:00', 0),
+       (2, '2023-10-01', '19:00:00', 1),
        (3, '2023-10-02', '11:00:00', 0);
 
 INSERT INTO HealthMetrics (ChildID, Height, Weight, BMI, RecordDate)
