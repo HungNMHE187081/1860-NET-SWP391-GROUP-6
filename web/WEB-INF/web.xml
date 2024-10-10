@@ -237,6 +237,10 @@
         <servlet-class>controller.ManagerBlogServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>ViewDetailsBlogServlet</servlet-name>
+        <servlet-class>controller.ViewDetailsBlogServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>MedicalRecordList</servlet-name>
         <servlet-class>controller.MedicalRecordList</servlet-class>
     </servlet>
@@ -471,5 +475,9 @@
     <servlet-mapping>
         <servlet-name>MedicalRecordList</servlet-name>
         <url-pattern>/medicalrecordlist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewDetailsBlogServlet</servlet-name>
+        <url-pattern>/viewdetailblog</url-pattern>
     </servlet-mapping>
 </web-app>

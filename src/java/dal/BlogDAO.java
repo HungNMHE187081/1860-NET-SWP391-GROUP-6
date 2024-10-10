@@ -97,8 +97,9 @@ public Blog getBlogById(int blogID) {
         BlogDAO blogDAO = new BlogDAO();
         
         // Lấy danh sách các blog
-        List<Blog> blogs = blogDAO.getAllBlogs();
+        int n = 2;
         
+      
         // In danh sách blog ra console
 //        for (Blog blog : blogs) {
 //            System.out.println("Blog ID: " + blog.getBlogID());
@@ -110,6 +111,6 @@ public Blog getBlogById(int blogID) {
 //            System.out.println("Views: " + blog.getViews());
 //            System.out.println("-----------------------------------");
 //        }
-System.out.println(blogs.get(1).getContent());
+           System.out.println(blogDAO.getBlogById(n).getContent());
     }
 }
