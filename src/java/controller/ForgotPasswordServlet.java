@@ -17,7 +17,6 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-@WebServlet("/forgot-password")
 public class ForgotPasswordServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
