@@ -34,6 +34,8 @@
         <link href="css/slick.css" rel="stylesheet" type="text/css"/>
         <link href="css/style.min.css" rel="stylesheet" type="text/css"/>
         <link href="css/tiny-slider.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=ecg_heart" />
+        
 
     </head>
 
@@ -56,7 +58,7 @@
                 <div>
                     <a class="logo" href="index.html">
                         <span class="logo-light-mode">
-                            <img src="../images/logo-dark.png" class="l-dark" height="24" alt="">
+                            <img src="img/logo-1.png" class="l-light" height="30" alt="">
                             <img src="../assets/images/logo-light.png" class="l-light" height="24" alt="">
                         </span>
                         <img src="../assets/images/logo-light.png" height="24" class="logo-dark-mode" alt="">
@@ -82,17 +84,6 @@
 
                 <!-- Start Dropdown -->
                 <ul class="dropdowns list-inline mb-0">
-                    <li class="list-inline-item mb-0">
-                        <a href="javascript:void(0)" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-                            <div class="btn btn-icon btn-pills btn-primary"><i data-feather="settings" class="fea icon-sm"></i></div>
-                        </a>
-                    </li>
-
-                    <li class="list-inline-item mb-0 ms-1">
-                        <a href="javascript:void(0)" class="btn btn-icon btn-pills btn-primary" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop">
-                            <i class="uil uil-search"></i>
-                        </a>
-                    </li>
 
                     <li class="list-inline-item mb-0 ms-1">
                         <div class="dropdown dropdown-primary">
@@ -117,106 +108,109 @@
         
                 <div id="navigation">
                     <!-- Navigation Menu-->   
-                    <ul class="navigation-menu nav-left nav-light">
-                        <li class="has-submenu parent-menu-item">
-                            <a href="javascript:void(0)">Home</a><span class="menu-arrow"></span>
-                            <ul class="submenu">
-                                <li><a href="index.html" class="sub-menu-item">Index One</a></li>
-                                <li><a href="index-two.html" class="sub-menu-item">Index Two</a></li>
-                                <li><a href="index-three.html" class="sub-menu-item">Index Three</a></li>
-                            </ul>
-                        </li>
+                   <ul class="navigation-menu nav-left nav-light">
+    <li class="has-submenu parent-menu-item">
+        <a href="javascript:void(0)">Trang Chủ</a><span class="menu-arrow"></span>
+        <ul class="submenu">
+            <li><a href="index.html" class="sub-menu-item">Trang Chính 1</a></li>
+            <li><a href="index-two.html" class="sub-menu-item">Trang Chính 2</a></li>
+            <li><a href="index-three.html" class="sub-menu-item">Trang Chính 3</a></li>
+        </ul>
+    </li>
 
-                        <li class="has-submenu parent-parent-menu-item">
-                            <a href="javascript:void(0)">Doctors</a><span class="menu-arrow"></span>
-                            <ul class="submenu">
-                                <li class="has-submenu parent-menu-item">
-                                    <a href="javascript:void(0)" class="menu-item"> Dashboard </a><span class="submenu-arrow"></span>
-                                    <ul class="submenu">
-                                        <li><a href="doctor-dashboard.html" class="sub-menu-item">Dashboard</a></li>
-                                        <li><a href="doctor-appointment.html" class="sub-menu-item">Appointment</a></li>
-                                        <li><a href="patient-list.html" class="sub-menu-item">Patients</a></li>
-                                        <li><a href="doctor-schedule.html" class="sub-menu-item">Schedule Timing</a></li>
-                                        <li><a href="invoices.html" class="sub-menu-item">Invoices</a></li>
-                                        <li><a href="patient-review.html" class="sub-menu-item">Reviews</a></li>
-                                        <li><a href="doctor-messages.html" class="sub-menu-item">Messages</a></li>
-                                        <li><a href="doctor-profile.html" class="sub-menu-item">Profile</a></li>
-                                        <li><a href="doctor-profile-setting.html" class="sub-menu-item">Profile Settings</a></li>
-                                        <li><a href="doctor-chat.html" class="sub-menu-item">Chat</a></li>
-                                        <li><a href="login.html" class="sub-menu-item">Login</a></li>
-                                        <li><a href="signup.html" class="sub-menu-item">Sign Up</a></li>
-                                        <li><a href="forgot-password.html" class="sub-menu-item">Forgot Password</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="doctor-team-one.html" class="sub-menu-item">Doctors One</a></li>
-                                <li><a href="doctor-team-two.html" class="sub-menu-item">Doctors Two</a></li>
-                                <li><a href="doctor-team-three.html" class="sub-menu-item">Doctors Three</a></li>
-                            </ul>
-                        </li>
+    <li class="has-submenu parent-parent-menu-item">
+        <a href="javascript:void(0)">Bác Sĩ</a><span class="menu-arrow"></span>
+        <ul class="submenu">
+            <li class="has-submenu parent-menu-item">
+                <a href="javascript:void(0)" class="menu-item"> Bảng Điều Khiển </a><span class="submenu-arrow"></span>
+                <ul class="submenu">
+                    <li><a href="doctor-dashboard.html" class="sub-menu-item">Bảng Điều Khiển</a></li>
+                    <li><a href="doctor-appointment.html" class="sub-menu-item">Cuộc Hẹn</a></li>
+                    <li><a href="patient-list.html" class="sub-menu-item">Danh Sách Bệnh Nhân</a></li>
+                    <li><a href="doctor-schedule.html" class="sub-menu-item">Lịch Làm Việc</a></li>
+                    <li><a href="invoices.html" class="sub-menu-item">Hóa Đơn</a></li>
+                    <li><a href="patient-review.html" class="sub-menu-item">Đánh Giá</a></li>
+                    <li><a href="doctor-messages.html" class="sub-menu-item">Tin Nhắn</a></li>
+                    <li><a href="doctor-profile.html" class="sub-menu-item">Hồ Sơ</a></li>
+                    <li><a href="doctor-profile-setting.html" class="sub-menu-item">Cài Đặt Hồ Sơ</a></li>
+                    <li><a href="doctor-chat.html" class="sub-menu-item">Trò Chuyện</a></li>
+                    <li><a href="login.html" class="sub-menu-item">Đăng Nhập</a></li>
+                    <li><a href="signup.html" class="sub-menu-item">Đăng Ký</a></li>
+                    <li><a href="forgot-password.html" class="sub-menu-item">Quên Mật Khẩu</a></li>
+                </ul>
+            </li>
+            <li><a href="doctor-team-one.html" class="sub-menu-item">Nhóm Bác Sĩ 1</a></li>
+            <li><a href="doctor-team-two.html" class="sub-menu-item">Nhóm Bác Sĩ 2</a></li>
+            <li><a href="doctor-team-three.html" class="sub-menu-item">Nhóm Bác Sĩ 3</a></li>
+        </ul>
+    </li>
 
-                        <li class="has-submenu parent-menu-item">
-                            <a href="javascript:void(0)">Patients</a><span class="menu-arrow"></span>
-                            <ul class="submenu">
-                                <li><a href="patient-dashboard.html" class="sub-menu-item">Dashboard</a></li>
-                                <li><a href="patient-profile.html" class="sub-menu-item">Profile</a></li>
-                                <li><a href="booking-appointment.html" class="sub-menu-item">Book Appointment</a></li>
-                                <li><a href="patient-invoice.html" class="sub-menu-item">Invoice</a></li>
-                            </ul>
-                        </li>
+    <li class="has-submenu parent-menu-item">
+        <a href="javascript:void(0)">Bệnh Nhân</a><span class="menu-arrow"></span>
+        <ul class="submenu">
+            <li><a href="patient-dashboard.html" class="sub-menu-item">Bảng Điều Khiển</a></li>
+            <li><a href="patient-profile.html" class="sub-menu-item">Hồ Sơ</a></li>
+            <li><a href="booking-appointment.html" class="sub-menu-item">Đặt Lịch Hẹn</a></li>
+            <li><a href="patient-invoice.html" class="sub-menu-item">Hóa Đơn</a></li>
+        </ul>
+    </li>
 
-                        <li class="has-submenu parent-menu-item">
-                            <a href="javascript:void(0)">Pharmacy</a><span class="menu-arrow"></span>
-                            <ul class="submenu">
-                                <li><a href="pharmacy.html" class="sub-menu-item">Pharmacy</a></li>
-                                <li><a href="pharmacy-shop.html" class="sub-menu-item">Shop</a></li>
-                                <li><a href="pharmacy-product-detail.html" class="sub-menu-item">Medicine Detail</a></li>
-                                <li><a href="pharmacy-shop-cart.html" class="sub-menu-item">Shop Cart</a></li>
-                                <li><a href="pharmacy-checkout.html" class="sub-menu-item">Checkout</a></li>
-                                <li><a href="pharmacy-account.html" class="sub-menu-item">Account</a></li>
-                            </ul>
-                        </li>
-        
-                        <li class="has-submenu parent-parent-menu-item"><a href="javascript:void(0)">Pages</a><span class="menu-arrow"></span>
-                            <ul class="submenu">
-                                <li><a href="aboutus.html" class="sub-menu-item"> About Us</a></li>
-                                <li><a href="departments.html" class="sub-menu-item">Departments</a></li>
-                                <li><a href="faqs.html" class="sub-menu-item">FAQs</a></li>
-                                <li class="has-submenu parent-menu-item">
-                                    <a href="javascript:void(0)" class="menu-item"> Blogs </a><span class="submenu-arrow"></span>
-                                    <ul class="submenu">
-                                        <li><a href="blogs.html" class="sub-menu-item">Blogs</a></li>
-                                        <li><a href="blog-detail.html" class="sub-menu-item">Blog Details</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="terms.html" class="sub-menu-item">Terms & Policy</a></li>
-                                <li><a href="privacy.html" class="sub-menu-item">Privacy Policy</a></li>
-                                <li><a href="error.html" class="sub-menu-item">404 !</a></li>
-                                <li><a href="contact.html" class="sub-menu-item">Contact</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="../admin/index.html" class="sub-menu-item" target="_blank">Admin</a></li>
-                    </ul><!--end navigation menu-->
+    <li class="has-submenu parent-menu-item">
+        <a href="javascript:void(0)">Nhà Thuốc</a><span class="menu-arrow"></span>
+        <ul class="submenu">
+            <li><a href="pharmacy.html" class="sub-menu-item">Nhà Thuốc</a></li>
+            <li><a href="pharmacy-shop.html" class="sub-menu-item">Cửa Hàng</a></li>
+            <li><a href="pharmacy-product-detail.html" class="sub-menu-item">Chi Tiết Thuốc</a></li>
+            <li><a href="pharmacy-shop-cart.html" class="sub-menu-item">Giỏ Hàng</a></li>
+            <li><a href="pharmacy-checkout.html" class="sub-menu-item">Thanh Toán</a></li>
+            <li><a href="pharmacy-account.html" class="sub-menu-item">Tài Khoản</a></li>
+        </ul>
+    </li>
+
+    <li class="has-submenu parent-parent-menu-item">
+        <a href="javascript:void(0)">Trang</a><span class="menu-arrow"></span>
+        <ul class="submenu">
+            <li><a href="aboutus.html" class="sub-menu-item">Về Chúng Tôi</a></li>
+            <li><a href="departments.html" class="sub-menu-item">Phòng Ban</a></li>
+            <li><a href="faqs.html" class="sub-menu-item">Câu Hỏi Thường Gặp</a></li>
+            <li class="has-submenu parent-menu-item">
+                <a href="javascript:void(0)" class="menu-item"> Blog </a><span class="submenu-arrow"></span>
+                <ul class="submenu">
+                    <li><a href="blogs.html" class="sub-menu-item">Blog</a></li>
+                    <li><a href="blog-detail.html" class="sub-menu-item">Chi Tiết Blog</a></li>
+                </ul>
+            </li>
+            <li><a href="terms.html" class="sub-menu-item">Điều Khoản & Chính Sách</a></li>
+            <li><a href="privacy.html" class="sub-menu-item">Chính Sách Bảo Mật</a></li>
+            <li><a href="error.html" class="sub-menu-item">404 !</a></li>
+            <li><a href="contact.html" class="sub-menu-item">Liên Hệ</a></li>
+        </ul>
+    </li>
+    <li><a href="../admin/index.html" class="sub-menu-item" target="_blank">Quản Trị</a></li>
+</ul>
+<!--end navigation menu-->
                 </div><!--end navigation-->
             </div><!--end container-->
         </header><!--end header-->
         <!-- Navbar End -->
 
         <!-- Start Hero -->
-        <section class="bg-half-260 d-table w-100" style="background: url('../assets/images/bg/01.jpg') center;">
+        <section class="bg-half-260 d-table w-100" style="background: url('images/bg/01.jpg') center;">
             <div class="bg-overlay bg-overlay-dark"></div>
             <div class="container">
                 <div class="row mt-5 mt-lg-0">
                     <div class="col-12">
                         <div class="heading-title">
-                            <img src="../assets/images/logo-icon.png" height="50" alt="">
-                            <h4 class="display-4 fw-bold text-white title-dark mt-3 mb-4">Meet The <br> Best Doctor</h4>
-                            <p class="para-desc text-white-50 mb-0">Great doctor if you need your family member to get effective immediate assistance, emergency treatment or a simple consultation.</p>
-                            
-                            <div class="mt-4 pt-2">
-                                <a href="booking-appointment.html" class="btn btn-primary">Make Appointment</a>
-                                <p class="text-white-50 mb-0 mt-2">T&C apply. Please read <a href="#" class="text-white-50">Terms and Conditions <i class="ri-arrow-right-line align-middle"></i></a></p>
-                            </div>
-                        </div>
+    <img src="../assets/images/logo-icon.png" height="50" alt="">
+    <h4 class="display-4 fw-bold text-white title-dark mt-3 mb-4">Gặp Gỡ <br> Bác Sĩ Tốt Nhất</h4>
+    <p class="para-desc text-white-50 mb-0">Bác sĩ tận tâm sẽ hỗ trợ ngay lập tức cho con bạn, dù là trong trường hợp khẩn cấp hay chỉ là tư vấn đơn giản.</p>
+
+    <div class="mt-4 pt-2">
+        <a href="booking-appointment.html" class="btn btn-primary">Đặt Lịch Hẹn</a>
+        <p class="text-white-50 mb-0 mt-2">Điều khoản áp dụng. Vui lòng đọc Điều Khoản và Điều Kiện </p>
+    </div>
+</div>
+
                     </div><!--end col-->
                 </div><!--end row-->
             </div><!--end container-->
@@ -226,46 +220,47 @@
         <!-- Start -->
         <section class="section">
             <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-xl-10">
-                        <div class="features-absolute bg-white shadow rounded overflow-hidden card-group">
-                            <div class="card border-0 bg-light p-4">
-                                <i class="ri-heart-pulse-fill text-primary h2 mb-0"></i>
-                                <h5 class="mt-1">Emergency Cases</h5>
-                                <p class="text-muted mt-2">This is required when, for example, the is not yet available. Dummy text is also known as 'fill text'.</p>
-                                <a href="departments.html" class="text-primary">Read More <i class="ri-arrow-right-line align-middle"></i></a>
-                            </div>
-                            
-                            <div class="card border-0 p-4">
-                                <i class="ri-dossier-fill text-primary h2 mb-0"></i>
-                                <h5 class="mt-1">Doctors Timetable</h5>
-                                <p class="text-muted mt-2">This is required when, for example, the is not yet available. Dummy text is also known as 'fill text'.</p>
-                                <a href="departments.html" class="text-primary">Read More <i class="ri-arrow-right-line align-middle"></i></a>
-                            </div>
+    <div class="row justify-content-center">
+        <div class="col-xl-10">
+            <div class="features-absolute bg-white shadow rounded overflow-hidden card-group">
+                <div class="card border-0 bg-light p-4">
+                    <i class="ri-heart-pulse-fill text-primary h2 mb-0"></i>
+                    <h5 class="mt-1">Trường Hợp Khẩn Cấp</h5>
+                    <p class="text-muted mt-2">Đây là trường hợp cần thiết khi, ví dụ, thông tin chưa có sẵn. Văn bản giả cũng được biết đến là 'văn bản điền'.</p>
+                    <a href="departments.html" class="text-primary">Đọc Thêm <i class="ri-arrow-right-line align-middle"></i></a>
+                </div>
+                
+                <div class="card border-0 p-4">
+                    <i class="ri-dossier-fill text-primary h2 mb-0"></i>
+                    <h5 class="mt-1">Lịch Trình Bác Sĩ</h5>
+                    <p class="text-muted mt-2">Đây là trường hợp cần thiết khi, ví dụ, thông tin chưa có sẵn. Văn bản giả cũng được biết đến là 'văn bản điền'.</p>
+                    <a href="departments.html" class="text-primary">Đọc Thêm <i class="ri-arrow-right-line align-middle"></i></a>
+                </div>
 
-                            <div class="card border-0 bg-light p-4">
-                                <i class="ri-time-fill text-primary h2 mb-0"></i>
-                                <h5 class="mt-1">Opening Hours</h5>
-                                <ul class="list-unstyled mt-2">
-                                    <li class="d-flex justify-content-between">
-                                        <p class="text-muted mb-0">Monday - Friday</p>
-                                        <p class="text-primary mb-0">8.00 - 20.00</p>
-                                    </li>
-                                    <li class="d-flex justify-content-between">
-                                        <p class="text-muted mb-0">Saturday</p>
-                                        <p class="text-primary mb-0">8.00 - 18.00</p>
-                                    </li>
-                                    <li class="d-flex justify-content-between">
-                                        <p class="text-muted mb-0">Sunday</p>
-                                        <p class="text-primary mb-0">8.00 - 14.00</p>
-                                    </li>
-                                </ul>
-                                <a href="departments.html" class="text-primary">Read More <i class="ri-arrow-right-line align-middle"></i></a>
-                            </div>
-                        </div>
-                    </div><!--end col-->
-                </div><!--end row-->
-            </div><!--end container-->
+                <div class="card border-0 bg-light p-4">
+                    <i class="ri-time-fill text-primary h2 mb-0"></i>
+                    <h5 class="mt-1">Giờ Mở Cửa</h5>
+                    <ul class="list-unstyled mt-2">
+                        <li class="d-flex justify-content-between">
+                            <p class="text-muted mb-0">Thứ Hai - Thứ Sáu</p>
+                            <p class="text-primary mb-0">8.00 - 20.00</p>
+                        </li>
+                        <li class="d-flex justify-content-between">
+                            <p class="text-muted mb-0">Thứ Bảy</p>
+                            <p class="text-primary mb-0">8.00 - 18.00</p>
+                        </li>
+                        <li class="d-flex justify-content-between">
+                            <p class="text-muted mb-0">Chủ Nhật</p>
+                            <p class="text-primary mb-0">8.00 - 14.00</p>
+                        </li>
+                    </ul>
+                    <a href="departments.html" class="text-primary">Đọc Thêm <i class="ri-arrow-right-line align-middle"></i></a>
+                </div>
+            </div>
+        </div><!--end col-->
+    </div><!--end row-->
+</div><!--end container-->
+
 
             <div class="container mt-100 mt-60">
                 <div class="row align-items-center">
