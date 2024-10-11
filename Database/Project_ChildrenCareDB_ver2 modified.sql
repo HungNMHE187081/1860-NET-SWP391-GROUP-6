@@ -170,7 +170,6 @@ CREATE TABLE OrderItems (
 );
 
 
-
 -- Create Reservations table
 CREATE TABLE Reservations (
     ReservationID INT PRIMARY KEY IDENTITY(1,1),
@@ -710,3 +709,24 @@ select * from OrderItems
 
 SELECT * FROM Reservations WHERE ReservationID = 4 and IsExam = 0
 
+SELECT 
+    u.UserID AS CustomerID,
+    CONCAT(u.FirstName, ' ', u.MiddleName, ' ', u.LastName) AS CustomerName,
+    c.ChildID AS ChildID,
+    CONCAT(c.FirstName, ' ', c.MiddleName, ' ', c.LastName) AS ChildName,
+    s.ServiceID AS ServiceID,
+    s.ServiceName AS ServiceName,
+    r.ReservationDate
+FROM 
+    Users u
+JOIN 
+    Children c ON u.UserID = c.CustomerID
+JOIN 
+    OrderItems oi ON c.ChildID = oi.ChildID
+JOIN 
+    Services s ON oi.ServiceID = s.ServiceID
+JOIN 
+    Reservations r ON oi.OrderItemID = r.OrderItemID
+WHERE 
+    s.ServiceName LIKE N'Khám%' 
+    AND r.isExam = 1;

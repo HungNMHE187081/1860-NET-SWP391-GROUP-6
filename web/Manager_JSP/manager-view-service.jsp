@@ -15,7 +15,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Main CSS-->
-                <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/manager/services.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/manager/services.css">
 
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
         <!-- or -->
@@ -177,20 +177,20 @@
                             <div class="form-group col-md-4">
                                 <label class="control-label">Độ tuổi</label>
                                 <input class="form-control" type="text" id="ageLimit" name="ageLimit" value="<c:forEach var='ageLimit' items='${ageLimits}'><c:if test='${ageLimit.ageLimitID == service.ageLimitID}'>${ageLimit.ageLimit}</c:if></c:forEach>" readonly>
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label class="control-label">Loại dịch vụ</label>
-                                <input class="form-control" type="text" id="category" name="category" value="<c:forEach var='category' items='${categories}'><c:if test='${category.categoryID == service.categoryID}'>${category.categoryName}</c:if></c:forEach>" readonly>
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label class="control-label">Người thực hiện dịch vụ</label>
-                                <input class="form-control" type="text" id="degree" name="degree" value="<c:forEach var='degree' items='${degrees}'><c:if test='${degree.degreeID == service.degreeID}'>${degree.degreeName}</c:if></c:forEach>" readonly>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-md-4">
-                                <label class="control-label">Giá (VNĐ)</label>
-                                <input class="form-control" type="number" id="price" name="price" value="${service.price}" readonly="">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label class="control-label">Loại dịch vụ</label>
+                                        <input class="form-control" type="text" id="category" name="category" value="<c:forEach var='category' items='${categories}'><c:if test='${category.categoryID == service.categoryID}'>${category.categoryName}</c:if></c:forEach>" readonly>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label class="control-label">Người thực hiện dịch vụ</label>
+                                        <input class="form-control" type="text" id="degree" name="degree" value="<c:forEach var='degree' items='${degrees}'><c:if test='${degree.degreeID == service.degreeID}'>${degree.degreeName}</c:if></c:forEach>" readonly>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        <label class="control-label">Giá (VNĐ)</label>
+                                        <input class="form-control" type="number" id="price" name="price" value="${service.price}" readonly="">
                             </div>
                             <div class="form-group col-md-4">
                                 <label class="control-label">Thời gian khám tối đa (Phút)</label>

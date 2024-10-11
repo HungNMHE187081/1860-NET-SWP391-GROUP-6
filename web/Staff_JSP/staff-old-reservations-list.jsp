@@ -85,10 +85,10 @@
 
                     <!-- Filter and Search Form -->
 
-                    <form action="${pageContext.request.contextPath}/staff/searchstaff" method="get" class="filter-form">
+                    <form action="${pageContext.request.contextPath}/staff/searchreservation" method="get" class="filter-form">
                         <div class="filter-group">
                             <div class="filter-group">
-                                <input type="text" id="searchInput" name="keyword" placeholder="Tìm theo tên nhân viên" />
+                                <input type="text" id="searchInput" name="keyword" placeholder="Tìm theo tên khách hàng" />
                                 <select class="form-control" id="specializationID" name="specializationID">
                                     <option value="">Chọn chức vụ</option>
                                     <c:forEach var="specialization" items="${specializations}">
@@ -179,7 +179,7 @@
                                                 <a href="${pageContext.request.contextPath}/manager/viewreservation?reservationID=${reservation.reservationID}"><i class="fas fa-eye"></i>
                                                     Chi tiết</a>
                                             </button>
-                                            
+
                                         </td>
                                     </tr>
                                 </c:if>

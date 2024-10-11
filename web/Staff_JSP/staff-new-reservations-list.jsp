@@ -90,7 +90,7 @@
                             <div class="filter-group">
                                 <input type="text" id="searchInput" name="keyword" placeholder="Tìm theo tên nhân viên" />
                                 <select class="form-control" id="specializationID" name="specializationID">
-                                    <option value="">Chọn chức vụ</option>
+                                    <option value="">Chọn thời gian khám</option>
                                     <c:forEach var="specialization" items="${specializations}">
                                         <option value="${specialization.specializationID}">${specialization.specializationName}</option>
                                     </c:forEach>

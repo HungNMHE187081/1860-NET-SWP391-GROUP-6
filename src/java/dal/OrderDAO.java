@@ -92,6 +92,10 @@ public class OrderDAO extends DBContext {
         }
         return list;
     }
+        
+        public void addOrderItem(OrderItem orderItem){
+            String sql = "";
+        }
 
     public static void main(String[] args) {
         OrderDAO dao = new OrderDAO();
