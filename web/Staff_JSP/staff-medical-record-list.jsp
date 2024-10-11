@@ -74,13 +74,13 @@
             <!-- Main Content -->
             <main>
                 <section class="dashboard">
-                    <h2><i class="fas fa-prescription-bottle-alt"></i> Danh sách thuốc</h2>
+                    <h2><i class="fas fa-prescription-bottle-alt"></i> Lịch sử khám bệnh</h2>
                     
                     <!-- Filter and Search Form -->
 
                     <form action="medicinelist" method="get" class="filter-form">
                         <div class="filter-group">
-                            <input type="text" name="search" value="${param.search}" placeholder="Tìm theo tên thuốc" />
+                            <input type="text" name="search" value="${param.search}" placeholder="Tìm theo tên trẻ" />
 
                             <select name="category" id="category">
                                 <option value="">Tất cả loại thuốc</option>
@@ -100,7 +100,7 @@
                                 </select>
 
                                 <button type="submit"><i class="fas fa-filter"></i> Lọc và tìm kiếm</button>
-                                <a href="addmedicine" class="btn"><i class="fas fa-plus"></i> Thêm thuốc mới</a>
+                                <a href="addmedicalrecord" class="btn"><i class="fas fa-plus"></i> Thêm lịch sử khám</a>
                             </div>
                         </form>
 

@@ -115,7 +115,7 @@
                             <c:forEach var="reservation" items="${reservations}" varStatus="status">
                                 <c:set var="hasCustomer" value="false" />
                                 <c:set var="hasChild" value="false" />
-                                
+
                                 <c:forEach var="orderItem" items="${orderItems}">
                                     <c:if test="${orderItem.orderItemID == reservation.orderItemID}">
                                         <c:forEach var="order" items="${orders}">
@@ -129,7 +129,7 @@
                                         </c:forEach>
                                     </c:if>
                                 </c:forEach>
-                                
+
                                 <c:forEach var="orderItem" items="${orderItems}">
                                     <c:if test="${orderItem.orderItemID == reservation.orderItemID}">
                                         <c:forEach var="child" items="${children}">
@@ -139,7 +139,7 @@
                                         </c:forEach>
                                     </c:if>
                                 </c:forEach>
-                                
+
                                 <c:if test="${hasCustomer && hasChild}">
                                     <tr>
                                         <td>${status.index + 1}</td>
@@ -177,8 +177,9 @@
                                         <td class="table-td-center">
                                             <button class="btn btn-primary btn-sm" type="button" title="detail" id="show-emp">
                                                 <a href="${pageContext.request.contextPath}/manager/viewreservation?reservationID=${reservation.reservationID}"><i class="fas fa-eye"></i>
-                                                Chi tiết</a>
+                                                    Chi tiết</a>
                                             </button>
+                                            
                                         </td>
                                     </tr>
                                 </c:if>

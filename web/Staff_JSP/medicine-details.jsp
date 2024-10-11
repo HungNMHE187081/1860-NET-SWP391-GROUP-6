@@ -100,7 +100,6 @@
 </main>
 
         </div>
-
         <footer>
             <div class="container">
                 <p>&copy; 2024 Child Care. All rights reserved.</p>
