@@ -16,21 +16,27 @@
         <link rel="shortcut icon" href="../assets/images/favicon.ico.png">
         <!-- Bootstrap -->
         <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <!-- SLIDER -->
         <link rel="stylesheet" href="../assets/css/tiny-slider.css"/>
+        <link href="../css/tiny-slider.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="../assets/css/slick.css"/> 
+        <link href="../css/slick.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="../assets/css/slick-theme.css"/>
+        <link href="../css/slick-theme.css" rel="stylesheet" type="text/css"/>
         <!-- Icons -->
         <link href="../assets/css/materialdesignicons.min.css" rel="stylesheet" type="text/css" />
+        <link href="../css/materialdesignicons.min.css" rel="stylesheet" type="text/css"/>
         <link href="../assets/css/remixicon.css" rel="stylesheet" type="text/css" />
+        <link href="../css/remixicon.css" rel="stylesheet" type="text/css"/>
         <link href="https://unicons.iconscout.com/release/v3.0.6/css/line.css"  rel="stylesheet">
         <!-- Css -->
         <link href="../assets/css/style.min.css" rel="stylesheet" type="text/css" id="theme-opt" />
-
+        <link href="../css/style.min.css" rel="stylesheet" type="text/css"/>
     </head>
 
     <body>
-        <!-- Loader -->
+<!--         Loader 
         <div id="preloader">
             <div id="status">
                 <div class="spinner">
@@ -39,14 +45,17 @@
                 </div>
             </div>
         </div>
-        <!-- Loader -->
+         Loader -->
         
         <!-- Navbar STart -->
         <header id="topnav" class="defaultscroll sticky">
             <div class="container">
                 <!-- Logo container-->
                 <a class="logo" href="index.html">
-                    <img src="../assets/images/logo-dark.png" height="24" class="logo-light-mode" alt="">
+                    <span class="logo-light-mode">
+                        <img src="../assets/images/logo-dark.png" class="l-dark" height="24" alt="">
+                        <img src="../assets/images/logo-light.png" class="l-light" height="24" alt="">
+                    </span>
                     <img src="../assets/images/logo-light.png" height="24" class="logo-dark-mode" alt="">
                 </a>                
                 <!-- Logo End -->
@@ -104,9 +113,8 @@
         
                 <div id="navigation">
                     <!-- Navigation Menu-->   
-                    <ul class="navigation-menu nav-left">
-                        <li class="has-submenu parent-menu-item">
-                            <a href="javascript:void(0)">Home</a><span class="menu-arrow"></span>
+                    <ul class="navigation-menu nav-left nav-light">
+                        <li class="has-submenu parent-menu-item"><a href="javascript:void(0)">Home</a><span class="menu-arrow"></span>
                             <ul class="submenu">
                                 <li><a href="index.html" class="sub-menu-item">Index One</a></li>
                                 <li><a href="index-two.html" class="sub-menu-item">Index Two</a></li>
@@ -117,27 +125,28 @@
                         <li class="has-submenu parent-parent-menu-item">
                             <a href="javascript:void(0)">Doctors</a><span class="menu-arrow"></span>
                             <ul class="submenu">
-                                <li class="has-submenu parent-menu-item">
-                                    <a href="javascript:void(0)" class="menu-item"> Dashboard </a><span class="submenu-arrow"></span>
+                                <li class="has-submenu"><a href="javascript:void(0)">Dashboard</a><span class="submenu-arrow"></span>
                                     <ul class="submenu">
-                                        <li><a href="doctor-dashboard.html" class="sub-menu-item">Dashboard</a></li>
-                                        <li><a href="doctor-appointment.html" class="sub-menu-item">Appointment</a></li>
-                                        <li><a href="patient-list.html" class="sub-menu-item">Patients</a></li>
-                                        <li><a href="doctor-schedule.html" class="sub-menu-item">Schedule Timing</a></li>
-                                        <li><a href="invoices.html" class="sub-menu-item">Invoices</a></li>
-                                        <li><a href="patient-review.html" class="sub-menu-item">Reviews</a></li>
-                                        <li><a href="doctor-messages.html" class="sub-menu-item">Messages</a></li>
-                                        <li><a href="doctor-profile.html" class="sub-menu-item">Profile</a></li>
-                                        <li><a href="doctor-profile-setting.html" class="sub-menu-item">Profile Settings</a></li>
-                                        <li><a href="doctor-chat.html" class="sub-menu-item">Chat</a></li>
-                                        <li><a href="login.html" class="sub-menu-item">Login</a></li>
-                                        <li><a href="signup.html" class="sub-menu-item">Sign Up</a></li>
-                                        <li><a href="forgot-password.html" class="sub-menu-item">Forgot Password</a></li>
+                                        <li><a href="doctor-dashboard.html">Dashboard</a></li>
+                                        <li><a href="doctor-appointment.html">Appointment</a></li>
+                                        <li><a href="patient-list.html">Patients</a></li>
+                                        <li><a href="doctor-schedule.html">Schedule Timing</a></li>
+                                        <li><a href="invoices.html">Invoices</a></li>
+                                        <li><a href="patient-review.html">Reviews</a></li>
+                                        <li><a href="doctor-messages.html">Messages</a></li>
+                                        <li><a href="doctor-profile.html">Profile</a></li>
+                                        <li><a href="doctor-profile-setting.html">Profile Settings</a></li>
+                                        <li><a href="doctor-chat.html">Chat</a></li>
+                                        <li><a href="login.html">Login</a></li>
+                                        <li><a href="signup.html">Sign Up</a></li>
+                                        <li><a href="forgot-password.html">Forgot Password</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="doctor-team-one.html" class="sub-menu-item">Doctors One</a></li>
-                                <li><a href="doctor-team-two.html" class="sub-menu-item">Doctors Two</a></li>
-                                <li><a href="doctor-team-three.html" class="sub-menu-item">Doctors Three</a></li>
+                                <li><a href="doctor-team-one.html">Doctors One</a></li>
+                                <li><a href="doctor-team-two.html">Doctors Two</a></li>
+                                <li><a href="doctor-team-three.html">Doctors Three</a></li>
+                                <li><a href="https://shreethemes.in/doctris/layouts/landing/doctor-with-map-one.html">Doctors Four</a></li>
+                                <li><a href="https://shreethemes.in/doctris/layouts/landing/doctor-with-map-two.html">Doctors Five</a></li>
                             </ul>
                         </li>
 
@@ -152,7 +161,7 @@
                         </li>
 
                         <li class="has-submenu parent-menu-item">
-                            <a href="javascript:void(0)">Pharmacy</a><span class="menu-arrow"></span>
+                            <a href="javascript:void(0)" class="menu-item">Pharmacy</a><span class="menu-arrow"></span>
                             <ul class="submenu">
                                 <li><a href="pharmacy.html" class="sub-menu-item">Pharmacy</a></li>
                                 <li><a href="pharmacy-shop.html" class="sub-menu-item">Shop</a></li>
@@ -165,106 +174,371 @@
         
                         <li class="has-submenu parent-parent-menu-item"><a href="javascript:void(0)">Pages</a><span class="menu-arrow"></span>
                             <ul class="submenu">
-                                <li><a href="aboutus.html" class="sub-menu-item"> About Us</a></li>
-                                <li><a href="departments.html" class="sub-menu-item">Departments</a></li>
-                                <li><a href="faqs.html" class="sub-menu-item">FAQs</a></li>
-                                <li class="has-submenu parent-menu-item">
-                                    <a href="javascript:void(0)" class="menu-item"> Blogs </a><span class="submenu-arrow"></span>
+                                <li><a href="aboutus.html"> About Us</a></li>
+                                <li><a href="departments.html">Departments</a></li>
+                                <li><a href="faqs.html">FAQs</a></li>
+                                    <li><a href="https://shreethemes.in/doctris/layouts/landing/review.html">Reviews</a></li>
+                                <li><a href="https://shreethemes.in/doctris/layouts/landing/pricing.html">Pricing</a></li>
+                                <li class="has-submenu"><a href="javascript:void(0)"> Blogs </a><span class="submenu-arrow"></span>
                                     <ul class="submenu">
-                                        <li><a href="blogs.html" class="sub-menu-item">Blogs</a></li>
-                                        <li><a href="blog-detail.html" class="sub-menu-item">Blog Details</a></li>
+                                        <li><a href="blogs.html">Blogs</a></li>
+                                        <li><a href="blog-detail.html">Blog Details</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="terms.html" class="sub-menu-item">Terms & Policy</a></li>
-                                <li><a href="privacy.html" class="sub-menu-item">Privacy Policy</a></li>
-                                <li><a href="error.html" class="sub-menu-item">404 !</a></li>
-                                <li><a href="contact.html" class="sub-menu-item">Contact</a></li>
+                                <li><a href="https://shreethemes.in/doctris/layouts/landing/tears.html">Terms & Policy</a></li>
+                                <li><a href="privacy.html">Privacy Policy</a></li>
+                                <li><a href="error.html">404 !</a></li>
+                                    <li><a href="https://shreethemes.in/doctris/layouts/landing/blank-page.html">Blank Page</a></li>
+                                <li><a href="https://shreethemes.in/doctris/layouts/landing/comingsoon.html">Comingsoon</a></li>
+                                <li><a href="https://shreethemes.in/doctris/layouts/landing/maintenance.html">Maintenance</a></li>
+                                <li><a href="contact.html">Contact</a></li>
                             </ul>
                         </li>
-                        <li><a href="../admin/index.html" class="sub-menu-item" target="_blank">Admin</a></li>
                     </ul><!--end navigation menu-->
                 </div><!--end navigation-->
             </div><!--end container-->
         </header><!--end header-->
         <!-- Navbar End -->
 
-        <!-- Hero Start -->
-        <section class="bg-half-170 d-table w-100 bg-light">
-            <div class="container">
-                <div class="row mt-5 justify-content-center">
-                    <div class="col-12">
-                        <div class="section-title text-center">
-                            <h3 class="sub-title mb-4">Plastic Medicine Box</h3>
-                            <p class="para-desc mx-auto text-muted">Great doctor if you need your family member to get effective immediate assistance, emergency treatment or a simple consultation.</p>
-                        
-                            <nav aria-label="breadcrumb" class="d-inline-block mt-3">
-                                <ul class="breadcrumb bg-light rounded mb-0 bg-transparent">
-                                    <li class="breadcrumb-item"><a href="index.html">Doctris</a></li>
-                                    <li class="breadcrumb-item"><a href="pharmacy.html">Pharmacy</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Product Detail</li>
-                                </ul>
-                            </nav>
+        <!-- Start Hero -->
+        <section class="home-slider position-relative">
+            <div id="carouselExampleInterval" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="bg-half-170 d-table align-items-center w-100" style="background:url('../assets/images/bg/pharm01.jpg') center center;">
+                            <div class="bg-overlay bg-overlay-dark"></div>
+                            <div class="container">
+                                <div class="row mt-5">
+                                    <div class="col-lg-12">
+                                        <div class="heading-title">
+                                            <h1 class="fw-bold mb-4">Doctors Prescribe <br> Meko Products</h1>
+                                            <p class="para-desc mb-0">Great doctor if you need your family member to get effective immediate assistance, emergency treatment or a simple consultation.</p>
+                                            
+                                            <div class="mt-4 pt-2">
+                                                <a href="#" class="btn btn-primary">Shop now</a>
+                                            </div>
+                                        </div>
+                                    </div><!--end col-->
+                                </div><!--end row-->
+                            </div><!--end container-->
                         </div>
+                    </div>
+
+                    <div class="carousel-item">
+                        <div class="bg-half-170 d-table align-items-center w-100" style="background:url('../assets/images/bg/pharm02.jpg') center center;">
+                            <div class="bg-overlay bg-overlay-dark"></div>
+                            <div class="container">
+                                <div class="row mt-5">
+                                    <div class="col-lg-12">
+                                        <div class="heading-title">
+                                            <h1 class="fw-bold mb-4">Virus Protection <br> Gears @15% Off</h1>
+                                            <p class="para-desc mb-0">Great doctor if you need your family member to get effective immediate assistance, emergency treatment or a simple consultation.</p>
+                                            
+                                            <div class="mt-4 pt-2">
+                                                <a href="#" class="btn btn-primary">Shop now</a>
+                                            </div>
+                                        </div>
+                                    </div><!--end col-->
+                                </div><!--end row-->
+                            </div><!--end container-->
+                        </div>
+                    </div>
+
+                    <div class="carousel-item">
+                        <div class="bg-half-170 d-table align-items-center w-100" style="background:url('../assets/images/bg/pharm03.jpg') center center;">
+                            <div class="bg-overlay bg-overlay-dark"></div>
+                            <div class="container">
+                                <div class="row mt-5">
+                                    <div class="col-lg-12">
+                                        <div class="heading-title">
+                                            <h1 class="fw-bold mb-4">Cosmetics Body <br> Lotion</h1>
+                                            <p class="para-desc mb-0">Great doctor if you need your family member to get effective immediate assistance, emergency treatment or a simple consultation.</p>
+                                            
+                                            <div class="mt-4 pt-2">
+                                                <a href="#" class="btn btn-primary">Shop now</a>
+                                            </div>
+                                        </div>
+                                    </div><!--end col-->
+                                </div><!--end row-->
+                            </div><!--end container--> 
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleInterval" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleInterval" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselExampleInterval" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                </div>
+            </div>
+        </section><!--end section-->
+        <!-- End Hero -->
+
+        <!-- Start -->
+        <section class="section">
+            <!-- Start Most Viewed Products -->
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h5 class="mb-0">Most Viewed Products</h5>
                     </div><!--end col-->
                 </div><!--end row-->
-            </div><!--end container-->
-        </section><!--end section-->
-        <div class="position-relative">
-            <div class="shape overflow-hidden text-white">
-                <svg viewBox="0 0 2880 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M0 48H1437.5H2880V0H2160C1442.5 52 720 0 720 0H0V48Z" fill="currentColor"></path>
-                </svg>
-            </div>
-        </div>
-        <!-- Hero End -->
 
-        <section class="section">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-md-5">
-                        <div class="slider slider-for">
-                            <div><img src="../assets/images/pharmacy/shop/01.jpg" class="img-fluid rounded" alt=""></div>
-                            <div><img src="../assets/images/pharmacy/shop/02.jpg" class="img-fluid rounded" alt=""></div>
-                            <div><img src="../assets/images/pharmacy/shop/03.jpg" class="img-fluid rounded" alt=""></div>
-                            <div><img src="../assets/images/pharmacy/shop/04.jpg" class="img-fluid rounded" alt=""></div>
-                        </div>
-
-                        <div class="slider slider-nav">
-                            <div><img src="../assets/images/pharmacy/shop/01.jpg" class="img-fluid" alt=""></div>
-                            <div><img src="../assets/images/pharmacy/shop/02.jpg" class="img-fluid" alt=""></div>
-                            <div><img src="../assets/images/pharmacy/shop/03.jpg" class="img-fluid" alt=""></div>
-                            <div><img src="../assets/images/pharmacy/shop/04.jpg" class="img-fluid" alt=""></div>
-                        </div>
-                    </div><!--end col-->
-
-                    <div class="col-md-7 mt-4 mt-sm-0 pt-2 pt-sm-0">
-                        <div class="section-title ms-md-4">
-                            <h4 class="title">Plastic Medicine Box</h4>
-                            <h5 class="text-muted">$21.00 </h5>
-                            <ul class="list-unstyled text-warning h5 mb-0">
-                                <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
-                                <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
-                                <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
-                                <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
-                                <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
-                                <li class="list-inline-item me-2 h6 text-muted">(20 Ratting)</li>
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 col-12 mt-4 pt-2">
+                        <div class="card shop-list border-0">
+                            <ul class="label list-unstyled mb-0">
+                                <li><a href="javascript:void(0)" class="badge badge-pill badge-success">Featured</a></li>
                             </ul>
-                            
-                            <h5 class="mt-4 py-2">Overview :</h5>
-                            <p class="text-muted">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero exercitationem, unde molestiae sint quae inventore atque minima natus fugiat nihil quisquam voluptates ea omnis. Modi laborum soluta tempore unde accusantium.</p>
-                        
-                            <div class="d-flex shop-list align-items-center">
-                                <h6 class="mb-0">Quantity:</h6>
-                                <div class="qty-icons ms-3">
-                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="btn btn-icon btn-primary minus">-</button>
-                                    <input min="0" name="quantity" value="0" type="number" class="btn btn-icon btn-primary qty-btn quantity">
-                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="btn btn-icon btn-primary plus">+</button>
+                            <div class="shop-image position-relative overflow-hidden rounded shadow">
+                                <a href="pharmacy-product-detail.html"><img src="../assets/images/pharmacy/shop/thermometer.jpg" class="img-fluid" alt=""></a>
+                                <ul class="list-unstyled shop-icons">
+                                    <li><a href="#" class="btn btn-icon btn-pills btn-soft-danger"><i data-feather="heart" class="icons"></i></a></li>
+                                    <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-primary"><i data-feather="eye" class="icons"></i></a></li>
+                                    <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-warning"><i data-feather="shopping-cart" class="icons"></i></a></li>
+                                </ul>                                
+
+                                <div class="qty-icons">
+                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="btn btn-pills btn-icon btn-primary minus">-</button>
+                                    <input min="0" name="quantity" value="0" type="number" class="btn btn-pills btn-icon btn-primary qty-btn quantity">
+                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="btn btn-pills btn-icon btn-primary plus">+</button>
                                 </div>
                             </div>
+                            <div class="card-body content pt-4 p-2">
+                                <a href="pharmacy-product-detail.html" class="text-dark product-name h6">Thermometer</a>
+                                <div class="d-flex justify-content-between mt-1">
+                                    <h6 class="text-muted small font-italic mb-0 mt-1">$16.00 </h6>
+                                    <ul class="list-unstyled text-warning mb-0">
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!--end col-->
+                    
+                    <div class="col-lg-3 col-md-6 col-12 mt-4 pt-2">
+                        <div class="card shop-list border-0">
+                            <div class="shop-image position-relative overflow-hidden rounded shadow">
+                                <a href="pharmacy-product-detail.html"><img src="../assets/images/pharmacy/shop/stethoscope.jpg" class="img-fluid" alt=""></a>
+                                <ul class="list-unstyled shop-icons">
+                                    <li><a href="#" class="btn btn-icon btn-pills btn-soft-danger"><i data-feather="heart" class="icons"></i></a></li>
+                                    <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-primary"><i data-feather="eye" class="icons"></i></a></li>
+                                    <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-warning"><i data-feather="shopping-cart" class="icons"></i></a></li>
+                                </ul>                                
 
-                            <div class="mt-4 pt-2">
-                                <a href="#" class="btn btn-primary">Shop Now</a>
-                                <a href="#" class="btn btn-soft-primary ms-2">Add to Cart</a>
+                                <div class="qty-icons">
+                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="btn btn-pills btn-icon btn-primary minus">-</button>
+                                    <input min="0" name="quantity" value="0" type="number" class="btn btn-pills btn-icon btn-primary qty-btn quantity">
+                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="btn btn-pills btn-icon btn-primary plus">+</button>
+                                </div>
+                            </div>
+                            <div class="card-body content pt-4 p-2">
+                                <a href="pharmacy-product-detail.html" class="text-dark product-name h6">Stethoscope</a>
+                                <div class="d-flex justify-content-between mt-1">
+                                    <h6 class="text-muted small font-italic mb-0 mt-1">$16.00 </h6>
+                                    <ul class="list-unstyled text-warning mb-0">
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!--end col-->
+                    
+                    <div class="col-lg-3 col-md-6 col-12 mt-4 pt-2">
+                        <div class="card shop-list border-0">
+                            <div class="shop-image position-relative overflow-hidden rounded shadow">
+                                <a href="pharmacy-product-detail.html"><img src="../assets/images/pharmacy/shop/pulse-oximeter.jpg" class="img-fluid" alt=""></a>
+                                <ul class="list-unstyled shop-icons">
+                                    <li><a href="#" class="btn btn-icon btn-pills btn-soft-danger"><i data-feather="heart" class="icons"></i></a></li>
+                                    <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-primary"><i data-feather="eye" class="icons"></i></a></li>
+                                    <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-warning"><i data-feather="shopping-cart" class="icons"></i></a></li>
+                                </ul>                                
+
+                                <div class="qty-icons">
+                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="btn btn-pills btn-icon btn-primary minus">-</button>
+                                    <input min="0" name="quantity" value="0" type="number" class="btn btn-pills btn-icon btn-primary qty-btn quantity">
+                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="btn btn-pills btn-icon btn-primary plus">+</button>
+                                </div>
+                            </div>
+                            <div class="card-body content pt-4 p-2">
+                                <a href="pharmacy-product-detail.html" class="text-dark product-name h6">Pulse oximeter</a>
+                                <div class="d-flex justify-content-between mt-1">
+                                    <h6 class="text-muted small font-italic mb-0 mt-1">$16.00 </h6>
+                                    <ul class="list-unstyled text-warning mb-0">
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!--end col-->
+                    
+                    <div class="col-lg-3 col-md-6 col-12 mt-4 pt-2">
+                        <div class="card shop-list border-0">
+                            <div class="shop-image position-relative overflow-hidden rounded shadow">
+                                <a href="pharmacy-product-detail.html"><img src="../assets/images/pharmacy/shop/medicine.jpg" class="img-fluid" alt=""></a>
+                                <ul class="list-unstyled shop-icons">
+                                    <li><a href="#" class="btn btn-icon btn-pills btn-soft-danger"><i data-feather="heart" class="icons"></i></a></li>
+                                    <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-primary"><i data-feather="eye" class="icons"></i></a></li>
+                                    <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-warning"><i data-feather="shopping-cart" class="icons"></i></a></li>
+                                </ul>                                
+
+                                <div class="qty-icons">
+                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="btn btn-pills btn-icon btn-primary minus">-</button>
+                                    <input min="0" name="quantity" value="0" type="number" class="btn btn-pills btn-icon btn-primary qty-btn quantity">
+                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="btn btn-pills btn-icon btn-primary plus">+</button>
+                                </div>
+                            </div>
+                            <div class="card-body content pt-4 p-2">
+                                <a href="pharmacy-product-detail.html" class="text-dark product-name h6">Medicine pills</a>
+                                <div class="d-flex justify-content-between mt-1">
+                                    <h6 class="text-muted small font-italic mb-0 mt-1">$16.00 </h6>
+                                    <ul class="list-unstyled text-warning mb-0">
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!--end col-->
+                    
+                    <div class="col-lg-3 col-md-6 col-12 mt-4 pt-2">
+                        <div class="card shop-list border-0">
+                            <div class="shop-image position-relative overflow-hidden rounded shadow">
+                                <a href="pharmacy-product-detail.html"><img src="../assets/images/pharmacy/shop/smoking-habit.jpg" class="img-fluid" alt=""></a>
+                                <ul class="list-unstyled shop-icons">
+                                    <li><a href="#" class="btn btn-icon btn-pills btn-soft-danger"><i data-feather="heart" class="icons"></i></a></li>
+                                    <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-primary"><i data-feather="eye" class="icons"></i></a></li>
+                                    <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-warning"><i data-feather="shopping-cart" class="icons"></i></a></li>
+                                </ul>                                
+
+                                <div class="qty-icons">
+                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="btn btn-pills btn-icon btn-primary minus">-</button>
+                                    <input min="0" name="quantity" value="0" type="number" class="btn btn-pills btn-icon btn-primary qty-btn quantity">
+                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="btn btn-pills btn-icon btn-primary plus">+</button>
+                                </div>
+                            </div>
+                            <div class="card-body content pt-4 p-2">
+                                <a href="pharmacy-product-detail.html" class="text-dark product-name h6">Smokill smoking habit</a>
+                                <div class="d-flex justify-content-between mt-1">
+                                    <h6 class="text-muted small font-italic mb-0 mt-1">$16.00 </h6>
+                                    <ul class="list-unstyled text-warning mb-0">
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!--end col-->
+                    
+                    <div class="col-lg-3 col-md-6 col-12 mt-4 pt-2">
+                        <div class="card shop-list border-0">
+                            <div class="shop-image position-relative overflow-hidden rounded shadow">
+                                <a href="pharmacy-product-detail.html"><img src="../assets/images/pharmacy/shop/sanitizer.jpg" class="img-fluid" alt=""></a>
+                                <ul class="list-unstyled shop-icons">
+                                    <li><a href="#" class="btn btn-icon btn-pills btn-soft-danger"><i data-feather="heart" class="icons"></i></a></li>
+                                    <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-primary"><i data-feather="eye" class="icons"></i></a></li>
+                                    <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-warning"><i data-feather="shopping-cart" class="icons"></i></a></li>
+                                </ul>                                
+
+                                <div class="qty-icons">
+                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="btn btn-pills btn-icon btn-primary minus">-</button>
+                                    <input min="0" name="quantity" value="0" type="number" class="btn btn-pills btn-icon btn-primary qty-btn quantity">
+                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="btn btn-pills btn-icon btn-primary plus">+</button>
+                                </div>
+                            </div>
+                            <div class="card-body content pt-4 p-2">
+                                <a href="pharmacy-product-detail.html" class="text-dark product-name h6">Sanitizer</a>
+                                <div class="d-flex justify-content-between mt-1">
+                                    <h6 class="text-muted small font-italic mb-0 mt-1">$16.00 </h6>
+                                    <ul class="list-unstyled text-warning mb-0">
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!--end col-->
+                    
+                    <div class="col-lg-3 col-md-6 col-12 mt-4 pt-2">
+                        <div class="card shop-list border-0">
+                            <div class="shop-image position-relative overflow-hidden rounded shadow">
+                                <a href="pharmacy-product-detail.html"><img src="../assets/images/pharmacy/shop/nicotex.jpg" class="img-fluid" alt=""></a>
+                                <ul class="list-unstyled shop-icons">
+                                    <li><a href="#" class="btn btn-icon btn-pills btn-soft-danger"><i data-feather="heart" class="icons"></i></a></li>
+                                    <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-primary"><i data-feather="eye" class="icons"></i></a></li>
+                                    <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-warning"><i data-feather="shopping-cart" class="icons"></i></a></li>
+                                </ul>                                
+
+                                <div class="qty-icons">
+                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="btn btn-pills btn-icon btn-primary minus">-</button>
+                                    <input min="0" name="quantity" value="0" type="number" class="btn btn-pills btn-icon btn-primary qty-btn quantity">
+                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="btn btn-pills btn-icon btn-primary plus">+</button>
+                                </div>
+                            </div>
+                            <div class="card-body content pt-4 p-2">
+                                <a href="pharmacy-product-detail.html" class="text-dark product-name h6">Nicotex</a>
+                                <div class="d-flex justify-content-between mt-1">
+                                    <h6 class="text-muted small font-italic mb-0 mt-1">$16.00 </h6>
+                                    <ul class="list-unstyled text-warning mb-0">
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!--end col-->
+                    
+                    <div class="col-lg-3 col-md-6 col-12 mt-4 pt-2">
+                        <div class="card shop-list border-0">
+                            <div class="shop-image position-relative overflow-hidden rounded shadow">
+                                <a href="pharmacy-product-detail.html"><img src="../assets/images/pharmacy/shop/medigrip.jpg" class="img-fluid" alt=""></a>
+                                <ul class="list-unstyled shop-icons">
+                                    <li><a href="#" class="btn btn-icon btn-pills btn-soft-danger"><i data-feather="heart" class="icons"></i></a></li>
+                                    <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-primary"><i data-feather="eye" class="icons"></i></a></li>
+                                    <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-warning"><i data-feather="shopping-cart" class="icons"></i></a></li>
+                                </ul>                                
+
+                                <div class="qty-icons">
+                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="btn btn-pills btn-icon btn-primary minus">-</button>
+                                    <input min="0" name="quantity" value="0" type="number" class="btn btn-pills btn-icon btn-primary qty-btn quantity">
+                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="btn btn-pills btn-icon btn-primary plus">+</button>
+                                </div>
+                            </div>
+                            <div class="card-body content pt-4 p-2">
+                                <a href="pharmacy-product-detail.html" class="text-dark product-name h6">Medigrip</a>
+                                <div class="d-flex justify-content-between mt-1">
+                                    <h6 class="text-muted small font-italic mb-0 mt-1">$16.00 </h6>
+                                    <ul class="list-unstyled text-warning mb-0">
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div><!--end col-->
@@ -274,7 +548,7 @@
             <div class="container mt-100 mt-60">
                 <div class="row">
                     <div class="col-12">
-                        <h5 class="mb-0">Related Products:</h5>
+                        <h5 class="mb-0">Categories</h5>
                     </div><!--end col-->
                 </div><!--end row-->
 
@@ -282,261 +556,370 @@
                     <div class="col-lg-12 mt-4 pt-2">
                         <div class="slider-range-four">
                             <div class="tiny-slide">
-                                <div class="card shop-list border-0">
-                                    <ul class="label list-unstyled mb-0">
-                                        <li><a href="javascript:void(0)" class="badge badge-pill badge-success">Featured</a></li>
-                                    </ul>
-                                    <div class="shop-image position-relative overflow-hidden">
-                                        <a href="pharmacy-product-detail.html"><img src="../assets/images/pharmacy/shop/thermometer.jpg" class="img-fluid" alt=""></a>
-                                        <ul class="list-unstyled shop-icons">
-                                            <li><a href="#" class="btn btn-icon btn-pills btn-soft-danger"><i data-feather="heart" class="icons"></i></a></li>
-                                            <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-primary"><i data-feather="eye" class="icons"></i></a></li>
-                                            <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-warning"><i data-feather="shopping-cart" class="icons"></i></a></li>
-                                        </ul>                                
-        
-                                        <div class="qty-icons">
-                                            <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="btn btn-pills btn-icon btn-primary minus">-</button>
-                                            <input min="0" name="quantity" value="0" type="number" class="btn btn-pills btn-icon btn-primary qty-btn quantity">
-                                            <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="btn btn-pills btn-icon btn-primary plus">+</button>
-                                        </div>
+                                <a href="#" class="card pharpachy-categories border-0 rounded overflow-hidden">
+                                    <img src="../assets/images/pharmacy/skin.jpg" class="img-fluid" alt="">
+                                    <div class="category-title">
+                                        <span class="text-dark title-white"><span class="h5">Skin</span><br>Care</span>
                                     </div>
-                                    <div class="card-body content pt-4 p-2">
-                                        <a href="pharmacy-product-detail.html" class="text-dark product-name h6">Thermometer</a>
-                                        <div class="d-flex justify-content-between mt-1">
-                                            <h6 class="text-muted small font-italic mb-0 mt-1">$16.00 </h6>
-                                            <ul class="list-unstyled text-warning mb-0">
-                                                <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
-                                                <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
-                                                <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
-                                                <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
-                                                <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
-                                            </ul>
-                                        </div>
+                                </a>
+                            </div>
+
+                            <div class="tiny-slide">
+                                <a href="#" class="card pharpachy-categories border-0 rounded overflow-hidden">
+                                    <img src="../assets/images/pharmacy/sexual.jpg" class="img-fluid" alt="">
+                                    <div class="category-title">
+                                        <span class="text-dark title-white"><span class="h5">Sexual</span><br>Wallness</span>
                                     </div>
-                                </div>
-                            </div><!--end col-->
+                                </a>
+                            </div>
+
+                            <div class="tiny-slide">
+                                <a href="#" class="card pharpachy-categories border-0 rounded overflow-hidden">
+                                    <img src="../assets/images/pharmacy/weight.jpg" class="img-fluid" alt="">
+                                    <div class="category-title">
+                                        <span class="text-dark title-white"><span class="h5">Weight</span><br>Management</span>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="tiny-slide">
+                                <a href="#" class="card pharpachy-categories border-0 rounded overflow-hidden">
+                                    <img src="../assets/images/pharmacy/pain.jpg" class="img-fluid" alt="">
+                                    <div class="category-title">
+                                        <span class="text-dark title-white"><span class="h5">Pain</span><br>Relief</span>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="tiny-slide">
+                                <a href="#" class="card pharpachy-categories border-0 rounded overflow-hidden">
+                                    <img src="../assets/images/pharmacy/heart.jpg" class="img-fluid" alt="">
+                                    <div class="category-title">
+                                        <span class="text-dark title-white"><span class="h5">Heart</span><br>Health</span>
+                                    </div>
+                                </a>
+                            </div>
+                            
+                            <div class="tiny-slide">
+                                <a href="#" class="card pharpachy-categories border-0 rounded overflow-hidden">
+                                    <img src="../assets/images/pharmacy/cough.jpg" class="img-fluid" alt="">
+                                    <div class="category-title">
+                                        <span class="text-dark title-white"><span class="h5">Cough</span><br> & Cold</span>
+                                    </div>
+                                </a>
+                            </div>
+                            
+                            <div class="tiny-slide">
+                                <a href="#" class="card pharpachy-categories border-0 rounded overflow-hidden">
+                                    <img src="../assets/images/pharmacy/diabetes.jpg" class="img-fluid" alt="">
+                                    <div class="category-title">
+                                        <span class="text-dark title-white"><span class="h5">Diabetes</span><br>Care</span>
+                                    </div>
+                                </a>
+                            </div>
+                            
+                            <div class="tiny-slide">
+                                <a href="#" class="card pharpachy-categories border-0 rounded overflow-hidden">
+                                    <img src="../assets/images/pharmacy/cancer.jpg" class="img-fluid" alt="">
+                                    <div class="category-title">
+                                        <span class="text-dark title-white"><span class="h5">Cancer</span><br>Care</span>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div><!--end col-->
+                </div><!--end row-->
+            </div><!--end container-->
+
+            <div class="container mt-100 mt-60">
+                <div class="py-5 px-4 rounded shadow" style="background: url('../assets/images/pharmacy/cta.jpg') center;">
+                    <div class="row my-lg-5">
+                        <div class="col-lg-12">
+                            <div class="section-title">
+                                <h1 class="title mb-4">Clinical Equipments <br> Stellar Price</h1>
+                                <p class="para-desc mb-0">Great doctor if you need your family member to get effective immediate assistance, emergency treatment or a simple consultation.</p>
                                 
-                            <div class="tiny-slide">
-                                <div class="card shop-list border-0">
-                                    <div class="shop-image position-relative overflow-hidden">
-                                        <a href="pharmacy-product-detail.html"><img src="../assets/images/pharmacy/shop/stethoscope.jpg" class="img-fluid" alt=""></a>
-                                        <ul class="list-unstyled shop-icons">
-                                            <li><a href="#" class="btn btn-icon btn-pills btn-soft-danger"><i data-feather="heart" class="icons"></i></a></li>
-                                            <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-primary"><i data-feather="eye" class="icons"></i></a></li>
-                                            <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-warning"><i data-feather="shopping-cart" class="icons"></i></a></li>
-                                        </ul>                                
-        
-                                        <div class="qty-icons">
-                                            <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="btn btn-pills btn-icon btn-primary minus">-</button>
-                                            <input min="0" name="quantity" value="0" type="number" class="btn btn-pills btn-icon btn-primary qty-btn quantity">
-                                            <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="btn btn-pills btn-icon btn-primary plus">+</button>
-                                        </div>
-                                    </div>
-                                    <div class="card-body content pt-4 p-2">
-                                        <a href="pharmacy-product-detail.html" class="text-dark product-name h6">Stethoscope</a>
-                                        <div class="d-flex justify-content-between mt-1">
-                                            <h6 class="text-muted small font-italic mb-0 mt-1">$16.00 </h6>
-                                            <ul class="list-unstyled text-warning mb-0">
-                                                <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
-                                                <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
-                                                <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
-                                                <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
-                                                <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
-                                            </ul>
-                                        </div>
-                                    </div>
+                                <div class="mt-4 pt-2">
+                                    <a href="#" class="btn btn-primary">Shop now</a>
                                 </div>
-                            </div><!--end col-->
-                            
-                            <div class="tiny-slide">
-                                <div class="card shop-list border-0">
-                                    <div class="shop-image position-relative overflow-hidden">
-                                        <a href="pharmacy-product-detail.html"><img src="../assets/images/pharmacy/shop/pulse-oximeter.jpg" class="img-fluid" alt=""></a>
-                                        <ul class="list-unstyled shop-icons">
-                                            <li><a href="#" class="btn btn-icon btn-pills btn-soft-danger"><i data-feather="heart" class="icons"></i></a></li>
-                                            <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-primary"><i data-feather="eye" class="icons"></i></a></li>
-                                            <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-warning"><i data-feather="shopping-cart" class="icons"></i></a></li>
-                                        </ul>                                
-        
-                                        <div class="qty-icons">
-                                            <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="btn btn-pills btn-icon btn-primary minus">-</button>
-                                            <input min="0" name="quantity" value="0" type="number" class="btn btn-pills btn-icon btn-primary qty-btn quantity">
-                                            <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="btn btn-pills btn-icon btn-primary plus">+</button>
-                                        </div>
-                                    </div>
-                                    <div class="card-body content pt-4 p-2">
-                                        <a href="pharmacy-product-detail.html" class="text-dark product-name h6">Pulse oximeter</a>
-                                        <div class="d-flex justify-content-between mt-1">
-                                            <h6 class="text-muted small font-italic mb-0 mt-1">$16.00 </h6>
-                                            <ul class="list-unstyled text-warning mb-0">
-                                                <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
-                                                <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
-                                                <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
-                                                <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
-                                                <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
-                                            </ul>
-                                        </div>
-                                    </div>
+                            </div>
+                        </div><!--end col-->
+                    </div><!--end row-->
+                </div>
+            </div><!--end container-->
+
+            <div class="container mt-100 mt-60">
+                <div class="row">
+                    <div class="col-12">
+                        <h5 class="mb-0">Popular Products</h5>
+                    </div><!--end col-->
+                </div><!--end row-->
+
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 col-12 mt-4 pt-2">
+                        <div class="card shop-list border-0">
+                            <ul class="label list-unstyled mb-0">
+                                <li><a href="javascript:void(0)" class="badge badge-pill badge-success">Featured</a></li>
+                            </ul>
+                            <div class="shop-image position-relative overflow-hidden rounded shadow">
+                                <a href="pharmacy-product-detail.html"><img src="../assets/images/pharmacy/shop/masks.jpg" class="img-fluid" alt=""></a>
+                                <ul class="list-unstyled shop-icons">
+                                    <li><a href="#" class="btn btn-icon btn-pills btn-soft-danger"><i data-feather="heart" class="icons"></i></a></li>
+                                    <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-primary"><i data-feather="eye" class="icons"></i></a></li>
+                                    <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-warning"><i data-feather="shopping-cart" class="icons"></i></a></li>
+                                </ul>                                
+
+                                <div class="qty-icons">
+                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="btn btn-pills btn-icon btn-primary minus">-</button>
+                                    <input min="0" name="quantity" value="0" type="number" class="btn btn-pills btn-icon btn-primary qty-btn quantity">
+                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="btn btn-pills btn-icon btn-primary plus">+</button>
                                 </div>
-                            </div><!--end col-->
-                            
-                            <div class="tiny-slide">
-                                <div class="card shop-list border-0">
-                                    <div class="shop-image position-relative overflow-hidden">
-                                        <a href="pharmacy-product-detail.html"><img src="../assets/images/pharmacy/shop/medicine.jpg" class="img-fluid" alt=""></a>
-                                        <ul class="list-unstyled shop-icons">
-                                            <li><a href="#" class="btn btn-icon btn-pills btn-soft-danger"><i data-feather="heart" class="icons"></i></a></li>
-                                            <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-primary"><i data-feather="eye" class="icons"></i></a></li>
-                                            <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-warning"><i data-feather="shopping-cart" class="icons"></i></a></li>
-                                        </ul>                                
-        
-                                        <div class="qty-icons">
-                                            <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="btn btn-pills btn-icon btn-primary minus">-</button>
-                                            <input min="0" name="quantity" value="0" type="number" class="btn btn-pills btn-icon btn-primary qty-btn quantity">
-                                            <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="btn btn-pills btn-icon btn-primary plus">+</button>
-                                        </div>
-                                    </div>
-                                    <div class="card-body content pt-4 p-2">
-                                        <a href="pharmacy-product-detail.html" class="text-dark product-name h6">Medicine pills</a>
-                                        <div class="d-flex justify-content-between mt-1">
-                                            <h6 class="text-muted small font-italic mb-0 mt-1">$16.00 </h6>
-                                            <ul class="list-unstyled text-warning mb-0">
-                                                <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
-                                                <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
-                                                <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
-                                                <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
-                                                <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
-                                            </ul>
-                                        </div>
-                                    </div>
+                            </div>
+                            <div class="card-body content pt-4 p-2">
+                                <a href="pharmacy-product-detail.html" class="text-dark product-name h6">Face masks</a>
+                                <div class="d-flex justify-content-between mt-1">
+                                    <h6 class="text-muted small font-italic mb-0 mt-1">$16.00 </h6>
+                                    <ul class="list-unstyled text-warning mb-0">
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                    </ul>
                                 </div>
-                            </div><!--end col-->
-                            
-                            <div class="tiny-slide">
-                                <div class="card shop-list border-0">
-                                    <div class="shop-image position-relative overflow-hidden">
-                                        <a href="pharmacy-product-detail.html"><img src="../assets/images/pharmacy/shop/smoking-habit.jpg" class="img-fluid" alt=""></a>
-                                        <ul class="list-unstyled shop-icons">
-                                            <li><a href="#" class="btn btn-icon btn-pills btn-soft-danger"><i data-feather="heart" class="icons"></i></a></li>
-                                            <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-primary"><i data-feather="eye" class="icons"></i></a></li>
-                                            <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-warning"><i data-feather="shopping-cart" class="icons"></i></a></li>
-                                        </ul>                                
-        
-                                        <div class="qty-icons">
-                                            <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="btn btn-pills btn-icon btn-primary minus">-</button>
-                                            <input min="0" name="quantity" value="0" type="number" class="btn btn-pills btn-icon btn-primary qty-btn quantity">
-                                            <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="btn btn-pills btn-icon btn-primary plus">+</button>
-                                        </div>
-                                    </div>
-                                    <div class="card-body content pt-4 p-2">
-                                        <a href="pharmacy-product-detail.html" class="text-dark product-name h6">Smokill smoking habit</a>
-                                        <div class="d-flex justify-content-between mt-1">
-                                            <h6 class="text-muted small font-italic mb-0 mt-1">$16.00 </h6>
-                                            <ul class="list-unstyled text-warning mb-0">
-                                                <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
-                                                <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
-                                                <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
-                                                <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
-                                                <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
-                                            </ul>
-                                        </div>
-                                    </div>
+                            </div>
+                        </div>
+                    </div><!--end col-->
+                    
+                    <div class="col-lg-3 col-md-6 col-12 mt-4 pt-2">
+                        <div class="card shop-list border-0">
+                            <div class="shop-image position-relative overflow-hidden rounded shadow">
+                                <a href="pharmacy-product-detail.html"><img src="../assets/images/pharmacy/shop/handwash.jpg" class="img-fluid" alt=""></a>
+                                <ul class="list-unstyled shop-icons">
+                                    <li><a href="#" class="btn btn-icon btn-pills btn-soft-danger"><i data-feather="heart" class="icons"></i></a></li>
+                                    <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-primary"><i data-feather="eye" class="icons"></i></a></li>
+                                    <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-warning"><i data-feather="shopping-cart" class="icons"></i></a></li>
+                                </ul>                                
+
+                                <div class="qty-icons">
+                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="btn btn-pills btn-icon btn-primary minus">-</button>
+                                    <input min="0" name="quantity" value="0" type="number" class="btn btn-pills btn-icon btn-primary qty-btn quantity">
+                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="btn btn-pills btn-icon btn-primary plus">+</button>
                                 </div>
-                            </div><!--end col-->
-                            
-                            <div class="tiny-slide">
-                                <div class="card shop-list border-0">
-                                    <div class="shop-image position-relative overflow-hidden">
-                                        <a href="pharmacy-product-detail.html"><img src="../assets/images/pharmacy/shop/sanitizer.jpg" class="img-fluid" alt=""></a>
-                                        <ul class="list-unstyled shop-icons">
-                                            <li><a href="#" class="btn btn-icon btn-pills btn-soft-danger"><i data-feather="heart" class="icons"></i></a></li>
-                                            <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-primary"><i data-feather="eye" class="icons"></i></a></li>
-                                            <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-warning"><i data-feather="shopping-cart" class="icons"></i></a></li>
-                                        </ul>                                
-        
-                                        <div class="qty-icons">
-                                            <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="btn btn-pills btn-icon btn-primary minus">-</button>
-                                            <input min="0" name="quantity" value="0" type="number" class="btn btn-pills btn-icon btn-primary qty-btn quantity">
-                                            <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="btn btn-pills btn-icon btn-primary plus">+</button>
-                                        </div>
-                                    </div>
-                                    <div class="card-body content pt-4 p-2">
-                                        <a href="pharmacy-product-detail.html" class="text-dark product-name h6">Sanitizer</a>
-                                        <div class="d-flex justify-content-between mt-1">
-                                            <h6 class="text-muted small font-italic mb-0 mt-1">$16.00 </h6>
-                                            <ul class="list-unstyled text-warning mb-0">
-                                                <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
-                                                <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
-                                                <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
-                                                <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
-                                                <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
-                                            </ul>
-                                        </div>
-                                    </div>
+                            </div>
+                            <div class="card-body content pt-4 p-2">
+                                <a href="pharmacy-product-detail.html" class="text-dark product-name h6">Dettol handwash</a>
+                                <div class="d-flex justify-content-between mt-1">
+                                    <h6 class="text-muted small font-italic mb-0 mt-1">$16.00 </h6>
+                                    <ul class="list-unstyled text-warning mb-0">
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                    </ul>
                                 </div>
-                            </div><!--end col-->
-                            
-                            <div class="tiny-slide">
-                                <div class="card shop-list border-0">
-                                    <div class="shop-image position-relative overflow-hidden">
-                                        <a href="pharmacy-product-detail.html"><img src="../assets/images/pharmacy/shop/nicotex.jpg" class="img-fluid" alt=""></a>
-                                        <ul class="list-unstyled shop-icons">
-                                            <li><a href="#" class="btn btn-icon btn-pills btn-soft-danger"><i data-feather="heart" class="icons"></i></a></li>
-                                            <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-primary"><i data-feather="eye" class="icons"></i></a></li>
-                                            <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-warning"><i data-feather="shopping-cart" class="icons"></i></a></li>
-                                        </ul>                                
-        
-                                        <div class="qty-icons">
-                                            <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="btn btn-pills btn-icon btn-primary minus">-</button>
-                                            <input min="0" name="quantity" value="0" type="number" class="btn btn-pills btn-icon btn-primary qty-btn quantity">
-                                            <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="btn btn-pills btn-icon btn-primary plus">+</button>
-                                        </div>
-                                    </div>
-                                    <div class="card-body content pt-4 p-2">
-                                        <a href="pharmacy-product-detail.html" class="text-dark product-name h6">Nicotex</a>
-                                        <div class="d-flex justify-content-between mt-1">
-                                            <h6 class="text-muted small font-italic mb-0 mt-1">$16.00 </h6>
-                                            <ul class="list-unstyled text-warning mb-0">
-                                                <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
-                                                <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
-                                                <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
-                                                <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
-                                                <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
-                                            </ul>
-                                        </div>
-                                    </div>
+                            </div>
+                        </div>
+                    </div><!--end col-->
+                    
+                    <div class="col-lg-3 col-md-6 col-12 mt-4 pt-2">
+                        <div class="card shop-list border-0">
+                            <div class="shop-image position-relative overflow-hidden rounded shadow">
+                                <a href="pharmacy-product-detail.html"><img src="../assets/images/pharmacy/shop/herbal-care.jpg" class="img-fluid" alt=""></a>
+                                <ul class="list-unstyled shop-icons">
+                                    <li><a href="#" class="btn btn-icon btn-pills btn-soft-danger"><i data-feather="heart" class="icons"></i></a></li>
+                                    <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-primary"><i data-feather="eye" class="icons"></i></a></li>
+                                    <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-warning"><i data-feather="shopping-cart" class="icons"></i></a></li>
+                                </ul>                                
+
+                                <div class="qty-icons">
+                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="btn btn-pills btn-icon btn-primary minus">-</button>
+                                    <input min="0" name="quantity" value="0" type="number" class="btn btn-pills btn-icon btn-primary qty-btn quantity">
+                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="btn btn-pills btn-icon btn-primary plus">+</button>
                                 </div>
-                            </div><!--end col-->
-                            
-                            <div class="tiny-slide">
-                                <div class="card shop-list border-0">
-                                    <div class="shop-image position-relative overflow-hidden">
-                                        <a href="pharmacy-product-detail.html"><img src="../assets/images/pharmacy/shop/medigrip.jpg" class="img-fluid" alt=""></a>
-                                        <ul class="list-unstyled shop-icons">
-                                            <li><a href="#" class="btn btn-icon btn-pills btn-soft-danger"><i data-feather="heart" class="icons"></i></a></li>
-                                            <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-primary"><i data-feather="eye" class="icons"></i></a></li>
-                                            <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-warning"><i data-feather="shopping-cart" class="icons"></i></a></li>
-                                        </ul>                                
-        
-                                        <div class="qty-icons">
-                                            <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="btn btn-pills btn-icon btn-primary minus">-</button>
-                                            <input min="0" name="quantity" value="0" type="number" class="btn btn-pills btn-icon btn-primary qty-btn quantity">
-                                            <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="btn btn-pills btn-icon btn-primary plus">+</button>
-                                        </div>
-                                    </div>
-                                    <div class="card-body content pt-4 p-2">
-                                        <a href="pharmacy-product-detail.html" class="text-dark product-name h6">Medigrip</a>
-                                        <div class="d-flex justify-content-between mt-1">
-                                            <h6 class="text-muted small font-italic mb-0 mt-1">$16.00 </h6>
-                                            <ul class="list-unstyled text-warning mb-0">
-                                                <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
-                                                <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
-                                                <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
-                                                <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
-                                                <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
-                                            </ul>
-                                        </div>
-                                    </div>
+                            </div>
+                            <div class="card-body content pt-4 p-2">
+                                <a href="pharmacy-product-detail.html" class="text-dark product-name h6">Herbal care product</a>
+                                <div class="d-flex justify-content-between mt-1">
+                                    <h6 class="text-muted small font-italic mb-0 mt-1">$16.00 </h6>
+                                    <ul class="list-unstyled text-warning mb-0">
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!--end col-->
+                    
+                    <div class="col-lg-3 col-md-6 col-12 mt-4 pt-2">
+                        <div class="card shop-list border-0">
+                            <div class="shop-image position-relative overflow-hidden rounded shadow">
+                                <a href="pharmacy-product-detail.html"><img src="../assets/images/pharmacy/shop/medical-equptment.jpg" class="img-fluid" alt=""></a>
+                                <ul class="list-unstyled shop-icons">
+                                    <li><a href="#" class="btn btn-icon btn-pills btn-soft-danger"><i data-feather="heart" class="icons"></i></a></li>
+                                    <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-primary"><i data-feather="eye" class="icons"></i></a></li>
+                                    <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-warning"><i data-feather="shopping-cart" class="icons"></i></a></li>
+                                </ul>                                
+
+                                <div class="qty-icons">
+                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="btn btn-pills btn-icon btn-primary minus">-</button>
+                                    <input min="0" name="quantity" value="0" type="number" class="btn btn-pills btn-icon btn-primary qty-btn quantity">
+                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="btn btn-pills btn-icon btn-primary plus">+</button>
+                                </div>
+                            </div>
+                            <div class="card-body content pt-4 p-2">
+                                <a href="pharmacy-product-detail.html" class="text-dark product-name h6">Medical equptment</a>
+                                <div class="d-flex justify-content-between mt-1">
+                                    <h6 class="text-muted small font-italic mb-0 mt-1">$16.00 </h6>
+                                    <ul class="list-unstyled text-warning mb-0">
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!--end col-->
+                </div><!--end row-->
+            </div><!--end container-->
+
+            <div class="container mt-100 mt-60">
+                <div class="row">
+                    <div class="col-12">
+                        <h5 class="mb-0">Recent Products</h5>
+                    </div><!--end col-->
+                </div><!--end row-->
+
+                <div class="row">           
+                    <div class="col-lg-3 col-md-6 col-12 mt-4 pt-2">
+                        <div class="card shop-list border-0">
+                            <div class="shop-image position-relative overflow-hidden rounded shadow">
+                                <a href="pharmacy-product-detail.html"><img src="../assets/images/pharmacy/shop/praganews.jpg" class="img-fluid" alt=""></a>
+                                <ul class="list-unstyled shop-icons">
+                                    <li><a href="#" class="btn btn-icon btn-pills btn-soft-danger"><i data-feather="heart" class="icons"></i></a></li>
+                                    <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-primary"><i data-feather="eye" class="icons"></i></a></li>
+                                    <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-warning"><i data-feather="shopping-cart" class="icons"></i></a></li>
+                                </ul>                                
+
+                                <div class="qty-icons">
+                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="btn btn-pills btn-icon btn-primary minus">-</button>
+                                    <input min="0" name="quantity" value="0" type="number" class="btn btn-pills btn-icon btn-primary qty-btn quantity">
+                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="btn btn-pills btn-icon btn-primary plus">+</button>
+                                </div>
+                            </div>
+                            <div class="card-body content pt-4 p-2">
+                                <a href="pharmacy-product-detail.html" class="text-dark product-name h6">Praganews</a>
+                                <div class="d-flex justify-content-between mt-1">
+                                    <h6 class="text-muted small font-italic mb-0 mt-1">$16.00 </h6>
+                                    <ul class="list-unstyled text-warning mb-0">
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!--end col-->
+                    
+                    <div class="col-lg-3 col-md-6 col-12 mt-4 pt-2">
+                        <div class="card shop-list border-0">
+                            <div class="shop-image position-relative overflow-hidden rounded shadow">
+                                <a href="pharmacy-product-detail.html"><img src="../assets/images/pharmacy/shop/ashwagandha.jpg" class="img-fluid" alt=""></a>
+                                <ul class="list-unstyled shop-icons">
+                                    <li><a href="#" class="btn btn-icon btn-pills btn-soft-danger"><i data-feather="heart" class="icons"></i></a></li>
+                                    <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-primary"><i data-feather="eye" class="icons"></i></a></li>
+                                    <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-warning"><i data-feather="shopping-cart" class="icons"></i></a></li>
+                                </ul>                                
+
+                                <div class="qty-icons">
+                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="btn btn-pills btn-icon btn-primary minus">-</button>
+                                    <input min="0" name="quantity" value="0" type="number" class="btn btn-pills btn-icon btn-primary qty-btn quantity">
+                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="btn btn-pills btn-icon btn-primary plus">+</button>
+                                </div>
+                            </div>
+                            <div class="card-body content pt-4 p-2">
+                                <a href="pharmacy-product-detail.html" class="text-dark product-name h6">Ashwagandha churna</a>
+                                <div class="d-flex justify-content-between mt-1">
+                                    <h6 class="text-muted small font-italic mb-0 mt-1">$16.00 </h6>
+                                    <ul class="list-unstyled text-warning mb-0">
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!--end col-->
+                    
+                    <div class="col-lg-3 col-md-6 col-12 mt-4 pt-2">
+                        <div class="card shop-list border-0">
+                            <div class="shop-image position-relative overflow-hidden rounded shadow">
+                                <a href="pharmacy-product-detail.html"><img src="../assets/images/pharmacy/shop/beby-products.jpg" class="img-fluid" alt=""></a>
+                                <ul class="list-unstyled shop-icons">
+                                    <li><a href="#" class="btn btn-icon btn-pills btn-soft-danger"><i data-feather="heart" class="icons"></i></a></li>
+                                    <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-primary"><i data-feather="eye" class="icons"></i></a></li>
+                                    <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-warning"><i data-feather="shopping-cart" class="icons"></i></a></li>
+                                </ul>                                
+
+                                <div class="qty-icons">
+                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="btn btn-pills btn-icon btn-primary minus">-</button>
+                                    <input min="0" name="quantity" value="0" type="number" class="btn btn-pills btn-icon btn-primary qty-btn quantity">
+                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="btn btn-pills btn-icon btn-primary plus">+</button>
+                                </div>
+                            </div>
+                            <div class="card-body content pt-4 p-2">
+                                <a href="pharmacy-product-detail.html" class="text-dark product-name h6">Beby products</a>
+                                <div class="d-flex justify-content-between mt-1">
+                                    <h6 class="text-muted small font-italic mb-0 mt-1">$16.00 </h6>
+                                    <ul class="list-unstyled text-warning mb-0">
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!--end col-->
+                    
+                    <div class="col-lg-3 col-md-6 col-12 mt-4 pt-2">
+                        <div class="card shop-list border-0">
+                            <div class="shop-image position-relative overflow-hidden rounded shadow">
+                                <a href="pharmacy-product-detail.html"><img src="../assets/images/pharmacy/shop/kidney-tray.jpg" class="img-fluid" alt=""></a>
+                                <ul class="list-unstyled shop-icons">
+                                    <li><a href="#" class="btn btn-icon btn-pills btn-soft-danger"><i data-feather="heart" class="icons"></i></a></li>
+                                    <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-primary"><i data-feather="eye" class="icons"></i></a></li>
+                                    <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-warning"><i data-feather="shopping-cart" class="icons"></i></a></li>
+                                </ul>                                
+
+                                <div class="qty-icons">
+                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="btn btn-pills btn-icon btn-primary minus">-</button>
+                                    <input min="0" name="quantity" value="0" type="number" class="btn btn-pills btn-icon btn-primary qty-btn quantity">
+                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="btn btn-pills btn-icon btn-primary plus">+</button>
+                                </div>
+                            </div>
+                            <div class="card-body content pt-4 p-2">
+                                <a href="pharmacy-product-detail.html" class="text-dark product-name h6">Kidney tray</a>
+                                <div class="d-flex justify-content-between mt-1">
+                                    <h6 class="text-muted small font-italic mb-0 mt-1">$16.00 </h6>
+                                    <ul class="list-unstyled text-warning mb-0">
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
@@ -711,17 +1094,13 @@
         <!-- Offcanvas End -->
         
         <!-- javascript -->
-        <script src="../assets/js/jquery.min.js"></script>
         <script src="../assets/js/bootstrap.bundle.min.js"></script>
         <!-- SLIDER -->
         <script src="../assets/js/tiny-slider.js"></script>
         <script src="../assets/js/tiny-slider-init.js"></script>
-        <script src="../assets/js/slick.min.js"></script>
-        <script src="../assets/js/slick.init.js"></script>
         <!-- Icons -->
         <script src="../assets/js/feather.min.js"></script>
         <!-- Main Js -->
         <script src="../assets/js/app.js"></script>
     </body>
-
 </html>
