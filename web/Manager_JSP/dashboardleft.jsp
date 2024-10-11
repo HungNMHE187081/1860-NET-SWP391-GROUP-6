@@ -17,15 +17,15 @@
             </div>
             <hr>
             <ul class="app-menu">
-                <li><a class="app-menu__item haha" href="${pageContext.request.contextPath}/manager/serviceslist"><i class='app-menu__icon bx bx-cart-alt'></i>
+                <li><a class="app-menu__item" href="${pageContext.request.contextPath}/manager/serviceslist"><i class='app-menu__icon bx bx-cart-alt'></i>
                         <span class="app-menu__label">Quản lí dịch vụ</span></a></li>
-                <li><a class="app-menu__item " href="index.html"><i class='app-menu__icon bx bx-tachometer'></i><span
-                            class="app-menu__label">Quản lí đơn đặt hàng</span></a></li>
-                <li><a class="app-menu__item active" href="${pageContext.request.contextPath}/manageraddress"><i class='app-menu__icon bx bx-id-card'></i>
+                <li><a class="app-menu__item " href="${pageContext.request.contextPath}/manager/staffslist"><i class='app-menu__icon bx bx-tachometer'></i><span
+                            class="app-menu__label">Quản lí nhân viên</span></a></li>
+                <li><a class="app-menu__item" href="${pageContext.request.contextPath}/manageraddress"><i class='app-menu__icon bx bx-id-card'></i>
                         <span class="app-menu__label">Quản lí địa chỉ</span></a></li>
                 <li><a class="app-menu__item" href="${pageContext.request.contextPath}/manageuser"><i class='app-menu__icon bx bx-user-voice'></i><span
                             class="app-menu__label">Quản lí khách hàng</span></a></li>
-                <li><a class="app-menu__item" href="table-data-product.html"><i
+                <li><a class="app-menu__item" href="manageblog"><i
                             class='app-menu__icon bx bx-purchase-tag-alt'></i><span class="app-menu__label">Quản lý bài viết</span></a>
                 </li>
                 <li><a class="app-menu__item" href="${pageContext.request.contextPath}/feedbacklist"><i class='app-menu__icon bx bx-task'></i><span

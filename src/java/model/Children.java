@@ -4,10 +4,98 @@
  */
 package model;
 
+import java.util.Date;
+
 /**
  *
  * @author HÙNG
  */
 public class Children {
+    private int childID;           // ID của trẻ em
+    private int customerID;        // ID của khách hàng
+    private String firstName;      // Tên
+    private String middleName;     // Tên đệm
+    private String lastName;       // Họ
+    private Date dateOfBirth;      // Ngày sinh
+    private String gender;         // Giới tính
+    private String childImage;     // Đường dẫn hình ảnh của trẻ em
+
+    public Children() {
+    }
+
+    public Children(int childID, int customerID, String firstName, String middleName, String lastName, Date dateOfBirth, String gender, String childImage) {
+        this.childID = childID;
+        this.customerID = customerID;
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.lastName = lastName;
+        this.dateOfBirth = dateOfBirth;
+        this.gender = gender;
+        this.childImage = childImage;
+    }
+
+    public int getChildID() {
+        return childID;
+    }
+
+    public void setChildID(int childID) {
+        this.childID = childID;
+    }
+
+    public int getCustomerID() {
+        return customerID;
+    }
+
+    public void setCustomerID(int customerID) {
+        this.customerID = customerID;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getMiddleName() {
+        return middleName;
+    }
+
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getChildImage() {
+        return childImage;
+    }
+
+    public void setChildImage(String childImage) {
+        this.childImage = childImage;
+    }
     
 }

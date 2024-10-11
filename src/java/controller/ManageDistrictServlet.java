@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 import model.District;
+import model.Provinces;
 
 
 /**
@@ -55,18 +56,18 @@ public class ManageDistrictServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+  protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         int provinceID = Integer.parseInt(request.getParameter("id"));
         ManagerDAO m = new ManagerDAO();
         List<District> district = m.getAllDistricts(provinceID);
-  
-
         // Thiết lập thuộc tính provinceID trong request
         request.setAttribute("district", district);
-       request.getRequestDispatcher("manager-DistrictWard-form.jsp?id=" + provinceID).forward(request, response);
+        request.setAttribute("provinceID", provinceID);
+       request.getRequestDispatcher("/Manager_JSP/Address/manager-DistrictWard-form.jsp?id=" + provinceID).forward(request, response);
 
     } 
+
 
     /** 
      * Handles the HTTP <code>POST</code> method.
@@ -77,10 +78,10 @@ public class ManageDistrictServlet extends HttpServlet {
      */
     @Override
 
-protected void doPost(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
-    
-    }
+protected void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException
+{
+    processRequest(request, response);
+}
     /** 
      * Returns a short description of the servlet.
      * @return a String containing servlet description

@@ -201,39 +201,41 @@ public class ServiceDAO extends DBContext {
     }
 
     public void editService(int serviceID, int categoryID, int degreeID,
-    String serviceName, String description, double price,
-    int duration, String serviceImage, boolean isActive,
-    int ageLimitID) {
-String sql = "UPDATE [dbo].[Services]\n"
-        + "   SET [ServiceName] = ?\n"
-        + "      ,[CategoryID] = ?\n"
-        + "      ,[DegreeID] = ?\n"
-        + "      ,[Description] = ?\n"
-        + "      ,[Price] = ?\n"
-        + "      ,[Duration] = ?\n"
-        + "      ,[ServiceImage] = ?\n"
-        + "      ,[IsActive] = ?\n"
-        + "      ,[AgeLimitID] = ?\n"
-        + "      ,[UpdatedAt] = ?\n"
-        + " WHERE serviceID = ?";
-try {
-    PreparedStatement pre = connection.prepareStatement(sql);
-    pre.setString(1, serviceName);
-    pre.setInt(2, categoryID);
-    pre.setInt(3, degreeID);
-    pre.setString(4, description);
-    pre.setDouble(5, price);
-    pre.setInt(6, duration);
-    pre.setString(7, serviceImage);
-    pre.setBoolean(8, isActive);
-    pre.setInt(9, ageLimitID);
-    pre.setDate(10, new java.sql.Date(System.currentTimeMillis()));
-    pre.setInt(11, serviceID);
-    pre.executeUpdate();
-} catch (SQLException e) {
-    e.printStackTrace();
-}
-} public void deleteService(int ServiceID) {
+            String serviceName, String description, double price,
+            int duration, String serviceImage, boolean isActive,
+            int ageLimitID) {
+        String sql = "UPDATE [dbo].[Services]\n"
+                + "   SET [ServiceName] = ?\n"
+                + "      ,[CategoryID] = ?\n"
+                + "      ,[DegreeID] = ?\n"
+                + "      ,[Description] = ?\n"
+                + "      ,[Price] = ?\n"
+                + "      ,[Duration] = ?\n"
+                + "      ,[ServiceImage] = ?\n"
+                + "      ,[IsActive] = ?\n"
+                + "      ,[AgeLimitID] = ?\n"
+                + "      ,[UpdatedAt] = ?\n"
+                + " WHERE serviceID = ?";
+        try {
+            PreparedStatement pre = connection.prepareStatement(sql);
+            pre.setString(1, serviceName);
+            pre.setInt(2, categoryID);
+            pre.setInt(3, degreeID);
+            pre.setString(4, description);
+            pre.setDouble(5, price);
+            pre.setInt(6, duration);
+            pre.setString(7, serviceImage);
+            pre.setBoolean(8, isActive);
+            pre.setInt(9, ageLimitID);
+            pre.setDate(10, new java.sql.Date(System.currentTimeMillis()));
+            pre.setInt(11, serviceID);
+            pre.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteService(int ServiceID) {
         String sql = "DELETE FROM [Services]\n"
                 + "WHERE ServiceID = ?";
         try {
@@ -247,6 +249,7 @@ try {
 
     public static void main(String[] args) {
         ServiceDAO dao = new ServiceDAO();
-        System.out.println(dao.getServiceByID(1).getCreatedAt());
+        List<Service> list = dao.getAllServices();
+        System.out.println(list.get(1).isIsActive());
     }
 }

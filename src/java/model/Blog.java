@@ -10,14 +10,14 @@ public class Blog {
     private String authorName;
     private Date createdDate;
     private Date updatedDate;
-    private boolean isPublished;
+    private Boolean isPublished;
     private String thumbnailPath;
     private int views;
 
     // Constructors, Getters and Setters
     public Blog() {}
 
-    public Blog(int blogID, String title, String content, String authorName, Date createdDate, Date updatedDate, boolean isPublished, String thumbnailPath, int views) {
+    public Blog(int blogID, String title, String content, String authorName, Date createdDate, Date updatedDate, Boolean isPublished, String thumbnailPath, int views) {
         this.blogID = blogID;
         this.title = title;
         this.content = content;
@@ -84,11 +84,11 @@ public class Blog {
         this.updatedDate = updatedDate;
     }
 
-    public boolean isPublished() {
-        return isPublished;
-    }
+    public Boolean getIsPublished() {
+    return isPublished;
+}
 
-    public void setIsPublished(boolean isPublished) {
+    public void setIsPublished(Boolean isPublished) {
         this.isPublished = isPublished;
     }
 

@@ -1,4 +1,4 @@
-﻿USE Project_ChildrenCareDB_ver2
+﻿--USE Project_ChildrenCareDB_ver2
 
 CREATE FUNCTION dbo.removeAccent(@input NVARCHAR(MAX))
 RETURNS NVARCHAR(MAX)

@@ -89,7 +89,7 @@ public class MedicineListServlet extends HttpServlet {
         request.setAttribute("sort", sort); // Preserve sort option
 
         // Forward the request to the JSP
-        RequestDispatcher dispatcher = request.getRequestDispatcher("medicine-list.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/Staff_JSP/medicine-list.jsp");
         dispatcher.forward(request, response);
     }
 

@@ -58,11 +58,12 @@ public class ManageWardServlet extends HttpServlet {
     throws ServletException, IOException {
         String id =request.getParameter("districtid");
         try{
-        int wid = Integer.parseInt(id);
+        int districtID = Integer.parseInt(id);
         ManagerDAO dao = new ManagerDAO();
-        List<Ward> ward = dao.getWardByDistrict(wid);
+        List<Ward> ward = dao.getWardByDistrict(districtID);
         request.setAttribute("ward", ward);
-        request.getRequestDispatcher("manage-ward.jsp").forward(request, response);
+        request.setAttribute("districtID", districtID);
+        request.getRequestDispatcher("/Manager_JSP/Address/manage-ward.jsp").forward(request, response);
         }catch(IOException e){
             e.printStackTrace();
         }

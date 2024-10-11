@@ -97,11 +97,11 @@ CREATE TABLE Categories (
 CREATE TABLE Staff (
     StaffID INT PRIMARY KEY,
     StaffName NVARCHAR(150),
-    YearsOfExperience INT,
+    YearsOfExperience INT CHECK (YearsOfExperience > 0),
     SpecializationID INT,
     DegreeID INT,
     HireDate DATE,
-    Salary FLOAT,
+    Salary FLOAT CHECK (Salary > 0),
     FOREIGN KEY (StaffID) REFERENCES Users(UserID) ON DELETE CASCADE,
     FOREIGN KEY (SpecializationID) REFERENCES Specializations(SpecializationID),
     FOREIGN KEY (DegreeID) REFERENCES Degrees(DegreeID)
@@ -133,8 +133,8 @@ CREATE TABLE Services (
 	CategoryID INT,
 	DegreeID INT,
     Description NVARCHAR(MAX),
-    Price FLOAT,
-    Duration INT, -- in minutes
+    Price FLOAT CHECK (Price > 0),
+    Duration INT CHECK (Duration > 0), -- in minutes
     ServiceImage NVARCHAR(255),
     IsActive BIT,
     AgeLimitID INT,
@@ -145,20 +145,42 @@ CREATE TABLE Services (
     FOREIGN KEY (AgeLimitID) REFERENCES AgeLimits(AgeLimitID)
 );
 
+
+-- Create Orders table
+CREATE TABLE Orders(
+	OrderID INT PRIMARY KEY IDENTITY(1,1),
+	CustomerID INT,
+	Quantity INT CHECK (Quantity > 0),
+	TotalPrice FLOAT CHECK (TotalPrice > 0),
+	OrderDate DATETIME DEFAULT GETDATE(),
+	isCheckOut BIT,
+	FOREIGN KEY (CustomerID) REFERENCES Users(UserID) ON DELETE CASCADE
+)
+
+
+-- Create OrderItems table
+CREATE TABLE OrderItems (
+    OrderItemID INT PRIMARY KEY IDENTITY(1,1),
+    OrderID INT,
+    ServiceID INT,
+    ChildID INT,
+    FOREIGN KEY (OrderID) REFERENCES Orders(OrderID) ON DELETE CASCADE,
+    FOREIGN KEY (ServiceID) REFERENCES Services(ServiceID) ON DELETE CASCADE,
+    FOREIGN KEY (ChildID) REFERENCES Children(ChildID) ON DELETE NO ACTION
+);
+
+
+
 -- Create Reservations table
 CREATE TABLE Reservations (
     ReservationID INT PRIMARY KEY IDENTITY(1,1),
-    CustomerID INT,
-    ChildID INT,
-    ServiceID INT,
-    StaffID INT,
+	OrderItemID INT,
     ReservationDate DATE,
     StartTime TIME,
-    Status NVARCHAR(20),
-    FOREIGN KEY (CustomerID) REFERENCES Users(UserID) ON DELETE CASCADE,
-    FOREIGN KEY (ChildID) REFERENCES Children(ChildID),
-    FOREIGN KEY (ServiceID) REFERENCES Services(ServiceID),
+	isExam BIT,
+	FOREIGN KEY (OrderItemID) REFERENCES OrderItems(OrderItemID) ON DELETE CASCADE,
 );
+
 -- Create MedicalRecords table
 CREATE TABLE MedicalRecords (
     RecordID INT PRIMARY KEY IDENTITY(1,1),
@@ -438,7 +460,6 @@ INSERT INTO Specializations (SpecializationName) VALUES (N'Khoa Mắt');
 INSERT INTO Specializations (SpecializationName) VALUES (N'Khoa Da liễu');
 INSERT INTO Specializations (SpecializationName) VALUES (N'Khoa Tâm lý');
 INSERT INTO Specializations (SpecializationName) VALUES (N'Tiêm chủng');
-INSERT INTO Specializations (SpecializationName) VALUES (N'Điều dưỡng');
 INSERT INTO Specializations (SpecializationName) VALUES (N'Khoa Sản');
 INSERT INTO Specializations (SpecializationName) VALUES (N'Tuổi dậy thì');
 INSERT INTO Specializations (SpecializationName) VALUES (N'Răng miệng');
@@ -457,7 +478,7 @@ INSERT INTO Services (ServiceName, CategoryID, DegreeID, Description, Price, Dur
 (N'Khám sức khỏe tổng quát cho trẻ sơ sinh', 1, 1, N'Đo chiều cao, cân nặng, vòng đầu, kiểm tra tim phổi, tư vấn dinh dưỡng, tiêm chủng', 200000, 40, 'img/kham-suc-khoe-tong-quat-cho-tre-so-sinh.jpg', 1, 1),
 (N'Tiêm chủng cho trẻ sơ sinh', 2, 2, N'Tiêm các loại vắc xin theo lịch tiêm chủng, theo dõi phản ứng sau tiêm', 150000, 30, 'img/tiem-chung-cho-tre-so-sinh.png', 1, 1),
 (N'Tư vấn về chăm sóc trẻ sơ sinh', 3, 4, N'Tư vấn về giấc ngủ, dinh dưỡng, các vấn đề thường gặp ở trẻ sơ sinh', 200000, 60, 'img/tu-van-cham-soc-tre-so-sinh.jpg', 1, 1),
-(N'Gói chăm sóc trẻ sơ sinh trọn gói (1 tháng) cho trẻ sơ sinh', 5, 1, N'Bao gồm khám sức khỏe định kỳ, chăm sóc tại nhà, tư vấn dinh dưỡng, tiêm chủng', 5000000, 0, 'img/kham-suc-khoe-tong-quat-cho-tre-so-sinh.jpg', 0, 1),
+(N'Gói chăm sóc trẻ sơ sinh trọn gói (1 tháng) cho trẻ sơ sinh', 5, 1, N'Bao gồm khám sức khỏe định kỳ, chăm sóc tại nhà, tư vấn dinh dưỡng, tiêm chủng', 5000000, 60, 'img/kham-suc-khoe-tong-quat-cho-tre-so-sinh.jpg', 0, 1),
 (N'Massage sơ sinh', 4, 3, N'Giúp bé thư giãn, tăng cường tuần hoàn máu, phát triển các giác quan', 200000, 45, 'img/massage-cho-tre-so-sinh.jpg', 1, 1),
 (N'Tắm bé sơ sinh bằng thảo dược', 4, 3, N'Làm sạch da, giảm ngứa, tạo cảm giác dễ chịu cho bé', 250000, 45, 'img/tam-thao-duoc-cho-tre-so-sinh.jpg', 1, 1),
 (N'Khám và điều trị rôm sảy, mẩn ngứa ở trẻ sơ sinh', 1, 1, N'Khám, chẩn đoán và điều trị các bệnh về da ở trẻ sơ sinh', 300000, 45, 'img/kham-benh-rom-say-cho-tre-so-sinh.jpg', 0, 1),
@@ -465,14 +486,14 @@ INSERT INTO Services (ServiceName, CategoryID, DegreeID, Description, Price, Dur
 
 (N'Khám sức khỏe tổng quát cho trẻ từ 1 đến 5 tuổi', 1, 1, N'Đo chiều cao, cân nặng, kiểm tra thị lực, tư vấn phát triển, tiêm chủng', 250000, 45, 'img/kham-suc-khoe-tong-quat-cho-tre-tu-1-den-5.jpg', 1, 2),
 (N'Khám và điều trị các bệnh thông thường cho trẻ từ 1 đến 5 tuổi', 1, 1, N'Sốt, ho, cảm cúm, tiêu chảy, viêm tai giữa...', 300000, 45, 'img/kham-va-dieu-tri-cac-benh-thong-thuong-cho-tre-tu-1-den-5.jpg', 1, 2),
-(N'Gói khám sức khỏe định kỳ 6 tháng cho trẻ từ 1 đến 5 tuổi', 5, 1, N'Bao gồm 2 lần khám sức khỏe tổng quát, tư vấn dinh dưỡng, tiêm chủng', 1200000, 0, 'img/kham-suc-khoe-tong-quat-cho-tre-tu-1-den-5.jpg', 0, 2),
+(N'Gói khám sức khỏe định kỳ 6 tháng cho trẻ từ 1 đến 5 tuổi', 5, 1, N'Bao gồm 2 lần khám sức khỏe tổng quát, tư vấn dinh dưỡng, tiêm chủng', 1200000, 60, 'img/kham-suc-khoe-tong-quat-cho-tre-tu-1-den-5.jpg', 0, 2),
 (N'Tiêm chủng cho trẻ từ 1 đến 5 tuổi', 2, 2, N'Tiêm các loại vắc xin theo lịch tiêm chủng, theo dõi phản ứng sau tiêm', 150000, 30, 'img/tiem-chung-cho-tre-tu-1-den-5.png', 1, 2),
 (N'Tư vấn tâm lý cho trẻ từ 1 đến 5 tuổi', 3, 4, N'Hỗ trợ trẻ vượt qua các vấn đề về cảm xúc, hành vi', 300000, 60, 'img/tu-van-tam-ly-cho-tre-tu-1-den-5.jpg', 1, 2),
 (N'Gói chăm sóc răng miệng cho trẻ từ 1 đến 5 tuổi', 5, 3, N'Khám răng, vệ sinh răng miệng, tư vấn chăm sóc răng miệng', 200000, 45, 'img/cham-soc-rang-mieng-cho-tre-tu-1-den-5.jpg', 1, 2),
 
 (N'Khám sức khỏe tổng quát cho trẻ từ 6 đến 12 tuổi', 1, 1, N'Đo chiều cao, cân nặng, kiểm tra thị lực, tư vấn dậy thì, tiêm chủng', 300000, 45, 'img/kham-suc-khoe-tong-quat-cho-tre-tu-6-den-12.jpg', 1, 3),
 (N'Tư vấn tâm lý cho trẻ em từ 6 đến 12 tuổi', 3, 4, N'Hỗ trợ trẻ vượt qua các vấn đề tâm lý, căng thẳng học tập...', 300000, 60, 'img/tu-van-tam-ly-cho-tre-tu-6-den-12.jpg', 1, 3),
-(N'Gói khám sức khỏe định kỳ hàng năm cho trẻ từ 6 đến 12 tuổi', 5, 1, N'Bao gồm khám sức khỏe tổng quát, tư vấn dinh dưỡng, tiêm chủng, khám chuyên khoa (nếu cần)', 1500000, 0, 'img/kham-suc-khoe-tong-quat-cho-tre-tu-6-den-12.jpg', 0, 3),
+(N'Gói khám sức khỏe định kỳ hàng năm cho trẻ từ 6 đến 12 tuổi', 5, 1, N'Bao gồm khám sức khỏe tổng quát, tư vấn dinh dưỡng, tiêm chủng, khám chuyên khoa (nếu cần)', 1500000, 60, 'img/kham-suc-khoe-tong-quat-cho-tre-tu-6-den-12.jpg', 0, 3),
 (N'Tư vấn về dinh dưỡng cho trẻ em từ 6 đến 12 tuổi', 3, 4, N'Tư vấn chế độ ăn uống cân đối, lành mạnh', 250000, 60, 'img/tu-van-dinh-duong-cho-tre-tu-6-den-12.png', 1, 3),
 (N'Khám và điều trị các vấn đề về mắt cho trẻ từ 6 đến 12 tuổi', 1, 1, N'Khám mắt, điều trị cận thị, viễn thị...', 250000, 45, 'img/kham-va-dieu-tri-cac-van-de-ve-mat-cho-tre-tu-6-den-12.png', 1, 3),
 (N'Tiêm chủng cho trẻ từ 6 đến 12 tuổi', 2, 2, N'Tiêm các loại vắc xin theo lịch tiêm chủng, theo dõi phản ứng sau tiêm', 150000, 30, 'img/tiem-chung-cho-tre-tu-6-den-12.png', 1, 3),
@@ -480,13 +501,10 @@ INSERT INTO Services (ServiceName, CategoryID, DegreeID, Description, Price, Dur
 (N'Khám sức khỏe tổng quát cho trẻ từ 13 đến 18 tuổi', 1, 1, N'Đo chiều cao, cân nặng, kiểm tra thị lực, tư vấn sức khỏe sinh sản, tiêm chủng', 350000, 45, 'img/kham-suc-khoe-tong-quat-cho-tre-tu-13-den-18.jpg', 1, 4),
 (N'Khám và điều trị các bệnh lý tuổi dậy thì cho trẻ từ 13 đến 18 tuổi', 1, 1, N'Rối loạn kinh nguyệt, dậy thì sớm, dậy thì muộn...', 400000, 60, 'img/kham-va-dieu-tri-benh-ly-tuoi-day-thi.jpg', 1, 4),
 (N'Tư vấn tâm lý cho thanh thiếu niên', 3, 4, N'Hỗ trợ thanh thiếu niên vượt qua các vấn đề tâm lý, căng thẳng học tập, định hướng nghề nghiệp...', 350000, 60, 'img/tu-van-tam-ly-cho-tre-tu-13-den-18.jpg', 1, 4),
-(N'Gói khám sức khỏe định kỳ hàng năm cho trẻ từ 13 đến 18 tuổi', 5, 1, N'Bao gồm khám sức khỏe tổng quát, tư vấn sức khỏe sinh sản, tiêm chủng, khám chuyên khoa (nếu cần)', 1800000, 0, 'img/kham-suc-khoe-tong-quat-cho-tre-tu-13-den-18.jpg', 0, 4),
+(N'Gói khám sức khỏe định kỳ hàng năm cho trẻ từ 13 đến 18 tuổi', 5, 1, N'Bao gồm khám sức khỏe tổng quát, tư vấn sức khỏe sinh sản, tiêm chủng, khám chuyên khoa (nếu cần)', 1800000, 60, 'img/kham-suc-khoe-tong-quat-cho-tre-tu-13-den-18.jpg', 0, 4),
 (N'Tiêm chủng cho trẻ từ 13 đến 18 tuổi', 2, 2, N'Tiêm các loại vắc xin theo lịch tiêm chủng, theo dõi phản ứng sau tiêm', 150000, 30, 'img/tiem-chung-cho-tre-tu-13-den-18.png', 1, 4),
 (N'Tư vấn về sức khỏe sinh sản cho trẻ từ 13 đến 18 tuổi', 3, 4, N'Tư vấn về các vấn đề liên quan đến giới tính, tình dục an toàn, tránh thai', 300000, 60, 'img/tu-van-suc-khoe-sinh-san.jpg', 1, 4)
 
-
-
-select * from Staff
 
 
 INSERT INTO MedicineCategory (CategoryName) 
@@ -595,7 +613,7 @@ INSERT INTO UserRoles (UserID, RoleID)
 VALUES 
 (1, 5), -- Người dùng 1 được gán vai trò Customer
 (2, 5), -- Người dùng 2 được gán vai trò Customer
-(3, 5); 
+(3, 3); 
 INSERT INTO UserAuthentication (UserID, Username, PasswordHash, Salt, LastLogin)
 VALUES 
 (1, 'user1', 'hashed_password1', 'salt1', GETDATE()),
@@ -608,4 +626,87 @@ VALUES
     (1, 1, N'Nguyễn Văn A', N'nguyenvana@example.com', '1234567890', 5, N'Xuất sắc', N'Dịch vụ tuyệt vời!', N'Không có', '/attachments/feedback1.jpg',  1),
     (2, 2, N'Trần Thị B', N'tranthib@example.com', '0987654321', 4, N'Tốt', N'Hài lòng với dịch vụ', N'Tùy chọn giá cả tốt hơn', '/attachments/feedback2.jpg', 1),
     (3, 3, N'Lê Minh C', N'leminhc@example.com', '1231231234', 3, N'Trung bình', N'Dịch vụ tạm ổn', N'Cải thiện thời gian phản hồi', '/attachments/feedback3.jpg', 0);
+
+
+-- Insert dữ liệu vào bảng Staff
+INSERT INTO Staff (StaffID, StaffName, YearsOfExperience, SpecializationID, DegreeID, HireDate, Salary) VALUES
+(1, N'Nguyễn Văn A', 5, 1, 1, '2015-01-01', 5000000),
+(2, N'Trần Thị B', 3, 2, 2, '2018-05-15', 4000000),
+(3, N'Lê Minh C', 2, 3, 3, '2020-10-20', 3000000);
+
+
+INSERT INTO Children (CustomerID, FirstName, MiddleName, LastName, DateOfBirth, Gender, ChildImage)
+VALUES 
+(1, N'Nguyễn', N'Văn', N'D', '2010-01-01', N'Nam', NULL),
+(2, N'Trần', N'Thị', N'E', '2012-05-15', N'Nữ', NULL),
+(3, N'Lê', N'Minh', N'F', '2015-10-20', N'Nam', NULL);
+
+
+INSERT INTO Orders (CustomerID, OrderDate, TotalPrice, isCheckOut)
+VALUES (1, GETDATE(), 1250000.0, 1);
+
+INSERT INTO Orders (CustomerID, OrderDate, TotalPrice, isCheckOut)
+VALUES (2, GETDATE(), 750000.0, 1);
+
+
+INSERT INTO OrderItems (OrderID, ServiceID, ChildID)
+VALUES (1, 1, 1);
+
+INSERT INTO OrderItems (OrderID, ServiceID, ChildID)
+VALUES (1, 2, 1);
+
+INSERT INTO OrderItems (OrderID, ServiceID, ChildID)
+VALUES (2, 2, 2);
+
+INSERT INTO OrderItems (OrderID, ServiceID, ChildID)
+VALUES (2, 2, 2);
+
+-- Insert dữ liệu vào bảng Reservations
+INSERT INTO Reservations (OrderItemID, ReservationDate, StartTime, isExam)
+VALUES (1, '2023-10-01', '09:00:00', 1),
+	   (2, '2023-10-01', '10:00:00', 0),
+       (2, '2023-10-01', '19:00:00', 1),
+       (3, '2023-10-02', '11:00:00', 0);
+
+INSERT INTO HealthMetrics (ChildID, Height, Weight, BMI, RecordDate)
+VALUES (1, 120.5, 45.6, 18.7, '2024-10-07');
+INSERT INTO Allergies (ChildID, AllergyName, Severity, DiagnosedDate)
+VALUES (1, 'Peanut Allergy', 'Severe', '2022-05-15');
+INSERT INTO Immunizations (ChildID, VaccineName, DateAdministered, NextDueDate)
+VALUES (1, 'MMR Vaccine', '2023-03-10', '2024-03-10');
+INSERT INTO DietaryRestrictions (ChildID, Restriction, Reason)
+VALUES (1, 'Lactose Intolerance', 'Causes stomach pain and discomfort');
+INSERT INTO EmergencyContacts (ChildID, ContactName, Relationship, PhoneNumber)
+VALUES (1, 'John Doe', 'Father', '0987654321');
+
+
+-- Cập nhật Quantity trong bảng Orders
+UPDATE Orders
+SET Quantity = (
+    SELECT COUNT(*)
+    FROM OrderItems
+    WHERE OrderItems.OrderID = Orders.OrderID
+);
+
+CREATE VIEW StaffView AS
+SELECT u.UserID AS StaffID, 
+       u.FirstName + ' ' + u.MiddleName + ' ' + u.LastName AS StaffName, 
+       s.YearsOfExperience, 
+       s.SpecializationID, 
+       s.DegreeID, 
+       s.HireDate, 
+       s.Salary
+FROM Users u
+JOIN UserRoles ur ON u.UserID = ur.UserID
+JOIN Roles r ON ur.RoleID = r.RoleID
+JOIN Staff s ON u.UserID = s.StaffID
+WHERE r.RoleID IN (3, 4); 
+
+select * from Children
+
+select * from Orders
+
+select * from OrderItems 
+
+SELECT * FROM Reservations WHERE ReservationID = 4 and IsExam = 0
 

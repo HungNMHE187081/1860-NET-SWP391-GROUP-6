@@ -41,12 +41,8 @@ public class MedicineDAO extends DBContext {
         // Adding sorting
         if ("name".equals(sort)) {
             sql += "ORDER BY m.Name ";
-        } else if ("uses".equals(sort)) {
-            sql += "ORDER BY m.Uses ";
-        } else if ("category".equals(sort)) {
-            sql += "ORDER BY c.CategoryName ";
-        } else if ("manufacturer".equals(sort)) {
-            sql += "ORDER BY m.Description "; // Adjust to the appropriate column
+        }  else if ("latestAdd".equals(sort)) {
+            sql += "ORDER BY m.MedicineID DESC "; 
         } else {
             sql += "ORDER BY m.MedicineID "; // Default sorting
         }
@@ -165,11 +161,11 @@ public class MedicineDAO extends DBContext {
 
     public Medicine getLatestMedicine() {
         Medicine medicine = null;
-        String sql = "SELECT TOP 1 *\n" +
-"FROM Medicine\n" +
-"JOIN MedicineCategory ON Medicine.CategoryID = MedicineCategory.CategoryID\n" +
-"WHERE Medicine.MedicineID > 10\n" +
-"ORDER BY Medicine.MedicineID DESC;";
+        String sql = "SELECT TOP 1 *\n"
+                + "FROM Medicine\n"
+                + "JOIN MedicineCategory ON Medicine.CategoryID = MedicineCategory.CategoryID\n"
+                + "WHERE Medicine.MedicineID > 10\n"
+                + "ORDER BY Medicine.MedicineID DESC;";
 
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             try (ResultSet rs = ps.executeQuery()) {
@@ -192,7 +188,7 @@ public class MedicineDAO extends DBContext {
         }
         return medicine;
     }
-    
+
     public String getCategoryById(int categoryID) {
         String sql = "SELECT categoryName FROM MedicineCategory WHERE categoryID = ?";
 

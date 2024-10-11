@@ -81,6 +81,10 @@
         <servlet-class>controller.DeleteMedicineServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>ConfirmFeedbackServlet</servlet-name>
+        <servlet-class>controller.ConfirmFeedbackServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>MedicineDetail</servlet-name>
         <servlet-class>controller.MedicineDetail</servlet-class>
     </servlet>
@@ -123,10 +127,6 @@
     <servlet>
         <servlet-name>AdminEditUserServlet</servlet-name>
         <servlet-class>controller.AdminEditUserServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>LatestMedicineServlet</servlet-name>
-        <servlet-class>controller.LatestMedicineServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>StaffSearchServiceServlet</servlet-name>
@@ -183,6 +183,66 @@
     <servlet>
         <servlet-name>ViewDetailsUserServlet</servlet-name>
         <servlet-class>controller.ViewDetailsUserServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManagerStaffsListServlet</servlet-name>
+        <servlet-class>controller.ManagerStaffsListServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManagerViewStaffServlet</servlet-name>
+        <servlet-class>controller.ManagerViewStaffServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManagerSearchStaffServlet</servlet-name>
+        <servlet-class>controller.ManagerSearchStaffServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>StaffStaffsListServlet</servlet-name>
+        <servlet-class>controller.StaffStaffsListServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>StaffViewStaffServlet</servlet-name>
+        <servlet-class>controller.StaffViewStaffServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>StaffSearchStaffServlet</servlet-name>
+        <servlet-class>controller.StaffSearchStaffServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>StaffNewReservationsListServlet</servlet-name>
+        <servlet-class>controller.StaffNewReservationsListServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>StaffOldReservationsListServlet</servlet-name>
+        <servlet-class>controller.StaffOldReservationsListServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddWardServlet</servlet-name>
+        <servlet-class>controller.AddWardServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteWardServlet</servlet-name>
+        <servlet-class>controller.DeleteWardServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditWardServlet</servlet-name>
+        <servlet-class>controller.EditWardServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddBlogServlet</servlet-name>
+        <servlet-class>controller.AddBlogServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManagerBlogServlet</servlet-name>
+        <servlet-class>controller.ManagerBlogServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewDetailsBlogServlet</servlet-name>
+        <servlet-class>controller.ViewDetailsBlogServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MedicalRecordList</servlet-name>
+        <servlet-class>controller.MedicalRecordList</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
@@ -301,10 +361,6 @@
         <url-pattern>/staff/viewservice</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>LatestMedicineServlet</servlet-name>
-        <url-pattern>/latestmedicine</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>StaffSearchServiceServlet</servlet-name>
         <url-pattern>/staff/searchservice</url-pattern>
     </servlet-mapping>
@@ -359,5 +415,69 @@
     <servlet-mapping>
         <servlet-name>ViewDetailsUserServlet</servlet-name>
         <url-pattern>/viewdetailsuser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManagerStaffsListServlet</servlet-name>
+        <url-pattern>/manager/staffslist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManagerViewStaffServlet</servlet-name>
+        <url-pattern>/manager/viewstaff</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManagerSearchStaffServlet</servlet-name>
+        <url-pattern>/manager/searchstaff</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StaffStaffsListServlet</servlet-name>
+        <url-pattern>/staff/staffslist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StaffViewStaffServlet</servlet-name>
+        <url-pattern>/staff/viewstaff</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StaffSearchStaffServlet</servlet-name>
+        <url-pattern>/staff/searchstaff</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StaffNewReservationsListServlet</servlet-name>
+        <url-pattern>/staff/newreservationslist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StaffOldReservationsListServlet</servlet-name>
+        <url-pattern>/staff/oldreservationslist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddWardServlet</servlet-name>
+        <url-pattern>/addward</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteWardServlet</servlet-name>
+        <url-pattern>/deleteward</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditWardServlet</servlet-name>
+        <url-pattern>/editward</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ConfirmFeedbackServlet</servlet-name>
+        <url-pattern>/confirmfeedback</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddBlogServlet</servlet-name>
+        <url-pattern>/addblog</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManagerBlogServlet</servlet-name>
+        <url-pattern>/manageblog</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MedicalRecordList</servlet-name>
+        <url-pattern>/medicalrecordlist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewDetailsBlogServlet</servlet-name>
+        <url-pattern>/viewdetailblog</url-pattern>
     </servlet-mapping>
 </web-app>
