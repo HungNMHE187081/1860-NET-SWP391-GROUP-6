@@ -53,16 +53,37 @@ public class ReservationDAO extends DBContext {
         }
         return list;
     }
+    
+    public Reservation getReservationByID(int ReservationID) {
+        String sql = "SELECT * FROM Reservations WHERE ReservationID = ?";
+        try {
+            PreparedStatement pre = connection.prepareStatement(sql);
+            pre.setInt(1, ReservationID);
+            try (ResultSet rs = pre.executeQuery()) {
+                if (rs.next()) {
+                    Reservation reservation = new Reservation();
+                    reservation.setReservationID(ReservationID);
+                    reservation.setOrderItemID(rs.getInt("OrderItemID"));
+                    reservation.setReservationDate(rs.getString("ReservationDate"));
+                    reservation.setStartTime(rs.getString("StartTime"));
+                    reservation.setIsExam(rs.getBoolean("IsExam"));
+                    return reservation;
+                }
+            }
+        } catch (SQLException e) {
+        }
+        return null;
+    }
 
-    public List<Reservation> searchReservationByKeyword(String keyword) {
+    public List<Reservation> searchReservationByKeyword(String keyword, boolean isExam) {
         List<Reservation> list = new ArrayList<>();
         String sql = "SELECT r.* FROM Reservations r "
-                + "JOIN OrderItems oi ON r.OrderItemID = oi.OrderItemID "
-                + "JOIN Orders o ON oi.OrderID = o.OrderID "
-                + "JOIN Users u ON o.CustomerID = u.UserID "
-                + "JOIN Children c ON oi.ChildID = c.ChildID "
-                + "WHERE u.FirstName LIKE ? OR u.MiddleName LIKE ? OR u.LastName LIKE ? "
-                + " OR c.FirstName LIKE ? OR C.MiddleName LIKE ? OR c.LastName LIKE ?";
+                   + "JOIN OrderItems oi ON r.OrderItemID = oi.OrderItemID "
+                   + "JOIN Orders o ON oi.OrderID = o.OrderID "
+                   + "JOIN Users u ON o.CustomerID = u.UserID "
+                   + "JOIN Children c ON oi.ChildID = c.ChildID "
+                   + "WHERE (u.FirstName LIKE ? OR u.MiddleName LIKE ? OR u.LastName LIKE ? OR c.FirstName LIKE ? OR c.MiddleName LIKE ? OR c.LastName LIKE ?) "
+                   + "AND r.IsExam = ?";
         try {
             PreparedStatement pre = connection.prepareStatement(sql);
             pre.setString(1, "%" + keyword + "%");
@@ -71,14 +92,15 @@ public class ReservationDAO extends DBContext {
             pre.setString(4, "%" + keyword + "%");
             pre.setString(5, "%" + keyword + "%");
             pre.setString(6, "%" + keyword + "%");
+            pre.setBoolean(7, isExam);
             try (ResultSet rs = pre.executeQuery()) {
                 while (rs.next()) {
                     int ReservationID = rs.getInt("ReservationID");
                     int OrderItemID = rs.getInt("OrderItemID");
                     String ReservationDate = rs.getString("ReservationDate");
                     String StartTime = rs.getString("StartTime");
-                    boolean isExam = rs.getBoolean("IsExam");
-                    list.add(new Reservation(ReservationID, OrderItemID, ReservationDate, StartTime, isExam));
+                    boolean isExamResult = rs.getBoolean("IsExam");
+                    list.add(new Reservation(ReservationID, OrderItemID, ReservationDate, StartTime, isExamResult));
                 }
             }
         } catch (SQLException e) {
@@ -86,10 +108,10 @@ public class ReservationDAO extends DBContext {
         }
         return list;
     }
-
-    public List<Reservation> searchReservationsByTimeOfDay(String timeOfDay) {
+    
+    public List<Reservation> searchReservationsByTimeOfDay(String timeOfDay, boolean isExam) {
         List<Reservation> list = new ArrayList<>();
-        String sql = "SELECT * FROM Reservations WHERE StartTime BETWEEN ? AND ?";
+        String sql = "SELECT * FROM Reservations WHERE StartTime BETWEEN ? AND ? AND isExam = ?";
         try {
             PreparedStatement pre = connection.prepareStatement(sql);
             if ("morning".equalsIgnoreCase(timeOfDay)) {
@@ -101,13 +123,13 @@ public class ReservationDAO extends DBContext {
             } else {
                 throw new IllegalArgumentException("Invalid time of day: " + timeOfDay);
             }
+            pre.setBoolean(3, isExam);
             try (ResultSet rs = pre.executeQuery()) {
                 while (rs.next()) {
                     int ReservationID = rs.getInt("ReservationID");
                     int OrderItemID = rs.getInt("OrderItemID");
                     String ReservationDate = rs.getString("ReservationDate");
                     String StartTime = rs.getString("StartTime");
-                    boolean isExam = rs.getBoolean("IsExam");
                     list.add(new Reservation(ReservationID, OrderItemID, ReservationDate, StartTime, isExam));
                 }
             }
@@ -117,8 +139,52 @@ public class ReservationDAO extends DBContext {
         return list;
     }
 
+    public List<Reservation> searchReservationsByKeywordAndTimeOfDay(String keyword, String timeOfDay, boolean isExam) {
+        List<Reservation> list = new ArrayList<>();
+        String sql = "SELECT r.* FROM Reservations r "
+                   + "JOIN OrderItems oi ON r.OrderItemID = oi.OrderItemID "
+                   + "JOIN Orders o ON oi.OrderID = o.OrderID "
+                   + "JOIN Users u ON o.CustomerID = u.UserID "
+                   + "JOIN Children c ON oi.ChildID = c.ChildID "
+                   + "WHERE (u.FirstName LIKE ? OR u.MiddleName LIKE ? OR u.LastName LIKE ? OR c.FirstName LIKE ? OR c.MiddleName LIKE ? OR c.LastName LIKE ?) "
+                   + "AND r.StartTime BETWEEN ? AND ? "
+                   + "AND r.IsExam = ?";
+        try {
+            PreparedStatement pre = connection.prepareStatement(sql);
+            pre.setString(1, "%" + keyword + "%");
+            pre.setString(2, "%" + keyword + "%");
+            pre.setString(3, "%" + keyword + "%");
+            pre.setString(4, "%" + keyword + "%");
+            pre.setString(5, "%" + keyword + "%");
+            pre.setString(6, "%" + keyword + "%");
+            if ("morning".equalsIgnoreCase(timeOfDay)) {
+                pre.setString(7, "00:00:00");
+                pre.setString(8, "11:59:59");
+            } else if ("afternoon".equalsIgnoreCase(timeOfDay)) {
+                pre.setString(7, "12:00:00");
+                pre.setString(8, "23:59:59");
+            } else {
+                throw new IllegalArgumentException("Invalid time of day: " + timeOfDay);
+            }
+            pre.setBoolean(9, isExam);
+            try (ResultSet rs = pre.executeQuery()) {
+                while (rs.next()) {
+                    int ReservationID = rs.getInt("ReservationID");
+                    int OrderItemID = rs.getInt("OrderItemID");
+                    String ReservationDate = rs.getString("ReservationDate");
+                    String StartTime = rs.getString("StartTime");
+                    boolean isExamResult = rs.getBoolean("IsExam");
+                    list.add(new Reservation(ReservationID, OrderItemID, ReservationDate, StartTime, isExamResult));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+    
     public static void main(String[] args) {
         ReservationDAO dao = new ReservationDAO();
-        System.out.println(dao.searchReservationsByTimeOfDay("morning").size());
+        System.out.println(dao.getReservationByID(1));
     }
 }

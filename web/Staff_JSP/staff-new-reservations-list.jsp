@@ -85,15 +85,14 @@
 
                     <!-- Filter and Search Form -->
 
-                    <form action="${pageContext.request.contextPath}/staff/searchstaff" method="get" class="filter-form">
+                    <form action="${pageContext.request.contextPath}/staff/searchnewreservation" method="get" class="filter-form">
                         <div class="filter-group">
                             <div class="filter-group">
-                                <input type="text" id="searchInput" name="keyword" placeholder="Tìm theo tên nhân viên" />
-                                <select class="form-control" id="specializationID" name="specializationID">
+                                <input type="text" id="searchInput" name="keyword" placeholder="Tìm theo tên khách hàng" />
+                                <select class="form-control" id="timeOfDay" name="timeOfDay">
                                     <option value="">Chọn thời gian khám</option>
-                                    <c:forEach var="specialization" items="${specializations}">
-                                        <option value="${specialization.specializationID}">${specialization.specializationName}</option>
-                                    </c:forEach>
+                                        <option value="morning">Buổi sáng</option>
+                                        <option value="afternoon">Buổi tối</option>
                                 </select>
                                 <button type="submit"><i class="fas fa-filter"></i> Lọc và tìm kiếm</button>
                             </div>
@@ -176,7 +175,7 @@
                                         </td>
                                         <td class="table-td-center">
                                             <button class="btn btn-primary btn-sm" type="button" title="detail" id="show-emp">
-                                                <a href="${pageContext.request.contextPath}/manager/viewreservation?reservationID=${reservation.reservationID}"><i class="fas fa-eye"></i>
+                                                <a href="${pageContext.request.contextPath}/staff/viewreservation?reservationID=${reservation.reservationID}"><i class="fas fa-eye"></i>
                                                 Chi tiết</a>
                                             </button>
                                         </td>

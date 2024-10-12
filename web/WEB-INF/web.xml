@@ -249,8 +249,16 @@
         <servlet-class>controller.AddMedicalRecord</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>StaffSearchReservationServlet</servlet-name>
-        <servlet-class>controller.StaffSearchReservationServlet</servlet-class>
+        <servlet-name>StaffSearchNewReservationServlet</servlet-name>
+        <servlet-class>controller.StaffSearchNewReservationServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>StaffSearchOldReservationServlet</servlet-name>
+        <servlet-class>controller.StaffSearchOldReservationServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>StaffViewReservationServlet</servlet-name>
+        <servlet-class>controller.StaffViewReservationServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
@@ -493,7 +501,15 @@
         <url-pattern>/addmedicalrecord</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>StaffSearchReservationServlet</servlet-name>
-        <url-pattern>/staff/searchreservation</url-pattern>
+        <servlet-name>StaffSearchNewReservationServlet</servlet-name>
+        <url-pattern>/staff/searchnewreservation</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StaffSearchOldReservationServlet</servlet-name>
+        <url-pattern>/staff/searcholdreservation</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StaffViewReservationServlet</servlet-name>
+        <url-pattern>/staff/viewreservation</url-pattern>
     </servlet-mapping>
 </web-app>

@@ -112,8 +112,9 @@
             <%@ include file="leftside.jsp" %>
             <main>
                 <section class="dashboard">
-                    <h2><i class="fas fa-concierge-bell"></i> Thông tin chi tiết của dịch vụ</h2>
-                    <a href="${pageContext.request.contextPath}/staff/serviceslist" class="back-link">Trở về</a>
+                    <h2><i class="fas fa-concierge-bell"></i> Thông tin chi tiết của lịch khám</h2>
+                    <a href="${pageContext.request.contextPath}/staff/newreservationslist" class="back-link">Lịch khám mới</a>
+                    <a href="${pageContext.request.contextPath}/staff/oldreservationslist" class="back-link">Lịch đã khám</a>
 
                     <style>
                         .detail-container {
@@ -187,10 +188,8 @@
                     </style>
 
                     <div class="detail-container">
-                        <img src="${pageContext.request.contextPath}/${service.serviceImage}" 
-                             alt="${service.serviceName}" class="service-image">
                         <div class="detail-item">
-                            <label>Tên dịch vụ:</label>
+                            <label>Tên trẻ:</label>
                             <span>${service.serviceName}</span>
                         </div>
                         <div class="detail-item">
