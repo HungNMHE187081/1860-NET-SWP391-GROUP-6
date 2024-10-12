@@ -36,20 +36,20 @@ public class StaffViewReservationServlet extends HttpServlet {
         int reservationID = Integer.parseInt(request.getParameter("reservationID"));
                 
         ReservationDAO reservationDAO = new ReservationDAO();
-        Reservation reservations = reservationDAO.getReservationByID(reservationID);
+        Reservation reservation = reservationDAO.getReservationByID(reservationID);
         OrderDAO orderDAO = new OrderDAO();
-        List<OrderItem> orderItems = orderDAO.getAllOrderItems();
-        List<Order> orders = orderDAO.getAllCheckOutOrders();
+        OrderItem orderItem = orderDAO.getOrderItemsByOrderItemID(reservation.getOrderItemID());
+        Order order = orderDAO.getOrdersByOrderID(orderItem.getOrderID());
         ChildrenDAO childrenDAO = new ChildrenDAO();
-        List<Children> children = childrenDAO.getAllChildren();
+        Children child = childrenDAO.getChildrenByID(orderItem.getChildID());
         ManagerUserDAO managerUserDAO = new ManagerUserDAO();
-        List<Users> users = managerUserDAO.getAllUsers();
+        Users user = managerUserDAO.getDetailUserByUserID(order.getCustomerID());
      
-        request.setAttribute("reservations", reservations);
-        request.setAttribute("children", children);
-        request.setAttribute("users", users);
-        request.setAttribute("orders", orders);
-        request.setAttribute("orderItems", orderItems);
+        request.setAttribute("reservation", reservation);
+        request.setAttribute("child", child);
+        request.setAttribute("user", user);
+        request.setAttribute("order", order);
+        request.setAttribute("orderItem", orderItem);
         request.getRequestDispatcher("/Staff_JSP/staff-view-reservation.jsp").forward(request, response);
     } 
 

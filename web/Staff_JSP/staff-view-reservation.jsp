@@ -45,7 +45,7 @@
                 flex-direction: column;
             }
 
-            .service-image {
+            .child-image {
                 max-width: 300px;
                 max-height: 300px;
                 margin-bottom: 20px;
@@ -133,7 +133,7 @@
                             margin: 0 auto; /* Center align */
                         }
 
-                        .service-image {
+                        .child-image {
                             max-width: 100%;
                             height: auto;
                             border-radius: 10px;
@@ -188,9 +188,15 @@
                     </style>
 
                     <div class="detail-container">
+                        <img src="${pageContext.request.contextPath}/${child.childImage}" 
+                             alt="${child.firstName} ${child.middleName} ${child.lastName}" class="child-image">
                         <div class="detail-item">
                             <label>Tên trẻ:</label>
-                            <span>${service.serviceName}</span>
+                            <span>${child.firstName} ${child.middleName} ${child.lastName}</span>
+                        </div>
+                        <div class="detail-item">
+                            <label>Tên khách hàng:</label>
+                            <span>${user.firstName} ${user.middleName} ${user.lastName}</span>
                         </div>
                         <div class="detail-item">
                             <label>Độ tuổi:</label>

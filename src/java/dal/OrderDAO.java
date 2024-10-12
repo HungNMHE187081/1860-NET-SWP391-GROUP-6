@@ -74,6 +74,27 @@ public class OrderDAO extends DBContext {
         return list;
     }
     
+        public Order getOrdersByOrderID(int OrderID) {
+        Order order = new Order();
+        String sql = "SELECT * FROM Orders WHERE OrderID = ?";
+        try {
+            PreparedStatement pre = connection.prepareStatement(sql);
+            pre.setInt(1, OrderID);
+            try(ResultSet rs = pre.executeQuery()){
+            if (rs.next()) {
+                order.setOrderID(OrderID);
+                order.setCustomerID(rs.getInt("CustomerID"));
+                order.setQuantity(rs.getInt("Quantity"));
+                order.setTotalPrice(rs.getDouble("TotalPrice"));
+                order.setOrderDate(rs.getString("OrderDate"));
+                order.setIsCheckOut(rs.getBoolean("isCheckOut"));
+            }
+            }
+        } catch (SQLException e) {
+        }
+        return order;
+    }
+    
         public List<OrderItem> getOrderItemsByOrderID(int OrderID) {
         List<OrderItem> list = new ArrayList<>();
         String sql = "SELECT * FROM OrderItems WHERE OrderID = ?";
@@ -92,10 +113,46 @@ public class OrderDAO extends DBContext {
         }
         return list;
     }
-        
-        public void addOrderItem(OrderItem orderItem){
-            String sql = "";
+    
+        public OrderItem getOrderItemsByOrderItemID(int orderItemID) {
+        OrderItem orderItem = new OrderItem();
+        String sql = "SELECT * FROM OrderItems WHERE OrderItemID = ?";
+        try {
+            PreparedStatement pre = connection.prepareStatement(sql);
+            pre.setInt(1, orderItemID);
+            try(ResultSet rs = pre.executeQuery()){
+            if (rs.next()) {
+                orderItem.setOrderItemID(rs.getInt("OrderItemID"));
+                orderItem.setOrderID(rs.getInt("OrderID"));
+                orderItem.setServiceID(rs.getInt("ServiceID"));
+                orderItem.setChildID(rs.getInt("ChildID"));
+            }
+            }
+        } catch (SQLException e) {
         }
+        return orderItem;
+    }
+        
+        public Order getOrderByCustomerID(int CustomerID) {
+        Order order = new Order();
+        String sql = "SELECT * FROM Order WHERE CustomerID = ?";
+        try {
+            PreparedStatement pre = connection.prepareStatement(sql);
+            pre.setInt(1, CustomerID);
+            try(ResultSet rs = pre.executeQuery()){
+            if (rs.next()) {
+                order.setOrderID(rs.getInt("OrderID"));
+                order.setCustomerID(CustomerID);
+                order.setQuantity(rs.getInt("Quantity"));
+                order.setTotalPrice(rs.getDouble("TotalPrice"));
+                order.setOrderDate(rs.getString("OrderDate"));
+                order.setIsCheckOut(rs.getBoolean("isCheckOut"));
+            }
+            }
+        } catch (SQLException e) {
+        }
+        return order;
+    }
 
     public static void main(String[] args) {
         OrderDAO dao = new OrderDAO();

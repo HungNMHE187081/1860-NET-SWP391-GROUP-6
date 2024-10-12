@@ -176,8 +176,10 @@ CREATE TABLE Reservations (
 	OrderItemID INT,
     ReservationDate DATE,
     StartTime TIME,
+	StaffID INT,
 	isExam BIT,
-	FOREIGN KEY (OrderItemID) REFERENCES OrderItems(OrderItemID) ON DELETE CASCADE,
+	FOREIGN KEY (OrderItemID) REFERENCES OrderItems(OrderItemID) ON DELETE NO ACTION,
+	FOREIGN KEY (StaffID) REFERENCES Staff(StaffID) ON DELETE CASCADE,
 );
 
 -- Create MedicalRecords table
@@ -641,6 +643,18 @@ VALUES
 (3, N'Lê', N'Minh', N'F', '2015-10-20', N'Nam', NULL);
 
 
+INSERT INTO HealthMetrics (ChildID, Height, Weight, BMI, RecordDate)
+VALUES (1, 120.5, 45.6, 18.7, '2024-10-07');
+INSERT INTO Allergies (ChildID, AllergyName, Severity, DiagnosedDate)
+VALUES (1, 'Peanut Allergy', 'Severe', '2022-05-15');
+INSERT INTO Immunizations (ChildID, VaccineName, DateAdministered, NextDueDate)
+VALUES (1, 'MMR Vaccine', '2023-03-10', '2024-03-10');
+INSERT INTO DietaryRestrictions (ChildID, Restriction, Reason)
+VALUES (1, 'Lactose Intolerance', 'Causes stomach pain and discomfort');
+INSERT INTO EmergencyContacts (ChildID, ContactName, Relationship, PhoneNumber)
+VALUES (1, 'John Doe', 'Father', '0987654321');
+
+
 INSERT INTO Orders (CustomerID, OrderDate, TotalPrice, isCheckOut)
 VALUES (1, GETDATE(), 1250000.0, 1);
 
@@ -652,31 +666,21 @@ INSERT INTO OrderItems (OrderID, ServiceID, ChildID)
 VALUES (1, 1, 1);
 
 INSERT INTO OrderItems (OrderID, ServiceID, ChildID)
-VALUES (1, 2, 1);
+VALUES (1, 2, 2);
 
 INSERT INTO OrderItems (OrderID, ServiceID, ChildID)
 VALUES (2, 2, 2);
 
 INSERT INTO OrderItems (OrderID, ServiceID, ChildID)
-VALUES (2, 2, 2);
+VALUES (2, 2, 3);
 
 -- Insert dữ liệu vào bảng Reservations
-INSERT INTO Reservations (OrderItemID, ReservationDate, StartTime, isExam)
-VALUES (1, '2023-10-01', '09:00:00', 1),
-	   (2, '2023-10-01', '10:00:00', 0),
-       (2, '2023-10-01', '19:00:00', 1),
-       (3, '2023-10-02', '11:00:00', 0);
-
-INSERT INTO HealthMetrics (ChildID, Height, Weight, BMI, RecordDate)
-VALUES (1, 120.5, 45.6, 18.7, '2024-10-07');
-INSERT INTO Allergies (ChildID, AllergyName, Severity, DiagnosedDate)
-VALUES (1, 'Peanut Allergy', 'Severe', '2022-05-15');
-INSERT INTO Immunizations (ChildID, VaccineName, DateAdministered, NextDueDate)
-VALUES (1, 'MMR Vaccine', '2023-03-10', '2024-03-10');
-INSERT INTO DietaryRestrictions (ChildID, Restriction, Reason)
-VALUES (1, 'Lactose Intolerance', 'Causes stomach pain and discomfort');
-INSERT INTO EmergencyContacts (ChildID, ContactName, Relationship, PhoneNumber)
-VALUES (1, 'John Doe', 'Father', '0987654321');
+INSERT INTO Reservations (OrderItemID, ReservationDate, StartTime, StaffID, isExam)
+VALUES (1, '2023-10-01', '09:00:00', 1, 1),
+	   (2, '2023-10-01', '10:00:00', 2, 0),
+       (2, '2023-10-01', '19:00:00', 1, 1),
+       (3, '2023-10-02', '11:00:00', 3, 0),
+	   (4, '2023-1-22', '13:30:00', NULL, 1);
 
 
 -- Cập nhật Quantity trong bảng Orders
@@ -708,25 +712,3 @@ select * from Orders
 select * from OrderItems 
 
 SELECT * FROM Reservations WHERE ReservationID = 4 and IsExam = 0
-
-SELECT 
-    u.UserID AS CustomerID,
-    CONCAT(u.FirstName, ' ', u.MiddleName, ' ', u.LastName) AS CustomerName,
-    c.ChildID AS ChildID,
-    CONCAT(c.FirstName, ' ', c.MiddleName, ' ', c.LastName) AS ChildName,
-    s.ServiceID AS ServiceID,
-    s.ServiceName AS ServiceName,
-    r.ReservationDate
-FROM 
-    Users u
-JOIN 
-    Children c ON u.UserID = c.CustomerID
-JOIN 
-    OrderItems oi ON c.ChildID = oi.ChildID
-JOIN 
-    Services s ON oi.ServiceID = s.ServiceID
-JOIN 
-    Reservations r ON oi.OrderItemID = r.OrderItemID
-WHERE 
-    s.ServiceName LIKE N'Khám%' 
-    AND r.isExam = 1;
