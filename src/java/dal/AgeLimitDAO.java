@@ -30,8 +30,27 @@ public class AgeLimitDAO extends DBContext{
         return list;
     }
     
+    public AgeLimits getAgeLimitByID(int AgeLimitID){
+        String sql = "SELECT * FROM AgeLimits WHERE AgeLimitID = ?";
+        try{
+            PreparedStatement pre = connection.prepareStatement(sql);
+            pre.setInt(1, AgeLimitID);
+            try (ResultSet rs = pre.executeQuery()){
+                if (rs.next()){
+                    AgeLimits ageLimits = new AgeLimits();
+                    ageLimits.setAgeLimit(rs.getString("AgeLimit"));
+                    return ageLimits;
+                }
+            }
+        }
+        catch (SQLException e){
+            
+        }
+        return null;
+    }
+    
     public static void main(String[] args) {
         AgeLimitDAO dao = new AgeLimitDAO();
-        System.out.println(dao.getAllAgeLimits().size());
+        System.out.println(dao.getAgeLimitByID(1).getAgeLimit());
     }
 }

@@ -115,6 +115,9 @@
                     <h2><i class="fas fa-concierge-bell"></i> Thông tin chi tiết của lịch khám</h2>
                     <a href="${pageContext.request.contextPath}/staff/newreservationslist" class="back-link">Lịch khám mới</a>
                     <a href="${pageContext.request.contextPath}/staff/oldreservationslist" class="back-link">Lịch đã khám</a>
+                    <c:if test="${reservation.isExam == true}">
+                        <a href="${pageContext.request.contextPath}/staff/oldreservationslist" class="back-link">Thêm kết quả khám</a>
+                    </c:if>
 
                     <style>
                         .detail-container {
@@ -199,41 +202,40 @@
                             <span>${user.firstName} ${user.middleName} ${user.lastName}</span>
                         </div>
                         <div class="detail-item">
-                            <label>Độ tuổi:</label>
+                            <label>Ngày sinh:</label>
                             <span>
-                                <c:forEach var="ageLimit" items="${ageLimits}">
-                                    <c:if test="${ageLimit.ageLimitID == service.ageLimitID}">
-                                        ${ageLimit.ageLimit}
-                                    </c:if>
-                                </c:forEach>
+                                <fmt:parseDate value="${child.dateOfBirth}" pattern="yyyy-MM-dd" var="parsedDateOfBirth" />
+                                <fmt:formatDate value="${child.dateOfBirth}" pattern="dd-MM-yyyy" />
                             </span>
                         </div>
                         <div class="detail-item">
-                            <label>Loại dịch vụ:</label>
+                            <label>Nhóm tuổi:</label>
+                            <span>${ageLimits.ageLimit}</span>
+                        </div>
+                        <div class="detail-item">
+                            <label>Tên dịch vụ:</label>
+                            <span>${service.serviceName}</span>
+                        </div>
+                        <div class="detail-item">
+                            <label>Nhân viên chính:</label>
+                            <span>${staff.staffName}</span>
+                        </div>
+                        <div class="detail-item">
+                            <label>Ngày khám:</label>
                             <span>
-                                <c:forEach var="category" items="${categories}">
-                                    <c:if test="${category.categoryID == service.categoryID}">
-                                        ${category.categoryName}
-                                    </c:if>
-                                </c:forEach>
+                                <fmt:parseDate value="${reservation.reservationDate}" pattern="yyyy-MM-dd" var="parsedReservationDate" />
+                                <fmt:formatDate value="${parsedReservationDate}" pattern="dd-MM-yyyy" />
                             </span>
                         </div>
                         <div class="detail-item">
-                            <label>Nhân viên thực hiện dịch vụ:</label>
+                            <label>Giờ khám:</label>
                             <span>
-                                <c:forEach var="degree" items="${degrees}">
-                                    <c:if test="${degree.degreeID == service.degreeID}">
-                                        ${degree.degreeName}
-                                    </c:if>
-                                </c:forEach>
+                                <fmt:parseDate value="${reservation.startTime}" pattern="HH:mm:ss" var="parsedStartTime" />
+                                <fmt:formatDate value="${parsedStartTime}" pattern="hh:mm a" />
                             </span>
                         </div>
                         <div class="detail-item">
-                            <label>Giá:</label>
-                            <span><fmt:formatNumber value="${service.price}" type="number" groupingUsed="true" />₫</span>
-                        </div>
-                        <div class="detail-item">
-                            <label>Mô tả:</label>
+                            <label>Mô tả dịch vụ:</label>
                             <span style="white-space: pre-line;">${service.description}</span>
                         </div>
                     </div>

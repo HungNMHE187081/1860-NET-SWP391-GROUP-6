@@ -5,10 +5,13 @@
 
 package controller;
 
+import dal.AgeLimitDAO;
 import dal.ChildrenDAO;
 import dal.ManagerUserDAO;
 import dal.OrderDAO;
 import dal.ReservationDAO;
+import dal.ServiceDAO;
+import dal.StaffDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -18,10 +21,13 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import model.AgeLimits;
 import model.Children;
 import model.Order;
 import model.OrderItem;
 import model.Reservation;
+import model.Service;
+import model.Staff;
 import model.Users;
 
 /**
@@ -44,12 +50,21 @@ public class StaffViewReservationServlet extends HttpServlet {
         Children child = childrenDAO.getChildrenByID(orderItem.getChildID());
         ManagerUserDAO managerUserDAO = new ManagerUserDAO();
         Users user = managerUserDAO.getDetailUserByUserID(order.getCustomerID());
+        ServiceDAO serviceDAO = new ServiceDAO();
+        Service service = serviceDAO.getServiceByID(orderItem.getServiceID());
+        AgeLimitDAO ageLimitDAO = new AgeLimitDAO();
+        AgeLimits ageLimits = ageLimitDAO.getAgeLimitByID(service.getAgeLimitID());
+        StaffDAO staffDAO = new StaffDAO();
+        Staff staff = staffDAO.getStaffByID(reservation.getStaffID());
      
         request.setAttribute("reservation", reservation);
         request.setAttribute("child", child);
         request.setAttribute("user", user);
         request.setAttribute("order", order);
         request.setAttribute("orderItem", orderItem);
+        request.setAttribute("service", service);
+        request.setAttribute("ageLimits", ageLimits);
+        request.setAttribute("staff", staff);
         request.getRequestDispatcher("/Staff_JSP/staff-view-reservation.jsp").forward(request, response);
     } 
 

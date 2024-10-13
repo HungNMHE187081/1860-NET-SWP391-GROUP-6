@@ -712,3 +712,4 @@ select * from Orders
 select * from OrderItems 
 
 SELECT * FROM Reservations WHERE ReservationID = 4 and IsExam = 0
+

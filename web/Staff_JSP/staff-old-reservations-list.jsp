@@ -91,8 +91,8 @@
                                 <input type="text" id="searchInput" name="keyword" placeholder="Tìm theo tên khách hàng" />
                                 <select class="form-control" id="timeOfDay" name="timeOfDay">
                                     <option value="">Chọn thời gian khám</option>
-                                        <option value="morning">Buổi sáng</option>
-                                        <option value="afternoon">Buổi tối</option>
+                                    <option value="morning">Buổi sáng</option>
+                                    <option value="afternoon">Buổi tối</option>
                                 </select>
                                 <button type="submit"><i class="fas fa-filter"></i> Lọc và tìm kiếm</button>
                             </div>
@@ -103,8 +103,9 @@
                         <thead>
                             <tr>
                                 <th>STT</th>
-                                <th>Tên khách hàng</th>
+                                <th>Ảnh của trẻ</th>
                                 <th>Tên trẻ</th>
+                                <th>Tên khách hàng</th>
                                 <th>Ngày khám</th>
                                 <th>Giờ khám</th>
                                 <th>Chức năng</th>
@@ -145,13 +146,10 @@
                                         <td>
                                             <c:forEach var="orderItem" items="${orderItems}">
                                                 <c:if test="${orderItem.orderItemID == reservation.orderItemID}">
-                                                    <c:forEach var="order" items="${orders}">
-                                                        <c:if test="${order.orderID == orderItem.orderID}">
-                                                            <c:forEach var="user" items="${users}">
-                                                                <c:if test="${user.userID == order.customerID}">
-                                                                    ${user.firstName} ${user.middleName} ${user.lastName}
-                                                                </c:if>
-                                                            </c:forEach>
+                                                    <c:forEach var="child" items="${children}">
+                                                        <c:if test="${child.childID == orderItem.childID}">
+                                                            <img src="${pageContext.request.contextPath}/${child.childImage}" 
+                                                                 alt="${child.firstName} ${child.middleName} ${child.lastName}" class="child-image">
                                                         </c:if>
                                                     </c:forEach>
                                                 </c:if>
@@ -168,15 +166,38 @@
                                                 </c:if>
                                             </c:forEach>
                                         </td>
-                                        <td>${reservation.reservationDate}</td>
+                                        <td>
+                                            <c:forEach var="orderItem" items="${orderItems}">
+                                                <c:if test="${orderItem.orderItemID == reservation.orderItemID}">
+                                                    <c:forEach var="order" items="${orders}">
+                                                        <c:if test="${order.orderID == orderItem.orderID}">
+                                                            <c:forEach var="user" items="${users}">
+                                                                <c:if test="${user.userID == order.customerID}">
+                                                                    ${user.firstName} ${user.middleName} ${user.lastName}
+                                                                </c:if>
+                                                            </c:forEach>
+                                                        </c:if>
+                                                    </c:forEach>
+                                                </c:if>
+                                            </c:forEach>
+                                        </td>
+                                        <td>
+                                            <fmt:parseDate value="${reservation.reservationDate}" pattern="yyyy-MM-dd" var="parsedReservationDate" />
+                                            <fmt:formatDate value="${parsedReservationDate}" pattern="dd-MM-yyyy" />
+                                        </td>
                                         <td>
                                             <fmt:parseDate value="${reservation.startTime}" pattern="HH:mm:ss" var="parsedStartTime" />
                                             <fmt:formatDate value="${parsedStartTime}" pattern="hh:mm a" />
                                         </td>
                                         <td class="table-td-center">
-                                            <button class="btn btn-primary btn-sm" type="button" title="detail" id="show-emp">
-                                                <a href="${pageContext.request.contextPath}/staff/viewreservation?reservationID=${reservation.reservationID}"><i class="fas fa-eye"></i>
-                                                    Chi tiết</a>
+                                            <button class="btn-primary btn-sm" type="button" title="detail" id="show-emp">
+                                                <a href="${pageContext.request.contextPath}/staff/viewreservation?reservationID=${reservation.reservationID}" title="View">
+                                                    <i class="fas fa-eye"></i></a>
+                                            </button>
+                                            <button class="btn-primary btn-sm" type="button" title="detail" id="show-emp">
+                                                <a href="addservice" title="Thêm">
+                                                    <i class="fas fa-plus"></i>
+                                                </a>
                                             </button>
 
                                         </td>

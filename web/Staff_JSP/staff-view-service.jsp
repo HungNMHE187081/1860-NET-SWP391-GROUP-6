@@ -228,6 +228,10 @@
                             <span><fmt:formatNumber value="${service.price}" type="number" groupingUsed="true" />₫</span>
                         </div>
                         <div class="detail-item">
+                            <label>Thời gian khám tối đa:</label>
+                            <span>${service.duration} phút</span>
+                        </div>
+                        <div class="detail-item">
                             <label>Mô tả:</label>
                             <span style="white-space: pre-line;">${service.description}</span>
                         </div>
