@@ -196,7 +196,6 @@ CREATE TABLE MedicalRecords (
     FOREIGN KEY (StaffID) REFERENCES Staff(StaffID) ON DELETE CASCADE,
     FOREIGN KEY (ReservationID) REFERENCES Reservations(ReservationID)
 );
-
 -- Create MedicineCategory table
 CREATE TABLE MedicineCategory (
     CategoryID INT PRIMARY KEY IDENTITY(1,1),  
@@ -691,7 +690,7 @@ SET Quantity = (
     WHERE OrderItems.OrderID = Orders.OrderID
 );
 
-CREATE VIEW StaffView AS
+/*CREATE VIEW StaffView AS
 SELECT u.UserID AS StaffID, 
        u.FirstName + ' ' + u.MiddleName + ' ' + u.LastName AS StaffName, 
        s.YearsOfExperience, 
@@ -711,5 +710,6 @@ select * from Orders
 
 select * from OrderItems 
 
-SELECT * FROM Reservations WHERE ReservationID = 4 and IsExam = 0
+SELECT * FROM Reservations WHERE ReservationID = 4 and IsExam = 0*/
 
+select r.ReservationID, r.OrderItemID, r.StaffID, o.ServiceID, o.ChildID from Reservations r join OrderItems o on r.OrderItemID = o.OrderItemID

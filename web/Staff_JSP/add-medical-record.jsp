@@ -124,9 +124,13 @@
                 height: auto; /* Maintain aspect ratio */
             }
             button {
+                background-color: #4CAF50;
+                color: white;
                 border: none;
-                background: none;
+                padding: 10px;
                 cursor: pointer;
+                border-radius: 5px;
+                font-size: 16px;
             }
             input[type="text"], input[type="number"], input[type="date"], textarea {
                 width: 100%; /* Full width for inputs */
@@ -164,29 +168,35 @@
             </c:if>
             <form action="${pageContext.request.contextPath}/addMedicalRecord" method="post">
                 <input type="hidden" name="reservationID" value="${reservationID}">
+                <input type="hidden" name="childID" value="${childID}">
+                <label for="childName">Tên trẻ được khám:</label>
+                <input type="text" id="childName" name="childName" 
+                       value="${children.firstName} ${children.middleName} ${children.lastName} " readonly>
 
-                <label for="childName">Child Name:</label>
-                <input type="text" id="childName" name="childName" value="${childName}" readonly>
 
-                <label for="staffName">Staff Name:</label>
+                <label for="staffName">Tên nhân viên thực khám:</label>
                 <input type="text" id="staffID" name="staffID" value="${staffID}" readonly>
 
                 <label for="serviceName">Ngày khám: </label>
                 <input type="text" id="reservationDate" name="reservationDate" value="${reservationDate}" readonly>
 
-                <label for="diagnosis">Diagnosis:</label>
+                <label for="diagnosis">Chẩn đoán: </label>
                 <textarea id="diagnosis" name="diagnosis" required></textarea><br>
 
-                <label for="treatment">Treatment:</label>
+                <label for="treatment">Phương pháp điều trị: </label>
                 <textarea id="treatment" name="treatment" required></textarea><br>
 
-                <label for="notes">Notes:</label>
+                <label for="notes">Ghi chú: </label>
                 <textarea id="notes" name="notes"></textarea><br>
 
-                <label for="recordDate">Record Date:</label>
+                <label for="recordDate">Ngày thực hiện:</label>
                 <input type="date" id="recordDate" name="recordDate" value = "<%= new SimpleDateFormat("yyyy-MM-dd").format(new Date()) %>" readonly><br>
 
-                <input type="submit" value="Add Medical Record">
+                <button type="submit">Thêm lịch sử khám</button>
+                <center>
+                    <a href="staff/oldreservationslist"> Quay lại danh sách đã khám </a>
+                </center>
+
             </form>
         </main>
 

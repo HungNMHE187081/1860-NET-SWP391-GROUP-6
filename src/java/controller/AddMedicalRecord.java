@@ -4,6 +4,7 @@
  */
 package controller;
 
+import dal.ChildrenDAO;
 import java.sql.*;
 import dal.MedicalRecordDAO;
 import java.io.IOException;
@@ -17,6 +18,7 @@ import java.sql.Date; // Import java.sql.Date instead of java.util.Date
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import model.Children;
 import model.MedicalRecord;
 
 /**
@@ -63,28 +65,32 @@ public class AddMedicalRecord extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String reservationID = request.getParameter("reservationID");
-        String childName = request.getParameter("childName");
         String staffID_raw = request.getParameter("staffID");
         String reservationDate = request.getParameter("reservationDate");
+
+        String childID_raw = request.getParameter("childID");
+        ChildrenDAO childrenDAO = new ChildrenDAO();
+        Children children = new Children();
 
         try {
             // Parse the staffID as an integer
             int staffID = Integer.parseInt(staffID_raw);
-
+            int childID = Integer.parseInt(childID_raw);
+            children = childrenDAO.getChildrenByID(childID);
             // Set attributes to be accessed in the JSP
             request.setAttribute("reservationID", reservationID);
-            request.setAttribute("childName", childName);
+            request.setAttribute("children", children);
+
             request.setAttribute("staffID", staffID);
+            request.setAttribute("childID", childID);
             request.setAttribute("reservationDate", reservationDate);
 
         } catch (NumberFormatException e) {
             // Handle the case where staffID cannot be parsed to an integer
-            // You may want to log this exception or set an error attribute for the JSP
-            e.printStackTrace(); // For debugging purposes; consider using a logger
+            e.printStackTrace(); // For debugging purposes
             request.setAttribute("error", "Invalid staff ID");
         }
 
@@ -121,6 +127,7 @@ public class AddMedicalRecord extends HttpServlet {
             response.sendRedirect("addMedicalRecord.jsp?error=true");
         }
     }
+
 }
 
 /**
