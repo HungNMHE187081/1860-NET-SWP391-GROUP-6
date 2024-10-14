@@ -604,16 +604,18 @@ VALUES
 (N'Trần', N'Thị', N'B', 'tranthib@example.com', '0987654321', '2012-05-15', N'Nữ', '987654321', NULL),
 (N'Lê',N'Minh', N'C', 'leminhc@example.com', '0112233445', '2015-10-20', N'Nam', '192837465', NULL);
 
-INSERT INTO UserAddresses (UserID, WardID, StreetAddress)
-VALUES 
-(1, 1,N'123 Đường ABC, Phường Bến Nghé'),
-(2, 2, N'456 Đường DEF, Phường An Khánh'),
-(3, 1, N'789 Đường GHI, Phường Bến Thành');
 INSERT INTO UserRoles (UserID, RoleID)
 VALUES 
 (1, 5), -- Người dùng 1 được gán vai trò Customer
 (2, 5), -- Người dùng 2 được gán vai trò Customer
 (3, 3); 
+
+INSERT INTO UserAddresses (UserID, WardID, StreetAddress)
+VALUES 
+(1, 1,N'123 Đường ABC, Phường Bến Nghé'),
+(2, 2, N'456 Đường DEF, Phường An Khánh'),
+(3, 1, N'789 Đường GHI, Phường Bến Thành');
+
 INSERT INTO UserAuthentication (UserID, Username, PasswordHash, Salt, LastLogin)
 VALUES 
 (1, 'user1', 'hashed_password1', 'salt1', GETDATE()),
@@ -626,13 +628,6 @@ VALUES
     (1, 1, N'Nguyễn Văn A', N'nguyenvana@example.com', '1234567890', 5, N'Xuất sắc', N'Dịch vụ tuyệt vời!', N'Không có', '/attachments/feedback1.jpg',  1),
     (2, 2, N'Trần Thị B', N'tranthib@example.com', '0987654321', 4, N'Tốt', N'Hài lòng với dịch vụ', N'Tùy chọn giá cả tốt hơn', '/attachments/feedback2.jpg', 1),
     (3, 3, N'Lê Minh C', N'leminhc@example.com', '1231231234', 3, N'Trung bình', N'Dịch vụ tạm ổn', N'Cải thiện thời gian phản hồi', '/attachments/feedback3.jpg', 0);
-
-
--- Insert dữ liệu vào bảng Staff
-INSERT INTO Staff (StaffID, StaffName, YearsOfExperience, SpecializationID, DegreeID, HireDate, Salary) VALUES
-(1, N'Nguyễn Văn A', 5, 1, 1, '2015-01-01', 5000000),
-(2, N'Trần Thị B', 3, 2, 2, '2018-05-15', 4000000),
-(3, N'Lê Minh C', 2, 3, 3, '2020-10-20', 3000000);
 
 
 INSERT INTO Children (CustomerID, FirstName, MiddleName, LastName, DateOfBirth, Gender, ChildImage)
@@ -654,32 +649,36 @@ INSERT INTO EmergencyContacts (ChildID, ContactName, Relationship, PhoneNumber)
 VALUES (1, 'John Doe', 'Father', '0987654321');
 
 
-INSERT INTO Orders (CustomerID, OrderDate, TotalPrice, isCheckOut)
-VALUES (1, GETDATE(), 1250000.0, 1);
-
-INSERT INTO Orders (CustomerID, OrderDate, TotalPrice, isCheckOut)
-VALUES (2, GETDATE(), 750000.0, 1);
+INSERT INTO Staff (StaffID, StaffName, YearsOfExperience, SpecializationID, DegreeID, HireDate, Salary)
+VALUES 
+(3, N'Lê Minh C', 5, 1, 1, '2020-01-15', 50000.0);
 
 
-INSERT INTO OrderItems (OrderID, ServiceID, ChildID)
-VALUES (1, 1, 1);
+INSERT INTO Orders (CustomerID, TotalPrice, OrderDate, isCheckOut)
+VALUES 
+(1, 150000, GETDATE(), 0),
+(1, 750000, GETDATE(), 1),
+(2, 225000, GETDATE(), 0);
 
-INSERT INTO OrderItems (OrderID, ServiceID, ChildID)
-VALUES (1, 2, 2);
-
-INSERT INTO OrderItems (OrderID, ServiceID, ChildID)
-VALUES (2, 2, 2);
 
 INSERT INTO OrderItems (OrderID, ServiceID, ChildID)
-VALUES (2, 2, 3);
+VALUES 
+(1, 1, 1),
+(1, 2, 2),
+(2, 1, 3),
+(3, 3, 1),
+(3, 2, 2),
+(3, 1, 3);
 
--- Insert dữ liệu vào bảng Reservations
+
 INSERT INTO Reservations (OrderItemID, ReservationDate, StartTime, StaffID, isExam)
-VALUES (1, '2023-10-01', '09:00:00', 1, 1),
-	   (2, '2023-10-01', '10:00:00', 2, 0),
-       (2, '2023-10-01', '19:00:00', 1, 1),
-       (3, '2023-10-02', '11:00:00', 3, 0),
-	   (4, '2023-1-22', '13:30:00', NULL, 1);
+VALUES 
+(1, '2023-10-05', '09:00:00', 3, 0),
+(2, '2023-10-06', '10:00:00', 3, 1),
+(3, '2023-10-07', '11:00:00', 3, 0),
+(4, '2023-10-08', '12:00:00', 3, 1),
+(5, '2023-10-09', '13:00:00', 3, 0),
+(6, '2023-10-10', '14:00:00', 3, 1);
 
 
 -- Cập nhật Quantity trong bảng Orders
@@ -704,7 +703,7 @@ JOIN Roles r ON ur.RoleID = r.RoleID
 JOIN Staff s ON u.UserID = s.StaffID
 WHERE r.RoleID IN (3, 4); 
 
-select * from Children
+select * from Staff
 
 select * from Orders
 

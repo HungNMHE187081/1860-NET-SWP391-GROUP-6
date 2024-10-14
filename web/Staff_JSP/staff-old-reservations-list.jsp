@@ -112,102 +112,72 @@
                         </thead>
                         <tbody>
                             <c:forEach var="reservation" items="${reservations}" varStatus="status">
-
-    <c:set var="hasCustomer" value="false" />
-    <c:set var="hasChild" value="false" />
-
-    <c:forEach var="orderItem" items="${orderItems}">
-        <c:if test="${orderItem.orderItemID == reservation.orderItemID}">
-            <c:forEach var="order" items="${orders}">
-                <c:if test="${order.orderID == orderItem.orderID}">
-                    <c:forEach var="user" items="${users}">
-                        <c:if test="${user.userID == order.customerID}">
-                            <c:set var="hasCustomer" value="true" />
-                        </c:if>
-                    </c:forEach>
-                </c:if>
-            </c:forEach>
-        </c:if>
-    </c:forEach>
-
-    <c:forEach var="orderItem" items="${orderItems}">
-        <c:if test="${orderItem.orderItemID == reservation.orderItemID}">
-            <c:forEach var="child" items="${children}">
-                <c:if test="${child.childID == orderItem.childID}">
-                    <c:set var="hasChild" value="true" />
-                    <c:set var="childID" value="${child.childID}" /> <!-- Store childID -->
-                </c:if>
-            </c:forEach>
-        </c:if>
-    </c:forEach>
-
-    <c:if test="${hasCustomer && hasChild}">
-        <tr>
-            <td>${status.index + 1}</td>
-            <td>
-                <c:forEach var="orderItem" items="${orderItems}">
-                    <c:if test="${orderItem.orderItemID == reservation.orderItemID}">
-                        <c:forEach var="child" items="${children}">
-                            <c:if test="${child.childID == orderItem.childID}">
-                                <img src="${pageContext.request.contextPath}/${child.childImage}" 
-                                     alt="${child.firstName} ${child.middleName} ${child.lastName}" class="child-image">
-                                 <c:set var="firstName" value="${child.firstName}" />
-                                  <c:set var="middleName" value="${child.middleName}" />
-                                   <c:set var="lastName" value="${child.lastName}" />
-                            </c:if>
-                        </c:forEach>
-                    </c:if>
-                </c:forEach>
-            </td>
-            <td>
-                <c:forEach var="orderItem" items="${orderItems}">
-                    <c:if test="${orderItem.orderItemID == reservation.orderItemID}">
-                        <c:forEach var="child" items="${children}">
-                            <c:if test="${child.childID == orderItem.childID}">
-                                ${child.firstName} ${child.middleName} ${child.lastName}
-                            </c:if>
-                        </c:forEach>
-                    </c:if>
-                </c:forEach>
-            </td>
-            <td>
-                <c:forEach var="orderItem" items="${orderItems}">
-                    <c:if test="${orderItem.orderItemID == reservation.orderItemID}">
-                        <c:forEach var="order" items="${orders}">
-                            <c:if test="${order.orderID == orderItem.orderID}">
-                                <c:forEach var="user" items="${users}">
-                                    <c:if test="${user.userID == order.customerID}">
-                                        ${user.firstName} ${user.middleName} ${user.lastName}
-                                    </c:if>
-                                </c:forEach>
-                            </c:if>
-                        </c:forEach>
-                    </c:if>
-                </c:forEach>
-            </td>
-            <td>
-                <fmt:parseDate value="${reservation.reservationDate}" pattern="yyyy-MM-dd" var="parsedReservationDate" />
-                <fmt:formatDate value="${parsedReservationDate}" pattern="dd-MM-yyyy" />
-            </td>
-            <td>
-                <fmt:parseDate value="${reservation.startTime}" pattern="HH:mm:ss" var="parsedStartTime" />
-                <fmt:formatDate value="${parsedStartTime}" pattern="hh:mm a" />
-            </td>
-            <td class="table-td-center">
-                <button class="btn-primary btn-sm" type="button" title="detail" id="show-emp">
-                    <a href="${pageContext.request.contextPath}/staff/viewreservation?reservationID=${reservation.reservationID}" title="View">
-                        <i class="fas fa-eye"></i>
-                    </a>
-                </button>
-                <button class="btn-primary btn-sm" type="button" title="Thêm" id="show-emp">
-                    <a href="${pageContext.request.contextPath}/addmedicalrecord?staffID=${reservation.staffID}&reservationDate=${reservation.reservationDate}&reservationID=${reservation.reservationID}&childID=${childID}" title="Thêm">
-                        <i class="fas fa-plus"></i>
-                    </a>
-                </button>
-            </td>
-        </tr>
-    </c:if>
-</c:forEach>
+                                    <tr>
+                                        <td>${status.index + 1}</td>
+                                        <td>
+                                            <c:forEach var="orderItem" items="${orderItems}">
+                                                <c:if test="${orderItem.orderItemID == reservation.orderItemID}">
+                                                    <c:forEach var="child" items="${children}">
+                                                        <c:if test="${child.childID == orderItem.childID}">
+                                                            <img src="${pageContext.request.contextPath}/${child.childImage}" 
+                                                                 alt="${child.firstName} ${child.middleName} ${child.lastName}" class="child-image">
+                                                            <c:set var="firstName" value="${child.firstName}" />
+                                                            <c:set var="middleName" value="${child.middleName}" />
+                                                            <c:set var="lastName" value="${child.lastName}" />
+                                                        </c:if>
+                                                    </c:forEach>
+                                                </c:if>
+                                            </c:forEach>
+                                        </td>
+                                        <td>
+                                            <c:forEach var="orderItem" items="${orderItems}">
+                                                <c:if test="${orderItem.orderItemID == reservation.orderItemID}">
+                                                    <c:forEach var="child" items="${children}">
+                                                        <c:if test="${child.childID == orderItem.childID}">
+                                                            ${child.firstName} ${child.middleName} ${child.lastName}
+                                                        </c:if>
+                                                    </c:forEach>
+                                                </c:if>
+                                            </c:forEach>
+                                        </td>
+                                        <td>
+                                            <c:forEach var="orderItem" items="${orderItems}">
+                                                <c:if test="${orderItem.orderItemID == reservation.orderItemID}">
+                                                    <c:forEach var="order" items="${orders}">
+                                                        <c:if test="${order.orderID == orderItem.orderID}">
+                                                            <c:forEach var="user" items="${users}">
+                                                                <c:if test="${user.userID == order.customerID}">
+                                                                    ${user.firstName} ${user.middleName} ${user.lastName}
+                                                                </c:if>
+                                                            </c:forEach>
+                                                        </c:if>
+                                                    </c:forEach>
+                                                </c:if>
+                                            </c:forEach>
+                                        </td>
+                                        <td>
+                                            <fmt:parseDate value="${reservation.reservationDate}" pattern="yyyy-MM-dd" var="parsedReservationDate" />
+                                            <fmt:formatDate value="${parsedReservationDate}" pattern="dd-MM-yyyy" />
+                                        </td>
+                                        <td>
+                                            <fmt:parseDate value="${reservation.startTime}" pattern="HH:mm:ss" var="parsedStartTime" />
+                                            <fmt:formatDate value="${parsedStartTime}" pattern="hh:mm a" />
+                                        </td>
+                                        <td class="table-td-center">
+                                            <button class="btn-primary btn-sm" type="button" title="detail" id="show-emp">
+                                                <a href="${pageContext.request.contextPath}/staff/viewreservation?reservationID=${reservation.reservationID}" title="View">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+                                            </button>
+                                            <button class="btn-primary btn-sm" type="button" title="Thêm" id="show-emp">
+                                                <a href="${pageContext.request.contextPath}/addmedicalrecord?staffID=${reservation.staffID}&reservationDate=${reservation.reservationDate}&reservationID=${reservation.reservationID}&childID=${childID}" title="Thêm">
+                                                    <i class="fas fa-plus"></i>
+                                                </a>
+                                            </button>
+                                        </td>
+                                    </tr>
+                               
+                            </c:forEach>
 
                         </tbody>
                     </table>

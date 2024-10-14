@@ -116,7 +116,7 @@
                     <a href="${pageContext.request.contextPath}/staff/newreservationslist" class="back-link">Lịch khám mới</a>
                     <a href="${pageContext.request.contextPath}/staff/oldreservationslist" class="back-link">Lịch đã khám</a>
                     <c:if test="${reservation.isExam == true}">
-                        <a href="${pageContext.request.contextPath}/staff/oldreservationslist" class="back-link">Thêm kết quả khám</a>
+                        <a href="${pageContext.request.contextPath}/addmedicalrecord?staffID=${reservation.staffID}&reservationDate=${reservation.reservationDate}&reservationID=${reservation.reservationID}&childID=${childID}" class="back-link">Thêm kết quả khám</a>
                     </c:if>
 
                     <style>
