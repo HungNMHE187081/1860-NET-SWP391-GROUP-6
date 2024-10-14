@@ -37,6 +37,13 @@ public class MedicalRecordDAO extends DBContext{
         insertStatement.setString(6, medicalRecord.getNotes());
         insertStatement.setDate(7, medicalRecord.getRecordDate());
         insertStatement.executeUpdate();
+            ps.executeUpdate();
+        }
+        catch (SQLException e)
+        {
+            e.getNextException();
+        }
+    }
 
         // Cập nhật cột hasRecord trong bảng Reservations
         updateStatement.setInt(1, medicalRecord.getReservationID());
@@ -52,6 +59,7 @@ public class MedicalRecordDAO extends DBContext{
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
+    return medicalRecords;
         }
         throw e;
     } finally {
@@ -64,7 +72,6 @@ public class MedicalRecordDAO extends DBContext{
             }
         }
     }
-}
-}
+
 
 
