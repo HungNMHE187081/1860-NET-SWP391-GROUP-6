@@ -24,8 +24,10 @@ import model.MedicalRecord;
  * @author User
  */
 public class AddMedicalRecord extends HttpServlet {
-  private static final long serialVersionUID = 1L;
+
+    private static final long serialVersionUID = 1L;
     private MedicalRecordDAO medicalRecordDAO;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -64,19 +66,29 @@ public class AddMedicalRecord extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-           String reservationID = request.getParameter("reservationID");
+        String reservationID = request.getParameter("reservationID");
         String childName = request.getParameter("childName");
-        String staffName = request.getParameter("staffName");
-        String serviceName = request.getParameter("serviceName");
-        
-        // Set attributes to be accessed in the JSP
-        request.setAttribute("reservationID", reservationID);
-        request.setAttribute("childName", childName);
-        request.setAttribute("staffName", staffName);
-        request.setAttribute("serviceName", serviceName);
-        
+        String staffID_raw = request.getParameter("staffID");
+        String reservationDate = request.getParameter("reservationDate");
+
+        try {
+            // Parse the staffID as an integer
+            int staffID = Integer.parseInt(staffID_raw);
+
+            // Set attributes to be accessed in the JSP
+            request.setAttribute("reservationID", reservationID);
+            request.setAttribute("childName", childName);
+            request.setAttribute("staffID", staffID);
+            request.setAttribute("reservationDate", reservationDate);
+
+        } catch (NumberFormatException e) {
+            // Handle the case where staffID cannot be parsed to an integer
+            // You may want to log this exception or set an error attribute for the JSP
+            e.printStackTrace(); // For debugging purposes; consider using a logger
+            request.setAttribute("error", "Invalid staff ID");
+        }
+
         // Forward to the add-medical-record.jsp page
-        
         request.getRequestDispatcher("/Staff_JSP/add-medical-record.jsp").forward(request, response);
     }
 
@@ -91,7 +103,7 @@ public class AddMedicalRecord extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         try {
+        try {
             int childID = Integer.parseInt(request.getParameter("childID"));
             int staffID = Integer.parseInt(request.getParameter("staffID"));
             int reservationID = Integer.parseInt(request.getParameter("reservationID")); // Get reservationID
@@ -109,12 +121,10 @@ public class AddMedicalRecord extends HttpServlet {
             response.sendRedirect("addMedicalRecord.jsp?error=true");
         }
     }
-    }
-    
+}
 
 /**
  * Returns a short description of the servlet.
  *
  * @return a String containing servlet description
  */
-

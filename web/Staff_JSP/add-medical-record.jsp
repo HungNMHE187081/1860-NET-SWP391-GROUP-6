@@ -4,6 +4,8 @@
 <%@ page import="javax.servlet.*" %>
 <%@ page import="javax.servlet.http.*" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.Date" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -160,19 +162,29 @@
             <c:if test="${param.error == 'true'}">
                 <p style="color: red;">Error adding medical record. Please try again.</p>
             </c:if>
-            <form action="${pageContext.request.contextPath}/submitMedicalRecord" method="post">
+            <form action="${pageContext.request.contextPath}/addMedicalRecord" method="post">
                 <input type="hidden" name="reservationID" value="${reservationID}">
 
                 <label for="childName">Child Name:</label>
                 <input type="text" id="childName" name="childName" value="${childName}" readonly>
 
                 <label for="staffName">Staff Name:</label>
-                <input type="text" id="staffName" name="staffName" value="${staffName}" readonly>
+                <input type="text" id="staffID" name="staffID" value="${staffID}" readonly>
 
-                <label for="serviceName">Service Name:</label>
-                <input type="text" id="serviceName" name="serviceName" value="${serviceName}" readonly>
+                <label for="serviceName">Ngày khám: </label>
+                <input type="text" id="reservationDate" name="reservationDate" value="${reservationDate}" readonly>
 
-                <!-- Other fields for medical records -->
+                <label for="diagnosis">Diagnosis:</label>
+                <textarea id="diagnosis" name="diagnosis" required></textarea><br>
+
+                <label for="treatment">Treatment:</label>
+                <textarea id="treatment" name="treatment" required></textarea><br>
+
+                <label for="notes">Notes:</label>
+                <textarea id="notes" name="notes"></textarea><br>
+
+                <label for="recordDate">Record Date:</label>
+                <input type="date" id="recordDate" name="recordDate" value = "<%= new SimpleDateFormat("yyyy-MM-dd").format(new Date()) %>" readonly><br>
 
                 <input type="submit" value="Add Medical Record">
             </form>

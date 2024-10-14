@@ -195,7 +195,7 @@
                                                     <i class="fas fa-eye"></i></a>
                                             </button>
                                             <button class="btn-primary btn-sm" type="button" title="Thêm" id="show-emp">
-                                                <a href="${pageContext.request.contextPath}/addmedicalrecord?reservationID=${reservation.reservationID}&childName=${child.firstName} ${child.middleName} ${child.lastName}&staffName=${user.firstName} ${user.middleName} ${user.lastName}&reservationDate=${reservation.reservationDate}" title="Thêm">
+                                                <a href="${pageContext.request.contextPath}/addmedicalrecord?reservationID=${reservation.reservationID}&childName=${child.firstName} ${child.middleName} ${child.lastName}&staffID=${reservation.staffID}&reservationDate=${reservation.reservationDate}" title="Thêm">
                                                     <i class="fas fa-plus"></i>
                                                 </a>
                                             </button>
