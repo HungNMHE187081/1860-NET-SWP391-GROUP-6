@@ -101,6 +101,42 @@
                 width: 100%;
                 margin-top: 20px;
             }
+            .table {
+                width: 80%; /* Adjust width as needed */
+                margin: 20px auto;
+                border-collapse: collapse;
+            }
+            th, td {
+                padding: 10px;
+                text-align: left;
+                border: 1px solid #ccc;
+            }
+            th {
+                background-color: #f2f2f2;
+            }
+            .table-td-center {
+                text-align: center;
+            }
+            .child-image {
+                width: 50px; /* Adjust size as needed */
+                height: auto; /* Maintain aspect ratio */
+            }
+            button {
+                border: none;
+                background: none;
+                cursor: pointer;
+            }
+            input[type="text"], input[type="number"], input[type="date"], textarea {
+                width: 100%; /* Full width for inputs */
+                padding: 8px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+            }
+            .form-row {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
         </style>
     </head>
     <body>
@@ -115,43 +151,30 @@
 
         <main>
             <center>
-            <h2 style="color: #4CAF50">Thêm lịch sử khám cho trẻ</h2>
+                <h2 style="color: #4CAF50">Thêm lịch sử khám cho trẻ</h2>
             </center>
-            <form action="addmedicine" method="post">
-                <label for="medicineName">Tên thuốc:</label>
-                <input type="text" id="medicineName" name="name" required />
+            <c:if test="${param.success == 'true'}">
+                <p style="color: green;">Medical record added successfully!</p>
+            </c:if>
 
-                <label for="description">Nhà sản xuất:</label>
-                <textarea id="description" name="description" required></textarea>
+            <c:if test="${param.error == 'true'}">
+                <p style="color: red;">Error adding medical record. Please try again.</p>
+            </c:if>
+            <form action="${pageContext.request.contextPath}/submitMedicalRecord" method="post">
+                <input type="hidden" name="reservationID" value="${reservationID}">
 
-                <label for="uses">Công dụng:</label>
-                <textarea id="uses" name="uses" required></textarea>
+                <label for="childName">Child Name:</label>
+                <input type="text" id="childName" name="childName" value="${childName}" readonly>
 
-                <label for="dosage">Liều dùng:</label>
-                <input type="text" id="dosage" name="dosage" required />
+                <label for="staffName">Staff Name:</label>
+                <input type="text" id="staffName" name="staffName" value="${staffName}" readonly>
 
-                <label for="userManual">Hướng dẫn sử dụng:</label>
-                <textarea id="userManual" name="userManual" required></textarea>
+                <label for="serviceName">Service Name:</label>
+                <input type="text" id="serviceName" name="serviceName" value="${serviceName}" readonly>
 
-                <label for="contraindications">Chống chỉ định:</label>
-                <textarea id="contraindications" name="contraindications" required></textarea>
+                <!-- Other fields for medical records -->
 
-                <label>Loại thuốc:</label>
-                <select name="categoryID" required>
-                    <c:forEach var="category" items="${categories}">
-                        <option value="${category.categoryID}" 
-                                <c:if test="${category.categoryID == medicine.categoryID}">selected</c:if>>
-                            ${category.categoryName}
-                        </option>
-                    </c:forEach>
-                </select>
-
-
-
-                <button type="submit">Thêm thuốc</button>
-                <center>
-                <a href="medicinelist"> Trở về danh sách thuốc </a>
-                </center>
+                <input type="submit" value="Add Medical Record">
             </form>
         </main>
 

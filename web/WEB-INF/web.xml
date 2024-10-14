@@ -512,4 +512,5 @@
         <servlet-name>StaffViewReservationServlet</servlet-name>
         <url-pattern>/staff/viewreservation</url-pattern>
     </servlet-mapping>
+    
 </web-app>
