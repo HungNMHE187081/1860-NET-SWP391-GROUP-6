@@ -12,7 +12,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Add Medicine</title>
+        <title>Add Medical Record</title>
         <style>
             body {
                 font-family: Arial, sans-serif;
@@ -166,13 +166,13 @@
             <c:if test="${param.error == 'true'}">
                 <p style="color: red;">Error adding medical record. Please try again.</p>
             </c:if>
-            <form action="${pageContext.request.contextPath}/addMedicalRecord" method="post">
+            <form action="${pageContext.request.contextPath}/addmedicalrecord" method="post">
                 <input type="hidden" name="reservationID" value="${reservationID}">
                 <input type="hidden" name="childID" value="${childID}">
                 <label for="childName">Tên trẻ được khám:</label>
                 <input type="text" id="childName" name="childName" 
-                       value="${children.firstName} ${children.middleName} ${children.lastName} " readonly>
-
+                       value="${childFirstName} ${childMiddleName} ${childLastName} " readonly>
+                
 
                 <label for="staffName">Tên nhân viên thực khám:</label>
                 <input type="text" id="staffID" name="staffID" value="${staffID}" readonly>
