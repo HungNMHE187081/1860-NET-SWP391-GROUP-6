@@ -80,7 +80,7 @@
             <!-- Main Content -->
             <main>
                 <section class="dashboard">
-                    <h2><i class="fas fa-concierge-bell"></i> Danh sách lịch đã khám</h2>
+<h2><i class="fas fa-concierge-bell"></i> Danh sách lịch đã khám</h2>
 
                     <!-- Filter and Search Form -->
 
@@ -129,6 +129,7 @@
                                         </c:if>
                                     </c:forEach>
                                     <c:forEach var="orderItem" items="${orderItems}">
+<c:forEach var="orderItem" items="${orderItems}">
                                         <c:if test="${orderItem.orderItemID == reservation.orderItemID}">
                                             <c:forEach var="child" items="${children}">
                                                 <c:if test="${child.childID == orderItem.childID}">
@@ -163,7 +164,7 @@
                                                             ${child.firstName} ${child.middleName} ${child.lastName}
                                                         </c:if>
                                                     </c:forEach>
-                                                </c:if>
+</c:if>
                                             </c:forEach>
                                         </td>
                                         <td>
@@ -197,7 +198,7 @@
                                             </button>
                                             <c:if test="${reservation.hasRecord == false}">
                                                 <button class="btn-primary btn-sm" type="button" title="Thêm" id="show-emp">
-                                                <a href="${pageContext.request.contextPath}/addmedicalrecord?staffID=${reservation.staffID}&reservationDate=${reservation.reservationDate}&reservationID=${reservation.reservationID}&childID=${childID}&childFirstName=${childFirstName}&childMiddleName=${childMiddleName}&childLastName=${childLastName}&childImage=${childImage}" title="Thêm lịch sử khám">
+<a href="${pageContext.request.contextPath}/addmedicalrecord?staffID=${reservation.staffID}&reservationDate=${reservation.reservationDate}&reservationID=${reservation.reservationID}&childID=${childID}" title="Thêm">
                                                         <i class="fas fa-plus"></i>
                                                     </a>
                                                 </button>
