@@ -260,6 +260,10 @@
         <servlet-name>StaffViewReservationServlet</servlet-name>
         <servlet-class>controller.StaffViewReservationServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AdminAddUserServlet</servlet-name>
+        <servlet-class>controller.AdminAddUserServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -512,5 +516,8 @@
         <servlet-name>StaffViewReservationServlet</servlet-name>
         <url-pattern>/staff/viewreservation</url-pattern>
     </servlet-mapping>
-    
+    <servlet-mapping>
+        <servlet-name>AdminAddUserServlet</servlet-name>
+        <url-pattern>/admin/adminadduser</url-pattern>
+    </servlet-mapping>
 </web-app>

@@ -4,11 +4,10 @@
  */
 package dal;
 
-import model.Roles;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import model.Roles;
 
 /**
  *
@@ -64,5 +63,20 @@ public class RolesDAO extends DBContext {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public int getRoleIDByName(String roleName) {
+        String sql = "SELECT RoleID FROM Roles WHERE RoleName = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, roleName);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("RoleID");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;
     }
 }
