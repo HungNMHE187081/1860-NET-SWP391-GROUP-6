@@ -28,7 +28,8 @@ public class ReservationDAO extends DBContext {
                 String StartTime = rs.getString("StartTime");
                 int StaffID = rs.getInt("StaffID");
                 boolean isExam = rs.getBoolean("isExam");
-                list.add(new Reservation(ReservationID, OrderItemID, ReservationDate, StartTime, StaffID, isExam));
+                boolean hasRecord = rs.getBoolean("hasRecord");
+                list.add(new Reservation(ReservationID, OrderItemID, ReservationDate, StartTime, StaffID, isExam, hasRecord));
             }
         } catch (SQLException e) {
         }
@@ -48,7 +49,8 @@ public class ReservationDAO extends DBContext {
                     String ReservationDate = rs.getString("ReservationDate");
                     int StaffID = rs.getInt("StaffID");
                     String StartTime = rs.getString("StartTime");
-                    list.add(new Reservation(ReservationID, OrderItemID, ReservationDate, StartTime, StaffID, isExam));
+                    boolean hasRecord = rs.getBoolean("hasRecord");
+                    list.add(new Reservation(ReservationID, OrderItemID, ReservationDate, StartTime, StaffID, isExam, hasRecord));
                 }
             }
         } catch (SQLException e) {
@@ -70,6 +72,7 @@ public class ReservationDAO extends DBContext {
                     reservation.setStartTime(rs.getString("StartTime"));
                     reservation.setStaffID(rs.getInt("StaffID"));
                     reservation.setIsExam(rs.getBoolean("IsExam"));
+                    reservation.setHasRecord(rs.getBoolean("hasRecord"));
                     return reservation;
                 }
             }
@@ -103,8 +106,8 @@ public class ReservationDAO extends DBContext {
                     String ReservationDate = rs.getString("ReservationDate");
                     String StartTime = rs.getString("StartTime");
                     int StaffID = rs.getInt("StaffID");
-                    boolean isExamResult = rs.getBoolean("IsExam");
-                    list.add(new Reservation(ReservationID, OrderItemID, ReservationDate, StartTime, StaffID, isExamResult));
+                    boolean hasRecord = rs.getBoolean("hasRecord");
+                    list.add(new Reservation(ReservationID, OrderItemID, ReservationDate, StartTime, StaffID, isExam, hasRecord));
                 }
             }
         } catch (SQLException e) {
@@ -135,7 +138,8 @@ public class ReservationDAO extends DBContext {
                     String ReservationDate = rs.getString("ReservationDate");
                     String StartTime = rs.getString("StartTime");
                     int StaffID = rs.getInt("StaffID");
-                    list.add(new Reservation(ReservationID, OrderItemID, ReservationDate, StartTime, StaffID, isExam));
+                    boolean hasRecord = rs.getBoolean("hasRecord");
+                    list.add(new Reservation(ReservationID, OrderItemID, ReservationDate, StartTime, StaffID, isExam, hasRecord));
                 }
             }
         } catch (SQLException e) {
@@ -179,14 +183,26 @@ public class ReservationDAO extends DBContext {
                     String ReservationDate = rs.getString("ReservationDate");
                     String StartTime = rs.getString("StartTime");
                     int StaffID = rs.getInt("StaffID");
-                    boolean isExamResult = rs.getBoolean("IsExam");
-                    list.add(new Reservation(ReservationID, OrderItemID, ReservationDate, StartTime, StaffID, isExamResult));
+                    boolean hasRecord = rs.getBoolean("hasRecord");
+                    list.add(new Reservation(ReservationID, OrderItemID, ReservationDate, StartTime, StaffID, isExam, hasRecord));
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return list;
+    }
+
+    public void updateHasRecord(int ReservationID) {
+        String sql = "UPDATE [dbo].[Reservations]\n"
+                + "   SET [hasRecord] = 1\n"
+                + " WHERE ReservationID = ?";
+        try {
+            PreparedStatement pre = connection.prepareStatement(sql);
+            pre.setInt(1, ReservationID);
+            pre.executeUpdate();
+        } catch (SQLException e) {
+        }
     }
 
     public static void main(String[] args) {

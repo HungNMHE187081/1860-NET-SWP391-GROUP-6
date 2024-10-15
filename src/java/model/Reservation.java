@@ -12,18 +12,19 @@ public class Reservation {
     int ReservationID, OrderItemID;
     String ReservationDate, StartTime;
     int StaffID;
-    boolean isExam;
+    boolean isExam, hasRecord;
 
     public Reservation() {
     }
 
-    public Reservation(int ReservationID, int OrderItemID, String ReservationDate, String StartTime, int StaffID, boolean isExam) {
+    public Reservation(int ReservationID, int OrderItemID, String ReservationDate, String StartTime, int StaffID, boolean isExam, boolean hasRecord) {
         this.ReservationID = ReservationID;
         this.OrderItemID = OrderItemID;
         this.ReservationDate = ReservationDate;
         this.StartTime = StartTime;
         this.StaffID = StaffID;
         this.isExam = isExam;
+        this.hasRecord = hasRecord;
     }
 
     public int getReservationID() {
@@ -72,6 +73,14 @@ public class Reservation {
 
     public void setStaffID(int StaffID) {
         this.StaffID = StaffID;
+    }
+
+    public boolean isHasRecord() {
+        return hasRecord;
+    }
+
+    public void setHasRecord(boolean hasRecord) {
+        this.hasRecord = hasRecord;
     }
     
 }
