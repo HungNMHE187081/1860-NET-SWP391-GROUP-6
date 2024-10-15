@@ -77,6 +77,10 @@
         <servlet-class>controller.EditMedicineServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>DeleteMedicalRecord</servlet-name>
+        <servlet-class>controller.DeleteMedicalRecord</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>DeleteMedicineServlet</servlet-name>
         <servlet-class>controller.DeleteMedicineServlet</servlet-class>
     </servlet>
@@ -407,6 +411,10 @@
     <servlet-mapping>
         <servlet-name>DeleteUserServlet</servlet-name>
         <url-pattern>/deleteuser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteMedicalRecord</servlet-name>
+        <url-pattern>/deletemedicalrecord</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ManageWardServlet</servlet-name>

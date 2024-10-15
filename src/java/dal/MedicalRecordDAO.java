@@ -71,7 +71,72 @@ public class MedicalRecordDAO extends DBContext{
                 ex.printStackTrace();
             }
         }
+ public MedicalRecord getMedicalRecordByID(int recordID) {
+        MedicalRecord medicalRecord = null;
+        String sql = "SELECT " +
+                "mr.recordID, " +
+                "mr.childID, " +
+                "mr.staffID, " +
+                "mr.reservationID, " +
+                "mr.diagnosis, " +
+                "mr.treatment, " +
+                "mr.notes, " +
+                "c.childImage, " +
+                "c.firstName AS firstNameChild, " +
+                "c.middleName AS middleNameChild, " +
+                "c.lastName AS lastNameChild, " +
+                "r.reservationDate, " +
+                "mr.recordDate " +
+                "FROM MedicalRecords mr " +
+                "JOIN Children c ON mr.childID = c.childID " +
+                "JOIN Reservations r ON mr.reservationID = r.reservationID " +
+                "WHERE mr.recordID = ?";
+
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, recordID);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                medicalRecord = new MedicalRecord(
+                        rs.getInt("recordID"),
+                        rs.getInt("childID"),
+                        rs.getInt("staffID"),
+                        rs.getInt("reservationID"),
+                        rs.getString("diagnosis"),
+                        rs.getString("treatment"),
+                        rs.getString("notes"),
+                        rs.getString("childImage"),
+                        rs.getString("firstNameChild"),
+                        rs.getString("middleNameChild"),
+                        rs.getString("lastNameChild"),
+                        rs.getDate("reservationDate"),
+                        rs.getDate("recordDate")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Xử lý ngoại lệ (có thể ghi log hoặc ném ra)
+        }
+
+        return medicalRecord;
     }
+ public boolean updateMedicalRecord(MedicalRecord record) {
+    String sql = "UPDATE MedicalRecords SET diagnosis = ?, treatment = ?, notes = ? WHERE recordID = ?";
+    try (PreparedStatement ps = connection.prepareStatement(sql)) {
+        // Chỉ cập nhật các trường cho phép
+        ps.setString(1, record.getDiagnosis());  // Cập nhật chẩn đoán
+        ps.setString(2, record.getTreatment());   // Cập nhật phương pháp điều trị
+        ps.setString(3, record.getNotes());       // Cập nhật ghi chú
+        ps.setInt(4, record.getRecordID());       // Điều kiện WHERE để xác định bản ghi cần cập nhật
+
+        int rowsAffected = ps.executeUpdate();
+        return rowsAffected > 0; // Trả về true nếu cập nhật thành công
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return false; // Trả về false nếu có lỗi
+    }
+}
+
+            }
 
 
 
