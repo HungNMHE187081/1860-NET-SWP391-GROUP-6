@@ -18,6 +18,7 @@
         <!-- Bootstrap -->
         <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <!-- Icons -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.3/font/bootstrap-icons.min.css">
         <link href="css/materialdesignicons.min.css" rel="stylesheet" type="text/css"/>
         <link href="css/remixicon.css" rel="stylesheet" type="text/css"/>
         <link href="https://unicons.iconscout.com/release/v3.0.6/css/line.css"  rel="stylesheet">
@@ -217,28 +218,39 @@
         </div>
         <!-- End Hero -->
 
-<!-- Start Service List -->
 <section class="section py-5 bg-light">
     <div class="container">
         <div class="row g-4">
             <c:forEach var="service" items="${services}">
                 <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card h-100 shadow-sm transition-hover border-0">
+                    <div class="card h-100 shadow-sm border-0 service-card">
                         <img src="${service.serviceImage}" class="card-img-top rounded-top" alt="${service.serviceName}">
                         <div class="card-body">
-                            <h5 class="card-title fw-bold text-primary">${service.serviceName}</h5>
-                            <p class="card-text text-muted">${service.description}</p>
+                            <h5 class="card-title fw-bold text-primary">
+                                ${service.serviceName}
+                            </h5>
+                            <p class="card-text text-muted">
+                                ${service.description}
+                            </p>
                         </div>
                         <div class="card-footer bg-transparent border-top-0">
                             <div class="d-flex justify-content-between align-items-center mb-3">
-                                <span class="text-success fw-bold small">Giá: <fmt:formatNumber value="${service.price}" type="number" groupingUsed="true"/> ₫</span>
+                                <span class="text-success fw-bold small">
+                                    <i class="bi bi-cash-stack me-1"></i>
+                                    <fmt:formatNumber value="${service.price}" type="number" groupingUsed="true"/> ₫
+                                </span>
                                 <span class="text-muted small">
-                                    <i class="bi bi-clock me-1"></i>Thời gian: ${service.duration} phút
+                                    <i class="bi bi-clock me-1"></i>
+                                    ${service.duration} phút
                                 </span>
                             </div>
                             <div class="d-flex justify-content-between">
-                                <button class="btn btn-outline-primary flex-grow-1 me-2 transition-btn">Xem chi tiết</button>
-                                <button class="btn btn-primary flex-grow-1 transition-btn">Đặt dịch vụ</button>
+                                <button class="btn btn-outline-secondary flex-grow-1 me-2 view-details transition-btn">
+                                    <i class="bi bi-eye"></i>
+                                </button>
+                                <button class="btn btn-primary flex-grow-1 book-now transition-btn">
+                                    <i class="bi bi-cart me-1"></i>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -247,6 +259,121 @@
         </div>
     </div>
 </section>
+
+<style>
+  /* Font hiện đại */
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Đổi nền sáng với khoảng cách các phần tử hợp lý */
+.section {
+    background-color: #f8f9fa;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+}
+
+/* Style cho thẻ card */
+.service-card {
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Hiển thị hình ảnh tròn góc */
+.card-img-top {
+    border-radius: 10px 10px 0 0;
+}
+
+/* Cách đều các thành phần */
+.card-body {
+    padding: 1.5rem;
+}
+
+.card-footer {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+}
+
+/* Style cho tiêu đề */
+.card-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Style cho đoạn mô tả */
+.card-text {
+    font-size: 0.875rem;
+    color: #6c757d;
+}
+
+/* Hiển thị giá và thời gian */
+.text-success, .text-muted {
+    font-weight: 600;
+    font-size: 0.875rem;
+}
+
+/* Nút hiện đại với hiệu ứng hover */
+button {
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+/* Nút Đặt ngay */
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+}
+
+/* Nút Xem chi tiết */
+.btn-outline-secondary {
+    border-color: #6c757d;
+    color: #6c757d;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #6c757d;
+    color: #fff;
+}
+
+/* Hiệu ứng chuyển động hover khi hiện text */
+.view-details::after, .book-now::after {
+    content: '';
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.3s ease;
+}
+
+.view-details:hover::after {
+    content: 'Xem chi tiết';
+    visibility: visible;
+    opacity: 1;
+    margin-left: 8px;
+}
+
+.book-now:hover::after {
+    content: 'Đặt lịch';
+    visibility: visible;
+    opacity: 1;
+    margin-left: 8px;
+}
+
+</style>
+
 
 
         <!-- Start -->
