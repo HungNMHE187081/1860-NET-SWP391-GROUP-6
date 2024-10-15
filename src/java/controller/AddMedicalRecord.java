@@ -6,7 +6,6 @@ package controller;
 
 import dal.ChildrenDAO;
 import java.sql.*;
-import dal.MedicalRecordDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -20,6 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import model.Children;
 import model.MedicalRecord;
+import model.MedicalRecordDAO;
 
 /**
  *
@@ -70,20 +70,22 @@ public class AddMedicalRecord extends HttpServlet {
         String reservationID = request.getParameter("reservationID");
         String staffID_raw = request.getParameter("staffID");
         String reservationDate = request.getParameter("reservationDate");
-
+        String childFirstName = request.getParameter("childFirstName");
+        String childMiddleName = request.getParameter("childMiddleName");
+        String childLastName = request.getParameter("childLastName");
         String childID_raw = request.getParameter("childID");
-        ChildrenDAO childrenDAO = new ChildrenDAO();
-        Children children = new Children();
+       String childImage = request.getParameter("childImage");
 
         try {
             // Parse the staffID as an integer
             int staffID = Integer.parseInt(staffID_raw);
             int childID = Integer.parseInt(childID_raw);
-            children = childrenDAO.getChildrenByID(childID);
             // Set attributes to be accessed in the JSP
             request.setAttribute("reservationID", reservationID);
-            request.setAttribute("children", children);
-
+            request.setAttribute("childFirstName", childFirstName);
+            request.setAttribute("childMiddleName", childMiddleName);
+            request.setAttribute("childLastName", childLastName);
+            request.setAttribute("childImage", childImage);
             request.setAttribute("staffID", staffID);
             request.setAttribute("childID", childID);
             request.setAttribute("reservationDate", reservationDate);
@@ -109,25 +111,33 @@ public class AddMedicalRecord extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
+       try {
+            // Lấy dữ liệu từ form
             int childID = Integer.parseInt(request.getParameter("childID"));
             int staffID = Integer.parseInt(request.getParameter("staffID"));
-            int reservationID = Integer.parseInt(request.getParameter("reservationID")); // Get reservationID
+            int reservationID = Integer.parseInt(request.getParameter("reservationID"));
             String diagnosis = request.getParameter("diagnosis");
             String treatment = request.getParameter("treatment");
             String notes = request.getParameter("notes");
-            Date recordDate = Date.valueOf(request.getParameter("recordDate"));
+            Date recordDate = Date.valueOf(request.getParameter("recordDate")); // yyyy-MM-dd
+            Date reservationDate = Date.valueOf(request.getParameter("reservationDate")); // yyyy-MM-dd
+            // Tạo MedicalRecord object
+            MedicalRecord medicalRecord = new MedicalRecord(
+                childID, staffID, reservationID, diagnosis, treatment, notes,reservationDate ,recordDate
+            );
 
-            MedicalRecord medicalRecord = new MedicalRecord(childID, staffID, reservationID, diagnosis, treatment, notes, recordDate); // Pass reservationID
+            // Gọi DAO để thêm bản ghi mới
+            MedicalRecordDAO medicalRecordDAO = new MedicalRecordDAO();
             medicalRecordDAO.addMedicalRecordAndUpdateReservation(medicalRecord);
 
-            response.sendRedirect("medicalRecords.jsp?success=true");
+            // Chuyển hướng về danh sách Medical Records
+            response.sendRedirect("medicalrecordlist");
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect("addMedicalRecord.jsp?error=true");
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error adding medical record.");
         }
     }
-
+   
 }
 
 /**
