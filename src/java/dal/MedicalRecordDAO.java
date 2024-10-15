@@ -212,5 +212,16 @@ public class MedicalRecordDAO extends DBContext {
             }
     return medicalRecords;
         }
+      public boolean deleteMedicalRecord(int recordID) {
+        String sql = "DELETE FROM MedicalRecords WHERE recordID = ?";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, recordID);
+            int rowsAffected = ps.executeUpdate();
+            return rowsAffected > 0; // Trả về true nếu xóa thành công
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false; // Trả về false nếu có lỗi
+            }
+        }
 
 }

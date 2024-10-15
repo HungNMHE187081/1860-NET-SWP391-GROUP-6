@@ -77,10 +77,6 @@
         <servlet-class>controller.EditMedicineServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>DeleteMedicalRecord</servlet-name>
-        <servlet-class>controller.DeleteMedicalRecord</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>DeleteMedicineServlet</servlet-name>
         <servlet-class>controller.DeleteMedicineServlet</servlet-class>
     </servlet>
@@ -272,6 +268,10 @@
         <servlet-name>ListServiceServlet</servlet-name>
         <servlet-class>controller.ListServiceServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DeleteMedicalRecord</servlet-name>
+        <servlet-class>controller.DeleteMedicalRecord</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -405,10 +405,6 @@
         <url-pattern>/deleteuser</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>DeleteMedicalRecord</servlet-name>
-        <url-pattern>/deletemedicalrecord</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>ManageWardServlet</servlet-name>
         <url-pattern>/manageward</url-pattern>
     </servlet-mapping>
@@ -535,5 +531,9 @@
     <servlet-mapping>
         <servlet-name>ListServiceServlet</servlet-name>
         <url-pattern>/listservice</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteMedicalRecord</servlet-name>
+        <url-pattern>/deletemedicalrecord</url-pattern>
     </servlet-mapping>
 </web-app>
