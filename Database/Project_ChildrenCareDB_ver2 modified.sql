@@ -366,15 +366,6 @@ ALTER TABLE Payments
 ADD PaymentMethodID INT,
 FOREIGN KEY (PaymentMethodID) REFERENCES PaymentMethods(PaymentMethodID);
 
--- Create StaffAvailability table
-CREATE TABLE StaffAvailability (
-    AvailabilityID INT PRIMARY KEY IDENTITY(1,1),
-    StaffID INT,
-    DayOfWeek INT,  -- 1 for Monday, 7 for Sunday
-    StartTime TIME,
-    EndTime TIME,
-    FOREIGN KEY (StaffID) REFERENCES Staff(StaffID) ON DELETE CASCADE
-);
 
 -- Create Reports table
 CREATE TABLE Reports (

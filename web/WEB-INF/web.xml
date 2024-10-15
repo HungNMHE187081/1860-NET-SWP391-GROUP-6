@@ -93,10 +93,6 @@
         <servlet-class>controller.MedicineDetail</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>HomepageServicesListServlet</servlet-name>
-        <servlet-class>controller.HomepageServicesListServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>ManageUserServlet</servlet-name>
         <servlet-class>controller.ManageUserServlet</servlet-class>
     </servlet>
@@ -351,10 +347,6 @@
     <servlet-mapping>
         <servlet-name>DeleteMedicineServlet</servlet-name>
         <url-pattern>/deletemedicine</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>HomepageServicesListServlet</servlet-name>
-        <url-pattern>/homepageserviceslist</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AdminUsersListServlet</servlet-name>

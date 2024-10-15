@@ -137,7 +137,7 @@
                                             <td>${staff.hireDate}</td>
                                             <td class="table-td-center">
                                                 <button class="btn btn-primary btn-sm" type="button" title="detail" id="show-emp">
-                                                    <a href="${pageContext.request.contextPath}/manager/viewstaff?staffID=${staff.staffID}"><i class="fas fa-eye"></i></a>
+                                                    <a href="${pageContext.request.contextPath}/staff/viewstaff?staffID=${staff.staffID}"><i class="fas fa-eye"></i></a>
                                                 </button>
                                             </td>
                                         </tr>

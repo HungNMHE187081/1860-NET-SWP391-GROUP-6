@@ -1,3 +1,9 @@
+<%-- 
+    Document   : staff-view-staff
+    Created on : Oct 15, 2024, 3:52:27 PM
+    Author     : LENOVO
+--%>
+
 <%@ page contentType="text/html" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -7,7 +13,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Chi tiết lịch khám</title>
+        <title>Chi tiết nhân viên</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
     </head>
@@ -112,21 +118,7 @@
             <%@ include file="leftside.jsp" %>
             <main>
                 <section class="dashboard">
-                    <h2><i class="fas fa-concierge-bell"></i> Thông tin chi tiết của lịch khám</h2>
-                    <a href="${pageContext.request.contextPath}/staff/newreservationslist" class="back-link">Lịch khám mới</a>
-                    <a href="${pageContext.request.contextPath}/staff/oldreservationslist" class="back-link">Lịch đã khám</a>
-                    <c:if test="${reservation.isExam == false}">
-                        <a href="${pageContext.request.contextPath}/viewmedicalrecord?reservationID=${reservation.reservationID}" class="back-link">Đã khám</a>
-                    </c:if>
-                    <c:if test="${reservation.isExam == true}">
-                        <c:if test="${reservation.hasRecord == false}">
-                            <a href="${pageContext.request.contextPath}/addmedicalrecord?staffID=${reservation.staffID}&reservationDate=${reservation.reservationDate}&reservationID=${reservation.reservationID}&childID=${childID}" class="back-link">Thêm kết quả khám</a>
-                        </c:if>
-                        <c:if test="${reservation.hasRecord == true}">
-                            <a href="${pageContext.request.contextPath}/viewmedicalrecord?reservationID=${reservation.reservationID}" class="back-link">Xem kết quả khám</a>
-                        </c:if>
-                    </c:if>
-
+                    <h2><i class="fas fa-concierge-bell"></i> Thông tin chi tiết của nhân viên</h2>
                     <style>
                         .detail-container {
                             display: flex;
@@ -199,26 +191,28 @@
                     </style>
 
                     <div class="detail-container">
-                        <img src="${pageContext.request.contextPath}/${child.childImage}" 
-                             alt="${child.firstName} ${child.middleName} ${child.lastName}" class="child-image">
+                        <img id="imagePreview" src="${user.profileImage}" alt="${staff.staffName}" class="rounded-circle img-fluid">
                         <div class="detail-item">
-                            <label>Tên trẻ:</label>
-                            <span>${child.firstName} ${child.middleName} ${child.lastName}</span>
+                            <label>Tên nhân viên:</label>
+                            <span>${staff.staffName}</span>
                         </div>
                         <div class="detail-item">
-                            <label>Tên khách hàng:</label>
-                            <span>${user.firstName} ${user.middleName} ${user.lastName}</span>
+                            <label>Giới tính:</label>
+                            <span>${user.gender}</span>
                         </div>
                         <div class="detail-item">
-                            <label>Ngày sinh:</label>
+                            <label>Chức vụ:</label>
                             <span>
-                                <fmt:parseDate value="${child.dateOfBirth}" pattern="yyyy-MM-dd" var="parsedDateOfBirth" />
-                                <fmt:formatDate value="${child.dateOfBirth}" pattern="dd-MM-yyyy" />
+                                <c:forEach var="specialization" items="${specializations}">
+                                            <c:if test="${specialization.specializationID == staff.specializationID}">
+                                                 ${specialization.specializationName}
+                                            </c:if>
+                                        </c:forEach>
                             </span>
                         </div>
                         <div class="detail-item">
-                            <label>Nhóm tuổi:</label>
-                            <span>${ageLimits.ageLimit}</span>
+                            <label>Email:</label>
+                            <span>${user.email}</span>
                         </div>
                         <div class="detail-item">
                             <label>Tên dịch vụ:</label>
@@ -271,3 +265,4 @@
         </footer>
     </body>
 </html>
+
