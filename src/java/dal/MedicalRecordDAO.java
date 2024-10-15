@@ -66,3 +66,5 @@ public class MedicalRecordDAO extends DBContext{
     }
 }
 }
+
+
