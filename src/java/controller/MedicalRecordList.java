@@ -49,28 +49,43 @@ public class MedicalRecordList extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        MedicalRecordDAO dao = new MedicalRecordDAO();
+   @Override
+protected void doGet(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+    MedicalRecordDAO dao = new MedicalRecordDAO();
 
-        // Lấy tên trẻ từ tham số yêu cầu
-        String childName = request.getParameter("search");
-        String month = request.getParameter("month");
-        // Lấy tham số để xác định việc sắp xếp
-        String sortBy = request.getParameter("sortBy"); // sortBy có thể là "dateAdded" hoặc null
+    // Get the child's name from the request parameter
+    String childName = request.getParameter("search");
+    String month = request.getParameter("month");
+    String sortBy = request.getParameter("sortBy"); // sortBy can be "dateAdded" or null
 
-        // Lấy danh sách hồ sơ y tế, có thể lọc theo tên trẻ và tháng
-        boolean sortByDateAdded = "dateAdded".equals(sortBy); // Kiểm tra xem có sắp xếp không
-        List<MedicalRecord> records = dao.getAllMedicalRecords(childName, month, sortByDateAdded);
+    // Initialize childID with default value
+    Integer childID = null;
 
-        // Đặt thuộc tính cho yêu cầu
-        request.setAttribute("records", records);
-        
-        // Chuyển tiếp đến JSP
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/Staff_JSP/medical-record-list.jsp");
-        dispatcher.forward(request, response);
+    // Get childID from request parameter and handle potential exceptions
+    String childIDParam = request.getParameter("childID");
+    if (childIDParam != null && !childIDParam.isEmpty()) {
+        try {
+            childID = Integer.parseInt(childIDParam);
+        } catch (NumberFormatException e) {
+            // Log the error or handle invalid childID case
+            System.err.println("Invalid childID: " + childIDParam);
+        }
     }
+
+    // Determine sorting option
+    boolean sortByDateAdded = "dateAdded".equals(sortBy); // Check if sorting is required
+
+    // Retrieve the list of medical records, potentially filtered by child's name and month
+    List<MedicalRecord> records = dao.getAllMedicalRecords(childName, childID, month, sortByDateAdded);
+
+    // Set attribute for the request
+    request.setAttribute("records", records);
+    
+    // Forward to the JSP
+    RequestDispatcher dispatcher = request.getRequestDispatcher("/Staff_JSP/medical-record-list.jsp");
+    dispatcher.forward(request, response);
+}
 
     /** 
      * Handles the HTTP <code>POST</code> method.

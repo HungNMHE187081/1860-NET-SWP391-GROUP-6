@@ -151,6 +151,7 @@
                                                             <c:set var="firstName" value="${child.firstName}" />
                                                             <c:set var="middleName" value="${child.middleName}" />
                                                             <c:set var="lastName" value="${child.lastName}" />
+                                                             <c:set var="fullName" value="${child.firstName} ${child.middleName} ${child.lastName}" />
                                                         </c:if>
                                                     </c:forEach>
                                                 </c:if>
@@ -203,7 +204,7 @@
                                             </c:if>
                                             <c:if test="${reservation.hasRecord == true}">
                                                 <button class="btn-primary btn-sm" type="button" title="Xem" id="show-emp">
-                                                    <a href="${pageContext.request.contextPath}/viewmedicalrecord?staffID=${reservation.staffID}" title="Xem">
+                                                    <a href="${pageContext.request.contextPath}/medicalrecordlist?childID=${childID}" title="Xem">
                                                         <i class="fas fa-prescription-bottle-alt"></i>
                                                     </a>
                                                 </button>
