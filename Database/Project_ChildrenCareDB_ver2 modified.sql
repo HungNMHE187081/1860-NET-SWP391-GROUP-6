@@ -178,6 +178,7 @@ CREATE TABLE Reservations (
     StartTime TIME,
 	StaffID INT,
 	isExam BIT,
+	hasRecord BIT DEFAULT 0,
 	FOREIGN KEY (OrderItemID) REFERENCES OrderItems(OrderItemID) ON DELETE NO ACTION,
 	FOREIGN KEY (StaffID) REFERENCES Staff(StaffID) ON DELETE CASCADE,
 );
@@ -671,14 +672,14 @@ VALUES
 (3, 1, 3);
 
 
-INSERT INTO Reservations (OrderItemID, ReservationDate, StartTime, StaffID, isExam)
+INSERT INTO Reservations (OrderItemID, ReservationDate, StartTime, StaffID, isExam, hasRecord)
 VALUES 
-(1, '2023-10-05', '09:00:00', 3, 0),
-(2, '2023-10-06', '10:00:00', 3, 1),
-(3, '2023-10-07', '11:00:00', 3, 0),
-(4, '2023-10-08', '12:00:00', 3, 1),
-(5, '2023-10-09', '13:00:00', 3, 0),
-(6, '2023-10-10', '14:00:00', 3, 1);
+(1, '2023-10-05', '09:00:00', 3, 0, 1),
+(2, '2023-10-06', '10:00:00', 3, 1, 0),
+(3, '2023-10-07', '11:00:00', 3, 0, 0),
+(4, '2023-10-08', '12:00:00', 3, 1, 0),
+(5, '2023-10-09', '13:00:00', 3, 0, 0),
+(6, '2023-10-10', '14:00:00', 3, 1, 0);
 
 
 -- Cập nhật Quantity trong bảng Orders
