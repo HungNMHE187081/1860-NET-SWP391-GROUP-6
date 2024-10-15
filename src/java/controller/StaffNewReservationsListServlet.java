@@ -36,7 +36,7 @@ public class StaffNewReservationsListServlet extends HttpServlet {
         List<Reservation> reservations = reservationDAO.getReservationByIsExam(false);
         OrderDAO orderDAO = new OrderDAO();
         List<OrderItem> orderItems = orderDAO.getAllOrderItems();
-        List<Order> orders = orderDAO.getAllCheckOutOrders();
+        List<Order> orders = orderDAO.getAllOrders();
         ChildrenDAO childrenDAO = new ChildrenDAO();
         List<Children> children = childrenDAO.getAllChildren();
         ManagerUserDAO managerUserDAO = new ManagerUserDAO();
