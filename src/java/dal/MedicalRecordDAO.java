@@ -17,20 +17,52 @@ import java.time.LocalDate;
  * @author User
  */
 public class MedicalRecordDAO extends DBContext{
-    
-      public void addMedicalRecord(MedicalRecord medicalRecord) throws SQLException {
-        String sql = "INSERT INTO MedicalRecords (ChildID, StaffID, ReservationID, Diagnosis, Treatment, Notes, RecordDate) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, medicalRecord.getChildID());
-            statement.setInt(2, medicalRecord.getStaffID());
-            statement.setInt(3, medicalRecord.getReservationID()); // Set reservationID
-            statement.setString(4, medicalRecord.getDiagnosis());
-            statement.setString(5, medicalRecord.getTreatment());
-            statement.setString(6, medicalRecord.getNotes());
-            statement.setDate(7, medicalRecord.getRecordDate());
+    public void addMedicalRecordAndUpdateReservation(MedicalRecord medicalRecord) throws SQLException {
+    String insertSql = "INSERT INTO MedicalRecords (ChildID, StaffID, ReservationID, Diagnosis, Treatment, Notes, RecordDate) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    String updateSql = "UPDATE Reservations SET hasRecord = 1 WHERE ReservationID = ?";
 
-            statement.executeUpdate();
+    try (Connection connection = this.connection; 
+         PreparedStatement insertStatement = connection.prepareStatement(insertSql);
+         PreparedStatement updateStatement = connection.prepareStatement(updateSql)) {
+
+        // Bắt đầu transaction
+        connection.setAutoCommit(false);
+
+        // Thêm bản ghi vào bảng MedicalRecords
+        insertStatement.setInt(1, medicalRecord.getChildID());
+        insertStatement.setInt(2, medicalRecord.getStaffID());
+        insertStatement.setInt(3, medicalRecord.getReservationID());
+        insertStatement.setString(4, medicalRecord.getDiagnosis());
+        insertStatement.setString(5, medicalRecord.getTreatment());
+        insertStatement.setString(6, medicalRecord.getNotes());
+        insertStatement.setDate(7, medicalRecord.getRecordDate());
+        insertStatement.executeUpdate();
+
+        // Cập nhật cột hasRecord trong bảng Reservations
+        updateStatement.setInt(1, medicalRecord.getReservationID());
+        updateStatement.executeUpdate();
+
+        // Commit transaction
+        connection.commit();
+    } catch (SQLException e) {
+        // Rollback transaction nếu có lỗi
+        if (connection != null) {
+            try {
+                connection.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        throw e;
+    } finally {
+        // Đặt lại chế độ auto-commit
+        if (connection != null) {
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
         }
     }
-
+}
 }

@@ -119,7 +119,7 @@ public class AddMedicalRecord extends HttpServlet {
             Date recordDate = Date.valueOf(request.getParameter("recordDate"));
 
             MedicalRecord medicalRecord = new MedicalRecord(childID, staffID, reservationID, diagnosis, treatment, notes, recordDate); // Pass reservationID
-            medicalRecordDAO.addMedicalRecord(medicalRecord);
+            medicalRecordDAO.addMedicalRecordAndUpdateReservation(medicalRecord);
 
             response.sendRedirect("medicalRecords.jsp?success=true");
         } catch (Exception e) {
