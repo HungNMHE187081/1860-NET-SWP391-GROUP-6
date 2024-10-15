@@ -132,10 +132,6 @@
                                                 <c:if test="${child.childID == orderItem.childID}">
                                                     <c:set var="hasChild" value="true" />
                                                     <c:set var="childID" value="${child.childID}" /> <!-- Store childID -->
-                                                    <c:set var="childImage" value="${child.childImage}" />
-                                                    <c:set var="childFirstName" value="${child.firstName}" />
-                                                    <c:set var="childMiddleName" value="${child.middleName}" />
-                                                    <c:set var="childLastName" value="${child.lastName}" />
                                                 </c:if>
                                             </c:forEach>
                                         </c:if>
@@ -197,7 +193,7 @@
                                                 </a>
                                             </button>
                                             <c:if test="${reservation.hasRecord == false}">
-                                                <button class="btn-primary btn-sm" type="button" title="Thêm" id="show-emp"><a href="${pageContext.request.contextPath}/addmedicalrecord?staffID=${reservation.staffID}&reservationDate=${reservation.reservationDate}&reservationID=${reservation.reservationID}&childID=${childID}&childFirstName=${childFirstName}&childMiddleName=${childMiddleName}&childLastName=${childLastName}" title="Thêm">
+                                                <button class="btn-primary btn-sm" type="button" title="Thêm" id="show-emp"><a href="${pageContext.request.contextPath}/addmedicalrecord?staffID=${reservation.staffID}&reservationDate=${reservation.reservationDate}&reservationID=${reservation.reservationID}&childID=${childID}" title="Thêm">
                                                         <i class="fas fa-plus"></i>
                                                     </a>
                                                 </button>
