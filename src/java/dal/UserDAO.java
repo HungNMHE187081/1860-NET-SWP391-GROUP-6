@@ -402,11 +402,9 @@ public class UserDAO extends DBContext {
         String sqlUsers = "INSERT INTO Users (FirstName, MiddleName, LastName, Email, PhoneNumber, DateOfBirth, Gender, CitizenIdentification) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         String sqlUserAuth = "INSERT INTO UserAuthentication (UserID, Username, PasswordHash, Salt, LastLogin) VALUES (?, ?, ?, ?, ?)";
     
-        try (Connection conn = connection; // Assuming 'connection' is already a member of the class
-             PreparedStatement stmtUsers = conn.prepareStatement(sqlUsers, Statement.RETURN_GENERATED_KEYS);
-             PreparedStatement stmtUserAuth = conn.prepareStatement(sqlUserAuth)) {
+        try (PreparedStatement stmtUsers = connection.prepareStatement(sqlUsers, Statement.RETURN_GENERATED_KEYS);
+             PreparedStatement stmtUserAuth = connection.prepareStatement(sqlUserAuth)) {
     
-            conn.setAutoCommit(false);
     
             // Insert into Users table
             stmtUsers.setString(1, user.getFirstName());
@@ -418,16 +416,13 @@ public class UserDAO extends DBContext {
             stmtUsers.setString(7, user.getGender());
             stmtUsers.setString(8, user.getCitizenIdentification());
     
-            int affectedRows = stmtUsers.executeUpdate();
-    
-            if (affectedRows == 0) {
-                throw new SQLException("Creating user failed, no rows affected.");
-            }
+            stmtUsers.executeUpdate();
     
             try (ResultSet generatedKeys = stmtUsers.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
                     int userID = generatedKeys.getInt(1);
-    
+                    user.setUserID(userID);
+
                     // Insert into UserAuthentication table
                     UserAuthentication userAuth = user.getUser();
                     stmtUserAuth.setInt(1, userID);
@@ -436,8 +431,7 @@ public class UserDAO extends DBContext {
                     stmtUserAuth.setString(4, userAuth.getSalt());
                     stmtUserAuth.setTimestamp(5, userAuth.getLastLogin());
                     stmtUserAuth.executeUpdate();
-    
-                    conn.commit();
+
                     return userID;
                 } else {
                     throw new SQLException("Creating user failed, no ID obtained.");
@@ -449,13 +443,6 @@ public class UserDAO extends DBContext {
             System.out.println("SQLState: " + e.getSQLState());
             System.out.println("Error Code: " + e.getErrorCode());
             System.out.println("Input values: " + user.toString());
-            try {
-                if (connection != null) {
-                    connection.rollback();
-                }
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
             return -1;
         }
     }
