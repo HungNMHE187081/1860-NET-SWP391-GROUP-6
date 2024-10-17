@@ -149,43 +149,27 @@ public class UserDAO extends DBContext {
     }
 
     public static void main(String[] args) {
-        // Tạo đối tượng UserDAO
-        UserDAO userDAO = new UserDAO();
-    
-        // Tạo đối tượng Users
+        // Tạo đối tượng User
         Users user = new Users();
-        user.setFirstName("Nguyen");
-        user.setMiddleName("A.");
-        user.setLastName("Minh");
-        user.setEmail("MinhNguyen@gmail.com");
+        user.setFirstName("John");
+        user.setMiddleName("Doe");
+        user.setLastName("Smith");
+        user.setEmail("john.doe@example.com");
         user.setPhoneNumber("1234567890");
         user.setDateOfBirth(Date.valueOf("1990-01-01"));
-        user.setGender("Female");
+        user.setGender("Male");
         user.setCitizenIdentification("123456789");
-    
-        // Tạo đối tượng UserAuthentication
-        UserAuthentication userAuth = new UserAuthentication();
-        userAuth.setUsername("minhguyen");
-        String salt = userDAO.generateSalt(); // Giả sử bạn có phương thức generateSalt trong UserDAO
-        userAuth.setSalt(salt);
-        userAuth.setPasswordHash(userDAO.hashPassword("123", salt)); // Giả sử bạn có phương thức hashPassword trong UserDAO
-        userAuth.setLastLogin(new Timestamp(System.currentTimeMillis()));
-        user.setUser(userAuth);
-    
-        // Gọi phương thức addUser
+        user.setProfileImage("C:\\Users\\HÙNG\\Pictures\\Saved Pictures\\1.PNG");
+
+
+
+        // Tạo đối tượng UserDAO và gọi phương thức addUser
+        UserDAO userDAO = new UserDAO();
         int userID = userDAO.addUser(user);
-    
-        // Kiểm tra kết quả
+
+        // In kết quả
         if (userID != -1) {
             System.out.println("User added successfully with ID: " + userID);
-    
-            // Gọi phương thức getUserById để kiểm tra
-            Users retrievedUser = userDAO.getUserById(userID);
-            if (retrievedUser != null) {
-                System.out.println("Retrieved User: " + retrievedUser);
-            } else {
-                System.out.println("Failed to retrieve user.");
-            }
         } else {
             System.out.println("Failed to add user.");
         }
@@ -399,11 +383,18 @@ public class UserDAO extends DBContext {
     }
 
     public int addUser(Users user) {
-        String sqlUsers = "INSERT INTO Users (FirstName, MiddleName, LastName, Email, PhoneNumber, DateOfBirth, Gender, CitizenIdentification) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String sqlUsers = "INSERT INTO Users (FirstName, MiddleName, LastName, Email, PhoneNumber, DateOfBirth, Gender, CitizenIdentification, ProfileImage) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         String sqlUserAuth = "INSERT INTO UserAuthentication (UserID, Username, PasswordHash, Salt, LastLogin) VALUES (?, ?, ?, ?, ?)";
+        String sqlAddress = "INSERT INTO UserAddresses (StreetAddress, WardID, UserID) VALUES (?, ?, ?)";
+
     
         try (PreparedStatement stmtUsers = connection.prepareStatement(sqlUsers, Statement.RETURN_GENERATED_KEYS);
-             PreparedStatement stmtUserAuth = connection.prepareStatement(sqlUserAuth)) {
+            PreparedStatement stmtUserAuth = connection.prepareStatement(sqlUserAuth);
+            PreparedStatement stmtAddress = connection.prepareStatement(sqlAddress)) {
+
+            if (user.getProfileImage() == null || user.getProfileImage().isEmpty()) {
+                throw new IllegalArgumentException("Profile image is required.");
+            }
     
     
             // Insert into Users table
@@ -415,6 +406,7 @@ public class UserDAO extends DBContext {
             stmtUsers.setDate(6, user.getDateOfBirth());
             stmtUsers.setString(7, user.getGender());
             stmtUsers.setString(8, user.getCitizenIdentification());
+            stmtUsers.setString(9, user.getProfileImage());
     
             stmtUsers.executeUpdate();
     
@@ -431,6 +423,12 @@ public class UserDAO extends DBContext {
                     stmtUserAuth.setString(4, userAuth.getSalt());
                     stmtUserAuth.setTimestamp(5, userAuth.getLastLogin());
                     stmtUserAuth.executeUpdate();
+                    
+                    //Insert into UserAddress
+                    stmtAddress.setString(1, user.getAddress().getStreetAddress());
+                    stmtAddress.setInt(2, user.getAddress().getWardID());
+                    stmtAddress.setInt(3, userID);
+                    stmtAddress.executeUpdate();
 
                     return userID;
                 } else {
@@ -445,14 +443,8 @@ public class UserDAO extends DBContext {
             System.out.println("Input values: " + user.toString());
             return -1;
         }
+        
+        
     }
-    
-    
-    
-    
-    
-    
-    
-    
     
 }
