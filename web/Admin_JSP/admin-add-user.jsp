@@ -80,7 +80,8 @@
                     <label for="role">Role:</label>
                     <select class="form-control" id="role" name="role" required>
                         <option value="Manager">Manager</option>
-                        <option value="Staff">Staff</option>
+                        <option value="Doctor">Doctor</option>
+                        <option value="Nurse">Nurse</option>
                         <!-- Thêm các vai trò khác nếu cần -->
                     </select>
                 </div>

@@ -151,17 +151,15 @@ public class UserDAO extends DBContext {
     public static void main(String[] args) {
         // Tạo đối tượng User
         Users user = new Users();
-        user.setFirstName("John");
-        user.setMiddleName("Doe");
-        user.setLastName("Smith");
-        user.setEmail("john.doe@example.com");
+        user.setFirstName("Hung");
+        user.setMiddleName("Manh");
+        user.setLastName("Nguyen");
+        user.setEmail("manhhung1234556@example.com");
         user.setPhoneNumber("1234567890");
         user.setDateOfBirth(Date.valueOf("1990-01-01"));
         user.setGender("Male");
         user.setCitizenIdentification("123456789");
         user.setProfileImage("C:\\Users\\HÙNG\\Pictures\\Saved Pictures\\1.PNG");
-
-
 
         // Tạo đối tượng UserDAO và gọi phương thức addUser
         UserDAO userDAO = new UserDAO();
