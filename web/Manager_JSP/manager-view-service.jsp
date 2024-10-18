@@ -215,12 +215,12 @@
 
                         <div class="form-group">
                             <label class="control-label">Mô tả</label>
-                            <textarea class="form-control" id="description" name="description" readonly style="resize: none; overflow-y: auto; min-height: 200px;">${service.description}</textarea>
+                            <textarea class="form-control" id="description" name="description" readonly style="resize: none; overflow-y: auto; min-height: 300px;">${service.description}</textarea>
                         </div>
                         <div class="form-group">
                             <label class="control-label">Ảnh dịch vụ</label>
                             <div id="thumbbox">
-                                <img src="${pageContext.request.contextPath}/${service.serviceImage}" alt="${service.serviceName}" height="300" width="300" alt="Thumb image" id="thumbimage" style="display: block">
+                                <img src="${pageContext.request.contextPath}/${service.serviceImage}" alt="${service.serviceName}" id="thumbimage" style="display: block; width: 100%;">
                                 <a class="removeimg" href="javascript:"></a>
                             </div>
                             <div id="boxchoice">
