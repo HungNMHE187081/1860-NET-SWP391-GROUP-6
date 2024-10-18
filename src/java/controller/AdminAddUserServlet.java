@@ -94,7 +94,7 @@ public class AdminAddUserServlet extends HttpServlet {
         filePart.write(filePath);
         String img = UPLOAD_DIR + File.separator + fileName;
         
-        // Kiểm tra các trường dữ liệu đầu vào
+         //Kiểm tra các trường dữ liệu đầu vào
         if (firstName == null || firstName.isEmpty()
                 || lastName == null || lastName.isEmpty()
                 || email == null || email.isEmpty()

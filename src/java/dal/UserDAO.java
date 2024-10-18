@@ -380,21 +380,14 @@ public class UserDAO extends DBContext {
         return null;
     }
 
+//     
     public int addUser(Users user) {
         String sqlUsers = "INSERT INTO Users (FirstName, MiddleName, LastName, Email, PhoneNumber, DateOfBirth, Gender, CitizenIdentification, ProfileImage) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         String sqlUserAuth = "INSERT INTO UserAuthentication (UserID, Username, PasswordHash, Salt, LastLogin) VALUES (?, ?, ?, ?, ?)";
         String sqlAddress = "INSERT INTO UserAddresses (StreetAddress, WardID, UserID) VALUES (?, ?, ?)";
 
-    
-        try (PreparedStatement stmtUsers = connection.prepareStatement(sqlUsers, Statement.RETURN_GENERATED_KEYS);
-            PreparedStatement stmtUserAuth = connection.prepareStatement(sqlUserAuth);
-            PreparedStatement stmtAddress = connection.prepareStatement(sqlAddress)) {
+        try (PreparedStatement stmtUsers = connection.prepareStatement(sqlUsers, Statement.RETURN_GENERATED_KEYS); PreparedStatement stmtUserAuth = connection.prepareStatement(sqlUserAuth); PreparedStatement stmtAddress = connection.prepareStatement(sqlAddress)) {
 
-            if (user.getProfileImage() == null || user.getProfileImage().isEmpty()) {
-                throw new IllegalArgumentException("Profile image is required.");
-            }
-    
-    
             // Insert into Users table
             stmtUsers.setString(1, user.getFirstName());
             stmtUsers.setString(2, user.getMiddleName());
@@ -405,9 +398,14 @@ public class UserDAO extends DBContext {
             stmtUsers.setString(7, user.getGender());
             stmtUsers.setString(8, user.getCitizenIdentification());
             stmtUsers.setString(9, user.getProfileImage());
-    
-            stmtUsers.executeUpdate();
-    
+            
+
+            int affectedRows = stmtUsers.executeUpdate();
+
+            if (affectedRows == 0) {
+                throw new SQLException("Creating user failed, no rows affected.");
+            }
+
             try (ResultSet generatedKeys = stmtUsers.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
                     int userID = generatedKeys.getInt(1);
@@ -421,8 +419,8 @@ public class UserDAO extends DBContext {
                     stmtUserAuth.setString(4, userAuth.getSalt());
                     stmtUserAuth.setTimestamp(5, userAuth.getLastLogin());
                     stmtUserAuth.executeUpdate();
-                    
-                    //Insert into UserAddress
+
+                    // Insert into UserAddresses table
                     stmtAddress.setString(1, user.getAddress().getStreetAddress());
                     stmtAddress.setInt(2, user.getAddress().getWardID());
                     stmtAddress.setInt(3, userID);
@@ -441,8 +439,6 @@ public class UserDAO extends DBContext {
             System.out.println("Input values: " + user.toString());
             return -1;
         }
-        
-        
     }
-    
+
 }
