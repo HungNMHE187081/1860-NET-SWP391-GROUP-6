@@ -103,7 +103,7 @@
                                 <th>STT</th>
                                 <th>Ảnh của trẻ</th>
                                 <th>Tên trẻ</th>
-                                <th>Tên khách hàng</th>
+                                <th>Tên nhân viên</th>
                                 <th>Ngày khám</th>
                                 <th>Giờ khám</th>
                                 <th>Chức năng</th>
@@ -132,9 +132,9 @@
                                                 <c:if test="${child.childID == orderItem.childID}">
                                                     <c:set var="hasChild" value="true" />
                                                     <c:set var="childID" value="${child.childID}" /> <!-- Store childID -->
-                                                     <c:set var="childFirstName" value="${child.firstName}" />
-                                                      <c:set var="childMiddleName" value="${child.middleName}" />
-                                                       <c:set var="childLastName" value="${child.lastName}" />
+                                                    <c:set var="childFirstName" value="${child.firstName}" />
+                                                    <c:set var="childMiddleName" value="${child.middleName}" />
+                                                    <c:set var="childLastName" value="${child.lastName}" />
                                                 </c:if>
                                             </c:forEach>
                                         </c:if>
@@ -151,7 +151,7 @@
                                                             <c:set var="firstName" value="${child.firstName}" />
                                                             <c:set var="middleName" value="${child.middleName}" />
                                                             <c:set var="lastName" value="${child.lastName}" />
-                                                             <c:set var="fullName" value="${child.firstName} ${child.middleName} ${child.lastName}" />
+                                                            <c:set var="fullName" value="${child.firstName} ${child.middleName} ${child.lastName}" />
                                                         </c:if>
                                                     </c:forEach>
                                                 </c:if>
@@ -168,17 +168,9 @@
                                             </c:forEach>
                                         </td>
                                         <td>
-                                            <c:forEach var="orderItem" items="${orderItems}">
-                                                <c:if test="${orderItem.orderItemID == reservation.orderItemID}">
-                                                    <c:forEach var="order" items="${orders}">
-                                                        <c:if test="${order.orderID == orderItem.orderID}">
-                                                            <c:forEach var="user" items="${users}">
-                                                                <c:if test="${user.userID == order.customerID}">
-                                                                    ${user.firstName} ${user.middleName} ${user.lastName}
-                                                                </c:if>
-                                                            </c:forEach>
-                                                        </c:if>
-                                                    </c:forEach>
+                                            <c:forEach var="staff" items="${staffs}">
+                                                <c:if test="${staff.staffID == reservation.staffID}">
+                                                    ${staff.staffName}
                                                 </c:if>
                                             </c:forEach>
                                         </td>
@@ -198,8 +190,8 @@
                                             </button>
                                             <c:if test="${reservation.hasRecord == false}">
                                                 <button class="btn-primary btn-sm" type="button" title="Thêm" id="show-emp"><a href="${pageContext.request.contextPath}/addmedicalrecord?staffID=${reservation.staffID}&reservationDate=${reservation.reservationDate}&reservationID=${reservation.reservationID}&childID=${childID}&childFirstName=${childFirstName}&childMiddleName=${childMiddleName}&childLastName=${childLastName}" title="Thêm lịch sử khám">
-                                                    <i class="fas fa-plus"></i>
-                                                </a>
+                                                        <i class="fas fa-plus"></i>
+                                                    </a>
                                                 </button>
                                             </c:if>
                                             <c:if test="${reservation.hasRecord == true}">
