@@ -24,7 +24,7 @@ import model.Blog;
                  maxFileSize = 1024 * 1024 * 10,      // 10MB
                  maxRequestSize = 1024 * 1024 * 50)   // 50MB
 public class AddBlogServlet extends HttpServlet {
- private static final String UPLOAD_DIRECTORY = "uploads"; // Define upload directory
+ private static final String UPLOAD_DIRECTORY = "img"; // Define upload directory
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.

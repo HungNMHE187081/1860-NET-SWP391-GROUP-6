@@ -116,7 +116,10 @@
                                             </td>
                                             <td>${blog.views}</td>                                 
                                             <td>
-                                                <button class="btn btn-primary btn-sm trash" title="Xóa" onclick="myFunction()"><i class="fas fa-trash-alt"></i></button>
+                                                <form action="deleteblog" method="post">
+                                                    <input type="hidden" name="blogid" value="${blog.blogID}"/>
+                                                    <button class="btn btn-primary btn-sm trash" title="Xóa" onclick="confirm('B?n có ch?c ch?n mu?n xóa bài này không')"><i class="fas fa-trash-alt"></i></button>
+                                                </form>
                                                 <button class="btn btn-primary btn-sm edit" title="S?a" id="show-emp" data-toggle="modal" data-target="#ModalUP"><i class="fas fa-edit"></i></button>
                                                 <a href="viewdetailblog?blogid=${blog.blogID}" class="btn btn-primary btn-sm" title="Xem chi ti?t" style="background-color: green; color: white;">
                                                     <i class="fas fa-eye"></i>
@@ -225,28 +228,28 @@
                 var i = r.parentNode.parentNode.rowIndex;
                 document.getElementById("myTable").deleteRow(i);
             }
-            jQuery(function () {
-                jQuery(".trash").click(function () {
-                    swal({
-                        title: "C?nh báo",
-
-                        text: "B?n có ch?c ch?n là mu?n xóa nhân viên này?",
-                        buttons: ["H?y b?", "??ng ý"],
-                    })
-                            .then((willDelete) => {
-                                if (willDelete) {
-                                    swal("?ã xóa thành công.!", {
-
-                                    });
-                                }
-                            });
-                });
-            });
-            oTable = $('#sampleTable').dataTable();
-            $('#all').click(function (e) {
-                $('#sampleTable tbody :checkbox').prop('checked', $(this).is(':checked'));
-                e.stopImmediatePropagation();
-            });
+//            jQuery(function () {
+//                jQuery(".trash").click(function () {
+//                    swal({
+//                        title: "C?nh báo",
+//
+//                        text: "B?n có ch?c ch?n là mu?n xóa nhân viên này?",
+//                        buttons: ["H?y b?", "??ng ý"],
+//                    })
+//                            .then((willDelete) => {
+//                                if (willDelete) {
+//                                    swal("?ã xóa thành công.!", {
+//
+//                                    });
+//                                }
+//                            });
+//                });
+//            });
+//            oTable = $('#sampleTable').dataTable();
+//            $('#all').click(function (e) {
+//                $('#sampleTable tbody :checkbox').prop('checked', $(this).is(':checked'));
+//                e.stopImmediatePropagation();
+//            });
 
             //EXCEL
             // $(document).ready(function () {

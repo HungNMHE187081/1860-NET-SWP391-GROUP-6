@@ -221,10 +221,10 @@
                                     </select>
                                 </div>
 
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-12">
                                     <label class="control-label">Mô tả chi tiết dịch vụ</label>
                                     <textarea class="form-control" type="text" id="description" name="description" required=""
-                                              style="resize: none; overflow-y: auto; min-height: 200px;"></textarea>
+                                              style="resize: none; overflow-y: auto; min-height: 300px;"></textarea>
                                 </div>
                                 
                                 <div class="form-group col-md-12">
@@ -234,15 +234,12 @@
                                     </div>
                                     <div id="thumbbox">
                                         <img src="${pageContext.request.contextPath}/${service.serviceImage}" 
-                                             alt="${service.serviceName}" height="300" width="300" 
-                                             alt="Thumb image" id="thumbimage" style="display: none">
+                                             alt="${service.serviceName}" id="thumbimage" style="display: none; width: 100%;">
                                         <a class="removeimg" href="javascript:"></a>
                                     </div>
                                     <div id="boxchoice">
-
                                         <p style="clear:both"></p>
                                     </div>
-
                                 </div>
                                 <div class="form-group col-md-12">
                                     <button class="btn btn-save" type="submit">Thêm dịch vụ</button>

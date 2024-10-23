@@ -276,6 +276,26 @@
         <servlet-name>EditMedicalRecord</servlet-name>
         <servlet-class>controller.EditMedicalRecord</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>StaffFeedbackListServlet</servlet-name>
+        <servlet-class>controller.StaffFeedbackListServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>StaffViewFeedbackServlet</servlet-name>
+        <servlet-class>controller.StaffViewFeedbackServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CustomerViewServiceServlet</servlet-name>
+        <servlet-class>controller.CustomerViewServiceServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteBlogServlet</servlet-name>
+        <servlet-class>controller.DeleteBlogServlet</servlet-class>
+    </servlet>
+        <servlet>
+        <servlet-name>CustomerListOrdersServlet</servlet-name>
+        <servlet-class>controller.CustomerListOrdersServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -543,5 +563,25 @@
     <servlet-mapping>
         <servlet-name>EditMedicalRecord</servlet-name>
         <url-pattern>/updatemedicalrecord</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StaffFeedbackListServlet</servlet-name>
+        <url-pattern>/staff/feedbacklist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StaffViewFeedbackServlet</servlet-name>
+        <url-pattern>/staff/viewfeedback</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CustomerViewServiceServlet</servlet-name>
+        <url-pattern>/customer/viewservice</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteBlogServlet</servlet-name>
+        <url-pattern>/deleteblog</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CustomerListOrdersServlet</servlet-name>
+        <url-pattern>/customer/listorders</url-pattern>
     </servlet-mapping>
 </web-app>

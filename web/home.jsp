@@ -21,7 +21,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" type="image/jpg" href="img/1.png" />
-        <title>Tiny Tots - Trang Chá»§</title>
+         <title>Tiny Tots - Trang Chủ</title>
 </head>
 
 <body>
@@ -35,7 +35,7 @@
                     </div>
                     <div class="headsearch">
                         <div class="input_search">
-                            <input type="search" placeholder="Báº¡n Äang tÃ¬m gÃ¬?">
+                            <input type="search" placeholder="Bạn đang tìm gì?">
                         </div>
                         <div class="icon_search">
                             <span class="material-symbols-outlined">
@@ -311,7 +311,7 @@
     </span>
     <span class="back-to-top-text">LÃªn Äáº§u trang</span>
 </button>
-<script src="script.js"></script>
+<script src="js/script.js"></script>
 </header>
 <div id="footer"></div>
 <script>

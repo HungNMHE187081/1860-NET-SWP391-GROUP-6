@@ -11,7 +11,7 @@
                     <li><a href="${pageContext.request.contextPath}/medicalrecordlist"><i class="fas fa-calendar-check"></i>Lịch sử khám bệnh</a></li>
                     <li><a href="${pageContext.request.contextPath}/medicinelist" class="active"><i class="fas fa-prescription-bottle-alt"></i>Thuốc</a></li>
                     <li><a href="${pageContext.request.contextPath}/staff/staffslist"><i class="fas fa-users"></i>Danh sách nhân viên</a></li>
-                    <li><a href="feedback-list.jsp"><i class="fas fa-comments"></i> Danh sách phản hồi</a></li>
+                    <li><a href="${pageContext.request.contextPath}/staff/feedbacklist"><i class="fas fa-comments"></i> Danh sách phản hồi</a></li>
                     
                 </ul>
             </aside>
