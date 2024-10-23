@@ -13,6 +13,7 @@ import java.util.List;
 import model.Roles;
 import model.UserAuthentication;
 import model.Users;
+import model.UserAddresses;
 
 /**
  *
@@ -381,6 +382,65 @@ public class UserDAO extends DBContext {
     }
 
 //     
+//    public int addUser(Users user) {
+//        String sqlUsers = "INSERT INTO Users (FirstName, MiddleName, LastName, Email, PhoneNumber, DateOfBirth, Gender, CitizenIdentification, ProfileImage) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+//        String sqlUserAuth = "INSERT INTO UserAuthentication (UserID, Username, PasswordHash, Salt, LastLogin) VALUES (?, ?, ?, ?, ?)";
+//        String sqlAddress = "INSERT INTO UserAddresses (StreetAddress, WardID, UserID) VALUES (?, ?, ?)";
+//
+//        try (PreparedStatement stmtUsers = connection.prepareStatement(sqlUsers, Statement.RETURN_GENERATED_KEYS); PreparedStatement stmtUserAuth = connection.prepareStatement(sqlUserAuth); PreparedStatement stmtAddress = connection.prepareStatement(sqlAddress)) {
+//
+//            // Insert into Users table
+//            stmtUsers.setString(1, user.getFirstName());
+//            stmtUsers.setString(2, user.getMiddleName());
+//            stmtUsers.setString(3, user.getLastName());
+//            stmtUsers.setString(4, user.getEmail());
+//            stmtUsers.setString(5, user.getPhoneNumber());
+//            stmtUsers.setDate(6, user.getDateOfBirth());
+//            stmtUsers.setString(7, user.getGender());
+//            stmtUsers.setString(8, user.getCitizenIdentification());
+//            stmtUsers.setString(9, user.getProfileImage());
+//            
+//
+//            int affectedRows = stmtUsers.executeUpdate();
+//
+//            if (affectedRows == 0) {
+//                throw new SQLException("Creating user failed, no rows affected.");
+//            }
+//
+//            try (ResultSet generatedKeys = stmtUsers.getGeneratedKeys()) {
+//                if (generatedKeys.next()) {
+//                    int userID = generatedKeys.getInt(1);
+//                    user.setUserID(userID);
+//
+//                    // Insert into UserAuthentication table
+//                    UserAuthentication userAuth = user.getUser();
+//                    stmtUserAuth.setInt(1, userID);
+//                    stmtUserAuth.setString(2, userAuth.getUsername());
+//                    stmtUserAuth.setString(3, userAuth.getPasswordHash());
+//                    stmtUserAuth.setString(4, userAuth.getSalt());
+//                    stmtUserAuth.setTimestamp(5, userAuth.getLastLogin());
+//                    stmtUserAuth.executeUpdate();
+//
+//                    // Insert into UserAddresses table
+//                    stmtAddress.setString(1, user.getAddress().getStreetAddress());
+//                    stmtAddress.setInt(2, user.getAddress().getWardID());
+//                    stmtAddress.setInt(3, userID);
+//                    stmtAddress.executeUpdate();
+//
+//                    return userID;
+//                } else {
+//                    throw new SQLException("Creating user failed, no ID obtained.");
+//                }
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//            System.out.println("Error message: " + e.getMessage());
+//            System.out.println("SQLState: " + e.getSQLState());
+//            System.out.println("Error Code: " + e.getErrorCode());
+//            System.out.println("Input values: " + user.toString());
+//            return -1;
+//        }
+//    }
     public int addUser(Users user) {
         String sqlUsers = "INSERT INTO Users (FirstName, MiddleName, LastName, Email, PhoneNumber, DateOfBirth, Gender, CitizenIdentification, ProfileImage) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         String sqlUserAuth = "INSERT INTO UserAuthentication (UserID, Username, PasswordHash, Salt, LastLogin) VALUES (?, ?, ?, ?, ?)";
@@ -388,7 +448,7 @@ public class UserDAO extends DBContext {
 
         try (PreparedStatement stmtUsers = connection.prepareStatement(sqlUsers, Statement.RETURN_GENERATED_KEYS); PreparedStatement stmtUserAuth = connection.prepareStatement(sqlUserAuth); PreparedStatement stmtAddress = connection.prepareStatement(sqlAddress)) {
 
-            // Insert into Users table
+            // Chèn vào bảng Users
             stmtUsers.setString(1, user.getFirstName());
             stmtUsers.setString(2, user.getMiddleName());
             stmtUsers.setString(3, user.getLastName());
@@ -398,7 +458,6 @@ public class UserDAO extends DBContext {
             stmtUsers.setString(7, user.getGender());
             stmtUsers.setString(8, user.getCitizenIdentification());
             stmtUsers.setString(9, user.getProfileImage());
-            
 
             int affectedRows = stmtUsers.executeUpdate();
 
@@ -411,20 +470,35 @@ public class UserDAO extends DBContext {
                     int userID = generatedKeys.getInt(1);
                     user.setUserID(userID);
 
-                    // Insert into UserAuthentication table
+                    // Chèn vào bảng UserAuthentication
                     UserAuthentication userAuth = user.getUser();
+                    if (userAuth == null) {
+                        throw new SQLException("UserAuthentication object is null.");
+                    }
                     stmtUserAuth.setInt(1, userID);
                     stmtUserAuth.setString(2, userAuth.getUsername());
                     stmtUserAuth.setString(3, userAuth.getPasswordHash());
                     stmtUserAuth.setString(4, userAuth.getSalt());
                     stmtUserAuth.setTimestamp(5, userAuth.getLastLogin());
-                    stmtUserAuth.executeUpdate();
 
-                    // Insert into UserAddresses table
-                    stmtAddress.setString(1, user.getAddress().getStreetAddress());
-                    stmtAddress.setInt(2, user.getAddress().getWardID());
+                    int authAffectedRows = stmtUserAuth.executeUpdate();
+                    if (authAffectedRows == 0) {
+                        throw new SQLException("Creating user authentication failed, no rows affected.");
+                    }
+
+                    // Chèn vào bảng UserAddresses
+                    UserAddresses address = user.getAddress();
+                    if (address == null) {
+                        throw new SQLException("UserAddress object is null.");
+                    }
+                    stmtAddress.setString(1, address.getStreetAddress());
+                    stmtAddress.setInt(2, address.getWardID());
                     stmtAddress.setInt(3, userID);
-                    stmtAddress.executeUpdate();
+
+                    int addressAffectedRows = stmtAddress.executeUpdate();
+                    if (addressAffectedRows == 0) {
+                        throw new SQLException("Creating user address failed, no rows affected.");
+                    }
 
                     return userID;
                 } else {
