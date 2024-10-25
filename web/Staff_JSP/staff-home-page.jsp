@@ -16,7 +16,7 @@
                 <h1><i class="fas fa-hospital"></i> Child Care</h1>
                 <nav>
                     <ul>
-                        <li><a href="staff-home-page.jsp"><i class="fas fa-home"></i> Trang chủ</a></li>
+                        <li><a href="staffhomepage"><i class="fas fa-home"></i> Trang chủ</a></li>
                         <li><a href="profile.html"><i class="fas fa-user"></i> Thông tin cá nhân</a></li>
 
                         <li><a href="logout.html" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
@@ -26,11 +26,11 @@
         </header>
 
         <div class="main-wrapper">
-            <%@ include file="/Staff_JSP/leftside.jsp" %>
+            <%@ include file="leftside.jsp" %>
 
             <main>
                 <section class="dashboard">
-                    <h2><i class="fas fa-user-nurse"></i> Xin chào, [Tên nhân viên]</h2>
+                    <h2><i class="fas fa-user-nurse"></i> Xin chào ${staff.staffName}</h2>
 
                     <section class="appointments-today">
                         <h3><i class="fas fa-calendar-day"></i> Các cuộc hẹn hôm nay</h3>
