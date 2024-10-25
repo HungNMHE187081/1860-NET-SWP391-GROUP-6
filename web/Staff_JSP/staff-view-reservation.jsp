@@ -206,15 +206,15 @@
                             <span>${child.firstName} ${child.middleName} ${child.lastName}</span>
                         </div>
                         <div class="detail-item">
-                            <label>Tên khách hàng:</label>
-                            <span>${user.firstName} ${user.middleName} ${user.lastName}</span>
-                        </div>
-                        <div class="detail-item">
                             <label>Ngày sinh:</label>
                             <span>
                                 <fmt:parseDate value="${child.dateOfBirth}" pattern="yyyy-MM-dd" var="parsedDateOfBirth" />
                                 <fmt:formatDate value="${child.dateOfBirth}" pattern="dd-MM-yyyy" />
                             </span>
+                        </div>
+                        <div class="detail-item">
+                            <label>Tên khách hàng:</label>
+                            <span>${user.firstName} ${user.middleName} ${user.lastName}</span>
                         </div>
                         <div class="detail-item">
                             <label>Nhóm tuổi:</label>

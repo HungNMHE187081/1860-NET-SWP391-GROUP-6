@@ -4,7 +4,6 @@
   <aside class="sidebar">
                 <h2><i class="fas fa-list"></i> Danh mục</h2>
                 <ul>
-                    <li><a href="${pageContext.request.contextPath}/staff/reservationslist"><i class="fas fa-concierge-bell"></i>Lịch khám của bạn</a></li>
                     <li><a href="${pageContext.request.contextPath}/staff/serviceslist"><i class="fas fa-concierge-bell"></i>Danh sách dịch vụ</a></li>
                     <li><a href="${pageContext.request.contextPath}/staff/newreservationslist"><i class="fas fa-calendar-check"></i>Danh sách lịch khám mới</a></li>
                     <li><a href="${pageContext.request.contextPath}/staff/oldreservationslist"><i class="fas fa-calendar-check"></i>Danh sách lịch đã khám</a></li>
