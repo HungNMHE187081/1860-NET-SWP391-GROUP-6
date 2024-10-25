@@ -120,7 +120,7 @@
     <header>
         <h1>Child Care</h1>
         <nav>
-            <a href="Staff_JSP/staff-home-page.jsp">Trang chủ</a>
+            <a href="staffhomepage">Trang chủ</a>
             <a href="profile.jsp">Thông tin cá nhân</a>
             <a href="logout.jsp">Đăng xuất</a>
         </nav>
