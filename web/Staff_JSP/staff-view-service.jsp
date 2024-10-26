@@ -188,7 +188,7 @@
 
                     <div class="detail-container">
                         <img src="${pageContext.request.contextPath}/${service.serviceImage}" 
-                             alt="${service.serviceName}" class="service-image">
+                             alt="${service.serviceName}" class="service-image" style="display: block; width: 100%;">
                         <div class="detail-item">
                             <label>Tên dịch vụ:</label>
                             <span>${service.serviceName}</span>

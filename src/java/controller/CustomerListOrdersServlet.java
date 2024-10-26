@@ -37,28 +37,13 @@ public class CustomerListOrdersServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        ReservationDAO reservationDAO = new ReservationDAO();
-        List<Reservation> reservation = reservationDAO.getAllReservations();
-        OrderDAO orderDAO = new OrderDAO();
-        OrderItem orderItem = orderDAO.getOrderItemsByOrderItemID(1);
-        Order order = orderDAO.getOrdersByOrderID(orderItem.getOrderID());
-        ChildrenDAO childrenDAO = new ChildrenDAO();
-        Children child = childrenDAO.getChildrenByID(orderItem.getChildID());
-        ManagerUserDAO managerUserDAO = new ManagerUserDAO();
-        Users user = managerUserDAO.getDetailUserByUserID(order.getCustomerID());
-        ServiceDAO serviceDAO = new ServiceDAO();
-        Service service = serviceDAO.getServiceByID(orderItem.getServiceID());
-        AgeLimitDAO ageLimitDAO = new AgeLimitDAO();
-        AgeLimits ageLimits = ageLimitDAO.getAgeLimitByID(service.getAgeLimitID());
-     
-        request.setAttribute("reservation", reservation);
-        request.setAttribute("child", child);
-        request.setAttribute("user", user);
-        request.setAttribute("order", order);
-        request.setAttribute("orderItem", orderItem);
-        request.setAttribute("service", service);
-        request.setAttribute("ageLimits", ageLimits);
-        request.getRequestDispatcher("/Common_JSP/home-orders-list.jsp").forward(request, response);
+//        String customerID = request.getParameter("userID");
+OrderDAO orderDAO = new OrderDAO();
+List<Order> orders = orderDAO.getOrdersByCustomerID(1);
+
+request.setAttribute("orders", orders);
+
+request.getRequestDispatcher("/Common_JSP/home-orders-list.jsp").forward(request, response);
     } 
 
     @Override

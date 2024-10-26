@@ -55,7 +55,7 @@ throws ServletException, IOException {
     ServiceDAO serviceDAO = new ServiceDAO();
     List<Service> services = serviceDAO.getAllServices();
     request.setAttribute("services", services);
-    request.getRequestDispatcher("list-service.jsp").forward(request, response);
+    request.getRequestDispatcher("/Common_JSP/list-service.jsp").forward(request, response);
 }
 
     /** 

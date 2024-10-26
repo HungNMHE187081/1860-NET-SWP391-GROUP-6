@@ -57,7 +57,7 @@ public class HomepageFeedbackServlet extends HttpServlet {
         FeedbackDAO feedbackDAO = new FeedbackDAO();
         List<Feedback> feedbackList = feedbackDAO.getAllFeedbacks();
         request.setAttribute("feedbackList", feedbackList);
-        request.getRequestDispatcher("homepage.jsp").forward(request, response);
+        request.getRequestDispatcher("/Common_JSP/homepage.jsp").forward(request, response);
     }
 /**
  * Handles the HTTP <code>POST</code> method.

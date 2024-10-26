@@ -37,8 +37,6 @@
         <link href="${pageContext.request.contextPath}/css/style.min.css" rel="stylesheet" type="text/css"/>
         <link href="${pageContext.request.contextPath}/css/tiny-slider.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=ecg_heart" />
-
-
     </head>
 
     <body>
@@ -79,7 +77,7 @@
                     </div>
                 </div><!--end col-->
             </div><!--end row-->
-
+        
             <div class="row">
                 <div class="col-12 mt-4 pt-2">
                     <div class="table-responsive shadow rounded">
@@ -87,26 +85,20 @@
                             <thead>
                                 <tr>
                                     <th class="text-center py-4" style="min-width: 120px;">Số thứ tự</th>
-                                    <th class="text-center py-4" style="min-width: 200px;">Dịch vụ</th>
+                                    <th class="text-center py-4" style="min-width: 200px;">Tổng số dịch vụ</th>
                                     <th class="text-center py-4" style="min-width: 200px;">Ngày Đặt Hàng</th>
                                     <th class="text-center py-4" style="min-width: 200px;">Tổng Tiền</th>
                                     <th class="text-center py-4" style="min-width: 200px;">Trạng Thái</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <c:forEach var="order" items="${orderList}" varStatus="status">
+                                <c:forEach var="order" items="${orders}" varStatus="status">
                                     <tr>
                                         <td class="text-center">${status.index + 1}</td>
-                                        <td class="text-center">
-                                            <c:forEach var="service" items="${services}">
-                                                <c:if test="${service.serviceId == order}">
-                                            ${service.serviceName}
-                                                </c:if>
-                                            </c:forEach>
-                                        </td>
+                                        <td class="text-center">${order.quantity}</td>
                                         <td class="text-center">${order.orderDate}</td>
                                         <td class="text-center">${order.totalPrice}</td>
-                                        <td class="text-center">${order.status}</td>
+                                        <td class="text-center">${order.isCheckOut ? 'Đã thanh toán' : 'Chưa thanh toán'}</td>
                                     </tr>
                                 </c:forEach>
                             </tbody>
@@ -114,7 +106,7 @@
                     </div>
                 </div><!--end col-->
             </div><!--end row-->
-        </div><!--end container-->
+        </div><!--end container--><!--end container-->
     </section><!--end section-->
 
     <%@include file="footer.jsp" %>
