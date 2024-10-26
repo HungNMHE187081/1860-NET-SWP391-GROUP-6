@@ -133,25 +133,24 @@ public class OrderDAO extends DBContext {
         return orderItem;
     }
         
-        public Order getOrderByCustomerID(int CustomerID) {
-        Order order = new Order();
-        String sql = "SELECT * FROM Order WHERE CustomerID = ?";
+        public List<Order> getOrdersByCustomerID(int CustomerID) {
+        List<Order> list = new ArrayList<>();
+        String sql = "SELECT * FROM Orders WHERE CustomerID = ?";
         try {
             PreparedStatement pre = connection.prepareStatement(sql);
             pre.setInt(1, CustomerID);
-            try(ResultSet rs = pre.executeQuery()){
-            if (rs.next()) {
-                order.setOrderID(rs.getInt("OrderID"));
-                order.setCustomerID(CustomerID);
-                order.setQuantity(rs.getInt("Quantity"));
-                order.setTotalPrice(rs.getDouble("TotalPrice"));
-                order.setOrderDate(rs.getString("OrderDate"));
-                order.setIsCheckOut(rs.getBoolean("isCheckOut"));
-            }
+            ResultSet rs = pre.executeQuery();
+            while (rs.next()) {
+                int OrderID = rs.getInt("OrderID");
+                int Quantity = rs.getInt("Quantity");
+                double TotalPrice = rs.getDouble("TotalPrice");
+                String OrderDate = rs.getString("OrderDate");
+                boolean isCheckOut = rs.getBoolean("isCheckOut");
+                list.add(new Order(OrderID, CustomerID, Quantity, TotalPrice, OrderDate, isCheckOut));
             }
         } catch (SQLException e) {
         }
-        return order;
+        return list;
     }
 
     public static void main(String[] args) {
