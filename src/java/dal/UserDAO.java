@@ -10,10 +10,13 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
+import model.District;
+import model.Provinces;
 import model.Roles;
+import model.UserAddresses;
 import model.UserAuthentication;
 import model.Users;
-import model.UserAddresses;
+import model.Ward;
 
 /**
  *
@@ -514,5 +517,64 @@ public class UserDAO extends DBContext {
             return -1;
         }
     }
+
+    public Users getUserWithAddressById(int userId) {
+    Users user = null;
+    String sql = "SELECT u.*, ua.StreetAddress, ua.WardID, w.WardName, d.DistrictID, d.DistrictName, p.ProvinceID, p.ProvinceName " +
+                 "FROM Users u " +
+                 "LEFT JOIN UserAddresses ua ON u.UserID = ua.UserID " +
+                 "LEFT JOIN Wards w ON ua.WardID = w.WardID " +
+                 "LEFT JOIN Districts d ON w.DistrictID = d.DistrictID " +
+                 "LEFT JOIN Provinces p ON d.ProvinceID = p.ProvinceID " +
+                 "WHERE u.UserID = ?";
+    try (PreparedStatement ps = connection.prepareStatement(sql)) {
+        ps.setInt(1, userId);
+        try (ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                user = new Users();
+                user.setUserID(rs.getInt("UserID"));
+                user.setFirstName(rs.getString("FirstName"));
+                user.setMiddleName(rs.getString("MiddleName"));
+                user.setLastName(rs.getString("LastName"));
+                user.setEmail(rs.getString("Email"));
+                user.setPhoneNumber(rs.getString("PhoneNumber"));
+                user.setDateOfBirth(rs.getDate("DateOfBirth"));
+                user.setGender(rs.getString("Gender"));
+                user.setCitizenIdentification(rs.getString("CitizenIdentification"));
+                user.setProfileImage(rs.getString("ProfileImage"));
+                user.setCreatedAt(rs.getTimestamp("CreatedAt"));
+                user.setUpdatedAt(rs.getTimestamp("UpdatedAt"));
+
+                // Get user address
+                UserAddresses address = new UserAddresses();
+                address.setStreetAddress(rs.getString("StreetAddress"));
+                address.setWardID(rs.getInt("WardID"));
+
+                // Get ward
+                Ward ward = new Ward();
+                ward.setId(rs.getInt("WardID"));
+                ward.setWardName(rs.getString("WardName"));
+                address.setWard(ward);
+
+                // Get district
+                District district = new District();
+                district.setId(rs.getInt("DistrictID"));
+                district.setDistrictName(rs.getString("DistrictName"));
+                address.setDistrict(district);
+
+                // Get province
+                Provinces province = new Provinces();
+                province.setProvinceID(rs.getInt("ProvinceID"));
+                province.setProvinceName(rs.getString("ProvinceName"));
+                address.setProvinces(province);
+
+                user.setAddress(address);
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return user;
+}
 
 }

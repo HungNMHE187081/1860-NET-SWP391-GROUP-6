@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import model.Users;
 
 public class LoginServlet extends HttpServlet {
     private UserDAO userDAO;
@@ -32,9 +33,10 @@ public class LoginServlet extends HttpServlet {
 
         UserAuthentication userAuth = userDAO.loginUser(username, password);
         if (userAuth != null) {
+            Users user = userDAO.getUserWithAddressById(userAuth.getUserID());
             HttpSession session = request.getSession();
-            session.setAttribute("user", userAuth);
-            response.sendRedirect("/Common_JSP/homepage.jsp");
+            session.setAttribute("user", user);
+            response.sendRedirect(request.getContextPath() + "/Common_JSP/homepage.jsp");
         } else {
             response.sendRedirect("login.jsp?error=Invalid username or password");
         }

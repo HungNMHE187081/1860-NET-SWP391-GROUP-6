@@ -28,7 +28,7 @@ public class AdminEditUserServlet extends HttpServlet {
         if (userIdStr != null && !userIdStr.isEmpty()) {
             try {
                 int userId = Integer.parseInt(userIdStr);
-                Users user = userDAO.getUserById(userId);
+                Users user = userDAO.getUserWithAddressById(userId);
                 if (user != null) {
                     request.setAttribute("user", user);
                     request.getRequestDispatcher("/Admin_JSP/admin-edit-user.jsp").forward(request, response);
