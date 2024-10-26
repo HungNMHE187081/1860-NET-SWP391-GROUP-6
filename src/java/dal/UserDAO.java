@@ -519,62 +519,98 @@ public class UserDAO extends DBContext {
     }
 
     public Users getUserWithAddressById(int userId) {
-    Users user = null;
-    String sql = "SELECT u.*, ua.StreetAddress, ua.WardID, w.WardName, d.DistrictID, d.DistrictName, p.ProvinceID, p.ProvinceName " +
-                 "FROM Users u " +
-                 "LEFT JOIN UserAddresses ua ON u.UserID = ua.UserID " +
-                 "LEFT JOIN Wards w ON ua.WardID = w.WardID " +
-                 "LEFT JOIN Districts d ON w.DistrictID = d.DistrictID " +
-                 "LEFT JOIN Provinces p ON d.ProvinceID = p.ProvinceID " +
-                 "WHERE u.UserID = ?";
-    try (PreparedStatement ps = connection.prepareStatement(sql)) {
-        ps.setInt(1, userId);
-        try (ResultSet rs = ps.executeQuery()) {
-            if (rs.next()) {
-                user = new Users();
-                user.setUserID(rs.getInt("UserID"));
-                user.setFirstName(rs.getString("FirstName"));
-                user.setMiddleName(rs.getString("MiddleName"));
-                user.setLastName(rs.getString("LastName"));
-                user.setEmail(rs.getString("Email"));
-                user.setPhoneNumber(rs.getString("PhoneNumber"));
-                user.setDateOfBirth(rs.getDate("DateOfBirth"));
-                user.setGender(rs.getString("Gender"));
-                user.setCitizenIdentification(rs.getString("CitizenIdentification"));
-                user.setProfileImage(rs.getString("ProfileImage"));
-                user.setCreatedAt(rs.getTimestamp("CreatedAt"));
-                user.setUpdatedAt(rs.getTimestamp("UpdatedAt"));
+        Users user = null;
+        String sql = "SELECT u.*, ua.StreetAddress, ua.WardID, w.WardName, d.DistrictID, d.DistrictName, p.ProvinceID, p.ProvinceName "
+                + "FROM Users u "
+                + "LEFT JOIN UserAddresses ua ON u.UserID = ua.UserID "
+                + "LEFT JOIN Wards w ON ua.WardID = w.WardID "
+                + "LEFT JOIN Districts d ON w.DistrictID = d.DistrictID "
+                + "LEFT JOIN Provinces p ON d.ProvinceID = p.ProvinceID "
+                + "WHERE u.UserID = ?";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, userId);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    user = new Users();
+                    user.setUserID(rs.getInt("UserID"));
+                    user.setFirstName(rs.getString("FirstName"));
+                    user.setMiddleName(rs.getString("MiddleName"));
+                    user.setLastName(rs.getString("LastName"));
+                    user.setEmail(rs.getString("Email"));
+                    user.setPhoneNumber(rs.getString("PhoneNumber"));
+                    user.setDateOfBirth(rs.getDate("DateOfBirth"));
+                    user.setGender(rs.getString("Gender"));
+                    user.setCitizenIdentification(rs.getString("CitizenIdentification"));
+                    user.setProfileImage(rs.getString("ProfileImage"));
+                    user.setCreatedAt(rs.getTimestamp("CreatedAt"));
+                    user.setUpdatedAt(rs.getTimestamp("UpdatedAt"));
 
-                // Get user address
-                UserAddresses address = new UserAddresses();
-                address.setStreetAddress(rs.getString("StreetAddress"));
-                address.setWardID(rs.getInt("WardID"));
+                    // Get user address
+                    UserAddresses address = new UserAddresses();
+                    address.setStreetAddress(rs.getString("StreetAddress"));
+                    address.setWardID(rs.getInt("WardID"));
 
-                // Get ward
-                Ward ward = new Ward();
-                ward.setId(rs.getInt("WardID"));
-                ward.setWardName(rs.getString("WardName"));
-                address.setWard(ward);
+                    // Get ward
+                    Ward ward = new Ward();
+                    ward.setId(rs.getInt("WardID"));
+                    ward.setWardName(rs.getString("WardName"));
+                    address.setWard(ward);
 
-                // Get district
-                District district = new District();
-                district.setId(rs.getInt("DistrictID"));
-                district.setDistrictName(rs.getString("DistrictName"));
-                address.setDistrict(district);
+                    // Get district
+                    District district = new District();
+                    district.setId(rs.getInt("DistrictID"));
+                    district.setDistrictName(rs.getString("DistrictName"));
+                    address.setDistrict(district);
 
-                // Get province
-                Provinces province = new Provinces();
-                province.setProvinceID(rs.getInt("ProvinceID"));
-                province.setProvinceName(rs.getString("ProvinceName"));
-                address.setProvinces(province);
+                    // Get province
+                    Provinces province = new Provinces();
+                    province.setProvinceID(rs.getInt("ProvinceID"));
+                    province.setProvinceName(rs.getString("ProvinceName"));
+                    address.setProvinces(province);
 
-                user.setAddress(address);
+                    user.setAddress(address);
+                }
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-    } catch (SQLException e) {
-        e.printStackTrace();
+        return user;
     }
-    return user;
-}
+
+    public boolean updateUserWithAddress(Users user) {
+        String sql = "UPDATE Users SET FirstName = ?, MiddleName = ?, LastName = ?, Email = ?, "
+                + "PhoneNumber = ?, DateOfBirth = ?, Gender = ?, CitizenIdentification = ?, "
+                + "ProfileImage = ? WHERE UserID = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, user.getFirstName());
+            stmt.setString(2, user.getMiddleName());
+            stmt.setString(3, user.getLastName());
+            stmt.setString(4, user.getEmail());
+            stmt.setString(5, user.getPhoneNumber());
+            stmt.setDate(6, new java.sql.Date(user.getDateOfBirth().getTime()));
+            stmt.setString(7, user.getGender());
+            stmt.setString(8, user.getCitizenIdentification());
+            stmt.setString(9, user.getProfileImage());
+            stmt.setInt(10, user.getUserID());
+    
+            int affectedRows = stmt.executeUpdate();
+    
+            if (affectedRows > 0) {
+                // Update address
+                String addressSql = "UPDATE UserAddresses SET StreetAddress = ?, WardID = ? WHERE UserID = ?";
+                try (PreparedStatement addressStmt = connection.prepareStatement(addressSql)) {
+                    addressStmt.setString(1, user.getAddress().getStreetAddress());
+                    addressStmt.setInt(2, user.getAddress().getWardID());
+                    addressStmt.setInt(3, user.getUserID());
+                    addressStmt.executeUpdate();
+                }
+                return true;
+            }
+            return false;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
 }
