@@ -71,6 +71,6 @@
             </tr>
             <!-- Add other fields as needed -->
         </table>
-        <a href="/customer/editprofile">Edit Profile</a>
+        <a href="${pageContext.request.contextPath}/customer/editprofile">Edit Profile</a>
     </body>
 </html>
