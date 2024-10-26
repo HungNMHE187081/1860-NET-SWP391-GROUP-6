@@ -123,15 +123,7 @@
                                         <td><c:out value="${record.reservationDate}" /></td>
                                         
                                         <td>
-                                            <a href="updatemedicalrecord?id=${record.recordID}" class="btn">
-                                                <i class="fas fa-edit"></i>
-                                            </a>
-                                            <form action="deletemedicalrecord" method="post" style="display:inline;">
-                                                <input type="hidden" name="id" value="${record.recordID}" /> <!-- Sử dụng recordID -->
-                                                <button type="submit" class="btn" onclick="return confirm('Bạn có chắc chắn muốn xóa bản ghi này?');">
-                                                    <i class="fas fa-trash-alt"></i>
-                                                </button>
-                                            </form>
+                                           
                                                 <a href="medicalrecorddetail?id=${record.recordID}" class="btn"><i class="fas fa-eye"></i></a>
                                         </td>
                                     </tr>
