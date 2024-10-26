@@ -188,7 +188,7 @@
 
                     <div class="detail-container">
                         <img src="${pageContext.request.contextPath}/${service.serviceImage}" 
-                             alt="${service.serviceName}" class="service-image" style="display: block; width: 100%;">
+                             alt="${service.serviceName}" class="service-image">
                         <div class="detail-item">
                             <label>Tên dịch vụ:</label>
                             <span>${service.serviceName}</span>
@@ -225,7 +225,7 @@
                         </div>
                         <div class="detail-item">
                             <label>Giá:</label>
-                            <span><fmt:formatNumber value="${service.price}" type="number" groupingUsed="true" />₫</span>
+                            <span><fmt:formatNumber value="${service.price}" type="number" groupingUsed="true" /></span>
                         </div>
                         <div class="detail-item">
                             <label>Thời gian khám tối đa:</label>

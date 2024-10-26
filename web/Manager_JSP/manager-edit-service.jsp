@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,7 +16,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Main CSS-->
-                <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/manager/services.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/manager/services.css">
 
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
         <!-- or -->
@@ -199,7 +200,8 @@
                             </div>
                             <div class="form-group col-md-4">
                                 <label class="control-label">Giá (VNĐ)</label>
-                                <input class="form-control" type="number" id="price" name="price" value="${service.price}" required>
+                                <input class="form-control" type="text" id="price" name="price"
+                                       value="<fmt:formatNumber value='${service.price}' type='number' groupingUsed='true' />" required="">
                             </div>
                             <div class="form-group col-md-4">
                                 <label class="control-label">Thời gian khám tối đa (Phút)</label>

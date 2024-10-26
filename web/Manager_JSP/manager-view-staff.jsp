@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -243,8 +244,9 @@
                                         <input class="form-control" type="text" id="hireDate" name="hireDate" value="${staff.hireDate}" readonly="">
                                     </div>
                                     <div class="form-group col-md-4">
-                                        <label class="control-label">Lương (VNĐ)</label>
-                                        <input class="form-control" type="text" id="salary" name="salary" value="${staff.salary}" readonly="">
+                                        <label class="control-label">Lương(VNĐ)</label>
+                                        <input class="form-control" type="text" id="price" name="price"
+                                               value="<fmt:formatNumber value='${staff.salary}' type='number' groupingUsed='true' />" readonly="">
                                     </div>
                                 </div>
                             </div>
