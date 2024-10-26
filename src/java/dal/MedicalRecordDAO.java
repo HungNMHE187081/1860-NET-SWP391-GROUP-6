@@ -10,7 +10,6 @@ package model;
  */
 import dal.DBContext;
 import model.MedicalRecord;
-import model.MedicalRecord;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -229,7 +228,7 @@ public class MedicalRecordDAO extends DBContext {
     return medicalRecords;
 }
 
-
+ 
 
   public boolean deleteMedicalRecord(int recordID) {
     String selectSql = "SELECT ReservationID FROM MedicalRecords WHERE RecordID = ?";

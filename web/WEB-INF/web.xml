@@ -308,6 +308,10 @@
         <servlet-name>StaffHomePage</servlet-name>
         <servlet-class>controller.StaffHomePage</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ViewMedicalRecord</servlet-name>
+        <servlet-class>controller.ViewMedicalRecord</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -607,5 +611,9 @@
     <servlet-mapping>
         <servlet-name>StaffHomePage</servlet-name>
         <url-pattern>/staff/staffhomepage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewMedicalRecord</servlet-name>
+        <url-pattern>/medicalrecorddetail</url-pattern>
     </servlet-mapping>
 </web-app>

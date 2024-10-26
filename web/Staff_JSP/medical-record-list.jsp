@@ -102,27 +102,26 @@
                     <table>
                         <thead>
                             <tr>
+                                <th>STT</th>
                                 <th>Tên trẻ</th>
                                 <th>Chẩn đoán</th>
                                 <th>Điều trị</th>
                                 <th>Ghi chú</th>
                                 <th>Ngày khám</th>
-                                <th>Ngày ghi nhận</th>
                                 <th>Chức năng</th>
                             </tr>
                         </thead>
                         <tbody>
                             <c:if test="${not empty records}">
-                                <c:forEach var="record" items="${records}">
+                                <c:forEach var="record" items="${records}" varStatus="status">
                                     <tr>
+                                         <td>${status.index + 1}</td> <!-- Serial Number Column -->
                                         <td><c:out value="${record.firstNameChild} ${record.middleNameChild} ${record.lastNameChild}" /></td>
                                         <td><c:out value="${record.diagnosis}" /></td>
                                         <td><c:out value="${record.treatment}" /></td>
                                         <td><c:out value="${record.notes}" /></td>
                                         <td><c:out value="${record.reservationDate}" /></td>
-                                        <td>
-                                            <c:out value="${record.recordDate}" />
-                                        </td>
+                                        
                                         <td>
                                             <a href="updatemedicalrecord?id=${record.recordID}" class="btn">
                                                 <i class="fas fa-edit"></i>
@@ -133,6 +132,7 @@
                                                     <i class="fas fa-trash-alt"></i>
                                                 </button>
                                             </form>
+                                                <a href="medicalrecorddetail?id=${record.recordID}" class="btn"><i class="fas fa-eye"></i></a>
                                         </td>
                                     </tr>
                                 </c:forEach>
