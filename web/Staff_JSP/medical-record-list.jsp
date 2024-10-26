@@ -58,7 +58,7 @@
                 <h1><i class="fas fa-hospital"></i> Child Care</h1>
                 <nav>
                     <ul>
-                        <li><a href="Staff_JSP/staff-home-page.jsp"><i class="fas fa-home"></i> Trang chủ</a></li>
+                        <li><a href="staffhomepage"><i class="fas fa-home"></i> Trang chủ</a></li>
                         <li><a href="profile.jsp"><i class="fas fa-user"></i> Thông tin cá nhân</a></li>
                         <li><a href="logout.jsp" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
                     </ul>
@@ -74,7 +74,7 @@
             <!-- Main Content -->
             <main>
                 <section class="dashboard">
-                    <h2><i class="fas fa-prescription-bottle-alt"></i> Danh sách thuốc</h2>
+                    <h2><i class="fas fa-prescription-bottle-alt"></i> Lịch sử khám</h2>
 
                     <!-- Filter and Search Form -->
                     <form action="medicalrecordlist" method="get" class="filter-form">

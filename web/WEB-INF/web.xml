@@ -304,6 +304,10 @@
         <servlet-name>CustomerViewReservationServlet</servlet-name>
         <servlet-class>controller.CustomerViewReservationServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>StaffHomePage</servlet-name>
+        <servlet-class>controller.StaffHomePage</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -599,5 +603,9 @@
     <servlet-mapping>
         <servlet-name>CustomerViewReservationServlet</servlet-name>
         <url-pattern>/customer/viewreservation</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StaffHomePage</servlet-name>
+        <url-pattern>/staff/staffhomepage</url-pattern>
     </servlet-mapping>
 </web-app>
