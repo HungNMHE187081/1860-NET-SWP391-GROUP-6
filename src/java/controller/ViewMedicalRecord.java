@@ -57,24 +57,46 @@ public class ViewMedicalRecord extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        String recordID_raw = request.getParameter("id");
-        try {
-            int recordID = Integer.parseInt(recordID_raw);
-            MedicalRecordDAO dao = new MedicalRecordDAO();
-            MedicalRecord medicalRecord = new MedicalRecord();
-            medicalRecord = dao.getMedicalRecordByID(recordID);
-            StaffDAO staffDAO = new StaffDAO();
-            Staff staff = new Staff();
-            staff = staffDAO.getStaffByID(medicalRecord.getStaffID());
-            request.setAttribute("staff", staff);
-            request.setAttribute("medicalRecord", medicalRecord);
-            request.getRequestDispatcher("/Staff_JSP/view-medical-record.jsp").forward(request, response);
-        } catch (Exception e) {
-            System.out.println(e);
+
+protected void doGet(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+    String recordID_raw = request.getParameter("id");
+
+    try {
+        // Validate the input parameter
+        if (recordID_raw == null || recordID_raw.isEmpty()) {
+            throw new IllegalArgumentException("Invalid record ID.");
         }
+
+        // Parse recordID from the request parameter
+        int recordID = Integer.parseInt(recordID_raw);
+
+        // Retrieve the medical record
+        MedicalRecordDAO dao = new MedicalRecordDAO();
+        MedicalRecord medicalRecord = dao.getMedicalRecordByID(recordID);
+
+        // Check if the medical record exists
+        if (medicalRecord == null) {
+            request.setAttribute("errorMessage", "Medical record not found.");
+            request.getRequestDispatcher("/Staff_JSP/error-page.jsp").forward(request, response);
+            return; // Stop further processing
+        }
+
+        // Retrieve the associated staff
+        StaffDAO staffDAO = new StaffDAO();
+        Staff staff = staffDAO.getStaffByID(medicalRecord.getStaffID());
+
+        // Set attributes for JSP
+        request.setAttribute("staff", staff);
+        request.setAttribute("medicalRecord", medicalRecord);
+
+        // Forward to the view page
+        request.getRequestDispatcher("/Staff_JSP/view-medical-record.jsp").forward(request, response);
+
+    } catch (NumberFormatException e) {
+        System.out.println(e);
     } 
+}
 
     /** 
      * Handles the HTTP <code>POST</code> method.

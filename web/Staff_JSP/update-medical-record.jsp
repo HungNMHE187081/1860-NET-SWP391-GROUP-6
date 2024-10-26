@@ -157,10 +157,10 @@
             <input type="date" name="reservationDate" value="${record.reservationDate}" readonly />
 
             <label for="doctorName">Tên bác sĩ:</label>
-            <input type="text" name="doctorName" value="${record.staffID}" readonly />
+            <input type="text" name="doctorName" value="${staff.staffName}" readonly />
 
             <label for="createdDate">Ngày tạo:</label>
-            <input type="date" name="createdDate" value="${record.recordDate}" readonly />
+            <input type="date" name="createdDate" value="${record.recordDate}"  />
 
             <button type="submit">Cập nhật</button>
         </form>

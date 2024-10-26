@@ -94,6 +94,31 @@
                 background-color: #e0e0e0;
                 color: #000;
             }
+            .action-buttons {
+                display: flex; /* Arrange buttons inline */
+                gap: 10px; /* Add space between the buttons */
+                align-items: center; /* Align items vertically */
+            }
+
+            .action-buttons .btn {
+                border: none;
+                background-color: transparent;
+                cursor: pointer;
+                font-size: 18px; /* Adjust size if needed */
+            }
+
+            .action-buttons .edit-btn i {
+                color: #28a745; /* Green color for edit icon */
+            }
+
+            .action-buttons .delete-btn i {
+                color: #dc3545; /* Red color for delete icon */
+            }
+
+            .action-buttons .btn:hover i {
+                opacity: 0.7; /* Optional hover effect */
+            }
+
         </style>
         <header>
             <div class="container">
@@ -199,10 +224,10 @@
 
                     <div class="detail-container">
                         <img src="${pageContext.request.contextPath}/${medicalRecord.childImage}" 
-                             alt="${medicalRecord.childFirstName} ${medicalRecord.childMiddleName} ${medicalRecord.childLastName}" class="child-image">
+                             alt="${medicalRecord.firstNameChild} ${medicalRecord.middleNameChild} ${medicalRecord.lastNameChild}" class="child-image">
                         <div class="detail-item">
                             <label>Tên trẻ: </label>
-                            <span>${medicalRecord.childFirstName} ${medicalRecord.childMiddleName} ${medicalRecord.childLastName}</span>
+                            <span>${medicalRecord.firstNameChild} ${medicalRecord.middleNameChild} ${medicalRecord.lastNameChild}</span>
                         </div>
                         <div class="detail-item">
                             <label>Tên nhân viên: </label>
@@ -234,7 +259,20 @@
                                 <fmt:formatDate value="${parsedRecordDate}" pattern="dd-MM-yyyy" />
                             </span>
                         </div>
-                      
+                        <div class="action-buttons">
+                            <a href="updatemedicalrecord?id=${medicalRecord.recordID}" class="btn edit-btn">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <form action="deletemedicalrecord" method="post" style="display:inline;">
+                                <input type="hidden" name="id" value="${record.recordID}" />
+                                <button type="submit" class="btn delete-btn" 
+                                        onclick="return confirm('Bạn có chắc chắn muốn xóa bản ghi này?');">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </form>
+                        </div>
+
+
                     </div>
 
                     <div class="pagination">

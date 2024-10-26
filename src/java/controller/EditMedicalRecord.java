@@ -1,108 +1,140 @@
 package controller;
 
-
+import dal.StaffDAO;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.MedicalRecord;
+import model.MedicalRecordDAO;
+import model.Staff;
 
 import java.io.IOException;
-import model.MedicalRecordDAO;
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
-/**
- *
- * @author User
- */
 public class EditMedicalRecord extends HttpServlet {
+
     private MedicalRecordDAO medicalRecordDAO;
 
     @Override
     public void init() throws ServletException {
-        // Khởi tạo DAO trong phương thức init
-        medicalRecordDAO = new MedicalRecordDAO(/* Pass your database connection here */);
+        // Initialize DAO in the init method
+        medicalRecordDAO = new MedicalRecordDAO(/* Pass database connection if needed */);
     }
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
     }
 
-    /** 
+    /**
      * Handles the HTTP <code>GET</code> method.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String recordIdParam = request.getParameter("id");
-        int recordID = Integer.parseInt(recordIdParam);
+        try {
+            String recordIdParam = request.getParameter("id");
+            int recordID = Integer.parseInt(recordIdParam);
 
-        // Lấy thông tin bản ghi từ cơ sở dữ liệu
-        MedicalRecord record = medicalRecordDAO.getMedicalRecordByID(recordID); // Sửa tên phương thức cho đúng
-        request.setAttribute("record", record);
+            // Retrieve the medical record by ID
+            MedicalRecord record = medicalRecordDAO.getMedicalRecordByID(recordID);
 
-        // Chuyển đến trang cập nhật
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/Staff_JSP/update-medical-record.jsp");
-        dispatcher.forward(request, response);
-    } 
+            StaffDAO staffDAO = new StaffDAO();
+            Staff staff = staffDAO.getStaffByID(record.getStaffID());
 
-    /** 
+            // Set attributes for JSP
+            request.setAttribute("record", record);
+            request.setAttribute("staff", staff);
+
+            // Forward to update page
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/Staff_JSP/update-medical-record.jsp");
+            dispatcher.forward(request, response);
+        } catch (NumberFormatException e) {
+            System.out.println(e);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    /**
      * Handles the HTTP <code>POST</code> method.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
      */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) 
-            throws ServletException, IOException {
-        int recordID = Integer.parseInt(request.getParameter("id")); // Lấy ID của bản ghi
+@Override
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+    try {
+        // Extracting parameters from the request
+        int recordID = Integer.parseInt(request.getParameter("id"));
         String diagnosis = request.getParameter("diagnosis");
         String treatment = request.getParameter("treatment");
         String notes = request.getParameter("notes");
+        String recordDate_raw = request.getParameter("createdDate");
 
+        // Convert the input string to java.sql.Date
+        Date recordDate = convertToSqlDate(recordDate_raw);
+
+        // Create and populate MedicalRecord object
         MedicalRecord record = new MedicalRecord();
         record.setRecordID(recordID);
         record.setDiagnosis(diagnosis);
         record.setTreatment(treatment);
         record.setNotes(notes);
+        record.setRecordDate(recordDate);
 
-        // Cập nhật bản ghi y tế
+        // Update the medical record
         boolean isUpdated = medicalRecordDAO.updateMedicalRecord(record);
 
         if (isUpdated) {
-            response.sendRedirect("medicalrecordlist"); // Redirect đến trang danh sách
+            response.sendRedirect("medicalrecordlist"); // Redirect if successful
         } else {
-            // Xử lý lỗi nếu không cập nhật thành công
-            request.setAttribute("errorMessage", "Cập nhật không thành công.");
+            request.setAttribute("errorMessage", "Failed to update record.");
             request.getRequestDispatcher("errorPage.jsp").forward(request, response);
         }
+    } catch (NumberFormatException | ParseException e) {
+        e.printStackTrace(); // For debugging
+        request.setAttribute("errorMessage", "Invalid input format.");
+        request.getRequestDispatcher("errorPage.jsp").forward(request, response);
+    } catch (Exception e) {
+        e.printStackTrace(); // For unexpected errors
+        request.setAttribute("errorMessage", "An error occurred.");
+        request.getRequestDispatcher("errorPage.jsp").forward(request, response);
+    }
+}
+
+
+    /**
+     * Converts a date string to java.sql.Date.
+     */
+  private Date convertToSqlDate(String dateStr) throws ParseException {
+    if (dateStr == null || dateStr.trim().isEmpty()) {
+        throw new ParseException("Date string is empty or null", 0);
     }
 
-    /** 
-     * Returns a short description of the servlet.
-     * @return a String containing servlet description
-     */
+    // Ensure the date format matches "yyyy-MM-dd"
+    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+    format.setLenient(false);  // Strict date parsing
+    java.util.Date utilDate = format.parse(dateStr);
+
+    // Convert to java.sql.Date
+    return new Date(utilDate.getTime());
+}
+
     @Override
     public String getServletInfo() {
-        return "Short description";
+        return "Edit Medical Record Servlet";
     }
+
     public static void main(String[] args) {
-        MedicalRecordDAO m = new MedicalRecordDAO();
-        MedicalRecord test = new MedicalRecord();
-        test = m.getMedicalRecordByID(6);
+        MedicalRecordDAO dao = new MedicalRecordDAO();
+        MedicalRecord test = dao.getMedicalRecordByID(6);
         System.out.println(test);
     }
 }
