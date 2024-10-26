@@ -1,5 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -97,7 +98,9 @@
                                         <td class="text-center">${status.index + 1}</td>
                                         <td class="text-center">${order.quantity}</td>
                                         <td class="text-center">${order.orderDate}</td>
-                                        <td class="text-center">${order.totalPrice}</td>
+                                        <td class="text-center">
+                                            <span><fmt:formatNumber value="${order.totalPrice}" type="number" groupingUsed="true" />₫</span>
+                                        </td>
                                         <td class="text-center">${order.isCheckOut ? 'Đã thanh toán' : 'Chưa thanh toán'}</td>
                                     </tr>
                                 </c:forEach>
