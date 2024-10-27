@@ -20,6 +20,16 @@ public class MedicalRecord {
     private String lastNameChild;
     private Date reservationDate;
     private Date recordDate; // Change to java.sql.Date
+    
+    private boolean hasPres;
+
+    public boolean isHasPres() {
+        return hasPres;
+    }
+
+    public void setHasPres(boolean hasPres) {
+        this.hasPres = hasPres;
+    }
 
     public MedicalRecord() {
     }

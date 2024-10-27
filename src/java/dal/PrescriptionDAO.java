@@ -7,21 +7,62 @@ import model.Prescription;
 
 public class PrescriptionDAO extends DBContext {
 
-    // In PrescriptionDAO
-    public void addPrescription(Prescription prescription) throws SQLException {
-        String sql = "INSERT INTO Prescriptions (RecordID, MedicineID, Dosage, Frequency, Duration) VALUES (?, ?, ?, ?, ?)";
-        try (PreparedStatement ps = connection.prepareStatement(sql)) {
-            ps.setInt(1, prescription.getRecordID());
-            ps.setInt(2, prescription.getMedicineID());
-            ps.setString(3, prescription.getDosage());
-            ps.setString(4, prescription.getFrequency());
-            ps.setString(5, prescription.getDuration());
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace(); // Log the error for debugging
-            throw e; // Rethrow the exception to the calling method
+  public void addPrescription(Prescription prescription) {
+  
+    PreparedStatement insertStmt = null;
+    PreparedStatement updateStmt = null;
+
+    try {
+
+        // Tắt auto-commit để dùng transaction
+        connection.setAutoCommit(false);
+
+        // Câu lệnh thêm đơn thuốc
+        String insertSql = "INSERT INTO Prescriptions (RecordID, MedicineID, Dosage, Frequency, Duration) "
+                         + "VALUES (?, ?, ?, ?, ?)";
+        insertStmt = connection.prepareStatement(insertSql);
+        insertStmt.setInt(1, prescription.getRecordID());
+        insertStmt.setInt(2, prescription.getMedicineID());
+        insertStmt.setString(3, prescription.getDosage());
+        insertStmt.setString(4, prescription.getFrequency());
+        insertStmt.setString(5, prescription.getDuration());
+
+        // Thực thi thêm đơn thuốc
+        insertStmt.executeUpdate();
+
+        // Câu lệnh cập nhật hasPres = 1 trong MedicalRecords
+        String updateSql = "UPDATE MedicalRecords SET hasPres = 1 WHERE RecordID = ?";
+        updateStmt = connection.prepareStatement(updateSql);
+        updateStmt.setInt(1, prescription.getRecordID());
+
+        // Thực thi cập nhật
+        updateStmt.executeUpdate();
+
+        // Commit transaction nếu tất cả thành công
+        connection.commit();
+    } catch (SQLException e) {
+        try {
+            if (connection != null) {
+                // Rollback nếu có lỗi
+                connection.rollback();
+            }
+        } catch (SQLException rollbackEx) {
+            System.err.println("Lỗi khi rollback: " + rollbackEx.getMessage());
+        }
+        System.err.println("Lỗi khi thêm đơn thuốc: " + e.getMessage());
+    } finally {
+        // Đóng các tài nguyên
+        try {
+            if (insertStmt != null) insertStmt.close();
+            if (updateStmt != null) updateStmt.close();
+            if (connection != null) connection.close();
+        } catch (SQLException closeEx) {
+            System.err.println("Lỗi khi đóng tài nguyên: " + closeEx.getMessage());
         }
     }
+}
+
+
 
     // Cập nhật đơn thuốc
     public void updatePrescription(Prescription prescription) throws SQLException {
