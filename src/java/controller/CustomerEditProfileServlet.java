@@ -42,31 +42,16 @@ public class CustomerEditProfileServlet extends HttpServlet {
         List<Provinces> provinces = userDAO.getAllProvinces();
         request.setAttribute("provinces", provinces);
 
-        // Kiểm tra nếu provinceID được chọn để lấy districts
-        String selectedProvinceID = request.getParameter("provinceID");
-        List<District> districts = new ArrayList<>();
-        if (selectedProvinceID != null && !selectedProvinceID.isEmpty()) {
-            int provinceID = Integer.parseInt(selectedProvinceID);
-            districts = userDAO.getDistrictsByProvince(provinceID);
-            request.setAttribute("districts", districts);
-        }
-
-        // Kiểm tra nếu districtID được chọn để lấy wards
-        String selectedDistrictID = request.getParameter("districtID");
-        List<Ward> wards = new ArrayList<>();
-        if (selectedDistrictID != null && !selectedDistrictID.isEmpty()) {
-            int districtID = Integer.parseInt(selectedDistrictID);
-            wards = userDAO.getWardsByDistrict(districtID);
-            request.setAttribute("wards", wards);
-        }
-
-        request.setAttribute("selectedProvinceID", selectedProvinceID);
-        request.setAttribute("selectedDistrictID", selectedDistrictID);
-
         HttpSession session = request.getSession();
         Users user = (Users) session.getAttribute("user");
 
         if (user != null) {
+            // Lấy danh sách Quận/Huyện và Phường/Xã dựa trên địa chỉ hiện tại của người dùng
+            List<District> districts = userDAO.getDistrictsByProvince(user.getAddress().getProvinces().getProvinceID());
+            List<Ward> wards = userDAO.getWardsByDistrict(user.getAddress().getDistrict().getId());
+
+            request.setAttribute("districts", districts);
+            request.setAttribute("wards", wards);
             request.setAttribute("userDetails", user);
             request.getRequestDispatcher("/Common_JSP/edit-profile.jsp").forward(request, response);
         } else {
