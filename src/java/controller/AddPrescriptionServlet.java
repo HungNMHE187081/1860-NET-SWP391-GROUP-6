@@ -1,8 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
-
 package controller;
 
 import dal.MedicineDAO;
@@ -20,24 +15,22 @@ import model.Medicine;
 import model.Staff;
 import model.Children;
 import dal.ChildrenDAO;
-/**
- *
- * @author User
- */
+import dal.PrescriptionDAO;
+import model.Prescription;
+import java.sql.SQLException;
+
 public class AddPrescriptionServlet extends HttpServlet {
-   
-    /** 
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    private PrescriptionDAO prescriptionDAO;
+
+    @Override
+    public void init() throws ServletException {
+        prescriptionDAO = new PrescriptionDAO(); // Initialize the DAO here
+    }
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
@@ -50,14 +43,6 @@ public class AddPrescriptionServlet extends HttpServlet {
         }
     } 
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /** 
-     * Handles the HTTP <code>GET</code> method.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
@@ -78,30 +63,44 @@ public class AddPrescriptionServlet extends HttpServlet {
             request.setAttribute("staff", staff);
             request.getRequestDispatcher("/Staff_JSP/add-prescription.jsp").forward(request, response);
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace(); // Improved error handling
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Unable to process request.");
         }
     } 
 
-    /** 
-     * Handles the HTTP <code>POST</code> method.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        processRequest(request, response);
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException {
+        try {
+            // Retrieve form parameters
+            int recordID = Integer.parseInt(request.getParameter("recordID"));
+            int medicineID = Integer.parseInt(request.getParameter("medicineId"));
+            String dosage = request.getParameter("dosage");
+            String frequency = request.getParameter("frequency");
+            String duration = request.getParameter("duration");
+
+            // Create a new Prescription object
+            Prescription prescription = new Prescription();
+            prescription.setRecordID(recordID);
+            prescription.setMedicineID(medicineID);
+            prescription.setDosage(dosage);
+            prescription.setFrequency(frequency);
+            prescription.setDuration(duration);
+
+            // Add prescription using DAO
+            prescriptionDAO.addPrescription(prescription);
+            response.sendRedirect(request.getContextPath() + "/addprescription?success=true");
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace(); 
+        } catch (Exception e) {
+            e.printStackTrace(); 
+        }
     }
 
-    /** 
-     * Returns a short description of the servlet.
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
-
+    }
 }
