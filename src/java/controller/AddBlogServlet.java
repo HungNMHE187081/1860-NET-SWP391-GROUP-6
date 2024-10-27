@@ -14,17 +14,22 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 import java.io.File;
+import java.util.List;
 import model.Blog;
+import model.BlogCategory;
+import model.BlogCategoryMapping;
 
 /**
  *
  * @author LENOVO
  */
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
-                 maxFileSize = 1024 * 1024 * 10,      // 10MB
-                 maxRequestSize = 1024 * 1024 * 50)   // 50MB
+        maxFileSize = 1024 * 1024 * 10, // 10MB
+        maxRequestSize = 1024 * 1024 * 50)   // 50MB
 public class AddBlogServlet extends HttpServlet {
- private static final String UPLOAD_DIRECTORY = "img"; // Define upload directory
+
+    private static final String UPLOAD_DIRECTORY = "img"; // Define upload directory
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -63,6 +68,9 @@ public class AddBlogServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        BlogDAO blogDAO = new BlogDAO();
+        List<BlogCategory> cate = blogDAO.getAllBlogCategory();
+        request.setAttribute("cate", cate);
         request.getRequestDispatcher("/Manager_JSP/manager-add-blog.jsp").forward(request, response);
     }
 
@@ -88,7 +96,7 @@ public class AddBlogServlet extends HttpServlet {
         Part filePart = request.getPart("thumbNail");
         String fileName = extractFileName(filePart);
         String uploadPath = getServletContext().getRealPath("") + File.separator + UPLOAD_DIRECTORY;
-
+        int blogCategoryID = Integer.parseInt(request.getParameter("blogCategory"));
         // Create directory if it does not exist
         File uploadDir = new File(uploadPath);
         if (!uploadDir.exists()) {
@@ -109,8 +117,8 @@ public class AddBlogServlet extends HttpServlet {
 
         // Call DAO method to insert the blog
         BlogDAO blogDAO = new BlogDAO();
-        blogDAO.addBlog(blog);
-
+        blogDAO.addBlog(blog, blogCategoryID);
+        
         // Redirect to a success page (or you can show a confirmation message)
         response.sendRedirect("manageblog");
 
