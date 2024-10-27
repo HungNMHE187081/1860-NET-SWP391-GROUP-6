@@ -7,6 +7,7 @@ import model.UserAddresses;
 
 import java.io.IOException;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -20,6 +21,7 @@ import model.District;
 import model.Provinces;
 import model.Ward;
 
+@MultipartConfig
 public class CustomerEditProfileServlet extends HttpServlet {
 
     private UserDAO userDAO;
@@ -109,16 +111,25 @@ public class CustomerEditProfileServlet extends HttpServlet {
             }
 
             Part filePart = request.getPart("profileImage");
+            String img = user.getProfileImage(); // Giữ lại ảnh cũ nếu không có ảnh mới
 
-            String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-            String uploadDir = getServletContext().getRealPath("/") + UPLOAD_DIR;
-            File uploadDirFile = new File(uploadDir);
-            if (!uploadDirFile.exists()) {
-                uploadDirFile.mkdir();
+            if (filePart != null && filePart.getSize() > 0) {
+                String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+                String uploadDir = getServletContext().getRealPath("/") + UPLOAD_DIR;
+                File uploadDirFile = new File(uploadDir);
+                if (!uploadDirFile.exists()) {
+                    uploadDirFile.mkdir();
+                }
+                String filePath = uploadDir + File.separator + fileName;
+                try {
+                    filePart.write(filePath);
+                    img = UPLOAD_DIR + File.separator + fileName;
+                } catch (IOException e) {
+                    request.setAttribute("error", "Không thể lưu ảnh đại diện. Vui lòng thử lại.");
+                    request.getRequestDispatcher("/Common_JSP/edit-profile.jsp").forward(request, response);
+                    return;
+                }
             }
-            String filePath = uploadDir + File.separator + fileName;
-            filePart.write(filePath);
-            String img = UPLOAD_DIR + File.separator + fileName;
 
             // Cập nhật thông tin người dùng
             user.setFirstName(firstName);
