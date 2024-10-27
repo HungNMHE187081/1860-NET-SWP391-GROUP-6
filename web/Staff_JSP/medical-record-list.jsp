@@ -130,13 +130,12 @@
                         <a href="medicalrecorddetail?id=${record.recordID}" class="btn" title="Xem chi tiết" style="margin-right: 5px; padding: 5px 10px; font-size: 14px; display: flex; justify-content: center; align-items: center;">
                             <i class="fas fa-eye" style="margin: 0;"></i>
                         </a>
-                        <c:if test="${record.hasPres == false}">
                             <button class="btn-primary btn-sm" type="button" title="Thêm" id="show-emp">
                                 <a href="addprescription?id=${record.recordID}" title="Thêm đơn thuốc">
                                     <i class="fas fa-plus"></i>
                                 </a>
                             </button>
-                        </c:if>
+                        
                     </td>
                 </tr>
             </c:forEach>

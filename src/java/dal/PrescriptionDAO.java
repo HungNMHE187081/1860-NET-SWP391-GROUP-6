@@ -7,13 +7,11 @@ import model.Prescription;
 
 public class PrescriptionDAO extends DBContext {
 
-  public void addPrescription(Prescription prescription) {
-  
+public void addPrescription(Prescription prescription) {
     PreparedStatement insertStmt = null;
     PreparedStatement updateStmt = null;
 
     try {
-
         // Tắt auto-commit để dùng transaction
         connection.setAutoCommit(false);
 
@@ -55,12 +53,16 @@ public class PrescriptionDAO extends DBContext {
         try {
             if (insertStmt != null) insertStmt.close();
             if (updateStmt != null) updateStmt.close();
-            if (connection != null) connection.close();
+            // Only close the connection if it's not managed by a connection pool
+            // For connection pooling, do not close the connection here.
+            // If using a connection pool, ensure connection is returned, not closed.
+            // connection.close(); 
         } catch (SQLException closeEx) {
             System.err.println("Lỗi khi đóng tài nguyên: " + closeEx.getMessage());
         }
     }
 }
+
 
 
 
