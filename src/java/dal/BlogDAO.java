@@ -48,31 +48,47 @@ public void addBlog(Blog blog, int categoryID) {
 
 public Blog getBlogById(int blogID) {
     Blog blog = null;
-    String sql = "SELECT * FROM Blogs WHERE BlogID = ?";
+    String sql = "SELECT b.*, bc.CategoryName " +
+                 "FROM Blogs b " +
+                 "LEFT JOIN BlogCategoryMapping bcm ON b.BlogID = bcm.BlogID " +
+                 "LEFT JOIN BlogCategories bc ON bcm.CategoryID = bc.CategoryID " +
+                 "WHERE b.BlogID = ?";
 
-    try (
-        PreparedStatement pstmt = connection.prepareStatement(sql)) {
+    try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
         pstmt.setInt(1, blogID);
         ResultSet rs = pstmt.executeQuery();
 
-        if (rs.next()) {
-            blog = new Blog();
-            blog.setBlogID(rs.getInt("BlogID"));
-            blog.setTitle(rs.getString("Title"));
-            blog.setContent(rs.getString("Content"));
-            blog.setAuthorName(rs.getString("AuthorName"));
-            blog.setCreatedDate(rs.getDate("CreatedDate"));
-            blog.setUpdatedDate(rs.getDate("UpdatedDate"));
-            blog.setIsPublished(rs.getBoolean("IsPublished"));
-            blog.setThumbnailPath(rs.getString("ThumbnailPath"));
-            blog.setViews(rs.getInt("Views"));
+        List<BlogCategory> categories = new ArrayList<>();
+
+        while (rs.next()) {
+            if (blog == null) {
+                blog = new Blog();
+                blog.setBlogID(rs.getInt("BlogID"));
+                blog.setTitle(rs.getString("Title"));
+                blog.setContent(rs.getString("Content"));
+                blog.setAuthorName(rs.getString("AuthorName"));
+                blog.setCreatedDate(rs.getDate("CreatedDate"));
+                blog.setUpdatedDate(rs.getDate("UpdatedDate"));
+                blog.setIsPublished(rs.getBoolean("IsPublished"));
+                blog.setThumbnailPath(rs.getString("ThumbnailPath"));
+                blog.setViews(rs.getInt("Views"));
+            }
+
+            // Create BlogCategory object for each associated category
+            BlogCategory category = new BlogCategory();
+            category.setCategoryName(rs.getString("CategoryName"));
+            categories.add(category);
         }
+
+          blog.setCategories(categories); 
+
     } catch (SQLException e) {
         e.printStackTrace();
     }
 
     return blog;
 }
+
 public List<BlogCategory> getAllBlogCategory(){
     List<BlogCategory> lst = new ArrayList<>();
 String sql = "Select * from BlogCategories";
@@ -155,13 +171,12 @@ return lst;
  
   public static void main(String[] args) {
         BlogDAO blogDAO = new BlogDAO();
-        
+       
         // Lấy danh sách các blog
-        int n = 2;
-        List<BlogCategory> lst = blogDAO.getAllBlogCategory();
-        for (BlogCategory blogCategory : lst) {
-            System.out.println(blogCategory.getCategoryName());
-      }
+        int n = 8;
+        Blog b = blogDAO.getBlogById(n);
+         BlogCategory category = b.getCategories().get(0);
+        System.out.println(category.getCategoryName());
       
         // In danh sách blog ra console
 //        for (Blog blog : blogs) {

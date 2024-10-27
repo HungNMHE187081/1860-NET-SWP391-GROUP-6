@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -189,6 +190,16 @@
                                     </div>
                                     <div class="form-group col-md-6">
                                         <strong>Views:</strong> ${blogDetails.views}
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <strong>Phân Loại</strong> 
+                                        <c:if test="${not empty blogDetails.categories}">
+                                            ${blogDetails.categories[0].categoryName} <!-- Assuming categories is a List<BlogCategory> -->
+                                        </c:if>
+                                            <c:if test="${empty blogDetails.categories}">
+                                                Chưa có phân loại
+                                            </c:if>
+                                         
                                     </div>
                                 </div>
 
