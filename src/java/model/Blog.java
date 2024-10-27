@@ -2,6 +2,7 @@ package model;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 public class Blog {
     private int blogID;
@@ -13,11 +14,11 @@ public class Blog {
     private Boolean isPublished;
     private String thumbnailPath;
     private int views;
-
+    private List<BlogCategory> categories;
     // Constructors, Getters and Setters
     public Blog() {}
 
-    public Blog(int blogID, String title, String content, String authorName, Date createdDate, Date updatedDate, Boolean isPublished, String thumbnailPath, int views) {
+    public Blog(int blogID, String title, String content, String authorName, Date createdDate, Date updatedDate, Boolean isPublished, String thumbnailPath, int views, List<BlogCategory> categories) {
         this.blogID = blogID;
         this.title = title;
         this.content = content;
@@ -27,6 +28,7 @@ public class Blog {
         this.isPublished = isPublished;
         this.thumbnailPath = thumbnailPath;
         this.views = views;
+        this.categories = categories;
     }
 
     public Blog(String title, String content, String authorName, String thumbnailPath) {
@@ -106,6 +108,14 @@ public class Blog {
 
     public void setViews(int views) {
         this.views = views;
+    }
+
+    public List<BlogCategory> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<BlogCategory> categories) {
+        this.categories = categories;
     }
 
 

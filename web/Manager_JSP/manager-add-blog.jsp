@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -190,6 +191,15 @@
               <label class="control-label">Author</label>
               <input class="form-control" type="text" name="author" required>
             </div>
+            <div class="form-group col-md-6">
+                         <label class="control-label">Phân Loại</label>
+                                    <select class="form-control" id="blogCategory" name="blogCategory" >
+                                        <option value="">-- Chọn Phân Loại --</option>
+                                        <c:forEach var="cate" items="${cate}">
+                                            <option value="${cate.categoryID}">${cate.categoryName}</option>
+                                        </c:forEach>
+                                    </select>
+                                </div>
           </div>
 
           <!-- Content Field (Full Width) -->
