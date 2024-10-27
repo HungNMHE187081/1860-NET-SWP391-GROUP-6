@@ -89,7 +89,7 @@ public class AddPrescriptionServlet extends HttpServlet {
 
             // Add prescription using DAO
             prescriptionDAO.addPrescription(prescription);
-            response.sendRedirect(request.getContextPath() + "/addprescription?success=true");
+            response.sendRedirect(request.getContextPath() + "/listprescription?success=true");
         } catch (NumberFormatException e) {
             e.printStackTrace();
         } catch (SQLException e) {
