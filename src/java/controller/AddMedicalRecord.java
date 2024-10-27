@@ -113,35 +113,44 @@ public class AddMedicalRecord extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-       try {
-            // Lấy dữ liệu từ form
-            int childID = Integer.parseInt(request.getParameter("childID"));
-            int staffID = Integer.parseInt(request.getParameter("staffID"));
-            int reservationID = Integer.parseInt(request.getParameter("reservationID"));
-            String diagnosis = request.getParameter("diagnosis");
-            String treatment = request.getParameter("treatment");
-            String notes = request.getParameter("notes");
-            Date recordDate = Date.valueOf(request.getParameter("recordDate")); // yyyy-MM-dd
-            Date reservationDate = Date.valueOf(request.getParameter("reservationDate")); // yyyy-MM-dd
-            // Tạo MedicalRecord object
-            MedicalRecord medicalRecord = new MedicalRecord(
-                childID, staffID, reservationID, diagnosis, treatment, notes,reservationDate ,recordDate
-            );
+@Override
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+    try {
+        // Get data from the form
+        int childID = Integer.parseInt(request.getParameter("childID"));
+        int staffID = Integer.parseInt(request.getParameter("staffID"));
+        int reservationID = Integer.parseInt(request.getParameter("reservationID"));
+        String diagnosis = request.getParameter("diagnosis");
+        String treatment = request.getParameter("treatment");
+        String notes = request.getParameter("notes");
+        Date recordDate = Date.valueOf(request.getParameter("recordDate")); // yyyy-MM-dd
+        Date reservationDate = Date.valueOf(request.getParameter("reservationDate")); // yyyy-MM-dd
+        
+        // Create MedicalRecord object
+        MedicalRecord medicalRecord = new MedicalRecord(
+            childID, staffID, reservationID, diagnosis, treatment, notes, reservationDate, recordDate
+        );
 
-            // Gọi DAO để thêm bản ghi mới
-            MedicalRecordDAO medicalRecordDAO = new MedicalRecordDAO();
-            medicalRecordDAO.addMedicalRecordAndUpdateReservation(medicalRecord);
-
-            // Chuyển hướng về danh sách Medical Records
-            response.sendRedirect("medicalrecordlist");
-        } catch (Exception e) {
-            e.printStackTrace();
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error adding medical record.");
+        // Check if the medical record already exists
+        MedicalRecordDAO medicalRecordDAO = new MedicalRecordDAO();
+        if (medicalRecordDAO.existsMedicalRecord(medicalRecord)) {
+            // Redirect back with an error message
+            response.sendRedirect("/G6_ChildrenCare/Staff_JSP/error.jsp");
+            return; // Exit the method
         }
+
+        // Call DAO to add the new record
+        medicalRecordDAO.addMedicalRecordAndUpdateReservation(medicalRecord);
+        // Redirect to the medical record list
+        response.sendRedirect("medicalrecordlist");
+    } catch (Exception e) {
+        e.printStackTrace();
+        response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error adding medical record.");
     }
+}
+
+
    
 }
 

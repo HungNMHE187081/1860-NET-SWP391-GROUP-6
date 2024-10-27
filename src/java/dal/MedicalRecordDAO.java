@@ -17,6 +17,30 @@ import java.time.LocalDate;
 
 public class MedicalRecordDAO extends DBContext {
 
+   // In MedicalRecordDAO.java
+
+public boolean existsMedicalRecord(MedicalRecord medicalRecord) {
+    String sql = "SELECT COUNT(*) FROM MedicalRecords WHERE childID = ? AND staffID = ? AND reservationID = ? AND diagnosis = ? AND treatment = ? AND notes = ?";
+    try (
+         PreparedStatement pstmt = connection.prepareStatement(sql)) {
+        
+        pstmt.setInt(1, medicalRecord.getChildID());
+        pstmt.setInt(2, medicalRecord.getStaffID());
+        pstmt.setInt(3, medicalRecord.getReservationID());
+        pstmt.setString(4, medicalRecord.getDiagnosis());
+        pstmt.setString(5, medicalRecord.getTreatment());
+        pstmt.setString(6, medicalRecord.getNotes());
+
+        ResultSet rs = pstmt.executeQuery();
+        if (rs.next()) {
+            return rs.getInt(1) > 0; // Return true if count > 0
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return false; // No record found
+}
+
     // Thêm medical record và cập nhật reservation
     public void addMedicalRecordAndUpdateReservation(MedicalRecord medicalRecord) throws SQLException {
         String insertSql = "INSERT INTO MedicalRecords (ChildID, StaffID, ReservationID, Diagnosis, Treatment, Notes, RecordDate) VALUES (?, ?, ?, ?, ?, ?, ?)";

@@ -95,6 +95,7 @@
 
                                 <button type="submit"><i class="fas fa-filter"></i> Lọc và tìm kiếm</button>
                                 <a href="staff/oldreservationslist" class="btn"><i class="fas fa-plus"></i> Thêm bản ghi</a>
+                                 <a href="listprescription" class="btn"><i class="fas fa-plus"></i> Danh sách đơn thuốc</a>
                             </div>
                         </form>
 

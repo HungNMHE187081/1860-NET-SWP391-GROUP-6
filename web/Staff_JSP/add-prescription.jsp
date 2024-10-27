@@ -160,40 +160,41 @@
         <c:if test="${param.error == 'true'}">
             <p style="color: red;">Please try again.</p>
         </c:if>
-        <form action="${pageContext.request.contextPath}/addprescription" method="post">
+       <form action="addprescription" method="post">
             <input type="hidden" name="recordID" value="${record.recordID}">
+            <input type="hidden" id="staffID" name="staffID" value="${staff.staffID}">
+
             <label for="childName">Tên trẻ được khám:</label>
             <input type="text" id="childName" name="childName" 
                    value="${children.firstName} ${children.middleName} ${children.lastName}" readonly>
 
-            <input type="hidden" id="staffID" name="staffID" value="${staffID}" readonly>
-
             <label for="staffName">Tên nhân viên thực khám:</label>
             <input type="text" id="staffName" name="staffName" value="${staff.staffName}" readonly>
 
-            <label for="diagnosis">Chẩn đoán: </label>
-            <textarea id="diagnosis" name="diagnosis" readonly>${record.diagnosis}</textarea><br>
-            <div>
-                <label for="medicineSelect">Chọn thuốc:</label>
-                <select id="medicineSelect" name="medicineId" style="width: 100%;" required>
-                    <option value="" disabled selected>Chọn thuốc:</option>
-                    <c:forEach var="medicine" items="${medicineList}">
-                        <option value="${medicine.medicineID}">${medicine.name}</option>
-                    </c:forEach>
-                </select>
-            </div> <br>
-            <label for="dosage">Liều dùng: </label>
-            <textarea id="dosage" name="dosage" required></textarea><br>
+            <label for="diagnosis">Chẩn đoán:</label>
+            <textarea id="diagnosis" name="diagnosis" readonly>${record.diagnosis}</textarea>
 
-            <label for="frequency">Tần suất: </label>
-            <textarea id="frequency" name="frequency" required></textarea><br>
+            <label for="medicineSelect">Chọn thuốc:</label>
+            <select id="medicineSelect" name="medicineId" style="width: 100%;" required>
+                <option value="" disabled selected>Chọn thuốc:</option>
+                <c:forEach var="medicine" items="${medicineList}">
+                    <option value="${medicine.medicineID}">${medicine.name}</option>
+                </c:forEach>
+            </select>
+            <br>
 
-            <label for="duration">Thời điểm sử dụng: </label>
-            <textarea id="duration" name="duration" required></textarea><br>
+            <label for="dosage">Liều dùng:</label>
+            <textarea id="dosage" name="dosage" required></textarea>
+
+            <label for="frequency">Tần suất:</label>
+            <textarea id="frequency" name="frequency" required></textarea>
+
+            <label for="duration">Thời điểm sử dụng:</label>
+            <textarea id="duration" name="duration" required></textarea>
 
             <button type="submit">Thêm đơn thuốc</button>
             <center>
-                <a href="medicalrecordlist"> Quay lại lịch sử khám </a>
+                <a href="medicalrecordlist">Quay lại lịch sử khám</a>
             </center>
         </form>
         <script>

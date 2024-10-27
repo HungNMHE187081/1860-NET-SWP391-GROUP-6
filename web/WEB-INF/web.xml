@@ -328,6 +328,14 @@
         <servlet-name>ListPrescription</servlet-name>
         <servlet-class>controller.ListPrescription</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ViewPrescription</servlet-name>
+        <servlet-class>controller.ViewPrescription</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeletePrescription</servlet-name>
+        <servlet-class>controller.DeletePrescription</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -647,5 +655,13 @@
     <servlet-mapping>
         <servlet-name>ListPrescription</servlet-name>
         <url-pattern>/listprescription</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewPrescription</servlet-name>
+        <url-pattern>/viewprescription</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeletePrescription</servlet-name>
+        <url-pattern>/deleteprescription</url-pattern>
     </servlet-mapping>
 </web-app>
