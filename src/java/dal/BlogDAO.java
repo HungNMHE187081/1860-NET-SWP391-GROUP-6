@@ -186,6 +186,17 @@ return lst;
             // Bạn có thể xử lý ngoại lệ ở đây, chẳng hạn như ném một ngoại lệ tùy chỉnh hoặc log lỗi.
         }
     }
+  public void updateBlogCategoryMapping(int blogID, int categoryID) {
+    String sql = "UPDATE BlogCategoryMapping SET CategoryID = ? WHERE BlogID = ?";
+    try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+        pstmt.setInt(1, categoryID);
+        pstmt.setInt(2, blogID);
+        pstmt.executeUpdate();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
+
   public static void main(String[] args) {
         BlogDAO blogDAO = new BlogDAO();
        
