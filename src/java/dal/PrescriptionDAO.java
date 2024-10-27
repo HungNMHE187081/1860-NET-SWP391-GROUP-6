@@ -37,14 +37,16 @@ public class PrescriptionDAO extends DBContext {
         }
     }
 
-    // Xóa đơn thuốc
-    public void deletePrescription(int prescriptionID) throws SQLException {
-        String sql = "DELETE FROM Prescriptions WHERE PrescriptionID = ?";
-        try (PreparedStatement ps = connection.prepareStatement(sql)) {
-            ps.setInt(1, prescriptionID);
-            ps.executeUpdate();
-        }
+   public boolean deletePrescription(int prescriptionID) {
+    String SQL_DELETE = "DELETE FROM Prescriptions WHERE PrescriptionID = ?";
+    try (PreparedStatement statement = connection.prepareStatement(SQL_DELETE)) {
+        statement.setInt(1, prescriptionID);
+        return statement.executeUpdate() > 0;
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return false;
     }
+   }
 
     // Lấy danh sách đơn thuốc theo RecordID
     public List<Prescription> getPrescriptionsByRecordID(int recordID) throws SQLException {
@@ -175,6 +177,7 @@ public Prescription getPrescriptionById(int prescriptionId) {
     }
     return false; // No duplicate found
 }
+   
 
 
 }
