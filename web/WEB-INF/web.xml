@@ -320,6 +320,10 @@
         <servlet-name>CustomerViewProfile</servlet-name>
         <servlet-class>controller.CustomerViewProfile</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddPrescriptionServlet</servlet-name>
+        <servlet-class>controller.AddPrescriptionServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -631,5 +635,9 @@
     <servlet-mapping>
         <servlet-name>CustomerViewProfile</servlet-name>
         <url-pattern>/customer/viewprofile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddPrescriptionServlet</servlet-name>
+        <url-pattern>/addprescription</url-pattern>
     </servlet-mapping>
 </web-app>

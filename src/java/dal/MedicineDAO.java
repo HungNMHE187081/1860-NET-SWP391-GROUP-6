@@ -18,6 +18,25 @@ import model.MedicineCategory;
  */
 public class MedicineDAO extends DBContext {
 
+    public List<Medicine> getAllMedicines() {
+        List<Medicine> medicines = new ArrayList<>();
+        String sql = "SELECT MedicineID, Name FROM Medicine";
+
+        try (PreparedStatement ps = connection.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                Medicine medicine = new Medicine(
+                        rs.getInt("MedicineID"),
+                        rs.getString("Name")
+                );
+                medicines.add(medicine);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return medicines;
+    }
+
     public List<Medicine> getMedicines(int pageIndex, int pageSize, String categoryID, String manufactureName, String searchQuery, String sort) {
         List<Medicine> medicines = new ArrayList<>();
 
@@ -41,8 +60,8 @@ public class MedicineDAO extends DBContext {
         // Adding sorting
         if ("name".equals(sort)) {
             sql += "ORDER BY m.Name ";
-        }  else if ("latestAdd".equals(sort)) {
-            sql += "ORDER BY m.MedicineID DESC "; 
+        } else if ("latestAdd".equals(sort)) {
+            sql += "ORDER BY m.MedicineID DESC ";
         } else {
             sql += "ORDER BY m.MedicineID "; // Default sorting
         }

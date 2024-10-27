@@ -91,41 +91,48 @@
                             <select name="sortBy" class="sort-select">
                                 <option value="">Sắp xếp theo</option>
                                 <option value="dateAdded" <c:if test="${param.sortBy == 'dateAdded'}">selected</c:if>>Ngày ghi nhận</option>
-                            </select>
+                                </select>
 
-                            <button type="submit"><i class="fas fa-filter"></i> Lọc và tìm kiếm</button>
-                          <a href="staff/oldreservationslist" class="btn"><i class="fas fa-plus"></i> Thêm bản ghi</a>
-                        </div>
-                    </form>
+                                <button type="submit"><i class="fas fa-filter"></i> Lọc và tìm kiếm</button>
+                                <a href="staff/oldreservationslist" class="btn"><i class="fas fa-plus"></i> Thêm bản ghi</a>
+                            </div>
+                        </form>
 
-                    <!-- Medicine List Table -->
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>STT</th>
-                                <th>Tên trẻ</th>
-                                <th>Chẩn đoán</th>
-                                <th>Điều trị</th>
-                                <th>Ghi chú</th>
-                                <th>Ngày khám</th>
-                                <th>Chức năng</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                        <!-- Medicine List Table -->
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Tên trẻ</th>
+                                    <th>Chẩn đoán</th>
+                                    <th>Điều trị</th>
+                                    <th>Ghi chú</th>
+                                    <th>Ngày khám</th>
+                                    <th>Chức năng</th>
+                                </tr>
+                            </thead>
+                            <tbody>
                             <c:if test="${not empty records}">
                                 <c:forEach var="record" items="${records}" varStatus="status">
                                     <tr>
-                                         <td>${status.index + 1}</td> <!-- Serial Number Column -->
+                                        <td>${status.index + 1}</td> <!-- Serial Number Column -->
                                         <td><c:out value="${record.firstNameChild} ${record.middleNameChild} ${record.lastNameChild}" /></td>
                                         <td><c:out value="${record.diagnosis}" /></td>
                                         <td><c:out value="${record.treatment}" /></td>
                                         <td><c:out value="${record.notes}" /></td>
                                         <td><c:out value="${record.reservationDate}" /></td>
-                                        
-                                        <td>
-                                           
-                                                <a href="medicalrecorddetail?id=${record.recordID}" class="btn"><i class="fas fa-eye"></i></a>
+
+                                        <td style="display: flex; align-items: center;">
+                                            <a href="medicalrecorddetail?id=${record.recordID}" class="btn" title="Xem chi tiết" style="margin-right: 5px; padding: 5px 10px; font-size: 14px; display: flex; justify-content: center; align-items: center;">
+                                                <i class="fas fa-eye" style="margin: 0;"></i>
+                                            </a>
+                                            <a href="addprescription?id=${record.recordID}" class="btn" title="Thêm đơn thuốc" style="padding: 5px 10px; font-size: 14px; display: flex; justify-content: center; align-items: center;">
+                                                <i class="fas fa-plus" style="margin: 0;"></i>
+                                            </a>
                                         </td>
+
+
+
                                     </tr>
                                 </c:forEach>
                             </c:if>

@@ -67,4 +67,24 @@ public class PrescriptionDAO extends DBContext {
         }
         return prescriptions;
     }
+      public List<Prescription> getAllPrescriptions() throws SQLException {
+        List<Prescription> prescriptions = new ArrayList<>();
+        String sql = "SELECT * FROM Prescriptions";
+        
+        try (PreparedStatement ps = connection.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                Prescription prescription = new Prescription(
+                    rs.getInt("PrescriptionID"),
+                    rs.getInt("RecordID"),
+                    rs.getInt("MedicineID"),
+                    rs.getString("Dosage"),
+                    rs.getString("Frequency"),
+                    rs.getString("Duration")
+                );
+                prescriptions.add(prescription);
+            }
+        }
+        return prescriptions;
+    }
 }

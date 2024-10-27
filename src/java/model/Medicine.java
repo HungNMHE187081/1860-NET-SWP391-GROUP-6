@@ -13,6 +13,11 @@ public class Medicine {
 
     public Medicine() {
     }
+    public Medicine(int medicineID, String name)
+    {
+      this.medicineID = medicineID;
+        this.name = name;  
+    }
 
     public Medicine(int medicineID, String name, String manufactureName, String uses, String dosage, String userManual, String contraindications, String categoryName, int categoryID) {
         this.medicineID = medicineID;
