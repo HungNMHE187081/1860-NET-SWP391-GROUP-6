@@ -20,6 +20,8 @@ import java.util.Calendar;
 import model.Children;
 import model.MedicalRecord;
 import model.MedicalRecordDAO;
+import model.Staff;
+import dal.StaffDAO;
 
 /**
  *
@@ -75,12 +77,15 @@ public class AddMedicalRecord extends HttpServlet {
         String childLastName = request.getParameter("childLastName");
         String childID_raw = request.getParameter("childID");
        String childImage = request.getParameter("childImage");
-
+       StaffDAO staffDAO = new StaffDAO();
+       
         try {
             // Parse the staffID as an integer
             int staffID = Integer.parseInt(staffID_raw);
             int childID = Integer.parseInt(childID_raw);
+            Staff staff = staffDAO.getStaffByID(staffID);
             // Set attributes to be accessed in the JSP
+            request.setAttribute("staff", staff);
             request.setAttribute("reservationID", reservationID);
             request.setAttribute("childFirstName", childFirstName);
             request.setAttribute("childMiddleName", childMiddleName);

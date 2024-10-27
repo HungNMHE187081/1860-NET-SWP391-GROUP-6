@@ -174,9 +174,11 @@
                        value="${childFirstName} ${childMiddleName} ${childLastName} " readonly>
                 
 
-                <label for="staffName">Tên nhân viên thực khám:</label>
-                <input type="text" id="staffID" name="staffID" value="${staffID}" readonly>
+                <input type="hidden" id="staffID" name="staffID" value="${staffID}" readonly>
 
+                   <label for="staffName">Tên nhân viên thực khám:</label>
+                <input type="text" id="staffID" name="staffName" value="${staff.staffName}" readonly>
+                
                 <label for="serviceName">Ngày khám: </label>
                 <input type="text" id="reservationDate" name="reservationDate" value="${reservationDate}" readonly>
 
