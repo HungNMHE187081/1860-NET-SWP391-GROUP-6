@@ -1,6 +1,5 @@
 <%@ page contentType="text/html" pageEncoding="UTF-8" %>
 <%@ page import="java.util.List" %>
-<%@ page import="model.MedicalRecord" %>
 <%@ page import="javax.servlet.*" %>
 <%@ page import="javax.servlet.http.*" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -140,7 +139,7 @@
                 <div class="error">${error}</div>
             </c:if>
 
-            <form action="updatemedicalrecord" method="post">
+            <form action="updateprescription" method="post">
                 <input type="hidden" name="id" value="${pres.prescriptionID}" />
                 <input type="hidden" name="childID" value="${record.childID}" />
                 <input type="hidden" name="reservationID" value="${record.reservationID}" />
@@ -157,7 +156,6 @@
                         <option value="${medicine.medicineID}" ${medicine.medicineID == pres.medicineID ? 'selected' : ''}>${medicine.name}</option>
                     </c:forEach>
                 </select>
-
 
                 <small style="color: green;">* Hãy cập nhật nếu có thay đổi.</small> <br>
 
@@ -190,7 +188,7 @@
 
 
             <center>
-                <a href="medicalrecordlist">Trở về danh sách</a>
+                <a href="listprescription">Trở về danh sách</a>
             </center>
         </main>
 

@@ -64,23 +64,22 @@ public class PrescriptionDAO extends DBContext {
 
 
 
-    // Cập nhật đơn thuốc
-    public void updatePrescription(Prescription prescription)  {
-        String sql = "UPDATE Prescriptions SET MedicineID = ?, Dosage = ?, Frequency = ?, Duration = ? "
-                + "WHERE PrescriptionID = ?";
-        try (PreparedStatement ps = connection.prepareStatement(sql)) {
-            ps.setInt(1, prescription.getMedicineID());
-            ps.setString(2, prescription.getDosage());
-            ps.setString(3, prescription.getFrequency());
-            ps.setString(4, prescription.getDuration());
-            ps.setInt(5, prescription.getPrescriptionID());
-            ps.executeUpdate();
-        }
-        catch(Exception e)
-        {
+     public boolean updatePrescription(int prescriptionID, int medicineID, String dosage, String frequency, String duration) {
+        String sql = "UPDATE Prescriptions SET MedicineID = ?, Dosage = ?, Frequency = ?, Duration = ? WHERE PrescriptionID = ?";
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setInt(1, medicineID);
+            pstmt.setString(2, dosage);
+            pstmt.setString(3, frequency);
+            pstmt.setString(4, duration);
+            pstmt.setInt(5, prescriptionID);
+            int rowsAffected = pstmt.executeUpdate();
+            return rowsAffected > 0; // return true if the update was successful
+        } catch (SQLException e) {
             e.printStackTrace();
+            return false; // return false in case of an error
         }
     }
+
 
    public boolean deletePrescription(int prescriptionID) {
     String SQL_DELETE = "DELETE FROM Prescriptions WHERE PrescriptionID = ?";

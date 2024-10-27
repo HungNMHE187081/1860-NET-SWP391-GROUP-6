@@ -14,16 +14,17 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
+import model.MedicalRecord;
+import model.MedicalRecordDAO;
 import model.Medicine;
 import model.Prescription;
-import model.MedicalRecordDAO;
-import model.MedicalRecord;
+
 /**
  *
  * @author User
  */
 public class EditPrescription extends HttpServlet {
-   PrescriptionDAO preDAO = new PrescriptionDAO();
+   
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      * @param request servlet request
@@ -56,42 +57,28 @@ public class EditPrescription extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-   @Override
-protected void doGet(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
-    try {
-        String id_raw = request.getParameter("id");
-        if (id_raw == null || !id_raw.matches("\\d+")) {
-            request.setAttribute("error", "Invalid prescription ID.");
-            request.getRequestDispatcher("/Staff_JSP/error.jsp").forward(request, response);
-            return;
-        }
-        
-        int id = Integer.parseInt(id_raw);
-        PrescriptionDAO dao = new PrescriptionDAO();
-        Prescription pre = dao.getPrescriptionById(id);
-        
-        if (pre == null) {
-            request.setAttribute("error", "Prescription not found.");
-            request.getRequestDispatcher("/Staff_JSP/error.jsp").forward(request, response);
-            return;
-        }
-
-        MedicineDAO mDAO = new MedicineDAO();
-        List<Medicine> medicineList = mDAO.getAllMedicines();
-         MedicalRecordDAO meDAO = new MedicalRecordDAO();
+  @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+            String id_raw = request.getParameter("id");
+            int id = Integer.parseInt(id_raw);
+            PrescriptionDAO dao = new PrescriptionDAO();
+            Prescription pre = dao.getPrescriptionById(id);
+            MedicineDAO mDAO = new MedicineDAO();
+            List<Medicine> medicineList = mDAO.getAllMedicines();
+            MedicalRecordDAO meDAO = new MedicalRecordDAO();
             MedicalRecord medicalRecord = meDAO.getMedicalRecordByID(pre.getRecordID());
-        request.setAttribute("medicalRecord", medicalRecord);
-        request.setAttribute("medicineList", medicineList);
-        request.setAttribute("pres", pre);
-        request.getRequestDispatcher("/Staff_JSP/edit-prescription.jsp").forward(request, response);
-    } catch (Exception e) {
-        request.setAttribute("error", "An error occurred while fetching the prescription.");
-        request.getRequestDispatcher("/Staff_JSP/error.jsp").forward(request, response);
-        e.printStackTrace();
-    }
-}
 
+            request.setAttribute("medicalRecord", medicalRecord);
+            request.setAttribute("medicineList", medicineList);
+            request.setAttribute("pres", pre);
+            request.getRequestDispatcher("/Staff_JSP/edit-prescription.jsp").forward(request, response);
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error retrieving prescription data");
+        }
+    } 
 
     /** 
      * Handles the HTTP <code>POST</code> method.
@@ -100,32 +87,29 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response)
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-   @Override
-protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+ protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    int prescriptionID = Integer.parseInt(request.getParameter("id")); // Correct name here
+    int medicineID = Integer.parseInt(request.getParameter("medicineId")); // Correct name here
+    String dosage = request.getParameter("dosage");
+    String frequency = request.getParameter("frequency");
+    String duration = request.getParameter("duration");
+
     try {
-        int id = Integer.parseInt(request.getParameter("id"));
-        int medicineID = Integer.parseInt(request.getParameter("medicineId"));
-        String dosage = request.getParameter("dosage");
-        String frequency = request.getParameter("frequency");
-        String duration = request.getParameter("duration");
-        
-        Prescription pre = new Prescription();
-        pre.setPrescriptionID(id);
-        pre.setMedicineID(medicineID);
-        pre.setDosage(dosage);
-        pre.setFrequency(frequency);
-        pre.setDuration(duration);
-        
-        preDAO.updatePrescription(pre);
-        response.sendRedirect("viewprescription?id=" + pre.getPrescriptionID());
+        PrescriptionDAO prescriptionDAO = new PrescriptionDAO();
+        boolean isUpdated = prescriptionDAO.updatePrescription(prescriptionID, medicineID, dosage, frequency, duration);
+
+        if (isUpdated) {
+            response.sendRedirect("listprescription"); // Redirect to the prescription list after successful update
+        } else {
+            request.setAttribute("errorMessage", "Failed to update prescription.");
+            request.getRequestDispatcher("edit-prescription.jsp?id=" + prescriptionID).forward(request, response);
+        }
     } catch (Exception e) {
-        request.setAttribute("error", "An error occurred while updating the prescription.");
-        request.getRequestDispatcher("/Staff_JSP/error.jsp").forward(request, response);
         e.printStackTrace();
+        request.setAttribute("errorMessage", "An error occurred while updating prescription.");
+        request.getRequestDispatcher("edit-prescription.jsp?id=" + prescriptionID).forward(request, response);
     }
 }
-
 
     /** 
      * Returns a short description of the servlet.
