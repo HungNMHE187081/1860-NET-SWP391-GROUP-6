@@ -113,6 +113,50 @@ public class PrescriptionDAO extends DBContext {
 
         return prescriptions;
     }
+public Prescription getPrescriptionById(int prescriptionId) {
+    Prescription prescription = null;
+    final String SQL_SELECT_PRESCRIPTION = "SELECT p.PrescriptionID, mr.RecordID, p.MedicineID, "
+            + "c.FirstName AS ChildFirstName, c.MiddleName AS ChildMiddleName, c.LastName AS ChildLastName, "
+            + "u.FirstName AS UserFirstName, u.MiddleName AS UserMiddleName, "
+            + "u.LastName AS UserLastName, mr.Diagnosis, m.Name AS MedicineName, "
+            + "s.StaffName, p.Dosage, p.Frequency, p.Duration "
+            + "FROM Prescriptions p "
+            + "JOIN MedicalRecords mr ON p.RecordID = mr.RecordID "
+            + "JOIN Children c ON mr.ChildID = c.ChildID "
+            + "JOIN Users u ON mr.StaffID = u.UserID "
+            + "JOIN Medicine m ON p.MedicineID = m.MedicineID "
+            + "JOIN Staff s ON mr.StaffID = s.StaffID "
+            + "WHERE p.PrescriptionID = ?"; // Use parameterized query to prevent SQL injection
+
+    try (PreparedStatement statement = connection.prepareStatement(SQL_SELECT_PRESCRIPTION)) {
+        statement.setInt(1, prescriptionId); // Set the prescription ID parameter
+        try (ResultSet resultSet = statement.executeQuery()) {
+            if (resultSet.next()) {
+                prescription = new Prescription();
+                prescription.setPrescriptionID(resultSet.getInt("PrescriptionID"));
+                prescription.setRecordID(resultSet.getInt("RecordID")); 
+                prescription.setMedicineID(resultSet.getInt("MedicineID"));
+                prescription.setChildFirstName(resultSet.getString("ChildFirstName"));
+                prescription.setChildMiddleName(resultSet.getString("ChildMiddleName"));
+                prescription.setChildLastName(resultSet.getString("ChildLastName"));
+                prescription.setUserFirstName(resultSet.getString("UserFirstName"));
+                prescription.setUserMiddleName(resultSet.getString("UserMiddleName"));
+                prescription.setUserLastName(resultSet.getString("UserLastName"));
+                prescription.setDiagnosis(resultSet.getString("Diagnosis"));
+                prescription.setMedicineName(resultSet.getString("MedicineName"));
+                prescription.setStaffName(resultSet.getString("StaffName"));
+                prescription.setDosage(resultSet.getString("Dosage"));
+                prescription.setFrequency(resultSet.getString("Frequency"));
+                prescription.setDuration(resultSet.getString("Duration"));
+            }
+        }
+    } catch (SQLException e) {
+        // Log the exception or handle it as needed
+        e.printStackTrace();
+    }
+
+    return prescription; // Return null if not found
+}
 
    public boolean existsPrescription(int recordID, int medicineID, String dosage, String frequency, String duration) throws SQLException {
     String query = "SELECT COUNT(*) FROM Prescriptions WHERE recordID = ? AND medicineID = ? AND dosage = ? AND frequency = ? AND duration = ?";
