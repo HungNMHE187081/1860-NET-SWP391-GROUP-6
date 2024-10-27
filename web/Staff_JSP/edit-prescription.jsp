@@ -3,11 +3,15 @@
 <%@ page import="model.MedicalRecord" %>
 <%@ page import="javax.servlet.*" %>
 <%@ page import="javax.servlet.http.*" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Cập nhật đơn thuốc</title>
@@ -146,16 +150,17 @@
 
                 <label for="diagnosis">Chẩn đoán:</label>
                 <input type="text" name="diagnosis" value="${pres.diagnosis}" readonly />
-                
-                <label for="diagnosis">Chọn thuốc:</label>
+
+                <label for="medicineSelect">Chọn thuốc:</label>
                 <select id="medicineSelect" name="medicineId" style="width: 100%;" required>
-                    <option value="" disabled selected>Chọn thuốc:</option>
                     <c:forEach var="medicine" items="${medicineList}">
-                        <option value="${medicine.medicineID}">${medicine.name}</option>
+                        <option value="${medicine.medicineID}" ${medicine.medicineID == pres.medicineID ? 'selected' : ''}>${medicine.name}</option>
                     </c:forEach>
                 </select>
+
+
                 <small style="color: green;">* Hãy cập nhật nếu có thay đổi.</small> <br>
-                
+
                 <label for="notes">Liều dùng: </label>
                 <textarea name="notes">${pres.dosage}</textarea>
                 <small style="color: green;">* Hãy cập nhật nếu có thay đổi.</small> <br>
@@ -163,21 +168,25 @@
                 <label for="frequency">Tần suất: </label>
                 <textarea name="frequency">${pres.frequency}</textarea>
                 <small style="color: green;">* Hãy cập nhật nếu có thay đổi.</small> <br><!-- comment -->
-                
+
                 <label for="duration">Thời điểm sử dụng: </label>
                 <textarea name="duration">${pres.duration}</textarea>
                 <small style="color: green;">* Hãy cập nhật nếu có thay đổi.</small> <br>
-      
+
+                 <label for="reservationDate">Ngày khám:</label>
+<input type="text" name="reservationDate" value="<fmt:formatDate value='${medicalRecord.reservationDate}' pattern='dd-MM-yyyy' />" readonly />
+
                 <button type="submit">Cập nhật</button>
             </form>
-                  <script>
-            $(document).ready(function () {
-                $('#medicineSelect').select2({
-                    placeholder: "Select a medicine",
-                    allowClear: true
+            <script>
+                $(document).ready(function () {
+                    $('#medicineSelect').select2({
+                        placeholder: "Chọn thuốc",
+                        allowClear: true
+                    });
                 });
-            });
-        </script>
+            </script>
+
 
 
             <center>

@@ -250,6 +250,10 @@
                             <label>Thời điểm sử dụng: </label>
                             <span>${pres.duration}</span>
                         </div>
+                            <div class="detail-item">
+                            <label>Ngày khám: </label>
+                            <span>  <fmt:formatDate value="${medicalRecord.reservationDate}" pattern="dd-MM-yyyy" /> </span>
+                        </div>
 
                         <div class="action-buttons">
                             <a href="updateprescription?id=${pres.prescriptionID}" class="btn edit-btn">

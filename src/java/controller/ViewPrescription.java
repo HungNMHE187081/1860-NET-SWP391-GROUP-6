@@ -14,7 +14,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.Prescription;
 import dal.PrescriptionDAO;
-
+import model.MedicalRecordDAO;
+import model.MedicalRecord;
+import dal.PrescriptionDAO;
 /**
  *
  * @author User
@@ -61,6 +63,9 @@ public class ViewPrescription extends HttpServlet {
             int presID = Integer.parseInt(presID_raw);
             PrescriptionDAO dao = new PrescriptionDAO();
             Prescription pres = dao.getPrescriptionById(presID);
+            MedicalRecordDAO mDAO = new MedicalRecordDAO();
+            MedicalRecord medicalRecord = mDAO.getMedicalRecordByID(pres.getRecordID());
+            request.setAttribute("medicalRecord", medicalRecord);
             request.setAttribute("pres", pres);
             request.getRequestDispatcher("/Staff_JSP/view-prescription.jsp").forward(request, response);
         } catch (Exception e) {

@@ -5,22 +5,24 @@
 
 package controller;
 
+import dal.MedicineDAO;
+import dal.PrescriptionDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import dal.PrescriptionDAO;
-import model.Prescription;
-import dal.MedicineDAO;
 import java.util.List;
 import model.Medicine;
+import model.Prescription;
+import model.MedicalRecordDAO;
+import model.MedicalRecord;
 /**
  *
  * @author User
  */
-public class UpdatePrescription extends HttpServlet {
+public class EditPrescription extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -37,10 +39,10 @@ public class UpdatePrescription extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet UpdatePrescription</title>");  
+            out.println("<title>Servlet EditPrescription</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet UpdatePrescription at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet EditPrescription at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -54,23 +56,42 @@ public class UpdatePrescription extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        try {
-            String id_raw = request.getParameter("id");
-            int id = Integer.parseInt(id_raw);
-            PrescriptionDAO dao = new PrescriptionDAO();
-            Prescription pre = dao.getPrescriptionById(id);
-            MedicineDAO mDAO = new MedicineDAO();
-            List<Medicine> medicineList = mDAO.getAllMedicines();
-            request.setAttribute("medicineList", medicineList);
-            request.setAttribute("pres",pre);
-            request.getRequestDispatcher("/Staff_JSP/edit-prescription.jsp").forward(request, response);
-        } catch (Exception e) {
-            e.printStackTrace();
+   @Override
+protected void doGet(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+    try {
+        String id_raw = request.getParameter("id");
+        if (id_raw == null || !id_raw.matches("\\d+")) {
+            request.setAttribute("error", "Invalid prescription ID.");
+            request.getRequestDispatcher("/Staff_JSP/error.jsp").forward(request, response);
+            return;
         }
-    } 
+        
+        int id = Integer.parseInt(id_raw);
+        PrescriptionDAO dao = new PrescriptionDAO();
+        Prescription pre = dao.getPrescriptionById(id);
+        
+        if (pre == null) {
+            request.setAttribute("error", "Prescription not found.");
+            request.getRequestDispatcher("/Staff_JSP/error.jsp").forward(request, response);
+            return;
+        }
+
+        MedicineDAO mDAO = new MedicineDAO();
+        List<Medicine> medicineList = mDAO.getAllMedicines();
+         MedicalRecordDAO meDAO = new MedicalRecordDAO();
+            MedicalRecord medicalRecord = meDAO.getMedicalRecordByID(pre.getRecordID());
+        request.setAttribute("medicalRecord", medicalRecord);
+        request.setAttribute("medicineList", medicineList);
+        request.setAttribute("pres", pre);
+        request.getRequestDispatcher("/Staff_JSP/edit-prescription.jsp").forward(request, response);
+    } catch (Exception e) {
+        request.setAttribute("error", "An error occurred while fetching the prescription.");
+        request.getRequestDispatcher("/Staff_JSP/error.jsp").forward(request, response);
+        e.printStackTrace();
+    }
+}
+
 
     /** 
      * Handles the HTTP <code>POST</code> method.

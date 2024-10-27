@@ -240,10 +240,6 @@
         <servlet-name>ViewDetailsBlogServlet</servlet-name>
         <servlet-class>controller.ViewDetailsBlogServlet</servlet-class>
     </servlet>
-       <servlet>
-        <servlet-name>UpdatePrescription</servlet-name>
-        <servlet-class>controller.UpdatePrescription</servlet-class>
-    </servlet>
     <servlet>
         <servlet-name>MedicalRecordList</servlet-name>
         <servlet-class>controller.MedicalRecordList</servlet-class>
@@ -341,8 +337,12 @@
         <servlet-class>controller.DeletePrescription</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>UpdatePrescription</servlet-name>
-        <servlet-class>controller.UpdatePrescription</servlet-class>
+        <servlet-name>EditBlogServlet</servlet-name>
+        <servlet-class>controller.EditBlogServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditPrescription</servlet-name>
+        <servlet-class>controller.EditPrescription</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
@@ -576,10 +576,6 @@
         <servlet-name>MedicalRecordList</servlet-name>
         <url-pattern>/medicalrecordlist</url-pattern>
     </servlet-mapping>
-     <servlet-mapping>
-        <servlet-name>UpdatePrescription</servlet-name>
-        <url-pattern>/updateprescription</url-pattern>
-    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ViewDetailsBlogServlet</servlet-name>
         <url-pattern>/viewdetailblog</url-pattern>
@@ -680,3 +676,8 @@
         <servlet-name>EditBlogServlet</servlet-name>
         <url-pattern>/editblog</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditPrescription</servlet-name>
+        <url-pattern>/updateprescription</url-pattern>
+    </servlet-mapping>
+</web-app>
