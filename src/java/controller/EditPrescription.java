@@ -23,7 +23,7 @@ import model.MedicalRecord;
  * @author User
  */
 public class EditPrescription extends HttpServlet {
-   
+   PrescriptionDAO preDAO = new PrescriptionDAO();
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      * @param request servlet request
@@ -100,11 +100,32 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response)
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+   @Override
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+    try {
+        int id = Integer.parseInt(request.getParameter("id"));
+        int medicineID = Integer.parseInt(request.getParameter("medicineId"));
+        String dosage = request.getParameter("dosage");
+        String frequency = request.getParameter("frequency");
+        String duration = request.getParameter("duration");
+        
+        Prescription pre = new Prescription();
+        pre.setPrescriptionID(id);
+        pre.setMedicineID(medicineID);
+        pre.setDosage(dosage);
+        pre.setFrequency(frequency);
+        pre.setDuration(duration);
+        
+        preDAO.updatePrescription(pre);
+        response.sendRedirect("viewprescription?id=" + pre.getPrescriptionID());
+    } catch (Exception e) {
+        request.setAttribute("error", "An error occurred while updating the prescription.");
+        request.getRequestDispatcher("/Staff_JSP/error.jsp").forward(request, response);
+        e.printStackTrace();
     }
+}
+
 
     /** 
      * Returns a short description of the servlet.

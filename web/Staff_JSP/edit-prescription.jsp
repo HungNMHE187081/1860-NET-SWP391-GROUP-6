@@ -162,7 +162,7 @@
                 <small style="color: green;">* Hãy cập nhật nếu có thay đổi.</small> <br>
 
                 <label for="notes">Liều dùng: </label>
-                <textarea name="notes">${pres.dosage}</textarea>
+                <textarea name="dosage">${pres.dosage}</textarea>
                 <small style="color: green;">* Hãy cập nhật nếu có thay đổi.</small> <br>
 
                 <label for="frequency">Tần suất: </label>

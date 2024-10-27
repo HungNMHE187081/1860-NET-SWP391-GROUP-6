@@ -65,7 +65,7 @@ public class PrescriptionDAO extends DBContext {
 
 
     // Cập nhật đơn thuốc
-    public void updatePrescription(Prescription prescription) throws SQLException {
+    public void updatePrescription(Prescription prescription)  {
         String sql = "UPDATE Prescriptions SET MedicineID = ?, Dosage = ?, Frequency = ?, Duration = ? "
                 + "WHERE PrescriptionID = ?";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -75,6 +75,10 @@ public class PrescriptionDAO extends DBContext {
             ps.setString(4, prescription.getDuration());
             ps.setInt(5, prescription.getPrescriptionID());
             ps.executeUpdate();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
         }
     }
 
