@@ -170,35 +170,47 @@
                 <input type="hidden" name="recordID" value="${record.recordID}">
                 <label for="childName">Tên trẻ được khám:</label>
                 <input type="text" id="childName" name="childName" 
-                       value="${childFirstName} ${childMiddleName} ${childLastName} " readonly>
-                
+                       value="${children.firstName} ${children.middleName} ${children.lastName} " readonly>
 
                 <input type="hidden" id="staffID" name="staffID" value="${staffID}" readonly>
 
-                   <label for="staffName">Tên nhân viên thực khám:</label>
+                <label for="staffName">Tên nhân viên thực khám:</label>
                 <input type="text" id="staffID" name="staffName" value="${staff.staffName}" readonly>
-                
-                <label for="serviceName">Ngày khám: </label>
-                <input type="text" id="reservationDate" name="reservationDate" value="${reservationDate}" readonly>
 
                 <label for="diagnosis">Chẩn đoán: </label>
-                <textarea id="diagnosis" name="diagnosis" required></textarea><br>
+                <textarea id="diagnosis" name="diagnosis" readonly>${record.diagnosis}</textarea><br>
+                <div>
+                    <label for="medicineSelect">Select Medicine:</label>
+                    <select id="medicineSelect" name="medicineId" style="width: 100%;" required>
+                        <option value="" disabled selected>Select a medicine</option>
+                        <c:forEach var="medicine" items="${medicineList}">
+                            <option value="${medicine.medicineID}">${medicine.name}</option>
+                        </c:forEach>
+                    </select>
+                </div>
+                <label for="dosage">Liều dùng: </label>
+                <textarea id="dosage" name="dosage" required></textarea><br>
 
-                <label for="treatment">Phương pháp điều trị: </label>
-                <textarea id="treatment" name="treatment" required></textarea><br>
+                <label for="frequency">Tần suất: </label>
+                <textarea id="frequency" name="frequency" required></textarea><br>
 
-                <label for="notes">Ghi chú: </label>
-                <textarea id="notes" name="notes"></textarea><br>
+                <label for="duration">Thời điểm sử dụng: </label>
+                <textarea id="duration" name="duration" required></textarea><br>
 
-                <label for="recordDate">Ngày thực hiện:</label>
-                <input type="date" id="recordDate" name="recordDate" value = "<%= new SimpleDateFormat("yyyy-MM-dd").format(new Date()) %>" readonly><br>
-
-                <button type="submit">Thêm lịch sử khám</button>
+                <button type="submit">Thêm đơn thuốc</button>
                 <center>
-                    <a href="staff/oldreservationslist"> Quay lại danh sách đã khám </a>
+                    <a href="medicalrecordlist"> Quay lại lịch sử khám </a>
                 </center>
 
             </form>
+            <script>
+                $(document).ready(function () {
+                    $('#medicineSelect').select2({
+                        placeholder: "Select a medicine",
+                        allowClear: true
+                    });
+                });
+            </script>
         </main>
 
         <footer>

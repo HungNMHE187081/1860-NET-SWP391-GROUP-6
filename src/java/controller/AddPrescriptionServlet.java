@@ -18,6 +18,8 @@ import dal.StaffDAO;
 import java.util.List;
 import model.Medicine;
 import model.Staff;
+import model.Children;
+import dal.ChildrenDAO;
 /**
  *
  * @author User
@@ -68,6 +70,9 @@ public class AddPrescriptionServlet extends HttpServlet {
             Staff staff = sdao.getStaffByID(record.getStaffID());
             MedicineDAO medicineDAO = new MedicineDAO();
             List<Medicine> medicineList = medicineDAO.getAllMedicines();
+            ChildrenDAO cdao = new ChildrenDAO();
+            Children children = cdao.getChildrenByID(record.getChildID());
+            request.setAttribute("children", children);
             request.setAttribute("medicineList", medicineList);
             request.setAttribute("record", record);
             request.setAttribute("staff", staff);
