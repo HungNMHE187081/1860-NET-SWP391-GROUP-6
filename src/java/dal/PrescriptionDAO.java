@@ -113,27 +113,34 @@ public class PrescriptionDAO extends DBContext {
         return prescriptions;
     }
 
-    public List<Prescription> getAllPrescriptions() {
-        List<Prescription> prescriptions = new ArrayList<>();
-        final String SQL_SELECT_PRESCRIPTIONS = "SELECT p.PrescriptionID, mr.RecordID, p.MedicineID, "
-                + "c.FirstName AS ChildFirstName, c.MiddleName AS ChildMiddleName, c.LastName AS ChildLastName, "
-                + "u.FirstName AS UserFirstName, u.MiddleName AS UserMiddleName, "
-                + "u.LastName AS UserLastName, mr.Diagnosis, m.Name AS MedicineName, "
-                + "s.StaffName, p.Dosage, p.Frequency, p.Duration "
-                + "FROM Prescriptions p "
-                + "JOIN MedicalRecords mr ON p.RecordID = mr.RecordID "
-                + "JOIN Children c ON mr.ChildID = c.ChildID "
-                + "JOIN Users u ON mr.StaffID = u.UserID "
-                + "JOIN Medicine m ON p.MedicineID = m.MedicineID "
-                + "JOIN Staff s ON mr.StaffID = s.StaffID";
+    public List<Prescription> getAllPrescriptions(String search) {
+    List<Prescription> prescriptions = new ArrayList<>();
+    String SQL_SELECT_PRESCRIPTIONS = 
+            "SELECT p.PrescriptionID, mr.RecordID, p.MedicineID, " +
+            "c.FirstName AS ChildFirstName, c.MiddleName AS ChildMiddleName, c.LastName AS ChildLastName, " +
+            "u.FirstName AS UserFirstName, u.MiddleName AS UserMiddleName, u.LastName AS UserLastName, " +
+            "mr.Diagnosis, m.Name AS MedicineName, s.StaffName, p.Dosage, p.Frequency, p.Duration " +
+            "FROM Prescriptions p " +
+            "JOIN MedicalRecords mr ON p.RecordID = mr.RecordID " +
+            "JOIN Children c ON mr.ChildID = c.ChildID " +
+            "JOIN Users u ON mr.StaffID = u.UserID " +
+            "JOIN Medicine m ON p.MedicineID = m.MedicineID " +
+            "JOIN Staff s ON mr.StaffID = s.StaffID " +
+            "WHERE (CONCAT(c.FirstName, ' ', c.MiddleName, ' ', c.LastName) LIKE ? " +
+            "OR CONCAT(u.FirstName, ' ', u.MiddleName, ' ', u.LastName) LIKE ?)";
 
-        try (PreparedStatement statement = connection.prepareStatement(SQL_SELECT_PRESCRIPTIONS); ResultSet resultSet = statement.executeQuery()) {
+    try (PreparedStatement statement = connection.prepareStatement(SQL_SELECT_PRESCRIPTIONS)) {
+        // Set the search parameter for both child and user name.
+        String searchPattern = "%" + search + "%";
+        statement.setString(1, searchPattern);
+        statement.setString(2, searchPattern);
 
+        try (ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
                 Prescription detail = new Prescription();
                 detail.setPrescriptionID(resultSet.getInt("PrescriptionID"));
-                detail.setRecordID(resultSet.getInt("RecordID")); // New field
-                detail.setMedicineID(resultSet.getInt("MedicineID")); // New field
+                detail.setRecordID(resultSet.getInt("RecordID"));
+                detail.setMedicineID(resultSet.getInt("MedicineID"));
                 detail.setChildFirstName(resultSet.getString("ChildFirstName"));
                 detail.setChildMiddleName(resultSet.getString("ChildMiddleName"));
                 detail.setChildLastName(resultSet.getString("ChildLastName"));
@@ -149,13 +156,14 @@ public class PrescriptionDAO extends DBContext {
 
                 prescriptions.add(detail);
             }
-        } catch (SQLException e) {
-            // Log the exception or handle it as needed
-            e.printStackTrace();
         }
-
-        return prescriptions;
+    } catch (SQLException e) {
+        e.printStackTrace();
     }
+
+    return prescriptions;
+}
+
 public Prescription getPrescriptionById(int prescriptionId) {
     Prescription prescription = null;
     final String SQL_SELECT_PRESCRIPTION = "SELECT p.PrescriptionID, mr.RecordID, p.MedicineID, "

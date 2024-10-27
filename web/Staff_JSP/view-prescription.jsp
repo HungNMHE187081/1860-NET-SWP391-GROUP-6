@@ -252,7 +252,7 @@
                         </div>
 
                         <div class="action-buttons">
-                            <a href="editprescription?id=${pres.prescriptionID}" class="btn edit-btn">
+                            <a href="updateprescription?id=${pres.prescriptionID}" class="btn edit-btn">
                                 <i class="fas fa-edit"></i>
                             </a>
                             <form action="deleteprescription" method="post" style="display:inline;">

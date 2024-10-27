@@ -24,19 +24,27 @@ import model.Prescription;
 public class ListPrescription extends HttpServlet {
     private static final Logger logger = Logger.getLogger(ListPrescription.class.getName());
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        try {
+@Override
+protected void doGet(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+    try {
         PrescriptionDAO dao = new PrescriptionDAO();
-        List<Prescription> listPre = dao.getAllPrescriptions();
+
+        // Retrieve the search parameter from the request
+        String search = request.getParameter("search");
+        if (search == null) search = "";  // Default to empty if no search query is provided
+
+        // Retrieve the list of prescriptions based on the search input
+        List<Prescription> listPre = dao.getAllPrescriptions(search);
+
+        // Set the list as a request attribute and forward to the JSP
         request.setAttribute("listPre", listPre);
         request.getRequestDispatcher("prescription-list.jsp").forward(request, response);
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-      
+    } catch (Exception e) {
+        e.printStackTrace();
     }
+}
+
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -49,9 +57,5 @@ public class ListPrescription extends HttpServlet {
     public String getServletInfo() {
         return "Servlet for listing prescriptions";
     }
-    public static void main(String[] args) {
-        PrescriptionDAO dao = new PrescriptionDAO();
-        List<Prescription> list = dao.getAllPrescriptions();
-        System.out.println(list);
-    }
+
 }

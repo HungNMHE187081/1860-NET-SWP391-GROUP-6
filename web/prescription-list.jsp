@@ -75,12 +75,14 @@
                     <h2><i class="fas fa-prescription-bottle-alt"></i> Danh sách đơn thuốc</h2>
 
                     <!-- Filter and Search Form -->
-                    <form action="medicalrecordlist" method="get" class="filter-form">
+                    <form action="listprescription" method="get" class="filter-form">
                         <div class="filter-group">
-                            <input type="text" name="search" value="${param.search}" placeholder="Tìm theo tên trẻ, tên khách hàng" />
+                            <input type="text" name="search" value="${param.search}" 
+                                   placeholder="Tìm theo tên trẻ hoặc tên khách hàng" />
                             <button type="submit"><i class="fas fa-filter"></i> Lọc và tìm kiếm</button>
                         </div>
                     </form>
+
 
                     <!-- Prescription List Table -->
                     <table>
@@ -98,7 +100,7 @@
                             <c:if test="${not empty listPre}">
                                 <c:forEach var="pre" items="${listPre}" varStatus="status">
                                     <tr>
-                                          <td>${status.index + 1}</td>
+                                        <td>${status.index + 1}</td>
                                         <td><c:out value="${pre.childFirstName} ${pre.childMiddleName} ${pre.childLastName}" /></td>
                                         <td><c:out value="${pre.userFirstName} ${pre.userMiddleName} ${pre.userLastName}" /></td>
                                         <td><c:out value="${pre.diagnosis}" /></td>
@@ -107,7 +109,7 @@
                                             <a href="viewprescription?id=${pre.prescriptionID}" class="btn" title="Xem chi tiết" style="margin-right: 5px; padding: 5px 10px; font-size: 14px; display: flex; justify-content: center; align-items: center;">
                                                 <i class="fas fa-eye" style="margin: 0;"></i>
                                             </a>
-                                            
+
                                         </td>
 
                                     </tr>

@@ -95,7 +95,7 @@
 
                                 <button type="submit"><i class="fas fa-filter"></i> Lọc và tìm kiếm</button>
                                 <a href="staff/oldreservationslist" class="btn"><i class="fas fa-plus"></i> Thêm bản ghi</a>
-                                 <a href="listprescription" class="btn"><i class="fas fa-plus"></i> Danh sách đơn thuốc</a>
+                                 <a href="listprescription" class="btn"><i class="fas fa-save"></i> Danh sách đơn thuốc</a>
                             </div>
                         </form>
 
@@ -127,7 +127,7 @@
                                             <a href="medicalrecorddetail?id=${record.recordID}" class="btn" title="Xem chi tiết" style="margin-right: 5px; padding: 5px 10px; font-size: 14px; display: flex; justify-content: center; align-items: center;">
                                                 <i class="fas fa-eye" style="margin: 0;"></i>
                                             </a>
-                                                 <c:if test="${record.hasPres == false}">
+                                                 <c:if test="${record.hasPres == true}">
                                                 <button class="btn-primary btn-sm" type="button" title="Thêm" id="show-emp"><a href="addprescription?id=${record.recordID}" title="Thêm đơn thuốc">
                                                         <i class="fas fa-plus"></i>
                                                     </a>
