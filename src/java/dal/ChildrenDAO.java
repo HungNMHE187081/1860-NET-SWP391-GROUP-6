@@ -41,15 +41,15 @@ public class ChildrenDAO extends DBContext{
         return list;
     }
     
-    public Children getChildrenByID(int customerID){
+    public Children getChildrenByID(int childID){
         String sql = "select * from Children where CustomerID = ?";
         try{
             PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setInt(1, customerID);
+            ps.setInt(1, childID);
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
                 Children children = new Children();
-                children.setChildID(rs.getInt("ChildID"));
+                children.setChildID(childID);
                 children.setCustomerID(rs.getInt("CustomerID"));
                 children.setFirstName(rs.getString("FirstName"));
                 children.setMiddleName(rs.getString("MiddleName"));
@@ -64,6 +64,30 @@ public class ChildrenDAO extends DBContext{
         }
         return null;
     }
+    
+    public List<Children> getChildrenByCustomerID(int CustomerID){
+        List<Children> list = new ArrayList<>();
+        String sql = "select * from Children where CustomerID = ?";
+        try{
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, CustomerID);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int ChildID = rs.getInt("ChildID");
+                String FirstName = rs.getString("FirstName");
+                String MiddleName = rs.getString("MiddleName");
+                String LastName = rs.getString("LastName");
+                Date DateOfBirth = rs.getDate("DateOfBirth");
+                String Gender = rs.getString("Gender");
+                String ChildImage = rs.getString("ChildImage");
+                list.add(new Children(ChildID, CustomerID, FirstName, MiddleName, LastName, DateOfBirth, Gender, ChildImage));
+            }
+        } catch(SQLException e){
+            
+        }
+        return list;
+    }
+    
     public static void main(String[] args) {
         Children c = new Children();
         int id = 1;

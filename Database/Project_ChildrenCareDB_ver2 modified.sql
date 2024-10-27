@@ -153,6 +153,7 @@ CREATE TABLE Orders(
 	Quantity INT CHECK (Quantity > 0),
 	TotalPrice FLOAT CHECK (TotalPrice > 0),
 	OrderDate DATETIME DEFAULT GETDATE(),
+	isOrder BIT DEFAULT 0,
 	isCheckOut BIT,
 	FOREIGN KEY (CustomerID) REFERENCES Users(UserID) ON DELETE CASCADE
 )
@@ -646,12 +647,13 @@ VALUES
 (3, N'Lê Minh C', 5, 1, 1, '2020-01-15', 50000.0);
 
 
-INSERT INTO Orders (CustomerID, TotalPrice, OrderDate, isCheckOut)
+INSERT INTO Orders (CustomerID, TotalPrice, OrderDate, isOrder, isCheckOut)
 VALUES 
-(1, 150000, GETDATE(), 0),
-(1, 750000, GETDATE(), 1),
-(2, 225000, GETDATE(), 0);
+(1, 150000, GETDATE(), 0, 0),
+(1, 750000, GETDATE(), 0, 1),
+(2, 225000, GETDATE(), 0, 0);
 
+update Orders set isOrder = 1 where CustomerID = 1
 
 INSERT INTO OrderItems (OrderID, ServiceID, ChildID)
 VALUES 

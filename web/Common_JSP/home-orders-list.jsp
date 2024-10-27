@@ -6,7 +6,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Tiny Tots - Trang chủ</title>
+        <title>Tiny Tots</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="Premium Bootstrap 4 Landing Page Template" />
         <meta name="keywords" content="Appointment, Booking, System, Dashboard, Health" />
@@ -18,6 +18,11 @@
         <link rel="shortcut icon" href="../images/favicon.ico.png">
         <!-- Bootstrap -->
         <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
         <!-- Icons -->
         <link href="${pageContext.request.contextPath}/css/materialdesignicons.min.css" rel="stylesheet" type="text/css"/>
         <link href="${pageContext.request.contextPath}/css/remixicon.css" rel="stylesheet" type="text/css"/>
@@ -74,8 +79,8 @@
                 <div class="row justify-content-center">
                     <div class="col-12">
                         <div class="section-title text-center mb-4 pb-2">
-                            <h4 class="title mb-4">Danh sách đơn đặt lịch khám</h4>
-                            <p class="text-muted mx-auto para-desc mb-0">Dưới đây là danh sách các đơn hàng của bạn.</p>
+                            <h4 class="title mb-4">Danh sách lịch khám sắp tới</h4>
+                            <p class="text-muted mx-auto para-desc mb-0">Dưới đây là danh sách các lịch khám sắp tới của bạn.</p>
                         </div>
                     </div><!--end col-->
                 </div><!--end row-->
@@ -96,29 +101,73 @@
                                 </thead>
                                 <tbody>
                                     <c:if test="${not empty orders}">
-                                    <c:forEach var="order" items="${orders}" varStatus="status">
-                                        <tr>
-                                            <td class="text-center">${status.index + 1}</td>
-                                            <td class="text-center">${order.quantity}</td>
-                                            <td class="text-center" data-date="${order.orderDate}">${order.orderDate}</td>
-                                            <td class="text-center">
-                                                <span><fmt:formatNumber value="${order.totalPrice}" type="number" groupingUsed="true" /></span>
-                                            </td>
-                                            <td class="text-center">${order.isCheckOut ? 'Đã thanh toán' : 'Chưa thanh toán'}</td>
-                                            <td class="text-center">
-                                                <a href="${pageContext.request.contextPath}/customer/viewsreservation?orderID=${order.orderID}" class="btn btn-primary btn-sm" title="detail" id="show-emp">
-                                                    <i class="fas fa-eye"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    </c:forEach>
-                                        </c:if>
+                                        <c:forEach var="order" items="${orders}" varStatus="status">
+                                            <tr>
+                                                <td class="text-center">${status.index + 1}</td>
+                                                <td class="text-center">${order.quantity}</td>
+                                                <td class="text-center" data-date="${order.orderDate}">${order.orderDate}</td>
+                                                <td class="text-center">
+                                                    <span><fmt:formatNumber value="${order.totalPrice}" type="number" groupingUsed="true" /></span>
+                                                </td>
+                                                <td class="text-center">${order.isCheckOut ? 'Đã thanh toán' : 'Chưa thanh toán'}</td>
+                                                <td class="text-center">
+                                                    <button class="btn btn-primary btn-sm" title="detail" data-toggle="collapse" data-target="#orderItems-${order.orderID}">
+                                                        <i class="fas fa-th-list"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            <tr id="orderItems-${order.orderID}" class="collapse">
+                                                <td colspan="6">
+                                                    <table class="table table-bordered">
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="text-center">STT</th>
+                                                                <th class="text-center">Tên dịch vụ</th>
+                                                                <th class="text-center">Tên trẻ</th>
+                                                                <th class="text-center">Ngày khám</th>
+                                                                <th class="text-center">Giờ khám</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <c:forEach var="item" items="${orderItems}" varStatus="status">
+                                                                <tr>
+                                                                    <td class="text-center">${status.index + 1}</td>
+                                                                    <td class="text-center">
+                                                                        <c:forEach var="service" items="${services}">
+                                                                            <c:if test="${service.serviceID == item.serviceID}">
+                                                                                ${service.serviceName}
+                                                                            </c:if>
+                                                                        </c:forEach>
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        <c:forEach var="child" items="${children}">
+                                                                            <c:if test="${child.childID == item.childID}">
+                                                                                ${child.firstName} ${child.middleName} ${child.lastName}
+                                                                            </c:if>
+                                                                        </c:forEach>
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        <fmt:parseDate value="${reservation.reservationDate}" pattern="yyyy-MM-dd" var="parsedReservationDate" />
+                                                                        <fmt:formatDate value="${parsedReservationDate}" pattern="dd-MM-yyyy" />
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        <fmt:parseDate value="${reservation.startTime}" pattern="HH:mm:ss" var="parsedStartTime" />
+                                                                        <fmt:formatDate value="${parsedStartTime}" pattern="hh:mm a" />
+                                                                    </td>
+                                                                </tr>
+                                                            </c:forEach>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
+                                    </c:if>
 
-                            <c:if test="${empty orders}">
-                                <tr>
-                                    <td colspan="6" style="text-align: center;">Không có lịch khám</td>
-                                </tr>
-                            </c:if>
+                                    <c:if test="${empty orders}">
+                                        <tr>
+                                            <td colspan="6" style="text-align: center;">Không có lịch khám</td>
+                                        </tr>
+                                    </c:if>
                                 </tbody>
                             </table>
                         </div>

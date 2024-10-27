@@ -69,7 +69,7 @@ public class DeleteBlogServlet extends HttpServlet {
     throws ServletException, IOException {
         int blogid = Integer.parseInt(request.getParameter("blogid"));
         BlogDAO dao = new BlogDAO();
-        dao.deleteBlog(blogid);
+//        dao.deleteBlog(blogid);
         response.sendRedirect("manageblog");
     }
 
