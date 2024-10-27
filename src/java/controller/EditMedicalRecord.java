@@ -76,10 +76,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
         String diagnosis = request.getParameter("diagnosis");
         String treatment = request.getParameter("treatment");
         String notes = request.getParameter("notes");
-        String recordDate_raw = request.getParameter("createdDate");
 
-        // Convert the input string to java.sql.Date
-        Date recordDate = convertToSqlDate(recordDate_raw);
 
         // Create and populate MedicalRecord object
         MedicalRecord record = new MedicalRecord();
@@ -87,7 +84,6 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
         record.setDiagnosis(diagnosis);
         record.setTreatment(treatment);
         record.setNotes(notes);
-        record.setRecordDate(recordDate);
 
         // Update the medical record
         boolean isUpdated = medicalRecordDAO.updateMedicalRecord(record);
@@ -98,7 +94,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
             request.setAttribute("errorMessage", "Failed to update record.");
             request.getRequestDispatcher("errorPage.jsp").forward(request, response);
         }
-    } catch (NumberFormatException | ParseException e) {
+    } catch (NumberFormatException e) {
         e.printStackTrace(); // For debugging
         request.setAttribute("errorMessage", "Invalid input format.");
         request.getRequestDispatcher("errorPage.jsp").forward(request, response);

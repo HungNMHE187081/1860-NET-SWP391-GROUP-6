@@ -123,7 +123,7 @@
                             <a href="${pageContext.request.contextPath}/addmedicalrecord?staffID=${reservation.staffID}&reservationDate=${reservation.reservationDate}&reservationID=${reservation.reservationID}&childID=${childID}" class="back-link">Thêm kết quả khám</a>
                         </c:if>
                         <c:if test="${reservation.hasRecord == true}">
-                            <a href="${pageContext.request.contextPath}/viewmedicalrecord?reservationID=${reservation.reservationID}" class="back-link">Xem kết quả khám</a>
+                            <a href="${pageContext.request.contextPath}/medicalrecordlist?childID=${child.childID}" class="back-link">Xem kết quả khám</a>
                         </c:if>
                     </c:if>
 

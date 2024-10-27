@@ -139,6 +139,7 @@
                 <section class="dashboard">
                     <h2><i class="fas fa-concierge-bell"></i> Thông tin chi tiết</h2>
                     <a href="${pageContext.request.contextPath}/staff/oldreservationslist" class="back-link">Lịch đã khám</a>
+                    <a href="${pageContext.request.contextPath}/medicalrecordlist" class="back-link">Lịch sử khám</a>
                     <c:if test="${reservation.isExam == false}">
                         <a href="${pageContext.request.contextPath}/viewmedicalrecord?reservationID=${reservation.reservationID}" class="back-link">Đã khám</a>
                     </c:if>

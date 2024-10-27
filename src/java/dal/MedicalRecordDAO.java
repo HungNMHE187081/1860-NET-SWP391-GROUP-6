@@ -117,14 +117,13 @@ public class MedicalRecordDAO extends DBContext {
 
     // Cập nhật medical record
    public boolean updateMedicalRecord(MedicalRecord record) {
-    String sql = "UPDATE MedicalRecords SET diagnosis = ?, treatment = ?, notes = ?, recordDate = ? WHERE recordID = ?";
+    String sql = "UPDATE MedicalRecords SET diagnosis = ?, treatment = ?, notes = ? WHERE recordID = ?";
 
     try (PreparedStatement ps = connection.prepareStatement(sql)) {
         ps.setString(1, record.getDiagnosis());
         ps.setString(2, record.getTreatment());
         ps.setString(3, record.getNotes());
-        ps.setDate(4, record.getRecordDate());
-        ps.setInt(5, record.getRecordID());
+        ps.setInt(4, record.getRecordID());
 
         // Execute the update and check if any rows were affected
         int rowsAffected = ps.executeUpdate();

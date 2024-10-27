@@ -159,8 +159,8 @@
             <label for="doctorName">Tên bác sĩ:</label>
             <input type="text" name="doctorName" value="${staff.staffName}" readonly />
 
-            <label for="createdDate">Ngày tạo:</label>
-            <input type="date" name="createdDate" value="${record.recordDate}"  />
+          <label for="recordDate">Ngày tạo:</label>
+                <input type="date" id="recordDate" name="recordDate" value = "${record.recordDate}" readonly><br>
 
             <button type="submit">Cập nhật</button>
         </form>
