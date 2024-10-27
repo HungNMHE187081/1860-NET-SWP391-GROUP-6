@@ -12,6 +12,9 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -69,7 +72,11 @@ public class DeleteBlogServlet extends HttpServlet {
     throws ServletException, IOException {
         int blogid = Integer.parseInt(request.getParameter("blogid"));
         BlogDAO dao = new BlogDAO();
-//        dao.deleteBlog(blogid);
+        try {
+            dao.deleteBlog(blogid);
+        } catch (SQLException ex) {
+            Logger.getLogger(DeleteBlogServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
         response.sendRedirect("manageblog");
     }
 

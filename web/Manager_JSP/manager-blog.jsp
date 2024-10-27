@@ -120,7 +120,7 @@
                                                     <input type="hidden" name="blogid" value="${blog.blogID}"/>
                                                     <button class="btn btn-primary btn-sm trash" title="Xóa" onclick="confirm('B?n có ch?c ch?n mu?n xóa bài này không')"><i class="fas fa-trash-alt"></i></button>
                                                 </form>
-                                                <button class="btn btn-primary btn-sm edit" title="S?a" id="show-emp" data-toggle="modal" data-target="#ModalUP"><i class="fas fa-edit"></i></button>
+                                                    <a  href="editblog?blogid=${blog.blogID}" class="btn btn-primary btn-sm edit" title="S?a" id="show-emp" ><i class="fas fa-edit"></i></a>
                                                 <a href="viewdetailblog?blogid=${blog.blogID}" class="btn btn-primary btn-sm" title="Xem chi ti?t" style="background-color: green; color: white;">
                                                     <i class="fas fa-eye"></i>
                                                 </a>

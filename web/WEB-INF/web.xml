@@ -336,6 +336,10 @@
         <servlet-name>DeletePrescription</servlet-name>
         <servlet-class>controller.DeletePrescription</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EditBlogServlet</servlet-name>
+        <servlet-class>controller.EditBlogServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -663,5 +667,9 @@
     <servlet-mapping>
         <servlet-name>DeletePrescription</servlet-name>
         <url-pattern>/deleteprescription</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditBlogServlet</servlet-name>
+        <url-pattern>/editblog</url-pattern>
     </servlet-mapping>
 </web-app>

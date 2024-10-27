@@ -169,6 +169,23 @@ return lst;
         }
     }
  
+  public void updateBlog(Blog blog) {
+        String sql = "UPDATE Blogs SET Title = ?, Content = ?, AuthorName = ?, UpdatedDate = GETDATE(), IsPublished = ?, ThumbnailPath = ?, Views = ? WHERE BlogID = ?";
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setString(1, blog.getTitle());
+            pstmt.setString(2, blog.getContent());
+            pstmt.setString(3, blog.getAuthorName());
+            pstmt.setBoolean(4, blog.getIsPublished());
+            pstmt.setString(5, blog.getThumbnailPath());
+            pstmt.setInt(6, blog.getViews());
+            pstmt.setInt(7, blog.getBlogID());
+
+            pstmt.executeUpdate(); // Thực thi câu lệnh cập nhật
+        } catch (SQLException e) {
+            e.printStackTrace(); // In ra thông báo lỗi nếu có
+            // Bạn có thể xử lý ngoại lệ ở đây, chẳng hạn như ném một ngoại lệ tùy chỉnh hoặc log lỗi.
+        }
+    }
   public static void main(String[] args) {
         BlogDAO blogDAO = new BlogDAO();
        
