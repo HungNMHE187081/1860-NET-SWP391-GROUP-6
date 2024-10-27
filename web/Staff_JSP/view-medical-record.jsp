@@ -264,7 +264,7 @@
                                 <i class="fas fa-edit"></i>
                             </a>
                             <form action="deletemedicalrecord" method="post" style="display:inline;">
-                                <input type="hidden" name="id" value="${record.recordID}" />
+                                <input type="hidden" name="id" value="${medicalRecord.recordID}" />
                                 <button type="submit" class="btn delete-btn" 
                                         onclick="return confirm('Bạn có chắc chắn muốn xóa bản ghi này?');">
                                     <i class="fas fa-trash-alt"></i>
