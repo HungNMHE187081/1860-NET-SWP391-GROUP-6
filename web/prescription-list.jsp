@@ -8,7 +8,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Danh sách đơn thuốc</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
         <style>
             /* Filter Form Styling */
             .filter-form {
@@ -48,7 +47,6 @@
             .filter-group .btn:hover {
                 background-color: #575757; /* Darker shade on hover */
             }
-
         </style>
     </head>
     <body>
@@ -80,51 +78,44 @@
                     <form action="medicalrecordlist" method="get" class="filter-form">
                         <div class="filter-group">
                             <input type="text" name="search" value="${param.search}" placeholder="Tìm theo tên trẻ, tên khách hàng" />
-                      
-                                <button type="submit"><i class="fas fa-filter"></i> Lọc và tìm kiếm</button>
-                            </div>
-                        </form>
+                            <button type="submit"><i class="fas fa-filter"></i> Lọc và tìm kiếm</button>
+                        </div>
+                    </form>
 
-                        <!-- Medicine List Table -->
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>STT</th>
-                                    <th>Tên trẻ</th>
-                                    <th>Tên khách hàng</th>
-                                    <th>Chẩn đoán</th>
-                                    <th>Loại thuốc</th>
-                                    <th>Chức năng</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            <c:if test="${not empty records}">
-                                <c:forEach var="record" items="${records}" varStatus="status">
+                    <!-- Prescription List Table -->
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Tên trẻ</th>
+                                <th>Tên khách hàng</th>
+                                <th>Chẩn đoán</th>
+                                <th>Tên thuốc</th>
+                                <th>Chức năng</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:if test="${not empty listPre}">
+                                <c:forEach var="pre" items="${listPre}" varStatus="status">
                                     <tr>
-                                        <td>${status.index + 1}</td> <!-- Serial Number Column -->
-                                        <td><c:out value="${record.firstNameChild} ${record.middleNameChild} ${record.lastNameChild}" /></td>
-                                        <td><c:out value="${record.diagnosis}" /></td>
-                                        <td><c:out value="${record.treatment}" /></td>
-                                        <td><c:out value="${record.notes}" /></td>
-                                        <td><c:out value="${record.reservationDate}" /></td>
-
+                                          <td>${status.index + 1}</td>
+                                        <td><c:out value="${pre.childFirstName} ${pre.childMiddleName} ${pre.childLastName}" /></td>
+                                        <td><c:out value="${pre.userFirstName} ${pre.userMiddleName} ${pre.userLastName}" /></td>
+                                        <td><c:out value="${pre.diagnosis}" /></td>
+                                        <td><c:out value="${pre.medicineName}" /></td>
                                         <td style="display: flex; align-items: center;">
-                                            <a href="medicalrecorddetail?id=${record.recordID}" class="btn" title="Xem chi tiết" style="margin-right: 5px; padding: 5px 10px; font-size: 14px; display: flex; justify-content: center; align-items: center;">
+                                            <a href="medicalrecorddetail?id=${pre.recordID}" class="btn" title="Xem chi tiết" style="margin-right: 5px; padding: 5px 10px; font-size: 14px; display: flex; justify-content: center; align-items: center;">
                                                 <i class="fas fa-eye" style="margin: 0;"></i>
                                             </a>
-                                            <a href="addprescription?id=${record.recordID}" class="btn" title="Thêm đơn thuốc" style="padding: 5px 10px; font-size: 14px; display: flex; justify-content: center; align-items: center;">
-                                                <i class="fas fa-plus" style="margin: 0;"></i>
-                                            </a>
+                                            
                                         </td>
-
-
 
                                     </tr>
                                 </c:forEach>
                             </c:if>
-                            <c:if test="${empty records}">
+                            <c:if test="${empty listPre}">
                                 <tr>
-                                    <td colspan="7" style="text-align: center;">Không tìm thấy hồ sơ</td>
+                                    <td colspan="6" style="text-align: center;">Không tìm thấy đơn thuốc</td>
                                 </tr>
                             </c:if>
                         </tbody>
