@@ -104,7 +104,7 @@
                                         <td><c:out value="${pre.diagnosis}" /></td>
                                         <td><c:out value="${pre.medicineName}" /></td>
                                         <td style="display: flex; align-items: center;">
-                                            <a href="medicalrecorddetail?id=${pre.recordID}" class="btn" title="Xem chi tiết" style="margin-right: 5px; padding: 5px 10px; font-size: 14px; display: flex; justify-content: center; align-items: center;">
+                                            <a href="viewprescription?id=${pre.prescriptionID}" class="btn" title="Xem chi tiết" style="margin-right: 5px; padding: 5px 10px; font-size: 14px; display: flex; justify-content: center; align-items: center;">
                                                 <i class="fas fa-eye" style="margin: 0;"></i>
                                             </a>
                                             
