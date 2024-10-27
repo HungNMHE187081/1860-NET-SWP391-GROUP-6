@@ -19,11 +19,11 @@ public class Prescription {
     private String childMiddleName;
     private String childLastName;
     private String userFirstName;
-     private String userMiddleName;
-         private String userLastName;
-         private String staffName;
-         private String diagnosis;
-         private String medicineName;
+    private String userMiddleName;
+    private String userLastName;
+    private String staffName;
+    private String diagnosis;
+    private String medicineName;
     public Prescription() {
     }
 
