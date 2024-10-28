@@ -75,7 +75,7 @@
             <main>
                 <section class="dashboard">
                     <h2><i class="fas fa-prescription-bottle-alt"></i> Danh sách thuốc</h2>
-                    
+
                     <!-- Filter and Search Form -->
 
                     <form action="medicinelist" method="get" class="filter-form">
@@ -96,7 +96,7 @@
                                 <option value="">Sắp xếp theo</option>
                                 <option value="name" <c:if test="${param.sort == 'name'}">selected</c:if>>Tên thuốc</option>
                                 <option value="latestAdd" <c:if test="${param.sort == 'latestAdd'}">selected</c:if>>Thêm gần đây</option>
-                              
+
                                 </select>
 
                                 <button type="submit"><i class="fas fa-filter"></i> Lọc và tìm kiếm</button>
@@ -110,6 +110,7 @@
                         <table>
                             <thead>
                                 <tr>
+                                    <th>Số thứ tự</th> <!-- Add a header for the serial number -->
                                     <th>Tên thuốc</th>
                                     <th>Công dụng</th>
                                     <th>Loại thuốc</th>
@@ -119,8 +120,10 @@
                             </thead>
                             <tbody>
                             <c:if test="${not empty medicineList}">
+                                <c:set var="counter" value="1" /> <!-- Initialize the counter -->
                                 <c:forEach var="medicine" items="${medicineList}">
                                     <tr>
+                                        <td><c:out value="${counter}" /></td> <!-- Display the counter -->
                                         <td><c:out value="${medicine.name}" /></td>
                                         <td><c:out value="${medicine.uses}" /></td>
                                         <td><c:out value="${medicine.categoryName}" /></td>
@@ -129,15 +132,17 @@
                                             <a href="medicinedetail?id=${medicine.medicineID}" class="btn"><i class="fas fa-eye"></i> Xem chi tiết</a>
                                         </td>
                                     </tr>
+                                    <c:set var="counter" value="${counter + 1}" /> <!-- Increment the counter -->
                                 </c:forEach>
                             </c:if>
                             <c:if test="${empty medicineList}">
                                 <tr>
-                                    <td colspan="5" style="text-align: center;">Không tìm thấy thuốc</td>
+                                    <td colspan="6" style="text-align: center;">Không tìm thấy thuốc</td>
                                 </tr>
                             </c:if>
                         </tbody>
                     </table>
+
 
 
 

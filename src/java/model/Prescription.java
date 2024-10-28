@@ -27,6 +27,7 @@ public class Prescription {
     public Prescription() {
     }
 
+
     public Prescription(int prescriptionID, int recordID, int medicineID, String dosage, String frequency, String duration, String childFirstName, String childMiddleName, String childLastName, String userFirstName, String userMiddleName, String userLastName, String staffName, String diagnosis, String medicineName) {
         this.prescriptionID = prescriptionID;
         this.recordID = recordID;

@@ -58,7 +58,7 @@
                 <h1><i class="fas fa-hospital"></i> Child Care</h1>
                 <nav>
                     <ul>
-                        <li><a href="staffhomepage"><i class="fas fa-home"></i> Trang chủ</a></li>
+                        <li><a href="staff/staffhomepage"><i class="fas fa-home"></i> Trang chủ</a></li>
                         <li><a href="profile.jsp"><i class="fas fa-user"></i> Thông tin cá nhân</a></li>
                         <li><a href="logout.jsp" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
                     </ul>

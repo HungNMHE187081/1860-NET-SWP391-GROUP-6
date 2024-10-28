@@ -87,29 +87,47 @@ public class EditPrescription extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
- protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    int prescriptionID = Integer.parseInt(request.getParameter("id")); // Correct name here
-    int medicineID = Integer.parseInt(request.getParameter("medicineId")); // Correct name here
-    String dosage = request.getParameter("dosage");
-    String frequency = request.getParameter("frequency");
-    String duration = request.getParameter("duration");
-
+protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     try {
+        // Get the parameters
+        String prescriptionIdRaw = request.getParameter("id");
+        String medicineIdRaw = request.getParameter("medicineId");
+
+        // Check if the parameters are not null or empty
+        if (prescriptionIdRaw == null || prescriptionIdRaw.isEmpty() || medicineIdRaw == null || medicineIdRaw.isEmpty()) {
+            request.setAttribute("errorMessage", "Prescription ID or Medicine ID is missing.");
+            request.getRequestDispatcher("edit-prescription.jsp").forward(request, response);
+            return; // Stop further processing
+        }
+
+        // Parse the parameters
+        int prescriptionID = Integer.parseInt(prescriptionIdRaw);
+        int medicineID = Integer.parseInt(medicineIdRaw);
+        String dosage = request.getParameter("dosage");
+        String frequency = request.getParameter("frequency");
+        String duration = request.getParameter("duration");
+
+        // Proceed with updating the prescription
         PrescriptionDAO prescriptionDAO = new PrescriptionDAO();
         boolean isUpdated = prescriptionDAO.updatePrescription(prescriptionID, medicineID, dosage, frequency, duration);
 
         if (isUpdated) {
             response.sendRedirect("listprescription"); // Redirect to the prescription list after successful update
         } else {
-            request.setAttribute("errorMessage", "Failed to update prescription.");
-            request.getRequestDispatcher("edit-prescription.jsp?id=" + prescriptionID).forward(request, response);
+            request.setAttribute("errorMessage", "Thông tin thuốc đã tồn tại.");
+            request.getRequestDispatcher("/Staff_JSP/error.jsp?id=" + prescriptionID).forward(request, response);
         }
+    } catch (NumberFormatException e) {
+        e.printStackTrace();
+        request.setAttribute("errorMessage", "Invalid prescription ID or medicine ID.");
+        request.getRequestDispatcher("/Staff_JSP/error.jsp").forward(request, response);
     } catch (Exception e) {
         e.printStackTrace();
         request.setAttribute("errorMessage", "An error occurred while updating prescription.");
-        request.getRequestDispatcher("edit-prescription.jsp?id=" + prescriptionID).forward(request, response);
+        request.getRequestDispatcher("/Staff_JSP/error.jsp").forward(request, response);
     }
 }
+
 
     /** 
      * Returns a short description of the servlet.

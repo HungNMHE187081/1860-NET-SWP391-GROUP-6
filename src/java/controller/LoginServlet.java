@@ -36,7 +36,7 @@ public class LoginServlet extends HttpServlet {
             Users user = userDAO.getUserWithAddressById(userAuth.getUserID());
             HttpSession session = request.getSession();
             session.setAttribute("user", user);
-            response.sendRedirect(request.getContextPath() + "/Common_JSP/homepage.jsp");
+            response.sendRedirect(request.getContextPath() + "/homepage");
         } else {
             response.sendRedirect("login.jsp?error=Invalid username or password");
         }

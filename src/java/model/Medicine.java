@@ -62,6 +62,10 @@ public class Medicine {
         this.categoryID = categoryID;
     }
 
+    public Medicine(int aInt, String string, String string0, String string1, String string2, String string3, String string4, String string5) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
  
     public int getMedicineID() {
         return medicineID;
