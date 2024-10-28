@@ -36,6 +36,31 @@ public class MedicineDAO extends DBContext {
         }
         return medicines;
     }
+      public List<Medicine> getAllMedicinesInHome() {
+        List<Medicine> medicines = new ArrayList<>();
+        String sql = "SELECT MedicineID, Name, Description, Uses, Dosage, UserManual, Contraindications, CategoryName FROM Medicine"
+                + " join MedicineCategory on Medicine.CategoryID = MedicineCategory.CategoryID";
+
+        try (PreparedStatement ps = connection.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                Medicine medicine = new Medicine(
+                        rs.getInt("MedicineID"),
+                        rs.getString("Name"),
+                        rs.getString("Description"),
+                        rs.getString("Uses"),
+                            rs.getString("Dosage"),
+                        rs.getString("UserManual"),
+                       rs.getString("Contraindications"), 
+                        rs.getString("CategoryName")
+                );
+                medicines.add(medicine);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return medicines;
+    }
 
     public List<Medicine> getMedicines(int pageIndex, int pageSize, String categoryID, String manufactureName, String searchQuery, String sort) {
         List<Medicine> medicines = new ArrayList<>();
