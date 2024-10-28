@@ -4,21 +4,20 @@
  */
 package dal;
 
-import java.util.ArrayList;
-import java.util.List;
-import model.Users;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import model.District;
 import model.Provinces;
 import model.Roles;
 import model.UserAddresses;
-import model.Ward;
 import model.UserAuthentication;
-import java.sql.Date;
-import java.sql.Statement;
-import java.util.Collections;
+import model.Users;
+import model.Ward;
 
 /**
  *
@@ -433,6 +432,16 @@ public class ManagerUserDAO extends DBContext {
         ManagerUserDAO dao = new ManagerUserDAO();
         Users u = dao.getDetailUserByUserID(id);
         System.out.println(u);
+    }
+
+    public void addUserAddress(UserAddresses address) {
+        String sql = "INSERT INTO UserAddresses (UserID) VALUES (?)";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, address.getUserID());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 }

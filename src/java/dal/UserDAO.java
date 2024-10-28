@@ -314,8 +314,11 @@ public class UserDAO extends DBContext {
     public void registerUser(Users user) {
         String sqlUsers = "INSERT INTO Users (Email) VALUES (?)";
         String sqlUserAuth = "INSERT INTO UserAuthentication (UserID, Username, PasswordHash, Salt, LastLogin) VALUES (?, ?, ?, ?, ?)";
+        String sqlAddress = "INSERT INTO UserAddresses (UserID) VALUES (?)";
 
-        try (PreparedStatement stmtUsers = connection.prepareStatement(sqlUsers, Statement.RETURN_GENERATED_KEYS); PreparedStatement stmtUserAuth = connection.prepareStatement(sqlUserAuth)) {
+        try (PreparedStatement stmtUsers = connection.prepareStatement(sqlUsers, Statement.RETURN_GENERATED_KEYS); 
+            PreparedStatement stmtUserAuth = connection.prepareStatement(sqlUserAuth);
+            PreparedStatement stmtAddress = connection.prepareStatement(sqlAddress)) {
 
             // Insert into Users table
             stmtUsers.setString(1, user.getEmail());
@@ -335,6 +338,9 @@ public class UserDAO extends DBContext {
                     stmtUserAuth.setString(4, userAuth.getSalt());
                     stmtUserAuth.setTimestamp(5, userAuth.getLastLogin());
                     stmtUserAuth.executeUpdate();
+
+                    stmtAddress.setInt(1, userID);
+                    stmtAddress.executeUpdate();
                 }
             }
         } catch (SQLException e) {

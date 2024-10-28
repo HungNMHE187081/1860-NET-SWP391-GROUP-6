@@ -46,6 +46,14 @@ public class CustomerEditProfileServlet extends HttpServlet {
         Users user = (Users) session.getAttribute("user");
 
         if (user != null) {
+
+            if (user.getAddress() == null) {
+                UserAddresses address = new UserAddresses();
+                address.setUserID(user.getUserID());
+                user.setAddress(address);
+                userDAO.addUserAddress(address);
+            }
+
             // Lấy danh sách Quận/Huyện và Phường/Xã dựa trên địa chỉ hiện tại của người dùng
             List<District> districts = userDAO.getDistrictsByProvince(user.getAddress().getProvinces().getProvinceID());
             List<Ward> wards = userDAO.getWardsByDistrict(user.getAddress().getDistrict().getId());
