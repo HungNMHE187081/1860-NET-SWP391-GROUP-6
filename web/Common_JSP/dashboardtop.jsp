@@ -5,43 +5,9 @@
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<head>
-    <meta charset="UTF-8">
-    <title>Tiny Tots - Trang chủ</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Premium Bootstrap 4 Landing Page Template" />
-    <meta name="keywords" content="Appointment, Booking, System, Dashboard, Health" />
-    <meta name="author" content="Shreethemes" />
-    <meta name="email" content="support@shreethemes.in" />
-    <meta name="website" content="../../../homepage.jsp" />
-    <meta name="Version" content="v1.2.0" />
-    <!-- favicon -->
-    <link rel="shortcut icon" href="../images/favicon.ico.png">
-    <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-    <!-- Icons -->
-    <link href="css/materialdesignicons.min.css" rel="stylesheet" type="text/css"/>
-    <link href="css/remixicon.css" rel="stylesheet" type="text/css"/>
-    <link href="https://unicons.iconscout.com/release/v3.0.6/css/line.css"  rel="stylesheet">
-    <!-- SLIDER -->
-    <link href="css/tiny-slider.css" rel="stylesheet" type="text/css"/>
-    <!-- Css -->
-    <link href="css/style.min.css" rel="stylesheet" type="text/css"/>
-    <link href="css/flatpickr.min.css" rel="stylesheet" type="text/css"/>
-    <link href="css/fullcalendar.min.css" rel="stylesheet" type="text/css"/>
-    <link href="css/jquery.timepicker.min.css" rel="stylesheet" type="text/css"/>
-    <link href="css/materialdesignicons.min.css" rel="stylesheet" type="text/css"/>
-    <link href="css/remixicon.css" rel="stylesheet" type="text/css"/>
-    <link href="css/select2.min.css" rel="stylesheet" type="text/css"/>
-    <link href="css/simplebar.css" rel="stylesheet" type="text/css"/>
-    <link href="css/slick-theme.css" rel="stylesheet" type="text/css"/>
-    <link href="css/slick.css" rel="stylesheet" type="text/css"/>
-    <link href="css/style.min.css" rel="stylesheet" type="text/css"/>
-    <link href="css/tiny-slider.css" rel="stylesheet" type="text/css"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=ecg_heart" />
-</head>
+
 
 <header id="topnav" class="navigation sticky">
     <div class="container">
