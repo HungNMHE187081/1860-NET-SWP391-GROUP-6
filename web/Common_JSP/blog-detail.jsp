@@ -54,14 +54,12 @@
 
         <!-- Start Hero -->
         <form action="detailcustomerblog" method="get">
-        <section class="bg-half-150 d-table w-100 bg-light">
+        <section class="bg-half-150 d-table w-100 bg-light" style="background-image: url('${pageContext.request.contextPath}/${blog.thumbnailPath}'); background-size: cover; background-position: center;">
             <div class="container">
                 <div class="row mt-5 justify-content-center">
                     <div class="col-12">
                         <div class="section-title text-center">
                             <h3 class="sub-title mb-4">${blog.title}</h3>
-                            <p class="para-desc mx-auto text-muted">Great doctor if you need your family member to get effective immediate assistance, emergency treatment or a simple consultation.</p>
-                        
                             <ul class="list-unstyled mt-4">
                                 <li class="list-inline-item user text-muted me-2"><i class="mdi mdi-account"></i> ${blog.authorName}</li>
                                 <li class="list-inline-item date text-muted"><i class="mdi mdi-calendar-check"></i>${blog.createdDate}</li>
@@ -86,11 +84,9 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-8 col-lg-7">
-                        <img src="../images/blog/single.jpg" class="img-fluid rounded shadow" alt="">
-                        <p class="text-muted mt-4">This is required when, for example, the final text is not yet available. Dummy text is also known as 'fill text'. It is said that song composers of the past used dummy texts as lyrics when writing melodies in order to have a 'ready-made' text to sing with the melody. Dummy texts have been in use by typesetters since the 16th century.</p>
-                        <p class="text-muted">Due to its widespread use as filler text for layouts, non-readability is of great importance: human perception is tuned to recognize certain patterns and repetitions in texts.</p>
-                        <p class="text-muted mb-0">For this reason, dummy text usually consists of a more or less random series of words or syllables.</p>
-                    
+                        <form action="detailcustomerblog" method="get">
+                        <p class="text-muted mt-4">${blog.content}</p>
+                        </form>
                         <h5 class="card-title mt-4 mb-0">Comments :</h5>
 
                         <ul class="media-list list-unstyled mb-0">
