@@ -384,6 +384,10 @@
         <servlet-name>StaffViewProfileServlet</servlet-name>
         <servlet-class>controller.StaffViewProfileServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>StaffEditProfileServlet</servlet-name>
+        <servlet-class>controller.StaffEditProfileServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -759,5 +763,9 @@
     <servlet-mapping>
         <servlet-name>StaffViewProfileServlet</servlet-name>
         <url-pattern>/staff/viewprofile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StaffEditProfileServlet</servlet-name>
+        <url-pattern>/staff/editprofile</url-pattern>
     </servlet-mapping>
 </web-app>
