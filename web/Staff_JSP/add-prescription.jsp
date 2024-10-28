@@ -9,206 +9,210 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thêm đơn thuốc</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Thêm đơn thuốc</title>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 
-        header {
-            background-color: #0056b3;
-            color: white;
-            padding: 15px 0;
-            text-align: center;
-        }
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                background-color: #f4f4f4;
+            }
 
-        header h1 {
-            margin: 0;
-        }
+            header {
+                background-color: #0056b3;
+                color: white;
+                padding: 15px 0;
+                text-align: center;
+            }
 
-        nav {
-            margin-top: 10px;
-        }
+            header h1 {
+                margin: 0;
+            }
 
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin: 0 15px;
-        }
+            nav {
+                margin-top: 10px;
+            }
 
-        main {
-            max-width: 600px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: white;
-            border-radius: 5px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
+            nav a {
+                color: white;
+                text-decoration: none;
+                margin: 0 15px;
+            }
 
-        h2 {
-            margin-top: 0;
-        }
+            main {
+                max-width: 600px;
+                margin: 20px auto;
+                padding: 20px;
+                background-color: white;
+                border-radius: 5px;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            }
 
-        form {
-            display: flex;
-            flex-direction: column;
-        }
+            h2 {
+                margin-top: 0;
+            }
 
-        label {
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
+            form {
+                display: flex;
+                flex-direction: column;
+            }
 
-        input[type="text"],
-        textarea,
-        select {
-            margin-bottom: 15px;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 14px;
-        }
+            label {
+                margin-bottom: 5px;
+                font-weight: bold;
+            }
 
-        textarea {
-            resize: vertical;
-        }
+            input[type="text"],
+            textarea,
+            select {
+                margin-bottom: 15px;
+                padding: 10px;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                font-size: 14px;
+            }
 
-        button {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            padding: 10px;
-            cursor: pointer;
-            border-radius: 5px;
-            font-size: 16px;
-        }
+            textarea {
+                resize: vertical;
+            }
 
-        button:hover {
-            background-color: #45a049;
-        }
+            button {
+                background-color: #4CAF50;
+                color: white;
+                border: none;
+                padding: 10px;
+                cursor: pointer;
+                border-radius: 5px;
+                font-size: 16px;
+            }
 
-        footer {
-            text-align: center;
-            padding: 10px 0;
-            background-color: #333;
-            color: white;
-            position: relative;
-            bottom: 0;
-            width: 100%;
-            margin-top: 20px;
-        }
+            button:hover {
+                background-color: #45a049;
+            }
 
-        .table {
-            width: 80%;
-            margin: 20px auto;
-            border-collapse: collapse;
-        }
+            footer {
+                text-align: center;
+                padding: 10px 0;
+                background-color: #333;
+                color: white;
+                position: relative;
+                bottom: 0;
+                width: 100%;
+                margin-top: 20px;
+            }
 
-        th, td {
-            padding: 10px;
-            text-align: left;
-            border: 1px solid #ccc;
-        }
+            .table {
+                width: 80%;
+                margin: 20px auto;
+                border-collapse: collapse;
+            }
 
-        th {
-            background-color: #f2f2f2;
-        }
+            th, td {
+                padding: 10px;
+                text-align: left;
+                border: 1px solid #ccc;
+            }
 
-        .table-td-center {
-            text-align: center;
-        }
+            th {
+                background-color: #f2f2f2;
+            }
 
-        .child-image {
-            width: 50px;
-            height: auto;
-        }
+            .table-td-center {
+                text-align: center;
+            }
 
-        .form-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <h1>Child Care</h1>
-        <nav>
-            <a href="staffhomepage">Trang chủ</a>
-            <a href="profile.jsp">Thông tin cá nhân</a>
-            <a href="logout.jsp">Đăng xuất</a>
-        </nav>
-    </header>
+            .child-image {
+                width: 50px;
+                height: auto;
+            }
 
-    <main>
-        <center>
-            <h2 style="color: #4CAF50">Thêm đơn thuốc</h2>
-        </center>
-        <c:if test="${param.success == 'true'}">
-            <p style="color: green;">Successfully!</p>
-        </c:if>
+            .form-row {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <h1>Child Care</h1>
+            <nav>
+                <a href="staffhomepage">Trang chủ</a>
+                <a href="profile.jsp">Thông tin cá nhân</a>
+                <a href="logout.jsp">Đăng xuất</a>
+            </nav>
+        </header>
 
-        <c:if test="${param.error == 'true'}">
-            <p style="color: red;">Please try again.</p>
-        </c:if>
-       <form action="addprescription" method="post">
-            <input type="hidden" name="recordID" value="${record.recordID}">
-            <input type="hidden" id="staffID" name="staffID" value="${staff.staffID}">
-
-            <label for="childName">Tên trẻ được khám:</label>
-            <input type="text" id="childName" name="childName" 
-                   value="${children.firstName} ${children.middleName} ${children.lastName}" readonly>
-
-            <label for="staffName">Tên nhân viên thực khám:</label>
-            <input type="text" id="staffName" name="staffName" value="${staff.staffName}" readonly>
-
-            <label for="diagnosis">Chẩn đoán:</label>
-            <textarea id="diagnosis" name="diagnosis" readonly>${record.diagnosis}</textarea>
-
-            <label for="medicineSelect">Chọn thuốc:</label>
-            <select id="medicineSelect" name="medicineId" style="width: 100%;" required>
-                <option value="" disabled selected>Chọn thuốc:</option>
-                <c:forEach var="medicine" items="${medicineList}">
-                    <option value="${medicine.medicineID}">${medicine.name}</option>
-                </c:forEach>
-            </select>
-            <br>
-
-            <label for="dosage">Liều dùng:</label>
-            <textarea id="dosage" name="dosage" required></textarea>
-
-            <label for="frequency">Tần suất:</label>
-            <textarea id="frequency" name="frequency" required></textarea>
-
-            <label for="duration">Thời điểm sử dụng:</label>
-            <textarea id="duration" name="duration" required></textarea>
-
-            <button type="submit">Thêm đơn thuốc</button>
+        <main>
             <center>
-                <a href="medicalrecordlist">Quay lại lịch sử khám</a>
+                <h2 style="color: #4CAF50">Thêm đơn thuốc</h2>
             </center>
-        </form>
-        <script>
-            $(document).ready(function () {
-                $('#medicineSelect').select2({
-                    placeholder: "Select a medicine",
-                    allowClear: true
-                });
-            });
-        </script>
-    </main>
+            <c:if test="${param.success == 'true'}">
+                <p style="color: green;">Successfully!</p>
+            </c:if>
 
-    <footer>
-        <p>&copy; 2024 Child Care. All rights reserved.</p>
-    </footer>
-</body>
+            <c:if test="${param.error == 'true'}">
+                <p style="color: red;">Please try again.</p>
+            </c:if>
+            <form action="addprescription" method="post">
+                <input type="hidden" name="recordID" value="${record.recordID}">
+                <input type="hidden" id="staffID" name="staffID" value="${staff.staffID}">
+
+                <label for="childName">Tên trẻ được khám:</label>
+                <input type="text" id="childName" name="childName" 
+                       value="${children.firstName} ${children.middleName} ${children.lastName}" readonly>
+
+                <label for="staffName">Tên nhân viên thực khám:</label>
+                <input type="text" id="staffName" name="staffName" value="${staff.staffName}" readonly>
+
+                <label for="diagnosis">Chẩn đoán:</label>
+                <textarea id="diagnosis" name="diagnosis" readonly>${record.diagnosis}</textarea>
+
+                <label for="medicineSelect">Chọn thuốc:</label>
+                <select id="medicineSelect" name="medicineIds" multiple style="width: 100%;" required>
+                    <option value="" disabled>Chọn thuốc:</option>
+                    <c:forEach var="medicine" items="${medicineList}">
+                        <option value="${medicine.medicineID}">${medicine.name}</option>
+                    </c:forEach>
+                </select>
+
+                <br>
+
+                <label for="dosage">Liều dùng:</label>
+                <textarea id="dosage" name="dosage" required></textarea>
+
+                <label for="frequency">Tần suất:</label>
+                <textarea id="frequency" name="frequency" required></textarea>
+
+                <label for="duration">Thời điểm sử dụng:</label>
+                <textarea id="duration" name="duration" required></textarea>
+
+                <button type="submit">Thêm đơn thuốc</button>
+                <center>
+                    <a href="medicalrecordlist">Quay lại lịch sử khám</a>
+                </center>
+            </form>
+            <script>
+                $(document).ready(function () {
+                    $('#medicineSelect').select2({
+                        placeholder: "Select medicines",
+                        allowClear: true
+                    });
+                });
+
+
+            </script>
+        </main>
+
+        <footer>
+            <p>&copy; 2024 Child Care. All rights reserved.</p>
+        </footer>
+    </body>
 </html>

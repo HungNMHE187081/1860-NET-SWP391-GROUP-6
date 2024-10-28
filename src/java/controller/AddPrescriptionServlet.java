@@ -57,51 +57,54 @@ public class AddPrescriptionServlet extends HttpServlet {
         }
     }
 
-@Override
-protected void doPost(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
-    try {
-        int recordID = Integer.parseInt(request.getParameter("recordID"));
-        int medicineID = Integer.parseInt(request.getParameter("medicineId"));
-        int staffID = Integer.parseInt(request.getParameter("staffID"));
-        String dosage = request.getParameter("dosage");
-        String frequency = request.getParameter("frequency");
-        String duration = request.getParameter("duration");
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+            int recordID = Integer.parseInt(request.getParameter("recordID"));
+            String[] medicineIDs = request.getParameterValues("medicineIds");
+            int staffID = Integer.parseInt(request.getParameter("staffID"));
+            String dosage = request.getParameter("dosage");
+            String frequency = request.getParameter("frequency");
+            String duration = request.getParameter("duration");
 
-        // Validate input
-        if (dosage == null || frequency == null || duration == null || medicineID <= 0) {
-            request.setAttribute("errorMessage", "Invalid input. Please check your data.");
+            // Validate input
+            if (dosage == null || frequency == null || duration == null || medicineIDs == null || medicineIDs.length == 0) {
+                request.setAttribute("errorMessage", "Invalid input. Please check your data.");
+                request.getRequestDispatcher("/Staff_JSP/error.jsp").forward(request, response);
+                return;
+            }
+
+            // Process each selected medicine
+            for (String medicineID_raw : medicineIDs) {
+                int medicineID = Integer.parseInt(medicineID_raw);
+
+                // Check for existing prescription
+                if (prescriptionDAO.existsPrescription(recordID, medicineID, dosage, frequency, duration)) {
+                    request.setAttribute("errorMessage", "A prescription already exists for this medicine. Please change the medicine.");
+                    request.getRequestDispatcher("/Staff_JSP/error.jsp").forward(request, response);
+                    return;
+                }
+
+                // Create prescription object and add to the database
+                Prescription prescription = new Prescription(recordID, medicineID, dosage, frequency, duration);
+                prescriptionDAO.addPrescription(prescription);
+            }
+
+            // Redirect to the prescription list after successful addition
+            response.sendRedirect("listprescription");
+        } catch (NumberFormatException e) {
+            request.setAttribute("errorMessage", "Invalid ID format. Please check your data.");
             request.getRequestDispatcher("/Staff_JSP/error.jsp").forward(request, response);
-            return;
-        }
-
-        // Check for existing prescription
-        if (prescriptionDAO.existsPrescription(recordID, medicineID, dosage, frequency, duration)) {
-            request.setAttribute("errorMessage", "Hãy thay đổi loại thuốc");
+        } catch (SQLException e) {
+            request.setAttribute("errorMessage", "Database error: " + e.getMessage());
             request.getRequestDispatcher("/Staff_JSP/error.jsp").forward(request, response);
-            return;
+        } catch (Exception e) {
+            log("Unexpected error: " + e.getMessage());
+            request.setAttribute("errorMessage", "An unexpected error occurred.");
+            request.getRequestDispatcher("/Staff_JSP/error.jsp").forward(request, response);
         }
-
-        // Create prescription object and add to the database
-        Prescription prescription = new Prescription(recordID, medicineID, dosage, frequency, duration);
-        prescriptionDAO.addPrescription(prescription);
-        
-        // Redirect with IDs as query parameters
-        response.sendRedirect("listprescription");
-    } catch (NumberFormatException e) {
-        request.setAttribute("errorMessage", "Invalid ID format. Please check your data.");
-        request.getRequestDispatcher("/Staff_JSP/error.jsp").forward(request, response);
-    } catch (SQLException e) {
-        request.setAttribute("errorMessage", "Database error: " + e.getMessage());
-        request.getRequestDispatcher("/Staff_JSP/error.jsp").forward(request, response);
-    } catch (Exception e) {
-        log("Unexpected error: " + e.getMessage());
-        request.setAttribute("errorMessage", "An unexpected error occurred.");
-        request.getRequestDispatcher("/Staff_JSP/error.jsp").forward(request, response);
     }
-}
-
-
 
     @Override
     public String getServletInfo() {
