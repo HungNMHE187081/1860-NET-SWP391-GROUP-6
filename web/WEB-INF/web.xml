@@ -376,6 +376,10 @@
         <servlet-name>ManagerViewProfileServlet</servlet-name>
         <servlet-class>controller.ManagerViewProfileServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ManagerEditProfileServlet</servlet-name>
+        <servlet-class>controller.ManagerEditProfileServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -743,5 +747,9 @@
     <servlet-mapping>
         <servlet-name>ManagerViewProfileServlet</servlet-name>
         <url-pattern>/manager/viewprofile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManagerEditProfileServlet</servlet-name>
+        <url-pattern>/manager/editprofile</url-pattern>
     </servlet-mapping>
 </web-app>
