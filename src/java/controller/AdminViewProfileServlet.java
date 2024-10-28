@@ -23,7 +23,9 @@ public class AdminViewProfileServlet extends HttpServlet {
             Users adminDetails = userDAO.getUserWithAddressById(user.getUserID());
             request.setAttribute("adminDetails", adminDetails);
             request.getRequestDispatcher("/Admin_JSP/admin-view-profile.jsp").forward(request, response);
-        } 
+        } else {
+            response.sendRedirect(request.getContextPath() + "/login");
+        }
     }
 
     @Override
