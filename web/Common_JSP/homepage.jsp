@@ -50,7 +50,7 @@
         <!-- Loader -->
 
         <!-- Navbar STart -->
-        <header id="topnav" class="navigation sticky">
+    <header id="topnav" class="navigation sticky">
             <div class="container">
                 <!-- Logo container-->
                 <div>

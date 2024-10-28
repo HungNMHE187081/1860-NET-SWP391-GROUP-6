@@ -1,10 +1,12 @@
 @font-face{
     font-family:"Material Design Icons";
-    src:url("../fonts/materialdesignicons-webfont%EF%B9%96v=5.9.55.eot");
+    src:url("../font/materialdesignicons-webfont﹖v=5.9.55.eot");
     src:url("../fonts/materialdesignicons-webfont%EF%B9%96.eot#iefix&v=5.9.55") format("embedded-opentype"),url("../fonts/materialdesignicons-webfont%EF%B9%96v=5.9.55.woff2") format("woff2"),url("https://shreethemes.in/doctris/layouts/assets/fonts/materialdesignicons-webfont.woff?v=5.9.55") format("woff"),url("../fonts/materialdesignicons-webfont%EF%B9%96v=5.9.55.ttf") format("truetype");
     font-weight:normal;
     font-style:normal
 }
+@import url("https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.9.55/css/materialdesignicons.min.css");
+
 .mdi:before,.mdi-set{
     display:inline-block;
     font:normal normal normal 24px/1 "Material Design Icons";

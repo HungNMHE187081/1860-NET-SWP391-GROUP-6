@@ -344,6 +344,14 @@
         <servlet-name>EditPrescription</servlet-name>
         <servlet-class>controller.EditPrescription</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CustomerBlogList</servlet-name>
+        <servlet-class>controller.CustomerBlogList</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DetailCustomerBlogServlet</servlet-name>
+        <servlet-class>controller.DetailCustomerBlogServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -679,5 +687,13 @@
     <servlet-mapping>
         <servlet-name>EditPrescription</servlet-name>
         <url-pattern>/updateprescription</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CustomerBlogList</servlet-name>
+        <url-pattern>/customer/bloglist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DetailCustomerBlogServlet</servlet-name>
+        <url-pattern>/customer/detailcustomerblog</url-pattern>
     </servlet-mapping>
 </web-app>
