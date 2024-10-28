@@ -380,6 +380,10 @@
         <servlet-name>ManagerEditProfileServlet</servlet-name>
         <servlet-class>controller.ManagerEditProfileServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>StaffViewProfileServlet</servlet-name>
+        <servlet-class>controller.StaffViewProfileServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -751,5 +755,9 @@
     <servlet-mapping>
         <servlet-name>ManagerEditProfileServlet</servlet-name>
         <url-pattern>/manager/editprofile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StaffViewProfileServlet</servlet-name>
+        <url-pattern>/staff/viewprofile</url-pattern>
     </servlet-mapping>
 </web-app>

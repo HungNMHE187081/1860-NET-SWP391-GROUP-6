@@ -45,6 +45,8 @@ public class LoginServlet extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/admin/adminuserslist");
             } else if (roles.contains("Manager")) {
                 response.sendRedirect(request.getContextPath() + "/manager/serviceslist");
+            } else if (roles.contains("Doctor") || roles.contains("Nurse")) {
+                response.sendRedirect(request.getContextPath() + "/staff/staffhomepage");
             } else {
                 response.sendRedirect(request.getContextPath() + "/homepage");
             }
