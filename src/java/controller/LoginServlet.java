@@ -9,9 +9,11 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.List;
 import model.Users;
 
 public class LoginServlet extends HttpServlet {
+
     private UserDAO userDAO;
 
     @Override
@@ -36,7 +38,14 @@ public class LoginServlet extends HttpServlet {
             Users user = userDAO.getUserWithAddressById(userAuth.getUserID());
             HttpSession session = request.getSession();
             session.setAttribute("user", user);
-            response.sendRedirect(request.getContextPath() + "/homepage");
+
+            // Kiểm tra role và redirect phù hợp
+            List<String> roles = userDAO.getUserRoles(user.getUserID());
+            if (roles.contains("Administrator")) {
+                response.sendRedirect(request.getContextPath() + "/admin/adminuserslist");
+            } else {
+                response.sendRedirect(request.getContextPath() + "/homepage");
+            }
         } else {
             response.sendRedirect("login.jsp?error=Invalid username or password");
         }
