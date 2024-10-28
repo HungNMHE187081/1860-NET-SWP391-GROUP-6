@@ -13,6 +13,8 @@
         <div>
             <p class="app-sidebar__user-name"><b>User</b></p>
             <p class="app-sidebar__user-designation">Chào mừng bạn trở lại</p>
+            <li><a class="app-menu__item" href="${pageContext.request.contextPath}/manager/viewprofile"><i class='app-menu__icon bx bx-id-card'></i>
+                    <span class="app-menu__label">Xem hồ sơ cá nhân</span></a></li>
         </div>
     </div>
     <hr>
@@ -32,5 +34,7 @@
         </li>
         <li><a class="app-menu__item" href="${pageContext.request.contextPath}/feedbacklist"><i class='app-menu__icon bx bx-task'></i><span
                     class="app-menu__label">Quản lí phản hồi</span></a></li>
+        <li><a class="app-menu__item" href="${pageContext.request.contextPath}/logout"><i class='app-menu__icon bx bx-log-out'></i><span
+                    class="app-menu__label">Logout</span></a></li>            
     </ul>
 </aside>

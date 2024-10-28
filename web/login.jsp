@@ -41,7 +41,7 @@
                 <hr class="w-full" /> <span class="p-2 text-gray-400 mb-1">OR</span> <hr class="w-full" />
             </div>
             <p class="text-center text-gray-600 text-sm">
-                Don't have an account? <a href="${pageContext.request.contextPath}/register.jsp" class="text-blue-500 hover:text-blue-700">Register</a>
+                Don't have an account? <a href="${pageContext.request.contextPath}/register" class="text-blue-500 hover:text-blue-700">Register</a>
             </p>
             <% if (request.getParameter("error") != null) { %>
                 <p class="text-center text-red-500 text-sm"><%= request.getParameter("error") %></p>

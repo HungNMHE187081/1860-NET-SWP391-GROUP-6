@@ -43,6 +43,8 @@ public class LoginServlet extends HttpServlet {
             List<String> roles = userDAO.getUserRoles(user.getUserID());
             if (roles.contains("Administrator")) {
                 response.sendRedirect(request.getContextPath() + "/admin/adminuserslist");
+            } else if (roles.contains("Manager")) {
+                response.sendRedirect(request.getContextPath() + "/manager/serviceslist");
             } else {
                 response.sendRedirect(request.getContextPath() + "/homepage");
             }
