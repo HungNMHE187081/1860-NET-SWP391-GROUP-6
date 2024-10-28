@@ -60,7 +60,7 @@
                 <h1><i class="fas fa-hospital"></i> Child Care</h1>
                 <nav>
                     <ul>
-                        <li><a href="staffhomepage"><i class="fas fa-home"></i> Trang chủ</a></li>
+                        <li><a href="staff/staffhomepage"><i class="fas fa-home"></i> Trang chủ</a></li>
                         <li><a href="profile.jsp"><i class="fas fa-user"></i> Thông tin cá nhân</a></li>
                         <li><a href="logout.jsp" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
                     </ul>
@@ -97,56 +97,60 @@
 
                                 <button type="submit"><i class="fas fa-filter"></i> Lọc và tìm kiếm</button>
                                 <a href="staff/oldreservationslist" class="btn"><i class="fas fa-plus"></i> Thêm bản ghi</a>
-                                 <a href="listprescription" class="btn"><i class="fas fa-save"></i> Danh sách đơn thuốc</a>
+                                <a href="listprescription" class="btn"><i class="fas fa-save"></i> Danh sách đơn thuốc</a>
                             </div>
                         </form>
 
                         <!-- Medicine List Table -->
-                      <table>
-    <thead>
-        <tr>
-            <th>STT</th>
-            <th>Tên trẻ</th>
-            <th>Chẩn đoán</th>
-            <th>Điều trị</th>
-            <th>Ghi chú</th>
-            <th>Ngày khám</th>
-            <th>Chức năng</th>
-        </tr>
-    </thead>
-    <tbody>
-        <c:if test="${not empty records}">
-            <c:forEach var="record" items="${records}" varStatus="status">
-                <tr>
-                    <td>${status.index + 1}</td> <!-- Serial Number Column -->
-                    <td><c:out value="${record.firstNameChild} ${record.middleNameChild} ${record.lastNameChild}" /></td>
-                    <td><c:out value="${record.diagnosis}" /></td>
-                    <td><c:out value="${record.treatment}" /></td>
-                    <td><c:out value="${record.notes}" /></td>
-                    <td>
-                        <fmt:formatDate value="${record.reservationDate}" pattern="dd-MM-yyyy" />
-                    </td>
-                    <td style="display: flex; align-items: center;">
-                        <a href="medicalrecorddetail?id=${record.recordID}" class="btn" title="Xem chi tiết" style="margin-right: 5px; padding: 5px 10px; font-size: 14px; display: flex; justify-content: center; align-items: center;">
-                            <i class="fas fa-eye" style="margin: 0;"></i>
-                        </a>
-                            <button class="btn-primary btn-sm" type="button" title="Thêm" id="show-emp">
-                                <a href="addprescription?id=${record.recordID}" title="Thêm đơn thuốc">
-                                    <i class="fas fa-plus"></i>
-                                </a>
-                            </button>
-                        
-                    </td>
-                </tr>
-            </c:forEach>
-        </c:if>
-        <c:if test="${empty records}">
-            <tr>
-                <td colspan="7" style="text-align: center;">Không tìm thấy hồ sơ</td>
-            </tr>
-        </c:if>
-    </tbody>
-</table>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Tên trẻ</th>
+                                    <th>Chẩn đoán</th>
+                                    <th>Điều trị</th>
+                                    <th>Ghi chú</th>
+                                    <th>Ngày khám</th>
+                                    <th>Chức năng</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <c:if test="${not empty records}">
+                                <c:forEach var="record" items="${records}" varStatus="status">
+                                    <tr>
+                                        <td>${status.index + 1}</td> <!-- Serial Number Column -->
+                                        <td><c:out value="${record.firstNameChild} ${record.middleNameChild} ${record.lastNameChild}" /></td>
+                                        <td><c:out value="${record.diagnosis}" /></td>
+                                        <td><c:out value="${record.treatment}" /></td>
+                                        <td><c:out value="${record.notes}" /></td>
+                                        <td>
+                                            <fmt:formatDate value="${record.reservationDate}" pattern="dd-MM-yyyy" />
+                                        </td>
+                                        <td style="display: flex; align-items: center;">
+                                            <a href="medicalrecorddetail?id=${record.recordID}" class="btn" title="Xem chi tiết" style="margin-right: 5px; padding: 5px 10px; font-size: 14px; display: flex; justify-content: center; align-items: center;">
+                                                <i class="fas fa-eye" style="margin: 0;"></i>
+                                            </a>
+                                            <c:if test="${record.hasPres == false}">
+                                                <button class="btn-primary btn-sm" type="button" title="Thêm" id="show-emp">
+                                                    <a href="addprescription?id=${record.recordID}" title="Thêm đơn thuốc">
+                                                        <i class="fas fa-plus"></i>
+                                                    </a>
+                                                </button>
+                                            </c:if>
+                                          
+
+                                        </td>
+
+                                    </tr>
+                                </c:forEach>
+                            </c:if>
+                            <c:if test="${empty records}">
+                                <tr>
+                                    <td colspan="7" style="text-align: center;">Không tìm thấy hồ sơ</td>
+                                </tr>
+                            </c:if>
+                        </tbody>
+                    </table>
 
                 </section>
             </main>

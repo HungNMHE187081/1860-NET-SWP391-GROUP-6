@@ -81,7 +81,7 @@ public class AddPrescriptionServlet extends HttpServlet {
 
                 // Check for existing prescription
                 if (prescriptionDAO.existsPrescription(recordID, medicineID, dosage, frequency, duration)) {
-                    request.setAttribute("errorMessage", "A prescription already exists for this medicine. Please change the medicine.");
+                    request.setAttribute("errorMessage", "Loại thuốc này đã tồn tại trong lịch sử khám cho bệnh nhân này.");
                     request.getRequestDispatcher("/Staff_JSP/error.jsp").forward(request, response);
                     return;
                 }

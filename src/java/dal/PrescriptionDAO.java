@@ -7,66 +7,91 @@ import model.Prescription;
 
 public class PrescriptionDAO extends DBContext {
 
-public void addPrescription(Prescription prescription) {
-    PreparedStatement insertStmt = null;
-    PreparedStatement updateStmt = null;
-
-    try {
-        // Tắt auto-commit để dùng transaction
-        connection.setAutoCommit(false);
-
-        // Câu lệnh thêm đơn thuốc
-        String insertSql = "INSERT INTO Prescriptions (RecordID, MedicineID, Dosage, Frequency, Duration) "
-                         + "VALUES (?, ?, ?, ?, ?)";
-        insertStmt = connection.prepareStatement(insertSql);
-        insertStmt.setInt(1, prescription.getRecordID());
-        insertStmt.setInt(2, prescription.getMedicineID());
-        insertStmt.setString(3, prescription.getDosage());
-        insertStmt.setString(4, prescription.getFrequency());
-        insertStmt.setString(5, prescription.getDuration());
-
-        // Thực thi thêm đơn thuốc
-        insertStmt.executeUpdate();
-
-        // Câu lệnh cập nhật hasPres = 1 trong MedicalRecords
-        String updateSql = "UPDATE MedicalRecords SET hasPres = 1 WHERE RecordID = ?";
-        updateStmt = connection.prepareStatement(updateSql);
-        updateStmt.setInt(1, prescription.getRecordID());
-
-        // Thực thi cập nhật
-        updateStmt.executeUpdate();
-
-        // Commit transaction nếu tất cả thành công
-        connection.commit();
-    } catch (SQLException e) {
-        try {
-            if (connection != null) {
-                // Rollback nếu có lỗi
-                connection.rollback();
+    public boolean hasDuplicatePrescription(int recordID, int medicineID, int prescriptionID) {
+        String sql = "SELECT COUNT(*) FROM Prescriptions WHERE RecordID = ? AND MedicineID = ? AND PrescriptionID <> ?";
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setInt(1, recordID);
+            pstmt.setInt(2, medicineID);
+            pstmt.setInt(3, prescriptionID); // Exclude the current prescription ID
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0; // Returns true if there is a duplicate prescription
             }
-        } catch (SQLException rollbackEx) {
-            System.err.println("Lỗi khi rollback: " + rollbackEx.getMessage());
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        System.err.println("Lỗi khi thêm đơn thuốc: " + e.getMessage());
-    } finally {
-        // Đóng các tài nguyên
+        return false; // Returns false if an error occurs or if no duplicates are found
+    }
+
+    public void addPrescription(Prescription prescription) {
+        PreparedStatement insertStmt = null;
+        PreparedStatement updateStmt = null;
+
         try {
-            if (insertStmt != null) insertStmt.close();
-            if (updateStmt != null) updateStmt.close();
-            // Only close the connection if it's not managed by a connection pool
-            // For connection pooling, do not close the connection here.
-            // If using a connection pool, ensure connection is returned, not closed.
-            // connection.close(); 
-        } catch (SQLException closeEx) {
-            System.err.println("Lỗi khi đóng tài nguyên: " + closeEx.getMessage());
+            // Tắt auto-commit để dùng transaction
+            connection.setAutoCommit(false);
+
+            // Câu lệnh thêm đơn thuốc
+            String insertSql = "INSERT INTO Prescriptions (RecordID, MedicineID, Dosage, Frequency, Duration) "
+                    + "VALUES (?, ?, ?, ?, ?)";
+            insertStmt = connection.prepareStatement(insertSql);
+            insertStmt.setInt(1, prescription.getRecordID());
+            insertStmt.setInt(2, prescription.getMedicineID());
+            insertStmt.setString(3, prescription.getDosage());
+            insertStmt.setString(4, prescription.getFrequency());
+            insertStmt.setString(5, prescription.getDuration());
+
+            // Thực thi thêm đơn thuốc
+            insertStmt.executeUpdate();
+
+            // Câu lệnh cập nhật hasPres = 1 trong MedicalRecords
+            String updateSql = "UPDATE MedicalRecords SET hasPres = 1 WHERE RecordID = ?";
+            updateStmt = connection.prepareStatement(updateSql);
+            updateStmt.setInt(1, prescription.getRecordID());
+
+            // Thực thi cập nhật
+            updateStmt.executeUpdate();
+
+            // Commit transaction nếu tất cả thành công
+            connection.commit();
+        } catch (SQLException e) {
+            try {
+                if (connection != null) {
+                    // Rollback nếu có lỗi
+                    connection.rollback();
+                }
+            } catch (SQLException rollbackEx) {
+                System.err.println("Lỗi khi rollback: " + rollbackEx.getMessage());
+            }
+            System.err.println("Lỗi khi thêm đơn thuốc: " + e.getMessage());
+            e.printStackTrace(); // In ra stack trace để kiểm tra lỗi
+        } finally {
+            // Đóng các tài nguyên
+            try {
+                if (insertStmt != null) {
+                    insertStmt.close();
+                }
+                if (updateStmt != null) {
+                    updateStmt.close();
+                }
+                // Chỉ đóng connection nếu nó không được quản lý bởi một connection pool
+                // connection.close(); 
+            } catch (SQLException closeEx) {
+                System.err.println("Lỗi khi đóng tài nguyên: " + closeEx.getMessage());
+            }
         }
     }
-}
 
+    public boolean updatePrescription(int prescriptionID, int medicineID, String dosage, String frequency, String duration) {
+        // Retrieve the RecordID associated with the prescription
+        int recordID = getRecordIDByPrescriptionID(prescriptionID); // Implement this method to fetch the RecordID
 
+        // Check if there is a duplicate prescription with the same medicine for the same record
+        if (hasDuplicatePrescription(recordID, medicineID, prescriptionID)) {
+            System.out.println("This medicine is already assigned to another prescription for this record.");
+            return false; // Return false if a duplicate exists
+        }
 
-
-     public boolean updatePrescription(int prescriptionID, int medicineID, String dosage, String frequency, String duration) {
         String sql = "UPDATE Prescriptions SET MedicineID = ?, Dosage = ?, Frequency = ?, Duration = ? WHERE PrescriptionID = ?";
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
             pstmt.setInt(1, medicineID);
@@ -75,24 +100,37 @@ public void addPrescription(Prescription prescription) {
             pstmt.setString(4, duration);
             pstmt.setInt(5, prescriptionID);
             int rowsAffected = pstmt.executeUpdate();
-            return rowsAffected > 0; // return true if the update was successful
+            return rowsAffected > 0; // Return true if the update was successful
         } catch (SQLException e) {
             e.printStackTrace();
-            return false; // return false in case of an error
+            return false; // Return false in case of an error
         }
     }
 
-
-   public boolean deletePrescription(int prescriptionID) {
-    String SQL_DELETE = "DELETE FROM Prescriptions WHERE PrescriptionID = ?";
-    try (PreparedStatement statement = connection.prepareStatement(SQL_DELETE)) {
-        statement.setInt(1, prescriptionID);
-        return statement.executeUpdate() > 0;
-    } catch (SQLException e) {
-        e.printStackTrace();
-        return false;
+    private int getRecordIDByPrescriptionID(int prescriptionID) {
+        String sql = "SELECT RecordID FROM Prescriptions WHERE PrescriptionID = ?";
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setInt(1, prescriptionID);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("RecordID");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1; // Return -1 if not found or an error occurs
     }
-   }
+
+    public boolean deletePrescription(int prescriptionID) {
+        String SQL_DELETE = "DELETE FROM Prescriptions WHERE PrescriptionID = ?";
+        try (PreparedStatement statement = connection.prepareStatement(SQL_DELETE)) {
+            statement.setInt(1, prescriptionID);
+            return statement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
     // Lấy danh sách đơn thuốc theo RecordID
     public List<Prescription> getPrescriptionsByRecordID(int recordID) throws SQLException {
@@ -119,119 +157,117 @@ public void addPrescription(Prescription prescription) {
     }
 
     public List<Prescription> getAllPrescriptions(String search) {
-    List<Prescription> prescriptions = new ArrayList<>();
-    String SQL_SELECT_PRESCRIPTIONS = 
-            "SELECT p.PrescriptionID, mr.RecordID, p.MedicineID, " +
-            "c.FirstName AS ChildFirstName, c.MiddleName AS ChildMiddleName, c.LastName AS ChildLastName, " +
-            "u.FirstName AS UserFirstName, u.MiddleName AS UserMiddleName, u.LastName AS UserLastName, " +
-            "mr.Diagnosis, m.Name AS MedicineName, s.StaffName, p.Dosage, p.Frequency, p.Duration " +
-            "FROM Prescriptions p " +
-            "JOIN MedicalRecords mr ON p.RecordID = mr.RecordID " +
-            "JOIN Children c ON mr.ChildID = c.ChildID " +
-            "JOIN Users u ON mr.StaffID = u.UserID " +
-            "JOIN Medicine m ON p.MedicineID = m.MedicineID " +
-            "JOIN Staff s ON mr.StaffID = s.StaffID " +
-            "WHERE (CONCAT(c.FirstName, ' ', c.MiddleName, ' ', c.LastName) LIKE ? " +
-            "OR CONCAT(u.FirstName, ' ', u.MiddleName, ' ', u.LastName) LIKE ?)";
+        List<Prescription> prescriptions = new ArrayList<>();
+        String SQL_SELECT_PRESCRIPTIONS
+                = "SELECT p.PrescriptionID, mr.RecordID, p.MedicineID, "
+                + "c.FirstName AS ChildFirstName, c.MiddleName AS ChildMiddleName, c.LastName AS ChildLastName, "
+                + "u.FirstName AS UserFirstName, u.MiddleName AS UserMiddleName, u.LastName AS UserLastName, "
+                + "mr.Diagnosis, m.Name AS MedicineName, s.StaffName, p.Dosage, p.Frequency, p.Duration "
+                + "FROM Prescriptions p "
+                + "JOIN MedicalRecords mr ON p.RecordID = mr.RecordID "
+                + "JOIN Children c ON mr.ChildID = c.ChildID "
+                + "JOIN Users u ON mr.StaffID = u.UserID "
+                + "JOIN Medicine m ON p.MedicineID = m.MedicineID "
+                + "JOIN Staff s ON mr.StaffID = s.StaffID "
+                + "WHERE (CONCAT(c.FirstName, ' ', c.MiddleName, ' ', c.LastName) LIKE ? "
+                + "OR CONCAT(u.FirstName, ' ', u.MiddleName, ' ', u.LastName) LIKE ?)";
 
-    try (PreparedStatement statement = connection.prepareStatement(SQL_SELECT_PRESCRIPTIONS)) {
-        // Set the search parameter for both child and user name.
-        String searchPattern = "%" + search + "%";
-        statement.setString(1, searchPattern);
-        statement.setString(2, searchPattern);
+        try (PreparedStatement statement = connection.prepareStatement(SQL_SELECT_PRESCRIPTIONS)) {
+            // Set the search parameter for both child and user name.
+            String searchPattern = "%" + search + "%";
+            statement.setString(1, searchPattern);
+            statement.setString(2, searchPattern);
 
-        try (ResultSet resultSet = statement.executeQuery()) {
-            while (resultSet.next()) {
-                Prescription detail = new Prescription();
-                detail.setPrescriptionID(resultSet.getInt("PrescriptionID"));
-                detail.setRecordID(resultSet.getInt("RecordID"));
-                detail.setMedicineID(resultSet.getInt("MedicineID"));
-                detail.setChildFirstName(resultSet.getString("ChildFirstName"));
-                detail.setChildMiddleName(resultSet.getString("ChildMiddleName"));
-                detail.setChildLastName(resultSet.getString("ChildLastName"));
-                detail.setUserFirstName(resultSet.getString("UserFirstName"));
-                detail.setUserMiddleName(resultSet.getString("UserMiddleName"));
-                detail.setUserLastName(resultSet.getString("UserLastName"));
-                detail.setDiagnosis(resultSet.getString("Diagnosis"));
-                detail.setMedicineName(resultSet.getString("MedicineName"));
-                detail.setStaffName(resultSet.getString("StaffName"));
-                detail.setDosage(resultSet.getString("Dosage"));
-                detail.setFrequency(resultSet.getString("Frequency"));
-                detail.setDuration(resultSet.getString("Duration"));
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    Prescription detail = new Prescription();
+                    detail.setPrescriptionID(resultSet.getInt("PrescriptionID"));
+                    detail.setRecordID(resultSet.getInt("RecordID"));
+                    detail.setMedicineID(resultSet.getInt("MedicineID"));
+                    detail.setChildFirstName(resultSet.getString("ChildFirstName"));
+                    detail.setChildMiddleName(resultSet.getString("ChildMiddleName"));
+                    detail.setChildLastName(resultSet.getString("ChildLastName"));
+                    detail.setUserFirstName(resultSet.getString("UserFirstName"));
+                    detail.setUserMiddleName(resultSet.getString("UserMiddleName"));
+                    detail.setUserLastName(resultSet.getString("UserLastName"));
+                    detail.setDiagnosis(resultSet.getString("Diagnosis"));
+                    detail.setMedicineName(resultSet.getString("MedicineName"));
+                    detail.setStaffName(resultSet.getString("StaffName"));
+                    detail.setDosage(resultSet.getString("Dosage"));
+                    detail.setFrequency(resultSet.getString("Frequency"));
+                    detail.setDuration(resultSet.getString("Duration"));
 
-                prescriptions.add(detail);
+                    prescriptions.add(detail);
+                }
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-    } catch (SQLException e) {
-        e.printStackTrace();
+
+        return prescriptions;
     }
 
-    return prescriptions;
-}
+    public Prescription getPrescriptionById(int prescriptionId) {
+        Prescription prescription = null;
+        final String SQL_SELECT_PRESCRIPTION = "SELECT p.PrescriptionID, mr.RecordID, p.MedicineID, "
+                + "c.FirstName AS ChildFirstName, c.MiddleName AS ChildMiddleName, c.LastName AS ChildLastName, "
+                + "u.FirstName AS UserFirstName, u.MiddleName AS UserMiddleName, "
+                + "u.LastName AS UserLastName, mr.Diagnosis, m.Name AS MedicineName, "
+                + "s.StaffName, p.Dosage, p.Frequency, p.Duration "
+                + "FROM Prescriptions p "
+                + "JOIN MedicalRecords mr ON p.RecordID = mr.RecordID "
+                + "JOIN Children c ON mr.ChildID = c.ChildID "
+                + "JOIN Users u ON mr.StaffID = u.UserID "
+                + "JOIN Medicine m ON p.MedicineID = m.MedicineID "
+                + "JOIN Staff s ON mr.StaffID = s.StaffID "
+                + "WHERE p.PrescriptionID = ?"; // Use parameterized query to prevent SQL injection
 
-public Prescription getPrescriptionById(int prescriptionId) {
-    Prescription prescription = null;
-    final String SQL_SELECT_PRESCRIPTION = "SELECT p.PrescriptionID, mr.RecordID, p.MedicineID, "
-            + "c.FirstName AS ChildFirstName, c.MiddleName AS ChildMiddleName, c.LastName AS ChildLastName, "
-            + "u.FirstName AS UserFirstName, u.MiddleName AS UserMiddleName, "
-            + "u.LastName AS UserLastName, mr.Diagnosis, m.Name AS MedicineName, "
-            + "s.StaffName, p.Dosage, p.Frequency, p.Duration "
-            + "FROM Prescriptions p "
-            + "JOIN MedicalRecords mr ON p.RecordID = mr.RecordID "
-            + "JOIN Children c ON mr.ChildID = c.ChildID "
-            + "JOIN Users u ON mr.StaffID = u.UserID "
-            + "JOIN Medicine m ON p.MedicineID = m.MedicineID "
-            + "JOIN Staff s ON mr.StaffID = s.StaffID "
-            + "WHERE p.PrescriptionID = ?"; // Use parameterized query to prevent SQL injection
-
-    try (PreparedStatement statement = connection.prepareStatement(SQL_SELECT_PRESCRIPTION)) {
-        statement.setInt(1, prescriptionId); // Set the prescription ID parameter
-        try (ResultSet resultSet = statement.executeQuery()) {
-            if (resultSet.next()) {
-                prescription = new Prescription();
-                prescription.setPrescriptionID(resultSet.getInt("PrescriptionID"));
-                prescription.setRecordID(resultSet.getInt("RecordID")); 
-                prescription.setMedicineID(resultSet.getInt("MedicineID"));
-                prescription.setChildFirstName(resultSet.getString("ChildFirstName"));
-                prescription.setChildMiddleName(resultSet.getString("ChildMiddleName"));
-                prescription.setChildLastName(resultSet.getString("ChildLastName"));
-                prescription.setUserFirstName(resultSet.getString("UserFirstName"));
-                prescription.setUserMiddleName(resultSet.getString("UserMiddleName"));
-                prescription.setUserLastName(resultSet.getString("UserLastName"));
-                prescription.setDiagnosis(resultSet.getString("Diagnosis"));
-                prescription.setMedicineName(resultSet.getString("MedicineName"));
-                prescription.setStaffName(resultSet.getString("StaffName"));
-                prescription.setDosage(resultSet.getString("Dosage"));
-                prescription.setFrequency(resultSet.getString("Frequency"));
-                prescription.setDuration(resultSet.getString("Duration"));
+        try (PreparedStatement statement = connection.prepareStatement(SQL_SELECT_PRESCRIPTION)) {
+            statement.setInt(1, prescriptionId); // Set the prescription ID parameter
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    prescription = new Prescription();
+                    prescription.setPrescriptionID(resultSet.getInt("PrescriptionID"));
+                    prescription.setRecordID(resultSet.getInt("RecordID"));
+                    prescription.setMedicineID(resultSet.getInt("MedicineID"));
+                    prescription.setChildFirstName(resultSet.getString("ChildFirstName"));
+                    prescription.setChildMiddleName(resultSet.getString("ChildMiddleName"));
+                    prescription.setChildLastName(resultSet.getString("ChildLastName"));
+                    prescription.setUserFirstName(resultSet.getString("UserFirstName"));
+                    prescription.setUserMiddleName(resultSet.getString("UserMiddleName"));
+                    prescription.setUserLastName(resultSet.getString("UserLastName"));
+                    prescription.setDiagnosis(resultSet.getString("Diagnosis"));
+                    prescription.setMedicineName(resultSet.getString("MedicineName"));
+                    prescription.setStaffName(resultSet.getString("StaffName"));
+                    prescription.setDosage(resultSet.getString("Dosage"));
+                    prescription.setFrequency(resultSet.getString("Frequency"));
+                    prescription.setDuration(resultSet.getString("Duration"));
+                }
             }
+        } catch (SQLException e) {
+            // Log the exception or handle it as needed
+            e.printStackTrace();
         }
-    } catch (SQLException e) {
-        // Log the exception or handle it as needed
-        e.printStackTrace();
+
+        return prescription; // Return null if not found
     }
 
-    return prescription; // Return null if not found
-}
+    public boolean existsPrescription(int recordID, int medicineID, String dosage, String frequency, String duration) throws SQLException {
+        String query = "SELECT COUNT(*) FROM Prescriptions WHERE recordID = ? AND medicineID = ? AND dosage = ? AND frequency = ? AND duration = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, recordID);
+            statement.setInt(2, medicineID);
+            statement.setString(3, dosage);
+            statement.setString(4, frequency);
+            statement.setString(5, duration);
 
-   public boolean existsPrescription(int recordID, int medicineID, String dosage, String frequency, String duration) throws SQLException {
-    String query = "SELECT COUNT(*) FROM Prescriptions WHERE recordID = ? AND medicineID = ? AND dosage = ? AND frequency = ? AND duration = ?";
-    try (PreparedStatement statement = connection.prepareStatement(query)) {
-        statement.setInt(1, recordID);
-        statement.setInt(2, medicineID);
-        statement.setString(3, dosage);
-        statement.setString(4, frequency);
-        statement.setString(5, duration);
-
-        try (ResultSet resultSet = statement.executeQuery()) {
-            if (resultSet.next()) {
-                return resultSet.getInt(1) > 0; // Return true if there's at least one record
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getInt(1) > 0; // Return true if there's at least one record
+                }
             }
         }
+        return false; // No duplicate found
     }
-    return false; // No duplicate found
-}
-   
-
 
 }
