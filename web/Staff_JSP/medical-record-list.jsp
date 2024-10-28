@@ -104,6 +104,7 @@
 
                         <!-- Medicine List Table -->
                         <table>
+                            <!-- Table Header -->
                             <thead>
                                 <tr>
                                     <th>STT</th>
@@ -112,14 +113,14 @@
                                     <th>Điều trị</th>
                                     <th>Ghi chú</th>
                                     <th>Ngày khám</th>
-                                    <th>Chức năng</th>
+                                    <th class="function-column">Chức năng</th> <!-- Add a class here -->
                                 </tr>
                             </thead>
                             <tbody>
                             <c:if test="${not empty records}">
                                 <c:forEach var="record" items="${records}" varStatus="status">
                                     <tr>
-                                        <td>${status.index + 1}</td> <!-- Serial Number Column -->
+                                        <td>${status.index + 1}</td>
                                         <td><c:out value="${record.firstNameChild} ${record.middleNameChild} ${record.lastNameChild}" /></td>
                                         <td><c:out value="${record.diagnosis}" /></td>
                                         <td><c:out value="${record.treatment}" /></td>
@@ -127,26 +128,22 @@
                                         <td>
                                             <fmt:formatDate value="${record.reservationDate}" pattern="dd-MM-yyyy" />
                                         </td>
-                                        <td style="display: flex; align-items: center;">
+                                        <td class="function-column" style="display: flex; align-items: center;"> <!-- Add the class here -->
                                             <form action="medicalrecorddetail" method="post" style="display: inline;">
                                                 <input type="hidden" name="recordID" value="${record.recordID}">
-                                                <button class="btn" title="Xem chi tiết" style="margin-right: 5px; padding: 5px 10px; font-size: 14px; display: flex; justify-content: center; align-items: center;">
+                                                <button class="btn" title="Xem chi tiết" style="margin-right: 1px; padding: 5px 20px; font-size: 14px; display: flex; justify-content: center; align-items: center;">
                                                     <i class="fas fa-eye" style="margin: 0;"></i>
                                                 </button>
                                             </form>
                                             <c:if test="${record.hasPres == false}">
                                                 <form action="saveRecordId" method="post" style="display: inline;">
-                                                    <input type="hidden" name="recordID" value="${record.recordID}"> <!-- Gửi ID qua POST -->
-                                                    <button class="btn" type="submit" title="Thêm đơn thuốc" style="padding: 5px 10px; font-size: 14px; display: flex; justify-content: center; align-items: center;">
+                                                    <input type="hidden" name="recordID" value="${record.recordID}"> 
+                                                    <button class="btn" type="submit" title="Thêm đơn thuốc" style="padding: 5px 20px; font-size: 14px; display: flex; justify-content: center; align-items: center;">
                                                         <i class="fas fa-plus"></i>
                                                     </button>
                                                 </form>
                                             </c:if>
                                         </td>
-
-
-
-
                                     </tr>
                                 </c:forEach>
                             </c:if>
@@ -155,6 +152,7 @@
                                     <td colspan="7" style="text-align: center;">Không tìm thấy hồ sơ</td>
                                 </tr>
                             </c:if>
+
                         </tbody>
                     </table>
 
