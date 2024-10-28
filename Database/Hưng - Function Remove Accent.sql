@@ -1,5 +1,5 @@
 ﻿--USE Project_ChildrenCareDB_ver2
-
+/*
 CREATE FUNCTION dbo.removeAccent(@input NVARCHAR(MAX))
 RETURNS NVARCHAR(MAX)
 AS
@@ -54,3 +54,71 @@ BEGIN
     
     RETURN @output;
 END
+*/
+
+-- Trigger cập nhật TotalPrice sau khi thêm, cập nhật hoặc xóa OrderItem
+CREATE TRIGGER trg_UpdateTotalPrice_AfterInsertOrUpdateOrDelete
+ON OrderItems
+AFTER INSERT, UPDATE, DELETE
+AS
+BEGIN
+    -- Cập nhật TotalPrice cho mỗi Order khi có thêm, cập nhật hoặc xóa OrderItem với isExam = 0 trong Reservations
+    UPDATE Orders
+    SET TotalPrice = (
+        SELECT COALESCE(SUM(s.Price), 0) -- Đảm bảo TotalPrice là 0 nếu không có OrderItem nào thỏa mãn
+        FROM OrderItems oi
+        JOIN Services s ON oi.ServiceID = s.ServiceID
+        JOIN Reservations r ON oi.OrderItemID = r.OrderItemID
+        WHERE oi.OrderID = Orders.OrderID
+          AND r.isExam = 0
+    )
+    WHERE Orders.OrderID IN (
+        SELECT DISTINCT OrderID 
+        FROM (
+            SELECT OrderID FROM inserted
+            UNION
+            SELECT OrderID FROM deleted
+        ) AS Changes
+    )
+    AND (
+        SELECT COALESCE(SUM(s.Price), 0)
+        FROM OrderItems oi
+        JOIN Services s ON oi.ServiceID = s.ServiceID
+        JOIN Reservations r ON oi.OrderItemID = r.OrderItemID
+        WHERE oi.OrderID = Orders.OrderID
+          AND r.isExam = 0
+    ) > 0; -- Chỉ cập nhật nếu tổng giá lớn hơn 0
+END;
+GO
+
+-- Trigger cập nhật TotalPrice khi thêm hoặc cập nhật Reservation
+CREATE TRIGGER trg_UpdateTotalPrice_AfterInsertOrUpdateOnReservations
+ON Reservations
+AFTER INSERT, UPDATE
+AS
+BEGIN
+    -- Cập nhật TotalPrice cho mỗi Order khi Reservation thay đổi và có isExam = 0
+    UPDATE Orders
+    SET TotalPrice = (
+        SELECT COALESCE(SUM(s.Price), 0) -- Đảm bảo TotalPrice là 0 nếu không có OrderItem nào thỏa mãn
+        FROM OrderItems oi
+        JOIN Services s ON oi.ServiceID = s.ServiceID
+        JOIN Reservations r ON oi.OrderItemID = r.OrderItemID
+        WHERE oi.OrderID = Orders.OrderID
+          AND r.isExam = 0
+    )
+    WHERE Orders.OrderID IN (
+        SELECT DISTINCT oi.OrderID
+        FROM OrderItems oi
+        JOIN inserted i ON oi.OrderItemID = i.OrderItemID
+    )
+    AND (
+        SELECT COALESCE(SUM(s.Price), 0)
+        FROM OrderItems oi
+        JOIN Services s ON oi.ServiceID = s.ServiceID
+        JOIN Reservations r ON oi.OrderItemID = r.OrderItemID
+        WHERE oi.OrderID = Orders.OrderID
+          AND r.isExam = 0
+    ) > 0; -- Chỉ cập nhật nếu tổng giá lớn hơn 0
+END;
+GO

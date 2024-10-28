@@ -37,35 +37,24 @@ public class CustomerListOrdersServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        String customerID = request.getParameter("userID");
         OrderDAO orderDAO = new OrderDAO();
         List<Order> orders = orderDAO.getOrdersByCustomerID(1);
+        List<OrderItem> orderItems = orderDAO.getAllOrderItems(); 
+
         ServiceDAO serviceDAO = new ServiceDAO();
         List<Service> services = serviceDAO.getAllServices();
         ChildrenDAO childrenDAO = new ChildrenDAO();
         List<Children> children = childrenDAO.getChildrenByCustomerID(1);
         ReservationDAO reservationDAO = new ReservationDAO();
-        List<Reservation> reservations = reservationDAO.getReservationByIsExam(false);
-        for (Order order : orders){
-            List<OrderItem> orderItems = orderDAO.getOrderItemsByOrderID(order.getOrderID());
-            request.setAttribute("orderItems", orderItems);
-            for (OrderItem orderItem : orderItems){
-            for (Children c : children){
-                if (c.getChildID() == orderItem.getChildID()){
-                    List<Children> child = new ArrayList<>();
-                    
-                    child.add(c);
-                    request.setAttribute("children", child);
-                }
-            }
-            }
-        }
-        
-        
+        List<Reservation> reservations = reservationDAO.getReservationByCustomerID(1);
+
+        // Truyền danh sách vào request
         request.setAttribute("orders", orders);
+        request.setAttribute("orderItems", orderItems);
         request.setAttribute("services", services);
-        
+        request.setAttribute("children", children);
         request.setAttribute("reservations", reservations);
+
         request.getRequestDispatcher("/Common_JSP/home-orders-list.jsp").forward(request, response);
     }
 

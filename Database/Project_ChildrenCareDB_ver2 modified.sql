@@ -2,7 +2,7 @@
 CREATE DATABASE Project_ChildrenCareDB_ver2;
 GO
 
-USE  Project_ChildrenCareDB_ver2;
+USE Project_ChildrenCareDB_ver2;
 GO
 
 -- Create Users table (base table for all user types)
@@ -145,7 +145,6 @@ CREATE TABLE Services (
     FOREIGN KEY (AgeLimitID) REFERENCES AgeLimits(AgeLimitID)
 );
 
-
 -- Create Orders table
 CREATE TABLE Orders(
 	OrderID INT PRIMARY KEY IDENTITY(1,1),
@@ -158,7 +157,6 @@ CREATE TABLE Orders(
 	FOREIGN KEY (CustomerID) REFERENCES Users(UserID) ON DELETE CASCADE
 )
 
-
 -- Create OrderItems table
 CREATE TABLE OrderItems (
     OrderItemID INT PRIMARY KEY IDENTITY(1,1),
@@ -169,7 +167,6 @@ CREATE TABLE OrderItems (
     FOREIGN KEY (ServiceID) REFERENCES Services(ServiceID) ON DELETE CASCADE,
     FOREIGN KEY (ChildID) REFERENCES Children(ChildID) ON DELETE NO ACTION
 );
-
 
 -- Create Reservations table
 CREATE TABLE Reservations (
@@ -429,7 +426,6 @@ CREATE TABLE BlogComments (
 CREATE INDEX IX_Blogs_CreatedDate ON Blogs(CreatedDate);
 CREATE INDEX IX_BlogComments_BlogID ON BlogComments(BlogID);
 
-
 -- Insert default roles
 INSERT INTO Roles (RoleName) VALUES 
 ('Administrator'), ('Manager'), ('Doctor'), ('Nurse'), ('Customer'), ('Guest');
@@ -626,7 +622,7 @@ VALUES
 INSERT INTO Children (CustomerID, FirstName, MiddleName, LastName, DateOfBirth, Gender, ChildImage)
 VALUES 
 (1, N'Nguyễn', N'Văn', N'D', '2010-01-01', N'Nam', NULL),
-(2, N'Trần', N'Thị', N'E', '2012-05-15', N'Nữ', NULL),
+(1, N'Trần', N'Thị', N'E', '2012-05-15', N'Nữ', NULL),
 (3, N'Lê', N'Minh', N'F', '2015-10-20', N'Nam', NULL);
 
 
@@ -647,11 +643,12 @@ VALUES
 (3, N'Lê Minh C', 5, 1, 1, '2020-01-15', 50000.0);
 
 
-INSERT INTO Orders (CustomerID, TotalPrice, OrderDate, isOrder, isCheckOut)
+INSERT INTO Orders (CustomerID, OrderDate, isOrder, isCheckOut)
 VALUES 
-(1, 150000, GETDATE(), 0, 0),
-(1, 750000, GETDATE(), 0, 1),
-(2, 225000, GETDATE(), 0, 0);
+(1, GETDATE(), 0, 0),
+(1, GETDATE(), 0, 1),
+(2, GETDATE(), 0, 0);
+
 
 update Orders set isOrder = 1 where CustomerID = 1
 
@@ -659,7 +656,7 @@ INSERT INTO OrderItems (OrderID, ServiceID, ChildID)
 VALUES 
 (1, 1, 1),
 (1, 2, 2),
-(2, 1, 3),
+(2, 1, 1),
 (3, 3, 1),
 (3, 2, 2),
 (3, 1, 3);
@@ -667,14 +664,14 @@ VALUES
 
 INSERT INTO Reservations (OrderItemID, ReservationDate, StartTime, StaffID, isExam, hasRecord)
 VALUES 
-(1, '2023-10-05', '09:00:00', 3, 0, 1),
-(2, '2023-10-06', '10:00:00', 3, 1, 0),
+(1, '2023-10-05', '09:00:00', 3, 0, 0),
+(2, '2023-10-06', '10:00:00', 3, 0, 0),
 (3, '2023-10-07', '11:00:00', 3, 0, 0),
 (4, '2023-10-08', '12:00:00', 3, 1, 0),
 (5, '2023-10-09', '13:00:00', 3, 0, 0),
 (6, '2023-10-10', '14:00:00', 3, 1, 0);
 
-
+--update Reservations set isExam = 0 where OrderItemID = 2
 -- Cập nhật Quantity trong bảng Orders
 UPDATE Orders
 SET Quantity = (
@@ -694,15 +691,18 @@ SELECT u.UserID AS StaffID,
 FROM Users u
 JOIN UserRoles ur ON u.UserID = ur.UserID
 JOIN Roles r ON ur.RoleID = r.RoleID
-JOIN Staff s ON u.UserID = s.StaffID
+LEFT JOIN Staff s ON u.UserID = s.StaffID
 WHERE r.RoleID IN (3, 4); 
 
-select * from Staff
+select * from StaffView
 
-select * from Orders
+select * from Orders where isOrder = 1
 
-select * from OrderItems 
+select * from OrderItems where OrderID = 1
 
-SELECT * FROM Reservations WHERE ReservationID = 4 and IsExam = 0*/
+SELECT * FROM Reservations WHERE IsExam = 0*/
 
 select r.ReservationID, r.OrderItemID, r.StaffID, o.ServiceID, o.ChildID from Reservations r join OrderItems o on r.OrderItemID = o.OrderItemID
+
+
+
