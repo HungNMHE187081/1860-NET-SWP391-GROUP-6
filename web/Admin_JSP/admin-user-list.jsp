@@ -57,7 +57,7 @@
         <!-- Navbar Right Menu-->
         <ul class="app-nav">
             <!-- User Menu-->
-            <li><a class="app-nav__item" href="/index.html"><i class='bx bx-log-out bx-rotate-180'></i> </a></li>
+            <li><a class="app-nav__item" href="${pageContext.request.contextPath}/logout"><i class='bx bx-log-out bx-rotate-180'></i> </a></li>
         </ul>
     </header>
     <!-- Sidebar menu-->
@@ -71,8 +71,8 @@
         </div>
         <hr>
         <ul class="app-menu">
-            <li><a class="app-menu__item haha" href="phan-mem-ban-hang.html"><i class='app-menu__icon bx bx-cart-alt'></i>
-                    <span class="app-menu__label">POS Bán Hàng</span></a></li>
+            <li><a class="app-menu__item haha" href="${pageContext.request.contextPath}/admin/viewprofile"><i class='app-menu__icon bx bx-cart-alt'></i>
+                    <span class="app-menu__label">View Profile</span></a></li>
             <li><a class="app-menu__item " href="index.html"><i class='app-menu__icon bx bx-tachometer'></i><span class="app-menu__label">Bảng điều
                     khiển</span></a></li>
             <li><a class="app-menu__item active" href="serviceslist"><i class='app-menu__icon bx bx-id-card'></i>

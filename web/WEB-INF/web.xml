@@ -364,6 +364,10 @@
         <servlet-name>UnauthorizedServlet</servlet-name>
         <servlet-class>controller.UnauthorizedServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LogoutServlet</servlet-name>
+        <servlet-class>controller.LogoutServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -719,5 +723,9 @@
     <servlet-mapping>
         <servlet-name>UnauthorizedServlet</servlet-name>
         <url-pattern>/unauthorized</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LogoutServlet</servlet-name>
+        <url-pattern>/logout</url-pattern>
     </servlet-mapping>
 </web-app>
