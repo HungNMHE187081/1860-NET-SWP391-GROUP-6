@@ -235,7 +235,7 @@
                                     <span><%= adminDetails.getPhoneNumber() %></span>
                                 </div>
                             </div>
-                            <a href="${pageContext.request.contextPath}#" 
+                            <a href="${pageContext.request.contextPath}/admin/editprofile" 
                                class="edit-button">
                                 <i class="fas fa-edit mr-2"></i>Chỉnh sửa hồ sơ
                             </a>
