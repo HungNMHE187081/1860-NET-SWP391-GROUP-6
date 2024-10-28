@@ -368,6 +368,10 @@
         <servlet-name>LogoutServlet</servlet-name>
         <servlet-class>controller.LogoutServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AdminEditProfileServlet</servlet-name>
+        <servlet-class>controller.AdminEditProfileServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -727,5 +731,9 @@
     <servlet-mapping>
         <servlet-name>LogoutServlet</servlet-name>
         <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminEditProfileServlet</servlet-name>
+        <url-pattern>/admin/editprofile</url-pattern>
     </servlet-mapping>
 </web-app>
