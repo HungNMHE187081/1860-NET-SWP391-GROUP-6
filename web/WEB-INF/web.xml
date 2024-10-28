@@ -356,6 +356,10 @@
         <servlet-name>DetailCustomerBlogServlet</servlet-name>
         <servlet-class>controller.DetailCustomerBlogServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AdminViewProfileServlet</servlet-name>
+        <servlet-class>controller.AdminViewProfileServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -703,5 +707,9 @@
     <servlet-mapping>
         <servlet-name>DetailCustomerBlogServlet</servlet-name>
         <url-pattern>/customer/detailcustomerblog</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminViewProfileServlet</servlet-name>
+        <url-pattern>/admin/viewprofile</url-pattern>
     </servlet-mapping>
 </web-app>
