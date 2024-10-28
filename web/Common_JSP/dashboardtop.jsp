@@ -102,7 +102,7 @@
                         <li><a href="aboutus.html" class="sub-menu-item">Giỏ hàng</a></li>
                         <li><a href="${pageContext.request.contextPath}/customer/listorders" class="sub-menu-item">Lịch khám sắp tới</a></li>
                         <li><a href="departments.html" class="sub-menu-item">Lịch sử khám bệnh</a></li>
-                        <li><a href="departments.html" class="sub-menu-item">Con trẻ của bạn</a></li>
+                        <li><a href="${pageContext.request.contextPath}/Common_JSP/user-children.jsp" class="sub-menu-item">Con trẻ của bạn</a></li>
                     </ul>
                 </li>
             </ul>
