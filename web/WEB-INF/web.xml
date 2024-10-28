@@ -344,6 +344,10 @@
         <servlet-name>EditPrescription</servlet-name>
         <servlet-class>controller.EditPrescription</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SaveRecordId</servlet-name>
+        <servlet-class>controller.SaveRecordId</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -679,5 +683,9 @@
     <servlet-mapping>
         <servlet-name>EditPrescription</servlet-name>
         <url-pattern>/updateprescription</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SaveRecordId</servlet-name>
+        <url-pattern>/saveRecordId</url-pattern>
     </servlet-mapping>
 </web-app>

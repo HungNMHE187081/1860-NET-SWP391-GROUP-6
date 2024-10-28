@@ -252,22 +252,19 @@ public class PrescriptionDAO extends DBContext {
         return prescription; // Return null if not found
     }
 
-    public boolean existsPrescription(int recordID, int medicineID, String dosage, String frequency, String duration) throws SQLException {
-        String query = "SELECT COUNT(*) FROM Prescriptions WHERE recordID = ? AND medicineID = ? AND dosage = ? AND frequency = ? AND duration = ?";
-        try (PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setInt(1, recordID);
-            statement.setInt(2, medicineID);
-            statement.setString(3, dosage);
-            statement.setString(4, frequency);
-            statement.setString(5, duration);
+    public boolean existsPrescription(int recordID, int medicineID) throws SQLException {
+        String sql = "SELECT COUNT(*) FROM Prescriptions WHERE recordID = ? AND medicineID = ? ";
+        try ( PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, recordID);
+            ps.setInt(2, medicineID);
 
-            try (ResultSet resultSet = statement.executeQuery()) {
-                if (resultSet.next()) {
-                    return resultSet.getInt(1) > 0; // Return true if there's at least one record
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1) > 0; // If count > 0, a prescription already exists
                 }
             }
         }
-        return false; // No duplicate found
+        return false;
     }
 
 }

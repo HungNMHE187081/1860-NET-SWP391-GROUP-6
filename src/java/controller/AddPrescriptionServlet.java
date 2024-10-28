@@ -16,6 +16,7 @@ import model.Staff;
 import model.Children;
 import dal.ChildrenDAO;
 import dal.PrescriptionDAO;
+import jakarta.servlet.http.HttpSession;
 import model.Prescription;
 
 public class AddPrescriptionServlet extends HttpServlet {
@@ -37,9 +38,10 @@ public class AddPrescriptionServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String recordID_raw = request.getParameter("id");
+         HttpSession session = request.getSession();
+        
         try {
-            int recordID = Integer.parseInt(recordID_raw);
+            Integer recordID = (Integer) session.getAttribute("recordID"); // Lấy ID từ session
             MedicalRecord record = medicalRecordDAO.getMedicalRecordByID(recordID);
             Staff staff = staffDAO.getStaffByID(record.getStaffID());
             List<Medicine> medicineList = medicineDAO.getAllMedicines();
@@ -58,53 +60,51 @@ public class AddPrescriptionServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        try {
-            int recordID = Integer.parseInt(request.getParameter("recordID"));
-            String[] medicineIDs = request.getParameterValues("medicineIds");
-            int staffID = Integer.parseInt(request.getParameter("staffID"));
-            String dosage = request.getParameter("dosage");
-            String frequency = request.getParameter("frequency");
-            String duration = request.getParameter("duration");
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+    try {
+        int recordID = Integer.parseInt(request.getParameter("recordID"));
+        String[] medicineIDs = request.getParameterValues("medicineIds");
+        int staffID = Integer.parseInt(request.getParameter("staffID"));
+        String dosage = request.getParameter("dosage");
+        String frequency = request.getParameter("frequency");
+        String duration = request.getParameter("duration");
 
-            // Validate input
-            if (dosage == null || frequency == null || duration == null || medicineIDs == null || medicineIDs.length == 0) {
-                request.setAttribute("errorMessage", "Invalid input. Please check your data.");
+        // Validate input
+        if (dosage == null || frequency == null || duration == null || medicineIDs == null || medicineIDs.length == 0) {
+            request.setAttribute("errorMessage", "Invalid input. Please check your data.");
+            request.getRequestDispatcher("/Staff_JSP/error.jsp").forward(request, response);
+            return;
+        }
+
+        // Process each selected medicine
+        for (String medicineID_raw : medicineIDs) {
+            int medicineID = Integer.parseInt(medicineID_raw);
+
+            // Check for existing prescription
+            if (prescriptionDAO.existsPrescription(recordID, medicineID)) {
+                request.setAttribute("errorMessage", "Loại thuốc này đã tồn tại trong lịch sử khám cho bệnh nhân này.");
                 request.getRequestDispatcher("/Staff_JSP/error.jsp").forward(request, response);
                 return;
             }
 
-            // Process each selected medicine
-            for (String medicineID_raw : medicineIDs) {
-                int medicineID = Integer.parseInt(medicineID_raw);
-
-                // Check for existing prescription
-                if (prescriptionDAO.existsPrescription(recordID, medicineID, dosage, frequency, duration)) {
-                    request.setAttribute("errorMessage", "Loại thuốc này đã tồn tại trong lịch sử khám cho bệnh nhân này.");
-                    request.getRequestDispatcher("/Staff_JSP/error.jsp").forward(request, response);
-                    return;
-                }
-
-                // Create prescription object and add to the database
-                Prescription prescription = new Prescription(recordID, medicineID, dosage, frequency, duration);
-                prescriptionDAO.addPrescription(prescription);
-            }
-
-            // Redirect to the prescription list after successful addition
-            response.sendRedirect("listprescription");
-        } catch (NumberFormatException e) {
-            request.setAttribute("errorMessage", "Invalid ID format. Please check your data.");
-            request.getRequestDispatcher("/Staff_JSP/error.jsp").forward(request, response);
-        } catch (SQLException e) {
-            request.setAttribute("errorMessage", "Database error: " + e.getMessage());
-            request.getRequestDispatcher("/Staff_JSP/error.jsp").forward(request, response);
-        } catch (Exception e) {
-            log("Unexpected error: " + e.getMessage());
-            request.setAttribute("errorMessage", "An unexpected error occurred.");
-            request.getRequestDispatcher("/Staff_JSP/error.jsp").forward(request, response);
+            // Create prescription object and add to the database
+            Prescription prescription = new Prescription(recordID, medicineID, dosage, frequency, duration);
+            prescriptionDAO.addPrescription(prescription);
         }
+
+        // Redirect to the prescription list after successful addition
+        response.sendRedirect("listprescription");
+    } catch (NumberFormatException e) {
+        request.setAttribute("errorMessage", "Invalid ID format. Please check your data.");
+        request.getRequestDispatcher("/Staff_JSP/error.jsp").forward(request, response);
+    } catch (Exception e) {
+        log("Unexpected error: " + e.getMessage());
+        request.setAttribute("errorMessage", "Loại thuốc đã tồn tại cho bản ghi này");
+        request.getRequestDispatcher("/Staff_JSP/error.jsp").forward(request, response);
     }
+}
+
 
     @Override
     public String getServletInfo() {

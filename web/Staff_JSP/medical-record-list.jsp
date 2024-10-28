@@ -51,6 +51,7 @@
                 background-color: #575757; /* Darker shade on hover */
             }
 
+
         </style>
     </head>
     <body>
@@ -127,19 +128,24 @@
                                             <fmt:formatDate value="${record.reservationDate}" pattern="dd-MM-yyyy" />
                                         </td>
                                         <td style="display: flex; align-items: center;">
-                                            <a href="medicalrecorddetail?id=${record.recordID}" class="btn" title="Xem chi tiết" style="margin-right: 5px; padding: 5px 10px; font-size: 14px; display: flex; justify-content: center; align-items: center;">
-                                                <i class="fas fa-eye" style="margin: 0;"></i>
-                                            </a>
-                                            <c:if test="${record.hasPres == false}">
-                                                <button class="btn-primary btn-sm" type="button" title="Thêm" id="show-emp">
-                                                    <a href="addprescription?id=${record.recordID}" title="Thêm đơn thuốc">
-                                                        <i class="fas fa-plus"></i>
-                                                    </a>
+                                            <form action="medicalrecorddetail" method="post" style="display: inline;">
+                                                <input type="hidden" name="recordID" value="${record.recordID}">
+                                                <button class="btn" title="Xem chi tiết" style="margin-right: 5px; padding: 5px 10px; font-size: 14px; display: flex; justify-content: center; align-items: center;">
+                                                    <i class="fas fa-eye" style="margin: 0;"></i>
                                                 </button>
+                                            </form>
+                                            <c:if test="${record.hasPres == false}">
+                                                <form action="saveRecordId" method="post" style="display: inline;">
+                                                    <input type="hidden" name="recordID" value="${record.recordID}"> <!-- Gửi ID qua POST -->
+                                                    <button class="btn" type="submit" title="Thêm đơn thuốc" style="padding: 5px 10px; font-size: 14px; display: flex; justify-content: center; align-items: center;">
+                                                        <i class="fas fa-plus"></i>
+                                                    </button>
+                                                </form>
                                             </c:if>
-                                          
-
                                         </td>
+
+
+
 
                                     </tr>
                                 </c:forEach>
