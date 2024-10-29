@@ -4,9 +4,9 @@
  */
 package dal;
 
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.sql.*;
 import model.Specialization;
 
 /**
@@ -28,6 +28,27 @@ public class SpecializationDAO extends DBContext{
         } catch (SQLException e) {
         }
         return list;
+    }
+
+    public List<Specialization> getSpecializationsByUserId(int userId) {
+        List<Specialization> specializations = new ArrayList<>();
+        String sql = "SELECT * FROM Specializations WHERE UserID = ?";
+        
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, userId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Specialization specialization = new Specialization();
+                    specialization.setSpecializationID(rs.getInt("SpecializationID"));
+                    specialization.setSpecializationName(rs.getString("SpecializationName"));
+                    specializations.add(specialization);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return specializations;
     }
     
     public static void main(String[] args) {

@@ -1,15 +1,21 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@page import="model.Users"%>
 <%@page import="model.UserAddresses"%>
 <%@page import="model.Provinces"%>
 <%@page import="model.District"%>
 <%@page import="model.Ward"%>
+<%@page import="model.Degree"%>
+<%@page import="model.Specialization"%>
+<%@page import="java.util.List"%>
 <%
     Users userDetails = (Users) request.getAttribute("userDetails");
     UserAddresses address = userDetails.getAddress();
     Provinces province = address.getProvinces();
     District district = address.getDistrict();
     Ward ward = address.getWard();
+    List<Degree> degrees = (List<Degree>) request.getAttribute("degrees");
+    List<Specialization> specializations = (List<Specialization>) request.getAttribute("specializations");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -284,6 +290,39 @@
                             <div class="info-value"><%= province.getProvinceName() %></div>
                         </div>
                     </div>
+
+                    <div class="profile-card">
+                        <div class="card-title">
+                            <i class="fas fa-graduation-cap mr-2"></i>Chuyên ngành
+                        </div>
+                        <div class="info-row">
+                            <div class="info-label">Chuyên ngành</div>
+                            <div class="info-value">
+                                <ul>
+                                    <c:forEach var="degree" items="${degrees}">
+                                        <li><c:out value="${degree.degreeName}"/></li>
+                                    </c:forEach>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="profile-card">
+                        <div class="card-title">
+                            <i class="fas fa-briefcase-medical mr-2"></i>Chuyên môn
+                        </div>
+                        <div class="info-row">
+                            <div class="info-label">Chuyên môn</div>
+                            <div class="info-value">
+                                <ul>
+                                    <c:forEach var="specialization" items="${specializations}">
+                                        <li><c:out value="${specialization.specializationName}"/></li>
+                                    </c:forEach>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -298,4 +337,4 @@
     <script src="${pageContext.request.contextPath}/js/plugins/pace.min.js"></script>
 </body>
 
-</html> 
+</html>
