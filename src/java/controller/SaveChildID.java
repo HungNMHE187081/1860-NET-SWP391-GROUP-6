@@ -5,7 +5,6 @@
 
 package controller;
 
-import dal.ChildrenDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,15 +12,12 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.util.List;
-import model.Children;
-import model.Users;
 
 /**
  *
  * @author User
  */
-public class ListChildren extends HttpServlet {
+public class SaveChildID extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -38,10 +34,10 @@ public class ListChildren extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ListChildren</title>");  
+            out.println("<title>Servlet SaveChildID</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ListChildren at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet SaveChildID at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -58,19 +54,7 @@ public class ListChildren extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-          HttpSession session = request.getSession();
-        Users user = (session != null) ? (Users) session.getAttribute("user") : null;
-        if(user!=null)
-        {
-        ChildrenDAO cDAO = new ChildrenDAO();
-        List<Children> listChild = cDAO.getChildrenByCustomerID(user.getUserID());
-        request.setAttribute("listChild", listChild);
-        request.getRequestDispatcher("/Common_JSP/user-children.jsp").forward(request, response);
-        }
-        else
-        {
-            request.getRequestDispatcher("login").forward(request, response);
-        }
+        processRequest(request, response);
     } 
 
     /** 
@@ -83,7 +67,11 @@ public class ListChildren extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        int childID = Integer.parseInt(request.getParameter("childID"));
+        HttpSession session = request.getSession();
+        session.setAttribute("childID", childID); // Lưu ID vào session
+        response.sendRedirect(request.getContextPath() + "/customer/editchildren");
+
     }
 
     /** 

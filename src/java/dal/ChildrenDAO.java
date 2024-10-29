@@ -92,6 +92,7 @@ public class ChildrenDAO extends DBContext{
         Children c = new Children();
         int id = 1;
         ChildrenDAO dao = new ChildrenDAO();
-        System.out.println(dao.getAllChildren().size());
+        c= dao.getChildrenByID(1);
+        System.out.println(c.getGender());
     }
 }

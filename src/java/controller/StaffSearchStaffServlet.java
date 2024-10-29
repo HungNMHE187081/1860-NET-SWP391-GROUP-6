@@ -41,7 +41,7 @@ public class StaffSearchStaffServlet extends HttpServlet {
         List<Staff> staffs;
         List<Degree> degrees = degreeDAO.getAllDegrees();
         List<Specialization> specializations = specializationDAO.getAllSpecializations();
-
+        
 
         if (keyword != null && !keyword.isEmpty() && specializationID > 0) {
             staffs = staffDAO.searchStaffByKeywordAndSpecialization(keyword, specializationID);
@@ -52,7 +52,7 @@ public class StaffSearchStaffServlet extends HttpServlet {
         } else {
             staffs = staffDAO.getAllStaffs();
         }
-
+        
         ManagerUserDAO managerUserDAO = new ManagerUserDAO();
         List<Users> users = new ArrayList<>();
         for (Staff staff : staffs) {

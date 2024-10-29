@@ -13,15 +13,12 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.util.List;
 import model.Children;
-import model.Users;
-
 /**
  *
  * @author User
  */
-public class ListChildren extends HttpServlet {
+public class EditChildren extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -38,10 +35,10 @@ public class ListChildren extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ListChildren</title>");  
+            out.println("<title>Servlet EditChildren</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ListChildren at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet EditChildren at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -55,23 +52,20 @@ public class ListChildren extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+   @Override
+protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-          HttpSession session = request.getSession();
-        Users user = (session != null) ? (Users) session.getAttribute("user") : null;
-        if(user!=null)
-        {
-        ChildrenDAO cDAO = new ChildrenDAO();
-        List<Children> listChild = cDAO.getChildrenByCustomerID(user.getUserID());
-        request.setAttribute("listChild", listChild);
-        request.getRequestDispatcher("/Common_JSP/user-children.jsp").forward(request, response);
-        }
-        else
-        {
-            request.getRequestDispatcher("login").forward(request, response);
-        }
-    } 
+       try {
+           int childID = Integer.parseInt(request.getParameter("childID"));
+           ChildrenDAO dao = new ChildrenDAO();
+           Children children = dao.getChildrenByID(childID);
+           request.setAttribute("children", children);
+           request.getRequestDispatcher("/Common_JSP/edit-children-customer.jsp").forward(request, response);
+       } catch (Exception e) {
+           e.printStackTrace();
+       }
+}
+
 
     /** 
      * Handles the HTTP <code>POST</code> method.
