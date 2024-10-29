@@ -782,6 +782,6 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ListChildren</servlet-name>
-        <url-pattern>/listchildren</url-pattern>
+        <url-pattern>/customer/listchildren</url-pattern>
     </servlet-mapping>
 </web-app>
