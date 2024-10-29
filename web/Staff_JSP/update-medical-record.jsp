@@ -136,7 +136,7 @@
                 <div class="error">${error}</div>
             </c:if>
 
-            <form action="updatemedicalrecord" method="post">
+            <form action="${pageContext.request.contextPath}/staff/updatemedicalrecord" method="post">
                 <input type="hidden" name="id" value="${record.recordID}" />
                 <input type="hidden" name="childID" value="${record.childID}" />
                 <input type="hidden" name="reservationID" value="${record.reservationID}" />
@@ -170,7 +170,7 @@
 
 
             <center>
-                <a href="medicalrecordlist">Trở về danh sách</a>
+                <a href="${pageContext.request.contextPath}/staff/medicalrecordlist">Trở về danh sách</a>
             </center>
         </main>
 

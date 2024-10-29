@@ -161,7 +161,7 @@
             <c:if test="${param.error == 'true'}">
                 <p style="color: red;">Please try again.</p>
             </c:if>
-            <form action="addprescription" method="post">
+            <form action="${pageContext.request.contextPath}/staff/addprescription" method="post">
                 <input type="hidden" name="recordID" value="${record.recordID}">
                 <input type="hidden" id="staffID" name="staffID" value="${staff.staffID}">
 
@@ -196,7 +196,7 @@
 
                 <button type="submit">Thêm đơn thuốc</button>
                 <center>
-                    <a href="medicalrecordlist">Quay lại lịch sử khám</a>
+                    <a href="${pageContext.request.contextPath}/staff/medicalrecordlist">Quay lại lịch sử khám</a>
                 </center>
             </form>
             <script>

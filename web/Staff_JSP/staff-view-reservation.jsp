@@ -123,7 +123,7 @@
                             <a href="${pageContext.request.contextPath}/addmedicalrecord?staffID=${reservation.staffID}&reservationDate=${reservation.reservationDate}&reservationID=${reservation.reservationID}&childID=${childID}" class="back-link">Thêm kết quả khám</a>
                         </c:if>
                         <c:if test="${reservation.hasRecord == true}">
-                            <a href="${pageContext.request.contextPath}/medicalrecordlist?childID=${child.childID}" class="back-link">Xem kết quả khám</a>
+                            <a href="${pageContext.request.contextPath}/staff/medicalrecordlist?childID=${child.childID}" class="back-link">Xem kết quả khám</a>
                         </c:if>
                     </c:if>
 
@@ -250,13 +250,13 @@
 
                     <div class="pagination">
                         <c:if test="${pageIndex > 1}">
-                            <a href="medicinelist?page=${pageIndex - 1}&search=${param.search}&category=${param.category}&manufacturer=${param.manufacturer}">« Trước</a>
+                            <a href="${pageContext.request.contextPath}/staff/medicinelist?page=${pageIndex - 1}&search=${param.search}&category=${param.category}&manufacturer=${param.manufacturer}">« Trước</a>
                         </c:if>
                         <c:forEach begin="1" end="${totalPages}" var="i">
-                            <a href="medicinelist?page=${i}&search=${param.search}&category=${param.category}&manufacturer=${param.manufacturer}" class="<c:if test='${i == pageIndex}'>active</c:if>">${i}</a>
+                            <a href="${pageContext.request.contextPath}/staff/medicinelist?page=${i}&search=${param.search}&category=${param.category}&manufacturer=${param.manufacturer}" class="<c:if test='${i == pageIndex}'>active</c:if>">${i}</a>
                         </c:forEach>
                         <c:if test="${pageIndex < totalPages}">
-                            <a href="medicinelist?page=${pageIndex + 1}&search=${param.search}&category=${param.category}&manufacturer=${param.manufacturer}">Tiếp theo »</a>
+                            <a href="${pageContext.request.contextPath}/staff/medicinelist?page=${pageIndex + 1}&search=${param.search}&category=${param.category}&manufacturer=${param.manufacturer}">Tiếp theo »</a>
                         </c:if>
                     </div>
 

@@ -150,7 +150,7 @@
 
                 <button type="submit">Thêm thuốc</button>
                 <center>
-                <a href="medicinelist"> Trở về danh sách thuốc </a>
+                <a href="${pageContext.request.contextPath}/staff/medicinelist"> Trở về danh sách thuốc </a>
                 </center>
             </form>
         </main>

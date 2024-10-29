@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
-<link rel="stylesheet" href="css/styles.css"/>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css"/>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -80,7 +80,7 @@
                     <h2><i class="fas fa-prescription-bottle-alt"></i> Lịch sử khám</h2>
 
                     <!-- Filter and Search Form -->
-                    <form action="medicalrecordlist" method="get" class="filter-form">
+                    <form action="${pageContext.request.contextPath}/staff/medicalrecordlist" method="get" class="filter-form">
                         <div class="filter-group">
                             <input type="text" name="search" value="${param.search}" placeholder="Tìm theo tên trẻ" />
                             <select name="month" class="month-select">
@@ -97,8 +97,8 @@
                                 </select>
 
                                 <button type="submit"><i class="fas fa-filter"></i> Lọc và tìm kiếm</button>
-                                <a href="staff/oldreservationslist" class="btn"><i class="fas fa-plus"></i> Thêm bản ghi</a>
-                                <a href="listprescription" class="btn"><i class="fas fa-save"></i> Danh sách đơn thuốc</a>
+                                <a href="${pageContext.request.contextPath}/staff/oldreservationslist" class="btn"><i class="fas fa-plus"></i> Thêm bản ghi</a>
+                                <a href="${pageContext.request.contextPath}/staff/listprescription" class="btn"><i class="fas fa-save"></i> Danh sách đơn thuốc</a>
                             </div>
                         </form>
 
@@ -129,14 +129,14 @@
                                             <fmt:formatDate value="${record.reservationDate}" pattern="dd-MM-yyyy" />
                                         </td>
                                         <td class="function-column" style="display: flex; align-items: center;"> <!-- Add the class here -->
-                                            <form action="medicalrecorddetail" method="post" style="display: inline;">
+                                            <form action="${pageContext.request.contextPath}/staff/medicalrecorddetail" method="post" style="display: inline;">
                                                 <input type="hidden" name="recordID" value="${record.recordID}">
                                                 <button class="btn" title="Xem chi tiết" style="margin-right: 1px; padding: 5px 20px; font-size: 14px; display: flex; justify-content: center; align-items: center;">
                                                     <i class="fas fa-eye" style="margin: 0;"></i>
                                                 </button>
                                             </form>
                                             <c:if test="${record.hasPres == false}">
-                                                <form action="saveRecordId" method="post" style="display: inline;">
+                                                <form action="${pageContext.request.contextPath}/staff/saveRecordId" method="post" style="display: inline;">
                                                     <input type="hidden" name="recordID" value="${record.recordID}"> 
                                                     <button class="btn" type="submit" title="Thêm đơn thuốc" style="padding: 5px 20px; font-size: 14px; display: flex; justify-content: center; align-items: center;">
                                                         <i class="fas fa-plus"></i>

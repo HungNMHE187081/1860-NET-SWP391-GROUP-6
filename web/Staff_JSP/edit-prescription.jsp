@@ -139,7 +139,7 @@
                 <div class="error">${error}</div>
             </c:if>
 
-            <form action="updateprescription" method="post">
+            <form action="${pageContext.request.contextPath}/staff/updateprescription" method="post">
                 <input type="hidden" name="id" value="${pres.prescriptionID}" />
                 <input type="hidden" name="childID" value="${record.childID}" />
                 <input type="hidden" name="reservationID" value="${record.reservationID}" />
@@ -188,7 +188,7 @@
 
 
             <center>
-                <a href="listprescription">Trở về danh sách</a>
+                <a href="${pageContext.request.contextPath}/staff/listprescription">Trở về danh sách</a>
             </center>
         </main>
 

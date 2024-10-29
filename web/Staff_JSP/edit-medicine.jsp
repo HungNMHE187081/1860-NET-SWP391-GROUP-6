@@ -158,7 +158,7 @@
                 <button type="submit">Lưu</button><br>
             </form>
                 <center>
-                <a href="medicinelist">Hủy</a>
+                <a href="${pageContext.request.contextPath}/staff/medicinelist">Hủy</a>
                 </center>
         </main>
 

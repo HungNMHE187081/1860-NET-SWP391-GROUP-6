@@ -139,7 +139,7 @@
                 <section class="dashboard">
                     <h2><i class="fas fa-concierge-bell"></i> Thông tin chi tiết</h2>
                     <a href="${pageContext.request.contextPath}/staff/oldreservationslist" class="back-link">Lịch đã khám</a>
-                    <a href="${pageContext.request.contextPath}/medicalrecordlist" class="back-link">Lịch sử khám</a>
+                    <a href="${pageContext.request.contextPath}/staff/medicalrecordlist" class="back-link">Lịch sử khám</a>
                     <c:if test="${reservation.isExam == false}">
                         <a href="${pageContext.request.contextPath}/viewmedicalrecord?reservationID=${reservation.reservationID}" class="back-link">Đã khám</a>
                     </c:if>
@@ -261,10 +261,10 @@
                             </span>
                         </div>
                         <div class="action-buttons">
-                            <a href="updatemedicalrecord?id=${medicalRecord.recordID}" class="btn edit-btn">
+                            <a href="${pageContext.request.contextPath}/staff/updatemedicalrecord?id=${medicalRecord.recordID}" class="btn edit-btn">
                                 <i class="fas fa-edit"></i>
                             </a>
-                            <form action="deletemedicalrecord" method="post" style="display:inline;">
+                            <form action="${pageContext.request.contextPath}/staff/deletemedicalrecord" method="post" style="display:inline;">
                                 <input type="hidden" name="id" value="${medicalRecord.recordID}" />
                                 <button type="submit" class="btn delete-btn" 
                                         onclick="return confirm('Bạn có chắc chắn muốn xóa bản ghi này?');">
@@ -278,13 +278,13 @@
 
                     <div class="pagination">
                         <c:if test="${pageIndex > 1}">
-                            <a href="medicinelist?page=${pageIndex - 1}&search=${param.search}&category=${param.category}&manufacturer=${param.manufacturer}">« Trước</a>
+                            <a href="${pageContext.request.contextPath}/staff/medicinelist?page=${pageIndex - 1}&search=${param.search}&category=${param.category}&manufacturer=${param.manufacturer}">« Trước</a>
                         </c:if>
                         <c:forEach begin="1" end="${totalPages}" var="i">
-                            <a href="medicinelist?page=${i}&search=${param.search}&category=${param.category}&manufacturer=${param.manufacturer}" class="<c:if test='${i == pageIndex}'>active</c:if>">${i}</a>
+                            <a href="${pageContext.request.contextPath}/staff/medicinelist?page=${i}&search=${param.search}&category=${param.category}&manufacturer=${param.manufacturer}" class="<c:if test='${i == pageIndex}'>active</c:if>">${i}</a>
                         </c:forEach>
                         <c:if test="${pageIndex < totalPages}">
-                            <a href="medicinelist?page=${pageIndex + 1}&search=${param.search}&category=${param.category}&manufacturer=${param.manufacturer}">Tiếp theo »</a>
+                            <a href="${pageContext.request.contextPath}/staff/medicinelist?page=${pageIndex + 1}&search=${param.search}&category=${param.category}&manufacturer=${param.manufacturer}">Tiếp theo »</a>
                         </c:if>
                     </div>
 

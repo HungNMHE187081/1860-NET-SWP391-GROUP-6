@@ -39,7 +39,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response)
 
         // Set the list as a request attribute and forward to the JSP
         request.setAttribute("listPre", listPre);
-        request.getRequestDispatcher("prescription-list.jsp").forward(request, response);
+        request.getRequestDispatcher("/Staff_JSP/prescription-list.jsp").forward(request, response);
     } catch (Exception e) {
         e.printStackTrace();
     }

@@ -78,7 +78,7 @@
                     
                     <!-- Filter and Search Form -->
 
-                    <form action="medicinelist" method="get" class="filter-form">
+                    <form action="${pageContext.request.contextPath}/staff/medicinelist" method="get" class="filter-form">
                         <div class="filter-group">
                             <input type="text" name="search" value="${param.search}" placeholder="Tìm theo tên trẻ" />
 
@@ -144,13 +144,13 @@
                     <!-- Pagination -->
                     <div class="pagination">
                         <c:if test="${pageIndex > 1}">
-                            <a href="medicinelist?page=${pageIndex - 1}&search=${param.search}&category=${param.category}&manufacturer=${param.manufacturer}">« Trước</a>
+                            <a href="${pageContext.request.contextPath}/staff/medicinelist?page=${pageIndex - 1}&search=${param.search}&category=${param.category}&manufacturer=${param.manufacturer}">« Trước</a>
                         </c:if>
                         <c:forEach begin="1" end="${totalPages}" var="i">
-                            <a href="medicinelist?page=${i}&search=${param.search}&category=${param.category}&manufacturer=${param.manufacturer}" class="<c:if test='${i == pageIndex}'>active</c:if>">${i}</a>
+                            <a href="${pageContext.request.contextPath}/staff/medicinelist?page=${i}&search=${param.search}&category=${param.category}&manufacturer=${param.manufacturer}" class="<c:if test='${i == pageIndex}'>active</c:if>">${i}</a>
                         </c:forEach>
                         <c:if test="${pageIndex < totalPages}">
-                            <a href="medicinelist?page=${pageIndex + 1}&search=${param.search}&category=${param.category}&manufacturer=${param.manufacturer}">Tiếp theo »</a>
+                            <a href="${pageContext.request.contextPath}/staff/medicinelist?page=${pageIndex + 1}&search=${param.search}&category=${param.category}&manufacturer=${param.manufacturer}">Tiếp theo »</a>
                         </c:if>
                     </div>
                 </section>

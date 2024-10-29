@@ -1,6 +1,6 @@
 <%@ page contentType="text/html" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<link rel="stylesheet" href="css/styles.css"/>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css"/>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -75,7 +75,7 @@
                     <h2><i class="fas fa-prescription-bottle-alt"></i> Danh sách đơn thuốc</h2>
 
                     <!-- Filter and Search Form -->
-                    <form action="listprescription" method="get" class="filter-form">
+                    <form action="${pageContext.request.contextPath}/staff/listprescription" method="get" class="filter-form">
                         <div class="filter-group">
                             <input type="text" name="search" value="${param.search}" 
                                    placeholder="Tìm theo tên trẻ hoặc tên khách hàng" />
@@ -106,7 +106,7 @@
                                         <td><c:out value="${pre.diagnosis}" /></td>
                                         <td><c:out value="${pre.medicineName}" /></td>
                                         <td style="display: flex; align-items: center;">
-                                            <a href="viewprescription?id=${pre.prescriptionID}" class="btn" title="Xem chi tiết" style="margin-right: 5px; padding: 5px 10px; font-size: 14px; display: flex; justify-content: center; align-items: center;">
+                                            <a href="${pageContext.request.contextPath}/staff/viewprescription?id=${pre.prescriptionID}" class="btn" title="Xem chi tiết" style="margin-right: 5px; padding: 5px 10px; font-size: 14px; display: flex; justify-content: center; align-items: center;">
                                                 <i class="fas fa-eye" style="margin: 0;"></i>
                                             </a>
 
