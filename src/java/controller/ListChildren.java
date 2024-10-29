@@ -60,9 +60,17 @@ public class ListChildren extends HttpServlet {
     throws ServletException, IOException {
           HttpSession session = request.getSession();
         Users user = (session != null) ? (Users) session.getAttribute("user") : null;
+        if(user!=null)
+        {
         ChildrenDAO cDAO = new ChildrenDAO();
         List<Children> listChild = cDAO.getChildrenByCustomerID(user.getUserID());
+        request.setAttribute("listChild", listChild);
         request.getRequestDispatcher("/Common_JSP/user-children.jsp").forward(request, response);
+        }
+        else
+        {
+            request.getRequestDispatcher("login").forward(request, response);
+        }
     } 
 
     /** 

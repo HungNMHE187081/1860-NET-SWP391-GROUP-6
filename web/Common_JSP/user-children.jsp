@@ -58,42 +58,39 @@
                         </div>
                     </div>
                 </div>
-                <table class="table table-striped table-hover">
-                    <thead>
-                        <tr>
-                            <th>
-                                <span class="custom-checkbox">
-                                    <input type="checkbox" id="selectAll" />
-                                    <label for="selectAll"></label>
-                                </span>
-                            </th>
-                            <th>Tên trẻ</th>
-                            <th>Tên phụ huynh</th>
-                            <th>Ngày sinh trẻ</th>
-                            <th>Giới tính trẻ</th>
-                            <th>Ảnh đại diện</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <span class="custom-checkbox">
-                                    <input type="checkbox" id="checkbox1" name="options[]" value="1" />
-                                    <label for="checkbox1"></label>
-                                </span>
-                            </td>
-                            <td>Dany Lo</td>
-                            <td>soengsouy@mail.com</td>
-                            <td>89 Chiaroscuro Rd, Portland, Phnom Penh</td>
-                            <td>0966686371</td>
-                            <td>
-                                <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                                <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                            </td>
-                        </tr>
-                        
-                    </tbody>
-                </table>
+              <table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>STT</th>
+            <th>Tên trẻ</th>
+            <th>Tên phụ huynh</th>
+            <th>Ngày sinh trẻ</th>
+            <th>Giới tính trẻ</th>
+            <th>Ảnh đại diện</th>
+        </tr>
+    </thead>
+    <tbody>
+        <c:forEach var="child" items="${listChild}" varStatus="status">
+            <tr>
+                <td>${status.index + 1}</td>
+                <td>${child.firstName} ${child.middleName} ${child.lastName}</td>
+                <td>${sessionScope.user.firstName} ${sessionScope.user.middleName} ${sessionScope.user.lastName}</td>
+                <td>${child.dateOfBirth}</td>
+                <td>${child.gender}</td>
+                <td>
+                    <img src="${child.childImage}" alt="Profile Picture" width="50" height="50" />
+                    <a href="#editEmployeeModal" class="edit" data-toggle="modal">
+                        <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
+                    </a>
+                    <a href="#deleteEmployeeModal" class="delete" data-toggle="modal">
+                        <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
+                    </a>
+                </td>
+            </tr>
+        </c:forEach>
+    </tbody>
+</table>
+
                 
             </div>
         </div>
