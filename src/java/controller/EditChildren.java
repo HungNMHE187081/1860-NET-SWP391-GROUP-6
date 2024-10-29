@@ -52,21 +52,20 @@ public class EditChildren extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+   @Override
+protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-         HttpSession session = request.getSession();
-         try {
-            Integer childID = (Integer) session.getAttribute("childID");
-            ChildrenDAO dao = new ChildrenDAO();
-            Children children = dao.getChildrenByID(childID);
-            request.setAttribute("children", children);
-            request.getRequestDispatcher("/Common_JSP/edit-children-customer.jsp").forward(request, response);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        
-    } 
+       try {
+           int childID = Integer.parseInt(request.getParameter("childID"));
+           ChildrenDAO dao = new ChildrenDAO();
+           Children children = dao.getChildrenByID(childID);
+           request.setAttribute("children", children);
+           request.getRequestDispatcher("/Common_JSP/edit-children-customer.jsp").forward(request, response);
+       } catch (Exception e) {
+           e.printStackTrace();
+       }
+}
+
 
     /** 
      * Handles the HTTP <code>POST</code> method.

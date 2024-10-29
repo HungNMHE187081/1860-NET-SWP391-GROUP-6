@@ -85,14 +85,9 @@
 
                                 </td>
                                 <td>
-                                    <form action="${pageContext.request.contextPath}/customer/savechildid" 
-                                          method="post" style="display: inline;">
-                                        <input type="hidden" name="childID" value="${child.childID}">
-                                        <button class="btn edit" type="submit" 
-                                                title="Sửa thông tin" style="padding: 0; border: none; background: none; cursor: pointer;">
-                                            <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
-                                        </button>
-                                    </form>
+                                    <a href="${pageContext.request.contextPath}/customer/editchildren?childID=${child.childID}" class="edit" data-toggle="modal">
+                                        <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
+                                    </a>
 
                                     <a href="#deleteEmployeeModal" class="delete" data-toggle="modal">
                                         <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>

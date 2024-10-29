@@ -189,7 +189,7 @@
         </header>
 
         <%@ include file="/Common_JSP/dashboardtop.jsp" %>
-        
+
         <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
         <aside class="app-sidebar">
             <!-- Sidebar content remains the same -->
@@ -205,15 +205,15 @@
                                 <div class="alert alert-danger">${error}</div>
                             </c:if>
 
-                            <form action="${pageContext.request.contextPath}/customer/editprofile" method="post" enctype="multipart/form-data">
+                            <form action="${pageContext.request.contextPath}/customer/editchildren" method="post" enctype="multipart/form-data">
                                 <div class="row">
                                     <!-- Profile Image Section -->
                                     <div class="col-md-3">
                                         <div class="profile-image-section">
                                             <div class="profile-image-container">
                                                 <c:choose>
-                                                    <c:when test="${not empty userDetails.profileImage}">
-                                                        <img id="imagePreview" src="${pageContext.request.contextPath}/${userDetails.profileImage}" alt="Profile Image">
+                                                    <c:when test="${not empty children.childImage}">
+                                                        <img id="imagePreview" src="${pageContext.request.contextPath}/${children.childImage}" alt="Profile Image">
                                                     </c:when>
                                                     <c:otherwise>
                                                         <img id="imagePreview" src="${pageContext.request.contextPath}/images/default-avatar.jpg" alt="Default Profile Image">
@@ -235,95 +235,42 @@
                                             <!-- Name Fields -->
                                             <div class="form-group col-md-4">
                                                 <label class="control-label">Họ</label>
-                                                <input class="form-control" type="text" name="firstName" value="${userDetails.firstName}" required>
+                                                <input class="form-control" type="text" name="firstName" value="${children.firstName}" required>
                                             </div>
                                             <div class="form-group col-md-4">
                                                 <label class="control-label">Tên đệm</label>
-                                                <input class="form-control" type="text" name="middleName" value="${userDetails.middleName}">
+                                                <input class="form-control" type="text" name="middleName" value="${children.middleName}">
                                             </div>
                                             <div class="form-group col-md-4">
                                                 <label class="control-label">Tên</label>
-                                                <input class="form-control" type="text" name="lastName" value="${userDetails.lastName}" required>
-                                            </div>
-
-                                            <!-- Contact Information -->
-                                            <div class="form-group col-md-6">
-                                                <label class="control-label">Email</label>
-                                                <input class="form-control" type="email" name="email" value="${userDetails.email}" required>
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label class="control-label">Số điện thoại</label>
-                                                <input class="form-control" type="tel" name="phoneNumber" value="${userDetails.phoneNumber}" required>
+                                                <input class="form-control" type="text" name="lastName" value="${children.lastName}" required>
                                             </div>
 
                                             <!-- Personal Details -->
                                             <div class="form-group col-md-4">
                                                 <label class="control-label">Ngày sinh</label>
-                                                <input class="form-control" type="date" name="dateOfBirth" value="${userDetails.dateOfBirth}" required>
+                                                <input class="form-control" type="date" name="dateOfBirth" value="${children.dateOfBirth}" required>
                                             </div>
                                             <div class="form-group col-md-4">
                                                 <label class="control-label">Giới tính</label>
                                                 <select class="form-control" name="gender" required>
                                                     <option value="">Chọn giới tính</option>
-                                                    <option value="Male" ${userDetails.gender == 'Male' ? 'selected' : ''}>Nam</option>
-                                                    <option value="Female" ${userDetails.gender == 'Female' ? 'selected' : ''}>Nữ</option>
-                                                    <option value="Other" ${userDetails.gender == 'Other' ? 'selected' : ''}>Khác</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group col-md-4">
-                                                <label class="control-label">CCCD/CMND</label>
-                                                <input class="form-control" type="text" name="citizenIdentification" value="${userDetails.citizenIdentification}" required>
-                                            </div>
+                                                    <option value="Male" <c:if test="${children.gender == 'Nam'}">selected</c:if>>Nam</option>
+                                                    <option value="Female" <c:if test="${children.gender == 'Nữ'}">selected</c:if>>Nữ</option>
+                                                    <option value="Other" <c:if test="${children.gender == 'Khác'}">selected</c:if>>Khác</option>
+                                                    </select>
+                                                </div>
 
-                                            <!-- Address Fields -->
-                                            <div class="form-group col-md-4">
-                                                <label class="control-label">Tỉnh/Thành phố</label>
-                                                <select class="form-control" id="provinceID" name="provinceID" onchange="loadDistricts()" required>
-                                                    <option value="">Chọn Tỉnh/Thành phố</option>
-                                                    <c:forEach var="province" items="${provinces}">
-                                                        <option value="${province.provinceID}" 
-                                                                ${userDetails.address.provinces.provinceID == province.provinceID ? 'selected' : ''}>
-                                                            ${province.provinceName}
-                                                        </option>
-                                                    </c:forEach>
-                                                </select>
-                                            </div>
-                                            <div class="form-group col-md-4">
-                                                <label class="control-label">Quận/Huyện</label>
-                                                <select class="form-control" id="districtSelect" name="districtID" onchange="loadWards()" required>
-                                                    <option value="">Chọn Quận/Huyện</option>
-                                                    <c:forEach var="district" items="${districts}">
-                                                        <option value="${district.id}"
-                                                                ${userDetails.address.district.id == district.id ? 'selected' : ''}>
-                                                            ${district.districtName}
-                                                        </option>
-                                                    </c:forEach>
-                                                </select>
-                                            </div>
-                                            <div class="form-group col-md-4">
-                                                <label class="control-label">Phường/Xã</label>
-                                                <select class="form-control" id="wardSelect" name="wardID" required>
-                                                    <option value="">Chọn Phường/Xã</option>
-                                                    <c:forEach var="ward" items="${wards}">
-                                                        <option value="${ward.id}"
-                                                                ${userDetails.address.ward.id == ward.id ? 'selected' : ''}>
-                                                            ${ward.wardName}
-                                                        </option>
-                                                    </c:forEach>
-                                                </select>
-                                            </div>
-                                            <div class="form-group col-md-12">
-                                                <label class="control-label">Địa chỉ cụ thể</label>
-                                                <input class="form-control" type="text" name="streetAddress" 
-                                                       value="${userDetails.address.streetAddress}" required>
-                                            </div>
 
-                                            <!-- Submit Button -->
-                                            <div class="form-group col-md-12">
-                                                <button class="btn btn-primary" type="submit">
-                                                    <i class="fa fa-save"></i> Lưu thay đổi
-                                                </button>
-                                                <a class="btn btn-secondary" href="${pageContext.request.contextPath}/customer/viewprofile">
+
+
+
+                                                <!-- Submit Button -->
+                                                <div class="form-group col-md-12">
+                                                    <button class="btn btn-primary" type="submit">
+                                                        <i class="fa fa-save"></i> Lưu thay đổi
+                                                    </button>
+                                                    <a class="btn btn-secondary" href="${pageContext.request.contextPath}/customer/viewprofile">
                                                     <i class="fa fa-backward"></i> Quay lại
                                                 </a>
                                             </div>
