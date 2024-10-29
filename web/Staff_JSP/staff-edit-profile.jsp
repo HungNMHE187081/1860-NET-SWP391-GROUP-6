@@ -389,7 +389,7 @@
                     reader.onload = function (e) {
                         image.src = e.target.result; // Gán URL ảnh cho thuộc tính src của <img>
                         image.style.display = 'block'; // Hiện ảnh
-                    }
+                    };
 
                     reader.readAsDataURL(file); // Đọc file ảnh
                 } else {
