@@ -397,12 +397,16 @@
         <servlet-class>controller.ListChildren</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>SaveChildID</servlet-name>
+        <servlet-class>controller.SaveChildID</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>EditChildren</servlet-name>
         <servlet-class>controller.EditChildren</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>SaveChildID</servlet-name>
-        <servlet-class>controller.SaveChildID</servlet-class>
+        <servlet-name>AddChildren</servlet-name>
+        <servlet-class>controller.AddChildren</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
@@ -793,11 +797,15 @@
         <url-pattern>/customer/listchildren</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>SaveChildID</servlet-name>
+        <url-pattern>/customer/savechildid</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>EditChildren</servlet-name>
         <url-pattern>/customer/editchildren</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>SaveChildID</servlet-name>
-        <url-pattern>/customer/savechildid</url-pattern>
+        <servlet-name>AddChildren</servlet-name>
+        <url-pattern>/customer/addchild</url-pattern>
     </servlet-mapping>
 </web-app>

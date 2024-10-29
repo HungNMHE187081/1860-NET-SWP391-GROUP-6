@@ -55,7 +55,7 @@
                             <h2>Danh sách <b>trẻ em</b></h2>
                         </div>
                         <div class="col-sm-6">
-                            <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Thêm mới</span></a>
+                            <a href="${pageContext.request.contextPath}/Common_JSP/add-children.jsp" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Thêm mới</span></a>
 
                         </div>
                     </div>
@@ -78,25 +78,24 @@
                                 <td>${status.index + 1}</td>
                                 <td>${child.firstName} ${child.middleName} ${child.lastName}</td>
                                 <td>${sessionScope.user.firstName} ${sessionScope.user.middleName} ${sessionScope.user.lastName}</td>
-                                <td> <fmt:formatDate value="${child.dateOfBirth}" pattern="dd-MM-yyyy" /></td>
+                                <td><fmt:formatDate value="${child.dateOfBirth}" pattern="dd-MM-yyyy" /></td>
                                 <td>${child.gender}</td>
                                 <td>
-                                    <img src="${child.childImage}" alt="Profile Picture" width="50" height="50" />
-
+                                    <!-- Update the image source to point to the uploads directory -->
+                                    <img src="${pageContext.request.contextPath}/uploads/${child.childImage}" alt="Profile Picture" width="50" height="50" />
                                 </td>
                                 <td>
                                     <a href="${pageContext.request.contextPath}/customer/editchildren?childID=${child.childID}" class="edit" data-toggle="modal">
                                         <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
                                     </a>
-
                                     <a href="#deleteEmployeeModal" class="delete" data-toggle="modal">
                                         <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
                                     </a>
                                 </td>
-
                             </tr>
                         </c:forEach>
                     </tbody>
+
                 </table>
 
 

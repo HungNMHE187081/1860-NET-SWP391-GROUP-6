@@ -205,7 +205,7 @@
                                 <div class="alert alert-danger">${error}</div>
                             </c:if>
 
-                            <form action="${pageContext.request.contextPath}/customer/editchildren" method="post" enctype="multipart/form-data">
+                            <form action="${pageContext.request.contextPath}/customer/editchildren?childID=${children.childID}" method="post" enctype="multipart/form-data">
                                 <div class="row">
                                     <!-- Profile Image Section -->
                                     <div class="col-md-3">

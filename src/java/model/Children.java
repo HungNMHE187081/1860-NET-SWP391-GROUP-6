@@ -4,7 +4,7 @@
  */
 package model;
 
-import java.util.Date;
+import java.sql.Date;
 
 /**
  *
@@ -22,7 +22,16 @@ public class Children {
 
     public Children() {
     }
-
+public Children(int customerID, String firstName, String middleName, String lastName, Date dateOfBirth, String gender, String childImage) {
+       
+        this.customerID = customerID;
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.lastName = lastName;
+        this.dateOfBirth = dateOfBirth;
+        this.gender = gender;
+        this.childImage = childImage;
+    }
     public Children(int childID, int customerID, String firstName, String middleName, String lastName, Date dateOfBirth, String gender, String childImage) {
         this.childID = childID;
         this.customerID = customerID;
