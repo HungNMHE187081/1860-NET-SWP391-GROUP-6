@@ -387,6 +387,14 @@
     <servlet>
         <servlet-name>StaffEditProfileServlet</servlet-name>
         <servlet-class>controller.StaffEditProfileServlet</servlet-class>
+        </servlet>
+    <servlet>
+        <servlet-name>HomeFeedbackServlet</servlet-name>
+        <servlet-class>controller.HomeFeedbackServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>HomeViewStaffServlet</servlet-name>
+        <servlet-class>controller.HomeViewStaffServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
@@ -767,5 +775,13 @@
     <servlet-mapping>
         <servlet-name>StaffEditProfileServlet</servlet-name>
         <url-pattern>/staff/editprofile</url-pattern>
+        </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HomeFeedbackServlet</servlet-name>
+        <url-pattern>/customer/feedback</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HomeViewStaffServlet</servlet-name>
+        <url-pattern>/customer/view-staffs</url-pattern>
     </servlet-mapping>
 </web-app>
