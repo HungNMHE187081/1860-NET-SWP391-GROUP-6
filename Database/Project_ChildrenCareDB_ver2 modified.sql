@@ -428,7 +428,7 @@ CREATE INDEX IX_BlogComments_BlogID ON BlogComments(BlogID);
 
 -- Insert default roles
 INSERT INTO Roles (RoleName) VALUES 
-('Administrator'), ('Manager'), ('Doctor'), ('Nurse'), ('Customer'), ('Guest');
+('Administrator'), ('Manager'), ('Staff'), ('Customer'), ('Guest');
 
 -- Insert some sample settings
 INSERT INTO Settings (SettingName, SettingValue, Description) VALUES
@@ -448,10 +448,8 @@ INSERT INTO Specializations (SpecializationName) VALUES (N'Khoa Nhi');
 INSERT INTO Specializations (SpecializationName) VALUES (N'Khoa Mắt');
 INSERT INTO Specializations (SpecializationName) VALUES (N'Khoa Da liễu');
 INSERT INTO Specializations (SpecializationName) VALUES (N'Khoa Tâm lý');
-INSERT INTO Specializations (SpecializationName) VALUES (N'Tiêm chủng');
 INSERT INTO Specializations (SpecializationName) VALUES (N'Khoa Sản');
-INSERT INTO Specializations (SpecializationName) VALUES (N'Tuổi dậy thì');
-INSERT INTO Specializations (SpecializationName) VALUES (N'Răng miệng');
+INSERT INTO Specializations (SpecializationName) VALUES (N'Khoa Răng hàm mặt');
 
 
 -- Thêm dữ liệu vào bảng Degrees
@@ -692,7 +690,7 @@ FROM Users u
 JOIN UserRoles ur ON u.UserID = ur.UserID
 JOIN Roles r ON ur.RoleID = r.RoleID
 LEFT JOIN Staff s ON u.UserID = s.StaffID
-WHERE r.RoleID IN (3, 4); 
+WHERE r.RoleID = 3; 
 
 select * from StaffView
 

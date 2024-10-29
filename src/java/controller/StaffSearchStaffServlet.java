@@ -5,6 +5,7 @@
 package controller;
 
 import dal.DegreeDAO;
+import dal.ManagerUserDAO;
 import dal.SpecializationDAO;
 import dal.StaffDAO;
 import java.io.IOException;
@@ -13,10 +14,12 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.List;
 import model.Degree;
 import model.Specialization;
 import model.Staff;
+import model.Users;
 
 /**
  *
@@ -38,6 +41,7 @@ public class StaffSearchStaffServlet extends HttpServlet {
         List<Staff> staffs;
         List<Degree> degrees = degreeDAO.getAllDegrees();
         List<Specialization> specializations = specializationDAO.getAllSpecializations();
+        
 
         if (keyword != null && !keyword.isEmpty() && specializationID > 0) {
             staffs = staffDAO.searchStaffByKeywordAndSpecialization(keyword, specializationID);
@@ -48,7 +52,14 @@ public class StaffSearchStaffServlet extends HttpServlet {
         } else {
             staffs = staffDAO.getAllStaffs();
         }
+        
+        ManagerUserDAO managerUserDAO = new ManagerUserDAO();
+        List<Users> users = new ArrayList<>();
+        for (Staff staff : staffs) {
 
+            users.add(managerUserDAO.getDetailUserByUserID(staff.getStaffID()));
+        }
+        request.setAttribute("users", users);
         request.setAttribute("staffs", staffs);
         request.setAttribute("degrees", degrees);
         request.setAttribute("specializations", specializations);

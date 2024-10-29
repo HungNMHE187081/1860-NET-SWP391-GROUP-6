@@ -6,6 +6,8 @@
 package controller;
 
 import dal.DegreeDAO;
+import dal.ManagerDAO;
+import dal.ManagerUserDAO;
 import dal.SpecializationDAO;
 import dal.StaffDAO;
 import java.io.IOException;
@@ -14,12 +16,14 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import model.Degree;
 import model.Specialization;
 import model.Staff;
+import model.Users;
 
 /**
  *
@@ -36,6 +40,13 @@ public class StaffStaffsListServlet extends HttpServlet {
         List<Degree> degrees = degreeDAO.getAllDegrees();
         SpecializationDAO specializationDAO = new SpecializationDAO();
         List<Specialization> specializations = specializationDAO.getAllSpecializations();
+        ManagerUserDAO managerUserDAO = new ManagerUserDAO();
+        List<Users> users = new ArrayList<>();
+        for (Staff staff : staffs){
+            
+            users.add(managerUserDAO.getDetailUserByUserID(staff.getStaffID()));
+        }
+        
         
         Collections.sort(staffs, new Comparator<Staff>() {
             @Override
@@ -45,6 +56,7 @@ public class StaffStaffsListServlet extends HttpServlet {
         });
 
         request.setAttribute("staffs", staffs);
+        request.setAttribute("users", users);
         request.setAttribute("degrees", degrees);
         request.setAttribute("specializations", specializations);
         request.getRequestDispatcher("/Staff_JSP/staff-staffs-list.jsp").forward(request, response);

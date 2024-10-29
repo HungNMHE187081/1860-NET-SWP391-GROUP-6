@@ -63,7 +63,7 @@ public class AuthorizationFilter implements Filter {
         } else if (path.startsWith("/manager/")) {
             return roles.contains("Manager");
         } else if (path.startsWith("/staff/")) {
-            return roles.contains("Doctor") || roles.contains("Nurse");
+            return roles.contains("Staff");
         }
         return true; // Allow access to other resources
     }
