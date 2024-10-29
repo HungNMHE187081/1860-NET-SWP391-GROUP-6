@@ -396,6 +396,10 @@
         <servlet-name>ListChildren</servlet-name>
         <servlet-class>controller.ListChildren</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EditChildren</servlet-name>
+        <servlet-class>controller.EditChildren</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -783,5 +787,9 @@
     <servlet-mapping>
         <servlet-name>ListChildren</servlet-name>
         <url-pattern>/customer/listchildren</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditChildren</servlet-name>
+        <url-pattern>/customer/editchildren</url-pattern>
     </servlet-mapping>
 </web-app>
