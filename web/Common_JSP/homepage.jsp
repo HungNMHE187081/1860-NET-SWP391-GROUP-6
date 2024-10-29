@@ -425,6 +425,7 @@
             <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
             <link href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.4.5/swiper-bundle.min.css" rel="stylesheet">
             <!-- Feedback Section -->
+            <!-- Feedback Section -->
             <section class="section bg-light py-5">
                 <div class="container">
                     <div class="section-title text-center mb-4 pb-2">
@@ -434,53 +435,59 @@
                             Khám phá cảm nhận và phản hồi từ khách hàng của chúng tôi về trải nghiệm chăm sóc sức khỏe. Tìm hiểu cách mà các dịch vụ của chúng tôi đã góp phần nâng cao sức khỏe và cải thiện chất lượng cuộc sống của họ.
                         </p>
                     </div>
-                </div>
-            </section>
-            <!-- Feedback Slider -->
-            <div class="swiper feedback-slider">
-                <div class="swiper-wrapper">
-                    <c:forEach var="feedback" items="${feedbackList}">
-                        <div class="swiper-slide">
-                            <div class="card border-0 shadow-sm">
-                                <div class="card-body p-4">
-                                    <div class="d-flex align-items-center mb-3">
-                                        <div class="avatar-circle bg-primary text-white">${feedback.userName.charAt(0)}</div>
-                                        <div class="ms-3">
-                                            <h6 class="mb-0">${feedback.userName}</h6>
-                                            <small class="text-muted">
-                                                <c:forEach var="service" items="${services}">
-                                                    <c:if test="${service.serviceID == feedback.serviceID}">
-                                                        ${service.serviceName}
-                                                    </c:if>
+
+                    <!-- Feedback Slider -->
+                    <div class="swiper feedback-slider">
+                        <div class="swiper-wrapper">
+                            <c:forEach var="feedback" items="${feedbackList}">
+                                <div class="swiper-slide">
+                                    <div class="card border-0 shadow-sm">
+                                        <div class="card-body p-4">
+                                            <div class="d-flex align-items-center mb-3">
+                                                <div class="avatar-circle bg-primary text-white">${feedback.userName.charAt(0)}</div>
+                                                <div class="ms-3">
+                                                    <h6 class="mb-0">${feedback.userName}</h6>
+                                                    <small class="text-muted">
+                                                        <c:forEach var="service" items="${services}">
+                                                            <c:if test="${service.serviceID == feedback.serviceID}">
+                                                                ${service.serviceName}
+                                                            </c:if>
+                                                        </c:forEach>
+                                                    </small>
+                                                </div>
+                                            </div>
+                                            <div class="rating mb-2">
+                                                <c:forEach begin="1" end="5" var="star">
+                                                    <i class="fas fa-star <c:if test="${star <= feedback.rating}">text-warning</c:if><c:if test="${star > feedback.rating}">text-muted</c:if>"></i>
                                                 </c:forEach>
-                                            </small>
+                                                <span class="ms-2 text-muted">${feedback.rating}/5</span>
+                                            </div>
+                                            <div>
+                                                <h6 class="mb-2">Đánh giá trải nghiệm:</h6>
+                                                <p class="text-muted mb-0">${feedback.experienceRating}</p>
+                                            </div>
+                                            <div>
+                                                <label>Phản hồi của khách hàng:</label>
+                                                <span>${feedback.comment}</span>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="rating mb-2">
-                                        <c:forEach begin="1" end="5" var="star">
-                                            <i class="fas fa-star <c:if test="${star <= feedback.rating}">text-warning</c:if><c:if test="${star > feedback.rating}">text-muted</c:if>"></i>
-                                        </c:forEach>
-                                        <span class="ms-2 text-muted">${feedback.rating}/5</span>
-                                    </div>
-                                    <div>
-                                        <h6 class="mb-2">Đánh giá trải nghiệm:</h6>
-                                        <p class="text-muted mb-0">${feedback.experienceRating}</p>
-                                    </div>
-                                    <div>
-                                        <label>Phản hồi của khách hàng:</label>
-                                        <span>${feedback.comment}</span>
-                                    </div>
                                 </div>
-                            </div>
+                            </c:forEach>
                         </div>
-                    </c:forEach>
+                        <div class="swiper-pagination"></div>
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                    </div>
+
+                    <!-- View All Button -->
+                    <div class="text-center mt-4">
+                        <a href="/feedback/all" class="btn btn-primary">
+                            <i class="fas fa-comments me-2"></i>Xem tất cả phản hồi
+                        </a>
+                    </div>
                 </div>
-                <div class="swiper-pagination"></div>
-                <div class="swiper-button-next"></div>
-                <div class="swiper-button-prev"></div>
-            </div>
-
-
+            </section>
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.4.5/swiper-bundle.min.css">
             <style>
                 .avatar-circle {
@@ -756,126 +763,129 @@
                 }
             </script>
 
+            <!-- Staff Section -->
             <section class="section bg-light py-5">
                 <div class="container">
                     <div class="section-title text-center mb-4 pb-2">
-                        <span class="badge badge-pill badge-soft-primary mb-3">Đội Ngũ Nhân Viên</span>
-                        <h4 class="title mb-4">Các Khoa Và Lĩnh Vực Chuyên Môn</h4>
-                        <p class="text-muted mx-auto para-desc mb-0">
-                            Tìm hiểu về các khoa và lĩnh vực mà đội ngũ nhân viên của chúng tôi đang làm việc, từ y tế, công nghệ thông tin, kiểm định chất lượng, đến tài chính và kiến trúc.
+                        <span class="badge badge-pill badge-soft-primary mb-3">
+                            <i class="fas fa-user-md me-1"></i>Đội Ngũ Bác Sĩ
+                        </span>
+                        <h4 class="title mb-4">
+                            Chuyên Gia Sức Khỏe Tận Tâm Cho Trẻ
+                        </h4>
+                        <p class="text-muted mx-auto para-desc mb-0" style="max-width: 600px;">
+                            Đội ngũ bác sĩ của chúng tôi bao gồm những chuyên gia giàu kinh nghiệm và tận tâm trong lĩnh vực nhi khoa, dinh dưỡng, tâm lý trẻ em và nhiều chuyên khoa khác. Mỗi bác sĩ đều mang đến sự quan tâm đặc biệt và chăm sóc toàn diện, giúp các bé phát triển khỏe mạnh và hạnh phúc.
                         </p>
+                    </div>
+
+                    <!-- Staff Slider -->
+                    <div class="staff-slider position-relative mb-4">
+                        <button class="slider-btn prev" onclick="prevSlide()">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <div class="slider-container">
+                            <c:forEach var="staff" items="${staffs}" varStatus="status">
+                                <div class="slide">
+                                    <div class="staff-card shadow-sm rounded overflow-hidden">
+                                        <div class="position-relative">
+                                            <img src="${pageContext.request.contextPath}/${user.profileImage}" 
+                                                 alt="${staff.staffName}" 
+                                                 class="staff-image img-fluid">
+                                            <div class="overlay-hover"></div>
+                                        </div>
+                                        <div class="staff-info p-4 bg-white">
+                                            <h3 class="h5 mb-2">${staff.staffName}</h3>
+                                            <p class="staff-position mb-1 text-primary">
+                                                <i class="fas fa-graduation-cap me-2"></i>
+                                                <c:forEach var="degree" items="${degrees}">
+                                                    <c:if test="${degree.degreeID == staff.degreeID}">
+                                                        ${degree.degreeName}
+                                                    </c:if>
+                                                </c:forEach>
+                                            </p>
+                                            <p class="staff-department mb-0 text-muted">
+                                                <i class="fas fa-stethoscope me-2"></i>
+                                                <c:forEach var="specialization" items="${specializations}">
+                                                    <c:if test="${specialization.specializationID == staff.specializationID}">
+                                                        ${specialization.specializationName}
+                                                    </c:if>
+                                                </c:forEach>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </c:forEach>
+                        </div>
+                        <button class="slider-btn next" onclick="nextSlide()">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+
+                    <!-- View All Staff Button -->
+                    <div class="text-center mt-4">
+                        <a href="/staff/all" class="btn btn-primary">
+                            <i class="fas fa-users me-2"></i>Xem tất cả đội ngũ bác sĩ
+                        </a>
                     </div>
                 </div>
             </section>
 
-            <!-- Add this to your JSP file -->
-            <div class="staff-slider">
-                <button class="slider-btn prev" onclick="prevSlide()">❮</button>
-
-                <div class="slider-container">
-                    <c:forEach var="staff" items="${staffs}" varStatus="status">
-                        <div class="slide">
-                            <div class="staff-card">
-                                <img src="${pageContext.request.contextPath}/${user.profileImage}" 
-                                     alt="${staff.staffName}" 
-                                     class="staff-image">
-                                <div class="staff-info">
-                                    <h3>${staff.staffName}</h3>
-                                    <p class="staff-position">
-                                        <c:forEach var="degree" items="${degrees}">
-                                            <c:if test="${degree.degreeID == staff.degreeID}">
-                                                ${degree.degreeName}
-                                            </c:if>
-                                        </c:forEach>
-                                    </p>
-                                    <p class="staff-department">
-                                        <c:forEach var="specialization" items="${specializations}">
-                                            <c:if test="${specialization.specializationID == staff.specializationID}">
-                                                ${specialization.specializationName}
-                                            </c:if>
-                                        </c:forEach>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </c:forEach>
-                </div>
-
-                <button class="slider-btn next" onclick="nextSlide()">❯</button>
-            </div>
             <style>
-                /* Add this to your CSS file */
-                .staff-slider {
-                    position: relative;
-                    max-width: 1200px;
-                    margin: 0 auto;
-                    padding: 20px;
-                }
-
-                .slider-container {
-                    display: flex;
-                    overflow: hidden;
-                    scroll-behavior: smooth;
-                }
-
-                .slide {
-                    min-width: 300px;
-                    margin: 0 15px;
+                .staff-card {
                     transition: transform 0.3s ease;
                 }
 
-                .staff-card {
-                    background: white;
-                    border-radius: 8px;
-                    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-                    overflow: hidden;
+                .staff-card:hover {
+                    transform: translateY(-5px);
                 }
 
-                .staff-image {
-                    width: 100%;
-                    height: 250px;
-                    object-fit: cover;
+                .overlay-hover {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    background: rgba(0,0,0,0.1);
+                    opacity: 0;
+                    transition: opacity 0.3s ease;
                 }
 
-                .staff-info {
-                    padding: 15px;
-                    text-align: center;
-                }
-
-                .staff-info h3 {
-                    margin: 0;
-                    color: #333;
-                    font-size: 1.2em;
-                }
-
-                .staff-position, .staff-department {
-                    margin: 5px 0;
-                    color: #666;
+                .staff-card:hover .overlay-hover {
+                    opacity: 1;
                 }
 
                 .slider-btn {
                     position: absolute;
                     top: 50%;
                     transform: translateY(-50%);
-                    background: rgba(0,0,0,0.5);
-                    color: white;
+                    background: white;
                     border: none;
-                    padding: 10px 15px;
-                    cursor: pointer;
+                    width: 40px;
+                    height: 40px;
                     border-radius: 50%;
-                    font-size: 18px;
-                }
-
-                .prev {
-                    left: 10px;
-                }
-
-                .next {
-                    right: 10px;
+                    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+                    z-index: 10;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
                 }
 
                 .slider-btn:hover {
-                    background: rgba(0,0,0,0.7);
+                    background: #007bff;
+                    color: white;
+                }
+
+                .slider-btn.prev {
+                    left: -20px;
+                }
+
+                .slider-btn.next {
+                    right: -20px;
+                }
+
+                .staff-image {
+                    width: 100%;
+                    height: 250px;
+                    object-fit: cover;
                 }
             </style>
             <script>
@@ -903,6 +913,113 @@
                 // Optional: Auto slide
                 setInterval(nextSlide, 5000); // Change slide every 5 seconds
             </script>
+            <section class="section bg-light py-5">
+                <div class="container">
+                    <div class="section-title text-center mb-4 pb-2">
+                        <span class="badge badge-pill badge-soft-primary mb-3">
+                            <i class="uil uil-newspaper me-1"></i>Tin Tức & Sự Kiện
+                        </span>
+                        <h4 class="title mb-4">Cập Nhật Mới Nhất Từ Trung Tâm</h4>
+                        <p class="text-muted mx-auto para-desc mb-0" style="max-width: 600px;">
+
+                            Chúng tôi luôn cập nhật những thông tin mới nhất về chăm sóc trẻ em, các sự kiện sắp tới, cùng các hoạt động tại trung tâm. Khám phá những bài viết hữu ích về sức khỏe, dinh dưỡng, và giáo dục, giúp bạn đồng hành cùng con trong hành trình phát triển toàn diện.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <div class="container">
+                    <div class="row">
+                        <c:forEach var="blogList" items="${blogList}" varStatus="loop">
+                            <c:if test="${loop.index < 6}">
+                                <div class="col-lg-4 col-md-6 col-12 mb-4 pb-2">
+                                    <div class="card blog blog-primary border-0 shadow rounded overflow-hidden hover-transform">
+                                        <div class="image-overlay">
+                                            <img src="${pageContext.request.contextPath}/${blogList.thumbnailPath}" class="img-fluid" alt="">
+                                        </div>
+                                        <div class="card-body p-4">
+                                            <ul class="list-unstyled mb-2">
+                                                <li class="list-inline-item text-muted small me-3">
+                                                    <i class="uil uil-calendar-alt text-primary h6 me-1"></i>${blogList.createdDate}
+                                                </li>
+                                                <li class="list-inline-item text-muted small">
+                                                    <i class="uil uil-clock text-primary h6 me-1"></i>5 phút đọc
+                                                </li>
+                                            </ul>
+                                            <a href="blog-detail.html" class="text-dark title h5 d-block mb-0">${blogList.title}</a>
+                                            <div class="post-meta d-flex justify-content-between mt-3">
+                                                <ul class="list-inline mb-0">
+                                                    <li class="list-inline-item me-2 mb-0">
+                                                        <a href="#" class="text-muted like">
+                                                            <i class="uil uil-eye me-1"></i>${blogList.views} lượt xem
+                                                        </a>
+                                                    </li>
+                                                    <li class="list-inline-item">
+                                                        <a href="#" class="text-muted comments">
+                                                            <i class="uil uil-comment me-1"></i>08 bình luận
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                                <a href="${pageContext.request.contextPath}/customer/detailcustomerblog?blogID=${blogList.blogID}" 
+                                                   class="link text-primary">Đọc thêm <i class="uil uil-arrow-right"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </c:if>
+                        </c:forEach>
+                    </div>
+
+                    <!-- Buttons Container -->
+                    <div class="row mt-4">
+                        <div class="col-12 text-center">
+                            <a href="${pageContext.request.contextPath}/customer/viewallblogs" 
+                               class="btn btn-primary me-2">
+                                <i class="uil uil-newspaper me-1"></i>Xem Tất Cả Tin Tức
+                            </a>
+                        </div>
+                    </div>
+            </section>
+
+            <style>
+                .hover-transform {
+                    transition: transform 0.3s ease;
+                }
+
+                .hover-transform:hover {
+                    transform: translateY(-5px);
+                }
+
+                .image-overlay {
+                    position: relative;
+                    overflow: hidden;
+                }
+
+                .image-overlay img {
+                    transition: transform 0.3s ease;
+                }
+
+                .image-overlay:hover img {
+                    transform: scale(1.05);
+                }
+
+                .badge-soft-primary {
+                    background-color: rgba(47, 85, 212, 0.1);
+                    color: #2f55d4;
+                    padding: 8px 16px;
+                    font-size: 14px;
+                }
+
+                .card {
+                    border: none;
+                    transition: all 0.3s ease;
+                }
+
+                .card:hover {
+                    box-shadow: 0 10px 25px rgba(47, 85, 212, 0.1) !important;
+                }
+            </style>
             <!-- Back to top -->
             <a href="#" onclick="topFunction()" id="back-to-top" class="btn btn-icon btn-pills btn-primary back-to-top"><i data-feather="arrow-up" class="icons"></i></a>
             <!-- Back to top -->
@@ -918,5 +1035,8 @@
             <!-- Main Js -->
             <script src="js/app.js"></script>
             <script src="js/recent.js"></script>
+            <!-- Icons -->
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.9.55/css/materialdesignicons.min.css">
+            <%@include file="footer.jsp" %>
         </body>
 </html>

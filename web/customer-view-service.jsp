@@ -9,325 +9,290 @@
         <title>Tiny Tots - Chi tiết dịch vụ</title>
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-        <style>
-            :root {
-                --primary-color: #4a90e2;
-                --secondary-color: #f4f4f4;
-                --text-color: #333;
-                --light-text-color: #666;
-                --card-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-                --transition-speed: 0.3s;
-            }
+       <style>
+    :root {
+        --primary-color: #4a90e2;
+        --secondary-color: #f4f4f4;
+        --text-color: #333;
+        --light-text-color: #666;
+        --card-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        --transition-speed: 0.3s;
+    }
 
-            * {
-                margin: 0;
-                padding: 0;
-                box-sizing: border-box;
-            }
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
 
-            body {
-                font-family: 'Roboto', sans-serif;
-                line-height: 1.6;
-                color: var(--text-color);
-                background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-                min-height: 100vh;
-            }
+    body {
+        font-family: 'Roboto', sans-serif;
+        line-height: 1.6;
+        color: var(--text-color);
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        min-height: 100vh;
+    }
 
-            .container {
-                max-width: 1000px;
-                margin: 2rem auto;
-                padding: 0 1rem;
-                opacity: 0;
-                transform: translateY(20px);
-                animation: fadeInUp 0.6s ease-out forwards;
-            }
+    .container {
+        width: 100%;
+        min-height: 100vh;
+        padding: 0;
+        opacity: 0;
+        animation: fadeIn 0.6s ease-out forwards;
+    }
 
-            @keyframes fadeInUp {
-                from {
-                    opacity: 0;
-                    transform: translateY(20px);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
 
-            .card {
-                background-color: #fff;
-                border-radius: 16px;
-                box-shadow: var(--card-shadow);
-                overflow: hidden;
-                transition: transform var(--transition-speed), box-shadow var(--transition-speed);
-            }
+    .card {
+        background-color: #fff;
+        box-shadow: var(--card-shadow);
+        overflow: hidden;
+        transition: box-shadow var(--transition-speed);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
 
-            .card:hover {
-                transform: translateY(-5px);
-                box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-            }
+    .card:hover {
+        box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+    }
 
-            .card-image {
-                width: 100%;
-                height: 400px;
-                object-fit: cover;
-                transition: transform var(--transition-speed);
-            }
+    .card-image {
+        width: 100%;
+        height: 50vh;
+        object-fit: cover;
+        transition: transform var(--transition-speed);
+    }
 
-            .card:hover .card-image {
-                transform: scale(1.02);
-            }
+    .card:hover .card-image {
+        transform: scale(1.02);
+    }
 
-            .card-content {
-                padding: 2.5rem;
-                position: relative;
-                background: linear-gradient(to bottom, #fff 0%, #f9f9f9 100%);
-            }
+    .card-content {
+        padding: 2.5rem;
+        position: relative;
+        background: linear-gradient(to bottom, #fff 0%, #f9f9f9 100%);
+        flex-grow: 1;
+    }
 
-            .back-link {
-                display: inline-flex;
-                align-items: center;
-                margin-bottom: 1.5rem;
-                color: var(--primary-color);
-                text-decoration: none;
-                font-weight: 500;
-                padding: 0.5rem 1rem;
-                border-radius: 25px;
-                background-color: rgba(74, 144, 226, 0.1);
-                transition: all var(--transition-speed);
-            }
+    .back-link {
+        display: inline-flex;
+        align-items: center;
+        margin-bottom: 1.5rem;
+        color: var(--primary-color);
+        text-decoration: none;
+        font-weight: 500;
+        padding: 0.5rem 1rem;
+        border-radius: 25px;
+        background-color: rgba(74, 144, 226, 0.1);
+        transition: all var(--transition-speed);
+    }
 
-            .back-link:hover {
-                background-color: var(--primary-color);
-                color: white;
-                transform: translateX(-5px);
-            }
+    .back-link:hover {
+        background-color: var(--primary-color);
+        color: white;
+        transform: translateX(-5px);
+    }
 
-            .back-link .icon {
-                margin-right: 0.5rem;
-                transition: transform var(--transition-speed);
-            }
+    .back-link .icon {
+        margin-right: 0.5rem;
+        transition: transform var(--transition-speed);
+    }
 
-            .back-link:hover .icon {
-                transform: translateX(-3px);
-            }
+    .back-link:hover .icon {
+        transform: translateX(-3px);
+    }
 
-            h1 {
-                font-size: 2.5rem;
-                margin-bottom: 1.5rem;
-                color: var(--primary-color);
-                position: relative;
-                padding-bottom: 0.5rem;
-            }
+    h1 {
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+        color: var(--primary-color);
+        position: relative;
+        padding-bottom: 0.5rem;
+    }
 
-            h1::after {
-                content: '';
-                position: absolute;
-                bottom: 0;
-                left: 0;
-                width: 60px;
-                height: 3px;
-                background-color: var(--primary-color);
-                transition: width var(--transition-speed);
-            }
+    h1::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 60px;
+        height: 3px;
+        background-color: var(--primary-color);
+        transition: width var(--transition-speed);
+    }
 
-            h1:hover::after {
-                width: 100px;
-            }
+    h1:hover::after {
+        width: 100px;
+    }
 
-            .service-details {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-                gap: 1.5rem;
-                margin-bottom: 2.5rem;
-            }
+    .service-details {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2.5rem;
+    }
 
-            .detail-item {
-                background-color: #fff;
-                padding: 1.5rem;
-                border-radius: 12px;
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-                transition: all var(--transition-speed);
-                border: 1px solid rgba(0, 0, 0, 0.05);
-            }
+    .detail-item {
+        background-color: #fff;
+        padding: 1.5rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        transition: all var(--transition-speed);
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        position: relative;
+        cursor: pointer;
+    }
 
-            .detail-item:hover {
-                transform: translateY(-3px);
-                box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
-                border-color: var(--primary-color);
-            }
+    .detail-item:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+        border-color: var(--primary-color);
+    }
 
-            .detail-item h2 {
-                font-size: 1.1rem;
-                margin-bottom: 0.75rem;
-                color: var(--light-text-color);
-                display: flex;
-                align-items: center;
-            }
+    .detail-item h2 {
+        font-size: 1.1rem;
+        margin-bottom: 0.75rem;
+        color: var(--light-text-color);
+        display: flex;
+        align-items: center;
+    }
 
-            .detail-item p {
-                font-weight: 500;
-                color: var(--text-color);
-                font-size: 1.1rem;
-            }
+    .detail-item p {
+        font-weight: 500;
+        color: var(--text-color);
+        font-size: 1.1rem;
+    }
 
-            .icon {
-                margin-right: 0.5rem;
-                color: var(--primary-color);
-                transition: transform var(--transition-speed);
-            }
+    .icon {
+        margin-right: 0.5rem;
+        color: var(--primary-color);
+        transition: transform var(--transition-speed);
+    }
 
-            .detail-item:hover .icon {
-                transform: scale(1.2);
-            }
+    .detail-item:hover .icon {
+        transform: scale(1.2);
+    }
 
-            .description {
-                line-height: 1.8;
-                white-space: pre-line;
-                padding: 1.5rem;
-                background-color: rgba(74, 144, 226, 0.05);
-                border-radius: 12px;
-                margin-top: 1rem;
-                border-left: 4px solid var(--primary-color);
-                transition: all var(--transition-speed);
-            }
+    .description {
+        line-height: 1.8;
+        white-space: pre-line;
+        padding: 1.5rem;
+        background-color: rgba(74, 144, 226, 0.05);
+        border-radius: 12px;
+        margin-top: 1rem;
+        border-left: 4px solid var(--primary-color);
+        transition: all var(--transition-speed);
+    }
 
-            .description:hover {
-                background-color: rgba(74, 144, 226, 0.1);
-                transform: translateX(5px);
-            }
+    .description:hover {
+        background-color: rgba(74, 144, 226, 0.1);
+        transform: translateX(5px);
+    }
 
-            @media (max-width: 768px) {
-                .container {
-                    margin: 1rem auto;
-                }
+    @media (max-width: 768px) {
+        .card-image {
+            height: 30vh;
+        }
 
-                .card-image {
-                    height: 250px;
-                }
+        .card-content {
+            padding: 1.5rem;
+        }
 
-                .card-content {
-                    padding: 1.5rem;
-                }
+        h1 {
+            font-size: 2rem;
+        }
 
-                h1 {
-                    font-size: 2rem;
-                }
+        .service-details {
+            gap: 1rem;
+        }
 
-                .service-details {
-                    gap: 1rem;
-                }
+        .detail-item {
+            padding: 1rem;
+        }
+    }
 
-                .detail-item {
-                    padding: 1rem;
-                }
-            }
+    /* Tooltip styles */
+    .detail-item::before {
+        content: attr(data-tooltip);
+        position: absolute;
+        bottom: 100%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-10px);
+        background-color: rgba(0, 0, 0, 0.8);
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        font-size: 0.875rem;
+        white-space: nowrap;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        z-index: 1000;
+        pointer-events: none;
+    }
 
-            /* Loading animation */
-            @keyframes shimmer {
-                0% {
-                    background-position: -1000px 0;
-                }
-                100% {
-                    background-position: 1000px 0;
-                }
-            }
+    .detail-item::after {
+        content: '';
+        position: absolute;
+        bottom: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        border: 8px solid transparent;
+        border-top-color: rgba(0, 0, 0, 0.8);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        pointer-events: none;
+    }
 
-            .loading {
-                background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-                background-size: 1000px 100%;
-                animation: shimmer 2s infinite linear;
-            }
-             .detail-item {
-                background-color: #fff;
-                padding: 1.5rem;
-                border-radius: 12px;
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-                transition: all var(--transition-speed);
-                border: 1px solid rgba(0, 0, 0, 0.05);
-                position: relative;
-                cursor: pointer;
-            }
+    .detail-item:hover::before,
+    .detail-item:hover::after {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(-50%) translateY(0);
+    }
 
-            .detail-item::before {
-                content: attr(data-tooltip);
-                position: absolute;
-                bottom: 100%;
-                left: 50%;
-                transform: translateX(-50%) translateY(-10px);
-                background-color: rgba(0, 0, 0, 0.8);
-                color: white;
-                padding: 0.5rem 1rem;
-                border-radius: 6px;
-                font-size: 0.875rem;
-                white-space: nowrap;
-                opacity: 0;
-                visibility: hidden;
-                transition: all 0.3s ease;
-                z-index: 1000;
-                pointer-events: none;
-            }
+    .detail-item .info-icon {
+        position: absolute;
+        top: 0.5rem;
+        right: 0.5rem;
+        color: var(--primary-color);
+        font-size: 0.8rem;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
 
-            .detail-item::after {
-                content: '';
-                position: absolute;
-                bottom: 100%;
-                left: 50%;
-                transform: translateX(-50%);
-                border: 8px solid transparent;
-                border-top-color: rgba(0, 0, 0, 0.8);
-                opacity: 0;
-                visibility: hidden;
-                transition: all 0.3s ease;
-                pointer-events: none;
-            }
+    .detail-item:hover .info-icon {
+        opacity: 1;
+    }
 
-            .detail-item:hover::before,
-            .detail-item:hover::after {
-                opacity: 1;
-                visibility: visible;
-                transform: translateX(-50%) translateY(0);
-            }
+    .detail-content {
+        position: relative;
+        z-index: 1;
+    }
 
-            .detail-item:hover {
-                transform: translateY(-3px);
-                box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
-                border-color: var(--primary-color);
-                background-color: rgba(74, 144, 226, 0.05);
-            }
+    .expandable-info {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-out;
+        background-color: rgba(74, 144, 226, 0.05);
+        border-radius: 6px;
+        margin-top: 0.5rem;
+    }
 
-            .detail-item .info-icon {
-                position: absolute;
-                top: 0.5rem;
-                right: 0.5rem;
-                color: var(--primary-color);
-                font-size: 0.8rem;
-                opacity: 0;
-                transition: opacity 0.3s ease;
-            }
-
-            .detail-item:hover .info-icon {
-                opacity: 1;
-            }
-
-            .detail-content {
-                position: relative;
-                z-index: 1;
-            }
-
-            .expandable-info {
-                max-height: 0;
-                overflow: hidden;
-                transition: max-height 0.3s ease-out;
-                background-color: rgba(74, 144, 226, 0.05);
-                border-radius: 6px;
-                margin-top: 0.5rem;
-            }
-
-            .detail-item:hover .expandable-info {
-                max-height: 200px;
-                padding: 0.5rem;
-            }
-        </style>
+    .detail-item:hover .expandable-info {
+        max-height: 200px;
+        padding: 0.5rem;
+    }
+</style>
     </head>
     <body>
         <div class="container">

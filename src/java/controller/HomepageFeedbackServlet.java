@@ -1,5 +1,6 @@
 package controller;
 
+import dal.BlogDAO;
 import dal.FeedbackDAO;
 import dal.MedicineDAO;
 import dal.ServiceDAO;
@@ -13,6 +14,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
+import model.Blog;
 import model.Feedback;
 import model.Medicine;
 import model.MedicineCategory;
@@ -44,7 +46,7 @@ public class HomepageFeedbackServlet extends HttpServlet {
         }
     }
 
-    @Override
+@Override
 protected void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
     FeedbackDAO feedbackDAO = new FeedbackDAO();
@@ -75,6 +77,11 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response)
     request.setAttribute("staffs", staffs);
     request.setAttribute("degrees", degrees);
     request.setAttribute("specializations", specializations);
+
+    // Fetch the blog list
+    BlogDAO blogDAO = new BlogDAO();
+    List<Blog> blogList = blogDAO.getAllBlogs();
+    request.setAttribute("blogList", blogList);
 
     request.getRequestDispatcher("/Common_JSP/homepage.jsp").forward(request, response);
 }
