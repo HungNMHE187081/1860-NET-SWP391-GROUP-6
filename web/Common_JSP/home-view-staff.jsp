@@ -78,89 +78,38 @@
             </div>
 
             <!-- Search and Filter Section -->
+            <!-- Search and Filter Section -->
             <div class="search-filter-section mb-4">
-                <div class="row g-3">
-                    <div class="col-md-4">
-                        <div class="search-box">
-                            <i class="fas fa-search search-icon"></i>
-                            <input type="text" id="doctorSearch" class="form-control" placeholder="Tìm kiếm theo tên...">
+                <form action="${pageContext.request.contextPath}/customer/view-staffs" method="get" class="filter-form">
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <div class="search-box">
+                                <i class="fas fa-search search-icon"></i>
+                                <input type="text" id="doctorSearch" name="keyword" class="form-control" placeholder="Tìm kiếm theo tên...">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-select" id="degreeFilter" name="degreeID">
+                                <option value="">Tất cả bằng cấp</option>
+                                <c:forEach var="degree" items="${degrees}">
+                                    <option value="${degree.degreeID}">${degree.degreeName}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-select" id="specializationFilter" name="specializationID">
+                                <option value="">Tất cả chuyên môn</option>
+                                <c:forEach var="specialization" items="${specializations}">
+                                    <option value="${specialization.specializationID}">${specialization.specializationName}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <button type="submit" class="btn btn-primary">Tìm kiếm</button>
                         </div>
                     </div>
-                    <div class="col-md-3">
-                        <select class="form-select" id="degreeFilter">
-                            <option value="">Tất cả bằng cấp</option>
-                            <c:forEach var="degree" items="${degrees}">
-                                <option value="${degree.degreeID}">${degree.degreeName}</option>
-                            </c:forEach>
-                        </select>
-                    </div>
-                    <div class="col-md-3">
-                        <select class="form-select" id="specializationFilter">
-                            <option value="">Tất cả chuyên môn</option>
-                            <c:forEach var="specialization" items="${specializations}">
-                                <option value="${specialization.specializationID}">${specialization.specializationName}</option>
-                            </c:forEach>
-                        </select>
-                    </div>
-                </div>
+                </form>
             </div>
-
-<!-- Thêm phần thống kê ở đây -->
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-3 col-md-6 mt-4">
-                    <div class="counter-box text-center">
-                        <h1 class="mb-0 fw-bold" id="totalStaff">0</h1>
-                        <h5 class="counter-head">Tổng số bác sĩ</h5>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 mt-4">
-                    <div class="counter-box text-center">
-                        <h1 class="mb-0 fw-bold" id="totalSpecializations">0</h1>
-                        <h5 class="counter-head">Chuyên môn</h5>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 mt-4">
-                    <div class="counter-box text-center">
-                        <h1 class="mb-0 fw-bold" id="totalDegrees">0</h1>
-                        <h5 class="counter-head">Bằng cấp</h5>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 mt-4">
-                    <div class="counter-box text-center">
-                        <h1 class="mb-0 fw-bold" id="totalAppointments">0</h1>
-                        <h5 class="counter-head">Lịch hẹn tháng này</h5>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <br>
-        <div class="row mb-4">
-              <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                // Đếm tổng số bác sĩ
-                const totalStaff = document.querySelectorAll('.staff-card').length;
-                document.getElementById('totalStaff').textContent = totalStaff;
-
-                // Đếm số chuyên môn unique
-                const specializations = new Set();
-                document.querySelectorAll('.staff-department').forEach(el => {
-                    specializations.add(el.textContent.trim());
-                });
-                document.getElementById('totalSpecializations').textContent = specializations.size;
-
-                // Đếm số bằng cấp unique
-                const degrees = new Set();
-                document.querySelectorAll('.staff-position').forEach(el => {
-                    degrees.add(el.textContent.trim());
-                });
-                document.getElementById('totalDegrees').textContent = degrees.size;
-
-                // Số lịch hẹn tháng này (giả sử là 15 - bạn có thể thay đổi logic này)
-                document.getElementById('totalAppointments').textContent = '15';
-            });
-        </script>
-
             <!-- Doctors Grid -->
             <div class="doctors-grid">
                 <div class="row g-4">
@@ -354,39 +303,6 @@
                 margin-bottom: 1rem;
             }
         }</style>
-    <script>document.addEventListener('DOMContentLoaded', function () {
-            const searchInput = document.getElementById('doctorSearch');
-            const degreeFilter = document.getElementById('degreeFilter');
-            const specializationFilter = document.getElementById('specializationFilter');
-            const doctorItems = document.querySelectorAll('.doctor-item');
-
-            function filterDoctors() {
-                const searchTerm = searchInput.value.toLowerCase();
-                const selectedDegree = degreeFilter.value;
-                const selectedSpecialization = specializationFilter.value;
-
-                doctorItems.forEach(item => {
-                    const doctorName = item.querySelector('.doctor-name').textContent.toLowerCase();
-                    const doctorDegree = item.querySelector('.doctor-degree').textContent;
-                    const doctorSpecialization = item.querySelector('.doctor-specialization').textContent;
-
-                    const matchesSearch = doctorName.includes(searchTerm);
-                    const matchesDegree = !selectedDegree || doctorDegree.includes(selectedDegree);
-                    const matchesSpecialization = !selectedSpecialization ||
-                            doctorSpecialization.includes(selectedSpecialization);
-
-                    if (matchesSearch && matchesDegree && matchesSpecialization) {
-                        item.style.display = '';
-                    } else {
-                        item.style.display = 'none';
-                    }
-                });
-            }
-
-            searchInput.addEventListener('input', filterDoctors);
-            degreeFilter.addEventListener('change', filterDoctors);
-            specializationFilter.addEventListener('change', filterDoctors);
-        });</script>
         <%@include file="footer.jsp" %>
     <!-- Back to top -->
     <a href="#" onclick="topFunction()" id="back-to-top" class="btn btn-icon btn-pills btn-primary back-to-top"><i data-feather="arrow-up" class="icons"></i></a>

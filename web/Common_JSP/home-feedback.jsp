@@ -323,360 +323,367 @@
         </section><!--end section-->
         <br>
         <main>
-                <div class="container py-5">
-                    <!-- Section Header -->
-                    <div class="row mb-4">
-                        <div class="col-12">
-                            <h2 class="section-title">Phản hồi từ khách hàng</h2>
+            <div class="container py-5">
+                <!-- Section Header -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <h2 class="section-title">Phản hồi từ khách hàng</h2>
+                    </div>
+                </div>
+                <!-- Add before the feedback cards section -->
+                <div class="row mb-4">
+                    <!-- Statistics Summary -->
+                    <div class="col-md-3">
+                        <div class="stats-card text-center">
+                            <h3 class="mb-0" id="totalFeedback">0</h3>
+                            <p class="text-muted mb-0">Tổng phản hồi</p>
                         </div>
                     </div>
-                    <!-- Add before the feedback cards section -->
-                    <div class="row mb-4">
-                        <!-- Statistics Summary -->
-                        <div class="col-md-3">
-                            <div class="stats-card text-center">
-                                <h3 class="mb-0" id="totalFeedback">0</h3>
-                                <p class="text-muted mb-0">Tổng phản hồi</p>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="stats-card text-center">
-                                <h3 class="mb-0" id="avgRating">0.0</h3>
-                                <p class="text-muted mb-0">Đánh giá trung bình</p>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="stats-card text-center">
-                                <h3 class="mb-0" id="pendingFeedback">0</h3>
-                                <p class="text-muted mb-0">Chưa phản hồi</p>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="stats-card text-center">
-                                <h3 class="mb-0" id="responseRate">0%</h3>
-                                <p class="text-muted mb-0">Tỷ lệ phản hồi</p>
-                            </div>
+                    <div class="col-md-3">
+                        <div class="stats-card text-center">
+                            <h3 class="mb-0" id="avgRating">0.0</h3>
+                            <p class="text-muted mb-0">Đánh giá trung bình</p>
                         </div>
                     </div>
-
-                    <section>
-                        <!-- Filters -->
-                        <div class="row feedback-filters">
-                            <div class="col-12 col-md-auto mb-3 mb-md-0">
-                                <select class="form-select">
-                                    <option value="">Tất cả trạng thái</option>
-                                    <option value="pending">Chưa phản hồi</option>
-                                    <option value="responded">Đã phản hồi</option>
-                                </select>
-                            </div>
-                            <div class="col-12 col-md-auto">
-                                <select class="form-select">
-                                    <option value="">Sắp xếp theo</option>
-                                    <option value="newest">Mới nhất</option>
-                                    <option value="oldest">Cũ nhất</option>
-                                    <option value="rating">Đánh giá</option>
-                                </select>
-                            </div>
+                    <div class="col-md-3">
+                        <div class="stats-card text-center">
+                            <h3 class="mb-0" id="pendingFeedback">0</h3>
+                            <p class="text-muted mb-0">Chưa phản hồi</p>
                         </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stats-card text-center">
+                            <h3 class="mb-0" id="responseRate">0%</h3>
+                            <p class="text-muted mb-0">Tỷ lệ phản hồi</p>
+                        </div>
+                    </div>
+                </div>
 
-                        <!-- Feedback Cards -->
-                        <div class="row">
-                            <c:choose>
-                                <c:when test="${not empty feedback}">
-                                    <c:forEach var="feedback" items="${feedback}">
-                                        <div class="col-12 col-md-6 col-lg-4 mb-4">
-                                            <div class="card feedback-card h-100">
-                                                <div class="card-body">
-                                                    <!-- User Info Header -->
-                                                    <div class="d-flex align-items-center mb-3">
-                                                        <div class="flex-grow-1">
-                                                            <h5 class="card-title mb-1">${feedback.userName}</h5>
-                                                        </div>
-                                                        <div class="ms-2">
-                                                            <span class="status-badge ${feedback.status ? 'bg-success' : 'bg-warning'} text-white">
-                                                                ${feedback.status ? 'Đã phản hồi' : 'Chưa phản hồi'}
-                                                            </span>
+                <section>
+                    <!-- Filters -->
+                    <!-- Replace the existing filters section with this form -->
+<form id="filterForm" action="${pageContext.request.contextPath}/customer/feedback" method="GET" class="row feedback-filters mb-4">
+    <div class="col-12 col-md-3 mb-3 mb-md-0">
+        <div class="input-group">
+            <span class="input-group-text bg-light border-0">
+                <i class="fas fa-search"></i>
+            </span>
+            <input type="text" name="searchName" class="form-control border-0 bg-light" 
+                   placeholder="Tìm theo tên..." value="${param.searchName}">
+        </div>
+    </div>
+    <div class="col-12 col-md-2 mb-3 mb-md-0">
+        <select name="searchRating" class="form-select border-0 bg-light">
+            <option value="">Tất cả đánh giá</option>
+            <option value="1" ${param.searchRating == '1' ? 'selected' : ''}>1 sao</option>
+            <option value="2" ${param.searchRating == '2' ? 'selected' : ''}>2 sao</option>
+            <option value="3" ${param.searchRating == '3' ? 'selected' : ''}>3 sao</option>
+            <option value="4" ${param.searchRating == '4' ? 'selected' : ''}>4 sao</option>
+            <option value="5" ${param.searchRating == '5' ? 'selected' : ''}>5 sao</option>
+        </select>
+    </div>
+    <div class="col-12 col-md-2 mb-3 mb-md-0">
+        <button type="submit" class="btn btn-primary w-100">Tìm kiếm</button>
+    </div>
+</form>
+                    <!-- Feedback Cards -->
+                    <div class="row">
+                        <c:choose>
+                            <c:when test="${not empty feedback}">
+                                <c:forEach var="feedback" items="${feedback}">
+                                    <div class="col-12 col-md-6 col-lg-4 mb-4">
+                                        <div class="card feedback-card h-100">
+                                            <div class="card-body">
+                                                <!-- User Info Header -->
+                                                <div class="d-flex align-items-center mb-3">
+                                                    <div class="flex-grow-1">
+                                                        <h5 class="card-title mb-1">${feedback.userName}</h5>
+                                                    </div>
+                                                    <div class="ms-2">
+                                                        <span class="status-badge ${feedback.status ? 'bg-success' : 'bg-warning'} text-white">
+                                                            ${feedback.status ? 'Đã phản hồi' : 'Chưa phản hồi'}
+                                                        </span>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Feedback Content -->
+                                                <div class="feedback-content">
+                                                    <div class="mb-3">
+                                                        <strong>Dịch vụ:</strong> ${serviceName}
+                                                    </div>
+
+                                                    <div class="mb-3">
+                                                        <strong>Đánh giá:</strong><br>
+                                                        <div class="rating-stars">
+                                                            <c:forEach begin="1" end="5" var="star">
+                                                                <i class="fas fa-star ${star <= feedback.rating ? '' : 'text-muted'}"></i>
+                                                            </c:forEach>
                                                         </div>
                                                     </div>
 
-                                                    <!-- Feedback Content -->
-                                                    <div class="feedback-content">
-                                                        <div class="mb-3">
-                                                            <strong>Dịch vụ:</strong> ${serviceName}
-                                                        </div>
-
-                                                        <div class="mb-3">
-                                                            <strong>Đánh giá:</strong><br>
-                                                            <div class="rating-stars">
-                                                                <c:forEach begin="1" end="5" var="star">
-                                                                    <i class="fas fa-star ${star <= feedback.rating ? '' : 'text-muted'}"></i>
-                                                                </c:forEach>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="mb-3">
-                                                            <strong>Trải nghiệm:</strong>
-                                                            <p class="mb-2">${feedback.experienceRating}</p>
-                                                        </div>
-
-                                                        <div class="mb-3">
-                                                            <strong>Phản hồi:</strong>
-                                                            <p class="mb-2">${feedback.comment}</p>
-                                                        </div>
-
-                                                        <div class="mb-3">
-                                                            <strong>Đề xuất:</strong>
-                                                            <p class="mb-2">${feedback.suggestion}</p>
-                                                        </div>
-
-                                                        <c:if test="${not empty feedback.attachmentPath}">
-                                                            <div class="attachment-preview mt-3">
-                                                                <img src="${feedback.attachmentPath}" alt="Attachment" 
-                                                                     class="img-fluid rounded" style="max-height: 150px; width: 100%; object-fit: cover;">
-                                                            </div>
-                                                        </c:if>
+                                                    <div class="mb-3">
+                                                        <strong>Trải nghiệm:</strong>
+                                                        <p class="mb-2">${feedback.experienceRating}</p>
                                                     </div>
+
+                                                    <div class="mb-3">
+                                                        <strong>Phản hồi:</strong>
+                                                        <p class="mb-2">${feedback.comment}</p>
+                                                    </div>
+
+                                                    <div class="mb-3">
+                                                        <strong>Đề xuất:</strong>
+                                                        <p class="mb-2">${feedback.suggestion}</p>
+                                                    </div>
+
+                                                    <c:if test="${not empty feedback.attachmentPath}">
+                                                        <div class="attachment-preview mt-3">
+                                                            <img src="${feedback.attachmentPath}" alt="Attachment" 
+                                                                 class="img-fluid rounded" style="max-height: 150px; width: 100%; object-fit: cover;">
+                                                        </div>
+                                                    </c:if>
                                                 </div>
                                             </div>
                                         </div>
-                                    </c:forEach>
-                                </c:when>
-                                <c:otherwise>
-                                    <div class="col-12">
-                                        <div class="empty-state">
-                                            <i class="fas fa-comment-alt fa-3x mb-3"></i>
-                                            <h4>Chưa có phản hồi nào</h4>
-                                            <p>Hiện tại chưa có phản hồi nào từ khách hàng.</p>
-                                        </div>
                                     </div>
-                                </c:otherwise>
-                            </c:choose>
-                        </div>
-                </div>
-                </section>
-        </main>
+                                </c:forEach>
+                            </c:when>
+                            <c:otherwise>
+                                <div class="col-12">
+                                    <div class="empty-state">
+                                        <i class="fas fa-comment-alt fa-3x mb-3"></i>
+                                        <h4>Chưa có phản hồi nào</h4>
+                                        <p>Hiện tại chưa có phản hồi nào từ khách hàng.</p>
+                                    </div>
+                                </div>
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
+            </div>
+        </section>
+    </main>
 
-        <%@include file="footer.jsp" %>
-        <style>
-            /* ... existing styles ... */
+    <%@include file="footer.jsp" %>
+    <style>
+        /* ... existing styles ... */
 
-            /* Enhanced styles */
-            .dashboard {
-                background-color: #f8f9fa;
-                min-height: 100vh;
-                padding: 2rem 0;
+        /* Enhanced styles */
+        .dashboard {
+            background-color: #f8f9fa;
+            min-height: 100vh;
+            padding: 2rem 0;
+        }
+
+        .feedback-card {
+            transition: all 0.3s ease;
+            border: none;
+            border-radius: 15px;
+            background: linear-gradient(to bottom right, #ffffff, #f8f9fa);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .feedback-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+        }
+
+        .rating-stars {
+            color: #ffc107;
+            font-size: 1.1rem;
+            display: inline-block;
+            transition: all 0.2s ease;
+        }
+
+        .rating-stars:hover {
+            transform: scale(1.1);
+        }
+
+        .status-badge {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .status-badge.bg-success {
+            background-color: #28a745 !important;
+        }
+
+        .status-badge.bg-warning {
+            background-color: #ffc107 !important;
+        }
+
+        .feedback-content {
+            background-color: #fff;
+            padding: 1.5rem;
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feedback-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: #0d6efd;
+            border-radius: 4px;
+        }
+
+        .form-select {
+            border-radius: 10px;
+            padding: 0.75rem;
+            border-color: #dee2e6;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .form-select:hover {
+            border-color: #0d6efd;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .empty-state i {
+            color: #0d6efd;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Animation classes */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
             }
-
-            .feedback-card {
-                transition: all 0.3s ease;
-                border: none;
-                border-radius: 15px;
-                background: linear-gradient(to bottom right, #ffffff, #f8f9fa);
-                box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
+        }
+    </style>
 
-            .feedback-card:hover {
-                transform: translateY(-5px);
-                box-shadow: 0 12px 24px rgba(0,0,0,0.1);
-            }
-
-            .rating-stars {
-                color: #ffc107;
-                font-size: 1.1rem;
-                display: inline-block;
-                transition: all 0.2s ease;
-            }
-
-            .rating-stars:hover {
-                transform: scale(1.1);
-            }
-
-            .status-badge {
-                padding: 0.5rem 1rem;
-                border-radius: 20px;
-                font-weight: 500;
-                transition: all 0.3s ease;
-            }
-
-            .status-badge.bg-success {
-                background-color: #28a745 !important;
-            }
-
-            .status-badge.bg-warning {
-                background-color: #ffc107 !important;
-            }
-
-            .feedback-content {
-                background-color: #fff;
-                padding: 1.5rem;
-                border-radius: 10px;
-                position: relative;
-                overflow: hidden;
-            }
-
-            .feedback-content::before {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 4px;
-                height: 100%;
-                background: #0d6efd;
-                border-radius: 4px;
-            }
-
-            .form-select {
-                border-radius: 10px;
-                padding: 0.75rem;
-                border-color: #dee2e6;
-                cursor: pointer;
-                transition: all 0.3s ease;
-            }
-
-            .form-select:hover {
-                border-color: #0d6efd;
-            }
-
-            .empty-state {
-                text-align: center;
-                padding: 4rem 2rem;
-                background: #fff;
-                border-radius: 15px;
-                box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            }
-
-            .empty-state i {
-                color: #0d6efd;
-                margin-bottom: 1.5rem;
-            }
-
-            /* Animation classes */
-            .fade-in {
-                animation: fadeIn 0.5s ease-in;
-            }
-
-            @keyframes fadeIn {
-                from {
-                    opacity: 0;
-                    transform: translateY(20px);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
-        </style>
-
-        <!-- Add before closing </head> tag -->
-        <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                const dateCells = document.querySelectorAll('td[data-date]');
-                dateCells.forEach(cell => {
-                    const dateStr = cell.getAttribute('data-date');
-                    const date = new Date(dateStr);
-                    const formattedDate = date.toLocaleDateString('vi-VN', {
-                        day: '2-digit',
-                        month: '2-digit',
-                        year: 'numeric'
-                    });
-                    cell.textContent = formattedDate;
+    <!-- Add before closing </head> tag -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const dateCells = document.querySelectorAll('td[data-date]');
+            dateCells.forEach(cell => {
+                const dateStr = cell.getAttribute('data-date');
+                const date = new Date(dateStr);
+                const formattedDate = date.toLocaleDateString('vi-VN', {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric'
                 });
+                cell.textContent = formattedDate;
             });
-        </script>
-        <!-- Add these styles -->
-        <style>
-            /* ... existing styles ... */
+        });
+    </script>
+    <!-- Add these styles -->
+    <style>
+        /* ... existing styles ... */
 
-            /* Search bar styling */
-            .search-container {
-                position: relative;
-                margin-bottom: 1.5rem;
-            }
+        /* Search bar styling */
+        .search-container {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
 
-            .search-input {
-                padding-left: 2.5rem;
-                border-radius: 20px;
-                border: 1px solid #dee2e6;
-                transition: all 0.3s ease;
-            }
+        .search-input {
+            padding-left: 2.5rem;
+            border-radius: 20px;
+            border: 1px solid #dee2e6;
+            transition: all 0.3s ease;
+        }
 
-            .search-icon {
-                position: absolute;
-                left: 1rem;
-                top: 50%;
-                transform: translateY(-50%);
-                color: #6c757d;
-            }
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6c757d;
+        }
 
-            /* Statistics cards */
-            .stats-card {
-                background: white;
-                border-radius: 10px;
-                padding: 1.5rem;
-                margin-bottom: 2rem;
-                box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-                transition: all 0.3s ease;
-            }
+        /* Statistics cards */
+        .stats-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
 
-            .stats-card:hover {
-                transform: translateY(-3px);
-                box-shadow: 0 8px 15px rgba(0,0,0,0.1);
-            }
+        .stats-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+        }
 
-            /* Tag styling */
-            .feedback-tag {
-                display: inline-block;
-                padding: 0.3rem 0.8rem;
-                border-radius: 15px;
-                font-size: 0.8rem;
-                margin: 0.2rem;
-                background: #e9ecef;
-                color: #495057;
-                transition: all 0.2s ease;
-            }
+        /* Tag styling */
+        .feedback-tag {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            margin: 0.2rem;
+            background: #e9ecef;
+            color: #495057;
+            transition: all 0.2s ease;
+        }
 
-            .feedback-tag:hover {
-                background: #0d6efd;
-                color: white;
-                cursor: pointer;
-            }
+        .feedback-tag:hover {
+            background: #0d6efd;
+            color: white;
+            cursor: pointer;
+        }
 
-            /* Export button */
-            .export-btn {
-                border-radius: 20px;
-                padding: 0.5rem 1.2rem;
-                transition: all 0.3s ease;
-            }
+        /* Export button */
+        .export-btn {
+            border-radius: 20px;
+            padding: 0.5rem 1.2rem;
+            transition: all 0.3s ease;
+        }
 
-            /* Pagination styling */
-            .custom-pagination {
-                margin-top: 2rem;
-            }
+        /* Pagination styling */
+        .custom-pagination {
+            margin-top: 2rem;
+        }
 
-            .custom-pagination .page-link {
-                border-radius: 50%;
-                margin: 0 0.3rem;
-                width: 40px;
-                height: 40px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-        </style>
-        <!-- Back to top -->
-        <a href="#" onclick="topFunction()" id="back-to-top" class="btn btn-icon btn-pills btn-primary back-to-top"><i data-feather="arrow-up" class="icons"></i></a>
-        <!-- Back to top -->
-        <!-- javascript -->
-        <script src="js/bootstrap.bundle.min.js"></script>
+        .custom-pagination .page-link {
+            border-radius: 50%;
+            margin: 0 0.3rem;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+    <!-- Back to top -->
+    <a href="#" onclick="topFunction()" id="back-to-top" class="btn btn-icon btn-pills btn-primary back-to-top"><i data-feather="arrow-up" class="icons"></i></a>
+    <!-- Back to top -->
+    <!-- javascript -->
+    <script src="js/bootstrap.bundle.min.js"></script>
 
-        <!-- SLIDER -->
-        <script src="js/tiny-slider.js"></script>
-        <script src="js/tiny-slider-init.js"></script>
-        <!-- Counter -->
-        <script src="js/counter.init.js"></script>
-        <!-- Icons -->
-        <script src="js/feather.min.js"></script>
-        <!-- Main Js -->
-        <script src="js/app.js"></script>
-    </body>
+    <!-- SLIDER -->
+    <script src="js/tiny-slider.js"></script>
+    <script src="js/tiny-slider-init.js"></script>
+    <!-- Counter -->
+    <script src="js/counter.init.js"></script>
+    <!-- Icons -->
+    <script src="js/feather.min.js"></script>
+    <!-- Main Js -->
+    <script src="js/app.js"></script>
+</body>
 </html>
