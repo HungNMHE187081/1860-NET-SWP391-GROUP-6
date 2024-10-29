@@ -1,21 +1,27 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
+ */
 
 package controller;
 
-import dal.ServiceDAO;
+import dal.ChildrenDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
-import model.Service;
+import model.Children;
+import model.Users;
 
 /**
  *
- * @author vuvie
+ * @author User
  */
-public class ListServiceServlet extends HttpServlet {
+public class ListChildren extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -32,10 +38,10 @@ public class ListServiceServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ListServiceServlet</title>");  
+            out.println("<title>Servlet ListChildren</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ListServiceServlet at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet ListChildren at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -49,14 +55,15 @@ public class ListServiceServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-   @Override
-protected void doGet(HttpServletRequest request, HttpServletResponse response)
-throws ServletException, IOException {
-    ServiceDAO serviceDAO = new ServiceDAO();
-    List<Service> services = serviceDAO.getAllServices();
-    request.setAttribute("services", services);
-    request.getRequestDispatcher("/Common_JSP/list-service.jsp").forward(request, response);
-}
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
+          HttpSession session = request.getSession();
+        Users user = (session != null) ? (Users) session.getAttribute("user") : null;
+        ChildrenDAO cDAO = new ChildrenDAO();
+        List<Children> listChild = cDAO.getChildrenByCustomerID(user.getUserID());
+        request.getRequestDispatcher("/Common_JSP/user-children.jsp").forward(request, response);
+    } 
 
     /** 
      * Handles the HTTP <code>POST</code> method.
