@@ -1,3 +1,5 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -13,7 +15,7 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <link rel ="stylesheet" href="../css/list-children.css"/>
         <style type="text/css">
-        
+
         </style>
 
         <script type="text/javascript">
@@ -44,7 +46,7 @@
     </head>
     <%@include file="../Common_JSP/dashboardtop.jsp" %>
     <body>
-        
+
         <div class="container">
             <div class="table-wrapper">
                 <div class="table-title">
@@ -54,46 +56,57 @@
                         </div>
                         <div class="col-sm-6">
                             <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Thêm mới</span></a>
-                           
+
                         </div>
                     </div>
                 </div>
-              <table class="table table-striped table-hover">
-    <thead>
-        <tr>
-            <th>STT</th>
-            <th>Tên trẻ</th>
-            <th>Tên phụ huynh</th>
-            <th>Ngày sinh trẻ</th>
-            <th>Giới tính trẻ</th>
-            <th>Ảnh đại diện</th>
-        </tr>
-    </thead>
-    <tbody>
-        <c:forEach var="child" items="${listChild}" varStatus="status">
-            <tr>
-                <td>${status.index + 1}</td>
-                <td>${child.firstName} ${child.middleName} ${child.lastName}</td>
-                <td>${sessionScope.user.firstName} ${sessionScope.user.middleName} ${sessionScope.user.lastName}</td>
-                <td>${child.dateOfBirth}</td>
-                <td>${child.gender}</td>
-                <td>
-                    <img src="${child.childImage}" alt="Profile Picture" width="50" height="50" />
-                    <a href="${pageContext.request.contextPath}/customer/editchildren" class="edit" data-toggle="modal">
-                        <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
-                    </a>
-                    <a href="#deleteEmployeeModal" class="delete" data-toggle="modal">
-                        <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
-                    </a>
-                </td>
-            </tr>
-        </c:forEach>
-    </tbody>
-</table>
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Tên trẻ</th>
+                            <th>Tên phụ huynh</th>
+                            <th>Ngày sinh trẻ</th>
+                            <th>Giới tính trẻ</th>
+                            <th>Ảnh đại diện</th>
+                            <th>Chức năng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <c:forEach var="child" items="${listChild}" varStatus="status">
+                            <tr>
+                                <td>${status.index + 1}</td>
+                                <td>${child.firstName} ${child.middleName} ${child.lastName}</td>
+                                <td>${sessionScope.user.firstName} ${sessionScope.user.middleName} ${sessionScope.user.lastName}</td>
+                                <td> <fmt:formatDate value="${child.dateOfBirth}" pattern="dd-MM-yyyy" /></td>
+                                <td>${child.gender}</td>
+                                <td>
+                                    <img src="${child.childImage}" alt="Profile Picture" width="50" height="50" />
 
-                
+                                </td>
+                                <td>
+                                    <form action="${pageContext.request.contextPath}/customer/savechildid" 
+                                          method="post" style="display: inline;">
+                                        <input type="hidden" name="childID" value="${child.childID}">
+                                        <button class="btn edit" type="submit" 
+                                                title="Sửa thông tin" style="padding: 0; border: none; background: none; cursor: pointer;">
+                                            <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
+                                        </button>
+                                    </form>
+
+                                    <a href="#deleteEmployeeModal" class="delete" data-toggle="modal">
+                                        <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
+                                    </a>
+                                </td>
+
+                            </tr>
+                        </c:forEach>
+                    </tbody>
+                </table>
+
+
             </div>
         </div>
-      
+
     </body>
 </html>

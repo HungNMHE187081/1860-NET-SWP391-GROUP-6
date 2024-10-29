@@ -5,7 +5,6 @@
 
 package controller;
 
-import dal.ChildrenDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,12 +12,12 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import model.Children;
+
 /**
  *
  * @author User
  */
-public class EditChildren extends HttpServlet {
+public class SaveChildID extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -35,10 +34,10 @@ public class EditChildren extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet EditChildren</title>");  
+            out.println("<title>Servlet SaveChildID</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet EditChildren at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet SaveChildID at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -55,17 +54,7 @@ public class EditChildren extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-         HttpSession session = request.getSession();
-         try {
-            Integer childID = (Integer) session.getAttribute("childID");
-            ChildrenDAO dao = new ChildrenDAO();
-            Children children = dao.getChildrenByID(childID);
-            request.setAttribute("children", children);
-            request.getRequestDispatcher("/Common_JSP/edit-children-customer.jsp").forward(request, response);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        
+        processRequest(request, response);
     } 
 
     /** 
@@ -78,7 +67,11 @@ public class EditChildren extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        int childID = Integer.parseInt(request.getParameter("childID"));
+        HttpSession session = request.getSession();
+        session.setAttribute("childID", childID); // Lưu ID vào session
+        response.sendRedirect(request.getContextPath() + "/customer/editchildren");
+
     }
 
     /** 
