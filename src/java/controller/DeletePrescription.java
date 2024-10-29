@@ -75,7 +75,7 @@ public class DeletePrescription extends HttpServlet {
             response.sendRedirect("listprescription");
         } else {
             request.setAttribute("error", "Failed to delete prescription.");
-            request.getRequestDispatcher("listprescription.jsp").forward(request, response);
+            request.getRequestDispatcher("/Staff_JSP/error.jsp").forward(request, response);
         }
     }
     /** 

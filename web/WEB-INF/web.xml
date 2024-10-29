@@ -396,6 +396,14 @@
         <servlet-name>ListChildren</servlet-name>
         <servlet-class>controller.ListChildren</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EditChildren</servlet-name>
+        <servlet-class>controller.EditChildren</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SaveChildID</servlet-name>
+        <servlet-class>controller.SaveChildID</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -454,23 +462,23 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddMedicineServlet</servlet-name>
-        <url-pattern>/addmedicine</url-pattern>
+        <url-pattern>/staff/addmedicine</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>MedicineListServlet</servlet-name>
-        <url-pattern>/medicinelist</url-pattern>
+        <url-pattern>/staff/medicinelist</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>MedicineDetail</servlet-name>
-        <url-pattern>/medicinedetail</url-pattern>
+        <url-pattern>/staff/medicinedetail</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>EditMedicineServlet</servlet-name>
-        <url-pattern>/medicineupdate</url-pattern>
+        <url-pattern>/staff/medicineupdate</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>DeleteMedicineServlet</servlet-name>
-        <url-pattern>/deletemedicine</url-pattern>
+        <url-pattern>/staff/deletemedicine</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AdminUsersListServlet</servlet-name>
@@ -530,7 +538,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>DeleteMedicalRecord</servlet-name>
-        <url-pattern>/deletemedicalrecord</url-pattern>
+        <url-pattern>/staff/deletemedicalrecord</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ManageWardServlet</servlet-name>
@@ -626,7 +634,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>MedicalRecordList</servlet-name>
-        <url-pattern>/medicalrecordlist</url-pattern>
+        <url-pattern>/staff/medicalrecordlist</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ViewDetailsBlogServlet</servlet-name>
@@ -658,7 +666,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>EditMedicalRecord</servlet-name>
-        <url-pattern>/updatemedicalrecord</url-pattern>
+        <url-pattern>/staff/updatemedicalrecord</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>StaffFeedbackListServlet</servlet-name>
@@ -694,7 +702,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ViewMedicalRecord</servlet-name>
-        <url-pattern>/medicalrecorddetail</url-pattern>
+        <url-pattern>/staff/medicalrecorddetail</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CustomerEditProfileServlet</servlet-name>
@@ -706,19 +714,19 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddPrescriptionServlet</servlet-name>
-        <url-pattern>/addprescription</url-pattern>
+        <url-pattern>/staff/addprescription</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ListPrescription</servlet-name>
-        <url-pattern>/listprescription</url-pattern>
+        <url-pattern>/staff/listprescription</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ViewPrescription</servlet-name>
-        <url-pattern>/viewprescription</url-pattern>
+        <url-pattern>/staff/viewprescription</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>DeletePrescription</servlet-name>
-        <url-pattern>/deleteprescription</url-pattern>
+        <url-pattern>/staff/deleteprescription</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>EditBlogServlet</servlet-name>
@@ -726,11 +734,11 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>EditPrescription</servlet-name>
-        <url-pattern>/updateprescription</url-pattern>
+        <url-pattern>/staff/updateprescription</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SaveRecordId</servlet-name>
-        <url-pattern>/saveRecordId</url-pattern>
+        <url-pattern>/staff/saveRecordId</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CustomerBlogList</servlet-name>
@@ -782,6 +790,14 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ListChildren</servlet-name>
-        <url-pattern>/listchildren</url-pattern>
+        <url-pattern>/customer/listchildren</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditChildren</servlet-name>
+        <url-pattern>/customer/editchildren</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SaveChildID</servlet-name>
+        <url-pattern>/customer/savechildid</url-pattern>
     </servlet-mapping>
 </web-app>

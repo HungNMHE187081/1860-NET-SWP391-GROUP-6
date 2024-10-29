@@ -42,7 +42,7 @@ public class ChildrenDAO extends DBContext{
     }
     
     public Children getChildrenByID(int childID){
-        String sql = "select * from Children where CustomerID = ?";
+        String sql = "select * from Children where ChildID = ?";
         try{
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, childID);
