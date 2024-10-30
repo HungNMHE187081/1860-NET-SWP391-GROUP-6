@@ -248,9 +248,12 @@
                                         <a href="${pageContext.request.contextPath}/customer/viewservice?serviceID=${service.serviceID}" class="btn btn-outline-secondary flex-grow-1 me-2 view-details transition-btn">
                                     <i class="bi bi-eye"></i>
                                 </a>
+                                <form action="${pageContext.request.contextPath}/add-to-cart" method="post"></form>
                                         <button class="btn btn-primary flex-grow-1 book-now transition-btn">
+                                            <input type="hidden" name="serviceID" value="${service.serviceID}" />
                                             <i class="bi bi-cart me-1"></i>
                                         </button>
+                                    </form>
                                     </div>
                                 </div>
                             </div>

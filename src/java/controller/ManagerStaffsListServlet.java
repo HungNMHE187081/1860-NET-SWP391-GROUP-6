@@ -27,13 +27,6 @@ public class ManagerStaffsListServlet extends HttpServlet {
         List<Degree> degrees = degreeDAO.getAllDegrees();
         SpecializationDAO specializationDAO = new SpecializationDAO();
         List<Specialization> specializations = specializationDAO.getAllSpecializations();
-        
-        Collections.sort(staffs, new Comparator<Staff>() {
-            @Override
-            public int compare(Staff s1, Staff s2) {
-                return s1.getStaffName().compareTo(s2.getStaffName());
-            }
-        });
 
         request.setAttribute("staffs", staffs);
         request.setAttribute("degrees", degrees);

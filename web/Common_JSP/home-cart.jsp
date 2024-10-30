@@ -79,8 +79,8 @@
                 <div class="row justify-content-center">
                     <div class="col-12">
                         <div class="section-title text-center mb-4 pb-2">
-                            <h4 class="title mb-4">Danh sách lịch khám sắp tới</h4>
-                            <p class="text-muted mx-auto para-desc mb-0">Dưới đây là danh sách các lịch khám sắp tới của bạn.</p>
+                            <h4 class="title mb-4">Giỏ hàng</h4>
+                            <p class="text-muted mx-auto para-desc mb-0">Dưới đây là danh sách các lịch khám nằm trong giỏ hàng của bạn.</p>
                         </div>
                     </div><!--end col-->
                 </div><!--end row-->
@@ -121,17 +121,17 @@
                                                     <table class="table table-bordered">
                                                         <thead>
                                                             <tr>
-                                                                <th class="text-center">STT</th>
                                                                 <th class="text-center">Tên dịch vụ</th>
                                                                 <th class="text-center">Tên trẻ</th>
                                                                 <th class="text-center">Ngày khám</th>
                                                                 <th class="text-center">Giờ khám</th>
+                                                                <th class="text-center">Giá</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
                                                             <c:forEach var="item" items="${orderItems}" varStatus="status">
+                                                                <c:if test="${order.orderID == item.orderID}">
                                                                 <tr>
-                                                                    <td class="text-center">${status.index + 1}</td>
                                                                     <td class="text-center">
                                                                         <c:forEach var="service" items="${services}">
                                                                             <c:if test="${service.serviceID == item.serviceID}">
@@ -147,14 +147,30 @@
                                                                         </c:forEach>
                                                                     </td>
                                                                     <td class="text-center">
+                                                                        <c:forEach var="reservation" items="${reservations}">
+                                                                        <c:if test="${item.orderItemID == reservation.orderItemID}">
                                                                         <fmt:parseDate value="${reservation.reservationDate}" pattern="yyyy-MM-dd" var="parsedReservationDate" />
                                                                         <fmt:formatDate value="${parsedReservationDate}" pattern="dd-MM-yyyy" />
+                                                                        </c:if>
+                                                                        </c:forEach>
                                                                     </td>
                                                                     <td class="text-center">
+                                                                        <c:forEach var="reservation" items="${reservations}">
+                                                                        <c:if test="${item.orderItemID == reservation.orderItemID}">
                                                                         <fmt:parseDate value="${reservation.startTime}" pattern="HH:mm:ss" var="parsedStartTime" />
                                                                         <fmt:formatDate value="${parsedStartTime}" pattern="hh:mm a" />
+                                                                        </c:if>
+                                                                        </c:forEach>
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        <c:forEach var="service" items="${services}">
+                                                                            <c:if test="${service.serviceID == item.serviceID}">
+                                                                                <fmt:formatNumber value="${service.price}" type="number" groupingUsed="true" />
+                                                                            </c:if>
+                                                                        </c:forEach>
                                                                     </td>
                                                                 </tr>
+                                                                </c:if>
                                                             </c:forEach>
                                                         </tbody>
                                                     </table>

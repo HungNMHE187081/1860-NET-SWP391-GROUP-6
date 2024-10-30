@@ -36,6 +36,27 @@ public class OrderDAO extends DBContext {
         }
         return list;
     }
+    
+    public List<Order> getAllOrderInCarts() {
+        List<Order> list = new ArrayList<>();
+        String sql = "SELECT * FROM Orders where isOrder = 0";
+        try {
+            PreparedStatement pre = connection.prepareStatement(sql);
+            ResultSet rs = pre.executeQuery();
+            while (rs.next()) {
+                int OrderID = rs.getInt("OrderID");
+                int CustomerID = rs.getInt("CustomerID");
+                int Quantity = rs.getInt("Quantity");
+                double TotalPrice = rs.getDouble("TotalPrice");
+                String OrderDate = rs.getString("OrderDate");
+                boolean isOrder = rs.getBoolean("isOrder");
+                boolean isCheckOut = rs.getBoolean("isCheckOut");
+                list.add(new Order(OrderID, CustomerID, Quantity, TotalPrice, OrderDate, isOrder, isCheckOut));
+            }
+        } catch (SQLException e) {
+        }
+        return list;
+    }
 
     public List<Order> getAllCheckOutOrders() {
         List<Order> list = new ArrayList<>();
@@ -157,6 +178,27 @@ public class OrderDAO extends DBContext {
     public List<Order> getOrdersByCustomerID(int CustomerID) {
         List<Order> list = new ArrayList<>();
         String sql = "SELECT * FROM Orders WHERE CustomerID = ? and isOrder = 1";
+        try {
+            PreparedStatement pre = connection.prepareStatement(sql);
+            pre.setInt(1, CustomerID);
+            ResultSet rs = pre.executeQuery();
+            while (rs.next()) {
+                int OrderID = rs.getInt("OrderID");
+                int Quantity = rs.getInt("Quantity");
+                double TotalPrice = rs.getDouble("TotalPrice");
+                String OrderDate = rs.getString("OrderDate");
+                boolean isOrder = rs.getBoolean("isOrder");
+                boolean isCheckOut = rs.getBoolean("isCheckOut");
+                list.add(new Order(OrderID, CustomerID, Quantity, TotalPrice, OrderDate, isOrder, isCheckOut));
+            }
+        } catch (SQLException e) {
+        }
+        return list;
+    }
+    
+    public List<Order> getOrdersInCartByCustomerID(int CustomerID) {
+        List<Order> list = new ArrayList<>();
+        String sql = "SELECT * FROM Orders WHERE CustomerID = ? and isOrder = 0";
         try {
             PreparedStatement pre = connection.prepareStatement(sql);
             pre.setInt(1, CustomerID);

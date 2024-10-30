@@ -122,3 +122,46 @@ BEGIN
     ) > 0; -- Chỉ cập nhật nếu tổng giá lớn hơn 0
 END;
 GO
+
+-- Trigger cập nhật TotalPrice và Quantity sau khi thêm, cập nhật hoặc xóa OrderItem
+CREATE TRIGGER trg_UpdateTotalPriceAndQuantity_AfterInsertOrUpdateOrDelete
+ON OrderItems
+AFTER INSERT, UPDATE, DELETE
+AS
+BEGIN
+    -- Cập nhật TotalPrice và Quantity cho mỗi Order khi có thay đổi trong OrderItems
+    UPDATE Orders
+    SET 
+        TotalPrice = (
+            SELECT COALESCE(SUM(s.Price), 0) -- Đảm bảo TotalPrice là 0 nếu không có OrderItem nào thỏa mãn
+            FROM OrderItems oi
+            JOIN Services s ON oi.ServiceID = s.ServiceID
+            JOIN Reservations r ON oi.OrderItemID = r.OrderItemID
+            WHERE oi.OrderID = Orders.OrderID
+              AND r.isExam = 0
+        ),
+        Quantity = (
+            SELECT COUNT(*)
+            FROM OrderItems oi
+            JOIN Reservations r ON oi.OrderItemID = r.OrderItemID
+            WHERE oi.OrderID = Orders.OrderID
+              AND r.isExam = 0
+        )
+    WHERE Orders.OrderID IN (
+        SELECT DISTINCT OrderID 
+        FROM (
+            SELECT OrderID FROM inserted
+            UNION
+            SELECT OrderID FROM deleted
+        ) AS Changes
+    )
+    AND (
+        SELECT COALESCE(SUM(s.Price), 0)
+        FROM OrderItems oi
+        JOIN Services s ON oi.ServiceID = s.ServiceID
+        JOIN Reservations r ON oi.OrderItemID = r.OrderItemID
+        WHERE oi.OrderID = Orders.OrderID
+          AND r.isExam = 0
+    ) > 0; -- Chỉ cập nhật nếu tổng giá lớn hơn 0
+END;
+GO

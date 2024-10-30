@@ -644,7 +644,7 @@ VALUES
 INSERT INTO Orders (CustomerID, OrderDate, isOrder, isCheckOut)
 VALUES 
 (1, GETDATE(), 0, 0),
-(1, GETDATE(), 0, 1),
+(1, GETDATE(), 0, 0),
 (2, GETDATE(), 0, 0);
 
 

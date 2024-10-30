@@ -6,59 +6,65 @@
 package controller;
 
 import dal.ChildrenDAO;
+import dal.ManagerUserDAO;
 import dal.OrderDAO;
 import dal.ReservationDAO;
-import dal.ServiceDAO;
+import dal.StaffDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import model.Children;
 import model.Order;
 import model.OrderItem;
 import model.Reservation;
-import model.Service;
+import model.Staff;
+import model.Users;
 
 /**
  *
  * @author LENOVO
  */
-public class CustomerViewCartServlet extends HttpServlet {
-
+public class ManagerReservationsListServlet extends HttpServlet {
+   
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        OrderDAO orderDAO = new OrderDAO();
-        List<Order> orders = orderDAO.getOrdersInCartByCustomerID(1);
-        List<OrderItem> orderItems = orderDAO.getAllOrderItems(); 
-
-        ServiceDAO serviceDAO = new ServiceDAO();
-        List<Service> services = serviceDAO.getAllServices();
-        ChildrenDAO childrenDAO = new ChildrenDAO();
-        List<Children> children = childrenDAO.getChildrenByCustomerID(1);
         ReservationDAO reservationDAO = new ReservationDAO();
-        List<Reservation> reservations = reservationDAO.getReservationByCustomerID(1);
+        List<Reservation> reservations = reservationDAO.getReservationByIsExam(false);
+        OrderDAO orderDAO = new OrderDAO();
+        List<OrderItem> orderItems = orderDAO.getAllOrderItems();
+        List<Order> orders = orderDAO.getAllOrders();
+        ChildrenDAO childrenDAO = new ChildrenDAO();
+        List<Children> children = childrenDAO.getAllChildren();
+        ManagerUserDAO managerUserDAO = new ManagerUserDAO();
+        List<Users> users = managerUserDAO.getAllUsers();
+        StaffDAO staffDAO = new StaffDAO();
+        List<Staff> staffs = staffDAO.getAllStaffs();
+ 
+      
+            Collections.sort(reservations, new Comparator<Reservation>() {
+                @Override
+                public int compare(Reservation s1, Reservation s2) {
+                    return s1.getReservationDate().compareTo(s2.getReservationDate());
+                }
+            });
+     
 
-        // Truyền danh sách vào request
+        request.setAttribute("reservations", reservations);
+        request.setAttribute("children", children);
+        request.setAttribute("users", users);
+        request.setAttribute("staffs", staffs);
         request.setAttribute("orders", orders);
         request.setAttribute("orderItems", orderItems);
-        request.setAttribute("services", services);
-        request.setAttribute("children", children);
-        request.setAttribute("reservations", reservations);
-
-        request.getRequestDispatcher("/Common_JSP/home-cart.jsp").forward(request, response);
+        request.getRequestDispatcher("/Manager_JSP/manager-reservations-list.jsp").forward(request, response);
     } 
 
-    /** 
-     * Handles the HTTP <code>POST</code> method.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {

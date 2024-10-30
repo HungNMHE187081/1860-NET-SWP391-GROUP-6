@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
-        <filter>
+    <filter>
         <filter-name>AuthorizationFilter</filter-name>
         <filter-class>filter.AuthorizationFilter</filter-class>
     </filter>
@@ -412,6 +412,18 @@
         <servlet-name>DeleteChildren</servlet-name>
         <servlet-class>controller.DeleteChildren</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ManagerReservationsListServlet</servlet-name>
+        <servlet-class>controller.ManagerReservationsListServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManagerSearchReservationServlet</servlet-name>
+        <servlet-class>controller.ManagerSearchReservationServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CustomerAddReservationServlet</servlet-name>
+        <servlet-class>controller.CustomerAddReservationServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -815,5 +827,17 @@
     <servlet-mapping>
         <servlet-name>DeleteChildren</servlet-name>
         <url-pattern>/customer/deletechild</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManagerReservationsListServlet</servlet-name>
+        <url-pattern>/manager/reservationslist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManagerSearchReservationServlet</servlet-name>
+        <url-pattern>/manager/searchreservation</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CustomerAddReservationServlet</servlet-name>
+        <url-pattern>/customer/addreservation</url-pattern>
     </servlet-mapping>
 </web-app>
