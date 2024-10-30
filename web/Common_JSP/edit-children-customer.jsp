@@ -253,8 +253,8 @@
                                                 <input class="form-control" type="date" name="dateOfBirth" value="${children.dateOfBirth}" required>
                                             </div>
                                             <div class="form-group col-md-4">
-                                                <label for="gender">Gender:</label>
-                                                <select id="gender" name="gender" required>
+                                                <label class="control-label">Giới tính</label>
+                                                <select class="form-control" name="gender" required>
                                                     <option value="Nam" ${children.gender == 'Nam' ? 'selected' : ''}>Nam</option>
                                                     <option value="Nữ" ${children.gender == 'Nữ' ? 'selected' : ''}>Nữ</option>
                                                 </select>

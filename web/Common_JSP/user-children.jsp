@@ -62,16 +62,16 @@
                         </div>
                     </div>
                 </div>
-                <table class="table table-striped table-hover">
+                <table class="table table-bordered">
                     <thead>
                         <tr>
                             <th>STT</th>
-                            <th>Tên trẻ</th>
+                            <th>Họ và Tên</th>
                             <th>Tên phụ huynh</th>
-                            <th>Ngày sinh trẻ</th>
-                            <th>Giới tính trẻ</th>
-                            <th>Ảnh đại diện</th>
-                            <th>Chức năng</th>
+                            <th>Ngày Sinh</th>
+                            <th>Giới Tính</th>
+                            <th>Ảnh</th>
+                            <th>Hành Động</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -79,35 +79,39 @@
                             <tr>
                                 <td>${status.index + 1}</td>
                                 <td>${child.firstName} ${child.middleName} ${child.lastName}</td>
-                                <td>${sessionScope.user.firstName} ${sessionScope.user.middleName} ${sessionScope.user.lastName}</td>
+
+                                <!-- Hiển thị tên người thêm từ session -->
+                                <td>${sessionScope.user.firstName} ${sessionScope.user.middleName} ${sessionScope.user.lastName}</td> <!-- Đảm bảo rằng user được thiết lập đúng -->
+
                                 <td><fmt:formatDate value="${child.dateOfBirth}" pattern="dd-MM-yyyy" /></td>
                                 <td>${child.gender}</td>
                                 <td>
-                                    <img src="${pageContext.request.contextPath}/uploads/${child.childImage}" alt="Profile Picture" width="50" height="50" />
+                                    <img src="${pageContext.request.contextPath}/${child.childImage}" 
+                                         alt="Ảnh Hồ Sơ" width="50" height="50" 
+                                         onerror="this.onerror=null; this.src='${pageContext.request.contextPath}/images/default-avatar.jpg';" />
                                 </td>
-                                <td style="display: flex; align-items: center;"> <!-- Flexbox for alignment -->
+                                <td style="display: flex; align-items: center;">
                                     <form action="${pageContext.request.contextPath}/customer/editchildren" method="get" style="margin-right: 5px;">
                                         <input type="hidden" name="childID" value="${child.childID}" />
-                                        <button type="submit" class="btn edit-btn" title="Edit" style="border: none; background: none; cursor: pointer;">
-                                            <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
+                                        <button type="submit" class="btn edit-btn" title="Sửa" 
+                                                style="border: none; background: none; cursor: pointer;">
+                                            <i class="material-icons" data-toggle="tooltip" title="Sửa">&#xE254;</i>
                                         </button>
                                     </form>
                                     <form action="${pageContext.request.contextPath}/customer/deletechild" method="post" style="display:inline;">
                                         <input type="hidden" name="childID" value="${child.childID}" />
                                         <button type="submit" class="btn delete-btn" 
-                                                onclick="return confirm('Bạn có chắc chắn muốn xóa bản ghi này?');" title="Delete" style="border: none; background: none; padding: 0; cursor: pointer;">
-                                            <i class="fas fa-trash-alt" style="color: red; margin-left: 5px;"></i> <!-- Red Font Awesome trash bin icon -->
+                                                onclick="return confirm('Bạn có chắc chắn muốn xóa bản ghi này?');" 
+                                                title="Xóa" style="border: none; background: none; padding: 0; cursor: pointer;">
+                                            <i class="fas fa-trash-alt" style="color: red; margin-left: 5px;"></i>
                                         </button>
                                     </form>
                                 </td>
                             </tr>
                         </c:forEach>
-
-
-
-
                     </tbody>
                 </table>
+
 
 
 

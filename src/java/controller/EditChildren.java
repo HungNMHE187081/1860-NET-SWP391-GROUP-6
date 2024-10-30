@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 import model.Children;
 import dal.ChildrenDAO;
+import model.Users;
 
 @MultipartConfig(
     fileSizeThreshold = 1024 * 1024, // 1MB
@@ -46,7 +47,10 @@ public class EditChildren extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
         try {
+            Users user = (Users) session.getAttribute("user");
+            int customerID = user.getUserID();
             int childID = Integer.parseInt(request.getParameter("childID"));
             String firstName = request.getParameter("firstName");
             String middleName = request.getParameter("middleName");
@@ -72,7 +76,7 @@ public class EditChildren extends HttpServlet {
             }
 
             // Create Children object
-            Children child = new Children(childID, 0, firstName, middleName, lastName, dateOfBirth, gender, childImage);
+            Children child = new Children(childID, customerID ,firstName, middleName, lastName, dateOfBirth, gender, childImage);
 
             // Update child in database
             boolean isUpdated = childrenDAO.updateChild(child);

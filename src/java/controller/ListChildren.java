@@ -56,22 +56,28 @@ public class ListChildren extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-          HttpSession session = request.getSession();
-        Users user = (session != null) ? (Users) session.getAttribute("user") : null;
-        if(user!=null)
-        {
+protected void doGet(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+    HttpSession session = request.getSession();
+    Users user = (session != null) ? (Users) session.getAttribute("user") : null;
+
+    if (user != null) {
         ChildrenDAO cDAO = new ChildrenDAO();
         List<Children> listChild = cDAO.getChildrenByCustomerID(user.getUserID());
+
+        // Log kiểm tra dữ liệu
+        System.out.println("Number of Children: " + listChild.size());
+        for (Children child : listChild) {
+            System.out.println("Child ID: " + child.getChildID() + ", Image: " + child.getChildImage());
+        }
+        
         request.setAttribute("listChild", listChild);
         request.getRequestDispatcher("/Common_JSP/user-children.jsp").forward(request, response);
-        }
-        else
-        {
-            request.getRequestDispatcher("login").forward(request, response);
-        }
-    } 
+    } else {
+        response.sendRedirect("login");  // Dùng sendRedirect thay vì forward để chuyển hướng rõ ràng
+    }
+}
+ 
 
     /** 
      * Handles the HTTP <code>POST</code> method.

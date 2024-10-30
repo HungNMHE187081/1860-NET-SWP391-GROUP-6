@@ -48,22 +48,22 @@
 
         <style>
             .upload-button {
-    background-color: #4CAF50; /* Green background */
-    color: white; /* White text */
-    border: none; /* No border */
-    padding: 10px 20px; /* Some padding */
-    text-align: center; /* Centered text */
-    text-decoration: none; /* No underline */
-    display: inline-block; /* Inline block element */
-    font-size: 16px; /* Large text */
-    margin: 4px 2px; /* Some margin */
-    cursor: pointer; /* Pointer cursor on hover */
-    border-radius: 5px; /* Rounded corners */
-}
+                background-color: #4CAF50; /* Green background */
+                color: white; /* White text */
+                border: none; /* No border */
+                padding: 10px 20px; /* Some padding */
+                text-align: center; /* Centered text */
+                text-decoration: none; /* No underline */
+                display: inline-block; /* Inline block element */
+                font-size: 16px; /* Large text */
+                margin: 4px 2px; /* Some margin */
+                cursor: pointer; /* Pointer cursor on hover */
+                border-radius: 5px; /* Rounded corners */
+            }
 
-.upload-button:hover {
-    background-color: #45a049; /* Darker green on hover */
-}
+            .upload-button:hover {
+                background-color: #45a049; /* Darker green on hover */
+            }
 
             :root {
                 --primary-color: #4e73df;
@@ -228,14 +228,14 @@
                                     <input type="hidden" name="customerID" value="${sessionScope.user.userID}"/>
 
                                     <!-- Phần Ảnh Đại Diện -->
-                                 <div class="col-md-3">
-    <label for="childImage">Tải ảnh trẻ:</label>
-    <input type="file" name="childImage" id="childImage" accept="image/*" required style="display: none;" />
-    <button type="button" class="upload-button" onclick="document.getElementById('childImage').click();">
-        Chọn ảnh
-    </button><br/><br/>
-    <img id="imagePreview" src="#" alt="Image Preview" style="display: none; margin-top: 10px; max-width: 100%; height: auto;" />
-</div>
+                                    <div class="col-md-3">
+                                        <label for="childImage">Tải ảnh trẻ:</label>
+                                        <input type="file" name="childImage" id="childImage" accept="image/*" required style="display: none;" />
+                                        <button type="button" class="upload-button" onclick="document.getElementById('childImage').click();">
+                                            Chọn ảnh
+                                        </button><br/><br/>
+                                        <img id="imagePreview" src="#" alt="Image Preview" style="display: none; margin-top: 10px; max-width: 100%; height: auto;" />
+                                    </div>
 
 
 
@@ -298,23 +298,23 @@
         </script>
         <script>
             document.getElementById('childImage').addEventListener('change', function (event) {
-    const file = event.target.files[0]; // Get the selected file
-    const preview = document.getElementById('imagePreview'); // Get the image preview element
+                const file = event.target.files[0]; // Get the selected file
+                const preview = document.getElementById('imagePreview'); // Get the image preview element
 
-    if (file) {
-        const reader = new FileReader(); // Create a FileReader object
+                if (file) {
+                    const reader = new FileReader(); // Create a FileReader object
 
-        reader.onload = function (e) {
-            preview.src = e.target.result; // Set the image source to the file content
-            preview.style.display = 'block'; // Show the image
-        };
+                    reader.onload = function (e) {
+                        preview.src = e.target.result; // Set the image source to the file content
+                        preview.style.display = 'block'; // Show the image
+                    };
 
-        reader.readAsDataURL(file); // Read the file as a data URL
-    } else {
-        preview.src = '#'; // Reset the preview if no file is selected
-        preview.style.display = 'none'; // Hide the image preview
-    }
-});
+                    reader.readAsDataURL(file); // Read the file as a data URL
+                } else {
+                    preview.src = '#'; // Reset the preview if no file is selected
+                    preview.style.display = 'none'; // Hide the image preview
+                }
+            });
 
             function loadDistricts() {
                 var provinceID = document.getElementById('provinceID').value;
