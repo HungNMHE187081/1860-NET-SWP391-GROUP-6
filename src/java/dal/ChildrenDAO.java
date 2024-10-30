@@ -25,13 +25,13 @@ public class ChildrenDAO extends DBContext {
             pstmt.executeUpdate();
         }
     }
+
     // Method to retrieve all children from the database
     public List<Children> getAllChildren() {
         List<Children> list = new ArrayList<>();
         String sql = "SELECT * FROM Children";
-        
-        try (PreparedStatement ps = connection.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
+
+        try (PreparedStatement ps = connection.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 int childID = rs.getInt("ChildID");
                 int customerID = rs.getInt("CustomerID");
@@ -52,7 +52,7 @@ public class ChildrenDAO extends DBContext {
     // Method to retrieve a child by their ID
     public Children getChildrenByID(int childID) {
         String sql = "SELECT * FROM Children WHERE ChildID = ?";
-        
+
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setInt(1, childID);
             ResultSet rs = ps.executeQuery();
@@ -78,7 +78,7 @@ public class ChildrenDAO extends DBContext {
     public List<Children> getChildrenByCustomerID(int customerID) {
         List<Children> list = new ArrayList<>();
         String sql = "SELECT * FROM Children WHERE CustomerID = ?";
-        
+
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setInt(1, customerID);
             ResultSet rs = ps.executeQuery();
@@ -97,26 +97,33 @@ public class ChildrenDAO extends DBContext {
         }
         return list;
     }
- public void updateChild(Children child) throws SQLException {
-    String sql = "UPDATE Children SET firstName = ?, middleName = ?, lastName = ?, dateOfBirth = ?, gender = ?, childImage = ? WHERE childID = ?";
-    try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-        stmt.setString(1, child.getFirstName());
-        stmt.setString(2, child.getMiddleName());
-        stmt.setString(3, child.getLastName());
-        stmt.setDate(4, child.getDateOfBirth());
-        stmt.setString(5, child.getGender());
-        stmt.setString(6, child.getChildImage());
-        stmt.setInt(7, child.getChildID());
-        stmt.executeUpdate();
-    } catch (SQLException e) {
-        e.printStackTrace(); // Xử lý ngoại lệ một cách thích hợp
-        throw e; // Ném lại để xử lý trong servlet
-    }
-}
-     public boolean deleteChild(int childID) {
-        String sql = "DELETE FROM Children WHERE ChildID = ?";
+
+     public boolean updateChild(Children child) {
+        String sql = "UPDATE Children SET FirstName = ?, MiddleName = ?, LastName = ?, "
+                   + "DateOfBirth = ?, Gender = ?, ChildImage = ISNULL(?, ChildImage) "
+                   + "WHERE ChildID = ?";
         try (
              PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            stmt.setString(1, child.getFirstName());
+            stmt.setString(2, child.getMiddleName());
+            stmt.setString(3, child.getLastName());
+            stmt.setDate(4, child.getDateOfBirth());
+            stmt.setString(5, child.getGender());
+            stmt.setString(6, child.getChildImage());
+            stmt.setInt(7, child.getChildID());
+
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean deleteChild(int childID) {
+        String sql = "DELETE FROM Children WHERE ChildID = ?";
+        try (
+                PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, childID);
             return stmt.executeUpdate() > 0; // Returns true if a row was deleted
         } catch (SQLException e) {
@@ -124,6 +131,5 @@ public class ChildrenDAO extends DBContext {
             return false; // Return false in case of an error
         }
     }
-
 
 }

@@ -205,18 +205,19 @@
                                 <div class="alert alert-danger">${error}</div>
                             </c:if>
 
-                            <form action="${pageContext.request.contextPath}/customer/editchildren?childID=${children.childID}" method="post" enctype="multipart/form-data">
+                            <form action="${pageContext.request.contextPath}/customer/editchildren" method="post" enctype="multipart/form-data">
+                                <input type="hidden" name="childID" value="${children.childID}" />
                                 <div class="row">
-                                    <!-- Phần Ảnh Đại Diện -->
+                                    <!-- Profile Image Section -->
                                     <div class="col-md-3">
                                         <div class="profile-image-section">
                                             <div class="profile-image-container">
                                                 <c:choose>
                                                     <c:when test="${not empty children.childImage}">
-                                                        <img id="imagePreview" src="${pageContext.request.contextPath}/uploads/${children.childImage}" alt="Ảnh Đại Diện">
+                                                        <img id="imagePreview" src="${pageContext.request.contextPath}/${children.childImage}" alt="Profile Image">
                                                     </c:when>
                                                     <c:otherwise>
-                                                        <img id="imagePreview" src="${pageContext.request.contextPath}/images/default-avatar.jpg" alt="Ảnh Đại Diện Mặc Định">
+                                                        <img id="imagePreview" src="${pageContext.request.contextPath}/images/default-avatar.jpg" alt="Default Profile Image">
                                                     </c:otherwise>
                                                 </c:choose>
                                             </div>
@@ -229,10 +230,10 @@
                                         </div>
                                     </div>
 
-                                    <!-- Phần Thông Tin Cá Nhân -->
+                                    <!-- Personal Information Section -->
                                     <div class="col-md-9">
                                         <div class="row">
-                                            <!-- Các Trường Tên -->
+                                            <!-- Name Fields -->
                                             <div class="form-group col-md-4">
                                                 <label class="control-label">Họ</label>
                                                 <input class="form-control" type="text" name="firstName" value="${children.firstName}" required>
@@ -246,28 +247,25 @@
                                                 <input class="form-control" type="text" name="lastName" value="${children.lastName}" required>
                                             </div>
 
-                                            <!-- Chi Tiết Cá Nhân -->
+                                            <!-- Personal Details -->
                                             <div class="form-group col-md-4">
                                                 <label class="control-label">Ngày sinh</label>
                                                 <input class="form-control" type="date" name="dateOfBirth" value="${children.dateOfBirth}" required>
                                             </div>
-                                            <!-- Chọn Giới Tính -->
                                             <div class="form-group col-md-4">
-                                                <label class="control-label">Giới tính</label>
-                                                <select class="form-control" name="gender" required>
-                                                    <option value="">Chọn giới tính</option>
-                                                    <option value="Nam" <c:if test="${children.gender == 'Nam'}">selected</c:if>>Nam</option>
-                                                    <option value="Nữ" <c:if test="${children.gender == 'Nữ'}">selected</c:if>>Nữ</option>
-                                                    <option value="Khác" <c:if test="${children.gender == 'Khác'}">selected</c:if>>Khác</option>
-                                                    </select>
-                                                </div>
-
-                                                <!-- Nút Gửi -->
-                                                <div class="form-group col-md-12">
-                                                    <button class="btn btn-primary" type="submit">
-                                                        <i class="fa fa-save"></i> Lưu thay đổi
-                                                    </button>
-                                                    <a class="btn btn-secondary" href="${pageContext.request.contextPath}/customer/viewprofile">
+                                                <label for="gender">Gender:</label>
+                                                <select id="gender" name="gender" required>
+                                                    <option value="Nam" ${children.gender == 'Nam' ? 'selected' : ''}>Nam</option>
+                                                    <option value="Nữ" ${children.gender == 'Nữ' ? 'selected' : ''}>Nữ</option>
+                                                </select>
+                                            </div>
+                                         
+                                            <!-- Submit Button -->
+                                            <div class="form-group col-md-12">
+                                                <button class="btn btn-primary" type="submit">
+                                                    <i class="fa fa-save"></i> Lưu thay đổi
+                                                </button>
+                                                <a class="btn btn-secondary" href="${pageContext.request.contextPath}/customer/listchildren">
                                                     <i class="fa fa-backward"></i> Quay lại
                                                 </a>
                                             </div>
@@ -275,7 +273,6 @@
                                     </div>
                                 </div>
                             </form>
-
                         </div>
                     </div>
                 </div>
