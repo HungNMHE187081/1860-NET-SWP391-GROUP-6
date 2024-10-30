@@ -113,5 +113,17 @@ public class ChildrenDAO extends DBContext {
         throw e; // Ném lại để xử lý trong servlet
     }
 }
+     public boolean deleteChild(int childID) {
+        String sql = "DELETE FROM Children WHERE ChildID = ?";
+        try (
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, childID);
+            return stmt.executeUpdate() > 0; // Returns true if a row was deleted
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false; // Return false in case of an error
+        }
+    }
+
 
 }
