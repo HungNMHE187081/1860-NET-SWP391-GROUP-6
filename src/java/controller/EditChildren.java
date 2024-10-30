@@ -55,71 +55,40 @@ public class EditChildren extends HttpServlet {
         }
     }
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) 
-            throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        Users user = (Users) session.getAttribute("user");
-        try {
-            int userID = user.getUserID();
-            int childID = Integer.parseInt(request.getParameter("childID"));
-            String firstName = request.getParameter("firstName");
-            String middleName = request.getParameter("middleName");
-            String lastName = request.getParameter("lastName");
+@Override
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+    try {
+        int childID = Integer.parseInt(request.getParameter("childID"));
+        String firstName = request.getParameter("firstName");
+        String middleName = request.getParameter("middleName");
+        String lastName = request.getParameter("lastName");
+        String dateOfBirth = request.getParameter("dateOfBirth");
+        String gender = request.getParameter("gender");
 
-            // Handle date of birth
-            String dateOfBirthStr = request.getParameter("dateOfBirth");
-            LocalDate dateOfBirth = null;
+        // Lấy dữ liệu cũ của trẻ để giữ lại tên hình ảnh hiện tại
+        Children existingChild = childrenDAO.getChildrenByID(childID);
+        String oldImageName = existingChild.getChildImage();
 
-            if (dateOfBirthStr == null || dateOfBirthStr.trim().isEmpty()) {
-                request.setAttribute("errorMessage", "Date of Birth cannot be empty.");
-                request.getRequestDispatcher("edit-children-customer.jsp").forward(request, response);
-                return;
-            }
+        // Xử lý tải lên tệp
+        Part filePart = request.getPart("profileImage"); // Đảm bảo tên này khớp với tên input của bạn
+        String fileName = filePart.getSubmittedFileName();
 
-            // Parse the date string to LocalDate
-            try {
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                dateOfBirth = LocalDate.parse(dateOfBirthStr, formatter);
-            } catch (DateTimeParseException e) {
-                request.setAttribute("errorMessage", "Invalid date format. Please use yyyy-MM-dd.");
-                request.getRequestDispatcher("edit-children-customer.jsp").forward(request, response);
-                return;
-            }
+        String newImageName = (fileName != null && !fileName.isEmpty()) ? saveFile(filePart) : oldImageName;
 
-            String gender = request.getParameter("gender");
+        // Tạo đối tượng Child và cập nhật nó
+        Children child = new Children(childID, firstName, middleName, lastName, Date.valueOf(dateOfBirth), gender, newImageName);
+        childrenDAO.updateChild(child); // Gọi phương thức cập nhật trong DAO
 
-            // Handle file upload
-            String childImage = null;
-            Part filePart = request.getPart("profileImage");
-            if (filePart != null && filePart.getSize() > 0) {
-                childImage = saveFile(filePart); // Implement this method to save the file and return the image path
-            }
-
-            // Convert LocalDate to java.sql.Date
-            Date sqlDateOfBirth = Date.valueOf(dateOfBirth);
-
-            // Create a Children object (modify your Children constructor if necessary)
-            Children child = new Children(childID, userID, firstName, middleName, lastName, sqlDateOfBirth, gender, childImage);
-
-            // Use the existing ChildrenDAO to update child's information
-            boolean updated = childrenDAO.updateChild(child);
-
-            if (updated) {
-                request.setAttribute("message", "Child information updated successfully.");
-            } else {
-                request.setAttribute("message", "Failed to update child information.");
-            }
-
-            // Forward to the profile view page or wherever you want to redirect after updating
-            request.getRequestDispatcher("listchildren").forward(request, response);
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-            request.setAttribute("errorMessage", "An error occurred while updating child information.");
-            request.getRequestDispatcher("/Staff_JSP/error.jsp").forward(request, response);
-        }
+        response.sendRedirect("listchildren"); // Chuyển hướng đến trang thành công
+    } catch (Exception e) {
+        e.printStackTrace();
+        request.setAttribute("errorMessage", "Cập nhật trẻ không thành công. Vui lòng thử lại.");
+        request.getRequestDispatcher("/Staff_JSP/error.jsp").forward(request, response);
     }
+}
+
+
 
     private String saveFile(Part filePart) {
         // Define the directory where you want to save uploaded files

@@ -97,4 +97,21 @@ public class ChildrenDAO extends DBContext {
         }
         return list;
     }
+ public void updateChild(Children child) throws SQLException {
+    String sql = "UPDATE Children SET firstName = ?, middleName = ?, lastName = ?, dateOfBirth = ?, gender = ?, childImage = ? WHERE childID = ?";
+    try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+        stmt.setString(1, child.getFirstName());
+        stmt.setString(2, child.getMiddleName());
+        stmt.setString(3, child.getLastName());
+        stmt.setDate(4, child.getDateOfBirth());
+        stmt.setString(5, child.getGender());
+        stmt.setString(6, child.getChildImage());
+        stmt.setInt(7, child.getChildID());
+        stmt.executeUpdate();
+    } catch (SQLException e) {
+        e.printStackTrace(); // Xử lý ngoại lệ một cách thích hợp
+        throw e; // Ném lại để xử lý trong servlet
+    }
+}
+
 }

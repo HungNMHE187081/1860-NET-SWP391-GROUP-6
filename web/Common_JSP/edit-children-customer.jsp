@@ -207,16 +207,16 @@
 
                             <form action="${pageContext.request.contextPath}/customer/editchildren?childID=${children.childID}" method="post" enctype="multipart/form-data">
                                 <div class="row">
-                                    <!-- Profile Image Section -->
+                                    <!-- Phần Ảnh Đại Diện -->
                                     <div class="col-md-3">
                                         <div class="profile-image-section">
                                             <div class="profile-image-container">
                                                 <c:choose>
                                                     <c:when test="${not empty children.childImage}">
-                                                        <img id="imagePreview" src="${pageContext.request.contextPath}/${children.childImage}" alt="Profile Image">
+                                                        <img id="imagePreview" src="${pageContext.request.contextPath}/uploads/${children.childImage}" alt="Ảnh Đại Diện">
                                                     </c:when>
                                                     <c:otherwise>
-                                                        <img id="imagePreview" src="${pageContext.request.contextPath}/images/default-avatar.jpg" alt="Default Profile Image">
+                                                        <img id="imagePreview" src="${pageContext.request.contextPath}/images/default-avatar.jpg" alt="Ảnh Đại Diện Mặc Định">
                                                     </c:otherwise>
                                                 </c:choose>
                                             </div>
@@ -229,10 +229,10 @@
                                         </div>
                                     </div>
 
-                                    <!-- Personal Information Section -->
+                                    <!-- Phần Thông Tin Cá Nhân -->
                                     <div class="col-md-9">
                                         <div class="row">
-                                            <!-- Name Fields -->
+                                            <!-- Các Trường Tên -->
                                             <div class="form-group col-md-4">
                                                 <label class="control-label">Họ</label>
                                                 <input class="form-control" type="text" name="firstName" value="${children.firstName}" required>
@@ -246,26 +246,23 @@
                                                 <input class="form-control" type="text" name="lastName" value="${children.lastName}" required>
                                             </div>
 
-                                            <!-- Personal Details -->
+                                            <!-- Chi Tiết Cá Nhân -->
                                             <div class="form-group col-md-4">
                                                 <label class="control-label">Ngày sinh</label>
                                                 <input class="form-control" type="date" name="dateOfBirth" value="${children.dateOfBirth}" required>
                                             </div>
+                                            <!-- Chọn Giới Tính -->
                                             <div class="form-group col-md-4">
                                                 <label class="control-label">Giới tính</label>
                                                 <select class="form-control" name="gender" required>
                                                     <option value="">Chọn giới tính</option>
-                                                    <option value="Male" <c:if test="${children.gender == 'Nam'}">selected</c:if>>Nam</option>
-                                                    <option value="Female" <c:if test="${children.gender == 'Nữ'}">selected</c:if>>Nữ</option>
-                                                    <option value="Other" <c:if test="${children.gender == 'Khác'}">selected</c:if>>Khác</option>
+                                                    <option value="Nam" <c:if test="${children.gender == 'Nam'}">selected</c:if>>Nam</option>
+                                                    <option value="Nữ" <c:if test="${children.gender == 'Nữ'}">selected</c:if>>Nữ</option>
+                                                    <option value="Khác" <c:if test="${children.gender == 'Khác'}">selected</c:if>>Khác</option>
                                                     </select>
                                                 </div>
 
-
-
-
-
-                                                <!-- Submit Button -->
+                                                <!-- Nút Gửi -->
                                                 <div class="form-group col-md-12">
                                                     <button class="btn btn-primary" type="submit">
                                                         <i class="fa fa-save"></i> Lưu thay đổi
@@ -278,6 +275,7 @@
                                     </div>
                                 </div>
                             </form>
+
                         </div>
                     </div>
                 </div>
