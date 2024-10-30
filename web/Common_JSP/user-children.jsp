@@ -7,6 +7,8 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>Danh sách trẻ em</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
@@ -81,22 +83,32 @@
                                 <td><fmt:formatDate value="${child.dateOfBirth}" pattern="dd-MM-yyyy" /></td>
                                 <td>${child.gender}</td>
                                 <td>
-                                    <!-- Update the image source to point to the uploads directory -->
                                     <img src="${pageContext.request.contextPath}/uploads/${child.childImage}" alt="Profile Picture" width="50" height="50" />
                                 </td>
-                                <td>
-                                    <a href="${pageContext.request.contextPath}/customer/editchildren?childID=${child.childID}" class="edit" data-toggle="modal">
-                                        <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
-                                    </a>
-                                    <a href="#deleteEmployeeModal" class="delete" data-toggle="modal">
-                                        <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
-                                    </a>
+                                <td style="display: flex; align-items: center;"> <!-- Flexbox for alignment -->
+                                    <form action="${pageContext.request.contextPath}/customer/editchildren" method="get" style="margin-right: 5px;">
+                                        <input type="hidden" name="childID" value="${child.childID}" />
+                                        <button type="submit" class="btn edit-btn" title="Edit" style="border: none; background: none; cursor: pointer;">
+                                            <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
+                                        </button>
+                                    </form>
+                                    <form action="${pageContext.request.contextPath}/customer/deletechild" method="post" style="display:inline;">
+                                        <input type="hidden" name="childID" value="${child.childID}" />
+                                        <button type="submit" class="btn delete-btn" 
+                                                onclick="return confirm('Bạn có chắc chắn muốn xóa bản ghi này?');" title="Delete" style="border: none; background: none; padding: 0; cursor: pointer;">
+                                            <i class="fas fa-trash-alt" style="color: red; margin-left: 5px;"></i> <!-- Red Font Awesome trash bin icon -->
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                         </c:forEach>
-                    </tbody>
 
+
+
+
+                    </tbody>
                 </table>
+
 
 
             </div>

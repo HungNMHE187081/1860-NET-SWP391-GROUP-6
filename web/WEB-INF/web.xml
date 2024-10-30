@@ -408,6 +408,10 @@
         <servlet-name>AddChildren</servlet-name>
         <servlet-class>controller.AddChildren</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DeleteChildren</servlet-name>
+        <servlet-class>controller.DeleteChildren</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -807,5 +811,9 @@
     <servlet-mapping>
         <servlet-name>AddChildren</servlet-name>
         <url-pattern>/customer/addchild</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteChildren</servlet-name>
+        <url-pattern>/customer/deletechild</url-pattern>
     </servlet-mapping>
 </web-app>
