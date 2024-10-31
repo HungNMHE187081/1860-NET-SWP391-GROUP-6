@@ -17,6 +17,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -39,33 +40,30 @@ public class CustomerListOrdersServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ReservationDAO reservationDAO = new ReservationDAO();
-        List<Reservation> reservations = reservationDAO.getReservationByIsExam(false);
+        HttpSession session = request.getSession();
+        Users user = (Users) session.getAttribute("user");
+        if (user != null) {
         OrderDAO orderDAO = new OrderDAO();
-        List<OrderItem> orderItems = orderDAO.getAllOrderItems();
-        List<Order> orders = orderDAO.getAllOrders();
-        ChildrenDAO childrenDAO = new ChildrenDAO();
-        List<Children> children = childrenDAO.getAllChildren();
-        ManagerUserDAO managerUserDAO = new ManagerUserDAO();
-        List<Users> users = managerUserDAO.getAllUsers();
-        StaffDAO staffDAO = new StaffDAO();
-        List<Staff> staffs = staffDAO.getAllStaffs();
-      
-            Collections.sort(reservations, new Comparator<Reservation>() {
-                @Override
-                public int compare(Reservation s1, Reservation s2) {
-                    return s1.getReservationDate().compareTo(s2.getReservationDate());
-                }
-            });
-     
+        List<Order> orders = orderDAO.getOrdersInCartByCustomerID(user.getUserID());
+        List<OrderItem> orderItems = orderDAO.getAllOrderItems(); 
 
-        request.setAttribute("reservations", reservations);
-        request.setAttribute("children", children);
-        request.setAttribute("users", users);
+        ServiceDAO serviceDAO = new ServiceDAO();
+        List<Service> services = serviceDAO.getAllServices();
+        ChildrenDAO childrenDAO = new ChildrenDAO();
+        List<Children> children = childrenDAO.getChildrenByCustomerID(user.getUserID());
+        ReservationDAO reservationDAO = new ReservationDAO();
+        List<Reservation> reservations = reservationDAO.getReservationByCustomerID(user.getUserID());
+
         request.setAttribute("orders", orders);
         request.setAttribute("orderItems", orderItems);
-        request.setAttribute("staffs", staffs);
-        request.getRequestDispatcher("/Manager_JSP/manager-reservations-list.jsp").forward(request, response);
+        request.setAttribute("services", services);
+        request.setAttribute("children", children);
+        request.setAttribute("reservations", reservations);
+        request.getRequestDispatcher("/Common_JSP/home-orders-list.jsp").forward(request, response);
+        }
+        else {
+            response.sendRedirect(request.getContextPath() + "/login");
+        }
     }
 
     @Override

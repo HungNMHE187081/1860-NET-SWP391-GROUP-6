@@ -38,14 +38,6 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=ecg_heart" />
     </head>
     <body>
-        <!-- Loader -->
-        <div id="preloader">
-            <div id="status">
-                <div class="spinner"></div>
-            </div>
-        </div>
-        <!-- Loader -->
-
         <!-- Navbar STart -->
         <header id="topnav" class="navigation sticky">
             <div class="container">

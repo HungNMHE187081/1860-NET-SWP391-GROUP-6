@@ -275,6 +275,28 @@ public class ReservationDAO extends DBContext {
         return list;
     }
 
+    public void addReservation(Reservation reservation) {
+        String sql = "INSERT INTO [dbo].[Reservations] "
+                + "([OrderItemID], [ReservationDate], [StartTime], [StaffID], [isExam], [hasRecord]) "
+                + "VALUES (?, ?, ?, ?, 0, 0)";
+        try {
+            PreparedStatement pre = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            pre.setInt(1, reservation.getOrderItemID());
+            pre.setString(2, reservation.getReservationDate());
+            pre.setString(3, reservation.getStartTime());
+            pre.setInt(4, reservation.getStaffID());
+            pre.executeUpdate();
+
+            ResultSet rs = pre.getGeneratedKeys();
+            if (rs.next()) {
+                reservation.setReservationID(rs.getInt(1));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Error inserting reservation: " + e.getMessage());
+        }
+    }
+
     public void updateHasRecord(int ReservationID) {
         String sql = "UPDATE [dbo].[Reservations]\n"
                 + "   SET [hasRecord] = 1\n"

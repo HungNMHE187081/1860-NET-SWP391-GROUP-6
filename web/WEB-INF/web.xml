@@ -424,6 +424,10 @@
         <servlet-name>CustomerAddReservationServlet</servlet-name>
         <servlet-class>controller.CustomerAddReservationServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CustomerListServicesServlet</servlet-name>
+        <servlet-class>controller.CustomerListServicesServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -839,5 +843,9 @@
     <servlet-mapping>
         <servlet-name>CustomerAddReservationServlet</servlet-name>
         <url-pattern>/customer/addreservation</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CustomerListServicesServlet</servlet-name>
+        <url-pattern>/customer/listservices</url-pattern>
     </servlet-mapping>
 </web-app>

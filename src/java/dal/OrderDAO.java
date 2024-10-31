@@ -216,6 +216,35 @@ public class OrderDAO extends DBContext {
         }
         return list;
     }
+    
+    public void addOrder(Order order) {
+        String sql = "INSERT INTO Orders (CustomerID, Quantity, TotalPrice, OrderDate, isOrder, isCheckOut) VALUES (?, ?, ?, ?, ?, ?)";
+        try {
+            PreparedStatement pre = connection.prepareStatement(sql);
+            pre.setInt(1, order.getCustomerID());
+            pre.setInt(2, order.getQuantity());
+            pre.setDouble(3, order.getTotalPrice());
+            pre.setString(4, order.getOrderDate());
+            pre.setBoolean(5, order.isIsOrder());
+            pre.setBoolean(6, order.isIsCheckOut());
+            pre.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void addOrderItem(OrderItem orderItem) {
+        String sql = "INSERT INTO OrderItems (OrderID, ServiceID, ChildID) VALUES (?, ?, ?)";
+        try {
+            PreparedStatement pre = connection.prepareStatement(sql);
+            pre.setInt(1, orderItem.getOrderID());
+            pre.setInt(2, orderItem.getServiceID());
+            pre.setInt(3, orderItem.getChildID());
+            pre.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     public static void main(String[] args) {
         OrderDAO dao = new OrderDAO();

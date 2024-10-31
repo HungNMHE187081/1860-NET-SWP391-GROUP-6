@@ -70,12 +70,12 @@
                 </li>
 
                 <li class="has-submenu parent-parent-menu-item">
-                    <a href="${pageContext.request.contextPath}/listservice">Dịch vụ</a><span class="menu-arrow"></span>
+                    <a href="${pageContext.request.contextPath}/customer/listservices">Dịch vụ</a><span class="menu-arrow"></span>
                     <ul class="submenu">
-                        <li><a href="${pageContext.request.contextPath}/listservice" class="sub-menu-item">Trẻ sơ sinh</a></li>
-                        <li><a href="${pageContext.request.contextPath}/listservice" class="sub-menu-item">Trẻ từ 1 đến 5 tuổi</a></li>
-                        <li><a href="${pageContext.request.contextPath}/listservice" class="sub-menu-item">Trẻ từ 6 đến 12 tuổi</a></li>
-                        <li><a href="${pageContext.request.contextPath}/listservice" class="sub-menu-item">Trẻ từ 13 đến 18 tuổi</a></li>
+                        <li><a href="${pageContext.request.contextPath}/customer/listservice" class="sub-menu-item">Trẻ sơ sinh</a></li>
+                        <li><a href="${pageContext.request.contextPath}/customer/listservice" class="sub-menu-item">Trẻ từ 1 đến 5 tuổi</a></li>
+                        <li><a href="${pageContext.request.contextPath}/customer/customer/listservice" class="sub-menu-item">Trẻ từ 6 đến 12 tuổi</a></li>
+                        <li><a href="${pageContext.request.contextPath}/customer/listservice" class="sub-menu-item">Trẻ từ 13 đến 18 tuổi</a></li>
                     </ul>
                 </li>
 
@@ -90,7 +90,7 @@
                 </li>
 
                 <li class="has-submenu parent-menu-item">
-                    <a href="javascript:void(0)">Blog</a><span class="menu-arrow"></span>
+                    <a href="javascript:void(0)">Blog</a>
                 </li>
 
                 <li class="has-submenu parent-parent-menu-item">
