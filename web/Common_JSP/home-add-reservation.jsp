@@ -87,7 +87,7 @@
 
                 <div class="row">
                     <div class="col-lg-8 col-md-10 mx-auto">
-                        <form action="AddReservationServlet" method="post">
+                        <form action="${pageContext.request.contextPath}/customer/addreservation" method="post">
                             <div class="form-group">
                                 <label for="childName">Tên Trẻ</label>
                                 <select class="form-control" id="childName" name="childID" required>
