@@ -177,7 +177,7 @@
                                 </div>
                             </div>
 
-                            <form action="editblog" method="post" enctype="multipart/form-data" ">
+                            <form action="/manager/editblog" method="post" enctype="multipart/form-data" ">
                                 <input type="hidden" name="blogid" value="${blogDetails.blogID}">
                                 <div class="row">
                                     <!-- Title Field -->

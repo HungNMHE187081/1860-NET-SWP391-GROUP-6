@@ -89,18 +89,18 @@
                     <div class="col-lg-8 col-md-10 mx-auto">
                         <form action="${pageContext.request.contextPath}/customer/addreservation" method="post">
                             <div class="form-group">
+                                <label for="serviceName">Tên Dịch Vụ</label>
+                                <input type="text" class="form-control" id="serviceName" name="serviceName" value="${service.serviceName}" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="ageLimit">Dành cho độ tuổi</label>
+                                <input type="text" class="form-control" id="ageLimit" name="ageLimit" value="${service.ageLimit}" readonly>
+                            </div>
+                            <div class="form-group">
                                 <label for="childName">Tên Trẻ</label>
                                 <select class="form-control" id="childName" name="childID" required>
                                     <c:forEach var="child" items="${children}">
                                         <option value="${child.childID}">${child.firstName} ${child.middleName} ${child.lastName}</option>
-                                    </c:forEach>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="serviceName">Tên Dịch Vụ</label>
-                                <select class="form-control" id="serviceName" name="serviceID" required>
-                                    <c:forEach var="service" items="${services}">
-                                        <option value="${service.serviceID}">${service.serviceName}</option>
                                     </c:forEach>
                                 </select>
                             </div>

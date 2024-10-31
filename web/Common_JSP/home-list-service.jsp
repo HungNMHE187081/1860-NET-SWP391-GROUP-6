@@ -16,25 +16,25 @@
         <!-- favicon -->
         <link rel="shortcut icon" href="../images/favicon.ico.png">
         <!-- Bootstrap -->
-        <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <!-- Icons -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.3/font/bootstrap-icons.min.css">
-        <link href="css/materialdesignicons.min.css" rel="stylesheet" type="text/css"/>
-        <link href="css/remixicon.css" rel="stylesheet" type="text/css"/>
+        <link href="${pageContext.request.contextPath}/css/materialdesignicons.min.css" rel="stylesheet" type="text/css"/>
+        <link href="${pageContext.request.contextPath}/css/remixicon.css" rel="stylesheet" type="text/css"/>
         <link href="https://unicons.iconscout.com/release/v3.0.6/css/line.css"  rel="stylesheet">
         <!-- Css -->
-        <link href="css/style.min.css" rel="stylesheet" type="text/css"/>
-        <link href="css/flatpickr.min.css" rel="stylesheet" type="text/css"/>
-        <link href="css/fullcalendar.min.css" rel="stylesheet" type="text/css"/>
-        <link href="css/jquery.timepicker.min.css" rel="stylesheet" type="text/css"/>
-        <link href="css/materialdesignicons.min.css" rel="stylesheet" type="text/css"/>
-        <link href="css/remixicon.css" rel="stylesheet" type="text/css"/>
-        <link href="css/select2.min.css" rel="stylesheet" type="text/css"/>
-        <link href="css/simplebar.css" rel="stylesheet" type="text/css"/>
-        <link href="css/slick-theme.css" rel="stylesheet" type="text/css"/>
-        <link href="css/slick.css" rel="stylesheet" type="text/css"/>
-        <link href="css/style.min.css" rel="stylesheet" type="text/css"/>
-        <link href="css/tiny-slider.css" rel="stylesheet" type="text/css"/>
+        <link href="${pageContext.request.contextPath}/css/style.min.css" rel="stylesheet" type="text/css"/>
+        <link href="${pageContext.request.contextPath}/css/flatpickr.min.css" rel="stylesheet" type="text/css"/>
+        <link href="${pageContext.request.contextPath}/css/fullcalendar.min.css" rel="stylesheet" type="text/css"/>
+        <link href="${pageContext.request.contextPath}/css/jquery.timepicker.min.css" rel="stylesheet" type="text/css"/>
+        <link href="${pageContext.request.contextPath}/css/materialdesignicons.min.css" rel="stylesheet" type="text/css"/>
+        <link href="${pageContext.request.contextPath}/css/remixicon.css" rel="stylesheet" type="text/css"/>
+        <link href="${pageContext.request.contextPath}/css/select2.min.css" rel="stylesheet" type="text/css"/>
+        <link href="${pageContext.request.contextPath}/css/simplebar.css" rel="stylesheet" type="text/css"/>
+        <link href="${pageContext.request.contextPath}/css/slick-theme.css" rel="stylesheet" type="text/css"/>
+        <link href="${pageContext.request.contextPath}/css/slick.css" rel="stylesheet" type="text/css"/>
+        <link href="${pageContext.request.contextPath}/css/style.min.css" rel="stylesheet" type="text/css"/>
+        <link href="${pageContext.request.contextPath}/css/tiny-slider.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=ecg_heart" />
     </head>
     <body>
@@ -216,7 +216,7 @@
                     <c:forEach var="service" items="${services}">
                         <div class="col-lg-4 col-md-6 mb-4">
                             <div class="card h-100 shadow-sm border-0 service-card">
-                                <img src="${service.serviceImage}" class="card-img-top rounded-top" alt="${service.serviceName}">
+                                <img src="${pageContext.request.contextPath}/${service.serviceImage}" class="card-img-top rounded-top" alt="${service.serviceName}">
                                 <div class="card-body">
                                     <h5 class="card-title fw-bold text-primary">
                                         ${service.serviceName}
@@ -240,12 +240,12 @@
                                         <a href="${pageContext.request.contextPath}/customer/viewservice?serviceID=${service.serviceID}" class="btn btn-outline-secondary flex-grow-1 me-2 view-details transition-btn">
                                     <i class="bi bi-eye"></i>
                                 </a>
-                                <form action="${pageContext.request.contextPath}/customer/addreservation" method="get">
-                                        <button class="btn btn-primary flex-grow-1 book-now transition-btn">
-                                            <input type="hidden" name="serviceID" value="${service.serviceID}" />
-                                            <i class="bi bi-cart me-1"></i>
-                                        </button>
-                                    </form>
+                                <form action="${pageContext.request.contextPath}/customer/addreservation" method="post">
+                                    <input type="hidden" name="serviceID" value="${service.serviceID}">
+                                    <button class="btn btn-primary flex-grow-1 book-now transition-btn">
+                                        <i class="bi bi-cart me-1"></i>
+                                    </button>
+                                </form>
                                     </div>
                                 </div>
                             </div>

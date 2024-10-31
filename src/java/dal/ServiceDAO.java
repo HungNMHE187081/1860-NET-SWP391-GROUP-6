@@ -39,6 +39,37 @@ public class ServiceDAO extends DBContext {
         return listServices;
     }
 
+    public List<Service> getServicesByAgeLimitID(int ageLimitID) {
+        List<Service> listServices = new ArrayList<>();
+        String sql = "SELECT * FROM Services WHERE AgeLimitID = ?";
+        try {
+            PreparedStatement pre = connection.prepareStatement(sql);
+            pre.setInt(1, ageLimitID);
+            try (ResultSet rs = pre.executeQuery()) {
+            while (rs.next()) {
+                Service service = new Service();
+                service.setServiceID(rs.getInt("ServiceID"));
+                service.setServiceName(rs.getString("ServiceName"));
+                service.setCategoryID(rs.getInt("CategoryID"));
+                service.setDegreeID(rs.getInt("DegreeID"));
+                service.setDescription(rs.getString("Description"));
+                service.setPrice(rs.getDouble("Price"));
+                service.setDuration(rs.getInt("Duration"));
+                service.setServiceImage(rs.getString("ServiceImage"));
+                service.setIsActive(rs.getBoolean("IsActive"));
+                service.setAgeLimitID(ageLimitID);
+                service.setCreatedAt(rs.getDate("CreatedAt") != null ? sdf.format(rs.getDate("CreatedAt")) : null);
+                service.setUpdatedAt(rs.getDate("UpdatedAt") != null ? sdf.format(rs.getDate("UpdatedAt")) : null);
+
+                listServices.add(service);
+            }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listServices;
+    }
+
     public List<Service> searchServicesByKeyword(String keyword) {
         List<Service> listServices = new ArrayList<>();
         String sql = "SELECT * FROM Services WHERE serviceName LIKE ?";

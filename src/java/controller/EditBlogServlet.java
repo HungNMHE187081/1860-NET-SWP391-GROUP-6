@@ -134,7 +134,7 @@ public class EditBlogServlet extends HttpServlet {
         int categoryID = Integer.parseInt(request.getParameter("blogCategoryEdit"));
         dao.updateBlogCategoryMapping(blogID, categoryID);
         // Chuyển hướng về trang danh sách blog hoặc thông báo thành công
-        response.sendRedirect("manageblog"); // Chỉnh sửa theo đường dẫn thực tế của bạn
+        response.sendRedirect(request.getContextPath() + "/manager/manageblog"); // Chỉnh sửa theo đường dẫn thực tế của bạn
     }
 
     private String extractFileName(Part part) {

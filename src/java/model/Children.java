@@ -19,6 +19,7 @@ public class Children {
     private Date dateOfBirth;      // Ngày sinh
     private String gender;         // Giới tính
     private String childImage;     // Đường dẫn hình ảnh của trẻ em
+    private int age;
 
     public Children() {
     }
@@ -42,6 +43,19 @@ public Children(int customerID, String firstName, String middleName, String last
         this.gender = gender;
         this.childImage = childImage;
     }
+
+    public Children(int childID, int customerID, String firstName, String middleName, String lastName, Date dateOfBirth, String gender, String childImage, int age) {
+        this.childID = childID;
+        this.customerID = customerID;
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.lastName = lastName;
+        this.dateOfBirth = dateOfBirth;
+        this.gender = gender;
+        this.childImage = childImage;
+        this.age = age;
+    }
+    
 
     public int getChildID() {
         return childID;
@@ -105,6 +119,14 @@ public Children(int customerID, String firstName, String middleName, String last
 
     public void setChildImage(String childImage) {
         this.childImage = childImage;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
     
 }

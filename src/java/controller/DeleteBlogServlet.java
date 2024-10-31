@@ -77,7 +77,7 @@ public class DeleteBlogServlet extends HttpServlet {
         } catch (SQLException ex) {
             Logger.getLogger(DeleteBlogServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-        response.sendRedirect("manageblog");
+        response.sendRedirect(request.getContextPath() + "/manager/manageblog");
     }
 
     /** 

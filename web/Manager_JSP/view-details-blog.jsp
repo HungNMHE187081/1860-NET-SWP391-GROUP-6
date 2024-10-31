@@ -165,7 +165,7 @@
                     <div class="tile">
                         <h3 class="tile-title">Blog Details</h3>
                         <div class="tile-body">
-                            <form action="viewdetailblog" method="get">
+                            <form action="/manager/viewdetailblog" method="get">
                                 <!-- Title ở trên cùng -->
                                 <div class="row">
                                     <div class="form-group col-md-12" style="font-weight: bold; font-size: 40px; font-style: italic; text-align: center;">
@@ -206,7 +206,7 @@
                                 <!-- Thumbnail -->
                                 <div class="row">
                                     <div class="form-group col-md-12 text-center">
-                                        <img src="${blogDetails.thumbnailPath}" width="50%" alt="thumbnail"/>
+                                        <img src="${pageContext.request.contextPath}/${blogDetails.thumbnailPath}" width="50%" alt="thumbnail"/>
                                     </div>
                                 </div>
 

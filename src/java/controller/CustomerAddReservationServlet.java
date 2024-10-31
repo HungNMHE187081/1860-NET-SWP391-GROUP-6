@@ -23,6 +23,8 @@ import model.OrderItem;
 import model.Reservation;
 import model.Service;
 import model.Users;
+import java.time.LocalDate;
+import java.util.ArrayList;
 
 /**
  *
@@ -30,68 +32,74 @@ import model.Users;
  */
 public class CustomerAddReservationServlet extends HttpServlet {
 
+    private Integer getServiceID(HttpServletRequest request) {
+        String serviceIDParam = request.getParameter("serviceID");
+        if (serviceIDParam == null || serviceIDParam.isEmpty()) {
+            return null;
+        }
+        try {
+            return Integer.parseInt(serviceIDParam);
+        } catch (NumberFormatException e) {
+            return null;
+        }
+    }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         Users user = (Users) session.getAttribute("user");
         if (user != null) {
-            int ServiceID = Integer.parseInt(request.getParameter("serviceID"));
-            ServiceDAO serviceDAO = new ServiceDAO();
-            Service service = serviceDAO.getServiceByID(ServiceID);
-            ChildrenDAO childrenDAO = new ChildrenDAO();
-            List<Children> children = childrenDAO.getChildrenByCustomerID(user.getUserID());
-            StaffDAO staffDAO = new StaffDAO();
-            
-            int AgeLimit = service.getAgeLimitID();
-            
-            
-            
+            Integer serviceID = getServiceID(request);
+            if (serviceID != null) {
+                ServiceDAO serviceDAO = new ServiceDAO();
+                Service service = serviceDAO.getServiceByID(serviceID);
+                int AgeLimitID = service.getAgeLimitID();
+                List<Service> services = serviceDAO.getServicesByAgeLimitID(AgeLimitID);
+                ChildrenDAO childrenDAO = new ChildrenDAO();
+                List<Children> children = childrenDAO.getAgeOfChildrenByCustomerID(user.getUserID());
+                StaffDAO staffDAO = new StaffDAO();
+                List<Children> childrenByAge = new ArrayList<>();
 
-//                // Create a new order object
-//                Order order = new Order();
-//                order.setCustomerID(customerID);
-//                order.setQuantity(quantity);
-//                order.setTotalPrice(totalPrice);
-//
-//                // Save the order to the database
-//                OrderDAO orderDAO = new OrderDAO();
-//                orderDAO.addOrder(order);
-//
-//                // Create a new order item object
-//                OrderItem orderItem = new OrderItem();
-//                orderItem.setOrderID(order.getOrderID());
-//                orderItem.setServiceID(serviceID);
-//                orderItem.setChildID(childID);
-//
-//                // Save the order item to the database
-//                orderDAO.addOrderItem(orderItem);
-            // Create a new reservation object
-            Reservation reservation = new Reservation();
-            reservation.setOrderItemID(orderItem.getOrderItemID());
-            reservation.setReservationDate(reservationDate);
-            reservation.setStartTime(startTime);
-            reservation.setStaffID(staffID);
+                if (AgeLimitID == 1) {
+                    for (Children child : children) {
+                        if (child.getAge() < 1) {
+                            childrenByAge.add(child);
+                        }
+                    }
+                } else if (AgeLimitID == 2) {
+                    for (Children child : children) {
+                        if (child.getAge() >= 1 && child.getAge() < 6) {
+                            childrenByAge.add(child);
+                        }
+                    }
+                } else if (AgeLimitID == 3) {
+                    for (Children child : children) {
+                        if (child.getAge() >= 6 && child.getAge() < 13) {
+                            childrenByAge.add(child);
+                        }
+                    }
+                } else if (AgeLimitID == 4) {
+                    for (Children child : children) {
+                        if (child.getAge() >= 13 && child.getAge() < 18) {
+                            childrenByAge.add(child);
+                        }
+                    }
+                }
 
-            // Save the reservation to the database
-            ReservationDAO reservationDAO = new ReservationDAO();
-            reservationDAO.addReservation(reservation);
+                ReservationDAO reservationDAO = new ReservationDAO();
 
-            // Redirect to a confirmation page or back to the form
-            response.sendRedirect(request.getContextPath() + "/Common_JSP/home-add-reservation.jsp");
+                request.setAttribute("children", childrenByAge);
+                request.setAttribute("service", service);
+                request.getRequestDispatcher("/Common_JSP/home-add-reservation.jsp").forward(request, response);
+            } else {
+                response.sendRedirect(request.getContextPath() + "/Common_JSP/home-list-service.jsp");
+            }
         } else {
             response.sendRedirect(request.getContextPath() + "/login");
         }
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -107,6 +115,10 @@ public class CustomerAddReservationServlet extends HttpServlet {
                 int customerID = Integer.parseInt(request.getParameter("customerID"));
                 int quantity = 1; // Assuming one service per reservation
                 float totalPrice = Float.parseFloat(request.getParameter("totalPrice"));
+
+                ChildrenDAO childrenDAO = new ChildrenDAO();
+
+                LocalDate currentDate = LocalDate.now(); // Get the current date
 
                 // Create a new order object
                 Order order = new Order();
@@ -138,11 +150,11 @@ public class CustomerAddReservationServlet extends HttpServlet {
                 ReservationDAO reservationDAO = new ReservationDAO();
                 reservationDAO.addReservation(reservation);
 
-                // Redirect to a confirmation page or back to the form
-                response.sendRedirect("reservationConfirmation.jsp");
+                // Redirect to the doGet method to display the form again
+                response.sendRedirect(request.getContextPath() + "/customer/addreservation?serviceID=" + serviceID);
             } catch (Exception e) {
                 e.printStackTrace();
-                response.sendRedirect("errorPage.jsp");
+                response.sendRedirect(request.getContextPath() + "/errorPage.jsp"); // Update this path to a valid error page
             }
         } else {
             response.sendRedirect(request.getContextPath() + "/login");

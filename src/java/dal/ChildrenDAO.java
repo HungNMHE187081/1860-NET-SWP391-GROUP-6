@@ -132,4 +132,29 @@ public class ChildrenDAO extends DBContext {
         }
     }
 
+    public List<Children> getAgeOfChildrenByCustomerID(int customerID) {
+    List<Children> list = new ArrayList<>();
+    String sql = "SELECT * FROM ChildrenAgeView WHERE CustomerID = ?";
+
+    try (PreparedStatement ps = connection.prepareStatement(sql)) {
+        ps.setInt(1, customerID);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            int childID = rs.getInt("ChildID");
+            String firstName = rs.getString("FirstName");
+            String middleName = rs.getString("MiddleName");
+            String lastName = rs.getString("LastName");
+            java.sql.Date dateOfBirth = rs.getDate("DateOfBirth");
+            String gender = rs.getString("Gender");
+            String childImage = rs.getString("ChildImage");
+            int age = rs.getInt("Age");
+            list.add(new Children(childID, customerID, firstName, middleName, lastName, dateOfBirth, gender, childImage, age));
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return list;
+}
+
+
 }

@@ -35,18 +35,19 @@ public class StaffStaffsListServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         StaffDAO staffDAO = new StaffDAO();
-        List<Staff> staffs = staffDAO.getAllStaffs();
+        List<Staff> stafflist = staffDAO.getAllStaffs();
         DegreeDAO degreeDAO = new DegreeDAO();
         List<Degree> degrees = degreeDAO.getAllDegrees();
         SpecializationDAO specializationDAO = new SpecializationDAO();
         List<Specialization> specializations = specializationDAO.getAllSpecializations();
         ManagerUserDAO managerUserDAO = new ManagerUserDAO();
         List<Users> users = new ArrayList<>();
-        for (Staff staff : staffs){
-            
+        List<Staff> staffs = new ArrayList<>();
+        for (Staff staff : stafflist){
+            if (staff.getStaffName() != null)
+                staffs.add(staff);
             users.add(managerUserDAO.getDetailUserByUserID(staff.getStaffID()));
         }
-        
         
         Collections.sort(staffs, new Comparator<Staff>() {
             @Override

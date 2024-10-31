@@ -120,7 +120,7 @@ public class AddBlogServlet extends HttpServlet {
         blogDAO.addBlog(blog, blogCategoryID);
         
         // Redirect to a success page (or you can show a confirmation message)
-        response.sendRedirect("manageblog");
+        response.sendRedirect(request.getContextPath() + "/manager/manageblog");
 
     }
 

@@ -9,6 +9,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -22,11 +23,25 @@ public class ManagerStaffsListServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         StaffDAO staffDAO = new StaffDAO();
-        List<Staff> staffs = staffDAO.getAllStaffs();
+        List<Staff> stafflist = staffDAO.getAllStaffs();
         DegreeDAO degreeDAO = new DegreeDAO();
         List<Degree> degrees = degreeDAO.getAllDegrees();
         SpecializationDAO specializationDAO = new SpecializationDAO();
         List<Specialization> specializations = specializationDAO.getAllSpecializations();
+        List<Staff> staffs = new ArrayList<>();
+        for (Staff staff : stafflist){
+            if (staff.getStaffName() != null
+                    || staff.getHireDate() != null)
+                staffs.add(staff);
+        }
+        if (staffs.size() > 1){
+        Collections.sort(staffs, new Comparator<Staff>() {
+            @Override
+            public int compare(Staff s1, Staff s2) {
+                return s1.getStaffName().compareTo(s2.getStaffName());
+            }
+        });
+        }
 
         request.setAttribute("staffs", staffs);
         request.setAttribute("degrees", degrees);

@@ -650,11 +650,11 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddBlogServlet</servlet-name>
-        <url-pattern>/addblog</url-pattern>
+        <url-pattern>/manager/addblog</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ManagerBlogServlet</servlet-name>
-        <url-pattern>/manageblog</url-pattern>
+        <url-pattern>/manager/manageblog</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>MedicalRecordList</servlet-name>
@@ -662,7 +662,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ViewDetailsBlogServlet</servlet-name>
-        <url-pattern>/viewdetailblog</url-pattern>
+        <url-pattern>/manager/viewdetailblog</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddMedicalRecord</servlet-name>
@@ -706,7 +706,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>DeleteBlogServlet</servlet-name>
-        <url-pattern>/deleteblog</url-pattern>
+        <url-pattern>/manager/deleteblog</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CustomerListOrdersServlet</servlet-name>
@@ -754,7 +754,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>EditBlogServlet</servlet-name>
-        <url-pattern>/editblog</url-pattern>
+        <url-pattern>/manager/editblog</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>EditPrescription</servlet-name>
