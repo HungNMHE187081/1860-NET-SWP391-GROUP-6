@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="vi">
@@ -16,26 +16,25 @@
             font-family: "Outfit", sans-serif;
         }
 
-        body {
-            background: white;
-            color: black;
-            min-height: 100vh;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-        }
+body {
+    background: white;
+    color: black;
+    min-height: 100vh;
+    padding: 0;  /* Remove padding */
+    display: flex;
+    flex-direction: column;
+}
 
-        .form-container {
-            background: white;
-            padding: 30px;
-            width: 100%;
-            max-width: 800px;
-            margin: 0 auto;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
+.form-container {
+    background: white;
+    padding: 30px;
+    width: 100%;
+    max-width: 800px;
+    margin: 20px auto;  /* Add margin-top */
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
         h1 {
             font-size: 26px;
             margin-bottom: 15px;
@@ -158,6 +157,7 @@
     </style>
 </head>
 <body>
+    
     <div class="form-container">
         <h1>
             <span class="material-symbols-outlined" style="font-size: 40px; margin-right: 10px;">

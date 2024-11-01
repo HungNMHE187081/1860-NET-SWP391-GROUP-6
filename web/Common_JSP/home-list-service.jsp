@@ -39,147 +39,8 @@
     </head>
     <body>
         <!-- Navbar STart -->
-        <header id="topnav" class="navigation sticky">
-            <div class="container">
-                <!-- Logo container-->
-                <div>
-                    <a class="logo" href="index.html">
-                        <span class="logo-light-mode">
-                            <img src="img/logo-1.png" class="l-light" height="30" alt="">
-                        </span>
-                        <img src="img/logo-1.png" height="24" class="logo-dark-mode" alt="">
-                    </a>
-                </div>
-                <!-- End Logo container-->
-
-                <!-- Start Mobile Toggle -->
-                <div class="menu-extras">
-                    <div class="menu-item">
-                        <!-- Mobile menu toggle-->
-                        <a class="navbar-toggle" id="isToggle" onclick="toggleMenu()">
-                            <div class="lines">
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                            </div>
-                        </a>
-                        <!-- End mobile menu toggle-->
-                    </div>
-                </div>
-                <!-- End Mobile Toggle -->
-
-                <!-- Start Dropdown -->
-                <ul class="dropdowns list-inline mb-0">
-
-                    <li class="list-inline-item mb-0 ms-1">
-                        <div class="dropdown dropdown-primary">
-                            <button type="button" class="btn btn-pills btn-soft-primary dropdown-toggle p-0" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="images/doctors/01.jpg" class="avatar avatar-ex-small rounded-circle" alt=""></button>
-                            <div class="dropdown-menu dd-menu dropdown-menu-end bg-white shadow border-0 mt-3 py-3" style="min-width: 200px;">
-                                <a class="dropdown-item d-flex align-items-center text-dark" href="doctor-profile.html">
-                                    <img src="images/doctors/01.jpg" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
-                                    <div class="flex-1 ms-2">
-                                        <span class="d-block mb-1">Trần Hoàng Nam</span>
-                                        <small class="text-muted">Bác Sĩ</small>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item text-dark" href="doctor-dashboard.html"><span class="mb-0 d-inline-block me-1"><i class="uil uil-dashboard align-middle h6"></i></span> Bảng điều khiển</a>
-                                <a class="dropdown-item text-dark" href="doctor-profile-setting.html"><span class="mb-0 d-inline-block me-1"><i class="uil uil-setting align-middle h6"></i></span> Chỉnh sửa hồ sơ</a>
-                                <div class="dropdown-divider border-top"></div>
-                                <a class="dropdown-item text-dark" href="login.html"><span class="mb-0 d-inline-block me-1"><i class="uil uil-sign-out-alt align-middle h6"></i></span> Đăng xuất</a>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-                <!-- Start Dropdown -->
-
-                <div id="navigation">
-                    <!-- Navigation Menu-->   
-                    <ul class="navigation-menu nav-left nav-light">
-                        <li class="has-submenu parent-menu-item">
-                            <a href="javascript:void(0)">Trang Chủ</a><span class="menu-arrow"></span>
-                            <ul class="submenu">
-                                <li><a href="index.html" class="sub-menu-item">Trang Chính 1</a></li>
-                                <li><a href="index-two.html" class="sub-menu-item">Trang Chính 2</a></li>
-                                <li><a href="index-three.html" class="sub-menu-item">Trang Chính 3</a></li>
-                            </ul>
-                        </li>
-
-                        <li class="has-submenu parent-parent-menu-item">
-                            <a href="javascript:void(0)">Bác Sĩ</a><span class="menu-arrow"></span>
-                            <ul class="submenu">
-                                <li class="has-submenu parent-menu-item">
-                                    <a href="javascript:void(0)" class="menu-item"> Bảng Điều Khiển </a><span class="submenu-arrow"></span>
-                                    <ul class="submenu">
-                                        <li><a href="doctor-dashboard.html" class="sub-menu-item">Bảng Điều Khiển</a></li>
-                                        <li><a href="doctor-appointment.html" class="sub-menu-item">Cuộc Hẹn</a></li>
-                                        <li><a href="patient-list.html" class="sub-menu-item">Danh Sách Bệnh Nhân</a></li>
-                                        <li><a href="doctor-schedule.html" class="sub-menu-item">Lịch Làm Việc</a></li>
-                                        <li><a href="invoices.html" class="sub-menu-item">Hóa Đơn</a></li>
-                                        <li><a href="patient-review.html" class="sub-menu-item">Đánh Giá</a></li>
-                                        <li><a href="doctor-messages.html" class="sub-menu-item">Tin Nhắn</a></li>
-                                        <li><a href="doctor-profile.html" class="sub-menu-item">Hồ Sơ</a></li>
-                                        <li><a href="doctor-profile-setting.html" class="sub-menu-item">Cài Đặt Hồ Sơ</a></li>
-                                        <li><a href="doctor-chat.html" class="sub-menu-item">Trò Chuyện</a></li>
-                                        <li><a href="login.html" class="sub-menu-item">Đăng Nhập</a></li>
-                                        <li><a href="signup.html" class="sub-menu-item">Đăng Ký</a></li>
-                                        <li><a href="forgot-password.html" class="sub-menu-item">Quên Mật Khẩu</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="doctor-team-one.html" class="sub-menu-item">Nhóm Bác Sĩ 1</a></li>
-                                <li><a href="doctor-team-two.html" class="sub-menu-item">Nhóm Bác Sĩ 2</a></li>
-                                <li><a href="doctor-team-three.html" class="sub-menu-item">Nhóm Bác Sĩ 3</a></li>
-                            </ul>
-                        </li>
-
-                        <li class="has-submenu parent-menu-item">
-                            <a href="javascript:void(0)">Bệnh Nhân</a><span class="menu-arrow"></span>
-                            <ul class="submenu">
-                                <li><a href="patient-dashboard.html" class="sub-menu-item">Bảng Điều Khiển</a></li>
-                                <li><a href="patient-profile.html" class="sub-menu-item">Hồ Sơ</a></li>
-                                <li><a href="booking-appointment.html" class="sub-menu-item">Đặt Lịch Hẹn</a></li>
-                                <li><a href="patient-invoice.html" class="sub-menu-item">Hóa Đơn</a></li>
-                            </ul>
-                        </li>
-
-                        <li class="has-submenu parent-menu-item">
-                            <a href="javascript:void(0)">Nhà Thuốc</a><span class="menu-arrow"></span>
-                            <ul class="submenu">
-                                <li><a href="pharmacy.html" class="sub-menu-item">Nhà Thuốc</a></li>
-                                <li><a href="pharmacy-shop.html" class="sub-menu-item">Cửa Hàng</a></li>
-                                <li><a href="pharmacy-product-detail.html" class="sub-menu-item">Chi Tiết Thuốc</a></li>
-                                <li><a href="pharmacy-shop-cart.html" class="sub-menu-item">Giỏ Hàng</a></li>
-                                <li><a href="pharmacy-checkout.html" class="sub-menu-item">Thanh Toán</a></li>
-                                <li><a href="pharmacy-account.html" class="sub-menu-item">Tài Khoản</a></li>
-                            </ul>
-                        </li>
-
-                        <li class="has-submenu parent-parent-menu-item">
-                            <a href="javascript:void(0)">Trang</a><span class="menu-arrow"></span>
-                            <ul class="submenu">
-                                <li><a href="aboutus.html" class="sub-menu-item">Về Chúng Tôi</a></li>
-                                <li><a href="departments.html" class="sub-menu-item">Phòng Ban</a></li>
-                                <li><a href="faqs.html" class="sub-menu-item">Câu Hỏi Thường Gặp</a></li>
-                                <li class="has-submenu parent-menu-item">
-                                    <a href="javascript:void(0)" class="menu-item"> Blog </a><span class="submenu-arrow"></span>
-                                    <ul class="submenu">
-                                        <li><a href="blogs.html" class="sub-menu-item">Blog</a></li>
-                                        <li><a href="blog-detail.html" class="sub-menu-item">Chi Tiết Blog</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="terms.html" class="sub-menu-item">Điều Khoản & Chính Sách</a></li>
-                                <li><a href="privacy.html" class="sub-menu-item">Chính Sách Bảo Mật</a></li>
-                                <li><a href="error.html" class="sub-menu-item">404 !</a></li>
-                                <li><a href="contact.html" class="sub-menu-item">Liên Hệ</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="../admin/index.html" class="sub-menu-item" target="_blank">Quản Trị</a></li>
-                    </ul>
-                    <!--end navigation menu-->
-                </div><!--end navigation-->
-            </div><!--end container-->
-        </header><!--end header-->
+        <%@include file="dashboardtop.jsp" %>
         <!-- Navbar End -->
-
         <!-- Start Hero -->
         <section class="bg-half-170 d-table w-100" style="background: url('images/bg/department.jpg') center center;">
             <div class="bg-overlay bg-overlay-dark"></div>
@@ -209,7 +70,187 @@
             </div>
         </div>
         <!-- End Hero -->
+<form action="${pageContext.request.contextPath}/customer/listservices" method="get" class="search-filter-form">
+    <div class="search-filter-group">
+        <!-- Search input for keyword -->
+        <div class="search-input-wrapper">
+            <i class="bi bi-search"></i>
+            <input type="text" id="searchInput" name="keyword" placeholder="Tìm theo tên dịch vụ" />
+        </div>
+        
+        <!-- Age limit dropdown with non-selectable placeholder -->
+        <div class="select-wrapper">
+            <i class="bi bi-funnel"></i>
+            <select class="form-control" id="ageLimit" name="ageLimit">
+                <option value="" disabled selected>Chọn độ tuổi</option>
+                <c:forEach var="ageLimit" items="${ageLimits}">
+                    <option value="${ageLimit.ageLimitID}">${ageLimit.ageLimit}</option>
+                </c:forEach>
+            </select>
+        </div>
+        
+        <!-- Price filter dropdown with non-selectable placeholder -->
+        <div class="select-wrapper">
+            <i class="bi bi-funnel"></i>
+            <select class="form-control" id="priceFilter" name="priceFilter">
+                <option value="" disabled selected>Sắp xếp theo giá</option>
+                <option value="lowToHigh">Giá từ thấp đến cao</option>
+                <option value="highToLow">Giá từ cao đến thấp</option>
+            </select>
+        </div>
+        
+        <!-- Submit button -->
+        <button type="submit" class="search-btn">
+            <i class="bi bi-search"></i>
+        </button>
+    </div>
+</form>
 
+    <style>
+    /* Container styles */
+    .search-filter-form {
+        max-width: 1200px;
+        margin: 2rem auto;
+        padding: 0 1rem;
+    }
+
+    .search-filter-group {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        align-items: center;
+        background: #fff;
+        padding: 1.5rem;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    }
+
+    /* Input wrapper styles */
+    .search-input-wrapper, .select-wrapper {
+        position: relative;
+        flex: 1;
+        min-width: 200px;
+    }
+
+    /* Icon styles */
+    .search-input-wrapper i, .select-wrapper i {
+        position: absolute;
+        left: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #6c757d;
+        z-index: 1;
+    }
+
+    /* Input and select styles */
+    .search-input-wrapper input,
+    .select-wrapper select {
+        width: 100%;
+        padding: 0.75rem 1rem 0.75rem 2.5rem;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        font-size: 0.95rem;
+        transition: all 0.3s ease;
+        background-color: #f8f9fa;
+    }
+
+    .search-input-wrapper input:focus,
+    .select-wrapper select:focus {
+        outline: none;
+        border-color: #007bff;
+        box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+        background-color: #fff;
+    }
+
+    /* Button styles */
+    .search-btn {
+        padding: 0.75rem 1.5rem;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: all 0.3s ease;
+        min-width: 120px;
+        justify-content: center;
+    }
+
+    .search-btn:hover {
+        background-color: #0056b3;
+        transform: translateY(-1px);
+    }
+
+    .search-btn i {
+        font-size: 0.9rem;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .search-filter-group {
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .search-input-wrapper,
+        .select-wrapper {
+            width: 100%;
+        }
+
+        .search-btn {
+            width: 100%;
+        }
+    }
+
+    /* Hover effects */
+    .search-input-wrapper input:hover,
+    .select-wrapper select:hover {
+        border-color: #80bdff;
+    }
+
+    /* Custom select arrow */
+    .select-wrapper select {
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%236c757d' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: calc(100% - 12px) center;
+        padding-right: 2.5rem;
+    }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('searchInput');
+    const ageLimitSelect = document.getElementById('ageLimit');
+    
+    // Add debounce to prevent too many requests
+    let searchTimeout;
+    
+    searchInput.addEventListener('input', function() {
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(() => {
+            // Optional: Auto-submit form after typing
+            // document.querySelector('.search-filter-form').submit();
+        }, 500);
+    });
+    
+    // Add animation when focusing on input fields
+    [searchInput, ageLimitSelect].forEach(element => {
+        element.addEventListener('focus', function() {
+            this.parentElement.style.transform = 'translateY(-2px)';
+        });
+        
+        element.addEventListener('blur', function() {
+            this.parentElement.style.transform = 'translateY(0)';
+        });
+    });
+});
+</script>
         <section class="section py-5 bg-light">
             <div class="container">
                 <div class="row g-4">
@@ -237,18 +278,15 @@
                                         </span>
                                     </div>
                                     <div class="d-flex justify-content-between">
-                                        <a href="${pageContext.request.contextPath}/customer/viewservice?serviceID=${service.serviceID}" 
-                                           class="btn btn-outline-secondary flex-grow-1 me-2 view-details transition-btn">
-                                            <i class="bi bi-eye"></i>
-                                        </a>
-
-                                        <!-- Form gửi serviceID đến trang đặt lịch -->
-                                        <a href="${pageContext.request.contextPath}/customer/addreservation?serviceID=${service.serviceID}"
-                                           class="btn btn-primary flex-grow-1 book-now transition-btn">
-                                            <i class="bi bi-cart me-1"></i>
-                                        </a>
-
-
+                                        <a href="${pageContext.request.contextPath}/customer/viewservice?serviceID=${service.serviceID}" class="btn btn-outline-secondary flex-grow-1 me-2 view-details transition-btn">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+                                <form action="${pageContext.request.contextPath}/customer/addreservation" method="post">
+                                    <input type="hidden" name="serviceID" value="${service.serviceID}">
+                                    <button class="btn btn-primary flex-grow-1 book-now transition-btn">
+                                        <i class="bi bi-cart me-1"></i>
+                                    </button>
+                                </form>
                                     </div>
                                 </div>
                             </div>
@@ -257,7 +295,6 @@
                 </div>
             </div>
         </section>
-
 
         <style>
             /* Font hiện đại */

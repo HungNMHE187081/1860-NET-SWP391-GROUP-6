@@ -289,6 +289,10 @@
         <servlet-class>controller.DeleteBlogServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>CustomerListOrdersServlet</servlet-name>
+        <servlet-class>controller.CustomerListOrdersServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>CustomerViewCartServlet</servlet-name>
         <servlet-class>controller.CustomerViewCartServlet</servlet-class>
     </servlet>
@@ -570,7 +574,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddFeedbackServlet</servlet-name>
-        <url-pattern>/addfeedback</url-pattern>
+        <url-pattern>/customer/addfeedback</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SearchFeedbackServlet</servlet-name>
@@ -703,6 +707,10 @@
     <servlet-mapping>
         <servlet-name>DeleteBlogServlet</servlet-name>
         <url-pattern>/manager/deleteblog</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CustomerListOrdersServlet</servlet-name>
+        <url-pattern>/customer/listorders</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CustomerViewCartServlet</servlet-name>
