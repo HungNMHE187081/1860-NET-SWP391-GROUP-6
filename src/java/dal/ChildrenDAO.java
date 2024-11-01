@@ -156,5 +156,9 @@ public class ChildrenDAO extends DBContext {
     return list;
 }
 
+    public static void main(String[] args) {
+        ChildrenDAO childrenDAO = new ChildrenDAO();
+        System.out.println(childrenDAO.getAgeOfChildrenByCustomerID(1));
+    }
 
 }

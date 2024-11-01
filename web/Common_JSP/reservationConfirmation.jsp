@@ -11,7 +11,7 @@
             <div class="alert alert-success" role="alert">
                 Đặt lịch thành công! Chúng tôi sẽ liên hệ với bạn sớm nhất có thể.
             </div>
-            <a href="home-list-service.jsp" class="btn btn-primary">Quay lại danh sách dịch vụ</a>
+            <a href="${pageContext.request.contextPath}/customer/listservices" class="btn btn-primary">Quay lại danh sách dịch vụ</a>
         </div>
     </body>
 </html>

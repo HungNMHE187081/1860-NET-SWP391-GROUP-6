@@ -640,14 +640,12 @@ VALUES
 (3, N'Lê Minh C', 5, 1, 1, '2020-01-15', 50000.0);
 
 
-INSERT INTO Orders (CustomerID, OrderDate, isOrder, isCheckOut)
+INSERT INTO Orders (CustomerID, OrderDate, isCheckOut)
 VALUES 
-(1, GETDATE(), 0, 0),
-(1, GETDATE(), 0, 0),
-(2, GETDATE(), 0, 0);
+(1, GETDATE(), 0),
+(1, GETDATE(), 0),
+(2, GETDATE(), 0);
 
-
-update Orders set isOrder = 1 where CustomerID = 1
 
 INSERT INTO OrderItems (OrderID, ServiceID, ChildID)
 VALUES 
@@ -693,7 +691,7 @@ WHERE r.RoleID = 3;
 
 select * from StaffView
 
-select * from Orders where isOrder = 1
+select * from Children where isOrder = 1
 
 select * from OrderItems where OrderID = 1
 

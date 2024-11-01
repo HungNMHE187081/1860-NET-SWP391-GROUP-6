@@ -121,7 +121,7 @@
                                             <select class="form-control" id="childName" name="childID" required>
                                                 <option value="" disabled selected>Chọn trẻ</option>
                                                 <c:forEach var="child" items="${children}">
-                                                    <option value="childID">${child.firstName} ${child.middleName} ${child.lastName}</option>
+                                                    <option value="${child.childID}">${child.firstName} ${child.middleName} ${child.lastName}</option>
                                                 </c:forEach>
                                             </select>
                                         </div>
@@ -132,13 +132,17 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="reservationDate">Ngày Khám</label>
-                                            <input type="date" class="form-control" id="reservationDate" name="reservationDate" required>
+                                            <input type="date" class="form-control" id="reservationDate" 
+                                                   name="reservationDate" required min="${LocalDate.now()}" 
+                                                   value="${LocalDate.now()}">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="startTime">Giờ Khám</label>
-                                            <input type="time" class="form-control" id="startTime" name="startTime" required>
+                                            <input type="time" class="form-control" id="startTime" 
+                                                   name="startTime" required min="08:00" max="17:00" 
+                                                   step="1800">
                                         </div>
                                     </div>
                                 </div>
@@ -179,5 +183,21 @@
         </section>
 
         <%@include file="footer.jsp" %>
+
+        <script>
+            // Set minimum date to today
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('reservationDate').min = today;
+            
+            // Validate time between 8:00 AM and 5:00 PM
+            document.getElementById('startTime').addEventListener('change', function() {
+                const time = this.value;
+                const hour = parseInt(time.split(':')[0]);
+                if (hour < 8 || hour >= 17) {
+                    alert('Vui lòng chọn giờ khám từ 8:00 sáng đến 5:00 chiều');
+                    this.value = '';
+                }
+            });
+        </script>
     </body>
 </html>

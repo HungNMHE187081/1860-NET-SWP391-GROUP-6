@@ -97,37 +97,92 @@ public class CustomerAddReservationServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         Users user = (Users) session.getAttribute("user");
+        PrintWriter out = response.getWriter();
 
         if (user != null) {
-            Integer serviceID = getServiceID(request);
-            if (serviceID == null) {
-                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid service ID.");
-                return;
-            }
+            try {
+                // Get and debug all parameters
+                Integer serviceID = getServiceID(request);
+                String childIDStr = request.getParameter("childID");
+                String startTime = request.getParameter("startTime") + ":00";
+                String reservationDate = request.getParameter("reservationDate");
+                String staffIDStr = request.getParameter("staffID");
+                
+                // Debug prints
+                out.println("ServiceID: " + serviceID);
+                out.println("ChildID: " + childIDStr);
+                out.println("StartTime: " + startTime);
+                out.println("ReservationDate: " + reservationDate);
+                out.println("StaffID: " + staffIDStr);
+                
+                // Check parameters
+                if (serviceID == null || childIDStr == null || startTime == null || 
+                    reservationDate == null || staffIDStr == null || 
+                    childIDStr.isEmpty() || startTime.isEmpty() || 
+                    reservationDate.isEmpty() || staffIDStr.isEmpty()) {
+                    throw new ServletException("Missing required parameters");
+                }
 
-            ServiceDAO serviceDAO = new ServiceDAO();
-            Service service = serviceDAO.getServiceByID(serviceID);
-            
-            String childName = request.getParameter("childName");
-            PrintWriter outWriter = response.getWriter();
-            outWriter.print(childName);
-//            ChildrenDAO childrenDAO = new ChildrenDAO();
-//            Children child = new Children();
-//            for (Children children : childrenDAO.getChildrenByCustomerID(user.getUserID())){
-//                String name = children.getFirstName() + children.getMiddleName() + children.getLastName();
-//                if (childName.equals(name))
-//                    child = 
-//            }
-//            
-//            OrderDAO orderDAO = new OrderDAO();
-//            orderDAO.addOrder(new Order(0, user.getUserID(), 1, service.getPrice(), "", true));
-//            orderDAO.addOrderItem(new OrderItem());
-//            
-//            ReservationDAO reservationDAO = new ReservationDAO();
-//            reservationDAO.addReservation(new Reservation());
-//            
-//            
-//            request.getRequestDispatcher("/Common_JSP/reservationConfirmation.jsp").forward(request, response);
+                int childID = Integer.parseInt(childIDStr);
+                int staffID = Integer.parseInt(staffIDStr);
+                
+                // Get service and child info
+                ServiceDAO serviceDAO = new ServiceDAO();
+                ChildrenDAO childrenDAO = new ChildrenDAO();
+                Service service = serviceDAO.getServiceByID(serviceID);
+                Children child = childrenDAO.getChildrenByID(childID);
+
+                if (service == null || child == null) {
+                    throw new ServletException("Service or Child not found");
+                }
+                
+                // Create order with proper error handling
+                OrderDAO orderDAO = new OrderDAO();
+                Order order = new Order(0, user.getUserID(), 1, service.getPrice(), "", true);
+                out.println("Creating order...");
+                order = orderDAO.addOrder(order);
+                out.println("Order ID generated: " + order.getOrderID());
+                
+                if (order.getOrderID() <= 0) {
+                    throw new ServletException("Failed to create order - invalid ID generated: " + order.getOrderID());
+                }
+                
+                // Create order item with proper error handling
+                OrderItem orderItem = new OrderItem(0, order.getOrderID(), serviceID, childID);
+                out.println("Creating order item...");
+                orderItem = orderDAO.addOrderItem(orderItem);
+                out.println("OrderItem ID generated: " + orderItem.getOrderItemID());
+                
+                if (orderItem.getOrderItemID() <= 0) {
+                    throw new ServletException("Failed to create order item - invalid ID generated: " + orderItem.getOrderItemID());
+                }
+                
+                // Create reservation
+                ReservationDAO reservationDAO = new ReservationDAO();
+                Reservation reservation = new Reservation(
+                    0, 
+                    orderItem.getOrderItemID(),
+                    reservationDate,
+                    startTime,
+                    staffID,
+                    false,  // isExam
+                    false   // hasRecord
+                );
+                
+                out.println("Creating reservation...");
+                boolean success = reservationDAO.addReservation(reservation);
+                if (!success) {
+                    throw new ServletException("Failed to add reservation - database error");
+                }
+                out.println("Reservation created successfully");
+                
+                // If we get here, everything worked
+                response.sendRedirect(request.getContextPath() + "/Common_JSP/reservationConfirmation.jsp");
+                
+            } catch (Exception e) {
+                e.printStackTrace(new PrintWriter(out));
+                throw new ServletException(e);
+            }
         } else {
             response.sendRedirect("login");
         }

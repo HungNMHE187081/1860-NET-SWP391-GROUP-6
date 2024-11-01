@@ -275,25 +275,23 @@ public class ReservationDAO extends DBContext {
         return list;
     }
 
-    public void addReservation(Reservation reservation) {
-        String sql = "INSERT INTO [dbo].[Reservations] "
-                + "([OrderItemID], [ReservationDate], [StartTime], [StaffID], [isExam], [hasRecord]) "
-                + "VALUES (?, ?, ?, ?, 0, 0)";
-        try {
-            PreparedStatement pre = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            pre.setInt(1, reservation.getOrderItemID());
-            pre.setString(2, reservation.getReservationDate());
-            pre.setString(3, reservation.getStartTime());
-            pre.setInt(4, reservation.getStaffID());
-            pre.executeUpdate();
-
-            ResultSet rs = pre.getGeneratedKeys();
-            if (rs.next()) {
-                reservation.setReservationID(rs.getInt(1));
-            }
+    public boolean addReservation(Reservation reservation) {
+        String sql = "INSERT INTO Reservations (OrderItemID, ReservationDate, StartTime, StaffID, isExam, hasRecord) " +
+                     "VALUES (?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, reservation.getOrderItemID());
+            ps.setString(2, reservation.getReservationDate());
+            ps.setString(3, reservation.getStartTime());
+            ps.setInt(4, reservation.getStaffID());
+            ps.setBoolean(5, reservation.isIsExam());
+            ps.setBoolean(6, reservation.isHasRecord());
+            
+            int rowsAffected = ps.executeUpdate();
+            return rowsAffected > 0;
         } catch (SQLException e) {
+            System.out.println("Error in addReservation: " + e.getMessage());
             e.printStackTrace();
-            System.out.println("Error inserting reservation: " + e.getMessage());
+            return false;
         }
     }
 

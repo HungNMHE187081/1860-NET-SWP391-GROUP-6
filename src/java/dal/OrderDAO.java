@@ -38,7 +38,7 @@ public class OrderDAO extends DBContext {
     
     public List<Order> getAllOrderInCarts() {
         List<Order> list = new ArrayList<>();
-        String sql = "SELECT * FROM Orders";
+        String sql = "SELECT * FROM Orders where isCheckOut = 0";
         try {
             PreparedStatement pre = connection.prepareStatement(sql);
             ResultSet rs = pre.executeQuery();
@@ -210,32 +210,63 @@ public class OrderDAO extends DBContext {
         return list;
     }
     
-    public void addOrder(Order order) {
-        String sql = "INSERT INTO Orders (CustomerID, Quantity, TotalPrice, OrderDate, isCheckOut) VALUES (?, ?, ?, ?, ?)";
+    public Order addOrder(Order order) {
+        String sql = "INSERT INTO Orders (CustomerID, Quantity, TotalPrice, OrderDate, isCheckOut) " +
+                    "VALUES (?, ?, ?, GETDATE(), ?); " +
+                    "SELECT CAST(SCOPE_IDENTITY() AS INT) AS OrderID;";
         try {
-            PreparedStatement pre = connection.prepareStatement(sql);
+            PreparedStatement pre = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             pre.setInt(1, order.getCustomerID());
             pre.setInt(2, order.getQuantity());
             pre.setDouble(3, order.getTotalPrice());
-            pre.setString(4, order.getOrderDate());
-            pre.setBoolean(5, order.isIsCheckOut());
+            pre.setBoolean(4, order.isIsCheckOut());
+            
             pre.executeUpdate();
+            
+            // Get the generated ID
+            try (ResultSet rs = pre.getGeneratedKeys()) {
+                if (rs.next()) {
+                    int generatedOrderID = rs.getInt(1);
+                    order.setOrderID(generatedOrderID);
+                    System.out.println("Generated OrderID: " + generatedOrderID); // Debug log
+                } else {
+                    throw new SQLException("Creating order failed, no ID obtained.");
+                }
+            }
         } catch (SQLException e) {
+            System.err.println("Error in addOrder: " + e.getMessage());
             e.printStackTrace();
         }
+        return order;
     }
-    
-    public void addOrderItem(OrderItem orderItem) {
-        String sql = "INSERT INTO OrderItems (OrderID, ServiceID, ChildID) VALUES (?, ?, ?)";
+
+    public OrderItem addOrderItem(OrderItem orderItem) {
+        String sql = "INSERT INTO OrderItems (OrderID, ServiceID, ChildID) " +
+                    "VALUES (?, ?, ?); " +
+                    "SELECT CAST(SCOPE_IDENTITY() AS INT) AS OrderItemID;";
         try {
-            PreparedStatement pre = connection.prepareStatement(sql);
+            PreparedStatement pre = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             pre.setInt(1, orderItem.getOrderID());
             pre.setInt(2, orderItem.getServiceID());
             pre.setInt(3, orderItem.getChildID());
+            
             pre.executeUpdate();
+            
+            // Get the generated ID
+            try (ResultSet rs = pre.getGeneratedKeys()) {
+                if (rs.next()) {
+                    int generatedOrderItemID = rs.getInt(1);
+                    orderItem.setOrderItemID(generatedOrderItemID);
+                    System.out.println("Generated OrderItemID: " + generatedOrderItemID); // Debug log
+                } else {
+                    throw new SQLException("Creating order item failed, no ID obtained.");
+                }
+            }
         } catch (SQLException e) {
+            System.err.println("Error in addOrderItem: " + e.getMessage());
             e.printStackTrace();
         }
+        return orderItem;
     }
 
     public static void main(String[] args) {
