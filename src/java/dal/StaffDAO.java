@@ -144,8 +144,35 @@ public class StaffDAO extends DBContext {
         }
         return listStaff;
     }
+    
+    public List<Staff> getStaffByDegreeID(int degreeID) {
+        List<Staff> listStaff = new ArrayList<>();
+        String sql = "SELECT * FROM StaffView WHERE DegreeID = ?";
+        try {
+            PreparedStatement pre = connection.prepareStatement(sql);
+            pre.setInt(1, degreeID);
+            try (ResultSet rs = pre.executeQuery()) {
+                while (rs.next()) {
+                    Staff staff = new Staff();
+                    staff.setStaffID(rs.getInt("StaffID"));
+                    staff.setStaffName(rs.getString("StaffName"));
+                    staff.setYearsOfExperience(rs.getInt("YearsOfExperience"));
+                    staff.setSpecializationID(rs.getInt("SpecializationID"));
+                    staff.setDegreeID(rs.getInt("DegreeID"));
+                    staff.setHireDate(rs.getDate("HireDate") != null ? sdf.format(rs.getDate("HireDate")) : null);
+                    staff.setSalary(rs.getDouble("Salary"));
+    
+                    listStaff.add(staff);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listStaff;
+    }
+    
     public static void main(String[] args) {
         StaffDAO dao = new StaffDAO();
-        System.out.println(dao.getStaffByID(1).getStaffName());
+        System.out.println(dao.getStaffByDegreeID(1).size());
     }
 }

@@ -79,8 +79,8 @@
                 <div class="row justify-content-center">
                     <div class="col-12">
                         <div class="section-title text-center mb-4 pb-2">
-                            <h4 class="title mb-4">Giỏ hàng</h4>
-                            <p class="text-muted mx-auto para-desc mb-0">Dưới đây là danh sách các lịch khám nằm trong giỏ hàng của bạn.</p>
+                            <h4 class="title mb-4">Danh sách lịch khám sắp tới</h4>
+                            <p class="text-muted mx-auto para-desc mb-0">Dưới đây là danh sách các lịch khám sắp tới của bạn.</p>
                         </div>
                     </div><!--end col-->
                 </div><!--end row-->

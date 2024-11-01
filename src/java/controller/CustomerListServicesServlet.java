@@ -1,87 +1,73 @@
 package controller;
 
-import dal.ServiceDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.List;
+import java.util.stream.Collectors;
+import dal.AgeLimitDAO;
+import dal.ServiceDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
+import model.AgeLimits;
 import model.Service;
 
-/**
- *
- * @author vuvie
- */
 public class CustomerListServicesServlet extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ListServiceServlet</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ListServiceServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String keyword = request.getParameter("keyword");
+        String ageLimitIDStr = request.getParameter("ageLimit");
+        String minPriceStr = request.getParameter("minPrice");
+        String maxPriceStr = request.getParameter("maxPrice");
+        String priceFilter = request.getParameter("priceFilter");
+
+        int ageLimitID = ageLimitIDStr != null && !ageLimitIDStr.isEmpty() ? Integer.parseInt(ageLimitIDStr) : 0;
+        double minPrice = minPriceStr != null && !minPriceStr.isEmpty() ? Double.parseDouble(minPriceStr) : 0;
+        double maxPrice = maxPriceStr != null && !maxPriceStr.isEmpty() ? Double.parseDouble(maxPriceStr) : Double.MAX_VALUE;
+
         ServiceDAO serviceDAO = new ServiceDAO();
-        List<Service> services = serviceDAO.getAllServices();
+        AgeLimitDAO ageLimitDAO = new AgeLimitDAO();
+        List<Service> services;
+
+        if (keyword != null && !keyword.isEmpty() && ageLimitID > 0) {
+            services = serviceDAO.searchServicesByKeywordAgeLimitAndPrice(keyword, ageLimitID, minPrice, maxPrice);
+        } else if (keyword != null && !keyword.isEmpty()) {
+            services = serviceDAO.searchServicesByKeywordAndPrice(keyword, minPrice, maxPrice);
+        } else if (ageLimitID > 0) {
+            services = serviceDAO.searchServicesByAgeLimitIDAndPrice(ageLimitID, minPrice, maxPrice);
+        } else {
+            services = serviceDAO.getAllServices();
+        }
+
+        if (priceFilter != null) {
+            if (priceFilter.equals("lowToHigh")) {
+                services = services.stream()
+                        .sorted((s1, s2) -> Double.compare(s1.getPrice(), s2.getPrice()))
+                        .collect(Collectors.toList());
+            } else if (priceFilter.equals("highToLow")) {
+                services = services.stream()
+                        .sorted((s1, s2) -> Double.compare(s2.getPrice(), s1.getPrice()))
+                        .collect(Collectors.toList());
+            }
+        }
+
+        List<AgeLimits> ageLimits = ageLimitDAO.getAllAgeLimits();
+
         request.setAttribute("services", services);
+        request.setAttribute("ageLimits", ageLimits);
         request.getRequestDispatcher("/Common_JSP/home-list-service.jsp").forward(request, response);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        doGet(request, response);
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
+        return "CustomerListServicesServlet handles the listing of services for customers.";
+    }
 }

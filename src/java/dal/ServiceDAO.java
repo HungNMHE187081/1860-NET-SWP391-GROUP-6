@@ -163,6 +163,105 @@ public class ServiceDAO extends DBContext {
         }
         return services;
     }
+        public List<Service> searchServicesByKeywordAgeLimitAndPrice(String keyword, int ageLimitID, double minPrice, double maxPrice) {
+        List<Service> services = new ArrayList<>();
+        String sql = "SELECT * FROM Services WHERE serviceName LIKE ? AND ageLimitID = ? AND price BETWEEN ? AND ?";
+        try {
+            PreparedStatement pre = connection.prepareStatement(sql);
+            pre.setString(1, "%" + keyword + "%");
+            pre.setInt(2, ageLimitID);
+            pre.setDouble(3, minPrice);
+            pre.setDouble(4, maxPrice);
+            try (ResultSet rs = pre.executeQuery()) {
+                while (rs.next()) {
+                    Service service = new Service();
+                    service.setServiceID(rs.getInt("serviceID"));
+                    service.setServiceName(rs.getString("serviceName"));
+                    service.setCategoryID(rs.getInt("CategoryID"));
+                    service.setDegreeID(rs.getInt("DegreeID"));
+                    service.setDescription(rs.getString("description"));
+                    service.setPrice(rs.getDouble("price"));
+                    service.setDuration(rs.getInt("duration"));
+                    service.setServiceImage(rs.getString("serviceImage"));
+                    service.setIsActive(rs.getBoolean("isActive"));
+                    service.setAgeLimitID(rs.getInt("ageLimitID"));
+                    service.setCreatedAt(rs.getDate("CreatedAt") != null ? sdf.format(rs.getDate("CreatedAt")) : null);
+                    service.setUpdatedAt(rs.getDate("UpdatedAt") != null ? sdf.format(rs.getDate("UpdatedAt")) : null);
+
+                    services.add(service);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return services;
+    }
+
+    public List<Service> searchServicesByKeywordAndPrice(String keyword, double minPrice, double maxPrice) {
+        List<Service> services = new ArrayList<>();
+        String sql = "SELECT * FROM Services WHERE serviceName LIKE ? AND price BETWEEN ? AND ?";
+        try {
+            PreparedStatement pre = connection.prepareStatement(sql);
+            pre.setString(1, "%" + keyword + "%");
+            pre.setDouble(2, minPrice);
+            pre.setDouble(3, maxPrice);
+            try (ResultSet rs = pre.executeQuery()) {
+                while (rs.next()) {
+                    Service service = new Service();
+                    service.setServiceID(rs.getInt("serviceID"));
+                    service.setServiceName(rs.getString("serviceName"));
+                    service.setCategoryID(rs.getInt("CategoryID"));
+                    service.setDegreeID(rs.getInt("DegreeID"));
+                    service.setDescription(rs.getString("description"));
+                    service.setPrice(rs.getDouble("price"));
+                    service.setDuration(rs.getInt("duration"));
+                    service.setServiceImage(rs.getString("serviceImage"));
+                    service.setIsActive(rs.getBoolean("isActive"));
+                    service.setAgeLimitID(rs.getInt("ageLimitID"));
+                    service.setCreatedAt(rs.getDate("CreatedAt") != null ? sdf.format(rs.getDate("CreatedAt")) : null);
+                    service.setUpdatedAt(rs.getDate("UpdatedAt") != null ? sdf.format(rs.getDate("UpdatedAt")) : null);
+
+                    services.add(service);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return services;
+    }
+
+    public List<Service> searchServicesByAgeLimitIDAndPrice(int ageLimitID, double minPrice, double maxPrice) {
+        List<Service> services = new ArrayList<>();
+        String sql = "SELECT * FROM Services WHERE ageLimitID = ? AND price BETWEEN ? AND ?";
+        try {
+            PreparedStatement pre = connection.prepareStatement(sql);
+            pre.setInt(1, ageLimitID);
+            pre.setDouble(2, minPrice);
+            pre.setDouble(3, maxPrice);
+            try (ResultSet rs = pre.executeQuery()) {
+                while (rs.next()) {
+                    Service service = new Service();
+                    service.setServiceID(rs.getInt("serviceID"));
+                    service.setServiceName(rs.getString("serviceName"));
+                    service.setCategoryID(rs.getInt("CategoryID"));
+                    service.setDegreeID(rs.getInt("DegreeID"));
+                    service.setDescription(rs.getString("description"));
+                    service.setPrice(rs.getDouble("price"));
+                    service.setDuration(rs.getInt("duration"));
+                    service.setServiceImage(rs.getString("serviceImage"));
+                    service.setIsActive(rs.getBoolean("isActive"));
+                    service.setAgeLimitID(rs.getInt("ageLimitID"));
+                    service.setCreatedAt(rs.getDate("CreatedAt") != null ? sdf.format(rs.getDate("CreatedAt")) : null);
+                    service.setUpdatedAt(rs.getDate("UpdatedAt") != null ? sdf.format(rs.getDate("UpdatedAt")) : null);
+
+                    services.add(service);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return services;
+    }
 
     public void insertService(Service service) {
         String sql = "INSERT INTO [dbo].[Services]\n"

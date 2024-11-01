@@ -18,7 +18,7 @@ public class OrderDAO extends DBContext {
 
     public List<Order> getAllOrders() {
         List<Order> list = new ArrayList<>();
-        String sql = "SELECT * FROM Orders where isOrder = 1";
+        String sql = "SELECT * FROM Orders";
         try {
             PreparedStatement pre = connection.prepareStatement(sql);
             ResultSet rs = pre.executeQuery();
@@ -28,9 +28,8 @@ public class OrderDAO extends DBContext {
                 int Quantity = rs.getInt("Quantity");
                 double TotalPrice = rs.getDouble("TotalPrice");
                 String OrderDate = rs.getString("OrderDate");
-                boolean isOrder = rs.getBoolean("isOrder");
                 boolean isCheckOut = rs.getBoolean("isCheckOut");
-                list.add(new Order(OrderID, CustomerID, Quantity, TotalPrice, OrderDate, isOrder, isCheckOut));
+                list.add(new Order(OrderID, CustomerID, Quantity, TotalPrice, OrderDate, isCheckOut));
             }
         } catch (SQLException e) {
         }
@@ -39,7 +38,7 @@ public class OrderDAO extends DBContext {
     
     public List<Order> getAllOrderInCarts() {
         List<Order> list = new ArrayList<>();
-        String sql = "SELECT * FROM Orders where isOrder = 0";
+        String sql = "SELECT * FROM Orders";
         try {
             PreparedStatement pre = connection.prepareStatement(sql);
             ResultSet rs = pre.executeQuery();
@@ -49,9 +48,8 @@ public class OrderDAO extends DBContext {
                 int Quantity = rs.getInt("Quantity");
                 double TotalPrice = rs.getDouble("TotalPrice");
                 String OrderDate = rs.getString("OrderDate");
-                boolean isOrder = rs.getBoolean("isOrder");
                 boolean isCheckOut = rs.getBoolean("isCheckOut");
-                list.add(new Order(OrderID, CustomerID, Quantity, TotalPrice, OrderDate, isOrder, isCheckOut));
+                list.add(new Order(OrderID, CustomerID, Quantity, TotalPrice, OrderDate, isCheckOut));
             }
         } catch (SQLException e) {
         }
@@ -60,7 +58,7 @@ public class OrderDAO extends DBContext {
 
     public List<Order> getAllCheckOutOrders() {
         List<Order> list = new ArrayList<>();
-        String sql = "SELECT * FROM Orders WHERE isOrder = 1 and isCheckOut = 1";
+        String sql = "SELECT * FROM Orders WHERE isCheckOut = 1";
         try {
             PreparedStatement pre = connection.prepareStatement(sql);
             ResultSet rs = pre.executeQuery();
@@ -70,9 +68,8 @@ public class OrderDAO extends DBContext {
                 int Quantity = rs.getInt("Quantity");
                 double TotalPrice = rs.getDouble("TotalPrice");
                 String OrderDate = rs.getString("OrderDate");
-                boolean isOrder = rs.getBoolean("isOrder");
                 boolean isCheckOut = rs.getBoolean("isCheckOut");
-                list.add(new Order(OrderID, CustomerID, Quantity, TotalPrice, OrderDate, isOrder, isCheckOut));
+                list.add(new Order(OrderID, CustomerID, Quantity, TotalPrice, OrderDate, isCheckOut));
             }
         } catch (SQLException e) {
         }
@@ -86,8 +83,7 @@ public class OrderDAO extends DBContext {
                      "c.FirstName, c.MiddleName, c.LastName, c.DateOfBirth, c.Gender, c.ChildImage " +
                      "FROM Orders o " +
                      "JOIN OrderItems oi ON o.OrderID = oi.OrderID " +
-                     "JOIN Children c ON oi.ChildID = c.ChildID " +
-                     "WHERE o.isOrder = 1";
+                     "JOIN Children c ON oi.ChildID = c.ChildID ";
         try {
             PreparedStatement pre = connection.prepareStatement(sql);
             ResultSet rs = pre.executeQuery();
@@ -105,7 +101,7 @@ public class OrderDAO extends DBContext {
 
     public Order getOrdersByOrderID(int OrderID) {
         Order order = new Order();
-        String sql = "SELECT * FROM Orders WHERE OrderID = ? and isOrder = 1";
+        String sql = "SELECT * FROM Orders WHERE OrderID = ?";
         try {
             PreparedStatement pre = connection.prepareStatement(sql);
             pre.setInt(1, OrderID);
@@ -117,7 +113,6 @@ public class OrderDAO extends DBContext {
                     order.setTotalPrice(rs.getDouble("TotalPrice"));
                     order.setOrderDate(rs.getString("OrderDate"));
                     order.setIsCheckOut(rs.getBoolean("isCheckOut"));
-                    order.setIsOrder(rs.getBoolean("isOrder"));
                 }
             }
         } catch (SQLException e) {
@@ -133,7 +128,7 @@ public class OrderDAO extends DBContext {
                      "FROM Orders o " +
                      "JOIN OrderItems oi ON o.OrderID = oi.OrderID " +
                      "JOIN Children c ON oi.ChildID = c.ChildID " +
-                     "WHERE o.OrderID = ? AND o.isOrder = 1";
+                     "WHERE o.OrderID = ?";
         try {
             PreparedStatement pre = connection.prepareStatement(sql);
             pre.setInt(1, OrderID);
@@ -177,7 +172,7 @@ public class OrderDAO extends DBContext {
 
     public List<Order> getOrdersByCustomerID(int CustomerID) {
         List<Order> list = new ArrayList<>();
-        String sql = "SELECT * FROM Orders WHERE CustomerID = ? and isOrder = 1";
+        String sql = "SELECT * FROM Orders WHERE CustomerID = ?";
         try {
             PreparedStatement pre = connection.prepareStatement(sql);
             pre.setInt(1, CustomerID);
@@ -187,9 +182,8 @@ public class OrderDAO extends DBContext {
                 int Quantity = rs.getInt("Quantity");
                 double TotalPrice = rs.getDouble("TotalPrice");
                 String OrderDate = rs.getString("OrderDate");
-                boolean isOrder = rs.getBoolean("isOrder");
                 boolean isCheckOut = rs.getBoolean("isCheckOut");
-                list.add(new Order(OrderID, CustomerID, Quantity, TotalPrice, OrderDate, isOrder, isCheckOut));
+                list.add(new Order(OrderID, CustomerID, Quantity, TotalPrice, OrderDate, isCheckOut));
             }
         } catch (SQLException e) {
         }
@@ -198,7 +192,7 @@ public class OrderDAO extends DBContext {
     
     public List<Order> getOrdersInCartByCustomerID(int CustomerID) {
         List<Order> list = new ArrayList<>();
-        String sql = "SELECT * FROM Orders WHERE CustomerID = ? and isOrder = 0";
+        String sql = "SELECT * FROM Orders WHERE CustomerID = ?";
         try {
             PreparedStatement pre = connection.prepareStatement(sql);
             pre.setInt(1, CustomerID);
@@ -208,9 +202,8 @@ public class OrderDAO extends DBContext {
                 int Quantity = rs.getInt("Quantity");
                 double TotalPrice = rs.getDouble("TotalPrice");
                 String OrderDate = rs.getString("OrderDate");
-                boolean isOrder = rs.getBoolean("isOrder");
                 boolean isCheckOut = rs.getBoolean("isCheckOut");
-                list.add(new Order(OrderID, CustomerID, Quantity, TotalPrice, OrderDate, isOrder, isCheckOut));
+                list.add(new Order(OrderID, CustomerID, Quantity, TotalPrice, OrderDate, isCheckOut));
             }
         } catch (SQLException e) {
         }
@@ -218,15 +211,14 @@ public class OrderDAO extends DBContext {
     }
     
     public void addOrder(Order order) {
-        String sql = "INSERT INTO Orders (CustomerID, Quantity, TotalPrice, OrderDate, isOrder, isCheckOut) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Orders (CustomerID, Quantity, TotalPrice, OrderDate, isCheckOut) VALUES (?, ?, ?, ?, ?)";
         try {
             PreparedStatement pre = connection.prepareStatement(sql);
             pre.setInt(1, order.getCustomerID());
             pre.setInt(2, order.getQuantity());
             pre.setDouble(3, order.getTotalPrice());
             pre.setString(4, order.getOrderDate());
-            pre.setBoolean(5, order.isIsOrder());
-            pre.setBoolean(6, order.isIsCheckOut());
+            pre.setBoolean(5, order.isIsCheckOut());
             pre.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -254,3 +246,4 @@ public class OrderDAO extends DBContext {
         System.out.println(dao.getOrderItemsByOrderID(1).size());
     }
 }
+

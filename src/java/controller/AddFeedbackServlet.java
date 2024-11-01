@@ -30,7 +30,7 @@ public class AddFeedbackServlet extends HttpServlet {
         List<Service> serviceList = serviceDAO.getAllServices();
         request.setAttribute("user", user);
         request.setAttribute("service", serviceList);
-        request.getRequestDispatcher("feedback-new.jsp").forward(request, response);
+        request.getRequestDispatcher("/Common_JSP/feedback-new.jsp").forward(request, response);
     }
 
     @Override

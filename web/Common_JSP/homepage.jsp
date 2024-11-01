@@ -61,106 +61,9 @@
                 </div><!--end row-->
             </div><!--end container-->
         </section><!--end section-->
+
         <!-- End Hero -->
 
-        
-
-        <!-- Start -->
-        <section class="section">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-12">
-                        <div class="section-title text-center mb-4 pb-2">
-                            <h4 class="title mb-4">Doctors</h4>
-                            <p class="text-muted mx-auto para-desc mb-0">Great doctor if you need your family member to get effective immediate assistance, emergency treatment or a simple consultation.</p>
-                        </div>
-                    </div><!--end col-->
-                </div><!--end row-->
-
-                <div class="row align-items-center">
-                    <div class="col-xl-3 col-lg-3 col-md-6 mt-4 pt-2">
-                        <div class="card team border-0 rounded shadow overflow-hidden">
-                            <div class="team-img position-relative">
-                                <img src="../assets/images/doctors/01.jpg" class="img-fluid" alt="">
-                                <ul class="list-unstyled team-social mb-0">
-                                    <li><a href="#" class="btn btn-icon btn-pills btn-soft-primary"><i data-feather="facebook" class="icons"></i></a></li>
-                                    <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-primary"><i data-feather="linkedin" class="icons"></i></a></li>
-                                    <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-primary"><i data-feather="github" class="icons"></i></a></li>
-                                    <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-primary"><i data-feather="twitter" class="icons"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="card-body content text-center">
-                                <a href="doctor-team-one.html" class="title text-dark h5 d-block mb-0">Calvin Carlo</a>
-                                <small class="text-muted speciality">Eye Care</small>
-                            </div>
-                        </div>
-                    </div><!--end col-->
-                    
-                    <div class="col-xl-3 col-lg-3 col-md-6 mt-4 pt-2">
-                        <div class="card team border-0 rounded shadow overflow-hidden">
-                            <div class="team-img position-relative">
-                                <img src="../assets/images/doctors/02.jpg" class="img-fluid" alt="">
-                                <ul class="list-unstyled team-social mb-0">
-                                    <li><a href="#" class="btn btn-icon btn-pills btn-soft-primary"><i data-feather="facebook" class="icons"></i></a></li>
-                                    <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-primary"><i data-feather="linkedin" class="icons"></i></a></li>
-                                    <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-primary"><i data-feather="github" class="icons"></i></a></li>
-                                    <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-primary"><i data-feather="twitter" class="icons"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="card-body content text-center">
-                                <a href="doctor-team-one.html" class="title text-dark h5 d-block mb-0">Cristino Murphy</a>
-                                <small class="text-muted speciality">Gynecology</small>
-                            </div>
-                        </div>
-                    </div><!--end col-->
-                    
-                    <div class="col-xl-3 col-lg-3 col-md-6 mt-4 pt-2">
-                        <div class="card team border-0 rounded shadow overflow-hidden">
-                            <div class="team-img position-relative">
-                                <img src="../assets/images/doctors/03.jpg" class="img-fluid" alt="">
-                                <ul class="list-unstyled team-social mb-0">
-                                    <li><a href="#" class="btn btn-icon btn-pills btn-soft-primary"><i data-feather="facebook" class="icons"></i></a></li>
-                                    <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-primary"><i data-feather="linkedin" class="icons"></i></a></li>
-                                    <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-primary"><i data-feather="github" class="icons"></i></a></li>
-                                    <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-primary"><i data-feather="twitter" class="icons"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="card-body content text-center">
-                                <a href="doctor-team-one.html" class="title text-dark h5 d-block mb-0">Alia Reddy</a>
-                                <small class="text-muted speciality">Psychotherapy</small>
-                            </div>
-                        </div>
-                    </div><!--end col-->
-                    
-                    <div class="col-xl-3 col-lg-3 col-md-6 mt-4 pt-2">
-                        <div class="card team border-0 rounded shadow overflow-hidden">
-                            <div class="team-img position-relative">
-                                <img src="../assets/images/doctors/04.jpg" class="img-fluid" alt="">
-                                <ul class="list-unstyled team-social mb-0">
-                                    <li><a href="#" class="btn btn-icon btn-pills btn-soft-primary"><i data-feather="facebook" class="icons"></i></a></li>
-                                    <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-primary"><i data-feather="linkedin" class="icons"></i></a></li>
-                                    <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-primary"><i data-feather="github" class="icons"></i></a></li>
-                                    <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-primary"><i data-feather="twitter" class="icons"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="card-body content text-center">
-                                <a href="doctor-team-one.html" class="title text-dark h5 d-block mb-0">Toni Kovar</a>
-                                <small class="text-muted speciality">Orthopedic</small>
-                            </div>
-                        </div>
-                    </div><!--end col-->
-
-                    <div class="col-12 mt-4 pt-2 text-center">
-                        <a href="doctor-team-one.html" class="btn btn-primary">See More</a>
-                    </div><!--end col-->
-                </div><!--end row-->
-            </div><!--end container-->
-        </section><!--end section-->
-        <!-- End -->
-
-       
-        
-        
         <!-- Start -->
         <section class="section">
             <div class="container">
@@ -201,261 +104,7 @@
                     </div><!--end col-->
                 </div><!--end row-->
             </div><!--end container-->
-        </section>
             <!-- End -->
-            
-             <!-- Start -->
-        <section class="section bg-light">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-12">
-                        <div class="section-title text-center mb-4 pb-2">
-                            <span class="badge badge-pill badge-soft-primary mb-3">Availability</span>
-                            <h4 class="title mb-4">Doctors Time Table</h4>
-                            <p class="text-muted mx-auto para-desc mb-0">Great doctor if you need your family member to get effective immediate assistance, emergency treatment or a simple consultation.</p>
-                        </div>
-                    </div><!--end col-->
-                </div><!--end row-->
-            </div><!--end container-->
-
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-12 mt-4 pt-2">
-                        <div class="table-responsive shadow rounded">
-                            <table class="table table-center table-bordered bg-white mb-0">
-                                <thead>
-                                    <tr>
-                                        <th class="text-center py-4" style="min-width: 120px;">Time Table</th>
-                                        <th class="text-center py-4" style="min-width: 200px;">Monday</th>
-                                        <th class="text-center py-4" style="min-width: 200px;">Tuesday</th>
-                                        <th class="text-center py-4" style="min-width: 200px;">Wednesday</th>
-                                        <th class="text-center py-4" style="min-width: 200px;">Thursday</th>
-                                        <th class="text-center py-4" style="min-width: 200px;">Friday</th>
-                                        <th class="text-center py-4" style="min-width: 200px;">Saturday</th>
-                                        <th class="text-center py-4" style="min-width: 200px;">Sunday</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <!-- Start -->
-                                    <tr>
-                                        <th class="text-center py-5">09:00AM</th>
-                                        <td>
-                                            <div class="d-flex mb-3">
-                                                <img src="../assets/images/doctors/01.jpg" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
-                                                <div class="ms-3">
-                                                    <h6 class="text-dark mb-0 d-block">Calvin Carlo</h6>
-                                                    <small class="text-muted">Eye Care</small>
-                                                </div>
-                                            </div>
-                                            <small class="bg-soft-primary rounded py-1 px-2 d-block text-center">09:00AM - 10:00AM</small>
-                                        </td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td>
-                                            <div class="d-flex mb-3">
-                                                <img src="../assets/images/doctors/03.jpg" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
-                                                <div class="ms-3">
-                                                    <h6 class="text-dark mb-0 d-block">Alia Reddy</h6>
-                                                    <small class="text-muted">Psychotherapy</small>
-                                                </div>
-                                            </div>
-                                            <small class="bg-soft-primary rounded py-1 px-2 d-block text-center">09:00AM - 01:00PM</small>
-                                        </td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-
-                                    <tr>
-                                        <th class="text-center py-5">11:00AM</th>
-                                        <td></td>
-                                        <td>
-                                            <div class="d-flex mb-3">
-                                                <img src="../assets/images/doctors/02.jpg" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
-                                                <div class="ms-3">
-                                                    <h6 class="text-dark mb-0 d-block">Cristino Murphy</h6>
-                                                    <small class="text-muted">Gynecology</small>
-                                                </div>
-                                            </div>
-                                            <small class="bg-soft-primary rounded py-1 px-2 d-block text-center">11:00AM - 04:00PM</small>
-                                        </td>
-                                        <td></td>
-                                        <td>
-                                            <div class="d-flex mb-3">
-                                                <img src="../assets/images/doctors/05.jpg" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
-                                                <div class="ms-3">
-                                                    <h6 class="text-dark mb-0 d-block">Jennifer Ballance</h6>
-                                                    <small class="text-muted">Cardiology</small>
-                                                </div>
-                                            </div>
-                                            <small class="bg-soft-primary rounded py-1 px-2 d-block text-center">11:00AM - 12:00PM</small>
-                                        </td>
-                                        <td></td>
-                                        <td>
-                                            <div class="d-flex mb-3">
-                                                <img src="../assets/images/doctors/04.jpg" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
-                                                <div class="ms-3">
-                                                    <h6 class="text-dark mb-0 d-block">Toni Kovar</h6>
-                                                    <small class="text-muted">Orthopedic</small>
-                                                </div>
-                                            </div>
-                                            <small class="bg-soft-primary rounded py-1 px-2 d-block text-center">09:00AM - 10:00AM</small>
-                                        </td>
-                                        <td></td>
-                                    </tr>
-                                    
-                                    <tr>
-                                        <th class="text-center py-5">02:00PM</th>
-                                        <td></td>
-                                        <td></td>
-                                        <td>
-                                            <div class="d-flex mb-3">
-                                                <img src="../assets/images/doctors/06.jpg" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
-                                                <div class="ms-3">
-                                                    <h6 class="text-dark mb-0 d-block">Tara Arrington</h6>
-                                                    <small class="text-muted">Neurology</small>
-                                                </div>
-                                            </div>
-                                            <small class="bg-soft-primary rounded py-1 px-2 d-block text-center">02:00PM - 04:00PM</small>
-                                        </td>
-                                        <td></td>
-                                        <td>
-                                            <div class="d-flex mb-3">
-                                                <img src="../assets/images/doctors/05.jpg" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
-                                                <div class="ms-3">
-                                                    <h6 class="text-dark mb-0 d-block">Jennifer Ballance</h6>
-                                                    <small class="text-muted">Cardiology</small>
-                                                </div>
-                                            </div>
-                                            <small class="bg-soft-primary rounded py-1 px-2 d-block text-center">11:00AM - 12:00PM</small>
-                                        </td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    
-                                    <tr>
-                                        <th class="text-center py-5">04:00PM</th>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td>
-                                            <div class="d-flex mb-3">
-                                                <img src="../assets/images/doctors/06.jpg" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
-                                                <div class="ms-3">
-                                                    <h6 class="text-dark mb-0 d-block">Tara Arrington</h6>
-                                                    <small class="text-muted">Neurology</small>
-                                                </div>
-                                            </div>
-                                            <small class="bg-soft-primary rounded py-1 px-2 d-block text-center">04:00PM - 05:00PM</small>
-                                        </td>
-                                        <td></td>
-                                        <td></td>
-                                        <td>
-                                            <div class="d-flex mb-3">
-                                                <img src="../assets/images/doctors/06.jpg" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
-                                                <div class="ms-3">
-                                                    <h6 class="text-dark mb-0 d-block">Tara Arrington</h6>
-                                                    <small class="text-muted">Neurology</small>
-                                                </div>
-                                            </div>
-                                            <small class="bg-soft-primary rounded py-1 px-2 d-block text-center">04:30PM - 06:00PM</small>
-                                        </td>
-                                    </tr>
-                                    
-                                    <tr>
-                                        <th class="text-center py-5">06:00PM</th>
-                                        <td>
-                                            <div class="d-flex mb-3">
-                                                <img src="../assets/images/doctors/03.jpg" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
-                                                <div class="ms-3">
-                                                    <h6 class="text-dark mb-0 d-block">Alia Reddy</h6>
-                                                    <small class="text-muted">Psychotherapy</small>
-                                                </div>
-                                            </div>
-                                            <small class="bg-soft-primary rounded py-1 px-2 d-block text-center">06:00PM - 09:00PM</small>
-                                        </td>
-                                        <td></td>
-                                        <td>
-                                            <div class="d-flex mb-3">
-                                                <img src="../assets/images/doctors/04.jpg" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
-                                                <div class="ms-3">
-                                                    <h6 class="text-dark mb-0 d-block">Toni Kovar</h6>
-                                                    <small class="text-muted">Orthopedic</small>
-                                                </div>
-                                            </div>
-                                            <small class="bg-soft-primary rounded py-1 px-2 d-block text-center">07:00PM - 08:00PM</small>
-                                        </td>
-                                        <td></td>
-                                        <td>
-                                            <div class="d-flex mb-3">
-                                                <img src="../assets/images/doctors/05.jpg" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
-                                                <div class="ms-3">
-                                                    <h6 class="text-dark mb-0 d-block">Jennifer Ballance</h6>
-                                                    <small class="text-muted">Cardiology</small>
-                                                </div>
-                                            </div>
-                                            <small class="bg-soft-primary rounded py-1 px-2 d-block text-center">06:00PM - 07:00PM</small>
-                                        </td>
-                                        <td></td>
-                                        <td>
-                                            <div class="d-flex mb-3">
-                                                <img src="../assets/images/doctors/03.jpg" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
-                                                <div class="ms-3">
-                                                    <h6 class="text-dark mb-0 d-block">Alia Reddy</h6>
-                                                    <small class="text-muted">Psychotherapy</small>
-                                                </div>
-                                            </div>
-                                            <small class="bg-soft-primary rounded py-1 px-2 d-block text-center">06:00PM - 07:00PM</small>
-                                        </td>
-                                    </tr>
-                                    
-                                    <tr>
-                                        <th class="text-center py-5">09:00PM</th>
-                                        <td></td>
-                                        <td>
-                                            <div class="d-flex mb-3">
-                                                <img src="../assets/images/doctors/04.jpg" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
-                                                <div class="ms-3">
-                                                    <h6 class="text-dark mb-0 d-block">Toni Kovar</h6>
-                                                    <small class="text-muted">Orthopedic</small>
-                                                </div>
-                                            </div>
-                                            <small class="bg-soft-primary rounded py-1 px-2 d-block text-center">09:00PM - 10:00PM</small>
-                                        </td>
-                                        <td>
-                                            <div class="d-flex mb-3">
-                                                <img src="../assets/images/doctors/05.jpg" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
-                                                <div class="ms-3">
-                                                    <h6 class="text-dark mb-0 d-block">Jennifer Ballance</h6>
-                                                    <small class="text-muted">Cardiology</small>
-                                                </div>
-                                            </div>
-                                            <small class="bg-soft-primary rounded py-1 px-2 d-block text-center">09:00PM - 10:00PM</small>
-                                        </td>
-                                        <td></td>
-                                        <td>
-                                            <div class="d-flex mb-3">
-                                                <img src="../assets/images/doctors/04.jpg" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
-                                                <div class="ms-3">
-                                                    <h6 class="text-dark mb-0 d-block">Toni Kovar</h6>
-                                                    <small class="text-muted">Orthopedic</small>
-                                                </div>
-                                            </div>
-                                            <small class="bg-soft-primary rounded py-1 px-2 d-block text-center">09:00PM - 10:00PM</small>
-                                        </td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    <!-- End -->
-                                </tbody>
-                            </table>
-                        </div>
-                    </div><!--end col-->
-                </div><!--end row-->
-            </div><!--end container-fluid-->
-        </section><!--end section-->
-        <!-- End -->
-            
             <section class="section py-5 bg-light">
                 <div class="container">
                     <!-- Title and description for the services section -->
@@ -667,7 +316,8 @@
                 }
             </style>
         </head>
-        
+        <body>
+
             <section class="section-padding bg-light-theme">
                 <div class="content-container">
                     <div class="swiper">
@@ -684,7 +334,7 @@
                                             <div class="service-details">
                                                 <span class="price">
                                                     <i class="bi bi-cash-stack"></i>
-                                                    <fmt:formatNumber value="${service.price}" type="number" groupingUsed="true" /> ₫
+                                                    <fmt:formatNumber value="${service.price}" type="number" groupingUsed="true"/> ₫
                                                 </span>
                                                 <span class="duration">
                                                     <i class="bi bi-clock"></i>
@@ -714,7 +364,7 @@
 
                     <!-- View All Button -->
                     <div class="view-all-container">
-                        <a href="${pageContext.request.contextPath}/listservice" class="btn-view-all">
+                        <a href="${pageContext.request.contextPath}/customer/listservice" class="btn-view-all">
                             <span>Xem tất cả dịch vụ</span>
                             <i class="bi bi-arrow-right"></i>
                         </a>
@@ -779,7 +429,9 @@
             <section class="section bg-light py-5">
                 <div class="container">
                     <div class="section-title text-center mb-4 pb-2">
-                        <span class="badge badge-pill badge-soft-primary mb-3">Phản Hồi</span>
+                        <span class="badge badge-pill badge-soft-primary mb-3">
+                            <i class="mdi mdi-message-quote me-1"></i> Phản Hồi
+                        </span>
                         <h4 class="title mb-4">Phản Hồi Từ Khách Hàng</h4>
                         <p class="text-muted mx-auto para-desc mb-0">
                             Khám phá cảm nhận và phản hồi từ khách hàng của chúng tôi về trải nghiệm chăm sóc sức khỏe. Tìm hiểu cách mà các dịch vụ của chúng tôi đã góp phần nâng cao sức khỏe và cải thiện chất lượng cuộc sống của họ.
@@ -832,11 +484,11 @@
 
                     <!-- View All Button -->
                     <div class="text-center mt-4">
-                        <a href="/feedback/all" class="btn btn-primary">
+                        <a href="${pageContext.request.contextPath}/customer/feedback" class="btn btn-primary">
                             <i class="fas fa-comments me-2"></i>Xem tất cả phản hồi
                         </a>
                     </div>
-                </div>
+
             </section>
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.4.5/swiper-bundle.min.css">
             <style>
@@ -912,206 +564,6 @@
                     font-size: 12px; /* Icon size inside button */
                 }
             </style>
-            <section class="section bg-light py-5">
-                <div class="container">
-                    <div class="section-title text-center mb-4 pb-2">
-                        <span class="badge badge-pill badge-soft-primary mb-3">Dược Phẩm</span>
-                        <h4 class="title mb-4">Các Loại Thuốc và Công Dụng</h4>
-                        <p class="text-muted mx-auto para-desc mb-0">
-                            Khám phá các loại thuốc phổ biến và công dụng của chúng. Đội ngũ của chúng tôi cung cấp những thông tin chi tiết và đáng tin cậy về các sản phẩm chăm sóc sức khỏe như kem chống hăm, thuốc giảm đau, vắc xin, và nhiều loại khác.
-                        </p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Medicine List Table -->
-            <style>
-                * {
-                    margin: 0;
-                    padding: 0;
-                    box-sizing: border-box;
-                    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-                }
-
-
-                .med-carousel__wrapper {
-                    max-width: 1200px;
-                    margin: 0 auto;
-                    position: relative;
-                }
-
-                .med-carousel__track {
-                    display: flex;
-                    overflow-x: auto;
-                    scroll-behavior: smooth;
-                    gap: 1.5rem;
-                    padding: 1rem 0.5rem;
-                    scrollbar-width: none;
-                    -ms-overflow-style: none;
-                }
-
-                .med-carousel__track::-webkit-scrollbar {
-                    display: none;
-                }
-
-                .med-carousel__item {
-                    min-width: 300px;
-                    background: white;
-                    border-radius: 12px;
-                    padding: 1.5rem;
-                    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                    transition: transform 0.3s ease;
-                }
-
-                .med-carousel__item:hover {
-                    transform: translateY(-5px);
-                }
-
-                .med-carousel__item-title {
-                    color: #2c3e50;
-                    font-size: 1.2rem;
-                    font-weight: 600;
-                    margin-bottom: 0.5rem;
-                }
-
-                .med-carousel__item-info {
-                    margin-bottom: 0.5rem;
-                    color: #7f8c8d;
-                }
-
-                .med-carousel__item-info i {
-                    width: 20px;
-                    color: #3498db;
-                    margin-right: 0.5rem;
-                }
-
-                .med-carousel__nav-btn {
-                    position: absolute;
-                    top: 50%;
-                    transform: translateY(-50%);
-                    background: white;
-                    border: none;
-                    width: 40px;
-                    height: 40px;
-                    border-radius: 50%;
-                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-                    cursor: pointer;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    color: #2c3e50;
-                    transition: all 0.3s ease;
-                }
-
-                .med-carousel__nav-btn:hover {
-                    background: #3498db;
-                    color: white;
-                }
-
-                .med-carousel__nav-btn--prev {
-                    left: -20px;
-                }
-
-                .med-carousel__nav-btn--next {
-                    right: -20px;
-                }
-
-                .med-carousel__empty {
-                    text-align: center;
-                    padding: 2rem;
-                    background: white;
-                    border-radius: 12px;
-                    color: #7f8c8d;
-                    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                }
-            </style>
-            </head>
-        <body>
-            <div class="med-carousel__wrapper">
-                <c:if test="${not empty medicineList}">
-                    <button class="med-carousel__nav-btn med-carousel__nav-btn--prev" onclick="slideCarousel('left')">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-
-                    <div class="med-carousel__track" id="medCarouselTrack">
-                        <c:forEach var="medicine" items="${medicineList}">
-                            <div class="med-carousel__item">
-                                <h3 class="med-carousel__item-title">
-                                    <c:out value="${medicine.name}" />
-                                </h3>
-                                <p class="med-carousel__item-info">
-                                    <i class="fas fa-pills"></i>
-                                    Công dụng: <c:out value="${medicine.uses}" />
-                                </p>
-                                <p class="med-carousel__item-info">
-                                    <i class="fas fa-tag"></i>
-                                    Loại: <c:out value="${medicine.categoryName}" />
-                                </p>
-                                <p class="med-carousel__item-info">
-                                    <i class="fas fa-industry"></i>
-                                    NSX: <c:out value="${medicine.manufactureName}" />
-                                </p>
-                            </div>
-                        </c:forEach>
-                    </div>
-
-                    <button class="med-carousel__nav-btn med-carousel__nav-btn--next" onclick="slideCarousel('right')">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
-                </c:if>
-
-                <c:if test="${empty medicineList}">
-                    <div class="med-carousel__empty">
-                        <i class="fas fa-box-open" style="font-size: 2rem; margin-bottom: 1rem;"></i>
-                        <p>Không tìm thấy thuốc</p>
-                    </div>
-                </c:if>
-            </div>
-        </body>
-            <script>
-                function slideCarousel(direction) {
-                    const track = document.getElementById('medCarouselTrack');
-                    const cardWidth = 300 + 24; // card width + gap
-                    const scrollAmount = cardWidth * 2; // Scroll 2 cards at a time
-
-                    if (direction === 'left') {
-                        track.scrollLeft -= scrollAmount;
-                    } else {
-                        track.scrollLeft += scrollAmount;
-                    }
-                }
-
-                // Add touch swipe functionality
-                let touchStartX = 0;
-                let touchEndX = 0;
-                const track = document.getElementById('medCarouselTrack');
-
-                track.addEventListener('touchstart', e => {
-                    touchStartX = e.touches[0].clientX;
-                });
-
-                track.addEventListener('touchmove', e => {
-                    e.preventDefault(); // Prevent page scroll while swiping
-                });
-
-                track.addEventListener('touchend', e => {
-                    touchEndX = e.changedTouches[0].clientX;
-                    handleSwipe();
-                });
-
-                function handleSwipe() {
-                    const swipeThreshold = 50; // Minimum distance for swipe
-                    const swipeDistance = touchEndX - touchStartX;
-
-                    if (Math.abs(swipeDistance) > swipeThreshold) {
-                        if (swipeDistance > 0) {
-                            slideCarousel('left');
-                        } else {
-                            slideCarousel('right');
-                        }
-                    }
-                }
-            </script>
 
             <!-- Staff Section -->
             <section class="section bg-light py-5">
@@ -1173,220 +625,217 @@
 
                     <!-- View All Staff Button -->
                     <div class="text-center mt-4">
-                        <a href="/staff/all" class="btn btn-primary">
+                        <a href="${pageContext.request.contextPath}/customer/view-staffs" class="btn btn-primary">
                             <i class="fas fa-users me-2"></i>Xem tất cả đội ngũ bác sĩ
                         </a>
                     </div>
-                </div>
-            </section>
 
-            <style>
-                .staff-card {
-                    transition: transform 0.3s ease;
-                }
 
-                .staff-card:hover {
-                    transform: translateY(-5px);
-                }
+                    <style>
+                        .staff-card {
+                            transition: transform 0.3s ease;
+                        }
 
-                .overlay-hover {
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    right: 0;
-                    bottom: 0;
-                    background: rgba(0,0,0,0.1);
-                    opacity: 0;
-                    transition: opacity 0.3s ease;
-                }
+                        .staff-card:hover {
+                            transform: translateY(-5px);
+                        }
 
-                .staff-card:hover .overlay-hover {
-                    opacity: 1;
-                }
+                        .overlay-hover {
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            right: 0;
+                            bottom: 0;
+                            background: rgba(0,0,0,0.1);
+                            opacity: 0;
+                            transition: opacity 0.3s ease;
+                        }
 
-                .slider-btn {
-                    position: absolute;
-                    top: 50%;
-                    transform: translateY(-50%);
-                    background: white;
-                    border: none;
-                    width: 40px;
-                    height: 40px;
-                    border-radius: 50%;
-                    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-                    z-index: 10;
-                    cursor: pointer;
-                    transition: all 0.3s ease;
-                }
+                        .staff-card:hover .overlay-hover {
+                            opacity: 1;
+                        }
 
-                .slider-btn:hover {
-                    background: #007bff;
-                    color: white;
-                }
+                        .slider-btn {
+                            position: absolute;
+                            top: 50%;
+                            transform: translateY(-50%);
+                            background: white;
+                            border: none;
+                            width: 40px;
+                            height: 40px;
+                            border-radius: 50%;
+                            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+                            z-index: 10;
+                            cursor: pointer;
+                            transition: all 0.3s ease;
+                        }
 
-                .slider-btn.prev {
-                    left: -20px;
-                }
+                        .slider-btn:hover {
+                            background: #007bff;
+                            color: white;
+                        }
 
-                .slider-btn.next {
-                    right: -20px;
-                }
+                        .slider-btn.prev {
+                            left: -20px;
+                        }
 
-                .staff-image {
-                    width: 100%;
-                    height: 250px;
-                    object-fit: cover;
-                }
-            </style>
-            <script>
-                // Add this to your JavaScript file
-                let currentSlide = 0;
-                const slides = document.querySelectorAll('.slide');
-                const slidesPerView = Math.floor(window.innerWidth / 300); // 300px is slide width
+                        .slider-btn.next {
+                            right: -20px;
+                        }
 
-                function showSlide(index) {
-                    const container = document.querySelector('.slider-container');
-                    const slideWidth = document.querySelector('.slide').offsetWidth + 30; // 30 is margin
-                    container.scrollLeft = slideWidth * index;
-                }
+                        .staff-image {
+                            width: 100%;
+                            height: 250px;
+                            object-fit: cover;
+                        }
+                    </style>
+                    <script>
+                        // Add this to your JavaScript file
+                        let currentSlide = 0;
+                        const slides = document.querySelectorAll('.slide');
+                        const slidesPerView = Math.floor(window.innerWidth / 300); // 300px is slide width
 
-                function nextSlide() {
-                    currentSlide = (currentSlide + 1) % (slides.length - slidesPerView + 1);
-                    showSlide(currentSlide);
-                }
+                        function showSlide(index) {
+                            const container = document.querySelector('.slider-container');
+                            const slideWidth = document.querySelector('.slide').offsetWidth + 30; // 30 is margin
+                            container.scrollLeft = slideWidth * index;
+                        }
 
-                function prevSlide() {
-                    currentSlide = currentSlide === 0 ? slides.length - slidesPerView : currentSlide - 1;
-                    showSlide(currentSlide);
-                }
+                        function nextSlide() {
+                            currentSlide = (currentSlide + 1) % (slides.length - slidesPerView + 1);
+                            showSlide(currentSlide);
+                        }
 
-                // Optional: Auto slide
-                setInterval(nextSlide, 5000); // Change slide every 5 seconds
-            </script>
-            <section class="section bg-light py-5">
-                <div class="container">
-                    <div class="section-title text-center mb-4 pb-2">
-                        <span class="badge badge-pill badge-soft-primary mb-3">
-                            <i class="uil uil-newspaper me-1"></i>Blog
-                        </span>
-                        <h4 class="title mb-4">Cập Nhật Mới Nhất Từ Trung Tâm</h4>
-                        <p class="text-muted mx-auto para-desc mb-0" style="max-width: 600px;">
+                        function prevSlide() {
+                            currentSlide = currentSlide === 0 ? slides.length - slidesPerView : currentSlide - 1;
+                            showSlide(currentSlide);
+                        }
 
-                            Chúng tôi luôn cập nhật những thông tin mới nhất về chăm sóc trẻ em, các sự kiện sắp tới, cùng các hoạt động tại trung tâm. Khám phá những bài viết hữu ích về sức khỏe, dinh dưỡng, và giáo dục, giúp bạn đồng hành cùng con trong hành trình phát triển toàn diện.
-                        </p>
-                    </div>
-                </div>
-            </section>
+                        // Optional: Auto slide
+                        setInterval(nextSlide, 5000); // Change slide every 5 seconds
+                    </script>
+                    <section class="section bg-light py-5">
+                        <div class="container">
+                            <div class="section-title text-center mb-4 pb-2">
+                                <span class="badge badge-pill badge-soft-primary mb-3">
+                                    <i class="uil uil-newspaper me-1"></i>Blog
+                                </span>
+                                <h4 class="title mb-4">Cập Nhật Mới Nhất Từ Trung Tâm</h4>
+                                <p class="text-muted mx-auto para-desc mb-0" style="max-width: 600px;">
 
-            <section class="section">
-                <div class="container">
-                    <div class="row">
-                        <c:forEach var="blogList" items="${blogList}" varStatus="loop">
-                            <c:if test="${loop.index < 6}">
-                                <div class="col-lg-4 col-md-6 col-12 mb-4 pb-2">
-                                    <div class="card blog blog-primary border-0 shadow rounded overflow-hidden hover-transform">
-                                        <div class="image-overlay">
-                                            <img src="${pageContext.request.contextPath}/${blogList.thumbnailPath}" class="img-fluid" alt="">
-                                        </div>
-                                        <div class="card-body p-4">
-                                            <ul class="list-unstyled mb-2">
-                                                <li class="list-inline-item text-muted small me-3">
-                                                    <i class="uil uil-calendar-alt text-primary h6 me-1"></i>${blogList.createdDate}
-                                                </li>
-                                                <li class="list-inline-item text-muted small">
-                                                    <i class="uil uil-clock text-primary h6 me-1"></i>5 phút đọc
-                                                </li>
-                                            </ul>
-                                            <a href="blog-detail.html" class="text-dark title h5 d-block mb-0">${blogList.title}</a>
-                                            <div class="post-meta d-flex justify-content-between mt-3">
-                                                <ul class="list-inline mb-0">
-                                                    <li class="list-inline-item me-2 mb-0">
-                                                        <a href="#" class="text-muted like">
-                                                            <i class="uil uil-eye me-1"></i>${blogList.views} lượt xem
-                                                        </a>
-                                                    </li>
-                                                    <li class="list-inline-item">
-                                                        <a href="#" class="text-muted comments">
-                                                            <i class="uil uil-comment me-1"></i>08 bình luận
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                                <a href="${pageContext.request.contextPath}/customer/detailcustomerblog?blogID=${blogList.blogID}" 
-                                                   class="link text-primary">Đọc thêm <i class="uil uil-arrow-right"></i></a>
+                                    Chúng tôi luôn cập nhật những thông tin mới nhất về chăm sóc trẻ em, các sự kiện sắp tới, cùng các hoạt động tại trung tâm. Khám phá những bài viết hữu ích về sức khỏe, dinh dưỡng, và giáo dục, giúp bạn đồng hành cùng con trong hành trình phát triển toàn diện.
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="section">
+                        <div class="container">
+                            <div class="row">
+                                <c:forEach var="blogList" items="${blogList}" varStatus="loop">
+                                    <c:if test="${loop.index < 6}">
+                                        <div class="col-lg-4 col-md-6 col-12 mb-4 pb-2">
+                                            <div class="card blog blog-primary border-0 shadow rounded overflow-hidden hover-transform">
+                                                <div class="image-overlay">
+                                                    <img src="${pageContext.request.contextPath}/${blogList.thumbnailPath}" class="img-fluid" alt="">
+                                                </div>
+                                                <div class="card-body p-4">
+                                                    <ul class="list-unstyled mb-2">
+                                                        <li class="list-inline-item text-muted small me-3">
+                                                            <i class="uil uil-calendar-alt text-primary h6 me-1"></i>${blogList.createdDate}
+                                                        </li>
+                                                        <li class="list-inline-item text-muted small">
+                                                            <i class="uil uil-clock text-primary h6 me-1"></i>5 phút đọc
+                                                        </li>
+                                                    </ul>
+                                                    <a href="blog-detail.html" class="text-dark title h5 d-block mb-0">${blogList.title}</a>
+                                                    <div class="post-meta d-flex justify-content-between mt-3">
+                                                        <ul class="list-inline mb-0">
+                                                            <li class="list-inline-item me-2 mb-0">
+                                                                <a href="#" class="text-muted like">
+                                                                    <i class="uil uil-eye me-1"></i>${blogList.views} lượt xem
+                                                                </a>
+                                                            </li>
+                                                            <li class="list-inline-item">
+                                                                <a href="#" class="text-muted comments">
+                                                                    <i class="uil uil-comment me-1"></i>08 bình luận
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                        <a href="${pageContext.request.contextPath}/customer/detailcustomerblog?blogID=${blogList.blogID}" 
+                                                           class="link text-primary">Đọc thêm <i class="uil uil-arrow-right"></i></a>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </c:if>
+                                </c:forEach>
+                            </div>
+
+                            <!-- Buttons Container -->
+                            <div class="row mt-4">
+                                <div class="col-12 text-center">
+                                    <a href="${pageContext.request.contextPath}/customer/bloglist" class="btn btn-primary me-2">
+                                        <i class="uil uil-newspaper me-1"></i>Xem tất cả blog
+                                    </a>
                                 </div>
-                            </c:if>
-                        </c:forEach>
-                    </div>
+                            </div>
 
-                    <!-- Buttons Container -->
-                    <div class="row mt-4">
-                        <div class="col-12 text-center">
-                            <a href="${pageContext.request.contextPath}/customer/viewallblogs" 
-                               class="btn btn-primary me-2">
-                                <i class="uil uil-newspaper me-1"></i>Xem Tất Cả Tin Tức
-                            </a>
-                        </div>
-                    </div>
-            </section>
 
-            <style>
-                .hover-transform {
-                    transition: transform 0.3s ease;
-                }
+                            <style>
+                                .hover-transform {
+                                    transition: transform 0.3s ease;
+                                }
 
-                .hover-transform:hover {
-                    transform: translateY(-5px);
-                }
+                                .hover-transform:hover {
+                                    transform: translateY(-5px);
+                                }
 
-                .image-overlay {
-                    position: relative;
-                    overflow: hidden;
-                }
+                                .image-overlay {
+                                    position: relative;
+                                    overflow: hidden;
+                                }
 
-                .image-overlay img {
-                    transition: transform 0.3s ease;
-                }
+                                .image-overlay img {
+                                    transition: transform 0.3s ease;
+                                }
 
-                .image-overlay:hover img {
-                    transform: scale(1.05);
-                }
+                                .image-overlay:hover img {
+                                    transform: scale(1.05);
+                                }
 
-                .badge-soft-primary {
-                    background-color: rgba(47, 85, 212, 0.1);
-                    color: #2f55d4;
-                    padding: 8px 16px;
-                    font-size: 14px;
-                }
+                                .badge-soft-primary {
+                                    background-color: rgba(47, 85, 212, 0.1);
+                                    color: #2f55d4;
+                                    padding: 8px 16px;
+                                    font-size: 14px;
+                                }
 
-                .card {
-                    border: none;
-                    transition: all 0.3s ease;
-                }
+                                .card {
+                                    border: none;
+                                    transition: all 0.3s ease;
+                                }
 
-                .card:hover {
-                    box-shadow: 0 10px 25px rgba(47, 85, 212, 0.1) !important;
-                }
-            </style>
-            <!-- Back to top -->
-            <a href="#" onclick="topFunction()" id="back-to-top" class="btn btn-icon btn-pills btn-primary back-to-top"><i data-feather="arrow-up" class="icons"></i></a>
-            <!-- Back to top -->
-            <!-- javascript -->
-            <script src="js/bootstrap.bundle.min.js"></script>
-            <!-- SLIDER -->
-            <script src="js/tiny-slider.js"></script>
-            <script src="js/tiny-slider-init.js"></script>
-            <!-- Counter -->
-            <script src="js/counter.init.js"></script>
-            <!-- Icons -->
-            <script src="js/feather.min.js"></script>
-            <!-- Main Js -->
-            <script src="js/app.js"></script>
-            <script src="js/recent.js"></script>
-            <!-- Icons -->
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.9.55/css/materialdesignicons.min.css">
-            <%@include file="footer.jsp" %>
-        </body>
-</html>
+                                .card:hover {
+                                    box-shadow: 0 10px 25px rgba(47, 85, 212, 0.1) !important;
+                                }
+                            </style>
+                            <!-- Back to top -->
+                            <a href="#" onclick="topFunction()" id="back-to-top" class="btn btn-icon btn-pills btn-primary back-to-top"><i data-feather="arrow-up" class="icons"></i></a>
+                            <!-- Back to top -->
+                            <!-- javascript -->
+                            <script src="js/bootstrap.bundle.min.js"></script>
+                            <!-- SLIDER -->
+                            <script src="js/tiny-slider.js"></script>
+                            <script src="js/tiny-slider-init.js"></script>
+                            <!-- Counter -->
+                            <script src="js/counter.init.js"></script>
+                            <!-- Icons -->
+                            <script src="js/feather.min.js"></script>
+                            <!-- Main Js -->
+                            <script src="js/app.js"></script>
+                            <script src="js/recent.js"></script>
+                            <!-- Icons -->
+                            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.9.55/css/materialdesignicons.min.css">
+                            </body>
+                            </html>

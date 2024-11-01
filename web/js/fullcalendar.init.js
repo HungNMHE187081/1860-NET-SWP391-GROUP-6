@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', function () {
     var calendarEl = document.getElementById('calendar');
     var checkbox = document.getElementById('drop-remove');
 
-
     // initialize the external events
     // -----------------------------------------------------------------
 
@@ -23,54 +22,53 @@ document.addEventListener('DOMContentLoaded', function () {
     // -----------------------------------------------------------------
 
     var calendar = new Calendar(calendarEl, {
+        locale: 'vi', // Set the locale to Vietnamese
         headerToolbar: {
             left: 'prev,next today addEventButton',
             center: 'title',
             right: 'dayGridMonth,timeGridWeek,timeGridDay',
-            
         },
-        
         businessHours: true, // display business hours
         editable: true,
         events: [
             {
-                title: 'Business Lunch',
+                title: 'Ăn Trưa Công Việc',
                 start: '2021-01-03T13:00:00',
                 constraint: 'businessHours'
             },
             {
-                title: 'Meeting',
+                title: 'Cuộc Họp',
                 start: '2021-01-13T11:00:00',
                 constraint: 'availableForMeeting', // defined below
                 color: '#53c797'
             },
             {
-                title: 'Conference',
+                title: 'Hội Nghị',
                 start: '2021-01-18',
                 end: '2021-01-20'
             },
             {
-                title: 'Party',
+                title: 'Tiệc Tùng',
                 start: '2021-01-29T20:00:00'
             },
         ],
 
         customButtons: {
             addEventButton: {
-                text: 'Add Event',
+                text: 'Thêm Sự Kiện',
                 click: function () {
-                    var dateStr = prompt('Enter a date in YYYY-MM-DD format');
+                    var dateStr = prompt('Nhập ngày theo định dạng YYYY-MM-DD');
                     var date = new Date(dateStr + 'T00:00:00'); // will be in local time
 
                     if (!isNaN(date.valueOf())) { // valid?
                         calendar.addEvent({
-                            title: 'dynamic event',
+                            title: 'Sự kiện động',
                             start: date,
                             allDay: true
                         });
-                        alert('Great. Now, update your database...');
+                        alert('Tuyệt vời. Bây giờ, hãy cập nhật cơ sở dữ liệu của bạn...');
                     } else {
-                        alert('Invalid date.');
+                        alert('Ngày không hợp lệ.');
                     }
                 }
             }
