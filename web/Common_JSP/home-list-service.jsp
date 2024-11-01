@@ -211,54 +211,52 @@
         <!-- End Hero -->
 
         <section class="section py-5 bg-light">
-    <div class="container">
-        <div class="row g-4">
-            <c:forEach var="service" items="${services}">
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card h-100 shadow-sm border-0 service-card">
-                        <img src="${pageContext.request.contextPath}/${service.serviceImage}" class="card-img-top rounded-top" alt="${service.serviceName}">
-                        <div class="card-body">
-                            <h5 class="card-title fw-bold text-primary">
-                                ${service.serviceName}
-                            </h5>
-                            <p class="card-text text-muted">
-                                ${service.description}
-                            </p>
-                        </div>
-                        <div class="card-footer bg-transparent border-top-0">
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <span class="text-success fw-bold small">
-                                    <i class="bi bi-cash-stack me-1"></i>
-                                    <fmt:formatNumber value="${service.price}" type="number" groupingUsed="true"/> ₫
-                                </span>
-                                <span class="text-muted small">
-                                    <i class="bi bi-clock me-1"></i>
-                                    ${service.duration} phút
-                                </span>
+            <div class="container">
+                <div class="row g-4">
+                    <c:forEach var="service" items="${services}">
+                        <div class="col-lg-4 col-md-6 mb-4">
+                            <div class="card h-100 shadow-sm border-0 service-card">
+                                <img src="${pageContext.request.contextPath}/${service.serviceImage}" class="card-img-top rounded-top" alt="${service.serviceName}">
+                                <div class="card-body">
+                                    <h5 class="card-title fw-bold text-primary">
+                                        ${service.serviceName}
+                                    </h5>
+                                    <p class="card-text text-muted">
+                                        ${service.description}
+                                    </p>
+                                </div>
+                                <div class="card-footer bg-transparent border-top-0">
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <span class="text-success fw-bold small">
+                                            <i class="bi bi-cash-stack me-1"></i>
+                                            <fmt:formatNumber value="${service.price}" type="number" groupingUsed="true"/> ₫
+                                        </span>
+                                        <span class="text-muted small">
+                                            <i class="bi bi-clock me-1"></i>
+                                            ${service.duration} phút
+                                        </span>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <a href="${pageContext.request.contextPath}/customer/viewservice?serviceID=${service.serviceID}" 
+                                           class="btn btn-outline-secondary flex-grow-1 me-2 view-details transition-btn">
+                                            <i class="bi bi-eye"></i>
+                                        </a>
+
+                                        <!-- Form gửi serviceID đến trang đặt lịch -->
+                                        <a href="${pageContext.request.contextPath}/customer/addreservation?serviceID=${service.serviceID}"
+                                           class="btn btn-primary flex-grow-1 book-now transition-btn">
+                                            <i class="bi bi-cart me-1"></i>
+                                        </a>
+
+
+                                    </div>
+                                </div>
                             </div>
-                            <div class="d-flex justify-content-between">
-                                <a href="${pageContext.request.contextPath}/customer/viewservice?serviceID=${service.serviceID}" 
-                                   class="btn btn-outline-secondary flex-grow-1 me-2 view-details transition-btn">
-                                    <i class="bi bi-eye"></i>
-                                </a>
-                                  
-                                <!-- Form gửi serviceID đến trang đặt lịch -->
-                                <form action="${pageContext.request.contextPath}/customer/addreservation" method="get">
-                                    <!-- Thẻ input ẩn chứa serviceID -->
-                                    <input type="hidden" name="serviceID" value="${service.serviceID}">
-                                    <input type="hidden" name="userID" value="${sessionScope.user.userID}">
-                                    <button type="submit" class="btn btn-primary flex-grow-1 book-now transition-btn">
-                                        <i class="bi bi-cart me-1"></i>
-                                    </button>
-                                </form>
-                            </div>
                         </div>
-                    </div>
+                    </c:forEach>
                 </div>
-            </c:forEach>
-        </div>
-    </div>
-</section>
+            </div>
+        </section>
 
 
         <style>
