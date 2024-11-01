@@ -61,9 +61,106 @@
                 </div><!--end row-->
             </div><!--end container-->
         </section><!--end section-->
-
         <!-- End Hero -->
 
+        
+
+        <!-- Start -->
+        <section class="section">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-12">
+                        <div class="section-title text-center mb-4 pb-2">
+                            <h4 class="title mb-4">Doctors</h4>
+                            <p class="text-muted mx-auto para-desc mb-0">Great doctor if you need your family member to get effective immediate assistance, emergency treatment or a simple consultation.</p>
+                        </div>
+                    </div><!--end col-->
+                </div><!--end row-->
+
+                <div class="row align-items-center">
+                    <div class="col-xl-3 col-lg-3 col-md-6 mt-4 pt-2">
+                        <div class="card team border-0 rounded shadow overflow-hidden">
+                            <div class="team-img position-relative">
+                                <img src="../assets/images/doctors/01.jpg" class="img-fluid" alt="">
+                                <ul class="list-unstyled team-social mb-0">
+                                    <li><a href="#" class="btn btn-icon btn-pills btn-soft-primary"><i data-feather="facebook" class="icons"></i></a></li>
+                                    <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-primary"><i data-feather="linkedin" class="icons"></i></a></li>
+                                    <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-primary"><i data-feather="github" class="icons"></i></a></li>
+                                    <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-primary"><i data-feather="twitter" class="icons"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="card-body content text-center">
+                                <a href="doctor-team-one.html" class="title text-dark h5 d-block mb-0">Calvin Carlo</a>
+                                <small class="text-muted speciality">Eye Care</small>
+                            </div>
+                        </div>
+                    </div><!--end col-->
+                    
+                    <div class="col-xl-3 col-lg-3 col-md-6 mt-4 pt-2">
+                        <div class="card team border-0 rounded shadow overflow-hidden">
+                            <div class="team-img position-relative">
+                                <img src="../assets/images/doctors/02.jpg" class="img-fluid" alt="">
+                                <ul class="list-unstyled team-social mb-0">
+                                    <li><a href="#" class="btn btn-icon btn-pills btn-soft-primary"><i data-feather="facebook" class="icons"></i></a></li>
+                                    <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-primary"><i data-feather="linkedin" class="icons"></i></a></li>
+                                    <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-primary"><i data-feather="github" class="icons"></i></a></li>
+                                    <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-primary"><i data-feather="twitter" class="icons"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="card-body content text-center">
+                                <a href="doctor-team-one.html" class="title text-dark h5 d-block mb-0">Cristino Murphy</a>
+                                <small class="text-muted speciality">Gynecology</small>
+                            </div>
+                        </div>
+                    </div><!--end col-->
+                    
+                    <div class="col-xl-3 col-lg-3 col-md-6 mt-4 pt-2">
+                        <div class="card team border-0 rounded shadow overflow-hidden">
+                            <div class="team-img position-relative">
+                                <img src="../assets/images/doctors/03.jpg" class="img-fluid" alt="">
+                                <ul class="list-unstyled team-social mb-0">
+                                    <li><a href="#" class="btn btn-icon btn-pills btn-soft-primary"><i data-feather="facebook" class="icons"></i></a></li>
+                                    <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-primary"><i data-feather="linkedin" class="icons"></i></a></li>
+                                    <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-primary"><i data-feather="github" class="icons"></i></a></li>
+                                    <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-primary"><i data-feather="twitter" class="icons"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="card-body content text-center">
+                                <a href="doctor-team-one.html" class="title text-dark h5 d-block mb-0">Alia Reddy</a>
+                                <small class="text-muted speciality">Psychotherapy</small>
+                            </div>
+                        </div>
+                    </div><!--end col-->
+                    
+                    <div class="col-xl-3 col-lg-3 col-md-6 mt-4 pt-2">
+                        <div class="card team border-0 rounded shadow overflow-hidden">
+                            <div class="team-img position-relative">
+                                <img src="../assets/images/doctors/04.jpg" class="img-fluid" alt="">
+                                <ul class="list-unstyled team-social mb-0">
+                                    <li><a href="#" class="btn btn-icon btn-pills btn-soft-primary"><i data-feather="facebook" class="icons"></i></a></li>
+                                    <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-primary"><i data-feather="linkedin" class="icons"></i></a></li>
+                                    <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-primary"><i data-feather="github" class="icons"></i></a></li>
+                                    <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-primary"><i data-feather="twitter" class="icons"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="card-body content text-center">
+                                <a href="doctor-team-one.html" class="title text-dark h5 d-block mb-0">Toni Kovar</a>
+                                <small class="text-muted speciality">Orthopedic</small>
+                            </div>
+                        </div>
+                    </div><!--end col-->
+
+                    <div class="col-12 mt-4 pt-2 text-center">
+                        <a href="doctor-team-one.html" class="btn btn-primary">See More</a>
+                    </div><!--end col-->
+                </div><!--end row-->
+            </div><!--end container-->
+        </section><!--end section-->
+        <!-- End -->
+
+       
+        
+        
         <!-- Start -->
         <section class="section">
             <div class="container">
@@ -104,7 +201,261 @@
                     </div><!--end col-->
                 </div><!--end row-->
             </div><!--end container-->
+        </section>
             <!-- End -->
+            
+             <!-- Start -->
+        <section class="section bg-light">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-12">
+                        <div class="section-title text-center mb-4 pb-2">
+                            <span class="badge badge-pill badge-soft-primary mb-3">Availability</span>
+                            <h4 class="title mb-4">Doctors Time Table</h4>
+                            <p class="text-muted mx-auto para-desc mb-0">Great doctor if you need your family member to get effective immediate assistance, emergency treatment or a simple consultation.</p>
+                        </div>
+                    </div><!--end col-->
+                </div><!--end row-->
+            </div><!--end container-->
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12 mt-4 pt-2">
+                        <div class="table-responsive shadow rounded">
+                            <table class="table table-center table-bordered bg-white mb-0">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center py-4" style="min-width: 120px;">Time Table</th>
+                                        <th class="text-center py-4" style="min-width: 200px;">Monday</th>
+                                        <th class="text-center py-4" style="min-width: 200px;">Tuesday</th>
+                                        <th class="text-center py-4" style="min-width: 200px;">Wednesday</th>
+                                        <th class="text-center py-4" style="min-width: 200px;">Thursday</th>
+                                        <th class="text-center py-4" style="min-width: 200px;">Friday</th>
+                                        <th class="text-center py-4" style="min-width: 200px;">Saturday</th>
+                                        <th class="text-center py-4" style="min-width: 200px;">Sunday</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Start -->
+                                    <tr>
+                                        <th class="text-center py-5">09:00AM</th>
+                                        <td>
+                                            <div class="d-flex mb-3">
+                                                <img src="../assets/images/doctors/01.jpg" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
+                                                <div class="ms-3">
+                                                    <h6 class="text-dark mb-0 d-block">Calvin Carlo</h6>
+                                                    <small class="text-muted">Eye Care</small>
+                                                </div>
+                                            </div>
+                                            <small class="bg-soft-primary rounded py-1 px-2 d-block text-center">09:00AM - 10:00AM</small>
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <div class="d-flex mb-3">
+                                                <img src="../assets/images/doctors/03.jpg" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
+                                                <div class="ms-3">
+                                                    <h6 class="text-dark mb-0 d-block">Alia Reddy</h6>
+                                                    <small class="text-muted">Psychotherapy</small>
+                                                </div>
+                                            </div>
+                                            <small class="bg-soft-primary rounded py-1 px-2 d-block text-center">09:00AM - 01:00PM</small>
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+
+                                    <tr>
+                                        <th class="text-center py-5">11:00AM</th>
+                                        <td></td>
+                                        <td>
+                                            <div class="d-flex mb-3">
+                                                <img src="../assets/images/doctors/02.jpg" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
+                                                <div class="ms-3">
+                                                    <h6 class="text-dark mb-0 d-block">Cristino Murphy</h6>
+                                                    <small class="text-muted">Gynecology</small>
+                                                </div>
+                                            </div>
+                                            <small class="bg-soft-primary rounded py-1 px-2 d-block text-center">11:00AM - 04:00PM</small>
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            <div class="d-flex mb-3">
+                                                <img src="../assets/images/doctors/05.jpg" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
+                                                <div class="ms-3">
+                                                    <h6 class="text-dark mb-0 d-block">Jennifer Ballance</h6>
+                                                    <small class="text-muted">Cardiology</small>
+                                                </div>
+                                            </div>
+                                            <small class="bg-soft-primary rounded py-1 px-2 d-block text-center">11:00AM - 12:00PM</small>
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            <div class="d-flex mb-3">
+                                                <img src="../assets/images/doctors/04.jpg" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
+                                                <div class="ms-3">
+                                                    <h6 class="text-dark mb-0 d-block">Toni Kovar</h6>
+                                                    <small class="text-muted">Orthopedic</small>
+                                                </div>
+                                            </div>
+                                            <small class="bg-soft-primary rounded py-1 px-2 d-block text-center">09:00AM - 10:00AM</small>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <th class="text-center py-5">02:00PM</th>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <div class="d-flex mb-3">
+                                                <img src="../assets/images/doctors/06.jpg" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
+                                                <div class="ms-3">
+                                                    <h6 class="text-dark mb-0 d-block">Tara Arrington</h6>
+                                                    <small class="text-muted">Neurology</small>
+                                                </div>
+                                            </div>
+                                            <small class="bg-soft-primary rounded py-1 px-2 d-block text-center">02:00PM - 04:00PM</small>
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            <div class="d-flex mb-3">
+                                                <img src="../assets/images/doctors/05.jpg" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
+                                                <div class="ms-3">
+                                                    <h6 class="text-dark mb-0 d-block">Jennifer Ballance</h6>
+                                                    <small class="text-muted">Cardiology</small>
+                                                </div>
+                                            </div>
+                                            <small class="bg-soft-primary rounded py-1 px-2 d-block text-center">11:00AM - 12:00PM</small>
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <th class="text-center py-5">04:00PM</th>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <div class="d-flex mb-3">
+                                                <img src="../assets/images/doctors/06.jpg" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
+                                                <div class="ms-3">
+                                                    <h6 class="text-dark mb-0 d-block">Tara Arrington</h6>
+                                                    <small class="text-muted">Neurology</small>
+                                                </div>
+                                            </div>
+                                            <small class="bg-soft-primary rounded py-1 px-2 d-block text-center">04:00PM - 05:00PM</small>
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <div class="d-flex mb-3">
+                                                <img src="../assets/images/doctors/06.jpg" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
+                                                <div class="ms-3">
+                                                    <h6 class="text-dark mb-0 d-block">Tara Arrington</h6>
+                                                    <small class="text-muted">Neurology</small>
+                                                </div>
+                                            </div>
+                                            <small class="bg-soft-primary rounded py-1 px-2 d-block text-center">04:30PM - 06:00PM</small>
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <th class="text-center py-5">06:00PM</th>
+                                        <td>
+                                            <div class="d-flex mb-3">
+                                                <img src="../assets/images/doctors/03.jpg" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
+                                                <div class="ms-3">
+                                                    <h6 class="text-dark mb-0 d-block">Alia Reddy</h6>
+                                                    <small class="text-muted">Psychotherapy</small>
+                                                </div>
+                                            </div>
+                                            <small class="bg-soft-primary rounded py-1 px-2 d-block text-center">06:00PM - 09:00PM</small>
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            <div class="d-flex mb-3">
+                                                <img src="../assets/images/doctors/04.jpg" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
+                                                <div class="ms-3">
+                                                    <h6 class="text-dark mb-0 d-block">Toni Kovar</h6>
+                                                    <small class="text-muted">Orthopedic</small>
+                                                </div>
+                                            </div>
+                                            <small class="bg-soft-primary rounded py-1 px-2 d-block text-center">07:00PM - 08:00PM</small>
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            <div class="d-flex mb-3">
+                                                <img src="../assets/images/doctors/05.jpg" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
+                                                <div class="ms-3">
+                                                    <h6 class="text-dark mb-0 d-block">Jennifer Ballance</h6>
+                                                    <small class="text-muted">Cardiology</small>
+                                                </div>
+                                            </div>
+                                            <small class="bg-soft-primary rounded py-1 px-2 d-block text-center">06:00PM - 07:00PM</small>
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            <div class="d-flex mb-3">
+                                                <img src="../assets/images/doctors/03.jpg" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
+                                                <div class="ms-3">
+                                                    <h6 class="text-dark mb-0 d-block">Alia Reddy</h6>
+                                                    <small class="text-muted">Psychotherapy</small>
+                                                </div>
+                                            </div>
+                                            <small class="bg-soft-primary rounded py-1 px-2 d-block text-center">06:00PM - 07:00PM</small>
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <th class="text-center py-5">09:00PM</th>
+                                        <td></td>
+                                        <td>
+                                            <div class="d-flex mb-3">
+                                                <img src="../assets/images/doctors/04.jpg" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
+                                                <div class="ms-3">
+                                                    <h6 class="text-dark mb-0 d-block">Toni Kovar</h6>
+                                                    <small class="text-muted">Orthopedic</small>
+                                                </div>
+                                            </div>
+                                            <small class="bg-soft-primary rounded py-1 px-2 d-block text-center">09:00PM - 10:00PM</small>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex mb-3">
+                                                <img src="../assets/images/doctors/05.jpg" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
+                                                <div class="ms-3">
+                                                    <h6 class="text-dark mb-0 d-block">Jennifer Ballance</h6>
+                                                    <small class="text-muted">Cardiology</small>
+                                                </div>
+                                            </div>
+                                            <small class="bg-soft-primary rounded py-1 px-2 d-block text-center">09:00PM - 10:00PM</small>
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            <div class="d-flex mb-3">
+                                                <img src="../assets/images/doctors/04.jpg" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
+                                                <div class="ms-3">
+                                                    <h6 class="text-dark mb-0 d-block">Toni Kovar</h6>
+                                                    <small class="text-muted">Orthopedic</small>
+                                                </div>
+                                            </div>
+                                            <small class="bg-soft-primary rounded py-1 px-2 d-block text-center">09:00PM - 10:00PM</small>
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <!-- End -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div><!--end col-->
+                </div><!--end row-->
+            </div><!--end container-fluid-->
+        </section><!--end section-->
+        <!-- End -->
+            
             <section class="section py-5 bg-light">
                 <div class="container">
                     <!-- Title and description for the services section -->
@@ -316,8 +667,7 @@
                 }
             </style>
         </head>
-        <body>
-
+        
             <section class="section-padding bg-light-theme">
                 <div class="content-container">
                     <div class="swiper">
@@ -717,7 +1067,7 @@
                     </div>
                 </c:if>
             </div>
-
+        </body>
             <script>
                 function slideCarousel(direction) {
                     const track = document.getElementById('medCarouselTrack');
