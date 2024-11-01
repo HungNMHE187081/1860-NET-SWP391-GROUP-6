@@ -1,6 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -105,7 +106,86 @@
         </button>
     </div>
 </form>
-
+    <script>document.addEventListener('DOMContentLoaded', function() {
+    const searchForm = document.querySelector('.search-filter-form');
+    const searchInput = document.getElementById('searchInput');
+    const ageLimitSelect = document.getElementById('ageLimit');
+    const priceFilterSelect = document.getElementById('priceFilter');
+    
+    // Function to sort services by price
+    function sortServices(services, order) {
+        const serviceCards = Array.from(document.querySelectorAll('.service-card'));
+        const servicesContainer = serviceCards[0].parentElement.parentElement;
+        
+        serviceCards.sort((a, b) => {
+            const priceA = extractPrice(a.querySelector('.text-success').textContent);
+            const priceB = extractPrice(b.querySelector('.text-success').textContent);
+            
+            return order === 'lowToHigh' ? priceA - priceB : priceB - priceA;
+        });
+        
+        // Clear and re-append sorted cards
+        serviceCards.forEach(card => card.parentElement.remove());
+        serviceCards.forEach(card => {
+            const colDiv = document.createElement('div');
+            colDiv.className = 'col-lg-4 col-md-6 mb-4';
+            colDiv.appendChild(card);
+            servicesContainer.appendChild(colDiv);
+        });
+    }
+    
+    // Helper function to extract price value from text
+    function extractPrice(priceText) {
+        return parseInt(priceText.replace(/[^\d]/g, ''));
+    }
+    
+    // Add event listeners
+    priceFilterSelect.addEventListener('change', function() {
+        const selectedValue = this.value;
+        
+        if (selectedValue === 'lowToHigh' || selectedValue === 'highToLow') {
+            sortServices(document.querySelectorAll('.service-card'), selectedValue);
+            
+            // Add animation to cards
+            document.querySelectorAll('.service-card').forEach(card => {
+                card.style.animation = 'fadeIn 0.5s ease-in-out';
+            });
+        }
+    });
+    
+    // Debounce helper function
+    function debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    }
+    
+    // Add CSS animation
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .service-card {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+    `;
+    document.head.appendChild(style);
+});</script>
     <style>
     /* Container styles */
     .search-filter-form {
@@ -262,9 +342,9 @@ document.addEventListener('DOMContentLoaded', function() {
                                     <h5 class="card-title fw-bold text-primary">
                                         ${service.serviceName}
                                     </h5>
-                                    <p class="card-text text-muted">
-                                        ${service.description}
-                                    </p>
+                                    <p class="card-text text-muted description-truncate">
+        ${fn:substring(service.description, 0, 70)}${fn:length(service.description) > 70 ? '...' : ''}
+    </p>
                                 </div>
                                 <div class="card-footer bg-transparent border-top-0">
                                     <div class="d-flex justify-content-between align-items-center mb-3">
