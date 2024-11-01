@@ -646,7 +646,7 @@ VALUES
 (1, GETDATE(), 0, 0),
 (1, GETDATE(), 0, 0),
 (2, GETDATE(), 0, 0);
-
+select * from Orders
 
 update Orders set isOrder = 1 where CustomerID = 1
 
@@ -668,7 +668,7 @@ VALUES
 (4, '2023-10-08', '12:00:00', 3, 1, 0),
 (5, '2023-10-09', '13:00:00', 3, 0, 0),
 (6, '2023-10-10', '14:00:00', 3, 1, 0);
-
+select * from 
 --update Reservations set isExam = 0 where OrderItemID = 2
 -- Cập nhật Quantity trong bảng Orders
 UPDATE Orders
@@ -702,5 +702,14 @@ SELECT * FROM Reservations WHERE IsExam = 0*/
 
 select r.ReservationID, r.OrderItemID, r.StaffID, o.ServiceID, o.ChildID from Reservations r join OrderItems o on r.OrderItemID = o.OrderItemID
 
-
-
+SELECT 
+    s.StaffID,
+    s.StaffName,
+    sp.SpecializationName as Specialization,
+    r.ReservationDate,
+    r.StartTime
+FROM Staff s
+INNER JOIN Specializations sp ON s.SpecializationID = sp.SpecializationID
+INNER JOIN Reservations r ON s.StaffID = r.StaffID
+WHERE r.ReservationDate BETWEEN '2023-10-05' AND DATEADD(day, 6, '2023-10-05')
+ORDER BY r.ReservationDate, r.StartTime
