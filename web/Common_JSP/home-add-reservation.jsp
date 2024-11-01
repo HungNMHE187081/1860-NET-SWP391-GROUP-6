@@ -82,50 +82,68 @@
                             <h4 class="title mb-4">Thêm Lịch Khám</h4>
                             <p class="text-muted mx-auto para-desc mb-0">Điền thông tin chi tiết để thêm lịch khám mới.</p>
                         </div>
-                    </div><!--end col-->
-                </div><!--end row-->
+                    </div>
+                </div>
 
                 <div class="row">
-                    <div class="col-lg-8 col-md-10 mx-auto">
-                        <form action="${pageContext.request.contextPath}/customer/addreservation" method="post">
-                            <div class="form-group">
-                                <label for="serviceName">Tên Dịch Vụ</label>
-                                <input type="text" class="form-control" id="serviceName" name="serviceName" value="${service.serviceName}" readonly>
-                            </div>
-                            <div class="form-group">
-                                <label for="ageLimit">Dành cho độ tuổi</label>
-                                <input type="text" class="form-control" id="ageLimit" name="ageLimit" value="${service.ageLimit}" readonly>
-                            </div>
-                            <div class="form-group">
-                                <label for="childName">Tên Trẻ</label>
-                                <select class="form-control" id="childName" name="childID" required>
-                                    <c:forEach var="child" items="${children}">
-                                        <option value="${child.childID}">${child.firstName} ${child.middleName} ${child.lastName}</option>
-                                    </c:forEach>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="reservationDate">Ngày Khám</label>
-                                <input type="date" class="form-control" id="reservationDate" name="reservationDate" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="startTime">Giờ Khám</label>
-                                <input type="time" class="form-control" id="startTime" name="startTime" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="staffID">Bác Sĩ</label>
-                                <select class="form-control" id="staffID" name="staffID" required>
-                                    <c:forEach var="staff" items="${staffs}">
-                                        <option value="${staff.staffID}">${staff.staffName}</option>
-                                    </c:forEach>
-                                </select>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Thêm Lịch Khám</button>
-                        </form>
-                    </div><!--end col-->
-                </div><!--end row-->
-            </div><!--end container-->
-        </section><!--end section-->
+    <div class="col-lg-8 col-md-10 mx-auto">
+        <form action="${pageContext.request.contextPath}/customer/addreservation" method="post">
+            <!-- Thêm input ẩn để giữ `serviceID` -->
+            <input type="hidden" name="serviceID" value="${service.serviceID}">
+
+            <!-- Tên Dịch Vụ -->
+            <div class="form-group">
+                <label for="serviceName">Tên Dịch Vụ</label>
+                <input type="text" class="form-control" id="serviceName" value="${service.serviceName}" readonly>
+            </div>
+
+            <!-- Dành cho độ tuổi -->
+            <div class="form-group">
+                <label for="ageLimit">Dành cho độ tuổi</label>
+                <input type="text" class="form-control" id="ageLimit" value="${service.ageLimit}" readonly>
+            </div>
+
+            <!-- Tên Trẻ -->
+            <div class="form-group">
+                <label for="childName">Tên Trẻ</label>
+                <select class="form-control" id="childName" name="childID" required>
+                    <c:forEach var="child" items="${children}">
+                        <option value="${child.childID}">${child.firstName} ${child.middleName} ${child.lastName}</option>
+                    </c:forEach>
+                </select>
+            </div>
+
+            <!-- Ngày Khám -->
+            <div class="form-group">
+                <label for="reservationDate">Ngày Khám</label>
+                <input type="date" class="form-control" id="reservationDate" name="reservationDate" required>
+            </div>
+
+            <!-- Giờ Khám -->
+            <div class="form-group">
+                <label for="startTime">Giờ Khám</label>
+                <input type="time" class="form-control" id="startTime" name="startTime" required>
+            </div>
+
+            <!-- Bác Sĩ -->
+            <div class="form-group">
+                <label for="staffID">Bác Sĩ</label>
+                <select class="form-control" id="staffID" name="staffID" required>
+                    <c:forEach var="staff" items="${staffs}">
+                        <option value="${staff.staffID}">${staff.staffName}</option>
+                    </c:forEach>
+                </select>
+            </div>
+
+            <!-- Nút Thêm Lịch Khám -->
+            <button type="submit" class="btn btn-primary">Thêm Lịch Khám</button>
+        </form>
+    </div>
+</div>
+
+
+            </div>
+        </section>
 
         <%@include file="footer.jsp" %>
 
