@@ -191,9 +191,7 @@
         <%@ include file="/Common_JSP/dashboardtop.jsp" %>
 
         <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
-        <aside class="app-sidebar">
-            <!-- Sidebar content remains the same -->
-        </aside>
+       
 
         <main class="app-content">
             <div class="row">

@@ -87,14 +87,20 @@
                 <div class="row justify-content-center">
                     <div class="col-12">
                         <div class="section-title text-center mb-4 pb-2">
-                            <h4 class="title mb-4">Danh sách lịch khám sắp tới</h4>
-                            <p class="text-muted mx-auto para-desc mb-0">Dưới đây là danh sách các lịch khám sắp tới của bạn.</p>
+                            <h4 class="title mb-4">Danh sách trẻ em</h4>
+                            <p class="text-muted mx-auto para-desc mb-0">Dưới đây là danh sách mầm non của bạn</p>
                         </div>
                     </div><!--end col-->
                 </div><!--end row-->
 
                 <div class="row">
                     <div class="col-12 mt-4 pt-2">
+                        <div class="col-sm-6">
+                            <a href="${pageContext.request.contextPath}/Common_JSP/add-children.jsp" class="btn btn-success">
+                                <i class="material-icons">&#xE147;</i> <span>Thêm mới</span>
+                            </a>
+
+                        </div>
                         <div class="table-responsive shadow rounded">
                             <table class="table table-center table-bordered bg-white mb-0">
                                 <thead>
