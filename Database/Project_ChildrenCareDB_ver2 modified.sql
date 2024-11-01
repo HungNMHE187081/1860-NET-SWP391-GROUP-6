@@ -152,7 +152,6 @@ CREATE TABLE Orders(
 	Quantity INT CHECK (Quantity > 0),
 	TotalPrice FLOAT CHECK (TotalPrice > 0),
 	OrderDate DATETIME DEFAULT GETDATE(),
-	isOrder BIT DEFAULT 0,
 	isCheckOut BIT,
 	FOREIGN KEY (CustomerID) REFERENCES Users(UserID) ON DELETE CASCADE
 )
@@ -646,7 +645,7 @@ VALUES
 (1, GETDATE(), 0, 0),
 (1, GETDATE(), 0, 0),
 (2, GETDATE(), 0, 0);
-select * from Orders
+
 
 update Orders set isOrder = 1 where CustomerID = 1
 
@@ -668,7 +667,7 @@ VALUES
 (4, '2023-10-08', '12:00:00', 3, 1, 0),
 (5, '2023-10-09', '13:00:00', 3, 0, 0),
 (6, '2023-10-10', '14:00:00', 3, 1, 0);
-select * from 
+
 --update Reservations set isExam = 0 where OrderItemID = 2
 -- Cập nhật Quantity trong bảng Orders
 UPDATE Orders
@@ -701,6 +700,8 @@ select * from OrderItems where OrderID = 1
 SELECT * FROM Reservations WHERE IsExam = 0*/
 
 select r.ReservationID, r.OrderItemID, r.StaffID, o.ServiceID, o.ChildID from Reservations r join OrderItems o on r.OrderItemID = o.OrderItemID
+
+
 
 SELECT 
     s.StaffID,
