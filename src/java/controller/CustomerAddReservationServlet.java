@@ -49,11 +49,11 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
     HttpSession session = request.getSession();
     Users user = (Users) session.getAttribute("user");
-
+    String userID_raw = request.getParameter("userID");
     if (user != null) {
         String serviceIDStr = request.getParameter("serviceID");
         System.out.println("Service ID received: " + serviceIDStr); // Debugging
-
+        
         int serviceID = Integer.parseInt(serviceIDStr);
         ServiceDAO serviceDAO = new ServiceDAO();
         Service service = serviceDAO.getServiceByID(serviceID);
@@ -104,6 +104,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response)
         System.out.println("Filtered children count: " + childrenByAge.size()); // Debugging
 
         StaffDAO staffDAO = new StaffDAO();
+        request.setAttribute("serviceID", serviceID);
         request.setAttribute("service", service);
         request.setAttribute("children", childrenByAge);
         request.setAttribute("staffs", staffDAO.getAllStaffs());

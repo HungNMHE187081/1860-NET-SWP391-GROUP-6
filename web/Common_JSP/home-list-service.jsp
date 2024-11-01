@@ -241,10 +241,12 @@
                                    class="btn btn-outline-secondary flex-grow-1 me-2 view-details transition-btn">
                                     <i class="bi bi-eye"></i>
                                 </a>
+                                  
                                 <!-- Form gửi serviceID đến trang đặt lịch -->
-                                <form action="${pageContext.request.contextPath}/customer/addreservation" method="post">
+                                <form action="${pageContext.request.contextPath}/customer/addreservation" method="get">
                                     <!-- Thẻ input ẩn chứa serviceID -->
                                     <input type="hidden" name="serviceID" value="${service.serviceID}">
+                                    <input type="hidden" name="userID" value="${sessionScope.user.userID}">
                                     <button type="submit" class="btn btn-primary flex-grow-1 book-now transition-btn">
                                         <i class="bi bi-cart me-1"></i>
                                     </button>

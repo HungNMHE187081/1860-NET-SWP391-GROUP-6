@@ -187,7 +187,7 @@
 
                                     <c:if test="${empty orders}">
                                         <tr>
-                                            <td colspan="6" style="text-align: center;">Không có lịch khám</td>
+                                            <td colspan="6" style="text-align: center;">Không có lịch sử khám bệnh</td>
                                         </tr>
                                     </c:if>
                                 </tbody>

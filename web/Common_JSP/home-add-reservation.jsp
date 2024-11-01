@@ -66,7 +66,7 @@
                     <div class="col-12">
                         <div class="heading-title">
                             <img src="../assets/images/logo-icon.png" height="50" alt="">
-                            <h4 class="display-4 fw-bold text-white title-dark mt-3 mb-4">Đặt Lịch Khám</h4>
+                            <h4 class="display-4 fw-bold text-white title-dark mt-3 mb-4">Đặt Lịch Khám </h4>
                             <p class="para-desc text-white-50 mb-0">Điền thông tin bên dưới để đặt lịch khám cho con bạn.</p>
                         </div>
                     </div><!--end col-->
@@ -124,10 +124,10 @@
                 <label for="startTime">Giờ Khám</label>
                 <input type="time" class="form-control" id="startTime" name="startTime" required>
             </div>
-
+                ${service.serviceID}
             <!-- Bác Sĩ -->
             <div class="form-group">
-                <label for="staffID">Bác Sĩ</label>
+                <label for="staffID">Bác Sĩ  </label>
                 <select class="form-control" id="staffID" name="staffID" required>
                     <c:forEach var="staff" items="${staffs}">
                         <option value="${staff.staffID}">${staff.staffName}</option>
