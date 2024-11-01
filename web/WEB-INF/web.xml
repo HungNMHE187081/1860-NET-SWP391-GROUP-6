@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
-<!--    <filter>
+    <!--    <filter>
         <filter-name>AuthorizationFilter</filter-name>
         <filter-class>filter.AuthorizationFilter</filter-class>
     </filter>
@@ -293,10 +293,6 @@
         <servlet-class>controller.CustomerListOrdersServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>CustomerViewCartServlet</servlet-name>
-        <servlet-class>controller.CustomerViewCartServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>CustomerViewReservationServlet</servlet-name>
         <servlet-class>controller.CustomerViewReservationServlet</servlet-class>
     </servlet>
@@ -427,6 +423,10 @@
     <servlet>
         <servlet-name>CustomerListServicesServlet</servlet-name>
         <servlet-class>controller.CustomerListServicesServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CustomerListReservationsServlet</servlet-name>
+        <servlet-class>controller.CustomerListReservationsServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
@@ -713,10 +713,6 @@
         <url-pattern>/customer/listorders</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>CustomerViewCartServlet</servlet-name>
-        <url-pattern>/customer/viewcart</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>CustomerViewReservationServlet</servlet-name>
         <url-pattern>/customer/viewreservation</url-pattern>
     </servlet-mapping>
@@ -847,5 +843,9 @@
     <servlet-mapping>
         <servlet-name>CustomerListServicesServlet</servlet-name>
         <url-pattern>/customer/listservices</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CustomerListReservationsServlet</servlet-name>
+        <url-pattern>/customer/listreservations</url-pattern>
     </servlet-mapping>
 </web-app>

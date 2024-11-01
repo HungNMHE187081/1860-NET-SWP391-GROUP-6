@@ -243,13 +243,14 @@
                                                     Inactive
                                                 </c:if>
                                             </td>
-                                            <td class="table-td-center"><button class="btn btn-primary btn-sm trash" type="button" title="delete"
-                                                                                onclick="return confirm('Are you sure you want to delete this service?')">
-                                                    <a href="${pageContext.request.contextPath}/manager/deleteservice?serviceID=${service.serviceID}"><i class="fas fa-trash-alt"></i></a>
-                                                </button>
+                                            <td class="table-td-center">
                                                 <button class="btn btn-primary btn-sm" type="button" title="detail" id="show-emp">
 
                                                     <a href="${pageContext.request.contextPath}/manager/viewservice?serviceID=${service.serviceID}"><i class="fas fa-eye"></i></a>
+                                                </button>
+                                                <button class="btn btn-primary btn-sm trash" type="button" title="delete"
+                                                                                onclick="return confirm('Are you sure you want to delete this service?')">
+                                                    <a href="${pageContext.request.contextPath}/manager/deleteservice?serviceID=${service.serviceID}"><i class="fas fa-trash-alt"></i></a>
                                                 </button>
                                             </td>
                                         </tr>

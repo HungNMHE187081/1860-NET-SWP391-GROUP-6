@@ -343,7 +343,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                         ${service.serviceName}
                                     </h5>
                                     <p class="card-text text-muted description-truncate">
-        ${fn:substring(service.description, 0, 70)}${fn:length(service.description) > 70 ? '...' : ''}
+        ${fn:substring(service.description, 0, 50)}${fn:length(service.description) > 50 ? '...' : ''}
     </p>
                                 </div>
                                 <div class="card-footer bg-transparent border-top-0">
@@ -361,12 +361,10 @@ document.addEventListener('DOMContentLoaded', function() {
                                         <a href="${pageContext.request.contextPath}/customer/viewservice?serviceID=${service.serviceID}" class="btn btn-outline-secondary flex-grow-1 me-2 view-details transition-btn">
                                     <i class="bi bi-eye"></i>
                                 </a>
-                                <form action="${pageContext.request.contextPath}/customer/addreservation" method="post">
-                                    <input type="hidden" name="serviceID" value="${service.serviceID}">
-                                    <button class="btn btn-primary flex-grow-1 book-now transition-btn">
-                                        <i class="bi bi-cart me-1"></i>
-                                    </button>
-                                </form>
+                                <a href="${pageContext.request.contextPath}/customer/addreservation?serviceID=${service.serviceID}"
+                                           class="btn btn-primary flex-grow-1 book-now transition-btn">
+                                            <i class="bi bi-cart me-1"></i>
+                                        </a>
                                     </div>
                                 </div>
                             </div>

@@ -14,18 +14,17 @@ public class Order {
     int OrderID, CustomerID, Quantity;
     double TotalPrice;
     String OrderDate;
-    boolean isOrder, isCheckOut;
+    boolean isCheckOut;
 
     public Order() {
     }
 
-    public Order(int OrderID, int CustomerID, int Quantity, double TotalPrice, String OrderDate, boolean isOrder, boolean isCheckOut) {
+    public Order(int OrderID, int CustomerID, int Quantity, double TotalPrice, String OrderDate, boolean isCheckOut) {
         this.OrderID = OrderID;
         this.CustomerID = CustomerID;
         this.Quantity = Quantity;
         this.TotalPrice = TotalPrice;
         this.OrderDate = OrderDate;
-        this.isOrder = isOrder;
         this.isCheckOut = isCheckOut;
     }
     
@@ -67,14 +66,6 @@ public class Order {
 
     public void setOrderDate(String OrderDate) {
         this.OrderDate = OrderDate;
-    }
-
-    public boolean isIsOrder() {
-        return isOrder;
-    }
-
-    public void setIsOrder(boolean isOrder) {
-        this.isOrder = isOrder;
     }
 
     public boolean isIsCheckOut() {

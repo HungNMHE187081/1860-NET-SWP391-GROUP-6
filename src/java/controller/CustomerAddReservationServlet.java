@@ -2,6 +2,7 @@ package controller;
 
 import dal.AgeLimitDAO;
 import dal.ChildrenDAO;
+import dal.OrderDAO;
 import dal.ReservationDAO;
 import dal.ServiceDAO;
 import dal.StaffDAO;
@@ -11,12 +12,16 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import model.AgeLimits;
 import model.Children;
+import model.Order;
+import model.OrderItem;
 import model.Reservation;
 import model.Service;
+import model.Staff;
 import model.Users;
 
 public class CustomerAddReservationServlet extends HttpServlet {
@@ -63,19 +68,24 @@ public class CustomerAddReservationServlet extends HttpServlet {
             // Filtering logic based on service's age limit
             for (Children child : allChildren) {
                 int age = child.getAge();
-                switch (service.getAgeLimitID()) {
-                    case 1: if (age < 1) childrenByAge.add(child); break;
-                    case 2: if (age >= 1 && age < 6) childrenByAge.add(child); break;
-                    case 3: if (age >= 6 && age < 13) childrenByAge.add(child); break;
-                    case 4: if (age >= 13 && age < 18) childrenByAge.add(child); break;
+                if (ageLimitID == 1 && age < 1) {
+                    childrenByAge.add(child);
+                } else if (ageLimitID == 2 && age >= 1 && age < 6) {
+                    childrenByAge.add(child);
+                } else if (ageLimitID == 3 && age >= 6 && age < 13) {
+                    childrenByAge.add(child);
+                } else if (ageLimitID == 4 && age >= 13 && age < 18) {
+                    childrenByAge.add(child);
                 }
             }
 
             StaffDAO staffDAO = new StaffDAO();
+            List<Staff> staffs = staffDAO.getStaffByDegreeID(service.getDegreeID());
+            
             request.setAttribute("ageLimit", ageLimit);
             request.setAttribute("service", service);
             request.setAttribute("children", childrenByAge);
-            request.setAttribute("staffs", staffDAO.getAllStaffs());
+            request.setAttribute("staffs", staffs);
 
             request.getRequestDispatcher("/Common_JSP/home-add-reservation.jsp").forward(request, response);
         } else {
@@ -85,35 +95,41 @@ public class CustomerAddReservationServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String reservationDate = request.getParameter("reservationDate");
-        String startTime = request.getParameter("startTime");
-        String staffIdStr = request.getParameter("staffID");
-        String childIdStr = request.getParameter("childID");
-        String errorMessage = null;
+        HttpSession session = request.getSession();
+        Users user = (Users) session.getAttribute("user");
 
-        try {
-            int staffId = Integer.parseInt(staffIdStr);
-            int childId = Integer.parseInt(childIdStr);
+        if (user != null) {
+            Integer serviceID = getServiceID(request);
+            if (serviceID == null) {
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid service ID.");
+                return;
+            }
 
-            Reservation reservation = new Reservation();
-            reservation.setReservationDate(reservationDate);
-            reservation.setStartTime(startTime);
-            reservation.setStaffID(staffId);
-            reservation.setIsExam(false);
-            reservation.setHasRecord(false);
-
-            ReservationDAO reservationDAO = new ReservationDAO();
-            reservationDAO.addReservation(reservation);
-
-         
-        } catch (NumberFormatException e) {
-            errorMessage = "Dữ liệu đầu vào không hợp lệ.";
-            request.setAttribute("errorMessage", errorMessage);
-            request.getRequestDispatcher("/Common_JSP/home-add-reservation.jsp").forward(request, response);
-        } catch (Exception e) {
-            errorMessage = "Có lỗi xảy ra khi xử lý yêu cầu.";
-            request.setAttribute("errorMessage", errorMessage);
-            request.getRequestDispatcher("/Common_JSP/home-add-reservation.jsp").forward(request, response);
+            ServiceDAO serviceDAO = new ServiceDAO();
+            Service service = serviceDAO.getServiceByID(serviceID);
+            
+            String childName = request.getParameter("childName");
+            PrintWriter outWriter = response.getWriter();
+            outWriter.print(childName);
+//            ChildrenDAO childrenDAO = new ChildrenDAO();
+//            Children child = new Children();
+//            for (Children children : childrenDAO.getChildrenByCustomerID(user.getUserID())){
+//                String name = children.getFirstName() + children.getMiddleName() + children.getLastName();
+//                if (childName.equals(name))
+//                    child = 
+//            }
+//            
+//            OrderDAO orderDAO = new OrderDAO();
+//            orderDAO.addOrder(new Order(0, user.getUserID(), 1, service.getPrice(), "", true));
+//            orderDAO.addOrderItem(new OrderItem());
+//            
+//            ReservationDAO reservationDAO = new ReservationDAO();
+//            reservationDAO.addReservation(new Reservation());
+//            
+//            
+//            request.getRequestDispatcher("/Common_JSP/reservationConfirmation.jsp").forward(request, response);
+        } else {
+            response.sendRedirect("login");
         }
     }
 }

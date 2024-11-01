@@ -80,13 +80,7 @@
                 </li>
 
                 <li class="has-submenu parent-menu-item">
-                    <a href="javascript:void(0)">Chuyên gia khám chữa bệnh</a><span class="menu-arrow"></span>
-                    <ul class="submenu">
-                        <li><a href="patient-dashboard.html" class="sub-menu-item">Bảng Điều Khiển</a></li>
-                        <li><a href="patient-profile.html" class="sub-menu-item">Hồ Sơ</a></li>
-                        <li><a href="booking-appointment.html" class="sub-menu-item">Đặt Lịch Hẹn</a></li>
-                        <li><a href="patient-invoice.html" class="sub-menu-item">Hóa Đơn</a></li>
-                    </ul>
+                    <a href="javascript:void(0)">Chuyên gia khám chữa bệnh</a></span>
                 </li>
 
                 <li class="has-submenu parent-menu-item">
@@ -99,8 +93,7 @@
                 <li class="has-submenu parent-parent-menu-item">
                     <a href="javascript:void(0)">Lịch khám của bạn</a><span class="menu-arrow"></span>
                     <ul class="submenu">
-                        <li><a href="aboutus.html" class="sub-menu-item">Giỏ hàng</a></li>
-                        <li><a href="${pageContext.request.contextPath}/customer/listorders" class="sub-menu-item">Lịch khám sắp tới</a></li>
+                        <li><a href="${pageContext.request.contextPath}/customer/listreservations" class="sub-menu-item">Lịch khám sắp tới</a></li>
                         <li><a href="departments.html" class="sub-menu-item">Lịch sử khám bệnh</a></li>
                         <li><a href="${pageContext.request.contextPath}/customer/listchildren" class="sub-menu-item">Con trẻ của bạn</a></li>
                     </ul>
