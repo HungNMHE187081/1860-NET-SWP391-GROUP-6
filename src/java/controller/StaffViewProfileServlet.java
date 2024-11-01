@@ -29,13 +29,14 @@ public class StaffViewProfileServlet extends HttpServlet {
             Users userDetails = userDAO.getUserWithAddressById(user.getUserID());
 
             DegreeDAO degreeDAO = new DegreeDAO();
-            List<Degree> degrees = degreeDAO.getDegreesByUserId(user.getUserID());
             SpecializationDAO specializationDAO = new SpecializationDAO();
-            List<Specialization> specializations = specializationDAO.getSpecializationsByUserId(user.getUserID());
+            
+            Degree degree = degreeDAO.getDegreeByStaffId(user.getUserID());
+            Specialization specialization = specializationDAO.getSpecializationByStaffId(user.getUserID());
 
             request.setAttribute("userDetails", userDetails);
-            request.setAttribute("degrees", degrees);
-            request.setAttribute("specializations", specializations);
+            request.setAttribute("degree", degree);
+            request.setAttribute("specialization", specialization);
             request.getRequestDispatcher("/Staff_JSP/staff-view-profile.jsp").forward(request, response);
         } else {
             response.sendRedirect(request.getContextPath() + "/login");

@@ -20,6 +20,8 @@ import java.util.List;
 import model.District;
 import model.Provinces;
 import model.Ward;
+import dal.DegreeDAO;
+import dal.SpecializationDAO;
 
 @MultipartConfig
 public class StaffEditProfileServlet extends HttpServlet {
@@ -61,6 +63,15 @@ public class StaffEditProfileServlet extends HttpServlet {
             request.setAttribute("districts", districts);
             request.setAttribute("wards", wards);
             request.setAttribute("userDetails", user);
+
+            DegreeDAO degreeDAO = new DegreeDAO();
+            SpecializationDAO specDAO = new SpecializationDAO();
+            
+            request.setAttribute("allDegrees", degreeDAO.getAllDegrees());
+            request.setAttribute("allSpecializations", specDAO.getAllSpecializations());
+            request.setAttribute("userDegree", degreeDAO.getDegreeByStaffId(user.getUserID()));
+            request.setAttribute("userSpecialization", specDAO.getSpecializationByStaffId(user.getUserID()));
+
             request.getRequestDispatcher("/Staff_JSP/staff-edit-profile.jsp").forward(request, response);
         } else {
             response.sendRedirect(request.getContextPath() + "/login");
@@ -143,6 +154,31 @@ public class StaffEditProfileServlet extends HttpServlet {
 
             // Cập nhật thông tin trong session
             session.setAttribute("user", user);
+
+            // Thêm vào sau khi cập nhật thông tin cơ bản:
+            String degreeId = request.getParameter("degree");
+            String specId = request.getParameter("specialization");
+            
+            DegreeDAO degreeDAO = new DegreeDAO();
+            SpecializationDAO specDAO = new SpecializationDAO();
+            
+            // Cập nhật hoặc thêm mới chuyên ngành
+            if (degreeId != null && !degreeId.isEmpty()) {
+                if (!degreeDAO.addStaffDegree(user.getUserID(), Integer.parseInt(degreeId))) {
+                    request.setAttribute("error", "Không thể cập nhật chuyên ngành");
+                    request.getRequestDispatcher("/Staff_JSP/staff-edit-profile.jsp").forward(request, response);
+                    return;
+                }
+            }
+            
+            // Cập nhật hoặc thêm mới chuyên môn
+            if (specId != null && !specId.isEmpty()) {
+                if (!specDAO.addStaffSpecialization(user.getUserID(), Integer.parseInt(specId))) {
+                    request.setAttribute("error", "Không thể cập nhật chuyên môn");
+                    request.getRequestDispatcher("/Staff_JSP/staff-edit-profile.jsp").forward(request, response);
+                    return;
+                }
+            }
 
             // Chuyển hướng về trang hồ sơ
             response.sendRedirect(request.getContextPath() + "/staff/viewprofile");

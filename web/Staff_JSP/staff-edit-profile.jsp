@@ -317,6 +317,33 @@
                                                        value="${userDetails.address.streetAddress}" required>
                                             </div>
 
+                                            <!-- Thêm vào form sau phần địa chỉ -->
+                                            <div class="form-group col-md-6">
+                                                <label class="control-label">Chuyên ngành</label>
+                                                <select class="form-control" name="degree" required>
+                                                    <option value="">Chọn chuyên ngành</option>
+                                                    <c:forEach var="degree" items="${allDegrees}">
+                                                        <option value="${degree.degreeID}" 
+                                                                ${userDegree.degreeID == degree.degreeID ? 'selected' : ''}>
+                                                            ${degree.degreeName}
+                                                        </option>
+                                                    </c:forEach>
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                                <label class="control-label">Chuyên môn</label>
+                                                <select class="form-control" name="specialization" required>
+                                                    <option value="">Chọn chuyên môn</option>
+                                                    <c:forEach var="spec" items="${allSpecializations}">
+                                                        <option value="${spec.specializationID}" 
+                                                                ${userSpecialization.specializationID == spec.specializationID ? 'selected' : ''}>
+                                                            ${spec.specializationName}
+                                                        </option>
+                                                    </c:forEach>
+                                                </select>
+                                            </div>
+
                                             <!-- Submit Button -->
                                             <div class="form-group col-md-12">
                                                 <button class="btn btn-primary" type="submit">
