@@ -17,13 +17,12 @@ public class ReservationDAO extends DBContext {
 
     public List<Reservation> getAllReservations() {
         List<Reservation> list = new ArrayList<>();
-        String sql = "SELECT o.OrderID, o.CustomerID, o.isOrder, o.isCheckOut, "
+        String sql = "SELECT o.OrderID, o.CustomerID, o.isCheckOut, "
                 + "oi.OrderItemID, oi.ServiceID, oi.ChildID, "
                 + "r.ReservationID, r.ReservationDate, r.StartTime, r.StaffID, r.isExam, r.hasRecord "
                 + "FROM Orders o "
                 + "JOIN OrderItems oi ON o.OrderID = oi.OrderID "
-                + "JOIN Reservations r ON oi.OrderItemID = r.OrderItemID "
-                + "WHERE o.isOrder = 1";
+                + "JOIN Reservations r ON oi.OrderItemID = r.OrderItemID ";
         try {
             PreparedStatement pre = connection.prepareStatement(sql);
             ResultSet rs = pre.executeQuery();
@@ -44,13 +43,13 @@ public class ReservationDAO extends DBContext {
 
     public List<Reservation> getReservationByIsExam(boolean isExam) {
         List<Reservation> list = new ArrayList<>();
-        String sql = "SELECT o.OrderID, o.CustomerID, o.isOrder, o.isCheckOut, "
+        String sql = "SELECT o.OrderID, o.CustomerID, o.isCheckOut, "
                 + "oi.OrderItemID, oi.ServiceID, oi.ChildID, "
                 + "r.ReservationID, r.ReservationDate, r.StartTime, r.StaffID, r.isExam, r.hasRecord "
                 + "FROM Orders o "
                 + "JOIN OrderItems oi ON o.OrderID = oi.OrderID "
                 + "JOIN Reservations r ON oi.OrderItemID = r.OrderItemID "
-                + "WHERE r.IsExam = ? and o.IsOrder = 1";
+                + "WHERE r.IsExam = ?";
         try {
             PreparedStatement pre = connection.prepareStatement(sql);
             pre.setBoolean(1, isExam);
@@ -71,13 +70,13 @@ public class ReservationDAO extends DBContext {
     }
 
     public Reservation getReservationByID(int ReservationID) {
-        String sql = "SELECT o.OrderID, o.CustomerID, o.isOrder, o.isCheckOut, "
+        String sql = "SELECT o.OrderID, o.CustomerID, o.isCheckOut, "
                 + "oi.OrderItemID, oi.ServiceID, oi.ChildID, "
                 + "r.ReservationID, r.ReservationDate, r.StartTime, r.StaffID, r.isExam, r.hasRecord "
                 + "FROM Orders o "
                 + "JOIN OrderItems oi ON o.OrderID = oi.OrderID "
                 + "JOIN Reservations r ON oi.OrderItemID = r.OrderItemID "
-                + "WHERE ReservationID = ? and IsOrder = 1";
+                + "WHERE ReservationID = ?";
         try {
             PreparedStatement pre = connection.prepareStatement(sql);
             pre.setInt(1, ReservationID);
@@ -100,13 +99,13 @@ public class ReservationDAO extends DBContext {
     }
 
     public Reservation getReservationByID(int ServiceID, int ChildID) {
-        String sql = "SELECT o.OrderID, o.CustomerID, o.isOrder, o.isCheckOut, "
+        String sql = "SELECT o.OrderID, o.CustomerID, o.isCheckOut, "
                 + "oi.OrderItemID, oi.ServiceID, oi.ChildID, "
                 + "r.ReservationID, r.ReservationDate, r.StartTime, r.StaffID, r.isExam, r.hasRecord "
                 + "FROM Orders o "
                 + "JOIN OrderItems oi ON o.OrderID = oi.OrderID "
                 + "JOIN Reservations r ON oi.OrderItemID = r.OrderItemID "
-                + "WHERE ServiceID = ? and ChildID = ? and IsOrder = 1";
+                + "WHERE ServiceID = ? and ChildID = ?";
         try {
             PreparedStatement pre = connection.prepareStatement(sql);
             pre.setInt(1, ServiceID);
@@ -136,7 +135,7 @@ public class ReservationDAO extends DBContext {
                 + "JOIN Orders o ON oi.OrderID = o.OrderID "
                 + "JOIN Users u ON o.CustomerID = u.UserID "
                 + "JOIN Children c ON oi.ChildID = c.ChildID "
-                + "WHERE u.UserID = ? AND r.IsExam = 0 and o.IsOrder = 1";
+                + "WHERE u.UserID = ? AND r.IsExam = 0";
         try {
             PreparedStatement pre = connection.prepareStatement(sql);
             pre.setInt(1, CustomerID);
@@ -165,7 +164,7 @@ public class ReservationDAO extends DBContext {
                 + "JOIN Users u ON o.CustomerID = u.UserID "
                 + "JOIN Children c ON oi.ChildID = c.ChildID "
                 + "WHERE (u.FirstName LIKE ? OR u.MiddleName LIKE ? OR u.LastName LIKE ? OR c.FirstName LIKE ? OR c.MiddleName LIKE ? OR c.LastName LIKE ?) "
-                + "AND r.IsExam = ? and o.IsOrder = 1";
+                + "AND r.IsExam = ?";
         try {
             PreparedStatement pre = connection.prepareStatement(sql);
             pre.setString(1, "%" + keyword + "%");
@@ -194,13 +193,13 @@ public class ReservationDAO extends DBContext {
 
     public List<Reservation> searchReservationsByTimeOfDay(String timeOfDay, boolean isExam) {
         List<Reservation> list = new ArrayList<>();
-        String sql = "SELECT o.OrderID, o.CustomerID, o.isOrder, o.isCheckOut, "
+        String sql = "SELECT o.OrderID, o.CustomerID, o.isCheckOut, "
                 + "oi.OrderItemID, oi.ServiceID, oi.ChildID, "
                 + "r.ReservationID, r.ReservationDate, r.StartTime, r.StaffID, r.isExam, r.hasRecord "
                 + "FROM Orders o "
                 + "JOIN OrderItems oi ON o.OrderID = oi.OrderID "
                 + "JOIN Reservations r ON oi.OrderItemID = r.OrderItemID "
-                + "WHERE r.StartTime BETWEEN ? AND ? AND r.isExam = ? and IsOrder = 1";
+                + "WHERE r.StartTime BETWEEN ? AND ? AND r.isExam = ?";
         try {
             PreparedStatement pre = connection.prepareStatement(sql);
             if ("morning".equalsIgnoreCase(timeOfDay)) {
@@ -239,7 +238,7 @@ public class ReservationDAO extends DBContext {
                 + "JOIN Children c ON oi.ChildID = c.ChildID "
                 + "WHERE (u.FirstName LIKE ? OR u.MiddleName LIKE ? OR u.LastName LIKE ? OR c.FirstName LIKE ? OR c.MiddleName LIKE ? OR c.LastName LIKE ?) "
                 + "AND r.StartTime BETWEEN ? AND ? "
-                + "AND r.IsExam = ? and o.IsOrder = 1";
+                + "AND r.IsExam = ?";
         try {
             PreparedStatement pre = connection.prepareStatement(sql);
             pre.setString(1, "%" + keyword + "%");
@@ -307,10 +306,20 @@ public class ReservationDAO extends DBContext {
         }
     }
     
-    
+    public void updateIsExamReservation(int ReservationID){
+        String sql = "UPDATE [dbo].[Reservations]\n"
+                + "   SET [isExam] = 1\n"
+                + " WHERE ReservationID = ?";
+        try {
+            PreparedStatement pre = connection.prepareStatement(sql);
+            pre.setInt(1, ReservationID);
+            pre.executeUpdate();
+        } catch (SQLException e) {
+        }
+    }
 
     public static void main(String[] args) {
         ReservationDAO dao = new ReservationDAO();
-        System.out.println(dao.getReservationByIsExam(true).size());
+        System.out.println(dao.getReservationByCustomerID(4).size());
     }
 }

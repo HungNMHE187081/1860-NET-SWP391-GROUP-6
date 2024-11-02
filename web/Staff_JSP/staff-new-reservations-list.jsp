@@ -105,7 +105,7 @@
                                 <th>STT</th>
                                 <th>Ảnh của trẻ</th>
                                 <th>Tên trẻ</th>
-                                <th>Tên khách hàng</th>
+                                <th>Tên nhân viên</th>
                                 <th>Ngày khám</th>
                                 <th>Giờ khám</th>
                                 <th>Chức năng</th>
@@ -140,17 +140,9 @@
                                             </c:forEach>
                                         </td>
                                         <td>
-                                            <c:forEach var="orderItem" items="${orderItems}">
-                                                <c:if test="${orderItem.orderItemID == reservation.orderItemID}">
-                                                    <c:forEach var="order" items="${orders}">
-                                                        <c:if test="${order.orderID == orderItem.orderID}">
-                                                            <c:forEach var="user" items="${users}">
-                                                                <c:if test="${user.userID == order.customerID}">
-                                                                    ${user.firstName} ${user.middleName} ${user.lastName}
-                                                                </c:if>
-                                                            </c:forEach>
-                                                        </c:if>
-                                                    </c:forEach>
+                                            <c:forEach var="staff" items="${staffs}">
+                                                <c:if test="${staff.staffID == reservation.staffID}">
+                                                    ${staff.staffName}
                                                 </c:if>
                                             </c:forEach>
                                         </td>
@@ -166,6 +158,11 @@
                                             <button class="btn-primary btn-sm" type="button" title="detail" id="show-emp">
                                                 <a href="${pageContext.request.contextPath}/staff/viewreservation?reservationID=${reservation.reservationID}" title="View">
                                                     <i class="fas fa-eye"></i></a>
+                                            </button>
+                                            <button class="btn-primary btn-sm" type="button" title="detail" id="show-emp">
+                                                <a href="${pageContext.request.contextPath}/staff/isexamreservation?reservationID=${reservation.reservationID}" 
+                                                   onclick="return confirm('Bạn có muốn xác nhận rằng đã hoàn thành lịch khám này không?')" title="Confirm">
+                                                    <i class="fas fa-stethoscope"></i></a>
                                             </button>
                                         </td>
                                     </tr>

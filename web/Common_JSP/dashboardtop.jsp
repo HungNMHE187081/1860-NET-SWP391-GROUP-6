@@ -93,6 +93,7 @@
                 <li class="has-submenu parent-parent-menu-item">
                     <a href="javascript:void(0)">Lịch khám của bạn</a><span class="menu-arrow"></span>
                     <ul class="submenu">
+                        <li><a href="${pageContext.request.contextPath}/customer/viewcart" class="sub-menu-item">Giỏ hàng</a></li>
                         <li><a href="${pageContext.request.contextPath}/customer/listreservations" class="sub-menu-item">Lịch khám sắp tới</a></li>
                         <li><a href="departments.html" class="sub-menu-item">Lịch sử khám bệnh</a></li>
                         <li><a href="${pageContext.request.contextPath}/customer/listchildren" class="sub-menu-item">Con trẻ của bạn</a></li>

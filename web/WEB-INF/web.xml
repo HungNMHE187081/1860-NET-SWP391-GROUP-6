@@ -428,6 +428,22 @@
         <servlet-name>CustomerListReservationsServlet</servlet-name>
         <servlet-class>controller.CustomerListReservationsServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>StaffIsExamReservationServlet</servlet-name>
+        <servlet-class>controller.StaffIsExamReservationServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CustomerAddToCartServlet</servlet-name>
+        <servlet-class>controller.CustomerAddToCartServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CustomerViewCartServlet</servlet-name>
+        <servlet-class>controller.CustomerViewCartServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CustomerRemoveFromCartServlet</servlet-name>
+        <servlet-class>controller.CustomerRemoveFromCartServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -847,5 +863,21 @@
     <servlet-mapping>
         <servlet-name>CustomerListReservationsServlet</servlet-name>
         <url-pattern>/customer/listreservations</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StaffIsExamReservationServlet</servlet-name>
+        <url-pattern>/staff/isexamreservation</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CustomerAddToCartServlet</servlet-name>
+        <url-pattern>/customer/addtocart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CustomerViewCartServlet</servlet-name>
+        <url-pattern>/customer/viewcart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CustomerRemoveFromCartServlet</servlet-name>
+        <url-pattern>/customer/removefromcart</url-pattern>
     </servlet-mapping>
 </web-app>

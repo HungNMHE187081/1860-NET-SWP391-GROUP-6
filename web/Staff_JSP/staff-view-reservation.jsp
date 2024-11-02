@@ -116,7 +116,9 @@
                     <a href="${pageContext.request.contextPath}/staff/newreservationslist" class="back-link">Lịch khám mới</a>
                     <a href="${pageContext.request.contextPath}/staff/oldreservationslist" class="back-link">Lịch đã khám</a>
                     <c:if test="${reservation.isExam == false}">
-                        <a href="${pageContext.request.contextPath}/viewmedicalrecord?reservationID=${reservation.reservationID}" class="back-link">Đã khám</a>
+                        <a href="${pageContext.request.contextPath}/staff/isexamreservation?reservationID=${reservation.reservationID}" 
+                           onclick="return confirm('Bạn có muốn xác nhận rằng đã hoàn thành lịch khám này không?')"
+                           class="back-link">Đã khám</a>
                     </c:if>
                     <c:if test="${reservation.isExam == true}">
                         <c:if test="${reservation.hasRecord == false}">

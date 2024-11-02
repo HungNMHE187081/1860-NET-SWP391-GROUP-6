@@ -640,32 +640,6 @@ VALUES
 (3, N'Lê Minh C', 5, 1, 1, '2020-01-15', 50000.0);
 
 
-INSERT INTO Orders (CustomerID, OrderDate, isCheckOut)
-VALUES 
-(1, GETDATE(), 0),
-(1, GETDATE(), 0),
-(2, GETDATE(), 0);
-
-
-INSERT INTO OrderItems (OrderID, ServiceID, ChildID)
-VALUES 
-(1, 1, 1),
-(1, 2, 2),
-(2, 1, 1),
-(3, 3, 1),
-(3, 2, 2),
-(3, 1, 3);
-
-
-INSERT INTO Reservations (OrderItemID, ReservationDate, StartTime, StaffID, isExam, hasRecord)
-VALUES 
-(1, '2023-10-05', '09:00:00', 3, 0, 0),
-(2, '2023-10-06', '10:00:00', 3, 0, 0),
-(3, '2023-10-07', '11:00:00', 3, 0, 0),
-(4, '2023-10-08', '12:00:00', 3, 1, 0),
-(5, '2023-10-09', '13:00:00', 3, 0, 0),
-(6, '2023-10-10', '14:00:00', 3, 1, 0);
-
 --update Reservations set isExam = 0 where OrderItemID = 2
 -- Cập nhật Quantity trong bảng Orders
 UPDATE Orders
@@ -689,13 +663,33 @@ JOIN Roles r ON ur.RoleID = r.RoleID
 LEFT JOIN Staff s ON u.UserID = s.StaffID
 WHERE r.RoleID = 3; 
 
+CREATE OR ALTER VIEW ChildrenAgeView AS
+SELECT 
+    ChildID,
+    CustomerID,
+    FirstName,
+    MiddleName,
+    LastName,
+    DateOfBirth,
+    Gender,
+    ChildImage,
+    DATEDIFF(YEAR, DateOfBirth, GETDATE()) - 
+        CASE 
+            WHEN (MONTH(DateOfBirth) > MONTH(GETDATE())) OR 
+                 (MONTH(DateOfBirth) = MONTH(GETDATE()) AND DAY(DateOfBirth) > DAY(GETDATE()))
+            THEN 1
+            ELSE 0
+        END AS Age
+FROM Children;
+
 select * from StaffView
 
-select * from Children where isOrder = 1
+select * from Orders
 
-select * from OrderItems where OrderID = 1
+select * from OrderItems
 
-SELECT * FROM Reservations WHERE IsExam = 0*/
+SELECT * FROM Reservations
+*/
 
 select r.ReservationID, r.OrderItemID, r.StaffID, o.ServiceID, o.ChildID from Reservations r join OrderItems o on r.OrderItemID = o.OrderItemID
 

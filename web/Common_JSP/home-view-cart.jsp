@@ -1,9 +1,3 @@
-<%-- 
-    Document   : home-view-reservation
-    Created on : Oct 23, 2024, 11:10:28 PM
-    Author     : LENOVO
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -12,7 +6,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Tiny Tots</title>
+        <title>Giỏ Hàng</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="Premium Bootstrap 4 Landing Page Template" />
         <meta name="keywords" content="Appointment, Booking, System, Dashboard, Health" />
@@ -50,6 +44,38 @@
         <link href="${pageContext.request.contextPath}/css/tiny-slider.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=ecg_heart" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        <style>
+            .cart-container {
+                background: #fff;
+                padding: 30px;
+                border-radius: 10px;
+                box-shadow: 0 0 20px rgba(0,0,0,0.1);
+                margin: 30px 0;
+            }
+            .cart-item {
+                border-bottom: 1px solid #eee;
+                padding: 20px 0;
+                margin-bottom: 20px;
+            }
+            .cart-item:last-child {
+                border-bottom: none;
+            }
+            .cart-total {
+                font-size: 1.2em;
+                font-weight: bold;
+                text-align: right;
+                padding: 20px 0;
+            }
+            .btn-remove {
+                color: #dc3545;
+                cursor: pointer;
+            }
+            .empty-cart {
+                text-align: center;
+                padding: 50px 0;
+                color: #666;
+            }
+        </style>
     </head>
 
     <body>
@@ -82,119 +108,83 @@
 
         <section class="section">
             <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-12">
-                        <div class="section-title text-center mb-4 pb-2">
-                            <h4 class="title mb-4">Danh sách lịch khám sắp tới</h4>
-                            <p class="text-muted mx-auto para-desc mb-0">Dưới đây là danh sách các lịch khám sắp tới của bạn.</p>
+                <div class="cart-container">
+                    <h2 class="text-center mb-4">Giỏ Hàng</h2>
+                    
+                    <c:if test="${empty cartItems}">
+                        <div class="empty-cart">
+                            <i class="fas fa-shopping-cart fa-3x mb-3"></i>
+                            <h3>Giỏ hàng trống</h3>
+                            <p>Hãy thêm dịch vụ vào giỏ hàng</p>
+                            <a href="${pageContext.request.contextPath}/customer/listservices" class="btn btn-primary mt-3">
+                                Xem dịch vụ
+                            </a>
                         </div>
-                    </div><!--end col-->
-                </div><!--end row-->
+                    </c:if>
 
-                <div class="row">
-                    <div class="col-12 mt-4 pt-2">
-                        <div class="table-responsive shadow rounded">
-                            <table class="table table-center table-bordered bg-white mb-0">
+                    <c:if test="${not empty cartItems}">
+                        <div class="table-responsive">
+                            <table class="table">
                                 <thead>
                                     <tr>
-                                        <th class="text-center py-4" style="min-width: 100px;">Số thứ tự</th>
-                                        <th class="text-center py-4" style="min-width: 200px;">Tổng số dịch vụ</th>
-                                        <th class="text-center py-4" style="min-width: 200px;">Ngày Đặt Hàng</th>
-                                        <th class="text-center py-4" style="min-width: 200px;">Tổng Tiền</th>
-                                        <th class="text-center py-4" style="min-width: 200px;">Trạng Thái</th>
-                                        <th class="text-center py-4" style="min-width: 150px;">Xem chi tiết</th>
+                                        <th>Dịch vụ</th>
+                                        <th>Trẻ</th>
+                                        <th>Bác sĩ</th>
+                                        <th>Ngày khám</th>
+                                        <th>Giá</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <c:if test="${not empty orders}">
-                                        <c:forEach var="order" items="${orders}" varStatus="status">
-                                            <tr>
-                                                <td class="text-center">${status.index + 1}</td>
-                                                <td class="text-center">${order.quantity}</td>
-                                                <td class="text-center" data-date="${order.orderDate}">${order.orderDate}</td>
-                                                <td class="text-center">
-                                                    <span><fmt:formatNumber value="${order.totalPrice}" type="number" groupingUsed="true" /></span>
-                                                </td>
-                                                <td class="text-center">${order.isCheckOut ? 'Đã thanh toán' : 'Chưa thanh toán'}</td>
-                                                <td class="text-center">
-                                                    <button class="btn btn-primary btn-sm" title="detail" data-toggle="collapse" data-target="#orderItems-${order.orderID}">
-                                                        <i class="fas fa-th-list"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <tr id="orderItems-${order.orderID}" class="collapse">
-                                                <td colspan="6">
-                                                    <table class="table table-bordered">
-                                                        <thead>
-                                                            <tr>
-                                                                <th class="text-center">Tên dịch vụ</th>
-                                                                <th class="text-center">Tên trẻ</th>
-                                                                <th class="text-center">Ngày khám</th>
-                                                                <th class="text-center">Giờ khám</th>
-                                                                <th class="text-center">Giá</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <c:forEach var="item" items="${orderItems}" varStatus="status">
-                                                                <c:if test="${order.orderID == item.orderID}">
-                                                                <tr>
-                                                                    <td class="text-center">
-                                                                        <c:forEach var="service" items="${services}">
-                                                                            <c:if test="${service.serviceID == item.serviceID}">
-                                                                                ${service.serviceName}
-                                                                            </c:if>
-                                                                        </c:forEach>
-                                                                    </td>
-                                                                    <td class="text-center">
-                                                                        <c:forEach var="child" items="${children}">
-                                                                            <c:if test="${child.childID == item.childID}">
-                                                                                ${child.firstName} ${child.middleName} ${child.lastName}
-                                                                            </c:if>
-                                                                        </c:forEach>
-                                                                    </td>
-                                                                    <td class="text-center">
-                                                                        <c:forEach var="reservation" items="${reservations}">
-                                                                        <c:if test="${item.orderItemID == reservation.orderItemID}">
-                                                                        <fmt:parseDate value="${reservation.reservationDate}" pattern="yyyy-MM-dd" var="parsedReservationDate" />
-                                                                        <fmt:formatDate value="${parsedReservationDate}" pattern="dd-MM-yyyy" />
-                                                                        </c:if>
-                                                                        </c:forEach>
-                                                                    </td>
-                                                                    <td class="text-center">
-                                                                        <c:forEach var="reservation" items="${reservations}">
-                                                                        <c:if test="${item.orderItemID == reservation.orderItemID}">
-                                                                        <fmt:parseDate value="${reservation.startTime}" pattern="HH:mm:ss" var="parsedStartTime" />
-                                                                        <fmt:formatDate value="${parsedStartTime}" pattern="hh:mm a" />
-                                                                        </c:if>
-                                                                        </c:forEach>
-                                                                    </td>
-                                                                    <td class="text-center">
-                                                                        <c:forEach var="service" items="${services}">
-                                                                            <c:if test="${service.serviceID == item.serviceID}">
-                                                                                <fmt:formatNumber value="${service.price}" type="number" groupingUsed="true" />
-                                                                            </c:if>
-                                                                        </c:forEach>
-                                                                    </td>
-                                                                </tr>
-                                                                </c:if>
-                                                            </c:forEach>
-                                                        </tbody>
-                                                    </table>
-                                                </td>
-                                            </tr>
-                                        </c:forEach>
-                                    </c:if>
-
-                                    <c:if test="${empty orders}">
+                                    <c:forEach var="item" items="${cartItems}" varStatus="status">
                                         <tr>
-                                            <td colspan="6" style="text-align: center;">Không có lịch khám</td>
+                                            <td>${item.service.serviceName}</td>
+                                            <td>${item.child.firstName} ${item.child.middleName} ${item.child.lastName}</td>
+                                            <td>${item.staff.staffName}</td>
+                                            <td>
+                                                ${item.reservationDate}<br>
+                                                ${item.startTime}
+                                            </td>
+                                            <td>
+                                                <fmt:formatNumber value="$${item.service.price}" type="number" groupingUsed="true" />
+                                            </td>
+                                            <td>
+                                                <form action="${pageContext.request.contextPath}/customer/removefromcart" method="POST" 
+                                                      onsubmit="return confirm('Bạn có chắc muốn xóa dịch vụ này?');">
+                                                    <input type="hidden" name="index" value="${status.index}">
+                                                    <button type="submit" class="btn btn-danger btn-sm">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </form>
+                                            </td>
                                         </tr>
-                                    </c:if>
+                                    </c:forEach>
                                 </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="4" class="text-end"><strong>Tổng cộng:</strong></td>
+                                        <td colspan="2">
+                                            <strong class="text-primary">
+                                                <fmt:formatNumber value="${totalAmount}" type="number" groupingUsed="true" />
+                                            </strong>
+                                        </td>
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
-                    </div><!--end col-->
-                </div><!--end row-->
+
+                        <div class="cart-actions mt-4 d-flex justify-content-between">
+                            <a href="${pageContext.request.contextPath}/services" class="btn btn-secondary">
+                                <i class="fas fa-arrow-left"></i> Tiếp tục xem dịch vụ
+                            </a>
+                            <form action="${pageContext.request.contextPath}/customer/checkout" method="POST">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-shopping-cart"></i> Thanh toán
+                                </button>
+                            </form>
+                        </div>
+                    </c:if>
+                </div>
             </div><!--end container--><!--end container-->
         </section><!--end section-->
 
@@ -214,6 +204,12 @@
                     cell.textContent = formattedDate;
                 });
             });
+
+            function removeFromCart(index) {
+                if (confirm('Bạn có chắc chắn muốn xóa dịch vụ này khỏi giỏ hàng?')) {
+                    window.location.href = '${pageContext.request.contextPath}/customer/removefromcart?index=' + index;
+                }
+            }
         </script>
 
         <!-- Back to top -->
@@ -313,17 +309,12 @@
         </div>
         <!-- MOdal End -->
 
-        <!-- javascript -->
-        <script src="js/bootstrap.bundle.min.js"></script>
-
-        <!-- SLIDER -->
-        <script src="js/tiny-slider.js"></script>
-        <script src="js/tiny-slider-init.js"></script>
-        <!-- Counter -->
-        <script src="js/counter.init.js"></script>
-        <!-- Icons -->
-        <script src="js/feather.min.js"></script>
-        <!-- Main Js -->
-        <script src="js/app.js"></script>
+        <!-- Fix resource paths -->
+        <script src="${pageContext.request.contextPath}/js/bootstrap.bundle.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/tiny-slider.js"></script>
+        <script src="${pageContext.request.contextPath}/js/tiny-slider-init.js"></script>
+        <script src="${pageContext.request.contextPath}/js/counter.init.js"></script>
+        <script src="${pageContext.request.contextPath}/js/feather.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/app.js"></script>
     </body>
 </html>

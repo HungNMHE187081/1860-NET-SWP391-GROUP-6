@@ -103,7 +103,7 @@
                                 <th>STT</th>
                                 <th>Ảnh của trẻ</th>
                                 <th>Tên trẻ</th>
-                                <th>Tên nhân viên</th>
+                                <th>Tên khách hàng</th>
                                 <th>Ngày khám</th>
                                 <th>Giờ khám</th>
                                 <th>Chức năng</th>
@@ -168,9 +168,17 @@
                                             </c:forEach>
                                         </td>
                                         <td>
-                                            <c:forEach var="staff" items="${staffs}">
-                                                <c:if test="${staff.staffID == reservation.staffID}">
-                                                    ${staff.staffName}
+                                            <c:forEach var="orderItem" items="${orderItems}">
+                                                <c:if test="${orderItem.orderItemID == reservation.orderItemID}">
+                                                    <c:forEach var="order" items="${orders}">
+                                                        <c:if test="${order.orderID == orderItem.orderID}">
+                                                            <c:forEach var="user" items="${users}">
+                                                                <c:if test="${user.userID == order.customerID}">
+                                                                    ${user.firstName} ${user.middleName} ${user.lastName}
+                                                                </c:if>
+                                                            </c:forEach>
+                                                        </c:if>
+                                                    </c:forEach>
                                                 </c:if>
                                             </c:forEach>
                                         </td>

@@ -44,7 +44,7 @@ public class CustomerListReservationsServlet extends HttpServlet {
         Users user = (Users) session.getAttribute("user");
         if (user != null) {
         OrderDAO orderDAO = new OrderDAO();
-        List<Order> orders = orderDAO.getOrdersInCartByCustomerID(user.getUserID());
+        List<Order> orders = orderDAO.getCheckOutOrdersByCustomerID(user.getUserID());
         List<OrderItem> orderItems = orderDAO.getAllOrderItems(); 
 
         ServiceDAO serviceDAO = new ServiceDAO();

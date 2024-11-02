@@ -8,6 +8,7 @@ import dal.ChildrenDAO;
 import dal.ManagerUserDAO;
 import dal.OrderDAO;
 import dal.ReservationDAO;
+import dal.StaffDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -21,6 +22,7 @@ import model.Children;
 import model.Order;
 import model.OrderItem;
 import model.Reservation;
+import model.Staff;
 import model.Users;
 
 /**
@@ -41,6 +43,8 @@ public class StaffNewReservationsListServlet extends HttpServlet {
         List<Children> children = childrenDAO.getAllChildren();
         ManagerUserDAO managerUserDAO = new ManagerUserDAO();
         List<Users> users = managerUserDAO.getAllUsers();
+        StaffDAO staffDAO = new StaffDAO();
+        List<Staff> staffs = staffDAO.getAllStaffs();
  
       
             Collections.sort(reservations, new Comparator<Reservation>() {
@@ -56,6 +60,7 @@ public class StaffNewReservationsListServlet extends HttpServlet {
         request.setAttribute("users", users);
         request.setAttribute("orders", orders);
         request.setAttribute("orderItems", orderItems);
+        request.setAttribute("staffs", staffs);
         request.getRequestDispatcher("/Staff_JSP/staff-new-reservations-list.jsp").forward(request, response);
     }
 

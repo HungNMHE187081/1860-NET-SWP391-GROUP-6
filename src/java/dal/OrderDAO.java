@@ -78,7 +78,7 @@ public class OrderDAO extends DBContext {
 
     public List<OrderItem> getAllOrderItems() {
         List<OrderItem> list = new ArrayList<>();
-        String sql = "SELECT o.OrderID, o.CustomerID, o.Quantity, o.TotalPrice, o.OrderDate, o.isOrder, o.isCheckOut, " +
+        String sql = "SELECT o.OrderID, o.CustomerID, o.Quantity, o.TotalPrice, o.OrderDate, o.isCheckOut, " +
                      "oi.OrderItemID, oi.ServiceID, oi.ChildID, " +
                      "c.FirstName, c.MiddleName, c.LastName, c.DateOfBirth, c.Gender, c.ChildImage " +
                      "FROM Orders o " +
@@ -122,7 +122,7 @@ public class OrderDAO extends DBContext {
 
     public List<OrderItem> getOrderItemsByOrderID(int OrderID) {
         List<OrderItem> list = new ArrayList<>();
-        String sql = "SELECT o.OrderID, o.CustomerID, o.Quantity, o.TotalPrice, o.OrderDate, o.isOrder, o.isCheckOut, " +
+        String sql = "SELECT o.OrderID, o.CustomerID, o.Quantity, o.TotalPrice, o.OrderDate, o.isCheckOut, " +
                      "oi.OrderItemID, oi.ServiceID, oi.ChildID, " +
                      "c.FirstName, c.MiddleName, c.LastName, c.DateOfBirth, c.Gender, c.ChildImage " +
                      "FROM Orders o " +
@@ -147,7 +147,7 @@ public class OrderDAO extends DBContext {
 
     public OrderItem getOrderItemsByOrderItemID(int orderItemID) {
         OrderItem orderItem = new OrderItem();
-        String sql = "SELECT o.OrderID, o.CustomerID, o.Quantity, o.TotalPrice, o.OrderDate, o.isOrder, o.isCheckOut, " +
+        String sql = "SELECT o.OrderID, o.CustomerID, o.Quantity, o.TotalPrice, o.OrderDate, o.isCheckOut, " +
                      "oi.OrderItemID, oi.ServiceID, oi.ChildID, " +
                      "c.FirstName, c.MiddleName, c.LastName, c.DateOfBirth, c.Gender, c.ChildImage " +
                      "FROM Orders o " +
@@ -192,7 +192,27 @@ public class OrderDAO extends DBContext {
     
     public List<Order> getOrdersInCartByCustomerID(int CustomerID) {
         List<Order> list = new ArrayList<>();
-        String sql = "SELECT * FROM Orders WHERE CustomerID = ?";
+        String sql = "SELECT * FROM Orders WHERE isCheckOut = 0 and CustomerID = ?";
+        try {
+            PreparedStatement pre = connection.prepareStatement(sql);
+            pre.setInt(1, CustomerID);
+            ResultSet rs = pre.executeQuery();
+            while (rs.next()) {
+                int OrderID = rs.getInt("OrderID");
+                int Quantity = rs.getInt("Quantity");
+                double TotalPrice = rs.getDouble("TotalPrice");
+                String OrderDate = rs.getString("OrderDate");
+                boolean isCheckOut = rs.getBoolean("isCheckOut");
+                list.add(new Order(OrderID, CustomerID, Quantity, TotalPrice, OrderDate, isCheckOut));
+            }
+        } catch (SQLException e) {
+        }
+        return list;
+    }
+    
+    public List<Order> getCheckOutOrdersByCustomerID(int CustomerID) {
+        List<Order> list = new ArrayList<>();
+        String sql = "SELECT * FROM Orders WHERE isCheckOut = 1 and CustomerID = ?";
         try {
             PreparedStatement pre = connection.prepareStatement(sql);
             pre.setInt(1, CustomerID);

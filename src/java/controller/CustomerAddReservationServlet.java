@@ -97,7 +97,6 @@ public class CustomerAddReservationServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         Users user = (Users) session.getAttribute("user");
-        PrintWriter out = response.getWriter();
 
         if (user != null) {
             try {
@@ -107,14 +106,7 @@ public class CustomerAddReservationServlet extends HttpServlet {
                 String startTime = request.getParameter("startTime") + ":00";
                 String reservationDate = request.getParameter("reservationDate");
                 String staffIDStr = request.getParameter("staffID");
-                
-                // Debug prints
-                out.println("ServiceID: " + serviceID);
-                out.println("ChildID: " + childIDStr);
-                out.println("StartTime: " + startTime);
-                out.println("ReservationDate: " + reservationDate);
-                out.println("StaffID: " + staffIDStr);
-                
+
                 // Check parameters
                 if (serviceID == null || childIDStr == null || startTime == null || 
                     reservationDate == null || staffIDStr == null || 
@@ -139,9 +131,7 @@ public class CustomerAddReservationServlet extends HttpServlet {
                 // Create order with proper error handling
                 OrderDAO orderDAO = new OrderDAO();
                 Order order = new Order(0, user.getUserID(), 1, service.getPrice(), "", true);
-                out.println("Creating order...");
                 order = orderDAO.addOrder(order);
-                out.println("Order ID generated: " + order.getOrderID());
                 
                 if (order.getOrderID() <= 0) {
                     throw new ServletException("Failed to create order - invalid ID generated: " + order.getOrderID());
@@ -149,9 +139,7 @@ public class CustomerAddReservationServlet extends HttpServlet {
                 
                 // Create order item with proper error handling
                 OrderItem orderItem = new OrderItem(0, order.getOrderID(), serviceID, childID);
-                out.println("Creating order item...");
                 orderItem = orderDAO.addOrderItem(orderItem);
-                out.println("OrderItem ID generated: " + orderItem.getOrderItemID());
                 
                 if (orderItem.getOrderItemID() <= 0) {
                     throw new ServletException("Failed to create order item - invalid ID generated: " + orderItem.getOrderItemID());
@@ -169,18 +157,15 @@ public class CustomerAddReservationServlet extends HttpServlet {
                     false   // hasRecord
                 );
                 
-                out.println("Creating reservation...");
                 boolean success = reservationDAO.addReservation(reservation);
                 if (!success) {
                     throw new ServletException("Failed to add reservation - database error");
                 }
-                out.println("Reservation created successfully");
                 
                 // If we get here, everything worked
                 response.sendRedirect(request.getContextPath() + "/Common_JSP/reservationConfirmation.jsp");
                 
             } catch (Exception e) {
-                e.printStackTrace(new PrintWriter(out));
                 throw new ServletException(e);
             }
         } else {

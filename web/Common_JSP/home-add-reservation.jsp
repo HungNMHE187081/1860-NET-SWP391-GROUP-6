@@ -171,11 +171,26 @@
                                     </div>
                                 </div>
                                 <button type="submit" onclick="return confirm('Bạn có chắc chắn muốn đặt lịch khám không?')"
-                                        class="btn btn-primary btn-save">Đặt Lịch Khám</button>
+                                        class="btn btn-primary btn-submit">Đặt Lịch Khám</button>
                             </form>
-                            <div class="form-group col-md-12">
-                                    <a class="btn btn-cancel" href="${pageContext.request.contextPath}/homepage">Hủy bỏ</a>
-                                </div>
+
+                            <form action="${pageContext.request.contextPath}/customer/addtocart" method="GET" style="margin-top: 10px;">
+                                <input type="hidden" name="serviceID" value="${service.serviceID}">
+                                <input type="hidden" name="ageLimitID" value="${ageLimit.ageLimitID}">
+                                <input type="hidden" name="childID" id="cartChildID">
+                                <input type="hidden" name="reservationDate" id="cartReservationDate">
+                                <input type="hidden" name="startTime" id="cartStartTime">
+                                <input type="hidden" name="staffID" id="cartStaffID">
+                                <button type="submit" 
+                                        onclick="return validateAndCopyFields()"
+                                        class="btn btn-secondary btn-submit">
+                                    <i class="fas fa-shopping-cart"></i> Thêm vào giỏ hàng
+                                </button>
+                            </form>
+
+                            <div class="form-group col-md-12" style="margin-top: 10px;">
+                                <a class="btn btn-cancel" href="${pageContext.request.contextPath}/homepage">Hủy bỏ</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -188,9 +203,9 @@
             // Set minimum date to today
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('reservationDate').min = today;
-            
+
             // Validate time between 8:00 AM and 5:00 PM
-            document.getElementById('startTime').addEventListener('change', function() {
+            document.getElementById('startTime').addEventListener('change', function () {
                 const time = this.value;
                 const hour = parseInt(time.split(':')[0]);
                 if (hour < 8 || hour >= 17) {
@@ -198,6 +213,29 @@
                     this.value = '';
                 }
             });
+
+            // Add this to your existing script section
+            function validateAndCopyFields() {
+                // Get values from the main form
+                const childSelect = document.getElementById('childName');
+                const dateInput = document.getElementById('reservationDate');
+                const timeInput = document.getElementById('startTime');
+                const staffSelect = document.getElementById('staffID');
+
+                // Validate all required fields
+                if (!childSelect.value || !dateInput.value || !timeInput.value || !staffSelect.value) {
+                    alert('Vui lòng điền đầy đủ thông tin trước khi thêm vào giỏ hàng');
+                    return false;
+                }
+
+                // Copy values to hidden fields in the cart form
+                document.getElementById('cartChildID').value = childSelect.value;
+                document.getElementById('cartReservationDate').value = dateInput.value;
+                document.getElementById('cartStartTime').value = timeInput.value;
+                document.getElementById('cartStaffID').value = staffSelect.value;
+
+                return confirm('Bạn có chắc chắn muốn thêm vào giỏ hàng không?');
+            }
         </script>
     </body>
 </html>
