@@ -111,18 +111,18 @@
                 <div class="cart-container">
                     <h2 class="text-center mb-4">Giỏ Hàng</h2>
                     
-                    <c:if test="${empty cartItems}">
+                    <c:if test="${empty orders}">
                         <div class="empty-cart">
                             <i class="fas fa-shopping-cart fa-3x mb-3"></i>
                             <h3>Giỏ hàng trống</h3>
                             <p>Hãy thêm dịch vụ vào giỏ hàng</p>
-                            <a href="${pageContext.request.contextPath}/customer/listservices" class="btn btn-primary mt-3">
+                            <a href="${pageContext.request.contextPath}/services" class="btn btn-primary mt-3">
                                 Xem dịch vụ
                             </a>
                         </div>
                     </c:if>
 
-                    <c:if test="${not empty cartItems}">
+                    <c:if test="${not empty orders}">
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>
@@ -136,28 +136,46 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <c:forEach var="item" items="${cartItems}" varStatus="status">
-                                        <tr>
-                                            <td>${item.service.serviceName}</td>
-                                            <td>${item.child.firstName} ${item.child.middleName} ${item.child.lastName}</td>
-                                            <td>${item.staff.staffName}</td>
-                                            <td>
-                                                ${item.reservationDate}<br>
-                                                ${item.startTime}
-                                            </td>
-                                            <td>
-                                                <fmt:formatNumber value="$${item.service.price}" type="number" groupingUsed="true" />
-                                            </td>
-                                            <td>
-                                                <form action="${pageContext.request.contextPath}/customer/removefromcart" method="POST" 
-                                                      onsubmit="return confirm('Bạn có chắc muốn xóa dịch vụ này?');">
-                                                    <input type="hidden" name="index" value="${status.index}">
-                                                    <button type="submit" class="btn btn-danger btn-sm">
-                                                        <i class="fas fa-trash"></i>
-                                                    </button>
-                                                </form>
-                                            </td>
-                                        </tr>
+                                    <c:forEach var="order" items="${orders}">
+                                        <c:forEach var="orderItem" items="${orderItems}">
+                                            <c:if test="${orderItem.orderID == order.orderID}">
+                                                <c:forEach var="reservation" items="${reservations}">
+                                                    <c:if test="${reservation.orderItemID == orderItem.orderItemID}">
+                                                        <tr>
+                                                            <c:forEach var="service" items="${services}">
+                                                                <c:if test="${service.serviceID == orderItem.serviceID}">
+                                                                    <td>${service.serviceName}</td>
+                                                                    <td>
+                                                                        <c:forEach var="child" items="${children}">
+                                                                            <c:if test="${child.childID == orderItem.childID}">
+                                                                                ${child.firstName} ${child.middleName} ${child.lastName}
+                                                                            </c:if>
+                                                                        </c:forEach>
+                                                                    </td>
+                                                                    <td>${reservation.staff.staffName}</td>
+                                                                    <td>
+                                                                        ${reservation.reservationDate}<br>
+                                                                        ${reservation.startTime}
+                                                                    </td>
+                                                                    <td>
+                                                                        <fmt:formatNumber value="${service.price}" type="currency"/>
+                                                                    </td>
+                                                                    <td>
+                                                                        <form action="${pageContext.request.contextPath}/customer/removefromcart" method="POST" 
+                                                                              onsubmit="return confirm('Bạn có chắc muốn xóa dịch vụ này?');">
+                                                                            <input type="hidden" name="orderItemId" value="${orderItem.orderItemID}">
+                                                                            <button type="submit" class="btn btn-danger btn-sm">
+                                                                                <i class="fas fa-trash"></i>
+                                                                            </button>
+                                                                        </form>
+                                                                    </td>
+                                                                </c:if>
+                                                            </c:forEach>
+                                                        </tr>
+                                                    </c:if>
+                                                </c:forEach>
+                                            </c:if>
+                                        </c:forEach>
                                     </c:forEach>
                                 </tbody>
                                 <tfoot>
@@ -165,7 +183,7 @@
                                         <td colspan="4" class="text-end"><strong>Tổng cộng:</strong></td>
                                         <td colspan="2">
                                             <strong class="text-primary">
-                                                <fmt:formatNumber value="${totalAmount}" type="number" groupingUsed="true" />
+                                                <fmt:formatNumber value="${totalAmount}" type="currency"/>
                                             </strong>
                                         </td>
                                     </tr>
@@ -309,12 +327,17 @@
         </div>
         <!-- MOdal End -->
 
-        <!-- Fix resource paths -->
-        <script src="${pageContext.request.contextPath}/js/bootstrap.bundle.min.js"></script>
-        <script src="${pageContext.request.contextPath}/js/tiny-slider.js"></script>
-        <script src="${pageContext.request.contextPath}/js/tiny-slider-init.js"></script>
-        <script src="${pageContext.request.contextPath}/js/counter.init.js"></script>
-        <script src="${pageContext.request.contextPath}/js/feather.min.js"></script>
-        <script src="${pageContext.request.contextPath}/js/app.js"></script>
+        <!-- javascript -->
+        <script src="js/bootstrap.bundle.min.js"></script>
+
+        <!-- SLIDER -->
+        <script src="js/tiny-slider.js"></script>
+        <script src="js/tiny-slider-init.js"></script>
+        <!-- Counter -->
+        <script src="js/counter.init.js"></script>
+        <!-- Icons -->
+        <script src="js/feather.min.js"></script>
+        <!-- Main Js -->
+        <script src="js/app.js"></script>
     </body>
 </html>

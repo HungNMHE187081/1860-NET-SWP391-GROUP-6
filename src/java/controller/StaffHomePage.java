@@ -14,9 +14,11 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import model.ReservationHome;
 import model.Staff;
+import model.Users;
 
 /**
  *
@@ -59,14 +61,21 @@ public class StaffHomePage extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        Users user = (Users) session.getAttribute("user");
+        if (user != null) {
         StaffDAO staffDAO = new StaffDAO();
         ReservationHomeDAO dao = new ReservationHomeDAO();
         Staff staff = new Staff();
-        staff = staffDAO.getStaffByID(3);
-        List<ReservationHome> listReservation = dao.getReservationsByStaffID(3);
+        staff = staffDAO.getStaffByID(user.getUserID());
+        List<ReservationHome> listReservation = dao.getReservationsByStaffID(staff.getStaffID());
         request.setAttribute("staff", staff);
         request.setAttribute("listReservation", listReservation);
         request.getRequestDispatcher("/Staff_JSP/staff-home-page.jsp").forward(request, response);
+        }
+        else {
+            response.sendRedirect(request.getContextPath() + "/login");
+        }
     } 
 
     /** 
