@@ -1,3 +1,5 @@
+package model.statistics;
+
 public class MonthlyOrderStatistics {
     private int month;
     private int totalOrders;

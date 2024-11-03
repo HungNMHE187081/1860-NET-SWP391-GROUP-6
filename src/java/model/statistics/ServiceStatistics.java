@@ -1,3 +1,6 @@
+package model.statistics;
+
+
 public class ServiceStatistics {
     private String serviceName;
     private int bookingCount;

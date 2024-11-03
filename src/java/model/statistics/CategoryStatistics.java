@@ -1,3 +1,5 @@
+package model.statistics;
+
 public class CategoryStatistics {
     private String categoryName;
     private int serviceCount;

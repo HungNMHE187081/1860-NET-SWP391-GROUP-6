@@ -1,3 +1,6 @@
+package model.statistics;
+
+
 public class ChildrenAgeStatistics {
     private int age;
     private int childCount;

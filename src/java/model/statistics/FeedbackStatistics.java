@@ -1,3 +1,5 @@
+package model.statistics;
+
 public class FeedbackStatistics {
     private int rating;
     private int ratingCount;

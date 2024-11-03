@@ -1,3 +1,6 @@
+package model.statistics;
+
+
 public class StaffStatistics {
     private String staffName;
     private int totalAppointments;
