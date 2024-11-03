@@ -1,3 +1,4 @@
+package dal;
 
 import dal.DBContext;
 import java.util.ArrayList;
@@ -38,15 +39,18 @@ public class StatisticsDAO extends DBContext {
     
     public List<StaffStatistics> getStaffStatistics() {
         List<StaffStatistics> list = new ArrayList<>();
-        String sql = "SELECT s.StaffName, "
+        String sql = "SELECT "
+                + "ISNULL(s.StaffName, 'Unknown') as StaffName, "
                 + "COUNT(r.ReservationID) as TotalAppointments, "
-                + "COUNT(DISTINCT r.OrderItemID) as UniqueServices, "
-                + "AVG(f.Rating) as AverageRating "
+                + "COUNT(DISTINCT oi.ServiceID) as UniqueServices, "
+                + "ISNULL(AVG(CAST(f.Rating as FLOAT)), 0) as StaffRating "
                 + "FROM Staff s "
                 + "LEFT JOIN Reservations r ON s.StaffID = r.StaffID "
                 + "LEFT JOIN OrderItems oi ON r.OrderItemID = oi.OrderItemID "
                 + "LEFT JOIN Feedback f ON oi.ServiceID = f.ServiceID "
-                + "GROUP BY s.StaffID, s.StaffName";
+                + "WHERE s.StaffName IS NOT NULL "
+                + "GROUP BY s.StaffID, s.StaffName "
+                + "HAVING COUNT(r.ReservationID) > 0";
         
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -56,12 +60,19 @@ public class StatisticsDAO extends DBContext {
                     rs.getString("StaffName"),
                     rs.getInt("TotalAppointments"),
                     rs.getInt("UniqueServices"),
-                    rs.getDouble("AverageRating")
+                    rs.getDouble("StaffRating")
                 );
-                list.add(stat);
+                System.out.println("Staff: " + stat.getStaffName() 
+                    + ", Appointments: " + stat.getTotalAppointments()
+                    + ", Services: " + stat.getUniqueServices()
+                    + ", Rating: " + stat.getStaffRating());
+                if (stat.getStaffName() != null && !stat.getStaffName().equals("Unknown")) {
+                    list.add(stat);
+                }
             }
         } catch (SQLException e) {
-            System.out.println("getStaffStatistics: " + e.getMessage());
+            System.out.println("getStaffStatistics error: " + e.getMessage());
+            e.printStackTrace();
         }
         return list;
     }
