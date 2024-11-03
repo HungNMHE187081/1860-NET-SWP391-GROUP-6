@@ -639,7 +639,11 @@ INSERT INTO Staff (StaffID, StaffName, YearsOfExperience, SpecializationID, Degr
 VALUES 
 (3, N'Lê Minh C', 5, 1, 1, '2020-01-15', 50000.0);
 
-
+INSERT INTO BlogCategories(CategoryName)
+VALUES
+(N'Chăm sóc bé'),
+(N'Chăm sóc mẹ bầu'),
+(N'Chăm sóc mẹ sau sinh')
 --update Reservations set isExam = 0 where OrderItemID = 2
 -- Cập nhật Quantity trong bảng Orders
 UPDATE Orders
@@ -706,3 +710,4 @@ INNER JOIN Specializations sp ON s.SpecializationID = sp.SpecializationID
 INNER JOIN Reservations r ON s.StaffID = r.StaffID
 WHERE r.ReservationDate BETWEEN '2023-10-05' AND DATEADD(day, 6, '2023-10-05')
 ORDER BY r.ReservationDate, r.StartTime
+select * from BlogCategories

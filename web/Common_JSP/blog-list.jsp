@@ -45,7 +45,7 @@
         <!-- Loader -->
 
         <!-- Navbar STart -->
-        <%@include file="dashboardtop.jsp" %>
+        <%@include file="/Common_JSP/dashboardtop.jsp" %>
         <!-- Navbar End -->
 
         <!-- Start Hero -->

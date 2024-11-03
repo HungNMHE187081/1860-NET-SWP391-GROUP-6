@@ -106,7 +106,39 @@ try{
 }
 return lst;
 }
-
+public List<Blog> getBlogsByCategory(int categoryId) {
+    List<Blog> blogs = new ArrayList<>();
+    String sql = "SELECT b.* " +
+                 "FROM Blogs b " +
+                 "INNER JOIN BlogCategoryMapping bcm ON b.BlogID = bcm.BlogID " +
+                 "WHERE bcm.CategoryID = ?";
+                 
+    try (
+         PreparedStatement pstmt = connection.prepareStatement(sql)) {
+        
+        pstmt.setInt(1, categoryId);
+        ResultSet rs = pstmt.executeQuery();
+        
+        while (rs.next()) {
+            Blog blog = new Blog();
+            blog.setBlogID(rs.getInt("BlogID"));
+            blog.setTitle(rs.getString("Title"));
+            blog.setContent(rs.getString("Content"));
+            blog.setAuthorName(rs.getString("AuthorName"));
+            blog.setCreatedDate(rs.getTimestamp("CreatedDate"));
+            blog.setUpdatedDate(rs.getTimestamp("UpdatedDate"));
+            blog.setIsPublished(rs.getBoolean("IsPublished"));
+            blog.setThumbnailPath(rs.getString("ThumbnailPath"));
+            blog.setViews(rs.getInt("Views"));
+            
+            blogs.add(blog);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    
+    return blogs;
+}
 
  public List<Blog> getAllBlogs() {
         List<Blog> blogList = new ArrayList<>();
@@ -199,24 +231,10 @@ return lst;
 
   public static void main(String[] args) {
         BlogDAO blogDAO = new BlogDAO();
-       
-        // Lấy danh sách các blog
-        int n = 8;
-        Blog b = blogDAO.getBlogById(n);
-         BlogCategory category = b.getCategories().get(0);
-        System.out.println(category.getCategoryName());
-      
-        // In danh sách blog ra console
-//        for (Blog blog : blogs) {
-//            System.out.println("Blog ID: " + blog.getBlogID());
-//            System.out.println("Title: " + blog.getTitle());
-//            System.out.println("Author: " + blog.getAuthorName());
-//            System.out.println("Created Date: " + blog.getCreatedDate());
-//            System.out.println("Is Published: " + blog.isPublished());
-//            System.out.println("Image: " + blog.getThumbnailPath());
-//            System.out.println("Views: " + blog.getViews());
-//            System.out.println("-----------------------------------");
-//        }
+       List<BlogCategory> category = blogDAO.getAllBlogCategory();
+      for (BlogCategory blogCategory : category) {
+          System.out.println(blogCategory.getCategoryName());
+      }
            
     }
 }
