@@ -178,7 +178,7 @@
           </div>
         </div>
 
-        <form action="/manager/addblog" method="post" enctype="multipart/form-data">
+        <form action="${pageContext.request.contextPath}/manager/addblog" method="post" enctype="multipart/form-data">
           <div class="row">
             <!-- Title Field -->
             <div class="form-group col-md-6">
