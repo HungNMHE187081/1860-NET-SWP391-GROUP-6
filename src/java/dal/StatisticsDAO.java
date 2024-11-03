@@ -3,6 +3,7 @@ import dal.DBContext;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.*;
+import model.statistics.*;
 
 public class StatisticsDAO extends DBContext {
     
