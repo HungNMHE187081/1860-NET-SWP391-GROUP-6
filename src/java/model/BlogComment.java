@@ -23,7 +23,7 @@ public class BlogComment {
     private BlogComment parent;
 
     public BlogComment() {
-         
+
     }
 
     public BlogComment(int commentID, int blogID, Users user, String content, List<BlogComment> replies, Timestamp createdDate, BlogComment parent) {

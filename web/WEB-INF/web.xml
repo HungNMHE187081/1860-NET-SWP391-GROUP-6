@@ -460,6 +460,10 @@
         <servlet-name>VNPayReturnServlet</servlet-name>
         <servlet-class>controller.VNPayReturnServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CustomerEditBlogCommentServlet</servlet-name>
+        <servlet-class>controller.CustomerEditBlogCommentServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -911,5 +915,9 @@
     <servlet-mapping>
         <servlet-name>VNPayReturnServlet</servlet-name>
         <url-pattern>/vnpayreturn</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CustomerEditBlogCommentServlet</servlet-name>
+        <url-pattern>/customer/editblogcomment</url-pattern>
     </servlet-mapping>
 </web-app>
