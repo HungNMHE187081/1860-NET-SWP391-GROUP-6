@@ -448,6 +448,10 @@
         <servlet-name>AdminDashboardServlet</servlet-name>
         <servlet-class>controller.AdminDashboardServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ManagerEditStaffServlet</servlet-name>
+        <servlet-class>controller.ManagerEditStaffServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -887,5 +891,9 @@
     <servlet-mapping>
         <servlet-name>AdminDashboardServlet</servlet-name>
         <url-pattern>/admin/dashboard</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManagerEditStaffServlet</servlet-name>
+        <url-pattern>/manager/editstaff</url-pattern>
     </servlet-mapping>
 </web-app>

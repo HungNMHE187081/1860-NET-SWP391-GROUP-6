@@ -1,5 +1,5 @@
 <%-- 
-    Document   : manager-view-staff
+    Document   : manager-edit-staff
     Created on : Oct 6, 2024, 12:59:58 PM
     Author     : LENOVO
 --%>
@@ -162,7 +162,7 @@
             <div class="app-title">
                 <ul class="app-breadcrumb breadcrumb">
                     <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/manager/staffslist">Danh sách nhân viên</a></li>
-                    <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/manager/viewstaff?staffID=${staff.staffID}">Chi tiết nhân viên</a></li>
+                    <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/manager/editstaff?staffID=${staff.staffID}">Chỉnh sửa nhân viên</a></li>
                 </ul>
             </div>
             <div class="row">
@@ -193,19 +193,19 @@
                                     </div>
                                     <div class="form-group col-md-4">
                                         <label class="control-label">Chức vụ</label>
-                                        <c:forEach var="degree" items="${degrees}">
-                                            <c:if test="${degree.degreeID == staff.degreeID}">
-                                                <input class="form-control" type="text" id="degree" name="degree" value="${degree.degreeName}" readonly="">
-                                            </c:if>
-                                        </c:forEach>
+                                        <select class="form-control" id="degree" name="degree" required>
+                                            <c:forEach var="degree" items="${degrees}">
+                                                <option value="${degree.degreeID}" ${degree.degreeID == staff.degreeID ? 'selected' : ''}>${degree.degreeName}</option>
+                                            </c:forEach>
+                                        </select>
                                     </div>
                                     <div class="form-group col-md-4">
                                         <label class="control-label">Khoa</label>
-                                        <c:forEach var="specialization" items="${specializations}">
-                                            <c:if test="${specialization.specializationID == staff.specializationID}">
-                                                <input class="form-control" type="text" id="specialization" name="specialization" value="${specialization.specializationName}" readonly="">
-                                            </c:if>
-                                        </c:forEach>
+                                        <select class="form-control" id="specialization" name="specialization" required>
+                                            <c:forEach var="specialization" items="${specializations}">
+                                                <option value="${specialization.specializationID}" ${specialization.specializationID == staff.specializationID ? 'selected' : ''}>${specialization.specializationName}</option>
+                                            </c:forEach>
+                                        </select>
                                     </div>
                                     <div class="form-group col-md-4">
                                         <label class="control-label">Tỉnh/Thành phố</label>
@@ -241,21 +241,21 @@
                                     </div>  
                                     <div class="form-group col-md-4">
                                         <label class="control-label">Số năm kinh nghiệm</label>
-                                        <input class="form-control" type="number" id="yearsOfExperience" name="yearsOfExperience" value="${staff.yearsOfExperience}" readonly="">
+                                        <input class="form-control" type="number" id="yearsOfExperience" name="yearsOfExperience" value="${staff.yearsOfExperience}">
                                     </div>
                                     <div class="form-group col-md-4">
                                         <label class="control-label">Ngày được nhận</label>
-                                        <input class="form-control" type="text" id="hireDate" name="hireDate" value="${staff.hireDate}" readonly="">
+                                        <input class="form-control" type="date" id="hireDate" name="hireDate" value="${staff.hireDate}">
                                     </div>
                                     <div class="form-group col-md-4">
                                         <label class="control-label">Lương(VNĐ)</label>
                                         <input class="form-control" type="text" id="salary" name="salary"
-                                               value="<fmt:formatNumber value='${staff.salary}' type='number' groupingUsed='true' />" readonly="">
+                                               value="<fmt:formatNumber value='${staff.salary}' type='number' groupingUsed='true'/>">
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group col-md-12 right-align">
-                                <a class="btn btn-save" href="${pageContext.request.contextPath}/manager/editstaff?staffID=${staff.staffID}">Chỉnh sửa</a>
+                                <a class="btn btn-save" href="${pageContext.request.contextPath}/manager/editstaff">Lưu thay đổi</a>
                                 <a class="btn btn-cancel" href="${pageContext.request.contextPath}/manager/staffslist">Trở về</a>
                             </div>
                         </div>

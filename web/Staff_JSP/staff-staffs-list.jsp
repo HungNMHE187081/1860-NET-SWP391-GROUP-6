@@ -66,7 +66,7 @@
                 <h1><i class="fas fa-hospital"></i> Child Care</h1>
                 <nav>
                     <ul>
-                        <li><a href="staffhomepage"><i class="fas fa-home"></i> Trang chủ</a></li>
+                        <li><a href="staff/staffhomepage"><i class="fas fa-home"></i> Trang chủ</a></li>
                         <li><a href="profile.jsp"><i class="fas fa-user"></i> Thông tin cá nhân</a></li>
                         <li><a href="logout.jsp" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
                     </ul>
@@ -101,19 +101,21 @@
                     </form>
 
                     <table class="table table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>STT</th>
-                                        <th>Tên nhân viên</th>
-                                        <th>Ảnh</th>
-                                        <th>Chức vụ</th>
-                                        <th>Khoa</th>
-                                        <th>Ngày được nhận</th>
-                                        <th>Chức năng</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <c:forEach var="staff" items="${staffs}" varStatus="status">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Tên nhân viên</th>
+                                <th>Ảnh</th>
+                                <th>Chức vụ</th>
+                                <th>Khoa</th>
+                                <th>Email</th>
+                                <th>Số điện thoại</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach var="staff" items="${staffs}" varStatus="status">
+                                <c:forEach var="user" items="${users}">
+                                    <c:if test="${user.userID == staff.staffID}">
                                         <tr>
                                             <td>${status.index + 1}</td>
                                             <td>${staff.staffName}</td>
@@ -134,16 +136,16 @@
                                                     </c:if>
                                                 </c:forEach>
                                             </td>
-                                            <td>${staff.hireDate}</td>
-                                            <td class="table-td-center">
-                                                <button class="btn btn-primary btn-sm" type="button" title="detail" id="show-emp">
-                                                    <a href="${pageContext.request.contextPath}/staff/viewstaff?staffID=${staff.staffID}"><i class="fas fa-eye"></i></a>
-                                                </button>
+                                            <td>
+                                                ${user.email}
                                             </td>
+                                            <td>${user.phoneNumber}</td>
                                         </tr>
-                                    </c:forEach>
-                                </tbody>
-                            </table>
+                                    </c:if>
+                                </c:forEach>
+                            </c:forEach>
+                        </tbody>
+                    </table>
 
                     <div class="pagination">
                         <c:if test="${pageIndex > 1}">

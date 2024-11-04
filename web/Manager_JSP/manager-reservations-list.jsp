@@ -104,33 +104,12 @@
                         <div class="tile-body">
 
                             <div class="row mb-3 d-flex justify-content-between align-items-center">
-                                <div class="d-flex">
-                                    <div class="col-sm-2">
-                                        <a class="btn btn-add btn-sm" href="addservice" title="Thêm">
-                                            <i class="fas fa-plus"></i> Thêm dịch vụ
-                                        </a>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <a class="btn btn-delete btn-sm nhap-tu-file" type="button" title="Nhập" onclick="myFunction(this)">
-                                            <i class="fas fa-file-upload"></i> Tải từ file
-                                        </a>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <a class="btn btn-excel btn-sm" href="" title="In">
-                                            <i class="fas fa-file-excel"></i> Xuất Excel
-                                        </a>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <a class="btn btn-delete btn-sm pdf-file" type="button" title="In" onclick="myFunction(this)">
-                                            <i class="fas fa-file-pdf"></i> Xuất PDF
-                                        </a>
-                                    </div>
-                                </div>
+                                <div class="d-flex"></div>
                                 <div>
                                     <form action="${pageContext.request.contextPath}/manager/searchreservation" method="get" class="filter-form">
                                         <div class="filter-group">
                                             <div class="filter-group">
-                                                <input type="text" id="searchInput" name="keyword" placeholder="Tìm theo tên khách hàng" />
+                                                <input type="text" id="searchInput" name="keyword" placeholder="Tìm theo tên trẻ" />
                                                 <select class="form-control" id="timeOfDay" name="timeOfDay">
                                                     <option value="">Chọn thời gian khám</option>
                                                     <option value="morning">Buổi sáng</option>

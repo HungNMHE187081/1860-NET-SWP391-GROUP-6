@@ -158,6 +158,9 @@
                                                 <button class="btn btn-primary btn-sm" type="button" title="detail" id="show-emp">
                                                     <a href="${pageContext.request.contextPath}/manager/viewstaff?staffID=${staff.staffID}"><i class="fas fa-eye"></i></a>
                                                 </button>
+                                                <button class="btn btn-primary btn-sm edit" type="button" title="edit" id="show-emp">
+                                                    <a href="${pageContext.request.contextPath}/manager/editstaff?staffID=${staff.staffID}"><i class="fas fa-edit"></i></a>
+                                                </button>
                                             </td>
                                         </tr>
                                     </c:forEach>
