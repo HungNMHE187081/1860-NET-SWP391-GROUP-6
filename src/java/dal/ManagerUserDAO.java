@@ -433,6 +433,30 @@ public class ManagerUserDAO extends DBContext {
         Users u = dao.getDetailUserByUserID(id);
         System.out.println(u);
     }
+public Users getUserWithAddressById(int userId) {
+    Users user = null;
+    String query = "SELECT * FROM Users WHERE UserID = ?";
+    
+    try (PreparedStatement ps = connection.prepareStatement(query)) {
+        ps.setInt(1, userId);
+        try (ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                user = new Users();
+                user.setUserID(rs.getInt("UserID"));
+                user.setFirstName(rs.getString("firstName"));
+                user.setMiddleName(rs.getString("middleName"));
+                user.setLastName(rs.getString("lastName"));
+                user.setEmail(rs.getString("email"));
+                user.setPhoneNumber(rs.getString("phoneNumber"));
+                // Thêm thông tin địa chỉ nếu cần
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    
+    return user;
+}
 
     public void addUserAddress(UserAddresses address) {
         String sql = "INSERT INTO UserAddresses (UserID) VALUES (?)";

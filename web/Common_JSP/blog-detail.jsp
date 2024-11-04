@@ -5,9 +5,10 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
-    <html lang="en">
+<html lang="en">
 
     <head>
         <meta charset="UTF-8" />
@@ -28,8 +29,8 @@
         <link href="${pageContext.request.contextPath}/css/remixicon.css" rel="stylesheet" type="text/css" />
         <link href="https://unicons.iconscout.com/release/v3.0.6/css/line.css"  rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.9.55/css/materialdesignicons.min.css">
-         <!-- SLIDER -->
-         <link rel="stylesheet" href="../css/tiny-slider.css"/>
+        <!-- SLIDER -->
+        <link rel="stylesheet" href="../css/tiny-slider.css"/>
 
         <!-- Css -->
         <link href="${pageContext.request.contextPath}/css/style.min.css" rel="stylesheet" type="text/css" id="theme-opt" />
@@ -47,33 +48,33 @@
             </div>
         </div>
         <!-- Loader -->
-        
+
         <!-- Navbar STart -->
         <%@include file="dashboardtop.jsp" %>
         <!-- Navbar End -->
 
         <!-- Start Hero -->
         <form action="detailcustomerblog" method="get">
-        <section class="bg-half-150 d-table w-100 bg-light" style="background-image: url('${pageContext.request.contextPath}/${blog.thumbnailPath}'); background-size: cover; background-position: center;">
-            <div class="container">
-                <div class="row mt-5 justify-content-center">
-                    <div class="col-12">
-                        <div class="section-title text-center">
-                            <h3 class="sub-title mb-4">${blog.title}</h3>
-                            <ul class="list-unstyled mt-4">
-                                <li class="list-inline-item user text-muted me-2"><i class="mdi mdi-account"></i> ${blog.authorName}</li>
-                                <li class="list-inline-item date text-muted"><i class="mdi mdi-calendar-check"></i>${blog.createdDate}</li>
-                            </ul>
-                        </div>
-                    </div><!--end col-->
-                </div><!--end row-->
-            </div><!--end container-->
-        </section><!--end section-->
+            <section class="bg-half-150 d-table w-100 bg-light" style="background-image: url('${pageContext.request.contextPath}/${blog.thumbnailPath}'); background-size: cover; background-position: center;">
+                <div class="container">
+                    <div class="row mt-5 justify-content-center">
+                        <div class="col-12">
+                            <div class="section-title text-center">
+                                <h3 class="sub-title mb-4">${blog.title}</h3>
+                                <ul class="list-unstyled mt-4">
+                                    <li class="list-inline-item user text-muted me-2"><i class="mdi mdi-account"></i> ${blog.authorName}</li>
+                                    <li class="list-inline-item date text-muted"><i class="mdi mdi-calendar-check"></i>${blog.createdDate}</li>
+                                </ul>
+                            </div>
+                        </div><!--end col-->
+                    </div><!--end row-->
+                </div><!--end container-->
+            </section><!--end section-->
         </form>
         <div class="position-relative">
             <div class="shape overflow-hidden text-white">
                 <svg viewBox="0 0 2880 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M0 48H1437.5H2880V0H2160C1442.5 52 720 0 720 0H0V48Z" fill="currentColor"></path>
+                <path d="M0 48H1437.5H2880V0H2160C1442.5 52 720 0 720 0H0V48Z" fill="currentColor"></path>
                 </svg>
             </div>
         </div>
@@ -85,86 +86,71 @@
                 <div class="row">
                     <div class="col-lg-8 col-lg-7">
                         <form action="detailcustomerblog" method="get">
-                        <p class="text-muted mt-4">${blog.content}</p>
+                            <p class="text-muted mt-4">${blog.content}</p>
                         </form>
                         <h5 class="card-title mt-4 mb-0">Comments :</h5>
 
                         <ul class="media-list list-unstyled mb-0">
-                            <li class="mt-4">
-                                <div class="d-flex justify-content-between">
-                                    <div class="d-flex align-items-center">
-                                        <a class="pe-3" href="#">
-                                            <img src="../images/client/01.jpg" class="img-fluid avatar avatar-md-sm rounded-circle shadow" alt="img">
-                                        </a>
-                                        <div class="commentor-detail">
-                                            <h6 class="mb-0"><a href="javascript:void(0)" class="text-dark media-heading">Lorenzo Peterson</a></h6>
-                                            <small class="text-muted">15th August, 2019 at 01:25 pm</small>
-                                        </div>
-                                    </div>
-                                    <a href="#" class="text-muted"><i class="mdi mdi-reply"></i> Reply</a>
-                                </div>
-                                <div class="mt-3">
-                                    <p class="text-muted font-italic p-3 bg-light rounded">" There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour "</p>
-                                </div>
-                            </li>
-
-                            <li class="mt-4">
-                                <div class="d-flex justify-content-between">
-                                    <div class="d-flex align-items-center">
-                                        <a class="pe-3" href="#">
-                                            <img src="../images/client/02.jpg" class="img-fluid avatar avatar-md-sm rounded-circle shadow" alt="img">
-                                        </a>
-                                        <div class="commentor-detail">
-                                            <h6 class="mb-0"><a href="javascript:void(0)" class="media-heading text-dark">Tammy Camacho</a></h6>
-                                            <small class="text-muted">15th August, 2019 at 05:44 pm</small>
-                                        </div>
-                                    </div>
-                                    <a href="#" class="text-muted"><i class="mdi mdi-reply"></i> Reply</a>
-                                </div>
-                                <div class="mt-3">
-                                    <p class="text-muted font-italic p-3 bg-light rounded">" There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour "</p>
-                                </div>
-                            </li>
-                            
-                            <li class="mt-4">
-                                <div class="d-flex justify-content-between">
-                                    <div class="d-flex align-items-center">
-                                        <a class="pe-3" href="#">
-                                            <img src="../assets/images/client/03.jpg" class="img-fluid avatar avatar-md-sm rounded-circle shadow" alt="img">
-                                        </a>
-                                        <div class="commentor-detail">
-                                            <h6 class="mb-0"><a href="javascript:void(0)" class="media-heading text-dark">Tammy Camacho</a></h6>
-                                            <small class="text-muted">16th August, 2019 at 03:44 pm</small>
-                                        </div>
-                                    </div>
-                                    <a href="#" class="text-muted"><i class="mdi mdi-reply"></i> Reply</a>
-                                </div>
-                                <div class="mt-3">
-                                    <p class="text-muted font-italic p-3 bg-light rounded">" There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour "</p>
-                                </div>
-
-                                <ul class="list-unstyled ps-4 ps-md-5 sub-comment">
-                                    <li class="mt-4">
-                                        <div class="d-flex justify-content-between">
-                                            <div class="d-flex align-items-center">
-                                                <a class="pe-3" href="#">
-                                                    <img src="../images/client/01.jpg" class="img-fluid avatar avatar-md-sm rounded-circle shadow" alt="img">
-                                                </a>
-                                                <div class="commentor-detail">
-                                                    <h6 class="mb-0"><a href="javascript:void(0)" class="text-dark media-heading">Lorenzo Peterson</a></h6>
-                                                    <small class="text-muted">17th August, 2019 at 01:25 pm</small>
-                                                </div>
+                            <c:if test="${empty comments}">
+                                <p>No comments available.</p>
+                            </c:if>
+                         <p>Blog ID: <c:out value="${blogId}"/></p>
+                            <c:forEach var="comment" items="${comments}">
+                                <li class="mt-4">
+                                    <div class="d-flex justify-content-between">
+                                        <div class="d-flex align-items-center">
+                                            <a class="pe-3" href="#">
+                                                <img src="" class="img-fluid avatar avatar-md-sm rounded-circle shadow" alt="img">
+                                            </a>
+                                            <div class="commentor-detail">
+                                                <h6 class="mb-0">
+                                                    <a href="javascript:void(0)" class="media-heading text-dark">
+                                                        ${comment.user.firstName} ${comment.user.lastName}
+                                                    </a>
+                                                </h6>
+                                                <small class="text-muted">
+                                                    <fmt:formatDate value="${comment.createdDate}" pattern="dd MMMM, yyyy 'at' hh:mm a" />
+                                                </small>
                                             </div>
-                                            <a href="#" class="text-muted"><i class="mdi mdi-reply"></i> Reply</a>
                                         </div>
-                                        <div class="mt-3">
-                                            <p class="text-muted font-italic p-3 bg-light rounded">" There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour "</p>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </li>
+                                        <a href="#" class="text-muted"><i class="mdi mdi-reply"></i> Reply</a>
+                                    </div>
+                                    <div class="mt-3">
+                                        <p class="text-muted font-italic p-3 bg-light rounded">"${comment.content}"</p>
+                                    </div>
+
+                                    <!-- Display Replies -->
+                                    <ul class="list-unstyled ps-4 ps-md-5 sub-comment">
+                                        <c:forEach var="reply" items="${comment.replies}">
+                                            <li class="mt-4">
+                                                <div class="d-flex justify-content-between">
+                                                    <div class="d-flex align-items-center">
+                                                        <a class="pe-3" href="#">
+                                                            <img src="${pageContext.request.contextPath}/${reply.user.profileImage}" class="img-fluid avatar avatar-md-sm rounded-circle shadow" alt="img">
+                                                        </a>
+                                                        <div class="commentor-detail">
+                                                            <h6 class="mb-0">
+                                                                <a href="javascript:void(0)" class="media-heading text-dark">
+                                                                    ${reply.user.firstName} ${reply.user.lastName}
+                                                                </a>
+                                                            </h6>
+                                                            <small class="text-muted">
+                                                                <fmt:formatDate value="${reply.createdDate}" pattern="dd MMMM, yyyy 'at' hh:mm a" />
+                                                            </small>
+                                                        </div>
+                                                    </div>
+                                                    <a href="#" class="text-muted"><i class="mdi mdi-reply"></i> Reply</a>
+                                                </div>
+                                                <div class="mt-3">
+                                                    <p class="text-muted font-italic p-3 bg-light rounded">"${reply.content}"</p>
+                                                </div>
+                                            </li>
+                                        </c:forEach>
+                                    </ul>
+                                </li>
+                            </c:forEach>
                         </ul>
-                    
+
                         <h5 class="card-title mt-4 mb-0">Leave A Comment :</h5>
 
                         <form class="mt-3">
@@ -215,7 +201,7 @@
                                     </div>
                                 </div>
                                 <!-- SEARCH -->
-    
+
                                 <!-- RECENT POST -->
                                 <div class="widget mb-4 pb-2">
                                     <h5 class="widget-title">Recent Post</h5>
@@ -235,7 +221,7 @@
                                     </div>
                                 </div>
                                 <!-- RECENT POST -->
-    
+
                                 <!-- TAG CLOUDS -->
                                 <div class="widget mb-4 pb-2">
                                     <h5 class="widget-title">Tags Cloud</h5>
@@ -253,7 +239,7 @@
                                     </div>
                                 </div>
                                 <!-- TAG CLOUDS -->
-                                
+
                                 <!-- SOCIAL -->
                                 <div class="widget">
                                     <h5 class="widget-title">Follow us</h5>
@@ -305,7 +291,7 @@
                                     </div>
                                 </div>
                             </div>
-        
+
                             <div class="tiny-slide">
                                 <div class="card blog blog-primary border-0 shadow rounded overflow-hidden m-1">
                                     <img src="../images/blog/04.jpg" class="img-fluid" alt="">
@@ -325,7 +311,7 @@
                                     </div>
                                 </div>
                             </div>
-        
+
                             <div class="tiny-slide">
                                 <div class="card blog blog-primary border-0 shadow rounded overflow-hidden m-1">
                                     <img src="../images/blog/05.jpg" class="img-fluid" alt="">
@@ -345,7 +331,7 @@
                                     </div>
                                 </div>
                             </div>
-        
+
                             <div class="tiny-slide">
                                 <div class="card blog blog-primary border-0 shadow rounded overflow-hidden m-1">
                                     <img src="../images/blog/06.jpg" class="img-fluid" alt="">
@@ -365,7 +351,7 @@
                                     </div>
                                 </div>
                             </div>
-        
+
                             <div class="tiny-slide">
                                 <div class="card blog blog-primary border-0 shadow rounded overflow-hidden m-1">
                                     <img src="../images/blog/07.jpg" class="img-fluid" alt="">
@@ -416,7 +402,7 @@
                                     <li><a href="#" class="text-foot"><i class="mdi mdi-chevron-right me-1"></i> Login</a></li>
                                 </ul>
                             </div><!--end col-->
-                            
+
                             <div class="col-md-4 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">
                                 <h5 class="text-light title-dark footer-head">Departments</h5>
                                 <ul class="list-unstyled footer-list mt-4">
@@ -429,7 +415,7 @@
                                     <li><a href="#" class="text-foot"><i class="mdi mdi-chevron-right me-1"></i> Neurology</a></li>
                                 </ul>
                             </div><!--end col-->
-                            
+
                             <div class="col-md-4 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">
                                 <h5 class="text-light title-dark footer-head">Contact us</h5>
                                 <ul class="list-unstyled footer-list mt-4">
@@ -469,7 +455,7 @@
                                 <p class="mb-0"><script>document.write(new Date().getFullYear())</script> © Doctris. Design with <i class="mdi mdi-heart text-danger"></i> by <a href="../../../index.html" target="_blank" class="text-reset">Shreethemes</a>.</p>
                             </div>
                         </div><!--end col-->
-    
+
                         <div class="col-sm-6 mt-4 mt-sm-0">
                             <ul class="list-unstyled footer-list text-sm-end text-center mb-0">
                                 <li class="list-inline-item"><a href="terms.html" class="text-foot me-2">Terms</a></li>
@@ -556,7 +542,7 @@
             </div>
         </div>
         <!-- Offcanvas End -->
-        
+
         <!-- javascript -->
         <script src="../js/bootstrap.bundle.min.js"></script>
         <!-- SLIDER -->
@@ -566,7 +552,7 @@
         <script src="../js/feather.min.js"></script>
         <!-- Main Js -->
         <script src="../js/app.js"></script>
-        
+
     </body>
 
 </html>

@@ -719,4 +719,9 @@ INNER JOIN Specializations sp ON s.SpecializationID = sp.SpecializationID
 INNER JOIN Reservations r ON s.StaffID = r.StaffID
 WHERE r.ReservationDate BETWEEN '2023-10-05' AND DATEADD(day, 6, '2023-10-05')
 ORDER BY r.ReservationDate, r.StartTime
-select * from BlogCategories
+INSERT INTO BlogComments (BlogID, UserID, Content, parentID)
+VALUES (1, 2, N'Nội dung bình luận đầu tiên', NULL);
+
+-- Chèn bình luận trả lời (có cha là CommentID của bình luận chính)
+INSERT INTO BlogComments (BlogID, UserID, Content, parentID)
+VALUES (1, 2, N'Nội dung bình luận trả lời', 3);
