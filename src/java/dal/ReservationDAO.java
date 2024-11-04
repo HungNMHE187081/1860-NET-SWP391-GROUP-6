@@ -4,9 +4,9 @@
  */
 package dal;
 
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.sql.*;
 import model.Reservation;
 
 /**
@@ -420,6 +420,19 @@ public class ReservationDAO extends DBContext {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public boolean updateStatus(int reservationId, String status) {
+        String sql = "UPDATE Reservations SET Status = ? WHERE ReservationID = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, status);
+            st.setInt(2, reservationId);
+            return st.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.out.println("updateStatus error: " + e.getMessage());
+            return false;
+        }
     }
 
     public static void main(String[] args) {

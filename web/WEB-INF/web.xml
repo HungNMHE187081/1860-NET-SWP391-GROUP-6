@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
-<!--        <filter>
+    <!--        <filter>
         <filter-name>AuthorizationFilter</filter-name>
         <filter-class>filter.AuthorizationFilter</filter-class>
     </filter>
@@ -452,6 +452,14 @@
         <servlet-name>ManagerEditStaffServlet</servlet-name>
         <servlet-class>controller.ManagerEditStaffServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PaymentServlet</servlet-name>
+        <servlet-class>controller.PaymentServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>VNPayReturnServlet</servlet-name>
+        <servlet-class>controller.VNPayReturnServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -895,5 +903,13 @@
     <servlet-mapping>
         <servlet-name>ManagerEditStaffServlet</servlet-name>
         <url-pattern>/manager/editstaff</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PaymentServlet</servlet-name>
+        <url-pattern>/payment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VNPayReturnServlet</servlet-name>
+        <url-pattern>/vnpayreturn</url-pattern>
     </servlet-mapping>
 </web-app>
