@@ -36,7 +36,7 @@ public class CustomerViewServiceServlet extends HttpServlet {
         Service service = serviceDAO.getServiceByID(serviceID);
         request.setAttribute("service", service);
 
-        request.getRequestDispatcher("/customer-view-service.jsp").forward(request, response);
+        request.getRequestDispatcher("/Common_JSP/customer-view-service.jsp").forward(request, response);
     }
 
     @Override

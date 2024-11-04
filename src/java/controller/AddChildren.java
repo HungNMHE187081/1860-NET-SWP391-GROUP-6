@@ -12,25 +12,51 @@ import jakarta.servlet.http.Part;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Paths;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 
 @MultipartConfig(
-    fileSizeThreshold = 1024 * 1024, // 1MB
-    maxFileSize = 10 * 1024 * 1024,  // 10MB
-    maxRequestSize = 50 * 1024 * 1024 // 50MB
+        fileSizeThreshold = 1024 * 1024,
+        maxFileSize = 10 * 1024 * 1024,
+        maxRequestSize = 50 * 1024 * 1024
 )
 @WebServlet("/AddChildren")
 public class AddChildren extends HttpServlet {
+
     private ChildrenDAO childrenDAO = new ChildrenDAO();
     private static final String UPLOAD_DIR = "uploads";
+    private static final String DEFAULT_IMAGE = "images/default-avatar.jpg"; // Đường dẫn ảnh mặc định
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            // Retrieve form data
+            // Kiểm tra file ảnh tải lên
+            Part filePart = request.getPart("childImage");
+            String childImage = ""; // Khởi tạo với ảnh mặc định
+
+            if (filePart != null && filePart.getSize() > 0) {
+                // Xử lý upload file nếu người dùng chọn ảnh
+                String fileName = getFileName(filePart);
+                String uploadPath = getServletContext().getRealPath("") + File.separator + UPLOAD_DIR + File.separator;
+
+                // Tạo thư mục upload nếu chưa tồn tại
+                File uploadDir = new File(uploadPath);
+                if (!uploadDir.exists()) {
+                    uploadDir.mkdirs();
+                }
+
+                if (fileName != null && !fileName.isEmpty()) {
+                    filePart.write(uploadPath + fileName);
+                    childImage = UPLOAD_DIR + "/" + fileName; // Cập nhật childImage nếu có ảnh tải lên
+                } else {
+                    // Nếu tên file không hợp lệ, vẫn dùng ảnh mặc định
+                    request.setAttribute("error", "Tên file không hợp lệ. Đã sử dụng ảnh mặc định.");
+                    childImage = DEFAULT_IMAGE;
+                }
+            }
+
+            // Lấy dữ liệu form
             int customerID = Integer.parseInt(request.getParameter("customerID"));
             String firstName = request.getParameter("firstName");
             String middleName = request.getParameter("middleName");
@@ -39,36 +65,19 @@ public class AddChildren extends HttpServlet {
             Date dateOfBirth = new Date(utilDate.getTime());
             String gender = request.getParameter("gender");
 
-            // Handle file upload
-            Part filePart = request.getPart("childImage");
-            String fileName = getFileName(filePart);
-            String uploadPath = getServletContext().getRealPath("") + File.separator + UPLOAD_DIR + File.separator;
-
-            // Ensure upload directory exists
-            File uploadDir = new File(uploadPath);
-            if (!uploadDir.exists()) uploadDir.mkdirs();
-
-            String childImage = null;
-            if (fileName != null && !fileName.isEmpty()) {
-                filePart.write(uploadPath + fileName);
-                childImage = UPLOAD_DIR + "/" + fileName;
-            } else {
-                throw new ServletException("File is required.");
-            }
-
-            // Create Child object
+            // Tạo đối tượng Children
             Children child = new Children(customerID, firstName, middleName, lastName, dateOfBirth, gender, childImage);
 
-            // Add child to the database
+            // Thêm thông tin trẻ vào database
             childrenDAO.addChild(child);
 
-            // Redirect to success page
+            // Chuyển hướng về trang danh sách
             response.sendRedirect("listchildren");
 
         } catch (Exception e) {
             e.printStackTrace();
-            request.setAttribute("errorMessage", "Failed to add child. Please try again.");
-            request.getRequestDispatcher("addChild.jsp").forward(request, response);
+            request.setAttribute("error", "Có lỗi xảy ra khi thêm thông tin. Vui lòng thử lại.");
+            request.getRequestDispatcher("/Common_JSP/add-children.jsp").forward(request, response);
         }
     }
 

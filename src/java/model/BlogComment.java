@@ -4,30 +4,36 @@
  */
 package model;
 
-import java.util.Date;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author LENOVO
  */
 public class BlogComment {
+
     private int commentID;
     private int blogID;
-    private int userID;
+    private Users user;
     private String content;
-    private Date createdDate;
-    private boolean isApproved;
-
-    public BlogComment(int commentID, int blogID, int userID, String content, Date createdDate, boolean isApproved) {
-        this.commentID = commentID;
-        this.blogID = blogID;
-        this.userID = userID;
-        this.content = content;
-        this.createdDate = createdDate;
-        this.isApproved = isApproved;
-    }
+    private List<BlogComment> replies;
+    private Timestamp createdDate;
+    private BlogComment parent;
 
     public BlogComment() {
+         
+    }
+
+    public BlogComment(int commentID, int blogID, Users user, String content, List<BlogComment> replies, Timestamp createdDate, BlogComment parent) {
+        this.commentID = commentID;
+        this.blogID = blogID;
+        this.user = user;
+        this.content = content;
+        this.replies = replies;
+        this.createdDate = createdDate;
+        this.parent = parent;
     }
 
     public int getCommentID() {
@@ -46,12 +52,12 @@ public class BlogComment {
         this.blogID = blogID;
     }
 
-    public int getUserID() {
-        return userID;
+    public Users getUser() {
+        return user;
     }
 
-    public void setUserID(int userID) {
-        this.userID = userID;
+    public void setUser(Users user) {
+        this.user = user;
     }
 
     public String getContent() {
@@ -62,21 +68,30 @@ public class BlogComment {
         this.content = content;
     }
 
-    public Date getCreatedDate() {
+    public List<BlogComment> getReplies() {
+        return replies;
+    }
+
+    public void setReplies(List<BlogComment> replies) {
+        this.replies = replies;
+    }
+
+    public Timestamp getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(Date createdDate) {
+    public void setCreatedDate(Timestamp createdDate) {
         this.createdDate = createdDate;
     }
 
-    public boolean isIsApproved() {
-        return isApproved;
+    public BlogComment getParent() {
+        return parent;
     }
 
-    public void setIsApproved(boolean isApproved) {
-        this.isApproved = isApproved;
+    public void setParent(BlogComment parent) {
+        this.parent = parent;
     }
+
     
-    
+
 }

@@ -5,6 +5,7 @@
 
 package controller;
 
+import dal.BlogCommentDAO;
 import dal.BlogDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,7 +13,12 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.Blog;
+import model.BlogComment;
 
 /**
  *
@@ -57,6 +63,16 @@ public class DetailCustomerBlogServlet extends HttpServlet {
     throws ServletException, IOException {
        int blogid = Integer.parseInt(request.getParameter("blogID"));
        BlogDAO dao = new BlogDAO();
+       BlogCommentDAO cdao = new BlogCommentDAO();
+        List<BlogComment> comments = null;
+        try {
+            comments = cdao.getBlogCommentsByBlogId(blogid);
+        } catch (SQLException ex) {
+            Logger.getLogger(DetailCustomerBlogServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+            // Đặt danh sách bình luận vào request attribute
+            request.setAttribute("comments", comments);
        Blog blog = dao.getBlogById(blogid);
        request.setAttribute("blog", blog);
        request.getRequestDispatcher("/Common_JSP/blog-detail.jsp").forward(request, response);

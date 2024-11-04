@@ -107,7 +107,6 @@
                                     <tr>
                                         <th class="text-center py-4" style="min-width: 100px;">Số thứ tự</th>
                                         <th class="text-center py-4" style="min-width: 200px;">Họ và tên</th>
-                                        <th class="text-center py-4" style="min-width: 200px;">Tên phụ huynh</th>
                                         <th class="text-center py-4" style="min-width: 200px;">Ngày sinh</th>
                                         <th class="text-center py-4" style="min-width: 200px;">Giới tính</th>
                                         <th class="text-center py-4" style="min-width: 150px;">Ảnh</th>
@@ -118,21 +117,17 @@
                                     <c:if test="${not empty listChild}">
                                         <c:forEach var="child" items="${listChild}" varStatus="status">
                                             <tr>
-                                                <td>${status.index + 1}</td>
-                                                <td>${child.firstName} ${child.middleName} ${child.lastName}</td>
-
-                                                <!-- Hiển thị tên người thêm từ session -->
-                                                <td>${sessionScope.user.firstName} ${sessionScope.user.middleName} ${sessionScope.user.lastName}</td> <!-- Đảm bảo rằng user được thiết lập đúng -->
-
-                                                <td><fmt:formatDate value="${child.dateOfBirth}" pattern="dd-MM-yyyy" /></td>
-                                                <td>${child.gender}</td>
-                                                <td>
+                                                <td style="text-align: center; vertical-align: middle;">${status.index + 1}</td>
+                                                <td style="text-align: center; vertical-align: middle;">${child.firstName} ${child.middleName} ${child.lastName}</td>
+                                                <td style="text-align: center; vertical-align: middle;"><fmt:formatDate value="${child.dateOfBirth}" pattern="dd-MM-yyyy" /></td>
+                                                <td style="text-align: center; vertical-align: middle;">${child.gender}</td>
+                                                <td style="text-align: center; vertical-align: middle;">
                                                     <img src="${pageContext.request.contextPath}/${child.childImage}" 
                                                          alt="Ảnh Hồ Sơ" width="50" height="50" 
                                                          onerror="this.onerror=null; this.src='${pageContext.request.contextPath}/images/default-avatar.jpg';" />
                                                 </td>
-                                                <td style="display: flex; align-items: center;">
-                                                    <form action="${pageContext.request.contextPath}/customer/editchildren" method="get" style="margin-right: 5px;">
+                                                <td style="text-align: center; vertical-align: middle;">
+                                                    <form action="${pageContext.request.contextPath}/customer/editchildren" method="get" style="display: inline-block; margin-right: 5px;">
                                                         <input type="hidden" name="childID" value="${child.childID}" />
                                                         <button type="submit" class="btn edit-btn" title="Sửa" 
                                                                 style="border: none; background: none; cursor: pointer;">
@@ -147,7 +142,6 @@
                                                             <i class="fas fa-trash-alt" style="color: red; margin-left: 5px; font-size: 22px;"></i>
                                                         </button>
                                                     </form>
-
                                                 </td>
                                             </tr>
                                         </c:forEach>
@@ -155,11 +149,12 @@
 
                                     <c:if test="${empty listChild}">
                                         <tr>
-                                            <td colspan="6" style="text-align: center;">Bạn chưa thêm thông tin nào</td>
+                                            <td colspan="6" style="text-align: center; vertical-align: middle;">Bạn chưa thêm thông tin nào</td>
                                         </tr>
                                     </c:if>
                                 </tbody>
                             </table>
+
                         </div>
                     </div><!--end col-->
                 </div><!--end row-->
@@ -293,5 +288,23 @@
         <script src="js/feather.min.js"></script>
         <!-- Main Js -->
         <script src="js/app.js"></script>
+        <script>
+    function deleteChild(childID) {
+        if (confirm('Bạn có chắc chắn muốn xóa bản ghi này?')) {
+            fetch('${pageContext.request.contextPath}/customer/deletechild', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: 'childID=' + childID
+            })
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('childRow-' + childID).remove();
+                alert('Đã xóa thành công');
+            })
+            .catch(error => alert('Xóa thất bại. Vui lòng thử lại.'));
+        }
+    }
+</script>
+
     </body>
 </html>
