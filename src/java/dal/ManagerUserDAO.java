@@ -1,4 +1,4 @@
-    /*
+/*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
@@ -192,9 +192,9 @@ public class ManagerUserDAO extends DBContext {
     }
 
     public void addUser(Users user) {
-        String sqlUser = "INSERT INTO Users (FirstName, MiddleName, LastName, Email, PhoneNumber, DateOfBirth, Gender, CitizenIdentification, ProfileImage) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sqlUser = "INSERT INTO Users (FirstName, MiddleName, LastName, Email, PhoneNumber, DateOfBirth, Gender, CitizenIdentification, ProfileImage,CreatedAt) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
         String sqlAddress = "INSERT INTO UserAddresses (StreetAddress, WardID, UserID) VALUES (?, ?, ?)";
-        String sqlAuth = "INSERT INTO UserAuthentication (Username, PasswordHash, UserID) VALUES (?, ?,?)";
+        String sqlAuth = "INSERT INTO UserAuthentication (Username ,PasswordHash,UserID) VALUES (?,?,?)";
         String sqlRole = "INSERT INTO UserRoles (UserID, RoleID) VALUES (?, ?)"; // Câu lệnh thêm vai trò
 
         try {
@@ -246,10 +246,10 @@ public class ManagerUserDAO extends DBContext {
             }
 
             // Thêm vai trò vào bảng UserRoles
-            int customerRoleId = getRoleIdByName("Customer"); // Lấy RoleID của Customer
+             // Lấy RoleID của Customer
             try (PreparedStatement psRole = connection.prepareStatement(sqlRole)) {
                 psRole.setInt(1, user.getUserID()); // Sử dụng UserID vừa tạo
-                psRole.setInt(2, customerRoleId); // Thêm vai trò Customer
+                psRole.setInt(2, 5); // Thêm vai trò Customer
 
                 psRole.executeUpdate();
             }
@@ -420,43 +420,12 @@ public class ManagerUserDAO extends DBContext {
         }
         return null;
     }
-    
-    public void UpdateUsers(Users user){
+
+    public void UpdateUsers(Users user) {
         String sqlUsers = "UPDATE Users SET FirstName = ?, MiddleName = ?, LastName = ?, PhoneNumber = ?, DateOfBirth = ?, Gender = ?, CitizenIdentification = ?, ProfileImage = ? WHERE UserID = ?";
         String sqlUserAddress = "UPDATE UserAddresses SET WardID = ?, StreetAddress WHERE UserID = ?";
-        
-    }
 
-    public static void main(String[] args) {
-        int id = 1;
-        ManagerUserDAO dao = new ManagerUserDAO();
-        Users u = dao.getDetailUserByUserID(id);
-        System.out.println(u);
     }
-public Users getUserWithAddressById(int userId) {
-    Users user = null;
-    String query = "SELECT * FROM Users WHERE UserID = ?";
-    
-    try (PreparedStatement ps = connection.prepareStatement(query)) {
-        ps.setInt(1, userId);
-        try (ResultSet rs = ps.executeQuery()) {
-            if (rs.next()) {
-                user = new Users();
-                user.setUserID(rs.getInt("UserID"));
-                user.setFirstName(rs.getString("firstName"));
-                user.setMiddleName(rs.getString("middleName"));
-                user.setLastName(rs.getString("lastName"));
-                user.setEmail(rs.getString("email"));
-                user.setPhoneNumber(rs.getString("phoneNumber"));
-                // Thêm thông tin địa chỉ nếu cần
-            }
-        }
-    } catch (SQLException e) {
-        e.printStackTrace();
-    }
-    
-    return user;
-}
 
     public void addUserAddress(UserAddresses address) {
         String sql = "INSERT INTO UserAddresses (UserID) VALUES (?)";
@@ -468,4 +437,5 @@ public Users getUserWithAddressById(int userId) {
         }
     }
 
+    
 }
