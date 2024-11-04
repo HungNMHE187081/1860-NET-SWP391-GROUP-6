@@ -279,11 +279,14 @@ CREATE TABLE Notifications (
 -- Create Payments table
 CREATE TABLE Payments (
     PaymentID INT PRIMARY KEY IDENTITY(1,1),
-    ReservationID INT,
-    Amount DECIMAL(10, 2),
-    PaymentDate DATETIME,
-    PaymentStatus NVARCHAR(20),
-    PaymentMethod NVARCHAR(50),
+    ReservationID INT UNIQUE,
+    OrderID INT,
+    Amount DECIMAL(10,2),
+    PaymentDate DATETIME DEFAULT GETDATE(),
+    PaymentStatus NVARCHAR(20), -- PENDING, SUCCESS, FAILED
+    TransactionNo NVARCHAR(50) UNIQUE,  -- Mã giao dịch VNPay
+    PaymentMethod NVARCHAR(20) DEFAULT 'VNPAY',
+    FOREIGN KEY (OrderID) REFERENCES Orders(OrderID),
     FOREIGN KEY (ReservationID) REFERENCES Reservations(ReservationID)
 );
 
@@ -580,7 +583,7 @@ INSERT INTO Wards (DistrictID, WardName) VALUES
 (2, N'Phường Bình Trưng Đông'),
 (2, N'Phường Bình Trưng Tây'),
 (2, N'Phường Cát Lái'),
-(2, N'Phường Thạnh Mỹ Lợi'),
+(2, N'Phư��ng Thạnh Mỹ Lợi'),
 (2, N'Phường Thảo Điền'),
 (2, N'Phường Thủ Thiêm');
 
