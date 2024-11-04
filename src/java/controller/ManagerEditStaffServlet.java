@@ -57,10 +57,16 @@ public class ManagerEditStaffServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        int StaffID = Integer.parseInt(request.getParameter("staffID"));
         int degree = Integer.parseInt(request.getParameter("degree"));
         int specialization = Integer.parseInt(request.getParameter("specialization"));
         int yearsOfExperience = Integer.parseInt(request.getParameter("yearsOfExperience"));
         String hireDate = request.getParameter("hireDate");
+        double salary = Double.parseDouble(request.getParameter("salary"));
+        
+        StaffDAO staffDAO = new StaffDAO();
+        staffDAO.updateStaff(StaffID, degree, specialization, yearsOfExperience, hireDate, salary);
+        response.sendRedirect(request.getContextPath() + "/manager/staffslist");
     }
 
     /** 

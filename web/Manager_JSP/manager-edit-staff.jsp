@@ -12,7 +12,7 @@
 <html lang="en">
 
     <head>
-        <title>Manager | Chi tiết nhân viên</title>
+        <title>Manager | Chỉnh sửa nhân viên</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -168,97 +168,99 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="container">
-                        <h2>Chi tiết dịch vụ</h2>
-                        <input type="hidden" name="staffID" value="${staff.staffID}">
-                        <div class="row">
-                            <div class="col-md-3 text-center">
-                                <div class="form-group">
-                                    <label class="control-label">Ảnh đại diện</label>
-                                    <div class="profile-img-container">
-                                        <img id="imagePreview" src="${user.profileImage}" alt="${staff.staffName}" class="rounded-circle img-fluid">
-                                    </div>
+                        <h2>Chỉnh sửa nhân viên</h2>
+                        <form id="editStaffForm" method="POST" action="${pageContext.request.contextPath}/manager/editstaff">
+                            <input type="hidden" name="staffID" value="${staff.staffID}">
+                            <div class="row">
+                                <div class="col-md-3 text-center">
+                                    <div class="form-group">
+                                        <label class="control-label">Ảnh đại diện</label>
+                                        <div class="profile-img-container">
+                                            <img id="imagePreview" src="${user.profileImage}" alt="${staff.staffName}" class="rounded-circle img-fluid">
+                                        </div>
 
-                                </div>
-                            </div>
-
-                            <div class="col-md-9">
-                                <div class="row">
-                                    <div class="form-group col-md-4">
-                                        <label class="control-label">Tên nhân viên</label>
-                                        <input class="form-control" type="text" id="staffName" name="staffName" value="${staff.staffName}" readonly="">
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <label class="control-label">Giới tính</label>
-                                        <input class="form-control" type="text" id="gender" name="gender" value="${user.gender}" readonly="">
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <label class="control-label">Chức vụ</label>
-                                        <select class="form-control" id="degree" name="degree" required>
-                                            <c:forEach var="degree" items="${degrees}">
-                                                <option value="${degree.degreeID}" ${degree.degreeID == staff.degreeID ? 'selected' : ''}>${degree.degreeName}</option>
-                                            </c:forEach>
-                                        </select>
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <label class="control-label">Khoa</label>
-                                        <select class="form-control" id="specialization" name="specialization" required>
-                                            <c:forEach var="specialization" items="${specializations}">
-                                                <option value="${specialization.specializationID}" ${specialization.specializationID == staff.specializationID ? 'selected' : ''}>${specialization.specializationName}</option>
-                                            </c:forEach>
-                                        </select>
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <label class="control-label">Tỉnh/Thành phố</label>
-                                        <input class="form-control" type="text" id="province" name="province" value="${user.address.provinces.provinceName}" readonly="">
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <label class="control-label">Quận/Huyện</label>
-                                        <input class="form-control" type="text" id="district" name="district" value="${user.address.district.districtName}" readonly="">
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <label class="control-label">Phường/Xã</label>
-                                        <input class="form-control" type="text" id="ward" name="ward" value="${user.address.ward.wardName}" readonly="">
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <label class="control-label">Địa chỉ</label>    
-                                        <input class="form-control" type="text" id="province" name="province" value="${user.address.streetAddress}" readonly="">
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <label class="control-label">Email</label>
-                                        <input class="form-control" type="text" id="email" name="email" value="${user.email}" readonly="">
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <label class="control-label">Số điện thoại</label>
-                                        <input class="form-control" type="text" id="phoneNumber" name="phoneNumber" value="${user.phoneNumber}" readonly="">
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <label class="control-label">Ngày sinh</label>
-                                        <input class="form-control" type="text" id="dateOfBirth" name="dateOfBirth" value="${user.dateOfBirth}" readonly="">
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <label class="control-label">CMND/CCCD</label>
-                                        <input class="form-control" type="text" id="citizenIdentification" name="citizenIdentification" value="${user.citizenIdentification}" readonly="">
-                                    </div>  
-                                    <div class="form-group col-md-4">
-                                        <label class="control-label">Số năm kinh nghiệm</label>
-                                        <input class="form-control" type="number" id="yearsOfExperience" name="yearsOfExperience" value="${staff.yearsOfExperience}">
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <label class="control-label">Ngày được nhận</label>
-                                        <input class="form-control" type="date" id="hireDate" name="hireDate" value="${staff.hireDate}">
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <label class="control-label">Lương(VNĐ)</label>
-                                        <input class="form-control" type="text" id="salary" name="salary"
-                                               value="<fmt:formatNumber value='${staff.salary}' type='number' groupingUsed='true'/>">
                                     </div>
                                 </div>
+
+                                <div class="col-md-9">
+                                    <div class="row">
+                                        <div class="form-group col-md-4">
+                                            <label class="control-label">Tên nhân viên</label>
+                                            <input class="form-control" type="text" id="staffName" name="staffName" value="${staff.staffName}" readonly="">
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label class="control-label">Giới tính</label>
+                                            <input class="form-control" type="text" id="gender" name="gender" value="${user.gender}" readonly="">
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label class="control-label">Chức vụ</label>
+                                            <select class="form-control" id="degree" name="degree" required>
+                                                <c:forEach var="degree" items="${degrees}">
+                                                    <option value="${degree.degreeID}" ${degree.degreeID == staff.degreeID ? 'selected' : ''}>${degree.degreeName}</option>
+                                                </c:forEach>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label class="control-label">Khoa</label>
+                                            <select class="form-control" id="specialization" name="specialization" required>
+                                                <c:forEach var="specialization" items="${specializations}">
+                                                    <option value="${specialization.specializationID}" ${specialization.specializationID == staff.specializationID ? 'selected' : ''}>${specialization.specializationName}</option>
+                                                </c:forEach>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label class="control-label">Tỉnh/Thành phố</label>
+                                            <input class="form-control" type="text" id="province" name="province" value="${user.address.provinces.provinceName}" readonly="">
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label class="control-label">Quận/Huyện</label>
+                                            <input class="form-control" type="text" id="district" name="district" value="${user.address.district.districtName}" readonly="">
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label class="control-label">Phường/Xã</label>
+                                            <input class="form-control" type="text" id="ward" name="ward" value="${user.address.ward.wardName}" readonly="">
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label class="control-label">Địa chỉ</label>    
+                                            <input class="form-control" type="text" id="province" name="province" value="${user.address.streetAddress}" readonly="">
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label class="control-label">Email</label>
+                                            <input class="form-control" type="text" id="email" name="email" value="${user.email}" readonly="">
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label class="control-label">Số điện thoại</label>
+                                            <input class="form-control" type="text" id="phoneNumber" name="phoneNumber" value="${user.phoneNumber}" readonly="">
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label class="control-label">Ngày sinh</label>
+                                            <input class="form-control" type="text" id="dateOfBirth" name="dateOfBirth" value="${user.dateOfBirth}" readonly="">
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label class="control-label">CMND/CCCD</label>
+                                            <input class="form-control" type="text" id="citizenIdentification" name="citizenIdentification" value="${user.citizenIdentification}" readonly="">
+                                        </div>  
+                                        <div class="form-group col-md-4">
+                                            <label class="control-label">Số năm kinh nghiệm</label>
+                                            <input class="form-control" type="number" id="yearsOfExperience" name="yearsOfExperience" value="${staff.yearsOfExperience}">
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label class="control-label">Ngày được nhận</label>
+                                            <input class="form-control" type="date" id="hireDate" name="hireDate" value="${staff.hireDate}">
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label class="control-label">Lương(VNĐ)</label>
+                                            <input class="form-control" type="text" id="salary" name="salary"
+                                                   value="<fmt:formatNumber value='${staff.salary}' type='number' groupingUsed='true'/>">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-12 right-align">
+                                    <button type="submit" class="btn btn-save">Lưu thay đổi</button>
+                                    <a class="btn btn-cancel" href="${pageContext.request.contextPath}/manager/staffslist">Trở về</a>
+                                </div>
                             </div>
-                            <div class="form-group col-md-12 right-align">
-                                <a class="btn btn-save" href="${pageContext.request.contextPath}/manager/editstaff">Lưu thay đổi</a>
-                                <a class="btn btn-cancel" href="${pageContext.request.contextPath}/manager/staffslist">Trở về</a>
-                            </div>
-                        </div>
+                        </form>
                     </div>
                     <script>
                         function readURL(input) {

@@ -193,7 +193,7 @@
                                         <label class="control-label">Giá (VNĐ)</label>
                                         <input class="form-control" type="text" id="price" name="price"
                                                value="<fmt:formatNumber value='${service.price}' type='number' groupingUsed='true' />" readonly="">
-                                    </div>
+                            </div>
                             <div class="form-group col-md-4">
                                 <label class="control-label">Thời gian khám tối đa (Phút)</label>
                                 <input class="form-control" type="number" id="duration" name="duration" value="${service.duration}" readonly="">
@@ -233,6 +233,7 @@
                         <div class="form-group">
                             <a class="btn btn-save" href="${pageContext.request.contextPath}/manager/editservice?serviceID=${service.serviceID}">Sửa dịch vụ</a>
                             <a class="btn btn-cancel" onclick="return confirm('Are you sure you want to delete this service?')" href="${pageContext.request.contextPath}/manager/deleteservice?serviceID=${service.serviceID}">Xóa dịch vụ</a>
+                            <a class="btn btn-danger" href="${pageContext.request.contextPath}/manager/serviceslist?serviceID=${service.serviceID}">Trở về</a>
                         </div>
                     </div>
                     <script>

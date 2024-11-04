@@ -156,7 +156,6 @@
                                                                 <thead>
                                                                     <tr>
                                                                         <th class="text-center">Tên dịch vụ</th>
-                                                                        <th class="text-center">Tên trẻ</th>
                                                                         <th class="text-center">Ngày đặt lịch khám</th>
                                                                         <th class="text-center">Nhân viên</th>
                                                                     </tr>
@@ -169,13 +168,6 @@
                                                                                     <c:forEach var="service" items="${services}">
                                                                                         <c:if test="${service.serviceID == item.serviceID}">
                                                                                             ${service.serviceName}
-                                                                                        </c:if>
-                                                                                    </c:forEach>
-                                                                                </td>
-                                                                                <td class="text-center">
-                                                                                    <c:forEach var="child" items="${children}">
-                                                                                        <c:if test="${child.childID == item.childID}">
-                                                                                            ${child.firstName} ${child.middleName} ${child.lastName}
                                                                                         </c:if>
                                                                                     </c:forEach>
                                                                                 </td>
