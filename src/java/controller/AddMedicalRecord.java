@@ -143,7 +143,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
         // Call DAO to add the new record
         medicalRecordDAO.addMedicalRecordAndUpdateReservation(medicalRecord);
         // Redirect to the medical record list
-        response.sendRedirect("medicalrecordlist");
+        response.sendRedirect("/staff/medicalrecordlist");
     } catch (Exception e) {
         e.printStackTrace();
         response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error adding medical record.");

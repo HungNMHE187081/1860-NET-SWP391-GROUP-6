@@ -29,7 +29,8 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
     try {
         PrescriptionDAO dao = new PrescriptionDAO();
-
+        
+        
         // Retrieve the search parameter from the request
         String search = request.getParameter("search");
         if (search == null) search = "";  // Default to empty if no search query is provided
@@ -57,5 +58,9 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response)
     public String getServletInfo() {
         return "Servlet for listing prescriptions";
     }
-
+    public static void main(String[] args) {
+         PrescriptionDAO dao = new PrescriptionDAO();
+        List<Prescription> listPre = dao.getAllPrescriptions("");
+        System.out.println(listPre);
+    }
 }

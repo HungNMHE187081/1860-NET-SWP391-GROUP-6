@@ -59,26 +59,17 @@ public class AddPrescriptionServlet extends HttpServlet {
         }
     }
 
-    @Override
-protected void doPost(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
-    try {
-        int recordID = Integer.parseInt(request.getParameter("recordID"));
-        String[] medicineIDs = request.getParameterValues("medicineIds");
-        int staffID = Integer.parseInt(request.getParameter("staffID"));
-        String dosage = request.getParameter("dosage");
-        String frequency = request.getParameter("frequency");
-        String duration = request.getParameter("duration");
+     @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            // Lấy thông tin từ form
+            int recordID = Integer.parseInt(request.getParameter("recordID"));
+            String[] medicineIds = request.getParameterValues("medicineIds"); // Nhiều giá trị
+            String dosage = request.getParameter("dosage");
+            String frequency = request.getParameter("frequency");
+            String duration = request.getParameter("duration");
 
-        // Validate input
-        if (dosage == null || frequency == null || duration == null || medicineIDs == null || medicineIDs.length == 0) {
-            request.setAttribute("errorMessage", "Invalid input. Please check your data.");
-            request.getRequestDispatcher("/Staff_JSP/error.jsp").forward(request, response);
-            return;
-        }
-
-        // Process each selected medicine
-        for (String medicineID_raw : medicineIDs) {
+                  for (String medicineID_raw : medicineIds) {
             int medicineID = Integer.parseInt(medicineID_raw);
 
             // Check for existing prescription
@@ -89,21 +80,18 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
             }
 
             // Create prescription object and add to the database
-            Prescription prescription = new Prescription(recordID, medicineID, dosage, frequency, duration);
-            prescriptionDAO.addPrescription(prescription);
+             Prescription prescription = new Prescription(recordID, Integer.parseInt(medicineID_raw), dosage, frequency, duration);
+                prescriptionDAO.addPrescription(prescription);
         }
-
-        // Redirect to the prescription list after successful addition
-        response.sendRedirect("listprescription");
-    } catch (NumberFormatException e) {
-        request.setAttribute("errorMessage", "Invalid ID format. Please check your data.");
-        request.getRequestDispatcher("/Staff_JSP/error.jsp").forward(request, response);
-    } catch (Exception e) {
-        log("Unexpected error: " + e.getMessage());
-        request.setAttribute("errorMessage", "Loại thuốc đã tồn tại cho bản ghi này");
-        request.getRequestDispatcher("/Staff_JSP/error.jsp").forward(request, response);
+          
+            // Chuyển hướng về trang danh sách đơn thuốc sau khi thêm thành công
+            response.sendRedirect(request.getContextPath() + "/staff/listprescription");
+        } catch (Exception e) {
+            e.printStackTrace();
+            request.setAttribute("error", "Lỗi trong quá trình thêm đơn thuốc.");
+            request.getRequestDispatcher("/staff/errorPage.jsp").forward(request, response);
+        }
     }
-}
 
 
     @Override
