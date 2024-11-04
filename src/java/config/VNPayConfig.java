@@ -1,7 +1,6 @@
 package config;
 
 import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import javax.crypto.Mac;
@@ -12,7 +11,7 @@ public class VNPayConfig {
     public static String vnp_Version = "2.1.0";
     public static String vnp_Command = "pay";
     public static String vnp_PayUrl = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-    public static String vnp_ReturnUrl = "http://localhost:8080/ChildrenCare/vnpay-return";
+    public static String vnp_ReturnUrl = "http://localhost:9998/ChildrenCare/vnpayreturn";
     public static String vnp_TmnCode = "YOUR_TMN_CODE"; // Mã website của bạn tại VNPay
     public static String vnp_HashSecret = "YOUR_HASH_SECRET"; // Chuỗi bí mật của bạn
     public static String vnp_ApiUrl = "https://sandbox.vnpayment.vn/merchant_webapi/api/transaction";
