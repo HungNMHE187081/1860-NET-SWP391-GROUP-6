@@ -17,7 +17,7 @@ import model.Staff;
 public class StaffDAO extends DBContext {
 
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-    
+
     public List<Staff> getAllStaffs() {
         List<Staff> list = new ArrayList<>();
         String sql = "SELECT * FROM StaffView ";
@@ -35,37 +35,36 @@ public class StaffDAO extends DBContext {
                 list.add(new Staff(StaffID, StaffName, YearsOfExperience, SpecializationID, DegreeID, HireDate, Salary));
             }
         } catch (SQLException e) {
-            e.printStackTrace(); 
+            e.printStackTrace();
         }
         return list;
     }
 
-    public Staff getStaffByID(int StaffID){
+    public Staff getStaffByID(int StaffID) {
         String sql = "SELECT * FROM StaffView WHERE StaffID = ?";
-        try{
+        try {
             PreparedStatement pre = connection.prepareStatement(sql);
             pre.setInt(1, StaffID);
-            try (ResultSet rs = pre.executeQuery()){
-             if (rs.next()){
-                Staff staff = new Staff();
-                staff.setStaffID(StaffID);
-                staff.setStaffName(rs.getString("StaffName"));
-                staff.setYearsOfExperience(rs.getInt("YearsOfExperience"));
-                staff.setSpecializationID(rs.getInt("SpecializationID"));
-                staff.setDegreeID(rs.getInt("DegreeID"));
-                staff.setHireDate(rs.getDate("HireDate") != null ? sdf.format(rs.getDate("HireDate")) : null);
-                staff.setSalary(rs.getDouble("Salary"));
-                
-                return staff;
-             }   
+            try (ResultSet rs = pre.executeQuery()) {
+                if (rs.next()) {
+                    Staff staff = new Staff();
+                    staff.setStaffID(StaffID);
+                    staff.setStaffName(rs.getString("StaffName"));
+                    staff.setYearsOfExperience(rs.getInt("YearsOfExperience"));
+                    staff.setSpecializationID(rs.getInt("SpecializationID"));
+                    staff.setDegreeID(rs.getInt("DegreeID"));
+                    staff.setHireDate(rs.getDate("HireDate") != null ? sdf.format(rs.getDate("HireDate")) : null);
+                    staff.setSalary(rs.getDouble("Salary"));
+
+                    return staff;
+                }
             }
-        }
-        catch(SQLException e){
-            
+        } catch (SQLException e) {
+
         }
         return null;
     }
-    
+
     public List<Staff> searchStaffByKeyword(String keyword) {
         List<Staff> listStaff = new ArrayList<>();
         String sql = "SELECT * FROM StaffView WHERE StaffName LIKE ?";
@@ -82,7 +81,7 @@ public class StaffDAO extends DBContext {
                     staff.setDegreeID(rs.getInt("DegreeID"));
                     staff.setHireDate(rs.getDate("HireDate") != null ? sdf.format(rs.getDate("HireDate")) : null);
                     staff.setSalary(rs.getDouble("Salary"));
-    
+
                     listStaff.add(staff);
                 }
             }
@@ -91,7 +90,7 @@ public class StaffDAO extends DBContext {
         }
         return listStaff;
     }
-    
+
     public List<Staff> searchStaffBySpecializationID(int specializationID) {
         List<Staff> listStaff = new ArrayList<>();
         String sql = "SELECT * FROM StaffView WHERE SpecializationID = ?";
@@ -108,7 +107,7 @@ public class StaffDAO extends DBContext {
                     staff.setDegreeID(rs.getInt("DegreeID"));
                     staff.setHireDate(rs.getDate("HireDate") != null ? sdf.format(rs.getDate("HireDate")) : null);
                     staff.setSalary(rs.getDouble("Salary"));
-    
+
                     listStaff.add(staff);
                 }
             }
@@ -117,7 +116,7 @@ public class StaffDAO extends DBContext {
         }
         return listStaff;
     }
-    
+
     public List<Staff> searchStaffByKeywordAndSpecialization(String keyword, int specializationID) {
         List<Staff> listStaff = new ArrayList<>();
         String sql = "SELECT * FROM StaffView WHERE StaffName LIKE ? AND SpecializationID = ?";
@@ -135,7 +134,7 @@ public class StaffDAO extends DBContext {
                     staff.setDegreeID(rs.getInt("DegreeID"));
                     staff.setHireDate(rs.getDate("HireDate") != null ? sdf.format(rs.getDate("HireDate")) : null);
                     staff.setSalary(rs.getDouble("Salary"));
-    
+
                     listStaff.add(staff);
                 }
             }
@@ -144,7 +143,7 @@ public class StaffDAO extends DBContext {
         }
         return listStaff;
     }
-    
+
     public List<Staff> getStaffByDegreeID(int degreeID) {
         List<Staff> listStaff = new ArrayList<>();
         String sql = "SELECT * FROM StaffView WHERE DegreeID = ?";
@@ -161,7 +160,7 @@ public class StaffDAO extends DBContext {
                     staff.setDegreeID(rs.getInt("DegreeID"));
                     staff.setHireDate(rs.getDate("HireDate") != null ? sdf.format(rs.getDate("HireDate")) : null);
                     staff.setSalary(rs.getDouble("Salary"));
-    
+
                     listStaff.add(staff);
                 }
             }
@@ -170,12 +169,31 @@ public class StaffDAO extends DBContext {
         }
         return listStaff;
     }
-    
-    public void updateStaff(int degreeID, int specializationID, int yearsOfExperience,
-            String hireDate, double salary){
-        String sql = "";
+
+    public void updateStaff(int staffID, int degreeID, int specializationID, int yearsOfExperience,
+            String hireDate, double salary) {
+        String sql = "UPDATE [dbo].[Staff]\n"
+                + "   SET [YearsOfExperience] = ? \n"
+                + "      ,[SpecializationID] = ? \n"
+                + "      ,[DegreeID] = ? \n"
+                + "      ,[HireDate] = ? \n"
+                + "      ,[Salary] = ? \n"
+                + " WHERE staffID = ?";
+        try{
+            PreparedStatement pre = connection.prepareStatement(sql);
+            pre.setInt(1, degreeID);
+            pre.setInt(2, specializationID);
+            pre.setInt(3, yearsOfExperience);
+            pre.setString(4, hireDate);
+            pre.setDouble(5, salary);
+            pre.setInt(6, staffID);
+            pre.executeUpdate();
+        }
+        catch(SQLException e){
+            
+        }
     }
-    
+
     public static void main(String[] args) {
         StaffDAO dao = new StaffDAO();
         System.out.println(dao.getStaffByDegreeID(1).size());
