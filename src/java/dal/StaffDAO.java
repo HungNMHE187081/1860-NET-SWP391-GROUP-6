@@ -171,6 +171,11 @@ public class StaffDAO extends DBContext {
         return listStaff;
     }
     
+    public void updateStaff(int degreeID, int specializationID, int yearsOfExperience,
+            String hireDate, double salary){
+        String sql = "";
+    }
+    
     public static void main(String[] args) {
         StaffDAO dao = new StaffDAO();
         System.out.println(dao.getStaffByDegreeID(1).size());

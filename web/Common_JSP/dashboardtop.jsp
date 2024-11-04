@@ -23,12 +23,12 @@
             <li class="list-inline-item mb-0 ms-1">
                 <div class="dropdown dropdown-primary">
                     <button type="button" class="btn btn-pills btn-soft-primary dropdown-toggle p-0" data-bs-toggle="dropdown">
-                        <img src="${user.profileImage}" class="avatar avatar-ex-small rounded-circle" alt="Profile">
+                        <img src="${pageContext.request.contextPath}/${user.profileImage}" class="avatar avatar-ex-small rounded-circle" alt="Profile">
                     </button>
                     <div class="dropdown-menu dd-menu dropdown-menu-end bg-white shadow border-0 mt-3 py-3" style="min-width: 250px;">
                         <!-- Profile Header -->
                         <a class="dropdown-item d-flex align-items-center text-dark" href="${pageContext.request.contextPath}/customer/viewprofile">
-                            <img src="${user.profileImage}" class="avatar avatar-md-sm rounded-circle border shadow" alt="Profile">
+                            <img src="${pageContext.request.contextPath}/${user.profileImage}" class="avatar avatar-md-sm rounded-circle border shadow" alt="Profile">
                             <div class="flex-1 ms-2">
                                 <span class="d-block mb-1">${user.firstName} ${user.lastName}</span>
                                 <small class="text-muted"><i class="uil uil-envelope-alt me-1"></i>${user.email}</small><br>
@@ -56,12 +56,17 @@
         <!-- Navigation Menu -->
         <div id="navigation">
             <ul class="navigation-menu nav-left nav-light">
-                <li class="has-submenu parent-menu-item">
-                    <a href="${pageContext.request.contextPath}/homepage">
-                        <i class="uil uil-estate me-1"></i>Trang Chủ
+                <li class="menu-item">
+                    <a href="${pageContext.request.contextPath}/customer/homepage" class="sub-menu-item">
+                        <img src="../img/logo-1.png" alt="Trang Chủ" style="width:150px; height:auto;"/>
                     </a>
                 </li>
-
+                <style>
+                    .menu-item img {
+                        max-width: 100%;
+                        height: auto;
+                    }
+                </style>
 
                 <li class="has-submenu parent-parent-menu-item">
                     <a href="${pageContext.request.contextPath}/customer/listservices">
@@ -149,4 +154,16 @@
             </ul>
         </div>
     </div>
+    <!-- javascript -->
+    <script src="${pageContext.request.contextPath}/js/bootstrap.bundle.min.js"></script>
+
+    <!-- SLIDER -->
+    <script src="${pageContext.request.contextPath}/js/tiny-slider.js"></script>
+    <script src="${pageContext.request.contextPath}/js/tiny-slider-init.js"></script>
+    <!-- Counter -->
+    <script src="${pageContext.request.contextPath}/js/counter.init.js"></script>
+    <!-- Icons -->
+    <script src="${pageContext.request.contextPath}/js/feather.min.js"></script>
+    <!-- Main Js -->
+    <script src="${pageContext.request.contextPath}/js/app.js"></script>
 </header>

@@ -308,16 +308,16 @@
     <a href="#" onclick="topFunction()" id="back-to-top" class="btn btn-icon btn-pills btn-primary back-to-top"><i data-feather="arrow-up" class="icons"></i></a>
     <!-- Back to top -->
     <!-- javascript -->
-    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js/bootstrap.bundle.min.js"></script>
 
     <!-- SLIDER -->
-    <script src="js/tiny-slider.js"></script>
-    <script src="js/tiny-slider-init.js"></script>
+    <script src="${pageContext.request.contextPath}/js/tiny-slider.js"></script>
+    <script src="${pageContext.request.contextPath}/js/tiny-slider-init.js"></script>
     <!-- Counter -->
-    <script src="js/counter.init.js"></script>
+    <script src="${pageContext.request.contextPath}/js/counter.init.js"></script>
     <!-- Icons -->
-    <script src="js/feather.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js/feather.min.js"></script>
     <!-- Main Js -->
-    <script src="js/app.js"></script>
+    <script src="${pageContext.request.contextPath}/js/app.js"></script>
 </body>
 </html>

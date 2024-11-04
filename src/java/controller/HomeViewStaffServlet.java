@@ -52,7 +52,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response)
     List<Degree> degrees = degreeDAO.getAllDegrees();
     List<Specialization> specializations = specializationDAO.getAllSpecializations();
 
-    Collections.sort(staffs, Comparator.comparing(Staff::getStaffName));
+Collections.sort(staffs, Comparator.comparing(Staff::getStaffName, Comparator.nullsFirst(String::compareTo)));
 
     request.setAttribute("staffs", staffs);
     request.setAttribute("degrees", degrees);

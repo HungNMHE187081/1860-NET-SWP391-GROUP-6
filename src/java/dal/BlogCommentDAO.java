@@ -137,4 +137,21 @@ public class BlogCommentDAO extends DBContext{
         e.printStackTrace();
     }
 }
+        public void addComment(BlogComment comment) {
+        String sql = "INSERT INTO BlogComments(CreatedDate, Content, BlogID, UserID, parentID) VALUES (GETDATE(), ?, ?, ?, ?)";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, comment.getContent());
+            ps.setInt(2, comment.getBlogID());
+            ps.setInt(3, comment.getUser().getUserID());
+            if (comment.getParent() != null) {
+                ps.setInt(4, comment.getParent().getCommentID());
+            } else {
+                ps.setNull(4, java.sql.Types.INTEGER);
+            }
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

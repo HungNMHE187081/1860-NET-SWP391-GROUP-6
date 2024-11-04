@@ -300,7 +300,7 @@
                 <img src="${pageContext.request.contextPath}/${service.serviceImage}" 
                      alt="Image of ${service.serviceName}" class="card-image" loading="lazy">
                 <div class="card-content">
-                    <a href="${pageContext.request.contextPath}/listservice" class="back-link">
+                    <a href="${pageContext.request.contextPath}/customer/listservices" class="back-link">
                         <i class="fas fa-arrow-left icon"></i> Trở về
                     </a>
                     <h1>${service.serviceName}</h1>
