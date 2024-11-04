@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
-<!--        <filter>
+    <!--        <filter>
         <filter-name>AuthorizationFilter</filter-name>
         <filter-class>filter.AuthorizationFilter</filter-class>
     </filter>
@@ -448,6 +448,10 @@
         <servlet-name>AdminDashboardServlet</servlet-name>
         <servlet-class>controller.AdminDashboardServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PaymentServlet</servlet-name>
+        <servlet-class>controller.PaymentServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -706,7 +710,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>HomepageFeedbackServlet</servlet-name>
-        <url-pattern>/homepage</url-pattern>
+        <url-pattern>/customer/homepage</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>EditMedicalRecord</servlet-name>
@@ -887,5 +891,9 @@
     <servlet-mapping>
         <servlet-name>AdminDashboardServlet</servlet-name>
         <url-pattern>/admin/dashboard</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManagerEditStaffServlet</servlet-name>
+        <url-pattern>/manager/editstaff</url-pattern>
     </servlet-mapping>
 </web-app>
