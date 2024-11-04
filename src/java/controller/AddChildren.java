@@ -13,14 +13,15 @@ import jakarta.servlet.http.Part;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintWriter;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
-import java.sql.Connection;
+import java.nio.file.Paths;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 
-@MultipartConfig
+@MultipartConfig(
+    fileSizeThreshold = 1024 * 1024, // 1MB
+    maxFileSize = 10 * 1024 * 1024,  // 10MB
+    maxRequestSize = 50 * 1024 * 1024 // 50MB
+)
 @WebServlet("/AddChildren")
 public class AddChildren extends HttpServlet {
     private ChildrenDAO childrenDAO = new ChildrenDAO();
@@ -40,25 +41,23 @@ public class AddChildren extends HttpServlet {
 
             // Handle file upload
             Part filePart = request.getPart("childImage");
-            if (filePart == null || filePart.getSize() == 0) {
+            String fileName = getFileName(filePart);
+            String uploadPath = getServletContext().getRealPath("") + File.separator + UPLOAD_DIR + File.separator;
+
+            // Ensure upload directory exists
+            File uploadDir = new File(uploadPath);
+            if (!uploadDir.exists()) uploadDir.mkdirs();
+
+            String childImage = null;
+            if (fileName != null && !fileName.isEmpty()) {
+                filePart.write(uploadPath + fileName);
+                childImage = UPLOAD_DIR + "/" + fileName;
+            } else {
                 throw new ServletException("File is required.");
             }
 
-            String fileName = filePart.getSubmittedFileName();
-            File uploadDir = new File(getServletContext().getRealPath("") + File.separator + UPLOAD_DIR);
-            if (!uploadDir.exists()) {
-                uploadDir.mkdir(); // Create the directory if it doesn't exist
-            }
-
-            String filePath = uploadDir.getAbsolutePath() + File.separator + fileName;
-
-            // Save the file to the server
-            try (InputStream inputStream = filePart.getInputStream()) {
-                Files.copy(inputStream, new File(filePath).toPath(), StandardCopyOption.REPLACE_EXISTING);
-            }
-
             // Create Child object
-            Children child = new Children(customerID, firstName, middleName, lastName, dateOfBirth, gender, fileName);
+            Children child = new Children(customerID, firstName, middleName, lastName, dateOfBirth, gender, childImage);
 
             // Add child to the database
             childrenDAO.addChild(child);
@@ -71,6 +70,16 @@ public class AddChildren extends HttpServlet {
             request.setAttribute("errorMessage", "Failed to add child. Please try again.");
             request.getRequestDispatcher("addChild.jsp").forward(request, response);
         }
+    }
+
+    private String getFileName(Part part) {
+        String header = part.getHeader("content-disposition");
+        for (String content : header.split(";")) {
+            if (content.trim().startsWith("filename")) {
+                return Paths.get(content.substring(content.indexOf('=') + 1).trim().replace("\"", "")).getFileName().toString();
+            }
+        }
+        return null;
     }
 
     @Override

@@ -230,7 +230,7 @@
                                     <!-- Phần Ảnh Đại Diện -->
                                     <div class="col-md-3">
                                         <label for="childImage">Tải ảnh trẻ:</label>
-                                        <input type="file" name="childImage" id="childImage" accept="image/*" required style="display: none;" />
+                                        <input type="file" name="childImage" id="childImage" accept="image/*" required style="display: none;" required/>
                                         <button type="button" class="upload-button" onclick="document.getElementById('childImage').click();">
                                             Chọn ảnh
                                         </button><br/><br/>
