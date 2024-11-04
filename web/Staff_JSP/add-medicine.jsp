@@ -107,7 +107,7 @@
         <header>
             <h1>Child Care</h1>
             <nav>
-                <a href="staff/staffhomepage">Home</a>
+                <a href="staffhomepage">Home</a>
                 <a href="profile.jsp">Profile</a>
                 <a href="logout.jsp">Logout</a>
             </nav>
