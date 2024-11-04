@@ -45,7 +45,7 @@ public class CustomerListReservationsServlet extends HttpServlet {
         if (user != null) {
         OrderDAO orderDAO = new OrderDAO();
         List<Order> orders = orderDAO.getCheckOutOrdersByCustomerID(user.getUserID());
-        List<OrderItem> orderItems = orderDAO.getAllOrderItems(); 
+        List<OrderItem> orderItems = orderDAO.getCheckOutOrderItemsByCustomerID(user.getUserID()); 
 
         ServiceDAO serviceDAO = new ServiceDAO();
         List<Service> services = serviceDAO.getAllServices();
@@ -53,12 +53,15 @@ public class CustomerListReservationsServlet extends HttpServlet {
         List<Children> children = childrenDAO.getChildrenByCustomerID(user.getUserID());
         ReservationDAO reservationDAO = new ReservationDAO();
         List<Reservation> reservations = reservationDAO.getReservationByCustomerID(user.getUserID());
+        StaffDAO staffDAO = new StaffDAO();
+        List<Staff> staffs = staffDAO.getAllStaffs();
 
         request.setAttribute("orders", orders);
         request.setAttribute("orderItems", orderItems);
         request.setAttribute("services", services);
         request.setAttribute("children", children);
         request.setAttribute("reservations", reservations);
+        request.setAttribute("staffs", staffs);
         request.getRequestDispatcher("/Common_JSP/home-reservations-list.jsp").forward(request, response);
         }
         else {

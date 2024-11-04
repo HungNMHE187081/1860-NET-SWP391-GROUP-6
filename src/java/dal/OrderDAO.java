@@ -145,6 +145,32 @@ public class OrderDAO extends DBContext {
         return list;
     }
 
+    public List<OrderItem> getCheckOutOrderItemsByCustomerID(int CustomerID) {
+        List<OrderItem> list = new ArrayList<>();
+        String sql = "SELECT o.OrderID, o.CustomerID, o.Quantity, o.TotalPrice, o.OrderDate, o.isCheckOut, " +
+                     "oi.OrderItemID, oi.ServiceID, oi.ChildID, " +
+                     "c.FirstName, c.MiddleName, c.LastName, c.DateOfBirth, c.Gender, c.ChildImage " +
+                     "FROM Orders o " +
+                     "JOIN OrderItems oi ON o.OrderID = oi.OrderID " +
+                     "JOIN Children c ON oi.ChildID = c.ChildID " +
+                     "WHERE o.CustomerID = ? AND isCheckOut = 1";
+        try {
+            PreparedStatement pre = connection.prepareStatement(sql);
+            pre.setInt(1, CustomerID);
+            try (ResultSet rs = pre.executeQuery()) {
+                while (rs.next()) {
+                    int OrderID = rs.getInt("OrderID");
+                    int OrderItemID = rs.getInt("OrderItemID");
+                    int ServiceID = rs.getInt("ServiceID");
+                    int ChildID = rs.getInt("ChildID");
+                    list.add(new OrderItem(OrderItemID, OrderID, ServiceID, ChildID));
+                }
+            }
+        } catch (SQLException e) {
+        }
+        return list;
+    }
+
     public OrderItem getOrderItemsByOrderItemID(int orderItemID) {
         OrderItem orderItem = new OrderItem();
         String sql = "SELECT o.OrderID, o.CustomerID, o.Quantity, o.TotalPrice, o.OrderDate, o.isCheckOut, " +
@@ -212,7 +238,15 @@ public class OrderDAO extends DBContext {
     
     public List<Order> getCheckOutOrdersByCustomerID(int CustomerID) {
         List<Order> list = new ArrayList<>();
-        String sql = "SELECT * FROM Orders WHERE isCheckOut = 1 and CustomerID = ?";
+        String sql = "SELECT o.OrderID, o.CustomerID, o.Quantity, o.TotalPrice, o.OrderDate, o.isCheckOut, \n" +
+"                     oi.OrderItemID, oi.ServiceID, oi.ChildID,\n" +
+"                     c.FirstName, c.MiddleName, c.LastName, c.DateOfBirth, c.Gender, c.ChildImage,\n" +
+"                     r.isExam, r.hasRecord\n" +
+"                     FROM Orders o\n" +
+"                     JOIN OrderItems oi ON o.OrderID = oi.OrderID\n" +
+"                     JOIN Reservations r ON r.OrderItemID = oi.OrderItemID\n" +
+"                     JOIN Children c ON oi.ChildID = c.ChildID\n" +
+"                     WHERE o.CustomerID = ? AND isCheckOut = 1 AND r.isExam = 0 AND r.hasRecord = 0";
         try {
             PreparedStatement pre = connection.prepareStatement(sql);
             pre.setInt(1, CustomerID);
@@ -294,7 +328,7 @@ public class OrderDAO extends DBContext {
         System.out.println(dao.getAllOrders().size());
         System.out.println(dao.getAllCheckOutOrders().size());
         System.out.println(dao.getAllOrderItems().size());
-        System.out.println(dao.getOrderItemsByOrderID(1).size());
+        System.out.println(dao.getCheckOutOrdersByCustomerID(4).size());
     }
 }
 

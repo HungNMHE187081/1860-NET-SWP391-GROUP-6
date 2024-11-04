@@ -95,6 +95,28 @@
                     <div class="col-lg-8 col-md-10">
                         <div class="reservation-form">
                             <h2 class="section-title">Đặt Lịch Khám</h2>
+    
+                            <!-- Add this alert section for error messages -->
+                            <c:if test="${not empty errorMessage}">
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    ${errorMessage}
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            </c:if>
+    
+                            <!-- Add this alert section for success messages -->
+                            <c:if test="${not empty successMessage}">
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    ${successMessage}
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            </c:if>
+
+                            <!-- Existing form code continues -->
                             <form action="${pageContext.request.contextPath}/customer/addreservation" method="post">
                                 <input type="hidden" name="serviceID" value="${service.serviceID}">
 

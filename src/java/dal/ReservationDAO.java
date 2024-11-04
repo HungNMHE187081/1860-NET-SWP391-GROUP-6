@@ -22,7 +22,7 @@ public class ReservationDAO extends DBContext {
                 + "r.ReservationID, r.ReservationDate, r.StartTime, r.StaffID, r.isExam, r.hasRecord "
                 + "FROM Orders o "
                 + "JOIN OrderItems oi ON o.OrderID = oi.OrderID "
-                + "JOIN Reservations r ON oi.OrderItemID = r.OrderItemID ";
+                + "JOIN Reservations r ON oi.OrderItemID = r.OrderItemID AND isCheckOut = 1";
         try {
             PreparedStatement pre = connection.prepareStatement(sql);
             ResultSet rs = pre.executeQuery();
@@ -49,7 +49,7 @@ public class ReservationDAO extends DBContext {
                 + "FROM Orders o "
                 + "JOIN OrderItems oi ON o.OrderID = oi.OrderID "
                 + "JOIN Reservations r ON oi.OrderItemID = r.OrderItemID "
-                + "WHERE r.IsExam = ?";
+                + "WHERE r.IsExam = ? AND isCheckOut = 1";
         try {
             PreparedStatement pre = connection.prepareStatement(sql);
             pre.setBoolean(1, isExam);
@@ -76,7 +76,7 @@ public class ReservationDAO extends DBContext {
                 + "FROM Orders o "
                 + "JOIN OrderItems oi ON o.OrderID = oi.OrderID "
                 + "JOIN Reservations r ON oi.OrderItemID = r.OrderItemID "
-                + "WHERE ReservationID = ?";
+                + "WHERE ReservationID = ? AND isCheckOut = 1";
         try {
             PreparedStatement pre = connection.prepareStatement(sql);
             pre.setInt(1, ReservationID);
@@ -105,7 +105,7 @@ public class ReservationDAO extends DBContext {
                 + "FROM Orders o "
                 + "JOIN OrderItems oi ON o.OrderID = oi.OrderID "
                 + "JOIN Reservations r ON oi.OrderItemID = r.OrderItemID "
-                + "WHERE ServiceID = ? and ChildID = ?";
+                + "WHERE ServiceID = ? and ChildID = ? AND isCheckOut = 1";
         try {
             PreparedStatement pre = connection.prepareStatement(sql);
             pre.setInt(1, ServiceID);
@@ -135,7 +135,7 @@ public class ReservationDAO extends DBContext {
                 + "JOIN Orders o ON oi.OrderID = o.OrderID "
                 + "JOIN Users u ON o.CustomerID = u.UserID "
                 + "JOIN Children c ON oi.ChildID = c.ChildID "
-                + "WHERE u.UserID = ? AND r.IsExam = 0";
+                + "WHERE u.UserID = ? AND r.IsExam = 0 AND hasRecord = 0 AND isCheckOut = 1";
         try {
             PreparedStatement pre = connection.prepareStatement(sql);
             pre.setInt(1, CustomerID);
@@ -164,7 +164,7 @@ public class ReservationDAO extends DBContext {
                 + "JOIN Users u ON o.CustomerID = u.UserID "
                 + "JOIN Children c ON oi.ChildID = c.ChildID "
                 + "WHERE (u.FirstName LIKE ? OR u.MiddleName LIKE ? OR u.LastName LIKE ? OR c.FirstName LIKE ? OR c.MiddleName LIKE ? OR c.LastName LIKE ?) "
-                + "AND r.IsExam = ?";
+                + "AND r.IsExam = ? AND isCheckOut = 1";
         try {
             PreparedStatement pre = connection.prepareStatement(sql);
             pre.setString(1, "%" + keyword + "%");
@@ -199,7 +199,7 @@ public class ReservationDAO extends DBContext {
                 + "FROM Orders o "
                 + "JOIN OrderItems oi ON o.OrderID = oi.OrderID "
                 + "JOIN Reservations r ON oi.OrderItemID = r.OrderItemID "
-                + "WHERE r.StartTime BETWEEN ? AND ? AND r.isExam = ?";
+                + "WHERE r.StartTime BETWEEN ? AND ? AND r.isExam = ? AND isCheckOut = 1";
         try {
             PreparedStatement pre = connection.prepareStatement(sql);
             if ("morning".equalsIgnoreCase(timeOfDay)) {
@@ -238,7 +238,7 @@ public class ReservationDAO extends DBContext {
                 + "JOIN Children c ON oi.ChildID = c.ChildID "
                 + "WHERE (u.FirstName LIKE ? OR u.MiddleName LIKE ? OR u.LastName LIKE ? OR c.FirstName LIKE ? OR c.MiddleName LIKE ? OR c.LastName LIKE ?) "
                 + "AND r.StartTime BETWEEN ? AND ? "
-                + "AND r.IsExam = ?";
+                + "AND r.IsExam = ? AND isCheckOut = 1";
         try {
             PreparedStatement pre = connection.prepareStatement(sql);
             pre.setString(1, "%" + keyword + "%");
@@ -316,6 +316,110 @@ public class ReservationDAO extends DBContext {
             pre.executeUpdate();
         } catch (SQLException e) {
         }
+    }
+
+    public boolean hasTimeConflict(String reservationDate, String startTime, int staffID, int serviceDuration) {
+        String sql = "SELECT COUNT(*) FROM Reservations r "
+                + "JOIN OrderItems oi ON r.OrderItemID = oi.OrderItemID "
+                + "JOIN Services s ON oi.ServiceID = s.ServiceID "
+                + "WHERE r.ReservationDate = ? "  // Same date
+                + "AND r.StaffID = ? "           // Same staff
+                + "AND ("
+                + "    (CAST(r.StartTime AS time) <= CAST(? AS time) "
+                + "     AND DATEADD(MINUTE, s.Duration, CAST(r.StartTime AS time)) > CAST(? AS time))"
+                + "    OR "
+                + "    (CAST(r.StartTime AS time) < DATEADD(MINUTE, ?, CAST(? AS time)) "
+                + "     AND CAST(r.StartTime AS time) >= DATEADD(MINUTE, -s.Duration, CAST(? AS time)))"
+                + ")";
+
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, reservationDate);
+            ps.setInt(2, staffID);
+            ps.setString(3, startTime);
+            ps.setString(4, startTime);
+            ps.setInt(5, serviceDuration);
+            ps.setString(6, startTime);
+            ps.setString(7, startTime);
+            
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1) > 0;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    // Add a new method to check if staff is available
+    public boolean isStaffAvailable(String reservationDate, String startTime, int staffID) {
+        String sql = "SELECT COUNT(*) FROM Reservations "
+                + "WHERE ReservationDate = ? "
+                + "AND StaffID = ? "
+                + "AND StartTime = ?";
+                
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, reservationDate);
+            ps.setInt(2, staffID);
+            ps.setString(3, startTime);
+            
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1) == 0; // Return true if no reservations found
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean hasChildTimeConflict(String reservationDate, String startTime, int childID, int serviceDuration) {
+        String sql = "SELECT COUNT(*) FROM Reservations r "
+                + "JOIN OrderItems oi ON r.OrderItemID = oi.OrderItemID "
+                + "JOIN Services s ON oi.ServiceID = s.ServiceID "
+                + "WHERE r.ReservationDate = ? "  // Same date
+                + "AND oi.ChildID = ? "           // Same child
+                + "AND ("
+                // Case 1: New appointment starts during an existing appointment
+                + "    (CAST(? AS time) >= CAST(r.StartTime AS time) "
+                + "     AND CAST(? AS time) < DATEADD(MINUTE, s.Duration, CAST(r.StartTime AS time)))"
+                // Case 2: New appointment ends during an existing appointment
+                + "    OR "
+                + "    (DATEADD(MINUTE, ?, CAST(? AS time)) > CAST(r.StartTime AS time) "
+                + "     AND DATEADD(MINUTE, ?, CAST(? AS time)) <= DATEADD(MINUTE, s.Duration, CAST(r.StartTime AS time)))"
+                // Case 3: New appointment completely contains an existing appointment
+                + "    OR "
+                + "    (CAST(? AS time) <= CAST(r.StartTime AS time) "
+                + "     AND DATEADD(MINUTE, ?, CAST(? AS time)) >= DATEADD(MINUTE, s.Duration, CAST(r.StartTime AS time)))"
+                + ")";
+
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, reservationDate);
+            ps.setInt(2, childID);
+            // Case 1
+            ps.setString(3, startTime);
+            ps.setString(4, startTime);
+            // Case 2
+            ps.setInt(5, serviceDuration);
+            ps.setString(6, startTime);
+            ps.setInt(7, serviceDuration);
+            ps.setString(8, startTime);
+            // Case 3
+            ps.setString(9, startTime);
+            ps.setInt(10, serviceDuration);
+            ps.setString(11, startTime);
+            
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1) > 0;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     public static void main(String[] args) {

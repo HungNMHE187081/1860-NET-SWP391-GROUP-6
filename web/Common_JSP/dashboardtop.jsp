@@ -9,12 +9,6 @@
 <%@ page import="java.util.List" %>
 <%@ page import="dal.BlogDAO" %>
 <%@ page import="model.BlogCategory" %>
-<%
-BlogDAO dao = new BlogDAO();
-        List<BlogCategory> blogCategories = dao.getAllBlogCategory();
-        request.setAttribute("blogCategories", blogCategories);   
-%>
-
 
 <header id="topnav" class="navigation sticky">
     <div class="container">

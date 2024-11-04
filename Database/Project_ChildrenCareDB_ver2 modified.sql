@@ -409,14 +409,14 @@ CREATE TABLE BlogCategoryMapping (
     FOREIGN KEY (CategoryID) REFERENCES BlogCategories(CategoryID)
 );
 
--- Create BlogComments table
 CREATE TABLE BlogComments (
     CommentID INT PRIMARY KEY IDENTITY(1,1),
     BlogID INT,
     UserID INT,
     Content NVARCHAR(MAX) NOT NULL,
     CreatedDate DATETIME DEFAULT GETDATE(),
-    IsApproved BIT DEFAULT 0,
+    parentID INT,
+	FOREIGN KEY(parentID) References BlogComments(CommentID),
     FOREIGN KEY (BlogID) REFERENCES Blogs(BlogID),
     FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE
 );
@@ -686,6 +686,8 @@ SELECT
         END AS Age
 FROM Children;
 
+select * from Users
+
 select * from StaffView
 
 select * from Orders
@@ -693,6 +695,13 @@ select * from Orders
 select * from OrderItems
 
 SELECT * FROM Reservations
+
+SELECT o.OrderID, o.CustomerID, o.Quantity, o.TotalPrice, o.OrderDate, o.isCheckOut
+                     FROM Orders o
+                     JOIN OrderItems oi ON o.OrderID = oi.OrderID
+                     JOIN Reservations r ON r.OrderItemID = oi.OrderItemID
+                     JOIN Children c ON oi.ChildID = c.ChildID
+                     WHERE o.CustomerID = 4 AND isCheckOut = 1 AND r.isExam = 0 AND r.hasRecord = 0
 */
 
 select r.ReservationID, r.OrderItemID, r.StaffID, o.ServiceID, o.ChildID from Reservations r join OrderItems o on r.OrderItemID = o.OrderItemID
