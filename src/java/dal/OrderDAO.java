@@ -4,9 +4,9 @@
  */
 package dal;
 
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.sql.*;
 import model.Order;
 import model.OrderItem;
 
@@ -321,6 +321,19 @@ public class OrderDAO extends DBContext {
             e.printStackTrace();
         }
         return orderItem;
+    }
+
+    public boolean updateOrder(Order order) {
+        String sql = "UPDATE Orders SET isCheckOut = ? WHERE OrderID = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setBoolean(1, order.isIsCheckOut());
+            st.setInt(2, order.getOrderID());
+            return st.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.out.println("updateOrder error: " + e.getMessage());
+            return false;
+        }
     }
 
     public static void main(String[] args) {
