@@ -55,7 +55,7 @@
                             <p class="para-desc text-white-50 mb-0">Bác sĩ tận tâm sẽ hỗ trợ ngay lập tức cho con bạn, dù là trong trường hợp khẩn cấp hay chỉ là tư vấn đơn giản.</p>
 
                             <div class="mt-4 pt-2">
-                                <a href="booking-appointment.html" class="btn btn-primary">Đặt Lịch Hẹn</a>
+                                <a href="${pageContext.request.contextPath}/customer/listservices" class="btn btn-primary">Đặt Dịch Vụ</a>
                                 <p class="text-white-50 mb-0 mt-2">Điều khoản áp dụng. Vui lòng đọc Điều Khoản và Điều Kiện </p>
                             </div>
                         </div>
@@ -75,32 +75,20 @@
                             <div class="card border-0 bg-light p-4">
                                 <h5 class="mt-1">Trường Hợp Khẩn Cấp</h5>
                                 <p class="text-muted mt-2">Đây là trường hợp cần thiết khi, ví dụ, thông tin chưa có sẵn. Văn bản giả cũng được biết đến là 'văn bản điền'.</p>
-                                <a href="departments.html" class="text-primary">Đọc Thêm</a>
                             </div>
 
                             <div class="card border-0 p-4">
                                 <h5 class="mt-1">Lịch Trình Bác Sĩ</h5>
                                 <p class="text-muted mt-2">Đây là trường hợp cần thiết khi, ví dụ, thông tin chưa có sẵn. Văn bản giả cũng được biết đến là 'văn bản điền'.</p>
-                                <a href="departments.html" class="text-primary">Đọc Thêm</a>
                             </div>
 
                             <div class="card border-0 bg-light p-4">
                                 <h5 class="mt-1">Giờ Mở Cửa</h5>
                                 <ul class="list-unstyled mt-2">
                                     <li class="d-flex justify-content-between">
-                                        <p class="text-muted mb-0">Thứ Hai - Thứ Sáu</p>
-                                        <p class="text-primary mb-0">8.00 - 20.00</p>
-                                    </li>
-                                    <li class="d-flex justify-content-between">
-                                        <p class="text-muted mb-0">Thứ Bảy</p>
-                                        <p class="text-primary mb-0">8.00 - 18.00</p>
-                                    </li>
-                                    <li class="d-flex justify-content-between">
-                                        <p class="text-muted mb-0">Chủ Nhật</p>
-                                        <p class="text-primary mb-0">8.00 - 14.00</p>
-                                    </li>
+                                        <p class="text-muted mb-0">Thứ Hai - Chủ Nhật</p>
+                                        <p class="text-primary mb-0">8.00 - 17.00</p>
                                 </ul>
-                                <a href="departments.html" class="text-primary">Đọc Thêm</a>
                             </div>
                         </div>
                     </div><!--end col-->
@@ -368,7 +356,7 @@
 
                     <!-- View All Button -->
                     <div class="view-all-container">
-                        <a href="${pageContext.request.contextPath}/customer/listservice" class="btn-view-all">
+                        <a href="${pageContext.request.contextPath}/customer/listservices" class="btn-view-all">
                             <span>Xem tất cả dịch vụ</span>
                             <i class="bi bi-arrow-right"></i>
                         </a>
