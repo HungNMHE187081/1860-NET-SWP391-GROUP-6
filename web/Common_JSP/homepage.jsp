@@ -1,4 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -12,28 +14,28 @@
         <meta name="website" content="../../../homepage.jsp" />
         <meta name="Version" content="v1.2.0" />
         <!-- favicon -->
-        <link rel="shortcut icon" href="../images/favicon.ico.png">
+        <link rel="shortcut icon" href="${pageContext.request.contextPath}/images/favicon.ico.png">
         <!-- Bootstrap -->
-        <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <!-- Icons -->
-        <link href="css/materialdesignicons.min.css" rel="stylesheet" type="text/css"/>
-        <link href="css/remixicon.css" rel="stylesheet" type="text/css"/>
+        <link href="${pageContext.request.contextPath}/css/materialdesignicons.min.css" rel="stylesheet" type="text/css"/>
+        <link href="${pageContext.request.contextPath}/css/remixicon.css" rel="stylesheet" type="text/css"/>
         <link href="https://unicons.iconscout.com/release/v3.0.6/css/line.css"  rel="stylesheet">
         <!-- SLIDER -->
-        <link href="css/tiny-slider.css" rel="stylesheet" type="text/css"/>
+        <link href="${pageContext.request.contextPath}/css/tiny-slider.css" rel="stylesheet" type="text/css"/>
         <!-- Css -->
-        <link href="css/style.min.css" rel="stylesheet" type="text/css"/>
-        <link href="css/flatpickr.min.css" rel="stylesheet" type="text/css"/>
-        <link href="css/fullcalendar.min.css" rel="stylesheet" type="text/css"/>
-        <link href="css/jquery.timepicker.min.css" rel="stylesheet" type="text/css"/>
-        <link href="css/materialdesignicons.min.css" rel="stylesheet" type="text/css"/>
-        <link href="css/remixicon.css" rel="stylesheet" type="text/css"/>
-        <link href="css/select2.min.css" rel="stylesheet" type="text/css"/>
-        <link href="css/simplebar.css" rel="stylesheet" type="text/css"/>
-        <link href="css/slick-theme.css" rel="stylesheet" type="text/css"/>
-        <link href="css/slick.css" rel="stylesheet" type="text/css"/>
-        <link href="css/style.min.css" rel="stylesheet" type="text/css"/>
-        <link href="css/tiny-slider.css" rel="stylesheet" type="text/css"/>
+        <link href="${pageContext.request.contextPath}/css/style.min.css" rel="stylesheet" type="text/css"/>
+        <link href="${pageContext.request.contextPath}/css/flatpickr.min.css" rel="stylesheet" type="text/css"/>
+        <link href="${pageContext.request.contextPath}/css/fullcalendar.min.css" rel="stylesheet" type="text/css"/>
+        <link href="${pageContext.request.contextPath}/css/jquery.timepicker.min.css" rel="stylesheet" type="text/css"/>
+        <link href="${pageContext.request.contextPath}/css/materialdesignicons.min.css" rel="stylesheet" type="text/css"/>
+        <link href="${pageContext.request.contextPath}/css/remixicon.css" rel="stylesheet" type="text/css"/>
+        <link href="${pageContext.request.contextPath}/css/select2.min.css" rel="stylesheet" type="text/css"/>
+        <link href="${pageContext.request.contextPath}/css/simplebar.css" rel="stylesheet" type="text/css"/>
+        <link href="${pageContext.request.contextPath}/css/slick-theme.css" rel="stylesheet" type="text/css"/>
+        <link href="${pageContext.request.contextPath}/css/slick.css" rel="stylesheet" type="text/css"/>
+        <link href="${pageContext.request.contextPath}/css/style.min.css" rel="stylesheet" type="text/css"/>
+        <link href="${pageContext.request.contextPath}/css/tiny-slider.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=ecg_heart" />
     </head>
 
@@ -42,13 +44,13 @@
         <%@include file="dashboardtop.jsp" %>
         <!-- Navbar End -->
         <!-- Start Hero -->
-        <section class="bg-half-260 d-table w-100" style="background: url('images/bg/01.jpg') center;">
+        <section class="bg-half-260 d-table w-100" style="background: url('${pageContext.request.contextPath}/images/bg/01.jpg') center;">
             <div class="bg-overlay bg-overlay-dark"></div>
             <div class="container">
                 <div class="row mt-5 mt-lg-0">
                     <div class="col-12">
                         <div class="heading-title">
-                            <img src="../assets/images/logo-icon.png" height="50" alt="">
+                            <img src="${pageContext.request.contextPath}/assets/images/logo-icon.png" height="50" alt="">
                             <h4 class="display-4 fw-bold text-white title-dark mt-3 mb-4">Gặp Gỡ <br> Bác Sĩ Tốt Nhất</h4>
                             <p class="para-desc text-white-50 mb-0">Bác sĩ tận tâm sẽ hỗ trợ ngay lập tức cho con bạn, dù là trong trường hợp khẩn cấp hay chỉ là tư vấn đơn giản.</p>
 
@@ -109,7 +111,7 @@
                 <div class="container">
                     <!-- Title and description for the services section -->
                     <div class="section-title text-center mb-4 pb-2">
-                        <span class="badge badge-pill badge-soft-primary mb-3">Dịch Vụ</span>
+                        <span class="badge badge-pill badge-soft-primary mb-3"><i class="fas fa-child me-2"></i>Dịch Vụ</span>
                         <h4 class="title mb-4">Dịch Vụ Chăm Sóc Sức Khỏe</h4>
                         <p class="text-muted mx-auto para-desc mb-0">
                             Khám phá các dịch vụ chăm sóc sức khỏe chất lượng, được cung cấp bởi đội ngũ chuyên gia tận tâm và giàu kinh nghiệm. Chúng tôi cam kết mang đến sự chăm sóc tốt nhất cho bạn và gia đình.
@@ -322,11 +324,13 @@
                 <div class="content-container">
                     <div class="swiper">
                         <div class="swiper-wrapper">
+                            <c:if test="${empty services}">
+                                <p>No services available.</p>
+                            </c:if>
                             <c:forEach var="service" items="${services}" begin="0" end="8" varStatus="status">
                                 <div class="swiper-slide">
                                     <div class="custom-card">
-                                        <img src="${service.serviceImage}" class="service-image" alt="${service.serviceName}">
-                                        <div class="service-info">
+                                        <img src="${pageContext.request.contextPath}/${service.serviceImage}" class="service-image" alt="${service.serviceName}">                            <div class="service-info">
                                             <h5 class="service-title">${service.serviceName}</h5>
                                             <p class="service-description">${service.description}</p>
                                         </div>
@@ -430,7 +434,7 @@
                 <div class="container">
                     <div class="section-title text-center mb-4 pb-2">
                         <span class="badge badge-pill badge-soft-primary mb-3">
-                            <i class="mdi mdi-message-quote me-1"></i> Phản Hồi
+                            <i class="fas fa-comments me-1"></i> Phản Hồi
                         </span>
                         <h4 class="title mb-4">Phản Hồi Từ Khách Hàng</h4>
                         <p class="text-muted mx-auto para-desc mb-0">
@@ -580,140 +584,128 @@
                         </p>
                     </div>
 
-                    <!-- Staff Slider -->
-                    <div class="staff-slider position-relative mb-4">
-                        <button class="slider-btn prev" onclick="prevSlide()">
-                            <i class="fas fa-chevron-left"></i>
-                        </button>
-                        <div class="slider-container">
-                            <c:forEach var="staff" items="${staffs}" varStatus="status">
-                                <div class="slide">
-                                    <div class="staff-card shadow-sm rounded overflow-hidden">
-                                        <div class="position-relative">
-                                            <img src="${pageContext.request.contextPath}/${user.profileImage}" 
-                                                 alt="${staff.staffName}" 
-                                                 class="staff-image img-fluid">
-                                            <div class="overlay-hover"></div>
-                                        </div>
-                                        <div class="staff-info p-4 bg-white">
-                                            <h3 class="h5 mb-2">${staff.staffName}</h3>
-                                            <p class="staff-position mb-1 text-primary">
-                                                <i class="fas fa-graduation-cap me-2"></i>
-                                                <c:forEach var="degree" items="${degrees}">
-                                                    <c:if test="${degree.degreeID == staff.degreeID}">
-                                                        ${degree.degreeName}
-                                                    </c:if>
-                                                </c:forEach>
-                                            </p>
-                                            <p class="staff-department mb-0 text-muted">
-                                                <i class="fas fa-stethoscope me-2"></i>
-                                                <c:forEach var="specialization" items="${specializations}">
-                                                    <c:if test="${specialization.specializationID == staff.specializationID}">
-                                                        ${specialization.specializationName}
-                                                    </c:if>
-                                                </c:forEach>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </c:forEach>
+                    <!-- Staff Section -->
+<section class="section bg-light py-5">
+    <div class="container">
+        <div class="section-title text-center mb-4 pb-2">
+            <!-- ... existing title section ... -->
+        </div>
+
+        <!-- Staff Slider -->
+        <div class="swiper staff-slider">
+            <div class="swiper-wrapper">
+                <c:forEach var="staff" items="${staffs}" varStatus="status">
+                    <div class="swiper-slide">
+                        <div class="staff-card shadow-sm rounded overflow-hidden">
+                            <div class="position-relative">
+                                <img src="${pageContext.request.contextPath}/${user.profileImage}" 
+                                     alt="${staff.staffName}" 
+                                     class="staff-image">
+                                <div class="overlay-hover"></div>
+                            </div>
+                            <div class="staff-info p-4 bg-white">
+                                <h3 class="h5 mb-2">${staff.staffName}</h3>
+                                <p class="staff-position mb-1 text-primary">
+                                    <i class="fas fa-graduation-cap me-2"></i>
+                                    <c:forEach var="degree" items="${degrees}">
+                                        <c:if test="${degree.degreeID == staff.degreeID}">
+                                            ${degree.degreeName}
+                                        </c:if>
+                                    </c:forEach>
+                                </p>
+                                <p class="staff-department mb-0 text-muted">
+                                    <i class="fas fa-stethoscope me-2"></i>
+                                    <c:forEach var="specialization" items="${specializations}">
+                                        <c:if test="${specialization.specializationID == staff.specializationID}">
+                                            ${specialization.specializationName}
+                                        </c:if>
+                                    </c:forEach>
+                                </p>
+                            </div>
                         </div>
-                        <button class="slider-btn next" onclick="nextSlide()">
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
                     </div>
+                </c:forEach>
+            </div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </div>
 
-                    <!-- View All Staff Button -->
-                    <div class="text-center mt-4">
-                        <a href="${pageContext.request.contextPath}/customer/view-staffs" class="btn btn-primary">
-                            <i class="fas fa-users me-2"></i>Xem tất cả đội ngũ bác sĩ
-                        </a>
-                    </div>
+        <!-- View All Staff Button -->
+        <div class="text-center mt-4">
+            <a href="${pageContext.request.contextPath}/customer/view-staffs" class="btn btn-primary">
+                <i class="fas fa-users me-2"></i>Xem tất cả đội ngũ bác sĩ
+            </a>
+        </div>
+    </div>
 
+    <style>
+        .staff-slider {
+            padding: 20px 5px 60px;
+        }
+        
+        .staff-card {
+            transition: transform 0.3s ease;
+            height: 100%;
+        }
+        
+        .staff-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .staff-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+        
+        .overlay-hover {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.1);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .staff-card:hover .overlay-hover {
+            opacity: 1;
+        }
+    </style>
 
-                    <style>
-                        .staff-card {
-                            transition: transform 0.3s ease;
-                        }
-
-                        .staff-card:hover {
-                            transform: translateY(-5px);
-                        }
-
-                        .overlay-hover {
-                            position: absolute;
-                            top: 0;
-                            left: 0;
-                            right: 0;
-                            bottom: 0;
-                            background: rgba(0,0,0,0.1);
-                            opacity: 0;
-                            transition: opacity 0.3s ease;
-                        }
-
-                        .staff-card:hover .overlay-hover {
-                            opacity: 1;
-                        }
-
-                        .slider-btn {
-                            position: absolute;
-                            top: 50%;
-                            transform: translateY(-50%);
-                            background: white;
-                            border: none;
-                            width: 40px;
-                            height: 40px;
-                            border-radius: 50%;
-                            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-                            z-index: 10;
-                            cursor: pointer;
-                            transition: all 0.3s ease;
-                        }
-
-                        .slider-btn:hover {
-                            background: #007bff;
-                            color: white;
-                        }
-
-                        .slider-btn.prev {
-                            left: -20px;
-                        }
-
-                        .slider-btn.next {
-                            right: -20px;
-                        }
-
-                        .staff-image {
-                            width: 100%;
-                            height: 250px;
-                            object-fit: cover;
-                        }
-                    </style>
-                    <script>
-                        // Add this to your JavaScript file
-                        let currentSlide = 0;
-                        const slides = document.querySelectorAll('.slide');
-                        const slidesPerView = Math.floor(window.innerWidth / 300); // 300px is slide width
-
-                        function showSlide(index) {
-                            const container = document.querySelector('.slider-container');
-                            const slideWidth = document.querySelector('.slide').offsetWidth + 30; // 30 is margin
-                            container.scrollLeft = slideWidth * index;
-                        }
-
-                        function nextSlide() {
-                            currentSlide = (currentSlide + 1) % (slides.length - slidesPerView + 1);
-                            showSlide(currentSlide);
-                        }
-
-                        function prevSlide() {
-                            currentSlide = currentSlide === 0 ? slides.length - slidesPerView : currentSlide - 1;
-                            showSlide(currentSlide);
-                        }
-
-                        // Optional: Auto slide
-                        setInterval(nextSlide, 5000); // Change slide every 5 seconds
-                    </script>
+    <script>
+        new Swiper('.staff-slider', {
+            slidesPerView: 1,
+            spaceBetween: 20,
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev'
+            },
+            breakpoints: {
+                640: {
+                    slidesPerView: 1
+                },
+                768: {
+                    slidesPerView: 2
+                },
+                1024: {
+                    slidesPerView: 3
+                }
+            },
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true
+            }
+        });
+    </script>
+</section>
                     <section class="section bg-light py-5">
                         <div class="container">
                             <div class="section-title text-center mb-4 pb-2">
@@ -823,18 +815,6 @@
                             <!-- Back to top -->
                             <a href="#" onclick="topFunction()" id="back-to-top" class="btn btn-icon btn-pills btn-primary back-to-top"><i data-feather="arrow-up" class="icons"></i></a>
                             <!-- Back to top -->
-                            <!-- javascript -->
-                            <script src="js/bootstrap.bundle.min.js"></script>
-                            <!-- SLIDER -->
-                            <script src="js/tiny-slider.js"></script>
-                            <script src="js/tiny-slider-init.js"></script>
-                            <!-- Counter -->
-                            <script src="js/counter.init.js"></script>
-                            <!-- Icons -->
-                            <script src="js/feather.min.js"></script>
-                            <!-- Main Js -->
-                            <script src="js/app.js"></script>
-                            <script src="js/recent.js"></script>
                             <!-- Icons -->
                             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.9.55/css/materialdesignicons.min.css">
                             </body>

@@ -706,7 +706,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>HomepageFeedbackServlet</servlet-name>
-        <url-pattern>/homepage</url-pattern>
+        <url-pattern>/customer/homepage</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>EditMedicalRecord</servlet-name>
