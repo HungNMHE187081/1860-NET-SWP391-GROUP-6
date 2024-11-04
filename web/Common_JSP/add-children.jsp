@@ -218,26 +218,30 @@
                 <div class="col-md-12">
                     <div class="tile">
                         <h3 class="tile-title">Chỉnh sửa hồ sơ</h3>
+                        <c:if test="${not empty errorInfo}">
+                            <div class="alert alert-danger">${errorInfo}</div>
+                        </c:if>
+
                         <div class="tile-body">
                             <c:if test="${not empty error}">
                                 <div class="alert alert-danger">${error}</div>
                             </c:if>
 
+
                             <form action="${pageContext.request.contextPath}/customer/addchild" method="post" enctype="multipart/form-data">
                                 <div class="row">
-                                    <input type="hidden" name="customerID" value="${sessionScope.user.userID}"/>
+                                    <input type="hidden" name="customerID" value="${sessionScope.user.userID}" />
 
                                     <!-- Phần Ảnh Đại Diện -->
                                     <div class="col-md-3">
                                         <label for="childImage">Tải ảnh trẻ:</label>
-                                        <input type="file" name="childImage" id="childImage" accept="image/*" required style="display: none;" required/>
+                                    <input type="file" name="childImage" id="childImage" accept="image/*" style="display: none;" onchange="previewImage();" />
+
                                         <button type="button" class="upload-button" onclick="document.getElementById('childImage').click();">
                                             Chọn ảnh
-                                        </button><br/><br/>
-                                        <img id="imagePreview" src="#" alt="Image Preview" style="display: none; margin-top: 10px; max-width: 100%; height: auto;" />
+                                        </button><br /><br />
+                                        <img id="imagePreview" src="images/default-avatar.jpg" alt="Image Preview" style="margin-top: 10px; max-width: 100%; height: auto;" />
                                     </div>
-
-
 
                                     <!-- Phần Thông Tin Cá Nhân -->
                                     <div class="col-md-9">
@@ -284,6 +288,24 @@
                                     </div>
                                 </div>
                             </form>
+
+                            <script>
+                                function previewImage() {
+                                    const fileInput = document.getElementById("childImage");
+                                    const preview = document.getElementById("imagePreview");
+
+                                    if (fileInput.files && fileInput.files[0]) {
+                                        const reader = new FileReader();
+                                        reader.onload = function (e) {
+                                            preview.src = e.target.result;
+                                        };
+                                        reader.readAsDataURL(fileInput.files[0]);
+                                    } else {
+                                        preview.src = "images/default-avatar.jpg"; // Đặt ảnh mặc định nếu không có ảnh
+                                    }
+                                }
+                            </script>
+
 
 
 
@@ -356,7 +378,14 @@
                 };
                 xhr.send();
             }
-
+            document.querySelector('form').addEventListener('submit', function (e) {
+                var fileInput = document.getElementById('childImage');
+                if (!fileInput.files || fileInput.files.length === 0) {
+                    e.preventDefault();
+                    alert('Vui lòng chọn ảnh trước khi thêm');
+                    return false;
+                }
+            });
             function previewImage(event) {
                 const image = document.getElementById('imagePreview');
                 const file = event.target.files[0];

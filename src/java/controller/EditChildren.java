@@ -80,7 +80,7 @@ public class EditChildren extends HttpServlet {
 
             // Update child in database
             boolean isUpdated = childrenDAO.updateChild(child);
-
+          
             if (isUpdated) {
                 response.sendRedirect("listchildren?success=true");
             } else {
