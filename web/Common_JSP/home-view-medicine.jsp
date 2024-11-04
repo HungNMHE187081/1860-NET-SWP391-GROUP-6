@@ -60,7 +60,7 @@
                         <p class="para-desc text-white-50 mb-0">Bác sĩ tận tâm sẽ hỗ trợ ngay lập tức cho con bạn, dù là trong trường hợp khẩn cấp hay chỉ là tư vấn đơn giản.</p>
 
                         <div class="mt-4 pt-2">
-                            <a href="booking-appointment.html" class="btn btn-primary">Đặt Lịch Hẹn</a>
+                               <a href="${pageContext.request.contextPath}/customer/listservices" class="btn btn-primary">Đặt Dịch Vụ</a>
                             <p class="text-white-50 mb-0 mt-2">Điều khoản áp dụng. Vui lòng đọc Điều Khoản và Điều Kiện </p>
                         </div>
                     </div>

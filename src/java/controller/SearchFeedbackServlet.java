@@ -47,7 +47,7 @@ public class SearchFeedbackServlet extends HttpServlet {
         List<Service> serviceList = servicedao.getAllServices();
         request.setAttribute("service", serviceList);
         request.setAttribute("feedback", feedbackList);
-        request.getRequestDispatcher("manager-feedback-list.jsp").forward(request, response);
+        request.getRequestDispatcher("/Manager_JSP/manager-feedback-list.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
