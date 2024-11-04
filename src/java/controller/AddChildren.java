@@ -33,7 +33,7 @@ public class AddChildren extends HttpServlet {
         try {
             // Kiểm tra file ảnh tải lên
             Part filePart = request.getPart("childImage");
-            String childImage = DEFAULT_IMAGE; // Khởi tạo với ảnh mặc định
+            String childImage = ""; // Khởi tạo với ảnh mặc định
 
             if (filePart != null && filePart.getSize() > 0) {
                 // Xử lý upload file nếu người dùng chọn ảnh
@@ -52,6 +52,7 @@ public class AddChildren extends HttpServlet {
                 } else {
                     // Nếu tên file không hợp lệ, vẫn dùng ảnh mặc định
                     request.setAttribute("error", "Tên file không hợp lệ. Đã sử dụng ảnh mặc định.");
+                    childImage = DEFAULT_IMAGE;
                 }
             }
 

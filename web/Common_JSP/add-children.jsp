@@ -338,54 +338,16 @@
                 }
             });
 
-            function loadDistricts() {
-                var provinceID = document.getElementById('provinceID').value;
-                var xhr = new XMLHttpRequest();
-                xhr.open('GET', contextPath + '/loadDistricts?provinceID=' + provinceID, true);
-                xhr.onload = function () {
-                    if (xhr.status === 200) {
-                        var districts = JSON.parse(xhr.responseText);
-                        var districtSelect = document.getElementById('districtSelect');
-                        districtSelect.innerHTML = '<option value="">-- Chọn Huyện --</option>'; // Reset district dropdown
-                        districts.forEach(function (district) {
-                            var option = document.createElement('option');
-                            option.value = district.id;
-                            option.textContent = district.districtName;
-                            districtSelect.appendChild(option);
-                        });
-                        loadWards(); // Load wards for the first district if any
-                    }
-                };
-                xhr.send();
-            }
-
-            function loadWards() {
-                var districtID = document.getElementById('districtSelect').value;
-                var xhr = new XMLHttpRequest();
-                xhr.open('GET', contextPath + '/loadWards?districtID=' + districtID, true);
-                xhr.onload = function () {
-                    if (xhr.status === 200) {
-                        var wards = JSON.parse(xhr.responseText);
-                        var wardSelect = document.getElementById('wardSelect');
-                        wardSelect.innerHTML = '<option value="">-- Chọn xã --</option>'; // Reset ward dropdown
-                        wards.forEach(function (ward) {
-                            var option = document.createElement('option');
-                            option.value = ward.id;
-                            option.textContent = ward.wardName;
-                            wardSelect.appendChild(option);
-                        });
-                    }
-                };
-                xhr.send();
-            }
-            document.querySelector('form').addEventListener('submit', function (e) {
-                var fileInput = document.getElementById('childImage');
-                if (!fileInput.files || fileInput.files.length === 0) {
-                    e.preventDefault();
-                    alert('Vui lòng chọn ảnh trước khi thêm');
-                    return false;
-                }
-            });
+           
+         
+//            document.querySelector('form').addEventListener('submit', function (e) {
+//                var fileInput = document.getElementById('childImage');
+//                if (!fileInput.files || fileInput.files.length === 0) {
+//                    e.preventDefault();
+//                    alert('Vui lòng chọn ảnh trước khi thêm');
+//                    return false;
+//                }
+//            });
             function previewImage(event) {
                 const image = document.getElementById('imagePreview');
                 const file = event.target.files[0];
