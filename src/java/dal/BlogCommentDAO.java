@@ -168,5 +168,15 @@ public class BlogCommentDAO extends DBContext {
             e.printStackTrace();
         }
     }
+    public void deleteComment(int commentID) {
+    String sql = "DELETE FROM BlogComments WHERE CommentID = ?";
+    try {
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ps.setInt(1, commentID);
+        ps.executeUpdate();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
     
 }

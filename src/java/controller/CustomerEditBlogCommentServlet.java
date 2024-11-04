@@ -56,7 +56,10 @@ public class CustomerEditBlogCommentServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+         BlogCommentDAO dao = new BlogCommentDAO();
+        int commentID = Integer.parseInt(request.getParameter("commentID"));
+        dao.deleteComment(commentID);
+        response.sendRedirect(request.getContextPath() + "/customer/detailcustomerblog?blogID=" + request.getParameter("blogID"));
     } 
 
     /** 

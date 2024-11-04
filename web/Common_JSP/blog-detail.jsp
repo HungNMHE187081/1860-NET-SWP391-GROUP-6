@@ -91,118 +91,130 @@
                         </form>
                         <h5 class="card-title mt-4 mb-0">Comments :</h5>
 
-                        <ul class="media-list list-unstyled mb-0">
-                            <c:if test="${empty comments}">
-                                <p>No comments available.</p>
-                            </c:if>
-                            <p>Blog ID: <c:out value="${blogId}"/></p>
-                            <c:forEach var="comment" items="${comments}">
-                                <li class="mt-4">
-                                    <div class="d-flex justify-content-between">
-                                        <div class="d-flex align-items-center">
-                                            <a class="pe-3" href="#">
-                                                <img src="${pageContext.request.contextPath}/${comment.user.profileImage}" class="img-fluid avatar avatar-md-sm rounded-circle shadow" alt="img">
-                                            </a>
-                                            <div class="commentor-detail">
-                                                <h6 class="mb-0">
-                                                    <a href="javascript:void(0)" class="media-heading text-dark">
-                                                        ${comment.user.firstName} ${comment.user.lastName}
-                                                    </a>
-                                                </h6>
-                                                <small class="text-muted">
-                                                    <fmt:formatDate value="${comment.createdDate}" pattern="dd MMMM, yyyy 'at' hh:mm a" />
-                                                </small>
-                                            </div>
-                                        </div>
-                                        <a href="javascript:void(0)" class="text-muted" onclick="toggleReplyForm(${comment.commentID})"><i class="mdi mdi-reply"></i>Reply</a>
-                                    </div>
-                                    <div class="mt-3">
-                                        <p class="text-muted font-italic p-3 bg-light rounded">${comment.content}</p>
-                                    </div>
+                      <ul class="media-list list-unstyled mb-0">
+    <c:if test="${empty comments}">
+        <p>No comments available.</p>
+    </c:if>
+    <p>Blog ID: <c:out value="${blogId}"/></p>
+    <c:forEach var="comment" items="${comments}">
+        <li class="mt-4">
+            <!-- Comment Header -->
+            <div class="d-flex justify-content-between">
+                <div class="d-flex align-items-center">
+                    <a class="pe-3" href="#">
+                        <img src="${pageContext.request.contextPath}/${comment.user.profileImage}" class="img-fluid avatar avatar-md-sm rounded-circle shadow" alt="img">
+                    </a>
+                    <div class="commentor-detail">
+                        <h6 class="mb-0">
+                            <a href="javascript:void(0)" class="media-heading text-dark">
+                                ${comment.user.firstName} ${comment.user.lastName}
+                            </a>
+                        </h6>
+                        <small class="text-muted">
+                            <fmt:formatDate value="${comment.createdDate}" pattern="dd MMMM, yyyy 'at' hh:mm a" />
+                        </small>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center">
+                    <!-- Edit/Delete buttons moved here for main comment -->
+                    <c:if test="${comment.user.userID == user.userID}">
+                        <a href="javascript:void(0)" class="text-muted me-2" onclick="editComment(${comment.commentID})">Edit</a>
+                        <a href="javascript:void(0)" class="text-muted me-2" onclick="if (confirm('Are you sure you want to delete this comment?')) { deleteComment(${comment.commentID}, ${blog.blogID}); }">Delete</a>
+                    </c:if>
+                    <a href="javascript:void(0)" class="text-muted" onclick="toggleReplyForm(${comment.commentID})">
+                        <i class="mdi mdi-reply"></i> Reply
+                    </a>
+                </div>
+            </div>
 
-                                    <!-- Display Replies -->
-                                    <ul class="list-unstyled ps-4 ps-md-5 sub-comment">
-                                        <c:forEach var="reply" items="${comment.replies}">
+            <!-- Comment Content -->
+            <div class="mt-3">
+                <p class="text-muted font-italic p-3 bg-light rounded">${comment.content}</p>
+            </div>
 
-                                            <li class="mt-4">
-                                                <div class="d-flex justify-content-between">
-                                                    <div class="d-flex align-items-center">
-                                                        <a class="pe-3" href="#">
-                                                            <img src="${pageContext.request.contextPath}/${reply.user.profileImage}" class="img-fluid avatar avatar-md-sm rounded-circle shadow" alt="img">
-                                                        </a>
-                                                        <div class="commentor-detail">
-                                                            <h6 class="mb-0">
-                                                                <a href="javascript:void(0)" class="media-heading text-dark">
-                                                                    ${reply.user.firstName} ${reply.user.lastName}
-                                                                </a>
-                                                            </h6>
-                                                            <small class="text-muted">
-                                                                <fmt:formatDate value="${reply.createdDate}" pattern="dd MMMM, yyyy 'at' hh:mm a" />
-                                                            </small>
-                                                        </div>
-                                                    </div>
-                                                    <a href="javascript:void(0)" class="text-muted" onclick="toggleReplyForm(${reply.commentID})"><i class="mdi mdi-reply"></i> Reply</a>
+            <!-- Edit Form for Main Comment -->
+            <form action="${pageContext.request.contextPath}/customer/editblogcomment" method="post" class="mt-3 reply-form" id="editForm-${comment.commentID}" style="display: none;">
+                <input type="hidden" name="blogID" value="${blog.blogID}" />
+                <input type="hidden" name="commentID" value="${comment.commentID}" />
+                <div class="mb-3">
+                    <textarea id="replyMessage-${comment.commentID}" placeholder="Your Reply" rows="3" name="editcontent" class="form-control" required="">${comment.content}</textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </form>
 
-                                                </div>
-                                                <div class="mt-3">
-                                                    <p class="text-muted font-italic p-3 bg-light rounded">${reply.content}</p>
-                                                </div>
+            <!-- Reply Form for Main Comment -->
+            <form action="${pageContext.request.contextPath}/customer/detailcustomerblog" method="post" class="mt-3 reply-form" id="replyForm-${comment.commentID}" style="display: none;">
+                <input type="hidden" name="blogID" value="${blog.blogID}" />
+                <input type="hidden" name="parentID" value="${comment.commentID}" />
+                <div class="mb-3">
+                    <textarea id="replyMessage-${comment.commentID}" placeholder="Your Reply" rows="3" name="message" class="form-control" required=""></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Reply</button>
+            </form>
 
-                                                <form action="${pageContext.request.contextPath}/customer/detailcustomerblog" method="post" class="mt-3 reply-form" id="replyForm-${reply.commentID}" style="display: none;">
-                                                    <input type="hidden" name="blogID" value="${blog.blogID}" />
-                                                    <input type="hidden" name="parentID" value="${comment.commentID}" />
-                                                    <div class="mb-3">
-                                                        <textarea id="replyMessage-${comment.commentID}" placeholder="Your Reply" rows="3" name="message" class="form-control" required=""></textarea>
-                                                    </div>
-                                                    <button type="submit" class="btn btn-primary">Reply</button>
-                                                </form>
-                                                                                                   
-                                                    
-                                                <form action="${pageContext.request.contextPath}/customer/editblogcomment" method="post" class="mt-3 reply-form" id="editForm-${reply.commentID}" style="display: none;">
-                                                    <input type="hidden" name="blogID" value="${blog.blogID}" />
-                                                    <input type="hidden" name="commentID" value="${reply.commentID}" />
-                                                    <div class="mb-3">
-                                                        <textarea id="replyMessage-${reply.commentID}" placeholder="Your Reply" rows="3" name="editcontent" class="form-control" required="">${reply.content}</textarea>
-                                                    </div>
-                                                    <button type="submit" class="btn btn-primary">Save</button>
-                                                </form>
- 
-                                            </li>
-                                            <c:if test="${reply.user.userID == user.userID}">
-                                                <div>
-                                                    <a href="javascript:void(0)" class="text-muted" onclick="editComment(${reply.commentID})">Edit</a>
-                                                    <a href="javascript:void(0)" class="text-muted" onclick="deleteComment(${comment.commentID})">Delete</a>
-                                                </div>
-                                            </c:if>
-                                        </c:forEach>
-                                    </ul>
-                                    <form action="${pageContext.request.contextPath}/customer/detailcustomerblog" method="post" class="mt-3 reply-form" id="replyForm-${comment.commentID}" style="display: none;">
-                                        <input type="hidden" name="blogID" value="${blog.blogID}" />
-                                        <input type="hidden" name="parentID" value="${comment.commentID}" />
-                                        <div class="mb-3">
-                                            <textarea id="replyMessage-${comment.commentID}" placeholder="Your Reply" rows="3" name="message" class="form-control" required=""></textarea>
-                                        </div>
-                                        <button type="submit" class="btn btn-primary">Reply</button>
-                                    </form>
-                                        
-                                    <form action="${pageContext.request.contextPath}/customer/editblogcomment" method="post" class="mt-3 reply-form" id="editForm-${comment.commentID}" style="display: none;">
-                                        <input type="hidden" name="blogID" value="${blog.blogID}" />
-                                        <input type="hidden" name="commentID" value="${comment.commentID}" />
-                                        <div class="mb-3">
-                                            <textarea id="replyMessage-${comment.commentID}" placeholder="Your Reply" rows="3" name="editcontent" class="form-control" required="">${comment.content}</textarea>
-                                        </div>
-                                        <button type="submit" class="btn btn-primary">Save</button>
-                                    </form>
-                                </li>
-                                <c:if test="${comment.user.userID == user.userID}">
-                                    <div>
-                                        <a href="javascript:void(0)" class="text-muted" onclick="editComment(${comment.commentID})">Edit</a>
-                                        <a href="javascript:void(0)" class="text-muted" onclick="deleteComment(${comment.commentID})">Delete</a>
-                                    </div>
+            <!-- Replies Section -->
+            <ul class="list-unstyled ps-4 ps-md-5 sub-comment">
+                <c:forEach var="reply" items="${comment.replies}">
+                    <li class="mt-4">
+                        <!-- Reply Header -->
+                        <div class="d-flex justify-content-between">
+                            <div class="d-flex align-items-center">
+                                <a class="pe-3" href="#">
+                                    <img src="${pageContext.request.contextPath}/${reply.user.profileImage}" class="img-fluid avatar avatar-md-sm rounded-circle shadow" alt="img">
+                                </a>
+                                <div class="commentor-detail">
+                                    <h6 class="mb-0">
+                                        <a href="javascript:void(0)" class="media-heading text-dark">
+                                            ${reply.user.firstName} ${reply.user.lastName}
+                                        </a>
+                                    </h6>
+                                    <small class="text-muted">
+                                        <fmt:formatDate value="${reply.createdDate}" pattern="dd MMMM, yyyy 'at' hh:mm a" />
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <!-- Edit/Delete buttons moved here for replies -->
+                                <c:if test="${reply.user.userID == user.userID}">
+                                    <a href="javascript:void(0)" class="text-muted me-2" onclick="editComment(${reply.commentID})">Edit</a>
+                                    <a href="javascript:void(0)" class="text-muted me-2" onclick="if (confirm('Are you sure you want to delete this comment?')) { deleteComment(${reply.commentID}, ${blog.blogID}); }">Delete</a>
                                 </c:if>
+                                <a href="javascript:void(0)" class="text-muted" onclick="toggleReplyForm(${reply.commentID})">
+                                    <i class="mdi mdi-reply"></i> Reply
+                                </a>
+                            </div>
+                        </div>
 
-                            </c:forEach>
-                        </ul>
+                        <!-- Reply Content -->
+                        <div class="mt-3">
+                            <p class="text-muted font-italic p-3 bg-light rounded">${reply.content}</p>
+                        </div>
+
+                        <!-- Edit Form for Reply -->
+                        <form action="${pageContext.request.contextPath}/customer/editblogcomment" method="post" class="mt-3 reply-form" id="editForm-${reply.commentID}" style="display: none;">
+                            <input type="hidden" name="blogID" value="${blog.blogID}" />
+                            <input type="hidden" name="commentID" value="${reply.commentID}" />
+                            <div class="mb-3">
+                                <textarea id="replyMessage-${reply.commentID}" placeholder="Your Reply" rows="3" name="editcontent" class="form-control" required="">${reply.content}</textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </form>
+
+                        <!-- Reply Form for Reply -->
+                        <form action="${pageContext.request.contextPath}/customer/detailcustomerblog" method="post" class="mt-3 reply-form" id="replyForm-${reply.commentID}" style="display: none;">
+                            <input type="hidden" name="blogID" value="${blog.blogID}" />
+                            <input type="hidden" name="parentID" value="${comment.commentID}" />
+                            <div class="mb-3">
+                                <textarea id="replyMessage-${reply.commentID}" placeholder="Your Reply" rows="3" name="message" class="form-control" required=""></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Reply</button>
+                        </form>
+                    </li>
+                </c:forEach>
+            </ul>
+        </li>
+    </c:forEach>
+</ul>
 
                         <h5 class="card-title mt-4 mb-0">Leave A Comment :</h5>
 
@@ -239,6 +251,26 @@
                             } else {
                                 editForm.style.display = "none";
                             }
+                        }
+                        function deleteComment(commentID, blogID) {
+                            const form = document.createElement('form');
+                            form.method = 'get';
+                            form.action = '${pageContext.request.contextPath}/customer/editblogcomment';
+
+                            const commentIdInput = document.createElement('input');
+                            commentIdInput.type = 'hidden';
+                            commentIdInput.name = 'commentID';
+                            commentIdInput.value = commentID;
+
+                            const blogIdInput = document.createElement('input');
+                            blogIdInput.type = 'hidden';
+                            blogIdInput.name = 'blogID';
+                            blogIdInput.value = blogID;
+
+                            form.appendChild(commentIdInput);
+                            form.appendChild(blogIdInput);
+                            document.body.appendChild(form);
+                            form.submit();
                         }
                     </script>
                     <div class="col-lg-4 col-md-5 mt-4 mt-sm-0 pt-2 pt-sm-0">
