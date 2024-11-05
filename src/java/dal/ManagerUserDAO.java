@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import model.District;
 import model.Provinces;
@@ -486,6 +487,8 @@ public class ManagerUserDAO extends DBContext {
             e.printStackTrace();
         }
     }
-
+    public static void main(String[] args) {
+ 
+}
     
 }

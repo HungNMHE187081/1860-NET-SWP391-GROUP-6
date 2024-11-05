@@ -166,6 +166,7 @@
                                 <div class="alert alert-danger">${error}</div>
                             </c:if>
                             <form action="adduser" method="post" enctype="multipart/form-data">
+                                <input type="hidden" name="userID" value="${userDetails.userID}">
                                 <div class="row">
                                     <!-- Avatar Section -->
                                     <div class="col-md-3 text-center">
@@ -275,14 +276,6 @@
 
         </main>
 
-
-        <!--
-        MODAL
-        -->
-
-        <!--
-        MODAL
-        -->
         <script>
             function loadDistricts() {
                 var provinceID = document.getElementById('provinceID').value;
@@ -299,12 +292,11 @@
                             option.textContent = district.districtName;
                             districtSelect.appendChild(option);
                         });
-                        loadWards(); // Load wards for the first district if any
+                        loadWards(); // Load wards for the first district
                     }
                 };
                 xhr.send();
             }
-
             function loadWards() {
                 var districtID = document.getElementById('districtSelect').value;
                 var xhr = new XMLHttpRequest();
