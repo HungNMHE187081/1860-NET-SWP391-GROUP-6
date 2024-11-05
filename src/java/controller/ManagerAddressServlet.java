@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.List;
 import model.Provinces;
 
@@ -74,7 +75,31 @@ public class ManagerAddressServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        request.setCharacterEncoding("UTF-8");
+
+
+    String provinceName = request.getParameter("name").trim();
+    System.out.println("Tên tỉnh thành nhập vào: " + provinceName);
+    ManagerDAO dao = new ManagerDAO();
+    Provinces province = new Provinces();
+    
+    try {
+        // Kiểm tra xem tên tỉnh thành có tồn tại không
+        if (dao.isProvinceNameExist(provinceName)) {
+            // Truyền thông báo lỗi về trang addProvince.jsp
+            request.setAttribute("errorMessage", "Tên tỉnh thành đã tồn tại. Vui lòng chọn tên khác.");
+            request.getRequestDispatcher("Manager_JSP/Address/manager-address.jsp").forward(request, response);
+        } else {
+            // Thêm tỉnh thành mới
+            province.setProvinceName(provinceName);
+            dao.addProvinces(province);
+            response.sendRedirect(request.getContextPath()+"/manageraddress");
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+        request.setAttribute("errorMessage", "Có lỗi xảy ra, vui lòng thử lại sau.");
+        request.getRequestDispatcher("/manageraddress").forward(request, response);
+    }
     }
 
     /** 

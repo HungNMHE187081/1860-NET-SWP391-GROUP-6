@@ -37,10 +37,6 @@
         <servlet-class>controller.ManagerAddServiceServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AddProvincesServlet</servlet-name>
-        <servlet-class>controller.AddProvincesServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>DeleteProvincesServlet</servlet-name>
         <servlet-class>controller.DeleteProvincesServlet</servlet-class>
     </servlet>
@@ -495,10 +491,6 @@
     <servlet-mapping>
         <servlet-name>ManagerAddServiceServlet</servlet-name>
         <url-pattern>/manager/addservice</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>AddProvincesServlet</servlet-name>
-        <url-pattern>/addprovinces</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>DeleteProvincesServlet</servlet-name>
