@@ -188,7 +188,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form id="addEmployeeForm" action="addprovinces" method="post">
+                        <form  action="addprovinces" method="post">
                             <input type="hidden" id="provinceID" name="id">
                             <div class="form-group">
                                 <label for="newEmployeeName">Tên tỉnh thành</label>

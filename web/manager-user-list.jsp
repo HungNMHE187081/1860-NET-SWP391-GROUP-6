@@ -134,9 +134,9 @@
                                                         <i class="fas fa-trash-alt"></i>
                                                     </button>
                                                 </form>
-                                                <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp" data-toggle="modal" data-target="#ModalUP">
+                                                    <a href="manageredituser?userID=${user.userID}" class="btn btn-primary btn-sm edit" type="button" title="Sửa" >
                                                     <i class="fas fa-edit"></i>
-                                                </button>
+                                                </a>
                                                 <a href="viewdetailsuser?userID=${user.userID}" class="btn btn-primary btn-sm" title="Xem chi tiết" style="background-color: green; color: white;">
                                                     <i class="fas fa-eye"></i>
                                                 </a>

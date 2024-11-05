@@ -464,6 +464,10 @@
         <servlet-name>CustomerEditBlogCommentServlet</servlet-name>
         <servlet-class>controller.CustomerEditBlogCommentServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ManagerEditUserServlet</servlet-name>
+        <servlet-class>controller.ManagerEditUserServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -919,5 +923,9 @@
     <servlet-mapping>
         <servlet-name>CustomerEditBlogCommentServlet</servlet-name>
         <url-pattern>/customer/editblogcomment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManagerEditUserServlet</servlet-name>
+        <url-pattern>/manageredituser</url-pattern>
     </servlet-mapping>
 </web-app>

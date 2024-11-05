@@ -69,7 +69,7 @@ public class AddProvincesServlet extends HttpServlet {
 protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
     request.setCharacterEncoding("UTF-8");
-    response.setCharacterEncoding("UTF-8");
+
 
     String provinceName = request.getParameter("name").trim();
     System.out.println("Tên tỉnh thành nhập vào: " + provinceName);
@@ -81,12 +81,12 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
         if (dao.isProvinceNameExist(provinceName)) {
             // Truyền thông báo lỗi về trang addProvince.jsp
             request.setAttribute("errorMessage", "Tên tỉnh thành đã tồn tại. Vui lòng chọn tên khác.");
-            request.getRequestDispatcher("manager-address.jsp").forward(request, response);
+            request.getRequestDispatcher("Manager_JSP/Address/manager-address.jsp").forward(request, response);
         } else {
             // Thêm tỉnh thành mới
             province.setProvinceName(provinceName);
             dao.addProvinces(province);
-            response.sendRedirect("manageraddress");
+            response.sendRedirect(request.getContextPath()+"manageraddress");
         }
     } catch (SQLException e) {
         e.printStackTrace();

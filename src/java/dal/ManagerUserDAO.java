@@ -421,11 +421,61 @@ public class ManagerUserDAO extends DBContext {
         return null;
     }
 
-    public void UpdateUsers(Users user) {
-        String sqlUsers = "UPDATE Users SET FirstName = ?, MiddleName = ?, LastName = ?, PhoneNumber = ?, DateOfBirth = ?, Gender = ?, CitizenIdentification = ?, ProfileImage = ? WHERE UserID = ?";
-        String sqlUserAddress = "UPDATE UserAddresses SET WardID = ?, StreetAddress WHERE UserID = ?";
+   public void updateUser(Users user) {
+    String sqlUser = "UPDATE Users SET FirstName = ?, MiddleName = ?, LastName = ?, Email = ?, PhoneNumber = ?, DateOfBirth = ?, Gender = ?, CitizenIdentification = ?, ProfileImage = ? WHERE UserID = ?";
+    String sqlAddress = "UPDATE UserAddresses SET StreetAddress = ?, WardID = ? WHERE UserID = ?";
 
+    try {
+        // Bắt đầu transaction
+        connection.setAutoCommit(false);
+
+        // Cập nhật thông tin người dùng trong bảng Users
+        try (PreparedStatement psUser = connection.prepareStatement(sqlUser)) {
+            psUser.setString(1, user.getFirstName());
+            psUser.setString(2, user.getMiddleName());
+            psUser.setString(3, user.getLastName());
+            psUser.setString(4, user.getEmail());
+            psUser.setString(5, user.getPhoneNumber());
+            psUser.setDate(6, new java.sql.Date(user.getDateOfBirth().getTime()));
+            psUser.setString(7, user.getGender());
+            psUser.setString(8, user.getCitizenIdentification());
+            psUser.setString(9, user.getProfileImage());
+            psUser.setInt(10, user.getUserID()); // Sử dụng UserID để xác định người dùng cần cập nhật
+
+            int affectedRows = psUser.executeUpdate();
+            if (affectedRows == 0) {
+                throw new SQLException("Updating user failed, no rows affected.");
+            }
+        }
+
+        // Cập nhật địa chỉ trong bảng UserAddresses
+        try (PreparedStatement psAddress = connection.prepareStatement(sqlAddress)) {
+            psAddress.setString(1, user.getAddress().getStreetAddress());
+            psAddress.setInt(2, user.getAddress().getWardID());
+            psAddress.setInt(3, user.getUserID()); // Sử dụng UserID để xác định địa chỉ cần cập nhật
+
+            psAddress.executeUpdate();
+        }
+
+        // Commit transaction
+        connection.commit();
+    } catch (SQLException e) {
+        // Rollback transaction nếu có lỗi xảy ra
+        try {
+            connection.rollback();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        e.printStackTrace();
+    } finally {
+        try {
+            connection.setAutoCommit(true); // Trở về chế độ tự động commit
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
+}
+
 
     public void addUserAddress(UserAddresses address) {
         String sql = "INSERT INTO UserAddresses (UserID) VALUES (?)";
