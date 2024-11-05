@@ -74,7 +74,7 @@ public class EditBlogServlet extends HttpServlet {
         List<BlogCategory> cate = dao.getAllBlogCategory();
         request.setAttribute("cate", cate);
         request.setAttribute("blogDetails", blogDetails);
-        request.getRequestDispatcher("Manager_JSP/manager-edit-blog.jsp").forward(request, response);
+        request.getRequestDispatcher("/Manager_JSP/manager-edit-blog.jsp").forward(request, response);
     }
 
     /**

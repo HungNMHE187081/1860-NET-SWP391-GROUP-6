@@ -936,8 +936,5 @@
         <servlet-name>CustomerEditBlogCommentServlet</servlet-name>
         <url-pattern>/customer/editblogcomment</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ManagerEditUserServlet</servlet-name>
-        <url-pattern>/manageredituser</url-pattern>
-    </servlet-mapping>
+    
 </web-app>
