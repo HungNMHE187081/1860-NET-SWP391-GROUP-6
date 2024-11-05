@@ -1,4 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.util.Map"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
@@ -87,128 +88,45 @@
 
                 <div class="row">
                     <div class="col-12 mt-4 pt-2">
-                        <div class="table-responsive shadow rounded">
-                            <table class="table table-center table-bordered bg-white mb-0">
+                        <div class="table-responsive">
+                            <table class="table table-center bg-white mb-0">
                                 <thead>
                                     <tr>
-                                        <th class="text-center py-4" style="min-width: 100px;">Số thứ tự</th>
-                                        <th class="text-center py-4" style="min-width: 200px;">Tên con của bạn</th>
-                                        <th class="text-center py-4" style="min-width: 200px;">Ngày khám</th>
-                                        <th class="text-center py-4" style="min-width: 200px;">Giờ Khám</th>
-                                        <th class="text-center py-4" style="min-width: 200px;">Giá</th>
-                                        <th class="text-center py-4" style="min-width: 150px;">Xem chi tiết</th>
+                                        <th class="border-bottom p-3">ID</th>
+                                        <th class="border-bottom p-3">Tên trẻ</th>
+                                        <th class="border-bottom p-3">Ngày khám</th>
+                                        <th class="border-bottom p-3">Giờ khám</th>
+                                        <th class="border-bottom p-3">Giá</th>
+                                        <th class="border-bottom p-3">Thao tác</th>
+                                        <th class="border-bottom p-3">Trạng thái</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <c:if test="${not empty orders}">
-                                        <c:forEach var="order" items="${orders}" varStatus="status">
-                                            <c:forEach var="item" items="${orderItems}">
-                                                <c:if test="${order.orderID == item.orderID}">
-                                                    <tr>
-                                                        <td class="text-center">${status.index + 1}</td>
-                                                        <td class="text-center">
-                                                            <c:forEach var="item" items="${orderItems}">
-                                                                <c:if test="${item.orderID == order.orderID}">
-                                                                    <c:forEach var="child" items="${children}">
-                                                                        <c:if test="${child.childID == item.childID}">
-                                                                            ${child.firstName} ${child.middleName} ${child.lastName}
-                                                                        </c:if>
-                                                                    </c:forEach>
-                                                                </c:if>
-                                                            </c:forEach>
-                                                        </td>
-                                                        <td class="text-center">
-                                                            <c:forEach var="item" items="${orderItems}">
-                                                                <c:if test="${order.orderID == item.orderID}">
-                                                                    <c:forEach var="reservation" items="${reservations}">
-                                                                        <c:if test="${item.orderItemID == reservation.orderItemID}">
-                                                                            <fmt:parseDate value="${reservation.reservationDate}" pattern="yyyy-MM-dd" var="parsedReservationDate" />
-                                                                            <fmt:formatDate value="${parsedReservationDate}" pattern="dd-MM-yyyy" />
-                                                                        </c:if>
-                                                                    </c:forEach>
-                                                                </c:if>
-                                                            </c:forEach>
-                                                        </td>
-                                                        <td class="text-center">
-                                                            <c:forEach var="item" items="${orderItems}">
-                                                                <c:if test="${item.orderID == order.orderID}">
-                                                                    <c:forEach var="reservation" items="${reservations}">
-                                                                        <c:if test="${item.orderItemID == reservation.orderItemID}">
-                                                                            <fmt:parseDate value="${reservation.startTime}" pattern="HH:mm:ss" var="parsedStartTime" />
-                                                                            <fmt:formatDate value="${parsedStartTime}" pattern="hh:mm a" />
-                                                                        </c:if>
-                                                                    </c:forEach>
-                                                                </c:if>
-                                                            </c:forEach>
-                                                        </td>
-                                                        <td class="text-center">
-                                                            <span><fmt:formatNumber value="${order.totalPrice}" type="number" groupingUsed="true" /></span>
-                                                        </td>
-                                                        <td class="text-center">
-                                                            <button class="btn btn-primary btn-sm" title="detail" data-toggle="collapse" data-target="#orderItems-${order.orderID}">
-                                                                <i class="fas fa-th-list"></i>
-                                                            </button>
-                                                        </td>
-                                                    </tr>
-                                                    <tr id="orderItems-${order.orderID}" class="collapse">
-                                                        <td colspan="6">
-                                                            <table class="table table-bordered">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th class="text-center">Tên dịch vụ</th>
-                                                                        <th class="text-center">Tên trẻ</th>
-                                                                        <th class="text-center">Ngày đặt lịch khám</th>
-                                                                        <th class="text-center">Nhân viên</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    <c:forEach var="item" items="${orderItems}">
-                                                                        <c:if test="${order.orderID == item.orderID}">
-                                                                            <tr>
-                                                                                <td class="text-center">
-                                                                                    <c:forEach var="service" items="${services}">
-                                                                                        <c:if test="${service.serviceID == item.serviceID}">
-                                                                                            ${service.serviceName}
-                                                                                        </c:if>
-                                                                                    </c:forEach>
-                                                                                </td>
-                                                                                <td class="text-center">
-                                                                                    <c:forEach var="child" items="${children}">
-                                                                                        <c:if test="${child.childID == item.childID}">
-                                                                                            ${child.firstName} ${child.middleName} ${child.lastName}
-                                                                                        </c:if>
-                                                                                    </c:forEach>
-                                                                                </td>
-                                                                                <td class="text-center" data-date="${order.orderDate}">${order.orderDate}</td>
-                                                                                <td class="text-center">
-                                                                                    <c:forEach var="reservation" items="${reservations}">
-                                                                                        <c:if test="${item.orderItemID == reservation.orderItemID}">
-                                                                                    <c:forEach var="staff" items="${staffs}">
-                                                                                        <c:if test="${staff.staffID == reservation.staffID}">
-                                                                                            ${staff.staffName}
-                                                                                            </c:if>
-                                                                                    </c:forEach>
-                                                                                        </c:if>
-                                                                                    </c:forEach>
-                                                                                </td>
-                                                                            </tr>
-                                                                        </c:if>
-                                                                    </c:forEach>
-                                                                </tbody>
-                                                            </table>
-                                                        </td>
-                                                    </tr>
-                                                </c:if>
-                                            </c:forEach>
-                                        </c:forEach>
-                                    </c:if>
-
-
-                                    <c:if test="${empty orders}">
+                                    <c:forEach var="reservation" items="${reservations}">
                                         <tr>
-                                            <td colspan="6" style="text-align: center;">Không có lịch khám</td>
+                                            <td class="p-3">${reservation.reservationID}</td>
+                                            <td class="p-3">${reservation.childName}</td>
+                                            <td class="p-3">${reservation.reservationDate}</td>
+                                            <td class="p-3">${reservation.startTime}</td>
+                                            <td class="p-3">
+                                                <fmt:formatNumber value="${reservation.totalPrice}" pattern="#,###"/>
+                                            </td>
+                                            <td class="p-3">
+                                                <a href="${pageContext.request.contextPath}/customer/viewreservations?id=${reservation.reservationID}" 
+                                                   class="btn btn-primary btn-sm">Chi tiết</a>
+                                            </td>
+                                            <td class="p-3">
+                                                <c:choose>
+                                                    <c:when test="${reservation.isCheckOut}">
+                                                        <span class="badge bg-success">Đã thanh toán</span>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <span class="badge bg-warning">Chưa thanh toán</span>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </td>
                                         </tr>
-                                    </c:if>
+                                    </c:forEach>
                                 </tbody>
                             </table>
                         </div>

@@ -1,5 +1,4 @@
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -22,10 +21,9 @@
                             <p>Vui lòng thử lại sau.</p>
                         </div>
                     <% } %>
-                    <a href="${pageContext.request.contextPath}/customer/homepage" class="btn btn-primary">Về trang chủ</a>
-                    
-                    
-                    
+                    <a href="${pageContext.request.contextPath}/customer/listreservations" class="btn btn-primary">
+                        Xem danh sách đặt lịch
+                    </a>
                 </div>
             </div>
         </div>

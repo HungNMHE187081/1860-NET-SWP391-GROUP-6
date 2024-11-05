@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import model.AgeLimits;
 import model.Children;
@@ -23,6 +24,8 @@ import model.Reservation;
 import model.Service;
 import model.Staff;
 import model.Users;
+import model.Payment;
+import dal.PaymentDAO;
 
 public class CustomerAddReservationServlet extends HttpServlet {
 
@@ -106,6 +109,7 @@ public class CustomerAddReservationServlet extends HttpServlet {
                 String startTime = request.getParameter("startTime") + ":00";
                 String reservationDate = request.getParameter("reservationDate");
                 String staffIDStr = request.getParameter("staffID");
+                String paymentMethod = request.getParameter("isCheckOut");
 
                 // Check parameters
                 if (serviceID == null || childIDStr == null || startTime == null || 
@@ -162,40 +166,54 @@ public class CustomerAddReservationServlet extends HttpServlet {
                     return;
                 }
 
-                // Continue with existing order creation logic
-                OrderDAO orderDAO = new OrderDAO();
-                Order order = new Order(0, user.getUserID(), 1, service.getPrice(), "", true);
-                order = orderDAO.addOrder(order);
-                
-                if (order.getOrderID() <= 0) {
-                    throw new ServletException("Failed to create order - invalid ID generated: " + order.getOrderID());
+                // Lưu thông tin vào session để dùng cho thanh toán
+                session.setAttribute("reservationInfo", new HashMap<String, Object>() {{
+                    put("serviceID", serviceID);
+                    put("service", service);
+                    put("childID", childID);
+                    put("startTime", startTime);
+                    put("reservationDate", reservationDate);
+                    put("staffID", staffID);
+                }});
+
+                if ("CheckOut".equals(paymentMethod)) {
+                    // Thanh toán offline - tạo reservation ngay
+                    OrderDAO orderDAO = new OrderDAO();
+                    Order order = new Order(0, user.getUserID(), 1, service.getPrice(), "", false);
+                    order = orderDAO.addOrder(order);
+
+                    OrderItem orderItem = new OrderItem(0, order.getOrderID(), serviceID, childID);
+                    orderItem = orderDAO.addOrderItem(orderItem);
+
+                    Reservation reservation = new Reservation(
+                        0, 
+                        orderItem.getOrderItemID(),
+                        reservationDate,
+                        startTime,
+                        staffID,
+                        false,
+                        false
+                    );
+                    
+                    if (reservationDAO.addReservation(reservation)) {
+                        // Tạo payment record với status PENDING
+                        Payment payment = new Payment();
+                        payment.setReservationId(reservation.getReservationID());
+                        payment.setOrderId(order.getOrderID());
+                        payment.setAmount(service.getPrice());
+                        payment.setPaymentStatus("PENDING");
+                        payment.setPaymentMethod("OFFLINE");
+                        
+                        PaymentDAO paymentDAO = new PaymentDAO();
+                        paymentDAO.createPayment(payment);
+                        
+                        response.sendRedirect(request.getContextPath() + "/customer/listreservations");
+                    }
+                } else {
+                    // Thanh toán online - chuyển đến trang thanh toán
+                    response.sendRedirect(request.getContextPath() + "/payment");
                 }
-                
-                OrderItem orderItem = new OrderItem(0, order.getOrderID(), serviceID, childID);
-                orderItem = orderDAO.addOrderItem(orderItem);
-                
-                if (orderItem.getOrderItemID() <= 0) {
-                    throw new ServletException("Failed to create order item - invalid ID generated: " + orderItem.getOrderItemID());
-                }
-                
-                Reservation reservation = new Reservation(
-                    0, 
-                    orderItem.getOrderItemID(),
-                    reservationDate,
-                    startTime,
-                    staffID,
-                    false,
-                    false
-                );
-                
-                boolean success = reservationDAO.addReservation(reservation);
-                if (!success) {
-                    throw new ServletException("Failed to add reservation - database error");
-                }
-                
-                request.setAttribute("successMessage", "Đặt lịch thành công!");
-                response.sendRedirect(request.getContextPath() + "/Common_JSP/reservationConfirmation.jsp");
-                
+
             } catch (Exception e) {
                 request.setAttribute("errorMessage", "Có lỗi xảy ra: " + e.getMessage());
                 request.getRequestDispatcher("/Common_JSP/home-add-reservation.jsp").forward(request, response);

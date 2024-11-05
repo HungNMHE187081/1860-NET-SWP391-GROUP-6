@@ -5,6 +5,8 @@
 package dal;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import model.Payment;
 
 /**
@@ -70,5 +72,53 @@ public class PaymentDAO extends DBContext {
             System.out.println("updatePaymentStatus error: " + e.getMessage());
             return false;
         }
+    }
+    
+    public boolean updatePayment(Payment payment) {
+        try {
+            String sql = "UPDATE Payments SET "
+                      + "ReservationID = ?, "
+                      + "PaymentStatus = ? "
+                      + "WHERE PaymentID = ?";
+                      
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, payment.getReservationId());
+            st.setString(2, payment.getPaymentStatus());
+            st.setInt(3, payment.getPaymentId());
+            
+            return st.executeUpdate() > 0;
+            
+        } catch (SQLException e) {
+            System.out.println("updatePayment error: " + e.getMessage());
+            return false;
+        }
+    }
+    
+    public List<Payment> getPaymentsByCustomerId(int customerId) {
+        List<Payment> payments = new ArrayList<>();
+        String sql = "SELECT p.* FROM Payments p " +
+                     "JOIN Orders o ON p.OrderID = o.OrderID " +
+                     "WHERE o.CustomerID = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, customerId);
+            ResultSet rs = st.executeQuery();
+            
+            while (rs.next()) {
+                Payment payment = new Payment();
+                payment.setPaymentId(rs.getInt("PaymentID"));
+                payment.setReservationId(rs.getInt("ReservationID"));
+                payment.setOrderId(rs.getInt("OrderID"));
+                payment.setAmount(rs.getDouble("Amount"));
+                payment.setPaymentDate(rs.getTimestamp("PaymentDate"));
+                payment.setPaymentStatus(rs.getString("PaymentStatus"));
+                payment.setTransactionNo(rs.getString("TransactionNo"));
+                payment.setPaymentMethod(rs.getString("PaymentMethod"));
+                payments.add(payment);
+            }
+        } catch (SQLException e) {
+            System.out.println("getPaymentsByCustomerId error: " + e.getMessage());
+        }
+        return payments;
     }
 }

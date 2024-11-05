@@ -460,6 +460,14 @@
         <servlet-name>VNPayReturnServlet</servlet-name>
         <servlet-class>controller.VNPayReturnServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CustomerViewReservation</servlet-name>
+        <servlet-class>controller.CustomerViewReservationServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>VNPayReturn2Servlet</servlet-name>
+        <servlet-class>controller.VNPayReturn2Servlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -911,5 +919,13 @@
     <servlet-mapping>
         <servlet-name>VNPayReturnServlet</servlet-name>
         <url-pattern>/vnpayreturn</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CustomerViewReservation</servlet-name>
+        <url-pattern>/customer/viewreservations</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VNPayReturn2Servlet</servlet-name>
+        <url-pattern>/vnpayreturn2</url-pattern>
     </servlet-mapping>
 </web-app>

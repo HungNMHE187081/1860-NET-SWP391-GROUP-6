@@ -238,28 +238,41 @@ public class OrderDAO extends DBContext {
     
     public List<Order> getCheckOutOrdersByCustomerID(int CustomerID) {
         List<Order> list = new ArrayList<>();
-        String sql = "SELECT o.OrderID, o.CustomerID, o.Quantity, o.TotalPrice, o.OrderDate, o.isCheckOut, \n" +
-"                     oi.OrderItemID, oi.ServiceID, oi.ChildID,\n" +
-"                     c.FirstName, c.MiddleName, c.LastName, c.DateOfBirth, c.Gender, c.ChildImage,\n" +
-"                     r.isExam, r.hasRecord\n" +
-"                     FROM Orders o\n" +
-"                     JOIN OrderItems oi ON o.OrderID = oi.OrderID\n" +
-"                     JOIN Reservations r ON r.OrderItemID = oi.OrderItemID\n" +
-"                     JOIN Children c ON oi.ChildID = c.ChildID\n" +
-"                     WHERE o.CustomerID = ? AND isCheckOut = 1 AND r.isExam = 0 AND r.hasRecord = 0";
+        String sql = """
+            SELECT DISTINCT o.OrderID, o.CustomerID, o.Quantity, o.TotalPrice, o.OrderDate, o.isCheckOut
+            FROM Orders o
+            JOIN OrderItems oi ON o.OrderID = oi.OrderID
+            JOIN Reservations r ON r.OrderItemID = oi.OrderItemID
+            LEFT JOIN Payments p ON r.ReservationID = p.ReservationID
+            WHERE o.CustomerID = ? 
+            AND (o.isCheckOut = 1 OR p.PaymentMethod = 'OFFLINE')
+            AND r.isExam = 0 
+            AND r.hasRecord = 0
+            ORDER BY o.OrderDate DESC
+        """;
+        
         try {
             PreparedStatement pre = connection.prepareStatement(sql);
             pre.setInt(1, CustomerID);
             ResultSet rs = pre.executeQuery();
+            
             while (rs.next()) {
                 int OrderID = rs.getInt("OrderID");
                 int Quantity = rs.getInt("Quantity");
                 double TotalPrice = rs.getDouble("TotalPrice");
                 String OrderDate = rs.getString("OrderDate");
                 boolean isCheckOut = rs.getBoolean("isCheckOut");
-                list.add(new Order(OrderID, CustomerID, Quantity, TotalPrice, OrderDate, isCheckOut));
+                
+                Order order = new Order(OrderID, CustomerID, Quantity, TotalPrice, OrderDate, isCheckOut);
+                list.add(order);
+                
+                // Debug log
+                System.out.println("Found order: ID=" + OrderID + ", CustomerID=" + CustomerID + 
+                                 ", isCheckOut=" + isCheckOut + ", Date=" + OrderDate);
             }
         } catch (SQLException e) {
+            System.out.println("getCheckOutOrdersByCustomerID error: " + e.getMessage());
+            e.printStackTrace();
         }
         return list;
     }

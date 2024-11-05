@@ -728,3 +728,21 @@ VALUES (1, 2, N'Nội dung bình luận đầu tiên', NULL);
 -- Chèn bình luận trả lời (có cha là CommentID của bình luận chính)
 INSERT INTO BlogComments (BlogID, UserID, Content, parentID)
 VALUES (1, 2, N'Nội dung bình luận trả lời', 3);
+
+
+INSERT INTO Payments (ReservationID, OrderID, Amount, PaymentStatus, PaymentMethod, TransactionNo)
+SELECT 
+    r.ReservationID,
+    o.OrderID,
+    o.TotalPrice,
+    'PENDING',
+    'OFFLINE',
+    'OFF_' + CAST(r.ReservationID AS NVARCHAR(20)) + '_' + FORMAT(GETDATE(), 'yyyyMMddHHmmss')
+FROM Reservations r
+JOIN OrderItems oi ON r.OrderItemID = oi.OrderItemID
+JOIN Orders o ON oi.OrderID = o.OrderID
+WHERE NOT EXISTS (
+    SELECT 1 FROM Payments p 
+    WHERE p.ReservationID = r.ReservationID
+)
+AND r.ReservationID IS NOT NULL;

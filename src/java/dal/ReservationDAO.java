@@ -5,8 +5,11 @@
 package dal;
 
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import model.Reservation;
 
 /**
@@ -438,5 +441,190 @@ public class ReservationDAO extends DBContext {
     public static void main(String[] args) {
         ReservationDAO dao = new ReservationDAO();
         System.out.println(dao.getReservationByCustomerID(4).size());
+    }
+
+    public List<Map<String, Object>> getReservationsByCustomerID(int customerID) {
+        List<Map<String, Object>> list = new ArrayList<>();
+        String sql = """
+            SELECT r.*, o.OrderID, o.CustomerID, o.TotalPrice, o.OrderDate, o.isCheckOut,
+                   oi.ServiceID, oi.ChildID, c.FirstName, c.MiddleName, c.LastName
+            FROM Reservations r
+            JOIN OrderItems oi ON r.OrderItemID = oi.OrderItemID
+            JOIN Orders o ON oi.OrderID = o.OrderID
+            JOIN Children c ON oi.ChildID = c.ChildID
+            WHERE o.CustomerID = ?
+            ORDER BY r.ReservationDate ASC, r.StartTime ASC
+        """;
+        
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, customerID);
+            ResultSet rs = st.executeQuery();
+            
+            while (rs.next()) {
+                Map<String, Object> reservation = new HashMap<>();
+                
+                reservation.put("reservationID", rs.getInt("ReservationID"));
+                
+                // Format date and time
+                java.sql.Date reservationDate = rs.getDate("ReservationDate");
+                java.sql.Time startTime = rs.getTime("StartTime");
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+                SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a");
+                
+                reservation.put("reservationDate", dateFormat.format(reservationDate));
+                reservation.put("startTime", timeFormat.format(startTime));
+                
+                // Child name
+                String childName = rs.getString("FirstName");
+                if (rs.getString("MiddleName") != null) {
+                    childName += " " + rs.getString("MiddleName");
+                }
+                childName += " " + rs.getString("LastName");
+                reservation.put("childName", childName);
+                
+                reservation.put("totalPrice", rs.getDouble("TotalPrice"));
+                reservation.put("isCheckOut", rs.getBoolean("isCheckOut"));
+                
+                list.add(reservation);
+            }
+        } catch (SQLException e) {
+            System.out.println("getReservationsByCustomerID error: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public List<Reservation> getAllReservationsByCustomerID(int customerID) {
+        List<Reservation> list = new ArrayList<>();
+        String sql = """
+            SELECT r.*, o.OrderID, o.CustomerID, o.TotalPrice, o.OrderDate, o.isCheckOut,
+                   oi.ServiceID, oi.ChildID
+            FROM Reservations r
+            JOIN OrderItems oi ON r.OrderItemID = oi.OrderItemID
+            JOIN Orders o ON oi.OrderID = o.OrderID
+            WHERE o.CustomerID = ?
+            AND (o.isCheckOut = 0 OR o.isCheckOut = 1)
+            AND r.isExam = 0
+            AND r.hasRecord = 0
+            ORDER BY r.ReservationDate ASC, r.StartTime ASC
+        """;
+        
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, customerID);
+            ResultSet rs = st.executeQuery();
+            
+            while (rs.next()) {
+                Reservation r = new Reservation();
+                r.setReservationID(rs.getInt("ReservationID"));
+                r.setOrderItemID(rs.getInt("OrderItemID"));
+                
+                // Chuyển đổi Date sang String
+                Date reservationDate = rs.getDate("ReservationDate");
+                Time startTime = rs.getTime("StartTime");
+                
+                // Format date và time thành String
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+                
+                r.setReservationDate(dateFormat.format(reservationDate));
+                r.setStartTime(timeFormat.format(startTime));
+                
+                r.setStaffID(rs.getInt("StaffID"));
+                r.setIsExam(rs.getBoolean("isExam"));
+                r.setHasRecord(rs.getBoolean("hasRecord"));
+                list.add(r);
+                
+                // Debug log
+                System.out.println("Found reservation: ID=" + r.getReservationID() + 
+                                 ", Date=" + r.getReservationDate() + 
+                                 ", Time=" + r.getStartTime());
+            }
+        } catch (SQLException e) {
+            System.out.println("getAllReservationsByCustomerID error: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public Map<String, Object> getReservationDetailsByID(int reservationID) {
+        System.out.println("=== getReservationDetailsByID START ===");
+        Map<String, Object> details = new HashMap<>();
+        
+        String sql = """
+            SELECT r.ReservationID, r.ReservationDate, r.StartTime, r.isExam,
+                   o.OrderID, o.TotalPrice, o.isCheckOut,
+                   c.FirstName as ChildFirstName, c.MiddleName as ChildMiddleName, c.LastName as ChildLastName,
+                   s.ServiceName, s.Description, s.Price,
+                   u.FirstName as StaffFirstName, u.LastName as StaffLastName,
+                   u.Email as StaffEmail, u.PhoneNumber as StaffPhone
+            FROM Reservations r
+            JOIN OrderItems oi ON r.OrderItemID = oi.OrderItemID
+            JOIN Orders o ON oi.OrderID = o.OrderID
+            JOIN Children c ON oi.ChildID = c.ChildID
+            JOIN Services s ON oi.ServiceID = s.ServiceID
+            LEFT JOIN Staff st ON r.StaffID = st.StaffID
+            LEFT JOIN Users u ON st.StaffID = u.UserID
+            WHERE r.ReservationID = ?
+        """;
+        
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, reservationID);
+            System.out.println("Executing query for ID: " + reservationID);
+            
+            ResultSet rs = st.executeQuery();
+            
+            if (rs.next()) {
+                // Thông tin cơ bản
+                details.put("reservationID", rs.getInt("ReservationID"));
+                
+                // Format date and time
+                java.sql.Date reservationDate = rs.getDate("ReservationDate");
+                java.sql.Time startTime = rs.getTime("StartTime");
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+                SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+                
+                details.put("reservationDate", dateFormat.format(reservationDate));
+                details.put("startTime", timeFormat.format(startTime));
+                
+                // Child info
+                String childName = rs.getString("ChildFirstName");
+                if (rs.getString("ChildMiddleName") != null) {
+                    childName += " " + rs.getString("ChildMiddleName");
+                }
+                childName += " " + rs.getString("ChildLastName");
+                details.put("childName", childName);
+                
+                // Service info
+                details.put("serviceName", rs.getString("ServiceName"));
+                details.put("serviceDescription", rs.getString("Description"));
+                details.put("totalPrice", rs.getDouble("TotalPrice"));
+                
+                // Staff info
+                String staffName = "";
+                if (rs.getString("StaffFirstName") != null) {
+                    staffName = rs.getString("StaffFirstName") + " " + rs.getString("StaffLastName");
+                }
+                details.put("staffName", staffName);
+                details.put("staffEmail", rs.getString("StaffEmail"));
+                details.put("staffPhone", rs.getString("StaffPhone"));
+                
+                details.put("isCheckOut", rs.getBoolean("isCheckOut"));
+                details.put("isExam", rs.getBoolean("isExam"));
+                
+                System.out.println("Found details: " + details);
+            } else {
+                System.out.println("No reservation found with ID: " + reservationID);
+            }
+            
+        } catch (SQLException e) {
+            System.out.println("ERROR in getReservationDetailsByID: " + e.getMessage());
+            e.printStackTrace();
+        }
+        
+        System.out.println("=== getReservationDetailsByID END ===");
+        return details;
     }
 }

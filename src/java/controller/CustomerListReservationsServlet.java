@@ -8,6 +8,7 @@ import dal.AgeLimitDAO;
 import dal.ChildrenDAO;
 import dal.ManagerUserDAO;
 import dal.OrderDAO;
+import dal.PaymentDAO;
 import dal.ReservationDAO;
 import dal.ServiceDAO;
 import dal.StaffDAO;
@@ -22,10 +23,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import model.AgeLimits;
 import model.Children;
 import model.Order;
 import model.OrderItem;
+import model.Payment;
 import model.Reservation;
 import model.Service;
 import model.Staff;
@@ -40,32 +43,30 @@ public class CustomerListReservationsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        Users user = (Users) session.getAttribute("user");
-        if (user != null) {
-        OrderDAO orderDAO = new OrderDAO();
-        List<Order> orders = orderDAO.getCheckOutOrdersByCustomerID(user.getUserID());
-        List<OrderItem> orderItems = orderDAO.getCheckOutOrderItemsByCustomerID(user.getUserID()); 
-
-        ServiceDAO serviceDAO = new ServiceDAO();
-        List<Service> services = serviceDAO.getAllServices();
-        ChildrenDAO childrenDAO = new ChildrenDAO();
-        List<Children> children = childrenDAO.getChildrenByCustomerID(user.getUserID());
-        ReservationDAO reservationDAO = new ReservationDAO();
-        List<Reservation> reservations = reservationDAO.getReservationByCustomerID(user.getUserID());
-        StaffDAO staffDAO = new StaffDAO();
-        List<Staff> staffs = staffDAO.getAllStaffs();
-
-        request.setAttribute("orders", orders);
-        request.setAttribute("orderItems", orderItems);
-        request.setAttribute("services", services);
-        request.setAttribute("children", children);
-        request.setAttribute("reservations", reservations);
-        request.setAttribute("staffs", staffs);
-        request.getRequestDispatcher("/Common_JSP/home-reservations-list.jsp").forward(request, response);
-        }
-        else {
-            response.sendRedirect(request.getContextPath() + "/login");
+        try {
+            HttpSession session = request.getSession();
+            Users user = (Users) session.getAttribute("user");
+            
+            if (user != null) {
+                ReservationDAO reservationDAO = new ReservationDAO();
+                List<Map<String, Object>> reservations = 
+                    reservationDAO.getReservationsByCustomerID(user.getUserID());
+                
+                System.out.println("Found " + reservations.size() + " reservations");
+                for (Map<String, Object> res : reservations) {
+                    System.out.println("Reservation: " + res);
+                }
+                
+                request.setAttribute("reservations", reservations);
+                request.getRequestDispatcher("/Common_JSP/home-reservations-list.jsp")
+                       .forward(request, response);
+            } else {
+                response.sendRedirect(request.getContextPath() + "/login");
+            }
+        } catch (Exception e) {
+            System.out.println("Error in CustomerListReservationsServlet: " + e.getMessage());
+            e.printStackTrace();
+            response.sendRedirect(request.getContextPath() + "/error.jsp");
         }
     }
 
