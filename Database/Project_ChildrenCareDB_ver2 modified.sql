@@ -728,6 +728,8 @@ VALUES (1, 2, N'Nội dung bình luận đầu tiên', NULL);
 -- Chèn bình luận trả lời (có cha là CommentID của bình luận chính)
 INSERT INTO BlogComments (BlogID, UserID, Content, parentID)
 VALUES (1, 2, N'Nội dung bình luận trả lời', 3);
+VALUES (1, 2, N'Nội dung bình luận trả lời', 3);
+
 
 
 INSERT INTO Payments (ReservationID, OrderID, Amount, PaymentStatus, PaymentMethod, TransactionNo)

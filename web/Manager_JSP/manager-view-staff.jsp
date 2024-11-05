@@ -168,7 +168,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="container">
-                        <h2>Chi tiết dịch vụ</h2>
+                        <h2>Chi tiết nhân viên</h2>
                         <input type="hidden" name="staffID" value="${staff.staffID}">
                         <div class="row">
                             <div class="col-md-3 text-center">

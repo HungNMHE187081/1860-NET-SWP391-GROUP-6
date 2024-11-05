@@ -97,6 +97,12 @@ public class DetailCustomerBlogServlet extends HttpServlet {
         String content = request.getParameter("message");
         HttpSession session = request.getSession();
         Users user = (Users) session.getAttribute("user");
+        if (user == null) {
+        // Chuyển hướng đến trang đăng nhập nếu người dùng chưa đăng nhập
+        response.sendRedirect(request.getContextPath() + "/login");
+        return; // Đảm bảo dừng thực thi sau khi chuyển hướng
+    }
+        
         if (user != null && content != null && !content.trim().isEmpty()) {
         BlogCommentDAO commentDAO = new BlogCommentDAO();
         BlogComment comment = new BlogComment();
@@ -113,7 +119,7 @@ public class DetailCustomerBlogServlet extends HttpServlet {
         }
         commentDAO.addComment(comment);
     }
-
+   session.setAttribute("user", user);
     response.sendRedirect(request.getContextPath() +"/customer/detailcustomerblog?blogID=" + blogId);
     }
 

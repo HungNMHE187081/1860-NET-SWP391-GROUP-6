@@ -312,7 +312,7 @@
                             <p class="para-desc text-white-50 mb-0">Bác sĩ tận tâm sẽ hỗ trợ ngay lập tức cho con bạn, dù là trong trường hợp khẩn cấp hay chỉ là tư vấn đơn giản.</p>
 
                             <div class="mt-4 pt-2">
-                                <a href="booking-appointment.html" class="btn btn-primary">Đặt Lịch Hẹn</a>
+                                <a href="${pageContext.request.contextPath}/customer/listservices" class="btn btn-primary">Đặt Dịch Vụ</a>
                                 <p class="text-white-50 mb-0 mt-2">Điều khoản áp dụng. Vui lòng đọc Điều Khoản và Điều Kiện </p>
                             </div>
                         </div>
@@ -330,35 +330,7 @@
                         <h2 class="section-title">Phản hồi từ khách hàng</h2>
                     </div>
                 </div>
-                <!-- Add before the feedback cards section -->
-                <div class="row mb-4">
-                    <!-- Statistics Summary -->
-                    <div class="col-md-3">
-                        <div class="stats-card text-center">
-                            <h3 class="mb-0" id="totalFeedback">0</h3>
-                            <p class="text-muted mb-0">Tổng phản hồi</p>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="stats-card text-center">
-                            <h3 class="mb-0" id="avgRating">0.0</h3>
-                            <p class="text-muted mb-0">Đánh giá trung bình</p>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="stats-card text-center">
-                            <h3 class="mb-0" id="pendingFeedback">0</h3>
-                            <p class="text-muted mb-0">Chưa phản hồi</p>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="stats-card text-center">
-                            <h3 class="mb-0" id="responseRate">0%</h3>
-                            <p class="text-muted mb-0">Tỷ lệ phản hồi</p>
-                        </div>
-                    </div>
-                </div>
-
+            
                 <section>
                     <!-- Filters -->
                     <!-- Replace the existing filters section with this form -->
@@ -673,17 +645,5 @@
     <!-- Back to top -->
     <a href="#" onclick="topFunction()" id="back-to-top" class="btn btn-icon btn-pills btn-primary back-to-top"><i data-feather="arrow-up" class="icons"></i></a>
     <!-- Back to top -->
-    <!-- javascript -->
-    <script src="${pageContext.request.contextPath}/js/bootstrap.bundle.min.js"></script>
-
-    <!-- SLIDER -->
-    <script src="${pageContext.request.contextPath}/js/tiny-slider.js"></script>
-    <script src="${pageContext.request.contextPath}/js/tiny-slider-init.js"></script>
-    <!-- Counter -->
-    <script src="${pageContext.request.contextPath}/js/counter.init.js"></script>
-    <!-- Icons -->
-    <script src="${pageContext.request.contextPath}/js/feather.min.js"></script>
-    <!-- Main Js -->
-    <script src="${pageContext.request.contextPath}/js/app.js"></script>
 </body>
 </html>

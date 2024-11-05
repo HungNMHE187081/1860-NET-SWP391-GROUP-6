@@ -5,20 +5,21 @@
 
 package controller;
 
-import dal.ManagerDAO;
+import dal.BlogCommentDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.Provinces;
-import java.sql.SQLException;
+import model.BlogComment;
+import model.Users;
+
 /**
  *
  * @author LENOVO
  */
-public class AddProvincesServlet extends HttpServlet {
+public class CustomerEditBlogCommentServlet extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -35,10 +36,10 @@ public class AddProvincesServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AddProvinces</title>");  
+            out.println("<title>Servlet CustomerEditBlogCommentServlet</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AddProvinces at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet CustomerEditBlogCommentServlet at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -55,7 +56,10 @@ public class AddProvincesServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+         BlogCommentDAO dao = new BlogCommentDAO();
+        int commentID = Integer.parseInt(request.getParameter("commentID"));
+        dao.deleteComment(commentID);
+        response.sendRedirect(request.getContextPath() + "/customer/detailcustomerblog?blogID=" + request.getParameter("blogID"));
     } 
 
     /** 
@@ -65,38 +69,20 @@ public class AddProvincesServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-  @Override
-protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-    request.setCharacterEncoding("UTF-8");
-    response.setCharacterEncoding("UTF-8");
-
-    String provinceName = request.getParameter("name").trim();
-    System.out.println("Tên tỉnh thành nhập vào: " + provinceName);
-    ManagerDAO dao = new ManagerDAO();
-    Provinces province = new Provinces();
-    
-    try {
-        // Kiểm tra xem tên tỉnh thành có tồn tại không
-        if (dao.isProvinceNameExist(provinceName)) {
-            // Truyền thông báo lỗi về trang addProvince.jsp
-            request.setAttribute("errorMessage", "Tên tỉnh thành đã tồn tại. Vui lòng chọn tên khác.");
-            request.getRequestDispatcher("manager-address.jsp").forward(request, response);
-        } else {
-            // Thêm tỉnh thành mới
-            province.setProvinceName(provinceName);
-            dao.addProvinces(province);
-            response.sendRedirect("manageraddress");
-        }
-    } catch (SQLException e) {
-        e.printStackTrace();
-        request.setAttribute("errorMessage", "Có lỗi xảy ra, vui lòng thử lại sau.");
-        request.getRequestDispatcher("/manageraddress").forward(request, response);
+         BlogCommentDAO dao = new BlogCommentDAO();
+         BlogComment blogcom = new BlogComment();
+         int commentID = Integer.parseInt(request.getParameter("commentID"));
+         int blogID = Integer.parseInt(request.getParameter("blogID"));
+         Users user = (Users) request.getSession().getAttribute("user");
+         String content = request.getParameter("editcontent");
+         blogcom.setCommentID(commentID);
+         blogcom.setContent(content);
+         dao.updateComment(blogcom);
+         response.sendRedirect(request.getContextPath() +"/customer/detailcustomerblog?blogID=" + blogID);
     }
-}
-
-
-
 
     /** 
      * Returns a short description of the servlet.

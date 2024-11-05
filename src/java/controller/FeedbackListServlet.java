@@ -66,7 +66,7 @@ public class FeedbackListServlet extends HttpServlet {
         request.setAttribute("service", serviceList);
         request.setAttribute("feedback", feedbackList);
         request.setAttribute("user", userList);
-        request.getRequestDispatcher("manager-feedback-list.jsp").forward(request, response);
+        request.getRequestDispatcher("/Manager_JSP/manager-feedback-list.jsp").forward(request, response);
     } 
 
     /** 

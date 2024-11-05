@@ -23,6 +23,9 @@ import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.Part;
 import java.io.File;
 import java.nio.file.Paths;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
 
 /**
  *
@@ -125,9 +128,11 @@ public class AddUserServlet extends HttpServlet {
             String streetAddress = request.getParameter("streetAddress");
             int wardID = Integer.parseInt(request.getParameter("wardID"));
             String username = request.getParameter("username");
-            String passwordHash = request.getParameter("passwordHash");
+            String password = request.getParameter("passwordHash");
             java.sql.Date dateOfBirth = java.sql.Date.valueOf(request.getParameter("dateOfBirth"));
             Part filePart = request.getPart("profileImage");
+            String salt = generateSalt();
+            String passwordHash = hashPassword(password, salt);
             // Thiết lập đường dẫn upload file
             String uploadPath = getServletContext().getRealPath("") + File.separator + UPLOAD_DIR;
 
@@ -165,8 +170,9 @@ public class AddUserServlet extends HttpServlet {
             UserAuthentication userAuth = new UserAuthentication();
             userAuth.setUsername(username);
             userAuth.setPasswordHash(passwordHash);
+            userAuth.setSalt(salt);
             user.setUser(userAuth);
-
+          
             // Gọi phương thức addUser trong ManagerUserDAO
             ManagerUserDAO userDAO = new ManagerUserDAO();
             userDAO.addUser(user);
@@ -178,6 +184,23 @@ public class AddUserServlet extends HttpServlet {
             // Xử lý lỗi và chuyển hướng đến trang lỗi nếu cần
             request.setAttribute("errorMessage", "Lỗi khi thêm người dùng: " + e.getMessage());
             request.getRequestDispatcher("form-add-user.jsp").forward(request, response);
+        }
+    }
+
+    private String generateSalt() {
+        byte[] salt = new byte[16];
+        new java.security.SecureRandom().nextBytes(salt);
+        return Base64.getEncoder().encodeToString(salt);
+    }
+
+    private String hashPassword(String password, String salt) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            md.update(Base64.getDecoder().decode(salt));
+            byte[] hashedPassword = md.digest(password.getBytes());
+            return Base64.getEncoder().encodeToString(hashedPassword);
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
         }
     }
 

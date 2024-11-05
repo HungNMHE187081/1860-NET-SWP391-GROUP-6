@@ -37,10 +37,6 @@
         <servlet-class>controller.ManagerAddServiceServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AddProvincesServlet</servlet-name>
-        <servlet-class>controller.AddProvincesServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>DeleteProvincesServlet</servlet-name>
         <servlet-class>controller.DeleteProvincesServlet</servlet-class>
     </servlet>
@@ -421,6 +417,14 @@
         <servlet-class>controller.CustomerAddReservationServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>CustomerEditBlogCommentServlet</servlet-name>
+        <servlet-class>controller.CustomerEditBlogCommentServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManagerEditUserServlet</servlet-name>
+        <servlet-class>controller.ManagerEditUserServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>CustomerListServicesServlet</servlet-name>
         <servlet-class>controller.CustomerListServicesServlet</servlet-class>
     </servlet>
@@ -495,10 +499,6 @@
     <servlet-mapping>
         <servlet-name>ManagerAddServiceServlet</servlet-name>
         <url-pattern>/manager/addservice</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>AddProvincesServlet</servlet-name>
-        <url-pattern>/addprovinces</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>DeleteProvincesServlet</servlet-name>
@@ -610,7 +610,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>FeedbackListServlet</servlet-name>
-        <url-pattern>/feedbacklist</url-pattern>
+        <url-pattern>/manager/feedbacklist</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddFeedbackServlet</servlet-name>
@@ -618,11 +618,11 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SearchFeedbackServlet</servlet-name>
-        <url-pattern>/searchfeedback</url-pattern>
+        <url-pattern>/manager/searchfeedback</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UpdateFeedbackStatusServlet</servlet-name>
-        <url-pattern>/updatefeedbackstatus</url-pattern>
+        <url-pattern>/manager/updatefeedbackstatus</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ManagerViewServiceServlet</servlet-name>
@@ -927,5 +927,17 @@
     <servlet-mapping>
         <servlet-name>VNPayReturn2Servlet</servlet-name>
         <url-pattern>/vnpayreturn2</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManagerEditUserServlet</servlet-name>
+        <url-pattern>/manageredituser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CustomerEditBlogCommentServlet</servlet-name>
+        <url-pattern>/customer/editblogcomment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManagerEditUserServlet</servlet-name>
+        <url-pattern>/manageredituser</url-pattern>
     </servlet-mapping>
 </web-app>

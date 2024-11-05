@@ -90,24 +90,9 @@
                 </li>
 
                 <li class="has-submenu parent-menu-item">
-                    <a href="javascript:void(0)">
+                    <a href="${pageContext.request.contextPath}/customer/view-staffs">
                         <i class="uil uil-user-md me-1"></i>Đội ngũ bác sĩ
                     </a>
-                    <span class="menu-arrow"></span>
-                    <ul class="submenu">
-                        <li><a href="patient-dashboard.html" class="sub-menu-item">
-                                <i class="uil uil-dashboard me-1"></i>Bảng Điều Khiển</a>
-                        </li>
-                        <li><a href="patient-profile.html" class="sub-menu-item">
-                                <i class="uil uil-user me-1"></i>Hồ Sơ</a>
-                        </li>
-                        <li><a href="booking-appointment.html" class="sub-menu-item">
-                                <i class="uil uil-calendar-alt me-1"></i>Đặt Lịch Hẹn</a>
-                        </li>
-                        <li><a href="patient-invoice.html" class="sub-menu-item">
-                                <i class="uil uil-receipt me-1"></i>Hóa Đơn</a>
-                        </li>
-                    </ul>
                 </li>
 
                 <li class="has-submenu parent-menu-item">

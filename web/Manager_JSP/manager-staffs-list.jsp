@@ -93,16 +93,7 @@
                         <div class="tile-body">
                             <div class="row mb-3 d-flex justify-content-between align-items-center">
                                 <div class="d-flex">
-                                    <div class="col-sm-2">
-                                        <a class="btn btn-excel btn-sm" href="" title="In">
-                                            <i class="fas fa-file-excel"></i> Xuất Excel
-                                        </a>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <a class="btn btn-delete btn-sm pdf-file" type="button" title="In" onclick="myFunction(this)">
-                                            <i class="fas fa-file-pdf"></i> Xuất PDF
-                                        </a>
-                                    </div>
+                                    
                                 </div>
                                 <div>
                                     <form action="${pageContext.request.contextPath}/manager/searchstaff" method="get" class="filter-form">
@@ -158,7 +149,7 @@
                                                 <button class="btn btn-primary btn-sm" type="button" title="detail" id="show-emp">
                                                     <a href="${pageContext.request.contextPath}/manager/viewstaff?staffID=${staff.staffID}"><i class="fas fa-eye"></i></a>
                                                 </button>
-                                                <button class="btn btn-primary btn-sm edit" type="button" title="edit" id="show-emp">
+                                                <button class="btn btn-close btn-sm edit" type="button" title="edit" id="show-emp">
                                                     <a href="${pageContext.request.contextPath}/manager/editstaff?staffID=${staff.staffID}"><i class="fas fa-edit"></i></a>
                                                 </button>
                                             </td>

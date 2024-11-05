@@ -62,6 +62,6 @@ public class AddFeedbackServlet extends HttpServlet {
         FeedbackDAO feedbackDAO = new FeedbackDAO();
         feedbackDAO.insertFeedback(feedback);
 
-        response.sendRedirect("feedbacklist");
+        response.sendRedirect("feedback");
     }
 }
