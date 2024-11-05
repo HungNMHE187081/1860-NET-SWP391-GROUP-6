@@ -64,7 +64,7 @@ public class ManagerUserDAO extends DBContext {
                 + "left JOIN \n"
                 + "    UserAuthentication ua ON u.UserID = ua.UserID\n"
                 + "	where \n"
-                + "	r.RoleID = 5;";
+                + "	r.RoleID = 4;";
 
         try (
                 PreparedStatement ps = connection.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
@@ -192,10 +192,10 @@ public class ManagerUserDAO extends DBContext {
     }
 
     public void addUser(Users user) {
-        String sqlUser = "INSERT INTO Users (FirstName, MiddleName, LastName, Email, PhoneNumber, DateOfBirth, Gender, CitizenIdentification, ProfileImage,CreatedAt) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
+        String sqlUser = "INSERT INTO Users (FirstName, MiddleName, LastName, Email, PhoneNumber, DateOfBirth, Gender, CitizenIdentification, ProfileImage,CreatedAt) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,GETDATE())";
         String sqlAddress = "INSERT INTO UserAddresses (StreetAddress, WardID, UserID) VALUES (?, ?, ?)";
-        String sqlAuth = "INSERT INTO UserAuthentication (Username ,PasswordHash,UserID) VALUES (?,?,?)";
-        String sqlRole = "INSERT INTO UserRoles (UserID, RoleID) VALUES (?, ?)"; // Câu lệnh thêm vai trò
+        String sqlAuth = "INSERT INTO UserAuthentication (UserID,Username ,PasswordHash, Salt,LastLogin) VALUES (?,?,?,?,GETDATE())";
+        String sqlRole = "INSERT INTO UserRoles (UserID, RoleID) VALUES (?, 4)"; // Câu lệnh thêm vai trò
 
         try {
             // Bắt đầu transaction
@@ -238,9 +238,11 @@ public class ManagerUserDAO extends DBContext {
 
             // Thêm thông tin đăng nhập vào bảng UserAuthentication
             try (PreparedStatement psAuth = connection.prepareStatement(sqlAuth)) {
-                psAuth.setString(1, user.getUser().getUsername());
-                psAuth.setString(2, user.getUser().getPasswordHash());
-                psAuth.setInt(3, user.getUserID()); // Sử dụng UserID vừa tạo
+                 psAuth.setInt(1, user.getUserID());
+                psAuth.setString(2, user.getUser().getUsername());
+                psAuth.setString(3, user.getUser().getPasswordHash());
+                psAuth.setString(4, user.getUser().getSalt());
+                // Sử dụng UserID vừa tạo
 
                 psAuth.executeUpdate();
             }
@@ -249,8 +251,6 @@ public class ManagerUserDAO extends DBContext {
              // Lấy RoleID của Customer
             try (PreparedStatement psRole = connection.prepareStatement(sqlRole)) {
                 psRole.setInt(1, user.getUserID()); // Sử dụng UserID vừa tạo
-                psRole.setInt(2, 5); // Thêm vai trò Customer
-
                 psRole.executeUpdate();
             }
 
