@@ -12,8 +12,7 @@
                 <div class="col-md-6 text-center">
                     <% 
                         Boolean paymentSuccess = (Boolean)request.getAttribute("paymentSuccess");
-                        String responseCode = (String)request.getAttribute("vnp_ResponseCode");
-                        String transactionNo = (String)request.getAttribute("vnp_TxnRef");
+                        String transactionNo = (String)request.getAttribute("transactionNo");
                     %>
                     
                     <% if (Boolean.TRUE.equals(paymentSuccess)) { %>
@@ -26,7 +25,6 @@
                         <div class="alert alert-danger">
                             <h3>Thanh toán thất bại!</h3>
                             <p>Mã giao dịch: <%= transactionNo %></p>
-                            <p>Mã lỗi: <%= responseCode %></p>
                             <p>Vui lòng thử lại sau.</p>
                         </div>
                     <% } %>

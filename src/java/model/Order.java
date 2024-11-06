@@ -4,7 +4,7 @@
  */
 package model;
 
-import java.util.List;
+import java.util.Date;
 
 /**
  *
@@ -13,13 +13,13 @@ import java.util.List;
 public class Order {
     int OrderID, CustomerID, Quantity;
     double TotalPrice;
-    String OrderDate;
+    Date OrderDate;
     boolean isCheckOut;
 
     public Order() {
     }
 
-    public Order(int OrderID, int CustomerID, int Quantity, double TotalPrice, String OrderDate, boolean isCheckOut) {
+    public Order(int OrderID, int CustomerID, int Quantity, double TotalPrice, Date OrderDate, boolean isCheckOut) {
         this.OrderID = OrderID;
         this.CustomerID = CustomerID;
         this.Quantity = Quantity;
@@ -60,19 +60,19 @@ public class Order {
         this.TotalPrice = TotalPrice;
     }
 
-    public String getOrderDate() {
+    public Date getOrderDate() {
         return OrderDate;
     }
 
-    public void setOrderDate(String OrderDate) {
+    public void setOrderDate(Date OrderDate) {
         this.OrderDate = OrderDate;
     }
 
-    public boolean isIsCheckOut() {
+    public boolean isCheckOut() {
         return isCheckOut;
     }
 
-    public void setIsCheckOut(boolean isCheckOut) {
+    public void setCheckOut(boolean isCheckOut) {
         this.isCheckOut = isCheckOut;
     }
     

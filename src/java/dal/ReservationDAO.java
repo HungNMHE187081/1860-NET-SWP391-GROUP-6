@@ -133,28 +133,45 @@ public class ReservationDAO extends DBContext {
 
     public List<Reservation> getReservationByCustomerID(int CustomerID) {
         List<Reservation> list = new ArrayList<>();
-        String sql = "SELECT r.* FROM Reservations r "
+        String sql = "SELECT r.*, oi.ServiceID, oi.ChildID, c.FirstName, c.MiddleName, c.LastName "
+                + "FROM Reservations r "
                 + "JOIN OrderItems oi ON r.OrderItemID = oi.OrderItemID "
                 + "JOIN Orders o ON oi.OrderID = o.OrderID "
                 + "JOIN Users u ON o.CustomerID = u.UserID "
                 + "JOIN Children c ON oi.ChildID = c.ChildID "
-                + "WHERE u.UserID = ? AND r.IsExam = 0 AND hasRecord = 0 AND isCheckOut = 1";
+                + "WHERE u.UserID = ? AND o.isCheckOut = 1 "
+                + "ORDER BY r.ReservationDate ASC, r.StartTime ASC";
         try {
             PreparedStatement pre = connection.prepareStatement(sql);
             pre.setInt(1, CustomerID);
             try (ResultSet rs = pre.executeQuery()) {
                 while (rs.next()) {
-                    int ReservationID = rs.getInt("ReservationID");
-                    int OrderItemID = rs.getInt("OrderItemID");
-                    String ReservationDate = rs.getString("ReservationDate");
-                    String StartTime = rs.getString("StartTime");
-                    int StaffID = rs.getInt("StaffID");
-                    boolean isExam = rs.getBoolean("isExam");
-                    boolean hasRecord = rs.getBoolean("hasRecord");
-                    list.add(new Reservation(ReservationID, OrderItemID, ReservationDate, StartTime, StaffID, isExam, hasRecord));
+                    Reservation reservation = new Reservation();
+                    reservation.setReservationID(rs.getInt("ReservationID"));
+                    reservation.setOrderItemID(rs.getInt("OrderItemID"));
+                    reservation.setReservationDate(rs.getString("ReservationDate"));
+                    reservation.setStartTime(rs.getString("StartTime"));
+                    reservation.setStaffID(rs.getInt("StaffID"));
+                    reservation.setIsExam(rs.getBoolean("isExam"));
+                    reservation.setHasRecord(rs.getBoolean("hasRecord"));
+                    
+                    // Thêm thông tin tên trẻ
+                    String childName = rs.getString("FirstName");
+                    if (rs.getString("MiddleName") != null) {
+                        childName += " " + rs.getString("MiddleName");
+                    }
+                    childName += " " + rs.getString("LastName");
+                    
+                    System.out.println("Found reservation: ID=" + reservation.getReservationID() 
+                        + ", Child=" + childName 
+                        + ", Date=" + reservation.getReservationDate());
+                    
+                    list.add(reservation);
                 }
             }
         } catch (SQLException e) {
+            System.out.println("Error in getReservationByCustomerID: " + e.getMessage());
+            e.printStackTrace();
         }
         return list;
     }
@@ -277,41 +294,41 @@ public class ReservationDAO extends DBContext {
         return list;
     }
 
-    public boolean addReservation(Reservation reservation) {
-        String sql = "INSERT INTO Reservations (OrderItemID, ReservationDate, StartTime, StaffID, isExam, hasRecord) "
-                   + "OUTPUT INSERTED.ReservationID "
-                   + "VALUES (?, ?, ?, ?, ?, ?)";
-                   
-        try (Connection conn = connection;
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-            
-            ps.setInt(1, reservation.getOrderItemID());
-            ps.setString(2, reservation.getReservationDate());
-            ps.setString(3, reservation.getStartTime());
-            ps.setInt(4, reservation.getStaffID());
-            ps.setBoolean(5, reservation.isIsExam());
-            ps.setBoolean(6, reservation.isHasRecord());
-            
-            System.out.println("Adding reservation with values:");
+    public int addReservation(Reservation reservation) {
+        String sql = "INSERT INTO Reservations (OrderItemID, ReservationDate, StartTime, StaffID, isExam, HasRecord) "
+                    + "VALUES (?, ?, ?, ?, ?, ?); "
+                    + "SELECT CAST(SCOPE_IDENTITY() AS INT) AS ReservationID;";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            st.setInt(1, reservation.getOrderItemID());
+            st.setString(2, reservation.getReservationDate());
+            st.setString(3, reservation.getStartTime());
+            st.setInt(4, reservation.getStaffID());
+            st.setBoolean(5, reservation.isIsExam());
+            st.setBoolean(6, reservation.isHasRecord());
+
+            System.out.println("Executing insert with values:");
             System.out.println("OrderItemID: " + reservation.getOrderItemID());
             System.out.println("Date: " + reservation.getReservationDate());
             System.out.println("Time: " + reservation.getStartTime());
+            System.out.println("StaffID: " + reservation.getStaffID());
+            System.out.println("isExam: " + reservation.isIsExam());
+
+            st.executeUpdate();
             
-            ResultSet rs = ps.executeQuery();
-            
-            if (rs.next()) {
-                int newId = rs.getInt(1);
-                reservation.setReservationID(newId);
-                System.out.println("Generated ReservationID: " + newId);
-                return true;
+            // Lấy ID vừa tạo
+            try (ResultSet rs = st.getGeneratedKeys()) {
+                if (rs.next()) {
+                    int newId = rs.getInt(1);
+                    System.out.println("Created reservation with ID: " + newId);
+                    return newId;
+                }
             }
-            return false;
-            
         } catch (SQLException e) {
-            System.out.println("Error in addReservation: " + e.getMessage());
+            System.out.println("Error adding reservation: " + e.getMessage());
             e.printStackTrace();
-            return false;
         }
+        return -1;
     }
 
     public void updateHasRecord(int ReservationID) {
@@ -325,8 +342,8 @@ public class ReservationDAO extends DBContext {
         } catch (SQLException e) {
         }
     }
-    
-    public void updateIsExamReservation(int ReservationID){
+
+    public void updateIsExamReservation(int ReservationID) {
         String sql = "UPDATE [dbo].[Reservations]\n"
                 + "   SET [isExam] = 1\n"
                 + " WHERE ReservationID = ?";
@@ -342,8 +359,8 @@ public class ReservationDAO extends DBContext {
         String sql = "SELECT COUNT(*) FROM Reservations r "
                 + "JOIN OrderItems oi ON r.OrderItemID = oi.OrderItemID "
                 + "JOIN Services s ON oi.ServiceID = s.ServiceID "
-                + "WHERE r.ReservationDate = ? "  // Same date
-                + "AND r.StaffID = ? "           // Same staff
+                + "WHERE r.ReservationDate = ? " // Same date
+                + "AND r.StaffID = ? " // Same staff
                 + "AND ("
                 + "    (CAST(r.StartTime AS time) <= CAST(? AS time) "
                 + "     AND DATEADD(MINUTE, s.Duration, CAST(r.StartTime AS time)) > CAST(? AS time))"
@@ -360,7 +377,7 @@ public class ReservationDAO extends DBContext {
             ps.setInt(5, serviceDuration);
             ps.setString(6, startTime);
             ps.setString(7, startTime);
-            
+
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     return rs.getInt(1) > 0;
@@ -378,12 +395,12 @@ public class ReservationDAO extends DBContext {
                 + "WHERE ReservationDate = ? "
                 + "AND StaffID = ? "
                 + "AND StartTime = ?";
-                
+
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, reservationDate);
             ps.setInt(2, staffID);
             ps.setString(3, startTime);
-            
+
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     return rs.getInt(1) == 0; // Return true if no reservations found
@@ -399,8 +416,8 @@ public class ReservationDAO extends DBContext {
         String sql = "SELECT COUNT(*) FROM Reservations r "
                 + "JOIN OrderItems oi ON r.OrderItemID = oi.OrderItemID "
                 + "JOIN Services s ON oi.ServiceID = s.ServiceID "
-                + "WHERE r.ReservationDate = ? "  // Same date
-                + "AND oi.ChildID = ? "           // Same child
+                + "WHERE r.ReservationDate = ? " // Same date
+                + "AND oi.ChildID = ? " // Same child
                 + "AND ("
                 // Case 1: New appointment starts during an existing appointment
                 + "    (CAST(? AS time) >= CAST(r.StartTime AS time) "
@@ -430,7 +447,7 @@ public class ReservationDAO extends DBContext {
             ps.setString(9, startTime);
             ps.setInt(10, serviceDuration);
             ps.setString(11, startTime);
-            
+
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     return rs.getInt(1) > 0;
@@ -461,18 +478,28 @@ public class ReservationDAO extends DBContext {
     }
 
     public List<Map<String, Object>> getReservationsByCustomerID(int customerID) {
-        List<Map<String, Object>> list = new ArrayList<>();
-        String sql = """
-            SELECT r.*, o.OrderID, o.CustomerID, o.TotalPrice, o.OrderDate, o.isCheckOut,
-                   oi.ServiceID, oi.ChildID, c.FirstName, c.MiddleName, c.LastName
-            FROM Reservations r
-            JOIN OrderItems oi ON r.OrderItemID = oi.OrderItemID
-            JOIN Orders o ON oi.OrderID = o.OrderID
-            JOIN Children c ON oi.ChildID = c.ChildID
-            WHERE o.CustomerID = ?
-            ORDER BY r.ReservationDate ASC, r.StartTime ASC
-        """;
-        
+        List<Map<String, Object>> reservations = new ArrayList<>();
+        String sql = "SELECT DISTINCT r.ReservationID, r.ReservationDate, r.StartTime, " +
+                     "c.FirstName, c.MiddleName, c.LastName, " +
+                     "s.Price as TotalPrice, " +
+                     "o.CustomerID, " +
+                     "CASE " +
+                     "    WHEN p.PaymentStatus = 'SUCCESS' THEN 1 " +
+                     "    ELSE 0 " +
+                     "END as isCheckOut " +
+                     "FROM Users u " +
+                     "JOIN UserRoles ur ON u.UserID = ur.UserID " +
+                     "JOIN Orders o ON u.UserID = o.CustomerID " +
+                     "JOIN OrderItems oi ON o.OrderID = oi.OrderID " +
+                     "JOIN Reservations r ON oi.OrderItemID = r.OrderItemID " +
+                     "JOIN Children c ON oi.ChildID = c.ChildID " +
+                     "JOIN Services s ON oi.ServiceID = s.ServiceID " +
+                     "LEFT JOIN Payments p ON o.OrderID = p.OrderID " +
+                     "WHERE u.UserID = ? " +
+                     "AND r.ReservationDate >= GETDATE() " +
+                     "AND (p.PaymentStatus = 'SUCCESS' OR o.isCheckOut = 1) " +
+                     "ORDER BY r.ReservationDate ASC, r.StartTime ASC";
+
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, customerID);
@@ -480,36 +507,20 @@ public class ReservationDAO extends DBContext {
             
             while (rs.next()) {
                 Map<String, Object> reservation = new HashMap<>();
-                
                 reservation.put("reservationID", rs.getInt("ReservationID"));
-                
-                // Format date and time
-                java.sql.Date reservationDate = rs.getDate("ReservationDate");
-                java.sql.Time startTime = rs.getTime("StartTime");
-                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-                SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a");
-                
-                reservation.put("reservationDate", dateFormat.format(reservationDate));
-                reservation.put("startTime", timeFormat.format(startTime));
-                
-                // Child name
-                String childName = rs.getString("FirstName");
-                if (rs.getString("MiddleName") != null) {
-                    childName += " " + rs.getString("MiddleName");
-                }
-                childName += " " + rs.getString("LastName");
-                reservation.put("childName", childName);
-                
+                reservation.put("reservationDate", rs.getString("ReservationDate"));
+                reservation.put("startTime", rs.getString("StartTime"));
+                reservation.put("childName", rs.getString("FirstName") + " " + 
+                              rs.getString("MiddleName") + " " + rs.getString("LastName"));
                 reservation.put("totalPrice", rs.getDouble("TotalPrice"));
                 reservation.put("isCheckOut", rs.getBoolean("isCheckOut"));
-                
-                list.add(reservation);
+                reservations.add(reservation);
             }
         } catch (SQLException e) {
-            System.out.println("getReservationsByCustomerID error: " + e.getMessage());
+            System.out.println("Error in getReservationsByCustomerID: " + e.getMessage());
             e.printStackTrace();
         }
-        return list;
+        return reservations;
     }
 
     public List<Reservation> getAllReservationsByCustomerID(int customerID) {
@@ -526,37 +537,37 @@ public class ReservationDAO extends DBContext {
             AND r.hasRecord = 0
             ORDER BY r.ReservationDate ASC, r.StartTime ASC
         """;
-        
+
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, customerID);
             ResultSet rs = st.executeQuery();
-            
+
             while (rs.next()) {
                 Reservation r = new Reservation();
                 r.setReservationID(rs.getInt("ReservationID"));
                 r.setOrderItemID(rs.getInt("OrderItemID"));
-                
+
                 // Chuyển đổi Date sang String
                 Date reservationDate = rs.getDate("ReservationDate");
                 Time startTime = rs.getTime("StartTime");
-                
+
                 // Format date và time thành String
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
-                
+
                 r.setReservationDate(dateFormat.format(reservationDate));
                 r.setStartTime(timeFormat.format(startTime));
-                
+
                 r.setStaffID(rs.getInt("StaffID"));
                 r.setIsExam(rs.getBoolean("isExam"));
                 r.setHasRecord(rs.getBoolean("hasRecord"));
                 list.add(r);
-                
+
                 // Debug log
-                System.out.println("Found reservation: ID=" + r.getReservationID() + 
-                                 ", Date=" + r.getReservationDate() + 
-                                 ", Time=" + r.getStartTime());
+                System.out.println("Found reservation: ID=" + r.getReservationID()
+                        + ", Date=" + r.getReservationDate()
+                        + ", Time=" + r.getStartTime());
             }
         } catch (SQLException e) {
             System.out.println("getAllReservationsByCustomerID error: " + e.getMessage());
@@ -568,7 +579,7 @@ public class ReservationDAO extends DBContext {
     public Map<String, Object> getReservationDetailsByID(int reservationID) {
         System.out.println("=== getReservationDetailsByID START ===");
         Map<String, Object> details = new HashMap<>();
-        
+
         String sql = """
             SELECT r.ReservationID, r.ReservationDate, r.StartTime, r.isExam,
                    o.OrderID, o.TotalPrice, o.isCheckOut,
@@ -585,27 +596,27 @@ public class ReservationDAO extends DBContext {
             LEFT JOIN Users u ON st.StaffID = u.UserID
             WHERE r.ReservationID = ?
         """;
-        
+
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, reservationID);
             System.out.println("Executing query for ID: " + reservationID);
-            
+
             ResultSet rs = st.executeQuery();
-            
+
             if (rs.next()) {
                 // Thông tin cơ bản
                 details.put("reservationID", rs.getInt("ReservationID"));
-                
+
                 // Format date and time
                 java.sql.Date reservationDate = rs.getDate("ReservationDate");
                 java.sql.Time startTime = rs.getTime("StartTime");
                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
                 SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-                
+
                 details.put("reservationDate", dateFormat.format(reservationDate));
                 details.put("startTime", timeFormat.format(startTime));
-                
+
                 // Child info
                 String childName = rs.getString("ChildFirstName");
                 if (rs.getString("ChildMiddleName") != null) {
@@ -613,12 +624,12 @@ public class ReservationDAO extends DBContext {
                 }
                 childName += " " + rs.getString("ChildLastName");
                 details.put("childName", childName);
-                
+
                 // Service info
                 details.put("serviceName", rs.getString("ServiceName"));
                 details.put("serviceDescription", rs.getString("Description"));
                 details.put("totalPrice", rs.getDouble("TotalPrice"));
-                
+
                 // Staff info
                 String staffName = "";
                 if (rs.getString("StaffFirstName") != null) {
@@ -627,21 +638,61 @@ public class ReservationDAO extends DBContext {
                 details.put("staffName", staffName);
                 details.put("staffEmail", rs.getString("StaffEmail"));
                 details.put("staffPhone", rs.getString("StaffPhone"));
-                
+
                 details.put("isCheckOut", rs.getBoolean("isCheckOut"));
                 details.put("isExam", rs.getBoolean("isExam"));
-                
+
                 System.out.println("Found details: " + details);
             } else {
                 System.out.println("No reservation found with ID: " + reservationID);
             }
-            
+
         } catch (SQLException e) {
             System.out.println("ERROR in getReservationDetailsByID: " + e.getMessage());
             e.printStackTrace();
         }
-        
+
         System.out.println("=== getReservationDetailsByID END ===");
         return details;
+    }
+
+    public int getLastReservationId() {
+        String sql = "SELECT TOP 1 ReservationID FROM Reservations ORDER BY ReservationID DESC";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("ReservationID");
+            }
+        } catch (SQLException e) {
+            System.out.println("Error getting last reservation ID: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
+    public Reservation getReservationById(int reservationId) {
+        String sql = "SELECT * FROM Reservations WHERE ReservationID = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, reservationId);
+            ResultSet rs = st.executeQuery();
+            
+            if (rs.next()) {
+                Reservation reservation = new Reservation();
+                reservation.setReservationID(rs.getInt("ReservationID"));
+                reservation.setOrderItemID(rs.getInt("OrderItemID"));
+                reservation.setReservationDate(rs.getString("ReservationDate"));
+                reservation.setStartTime(rs.getString("StartTime"));
+                reservation.setStaffID(rs.getInt("StaffID"));
+                reservation.setIsExam(rs.getBoolean("isExam"));
+                reservation.setHasRecord(rs.getBoolean("HasRecord"));
+                return reservation;
+            }
+        } catch (SQLException e) {
+            System.out.println("Error getting reservation by ID: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return null;
     }
 }

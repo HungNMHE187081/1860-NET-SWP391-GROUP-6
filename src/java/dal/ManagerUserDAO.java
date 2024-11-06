@@ -487,8 +487,56 @@ public class ManagerUserDAO extends DBContext {
             e.printStackTrace();
         }
     }
+     public boolean isCitizenIdentificationExists(String citizenIdentification) {
+        String query = "SELECT COUNT(*) FROM Users WHERE citizenIdentification = ?";
+        try (
+             PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, citizenIdentification);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    // Kiểm tra số điện thoại đã tồn tại trong cơ sở dữ liệu
+    public boolean isPhoneNumberExists(String phoneNumber) {
+        String query = "SELECT COUNT(*) FROM Users WHERE phoneNumber = ?";
+        try (
+             PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, phoneNumber);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    public boolean checkUsernameExists(String username) {
+    String sql = "SELECT COUNT(*) FROM UserAuthentication WHERE Username = ?";
+    try (
+         PreparedStatement ps = connection.prepareStatement(sql)) {
+        ps.setString(1, username);
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            return rs.getInt(1) > 0;
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return false;
+}
+
     public static void main(String[] args) {
- 
+        ManagerUserDAO dao = new ManagerUserDAO();
+    String phone = "user";
+    boolean check = dao.checkUsernameExists(phone);
+        System.out.println(check);
 }
     
 }

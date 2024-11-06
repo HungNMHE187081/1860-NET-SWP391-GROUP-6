@@ -92,7 +92,7 @@
                             <table class="table table-center bg-white mb-0">
                                 <thead>
                                     <tr>
-                                        <th class="border-bottom p-3">ID</th>
+                                        <th class="border-bottom p-3">STT</th>
                                         <th class="border-bottom p-3">Tên trẻ</th>
                                         <th class="border-bottom p-3">Ngày khám</th>
                                         <th class="border-bottom p-3">Giờ khám</th>
@@ -102,9 +102,9 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <c:forEach var="reservation" items="${reservations}">
+                                    <c:forEach var="reservation" items="${reservations}" varStatus="status">
                                         <tr>
-                                            <td class="p-3">${reservation.reservationID}</td>
+                                            <td class="p-3">${status.index + 1}</td>
                                             <td class="p-3">${reservation.childName}</td>
                                             <td class="p-3">${reservation.reservationDate}</td>
                                             <td class="p-3">${reservation.startTime}</td>

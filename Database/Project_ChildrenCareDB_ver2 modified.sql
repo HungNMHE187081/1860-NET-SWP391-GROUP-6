@@ -276,10 +276,10 @@ CREATE TABLE Notifications (
     FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE
 );
 
--- Create Payments table
+-- Tạo lại bảng mới
 CREATE TABLE Payments (
     PaymentID INT PRIMARY KEY IDENTITY(1,1),
-    ReservationID INT UNIQUE,
+    ReservationID INT,
     OrderID INT,
     Amount DECIMAL(10,2),
     PaymentDate DATETIME DEFAULT GETDATE(),
@@ -748,3 +748,36 @@ WHERE NOT EXISTS (
     WHERE p.ReservationID = r.ReservationID
 )
 AND r.ReservationID IS NOT NULL;
+
+-- Thêm ràng buộc cho trạng thái thanh toán
+ALTER TABLE Payments
+ADD CONSTRAINT CK_PaymentStatus 
+CHECK (PaymentStatus IN ('PENDING', 'SUCCESS', 'FAILED'));
+
+ALTER TABLE Payments
+ADD CONSTRAINT CK_PaymentMethod 
+CHECK (PaymentMethod IN ('VNPAY', 'OFFLINE'));
+
+-- Thêm index để tối ưu truy vấn
+CREATE INDEX IX_Payments_OrderID ON Payments(OrderID);
+CREATE INDEX IX_Payments_ReservationID ON Payments(ReservationID);
+CREATE INDEX IX_Payments_PaymentStatus ON Payments(PaymentStatus);
+
+-- Tạo view xem lịch sử thanh toán
+/*CREATE VIEW PaymentHistory AS
+SELECT 
+    p.PaymentID,
+    p.ReservationID,
+    p.OrderID,
+    p.Amount,
+    p.PaymentDate,
+    p.PaymentStatus,
+    p.TransactionNo,
+    p.PaymentMethod,
+    u.FirstName + ' ' + u.MiddleName + ' ' + u.LastName as CustomerName,
+    s.ServiceName
+FROM Payments p
+JOIN Orders o ON p.OrderID = o.OrderID
+JOIN Users u ON o.CustomerID = u.UserID
+JOIN OrderItems oi ON o.OrderID = oi.OrderID
+JOIN Services s ON oi.ServiceID = s.ServiceID;*/

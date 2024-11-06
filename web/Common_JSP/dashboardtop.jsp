@@ -1,15 +1,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ page import="java.util.List" %>
-<%@ page import="dal.BlogDAO" %>
-<%@ page import="model.BlogCategory" %>
-<%
-    BlogDAO dao = new BlogDAO();
-    List<BlogCategory> blogCategories = dao.getAllBlogCategory();
 
-    request.setAttribute("blogCategories", blogCategories);
-%>
+
 <header id="topnav" class="navigation sticky">
     <div class="container">
 
@@ -105,20 +98,6 @@
 
                 <li class="has-submenu parent-menu-item">
                     <a href="${pageContext.request.contextPath}/customer/bloglist">Blog<span class="menu-arrow"></span></a>
-                    <ul class="submenu">
-                        <c:if test="${empty blogCategories}">
-                            <li>No categories found</li>
-                            </c:if>
-                            <c:forEach items="${blogCategories}" var="category">
-                            <li>
-                                 
-                                <a href="${pageContext.request.contextPath}/customer/bloglist?category=${category.categoryID}" 
-                                   class="sub-menu-item">
-                                    ${category.categoryName}
-                                </a>
-                            </li>
-                        </c:forEach>
-                    </ul>
                 </li>
 
                 <li class="has-submenu parent-parent-menu-item">

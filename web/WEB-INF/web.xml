@@ -473,9 +473,10 @@
         <servlet-class>controller.VNPayReturn2Servlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>CustomerReservationDetailServlet</servlet-name>
-        <servlet-class>controller.CustomerReservationDetailServlet</servlet-class>
+        <servlet-name>FileUploadServlet</servlet-name>
+        <servlet-class>controller.FileUploadServlet</servlet-class>
     </servlet>
+
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -941,8 +942,7 @@
         <url-pattern>/customer/editblogcomment</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>CustomerReservationDetailServlet</servlet-name>
-        <url-pattern>/customer/reservationdetail</url-pattern>
+        <servlet-name>FileUploadServlet</servlet-name>
+        <url-pattern>/manager/upload</url-pattern>
     </servlet-mapping>
-    
 </web-app>
