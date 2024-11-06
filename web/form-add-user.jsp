@@ -166,6 +166,9 @@
         <div class="tile">
             <h3 class="tile-title">Tạo mới nhân viên</h3>
             <div class="tile-body">
+                <c:if test="${not empty errorMessage}">
+                    ${errorMessage}
+                </c:if>
                 <form action="adduser" method="post" enctype="multipart/form-data">
                     <div class="row">
                         <!-- Avatar Section -->

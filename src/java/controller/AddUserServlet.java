@@ -117,6 +117,7 @@ public class AddUserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
+            ManagerUserDAO userDAO = new ManagerUserDAO();
             // Lấy thông tin người dùng từ form
             String firstName = request.getParameter("firstName");
             String middleName = request.getParameter("middleName");
@@ -136,7 +137,49 @@ public class AddUserServlet extends HttpServlet {
             // Thiết lập đường dẫn upload file
             String uploadPath = getServletContext().getRealPath("") + File.separator + UPLOAD_DIR;
 
-            // Tạo thư mục upload nếu chưa tồn tại
+            // Kiểm tra các trường không được để null hoặc rỗng
+        if (firstName == null || firstName.trim().isEmpty() || username == null || username.trim().isEmpty()) {
+            request.setAttribute("errorMessage", "Họ và tên, Username không được để trống");
+            request.getRequestDispatcher("form-add-user.jsp").forward(request, response);
+            return;
+        }
+        if (userDAO.checkUsernameExists(username)) {
+            request.setAttribute("errorMessage", "Username đã tồn tại");
+            request.getRequestDispatcher("form-add-user.jsp").forward(request, response);
+            return;
+        }
+
+        // Kiểm tra tuổi phải trên 18
+        java.util.Date today = new java.util.Date();
+        long ageInMillis = today.getTime() - dateOfBirth.getTime();
+        long ageInYears = ageInMillis / (1000L * 60 * 60 * 24 * 365);
+        if (ageInYears < 18) {
+            request.setAttribute("errorMessage", "Tuổi phải trên 18");
+            request.getRequestDispatcher("form-add-user.jsp").forward(request, response);
+            return;
+        }
+
+        // Kiểm tra CCCD phải đủ 12 số và không được trùng
+        if (citizenIdentification == null || citizenIdentification.length() != 12 || !citizenIdentification.matches("\\d+")) {
+            request.setAttribute("errorMessage", "CCCD phải đủ 12 số");
+            request.getRequestDispatcher("form-add-user.jsp").forward(request, response);
+            return;
+        }
+        if (userDAO.isCitizenIdentificationExists(citizenIdentification)) {
+            request.setAttribute("errorMessage", "CCCD đã tồn tại");
+            request.getRequestDispatcher("form-add-user.jsp").forward(request, response);
+            return;
+        }
+
+        // Kiểm tra số điện thoại phải đủ 10 số
+        if (phoneNumber == null || phoneNumber.length() != 10 || !phoneNumber.matches("\\d+")) {
+            request.setAttribute("errorMessage", "Số điện thoại phải đủ 10 số");
+            request.getRequestDispatcher("form-add-user.jsp").forward(request, response);
+            return;
+        }
+
+            
+            
             File uploadDir = new File(uploadPath);
             if (!uploadDir.exists()) {
                 uploadDir.mkdir();
@@ -174,7 +217,7 @@ public class AddUserServlet extends HttpServlet {
             user.setUser(userAuth);
           
             // Gọi phương thức addUser trong ManagerUserDAO
-            ManagerUserDAO userDAO = new ManagerUserDAO();
+            
             userDAO.addUser(user);
 
             // Chuyển hướng đến trang quản lý người dùng sau khi thêm thành công
