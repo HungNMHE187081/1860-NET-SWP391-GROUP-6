@@ -6,6 +6,7 @@ package dal;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import model.Order;
 import model.OrderItem;
@@ -27,11 +28,12 @@ public class OrderDAO extends DBContext {
                 int CustomerID = rs.getInt("CustomerID");
                 int Quantity = rs.getInt("Quantity");
                 double TotalPrice = rs.getDouble("TotalPrice");
-                String OrderDate = rs.getString("OrderDate");
+                Date OrderDate = rs.getDate("OrderDate");
                 boolean isCheckOut = rs.getBoolean("isCheckOut");
                 list.add(new Order(OrderID, CustomerID, Quantity, TotalPrice, OrderDate, isCheckOut));
             }
         } catch (SQLException e) {
+            System.out.println("getAllOrders error: " + e.getMessage());
         }
         return list;
     }
@@ -47,11 +49,12 @@ public class OrderDAO extends DBContext {
                 int CustomerID = rs.getInt("CustomerID");
                 int Quantity = rs.getInt("Quantity");
                 double TotalPrice = rs.getDouble("TotalPrice");
-                String OrderDate = rs.getString("OrderDate");
+                Date OrderDate = rs.getDate("OrderDate");
                 boolean isCheckOut = rs.getBoolean("isCheckOut");
                 list.add(new Order(OrderID, CustomerID, Quantity, TotalPrice, OrderDate, isCheckOut));
             }
         } catch (SQLException e) {
+            System.out.println("getAllOrderInCarts error: " + e.getMessage());
         }
         return list;
     }
@@ -67,11 +70,12 @@ public class OrderDAO extends DBContext {
                 int CustomerID = rs.getInt("CustomerID");
                 int Quantity = rs.getInt("Quantity");
                 double TotalPrice = rs.getDouble("TotalPrice");
-                String OrderDate = rs.getString("OrderDate");
+                Date OrderDate = rs.getDate("OrderDate");
                 boolean isCheckOut = rs.getBoolean("isCheckOut");
                 list.add(new Order(OrderID, CustomerID, Quantity, TotalPrice, OrderDate, isCheckOut));
             }
         } catch (SQLException e) {
+            System.out.println("getAllCheckOutOrders error: " + e.getMessage());
         }
         return list;
     }
@@ -111,11 +115,12 @@ public class OrderDAO extends DBContext {
                     order.setCustomerID(rs.getInt("CustomerID"));
                     order.setQuantity(rs.getInt("Quantity"));
                     order.setTotalPrice(rs.getDouble("TotalPrice"));
-                    order.setOrderDate(rs.getString("OrderDate"));
-                    order.setIsCheckOut(rs.getBoolean("isCheckOut"));
+                    order.setOrderDate(rs.getDate("OrderDate"));
+                    order.setCheckOut(rs.getBoolean("isCheckOut"));
                 }
             }
         } catch (SQLException e) {
+            System.out.println("getOrdersByOrderID error: " + e.getMessage());
         }
         return order;
     }
@@ -207,7 +212,7 @@ public class OrderDAO extends DBContext {
                 int OrderID = rs.getInt("OrderID");
                 int Quantity = rs.getInt("Quantity");
                 double TotalPrice = rs.getDouble("TotalPrice");
-                String OrderDate = rs.getString("OrderDate");
+                Date OrderDate = rs.getDate("OrderDate");
                 boolean isCheckOut = rs.getBoolean("isCheckOut");
                 list.add(new Order(OrderID, CustomerID, Quantity, TotalPrice, OrderDate, isCheckOut));
             }
@@ -227,7 +232,7 @@ public class OrderDAO extends DBContext {
                 int OrderID = rs.getInt("OrderID");
                 int Quantity = rs.getInt("Quantity");
                 double TotalPrice = rs.getDouble("TotalPrice");
-                String OrderDate = rs.getString("OrderDate");
+                Date OrderDate = rs.getDate("OrderDate");
                 boolean isCheckOut = rs.getBoolean("isCheckOut");
                 list.add(new Order(OrderID, CustomerID, Quantity, TotalPrice, OrderDate, isCheckOut));
             }
@@ -243,9 +248,8 @@ public class OrderDAO extends DBContext {
             FROM Orders o
             JOIN OrderItems oi ON o.OrderID = oi.OrderID
             JOIN Reservations r ON r.OrderItemID = oi.OrderItemID
-            LEFT JOIN Payments p ON r.ReservationID = p.ReservationID
             WHERE o.CustomerID = ? 
-            AND (o.isCheckOut = 1 OR p.PaymentMethod = 'OFFLINE')
+            AND (o.isCheckOut = 0 OR o.isCheckOut = 1)
             AND r.isExam = 0 
             AND r.hasRecord = 0
             ORDER BY o.OrderDate DESC
@@ -260,7 +264,7 @@ public class OrderDAO extends DBContext {
                 int OrderID = rs.getInt("OrderID");
                 int Quantity = rs.getInt("Quantity");
                 double TotalPrice = rs.getDouble("TotalPrice");
-                String OrderDate = rs.getString("OrderDate");
+                Date OrderDate = rs.getDate("OrderDate");
                 boolean isCheckOut = rs.getBoolean("isCheckOut");
                 
                 Order order = new Order(OrderID, CustomerID, Quantity, TotalPrice, OrderDate, isCheckOut);
@@ -277,34 +281,42 @@ public class OrderDAO extends DBContext {
         return list;
     }
     
-    public Order addOrder(Order order) {
+    public int insert(Order order) {
         String sql = "INSERT INTO Orders (CustomerID, Quantity, TotalPrice, OrderDate, isCheckOut) " +
-                    "VALUES (?, ?, ?, GETDATE(), ?); " +
+                    "VALUES (?, ?, ?, ?, ?); " +
                     "SELECT CAST(SCOPE_IDENTITY() AS INT) AS OrderID;";
         try {
             PreparedStatement pre = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            
+            // Log các giá trị trước khi insert
+            System.out.println("Inserting Order with values:");
+            System.out.println("CustomerID: " + order.getCustomerID());
+            System.out.println("Quantity: " + order.getQuantity());
+            System.out.println("TotalPrice: " + order.getTotalPrice());
+            System.out.println("OrderDate: " + order.getOrderDate());
+            System.out.println("isCheckOut: " + order.isCheckOut());
+            
             pre.setInt(1, order.getCustomerID());
             pre.setInt(2, order.getQuantity());
             pre.setDouble(3, order.getTotalPrice());
-            pre.setBoolean(4, order.isIsCheckOut());
+            pre.setTimestamp(4, new Timestamp(order.getOrderDate().getTime()));
+            pre.setBoolean(5, order.isCheckOut());
             
             pre.executeUpdate();
             
-            // Get the generated ID
             try (ResultSet rs = pre.getGeneratedKeys()) {
                 if (rs.next()) {
-                    int generatedOrderID = rs.getInt(1);
-                    order.setOrderID(generatedOrderID);
-                    System.out.println("Generated OrderID: " + generatedOrderID); // Debug log
-                } else {
-                    throw new SQLException("Creating order failed, no ID obtained.");
+                    int generatedId = rs.getInt(1);
+                    System.out.println("Generated OrderID: " + generatedId + 
+                                     " for CustomerID: " + order.getCustomerID());
+                    return generatedId;
                 }
             }
         } catch (SQLException e) {
-            System.err.println("Error in addOrder: " + e.getMessage());
+            System.err.println("Error in insert Order: " + e.getMessage());
             e.printStackTrace();
         }
-        return order;
+        return -1;
     }
 
     public OrderItem addOrderItem(OrderItem orderItem) {
@@ -340,13 +352,59 @@ public class OrderDAO extends DBContext {
         String sql = "UPDATE Orders SET isCheckOut = ? WHERE OrderID = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-            st.setBoolean(1, order.isIsCheckOut());
+            st.setBoolean(1, order.isCheckOut());
             st.setInt(2, order.getOrderID());
             return st.executeUpdate() > 0;
         } catch (SQLException e) {
             System.out.println("updateOrder error: " + e.getMessage());
             return false;
         }
+    }
+
+    public OrderItem getOrderItemById(int orderItemId) {
+        String sql = "SELECT * FROM OrderItems WHERE OrderItemID = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, orderItemId);
+            ResultSet rs = st.executeQuery();
+            
+            if (rs.next()) {
+                OrderItem orderItem = new OrderItem();
+                orderItem.setOrderItemID(rs.getInt("OrderItemID"));
+                orderItem.setOrderID(rs.getInt("OrderID"));
+                orderItem.setServiceID(rs.getInt("ServiceID"));
+                orderItem.setChildID(rs.getInt("ChildID"));
+                return orderItem;
+            }
+        } catch (SQLException e) {
+            System.out.println("Error getting order item by ID: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public Order getOrderById(int orderId) {
+        String sql = "SELECT * FROM Orders WHERE OrderID = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, orderId);
+            ResultSet rs = st.executeQuery();
+            
+            if (rs.next()) {
+                Order order = new Order();
+                order.setOrderID(rs.getInt("OrderID"));
+                order.setCustomerID(rs.getInt("CustomerID"));
+                order.setQuantity(rs.getInt("Quantity"));
+                order.setTotalPrice(rs.getDouble("TotalPrice"));
+                order.setOrderDate(rs.getDate("OrderDate"));
+                order.setCheckOut(rs.getBoolean("isCheckOut"));
+                return order;
+            }
+        } catch (SQLException e) {
+            System.out.println("Error getting order by ID: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public static void main(String[] args) {

@@ -26,6 +26,7 @@ import model.Staff;
 import model.Users;
 import model.Payment;
 import dal.PaymentDAO;
+import java.util.Date;
 
 public class CustomerAddReservationServlet extends HttpServlet {
 
@@ -179,8 +180,27 @@ public class CustomerAddReservationServlet extends HttpServlet {
                 if ("CheckOut".equals(paymentMethod)) {
                     // Thanh toán offline - tạo reservation ngay
                     OrderDAO orderDAO = new OrderDAO();
-                    Order order = new Order(0, user.getUserID(), 1, service.getPrice(), "", false);
-                    order = orderDAO.addOrder(order);
+                    Order order = new Order();
+                    order.setCustomerID(user.getUserID());
+                    order.setQuantity(1);
+                    order.setTotalPrice(service.getPrice());
+                    order.setOrderDate(new Date());
+                    order.setCheckOut(false);
+
+                    System.out.println("=== Creating new order ===");
+                    System.out.println("CustomerID: " + user.getUserID());
+                    System.out.println("Service price: " + service.getPrice());
+                    System.out.println("Order date: " + new Date());
+
+                    int orderId = orderDAO.insert(order);
+                    System.out.println("Created order with ID: " + orderId);
+
+                    if (orderId > 0) {
+                        order.setOrderID(orderId);
+                        System.out.println("Order created successfully");
+                    } else {
+                        throw new Exception("Failed to create order");
+                    }
 
                     OrderItem orderItem = new OrderItem(0, order.getOrderID(), serviceID, childID);
                     orderItem = orderDAO.addOrderItem(orderItem);
@@ -195,19 +215,32 @@ public class CustomerAddReservationServlet extends HttpServlet {
                         false
                     );
                     
-                    if (reservationDAO.addReservation(reservation)) {
+                    int reservationId = reservationDAO.addReservation(reservation);
+                    System.out.println("Created reservation with ID: " + reservationId);
+
+                    if (reservationId > 0) {
                         // Tạo payment record với status PENDING
                         Payment payment = new Payment();
-                        payment.setReservationId(reservation.getReservationID());
+                        payment.setReservationId(reservationId);
                         payment.setOrderId(order.getOrderID());
                         payment.setAmount(service.getPrice());
                         payment.setPaymentStatus("PENDING");
                         payment.setPaymentMethod("OFFLINE");
                         
-                        PaymentDAO paymentDAO = new PaymentDAO();
-                        paymentDAO.createPayment(payment);
+                        System.out.println("Creating payment record:");
+                        System.out.println("ReservationID: " + reservationId);
+                        System.out.println("OrderID: " + order.getOrderID());
+                        System.out.println("Amount: " + service.getPrice());
                         
-                        response.sendRedirect(request.getContextPath() + "/customer/listreservations");
+                        PaymentDAO paymentDAO = new PaymentDAO();
+                        if (paymentDAO.createPayment(payment)) {
+                            System.out.println("Payment record created successfully");
+                            response.sendRedirect(request.getContextPath() + "/customer/listreservations");
+                        } else {
+                            throw new Exception("Failed to create payment record");
+                        }
+                    } else {
+                        throw new Exception("Failed to create reservation");
                     }
                 } else {
                     // Thanh toán online - chuyển đến trang thanh toán

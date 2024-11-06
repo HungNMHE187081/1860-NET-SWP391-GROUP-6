@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Date;
 
 /**
  *
@@ -61,11 +62,17 @@ public class CustomerAddToCartServlet extends HttpServlet {
                 order.setCustomerID(user.getUserID());
                 order.setQuantity(1);
                 order.setTotalPrice(service.getPrice());
-                order.setOrderDate(java.time.LocalDateTime.now().toString());
-                order.setIsCheckOut(false);  // Set as cart item
+                order.setOrderDate(new Date());
+                order.setCheckOut(false);  // Set as cart item
                 
                 // Add order and get ID
-                order = orderDAO.addOrder(order);
+                int orderId = orderDAO.insert(order);
+                if (orderId > 0) {
+                    order.setOrderID(orderId);
+                    System.out.println("Created order with ID: " + orderId);
+                } else {
+                    throw new Exception("Failed to create order");
+                }
 
                 // Create and add order item
                 OrderItem orderItem = new OrderItem();

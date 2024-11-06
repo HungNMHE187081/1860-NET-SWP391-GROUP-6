@@ -116,17 +116,32 @@ public class PaymentDAO extends DBContext {
         return null;
     }
     
-    public boolean updatePaymentStatus(String transactionNo, String status) {
-        String sql = "UPDATE Payments SET PaymentStatus = ? WHERE TransactionNo = ?";
-        
-        try (Connection conn = connection;
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+    public boolean updatePaymentStatus(String transactionNo, String status, int orderId, int reservationId) {
+        // Kiểm tra giá trị trước khi update
+        if (reservationId <= 0) {
+            System.out.println("Invalid ReservationID: " + reservationId);
+            return false;
+        }
+
+        String sql = "UPDATE Payments SET " +
+                     "PaymentStatus = ?, " +
+                     "OrderID = ?, " +
+                     "ReservationID = ? " +
+                     "WHERE TransactionNo = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, status);
+            st.setInt(2, orderId);
+            st.setInt(3, reservationId);
+            st.setString(4, transactionNo);
             
-            ps.setString(1, status);
-            ps.setString(2, transactionNo);
+            System.out.println("Executing payment update with values:");
+            System.out.println("Status: " + status);
+            System.out.println("OrderID: " + orderId);
+            System.out.println("ReservationID: " + reservationId);
+            System.out.println("TransactionNo: " + transactionNo);
             
-            return ps.executeUpdate() > 0;
-            
+            return st.executeUpdate() > 0;
         } catch (SQLException e) {
             System.out.println("Error updating payment status: " + e.getMessage());
             e.printStackTrace();
@@ -198,5 +213,31 @@ public class PaymentDAO extends DBContext {
             e.printStackTrace();
             return false;
         }
+    }
+    
+    public Payment getPaymentByReservationId(int reservationId) {
+        String sql = "SELECT * FROM Payments WHERE ReservationID = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, reservationId);
+            ResultSet rs = st.executeQuery();
+            
+            if (rs.next()) {
+                Payment payment = new Payment();
+                payment.setPaymentId(rs.getInt("PaymentID"));
+                payment.setTransactionNo(rs.getString("TransactionNo"));
+                payment.setAmount(rs.getDouble("Amount"));
+                payment.setPaymentStatus(rs.getString("PaymentStatus"));
+                payment.setPaymentMethod(rs.getString("PaymentMethod"));
+                payment.setPaymentDate(rs.getTimestamp("PaymentDate"));
+                payment.setOrderId(rs.getInt("OrderID"));
+                payment.setReservationId(rs.getInt("ReservationID"));
+                return payment;
+            }
+        } catch (SQLException e) {
+            System.out.println("Error getting payment by reservation ID: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return null;
     }
 }

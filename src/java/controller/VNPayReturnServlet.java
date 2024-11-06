@@ -18,6 +18,9 @@ import model.OrderItem;
 import model.Reservation;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Date;
+import model.Users;
+import model.Service;
 
 public class VNPayReturnServlet extends HttpServlet {
     
@@ -39,147 +42,119 @@ public class VNPayReturnServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
+        System.out.println("=== VNPayReturnServlet START ===");
+        
         try {
-            System.out.println("=== VNPayReturnServlet START ===");
-            
+            // Lấy session một lần duy nhất
+            HttpSession session = request.getSession();
+            Users currentUser = (Users) session.getAttribute("user");
+            System.out.println("Current user in session: " + 
+                (currentUser != null ? currentUser.getUserID() : "null"));
+
+            // Lấy thông tin từ VNPay
             String vnp_ResponseCode = request.getParameter("vnp_ResponseCode");
             String vnp_TxnRef = request.getParameter("vnp_TxnRef");
             System.out.println("Response Code: " + vnp_ResponseCode);
             System.out.println("Transaction Ref: " + vnp_TxnRef);
-            
-            PaymentDAO paymentDAO = new PaymentDAO();
-            Payment payment = paymentDAO.getPaymentByTransactionNo(vnp_TxnRef);
-            
-            if (payment != null) {
-                if ("00".equals(vnp_ResponseCode)) {
-                    System.out.println("Payment successful, processing...");
+
+            if ("00".equals(vnp_ResponseCode)) {
+                System.out.println("Payment successful, processing...");
+                
+                // Lấy thông tin từ session
+                Map<String, Object> reservationInfo = 
+                    (Map<String, Object>) session.getAttribute("reservationInfo");
+                System.out.println("Creating reservation from info: " + reservationInfo);
+
+                if (reservationInfo != null && currentUser != null) {
+                    // Tạo Order mới
+                    OrderDAO orderDAO = new OrderDAO();
+                    Service service = (Service) reservationInfo.get("service");
                     
-                    HttpSession session = request.getSession();
-                    Map<String, Object> reservationInfo = 
-                        (Map<String, Object>) session.getAttribute("reservationInfo");
+                    Order order = new Order();
+                    order.setCustomerID(currentUser.getUserID());
+                    order.setQuantity(1);
+                    order.setTotalPrice(service.getPrice());
+                    order.setOrderDate(new Date());
+                    order.setCheckOut(true);
+
+                    System.out.println("Creating order with CustomerID: " + currentUser.getUserID());
+                    int orderId = orderDAO.insert(order);
                     
-                    if (reservationInfo != null) {
-                        System.out.println("Creating reservation from info: " + reservationInfo);
-                        try {
-                            Connection conn = null;
-                            try {
-                                conn = new DBContext().connection;
-                                conn.setAutoCommit(false);
-                                
-                                // 1. Tạo Order
-                                Order order = new Order();
-                                order.setCustomerID(4); // Lấy customerID từ session
-                                order.setQuantity(1);
-                                order.setTotalPrice(payment.getAmount());
-                                order.setIsCheckOut(true);
-                                
-                                OrderDAO orderDAO = new OrderDAO();
-                                order = orderDAO.addOrder(order);
-                                
-                                System.out.println("Created Order with ID: " + order.getOrderID());
-                                
-                                if (order.getOrderID() > 0) {
-                                    // 2. Cập nhật Payment với OrderID
-                                    payment.setOrderId(order.getOrderID());
-                                    
-                                    // 3. Tạo OrderItem
-                                    OrderItem orderItem = new OrderItem();
-                                    orderItem.setOrderID(order.getOrderID());
-                                    orderItem.setChildID((Integer)reservationInfo.get("childID"));
-                                    orderItem.setServiceID((Integer)reservationInfo.get("serviceID"));
-                                    
-                                    OrderItemDAO orderItemDAO = new OrderItemDAO();
-                                    orderItem = orderItemDAO.addOrderItem(orderItem);
-                                    
-                                    System.out.println("Created OrderItem with ID: " + orderItem.getOrderItemID());
-                                    
-                                    if (orderItem != null && orderItem.getOrderItemID() > 0) {
-                                        // 4. Tạo Reservation
-                                        Reservation reservation = new Reservation();
-                                        reservation.setOrderItemID(orderItem.getOrderItemID());
-                                        reservation.setReservationDate((String)reservationInfo.get("reservationDate"));
-                                        reservation.setStartTime((String)reservationInfo.get("startTime"));
-                                        reservation.setStaffID((Integer)reservationInfo.get("staffID"));
-                                        reservation.setIsExam(false);
-                                        reservation.setHasRecord(false);
-                                        
-                                        ReservationDAO reservationDAO = new ReservationDAO();
-                                        if (reservationDAO.addReservation(reservation)) {
-                                            int newReservationID = reservation.getReservationID();
-                                            System.out.println("Created Reservation with ID: " + newReservationID);
-                                            
-                                            if (newReservationID > 0) {
-                                                // Cập nhật payment
-                                                payment.setPaymentStatus("SUCCESS");
-                                                payment.setOrderId(order.getOrderID());
-                                                payment.setReservationId(newReservationID);
-                                                
-                                                System.out.println("Updating payment:");
-                                                System.out.println("PaymentID: " + payment.getPaymentId());
-                                                System.out.println("OrderID: " + payment.getOrderId());
-                                                System.out.println("ReservationID: " + payment.getReservationId());
-                                                
-                                                if (paymentDAO.updatePayment(payment)) {
-                                                    System.out.println("Payment updated successfully");
-                                                    
-                                                    // Verify the update
-                                                    Payment updatedPayment = paymentDAO.getPaymentByTransactionNo(payment.getTransactionNo());
-                                                    System.out.println("Verified payment - ReservationID: " + updatedPayment.getReservationId());
-                                                    
-                                                    request.setAttribute("paymentSuccess", true);
-                                                    session.removeAttribute("reservationInfo");
-                                                } else {
-                                                    throw new Exception("Failed to update payment");
-                                                }
-                                            } else {
-                                                throw new Exception("Invalid ReservationID generated: " + newReservationID);
-                                            }
-                                        } else {
-                                            throw new Exception("Failed to create reservation");
-                                        }
-                                    }
-                                }
-                                
-                                conn.commit();
-                            } catch (Exception e) {
-                                if (conn != null) {
-                                    try {
-                                        conn.rollback();
-                                    } catch (SQLException ex) {
-                                        ex.printStackTrace();
-                                    }
-                                }
-                                throw e;
-                            } finally {
-                                if (conn != null) {
-                                    try {
-                                        conn.close();
-                                    } catch (SQLException ex) {
-                                        ex.printStackTrace();
-                                    }
-                                }
-                            }
-                        } catch (Exception e) {
-                            System.out.println("Error processing payment: " + e.getMessage());
-                            e.printStackTrace();
-                            payment.setPaymentStatus("FAILED");
-                            paymentDAO.updatePayment(payment);
-                            request.setAttribute("paymentSuccess", false);
+                    if (orderId > 0) {
+                        order.setOrderID(orderId);
+                        System.out.println("Created Order with ID: " + orderId);
+
+                        // Tạo OrderItem
+                        OrderItem orderItem = new OrderItem();
+                        orderItem.setOrderID(orderId);
+                        orderItem.setServiceID((Integer) reservationInfo.get("serviceID"));
+                        orderItem.setChildID((Integer) reservationInfo.get("childID"));
+                        
+                        orderItem = orderDAO.addOrderItem(orderItem);
+                        System.out.println("Created OrderItem with ID: " + orderItem.getOrderItemID());
+
+                        // Tạo Reservation
+                        Reservation reservation = new Reservation();
+                        reservation.setOrderItemID(orderItem.getOrderItemID());
+                        reservation.setStaffID((Integer) reservationInfo.get("staffID"));
+                        reservation.setReservationDate((String) reservationInfo.get("reservationDate"));
+                        reservation.setStartTime((String) reservationInfo.get("startTime"));
+                        reservation.setIsExam(false);
+                        reservation.setHasRecord(false);
+
+                        ReservationDAO resDAO = new ReservationDAO();
+                        int reservationId = resDAO.addReservation(reservation);
+
+                        if (reservationId > 0) {
+                            System.out.println("Created Reservation with ID: " + reservationId);
+
+                            // Cập nhật Payment
+                            updatePayment(vnp_TxnRef, "SUCCESS", orderId, reservationId);
+                            
+                            // Chuyển hướng đến trang success
+                            response.sendRedirect(request.getContextPath() + 
+                                "/customer/reservationdetail?id=" + reservationId);
+                            return;
+                        } else {
+                            throw new Exception("Failed to create reservation");
                         }
                     }
-                } else {
-                    payment.setPaymentStatus("FAILED");
-                    paymentDAO.updatePayment(payment);
-                    request.setAttribute("paymentSuccess", false);
                 }
             }
             
-            request.getRequestDispatcher("/payment-result.jsp").forward(request, response);
+            // Nếu có lỗi, cập nhật payment status thành FAILED
+            updatePayment(vnp_TxnRef, "FAILED", 0, 0);
+            response.sendRedirect(request.getContextPath() + "/error.jsp");
             
         } catch (Exception e) {
-            System.out.println("Error in VNPayReturnServlet: " + e.getMessage());
+            System.out.println("Error processing payment: " + e.getMessage());
             e.printStackTrace();
             response.sendRedirect(request.getContextPath() + "/error.jsp");
+        }
+    }
+
+    private void updatePayment(String txnRef, String status, int orderId, int reservationId) {
+        try {
+            System.out.println("=== Updating payment ===");
+            System.out.println("TransactionNo: " + txnRef);
+            System.out.println("Status: " + status);
+            System.out.println("OrderID: " + orderId);
+            System.out.println("ReservationID: " + reservationId);
+
+            PaymentDAO paymentDAO = new PaymentDAO();
+            boolean updated = paymentDAO.updatePaymentStatus(txnRef, status, orderId, reservationId);
+            
+            if (updated) {
+                System.out.println("Payment updated successfully");
+            } else {
+                System.out.println("Failed to update payment");
+                // Có thể throw exception ở đây nếu cần
+                throw new Exception("Payment update failed");
+            }
+            
+        } catch (Exception e) {
+            System.out.println("Error in updatePayment: " + e.getMessage());
+            e.printStackTrace();
         }
     }
     
