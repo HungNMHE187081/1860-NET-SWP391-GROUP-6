@@ -138,7 +138,7 @@ public class AddUserServlet extends HttpServlet {
             String uploadPath = getServletContext().getRealPath("") + File.separator + UPLOAD_DIR;
 
             // Kiểm tra các trường không được để null hoặc rỗng
-        if (firstName == null || firstName.trim().isEmpty() || username == null || username.trim().isEmpty()) {
+        if (firstName == null || firstName.trim().isEmpty() || username == null || username.trim().isEmpty()) {   
             request.setAttribute("errorMessage", "Họ và tên, Username không được để trống");
             request.getRequestDispatcher("form-add-user.jsp").forward(request, response);
             return;
