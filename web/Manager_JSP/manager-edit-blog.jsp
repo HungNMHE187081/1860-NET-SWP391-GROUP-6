@@ -252,14 +252,16 @@
             </div>
 
         </main>
-        <script>
-            // Khởi tạo CKEditor
-            CKEDITOR.replace('contentedit', {
-                height: 300,
-                width: '100%'
-            });
 
-        </script>
+        <script>
+    CKEDITOR.replace('contentedit', {
+        height: 300, 
+        width: '100%', 
+        filebrowserUploadUrl: '${pageContext.request.contextPath}/manager/upload', // URL của servlet để tải lên tệp
+        filebrowserUploadMethod: 'form' 
+       
+    });
+</script>
 
         <!--
         MODAL

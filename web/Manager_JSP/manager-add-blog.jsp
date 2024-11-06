@@ -254,10 +254,11 @@
   </main>
 <script>
     CKEDITOR.replace('content', {
-        height: 300,
-        width: '100%',
-        filebrowserUploadUrl: '${pageContext.request.contextPath}/manager/upload',  // Servlet URL for file uploads
-        filebrowserUploadMethod: 'form'
+        height: 300, 
+        width: '100%', 
+        filebrowserUploadUrl: '${pageContext.request.contextPath}/manager/upload', // URL của servlet để tải lên tệp
+        filebrowserUploadMethod: 'form' 
+       
     });
 </script>
 
