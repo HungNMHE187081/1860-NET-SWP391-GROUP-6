@@ -7,13 +7,14 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
+import jakarta.servlet.http.HttpServletRequest;
 
 public class VNPayConfig {
     // Các thông số cấu hình VNPay
     public static String vnp_Version = "2.1.0";
     public static String vnp_Command = "pay";
     public static String vnp_PayUrl = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-    public static String vnp_ReturnUrl = "http://localhost:9998/ChildrenCare/vnpayreturn2";
+    public static String vnp_ReturnUrl = "${pageContext.request.contextPath}/payment/vnpay-return";
     public static String vnp_TmnCode = "7Y8CCGKA"; // Mã website của bạn tại VNPay
     public static String vnp_HashSecret = "28PKOUNS77LGSKS6I1JV9HYCRD623J9I"; // Chuỗi bí mật của bạn
     public static String vnp_ApiUrl = "https://sandbox.vnpayment.vn/merchant_webapi/api/transaction";
@@ -54,7 +55,7 @@ public class VNPayConfig {
     }
     
     // Hàm tạo URL thanh toán
-    public static String createPaymentUrl(String txnRef, double amount, String orderInfo) {
+    public static String createPaymentUrl(String txnRef, double amount, String orderInfo, HttpServletRequest request) {
         Map<String, String> vnp_Params = new HashMap<>();
         vnp_Params.put("vnp_Version", vnp_Version);
         vnp_Params.put("vnp_Command", vnp_Command);
@@ -69,7 +70,11 @@ public class VNPayConfig {
         vnp_Params.put("vnp_OrderInfo", orderInfo);
         vnp_Params.put("vnp_OrderType", "250000"); // Mã danh mục hàng hóa
         vnp_Params.put("vnp_Locale", "vn");
-        vnp_Params.put("vnp_ReturnUrl", vnp_ReturnUrl);
+        vnp_Params.put("vnp_ReturnUrl", request.getScheme() + "://" + 
+                          request.getServerName() + ":" + 
+                          request.getServerPort() + 
+                          request.getContextPath() + 
+                          "/payment/vnpay-return");
         vnp_Params.put("vnp_IpAddr", "127.0.0.1");
 
         // Thêm thời gian giao dịch

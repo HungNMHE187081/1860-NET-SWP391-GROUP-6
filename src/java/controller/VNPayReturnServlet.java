@@ -1,5 +1,6 @@
 package controller;
 
+import dal.DBContext;
 import dal.PaymentDAO;
 import dal.ReservationDAO;
 import dal.OrderDAO;
@@ -15,14 +16,23 @@ import model.Order;
 import java.util.Map;
 import model.OrderItem;
 import model.Reservation;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 public class VNPayReturnServlet extends HttpServlet {
     
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
-        System.out.println("=== VNPayReturnServlet service() called ===");
-        System.out.println("Request Method: " + request.getMethod());
+        System.out.println("=== VNPayReturnServlet service() START ===");
+        System.out.println("Full URL: " + request.getRequestURL());
+        System.out.println("Query String: " + request.getQueryString());
+        System.out.println("Server Name: " + request.getServerName());
+        System.out.println("Server Port: " + request.getServerPort());
+        System.out.println("Context Path: " + request.getContextPath());
+        System.out.println("Servlet Path: " + request.getServletPath());
+        System.out.println("Path Info: " + request.getPathInfo());
+        
         super.service(request, response);
     }
     
@@ -30,16 +40,7 @@ public class VNPayReturnServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
         try {
-            System.out.println("=== VNPayReturnServlet doGet START ===");
-            System.out.println("Request URI: " + request.getRequestURI());
-            System.out.println("Context Path: " + request.getContextPath());
-            System.out.println("Servlet Path: " + request.getServletPath());
-            
-            // Log all request parameters
-            Map<String, String[]> params = request.getParameterMap();
-            for (String key : params.keySet()) {
-                System.out.println(key + ": " + String.join(", ", params.get(key)));
-            }
+            System.out.println("=== VNPayReturnServlet START ===");
             
             String vnp_ResponseCode = request.getParameter("vnp_ResponseCode");
             String vnp_TxnRef = request.getParameter("vnp_TxnRef");
@@ -52,9 +53,6 @@ public class VNPayReturnServlet extends HttpServlet {
             if (payment != null) {
                 if ("00".equals(vnp_ResponseCode)) {
                     System.out.println("Payment successful, processing...");
-                    // Thanh toán thành công
-                    payment.setPaymentStatus("SUCCESS");
-                    paymentDAO.updatePayment(payment);
                     
                     HttpSession session = request.getSession();
                     Map<String, Object> reservationInfo = 
@@ -62,60 +60,124 @@ public class VNPayReturnServlet extends HttpServlet {
                     
                     if (reservationInfo != null) {
                         System.out.println("Creating reservation from info: " + reservationInfo);
-                        // Tạo reservation và cập nhật payment
                         try {
-                            Reservation reservation = new Reservation();
-                            reservation.setOrderItemID(payment.getOrderId());
-                            reservation.setReservationDate((String)reservationInfo.get("reservationDate"));
-                            reservation.setStartTime((String)reservationInfo.get("startTime"));
-                            reservation.setStaffID((Integer)reservationInfo.get("staffID"));
-                            reservation.setIsExam(false);
-                            reservation.setHasRecord(false);
-                            
-                            ReservationDAO reservationDAO = new ReservationDAO();
-                            if (reservationDAO.addReservation(reservation)) {
-                                System.out.println("Reservation created successfully: " + reservation.getReservationID());
-                                payment.setReservationId(reservation.getReservationID());
-                                paymentDAO.updatePayment(payment);
+                            Connection conn = null;
+                            try {
+                                conn = new DBContext().connection;
+                                conn.setAutoCommit(false);
                                 
-                                // Cập nhật trạng thái order
-                                OrderDAO orderDAO = new OrderDAO();
-                                Order order = orderDAO.getOrdersByOrderID(payment.getOrderId());
+                                // 1. Tạo Order
+                                Order order = new Order();
+                                order.setCustomerID(4); // Lấy customerID từ session
+                                order.setQuantity(1);
+                                order.setTotalPrice(payment.getAmount());
                                 order.setIsCheckOut(true);
-                                orderDAO.updateOrder(order);
                                 
-                                session.removeAttribute("reservationInfo");
-                                request.setAttribute("paymentSuccess", true);
-                                System.out.println("Payment process completed successfully");
+                                OrderDAO orderDAO = new OrderDAO();
+                                order = orderDAO.addOrder(order);
+                                
+                                System.out.println("Created Order with ID: " + order.getOrderID());
+                                
+                                if (order.getOrderID() > 0) {
+                                    // 2. Cập nhật Payment với OrderID
+                                    payment.setOrderId(order.getOrderID());
+                                    
+                                    // 3. Tạo OrderItem
+                                    OrderItem orderItem = new OrderItem();
+                                    orderItem.setOrderID(order.getOrderID());
+                                    orderItem.setChildID((Integer)reservationInfo.get("childID"));
+                                    orderItem.setServiceID((Integer)reservationInfo.get("serviceID"));
+                                    
+                                    OrderItemDAO orderItemDAO = new OrderItemDAO();
+                                    orderItem = orderItemDAO.addOrderItem(orderItem);
+                                    
+                                    System.out.println("Created OrderItem with ID: " + orderItem.getOrderItemID());
+                                    
+                                    if (orderItem != null && orderItem.getOrderItemID() > 0) {
+                                        // 4. Tạo Reservation
+                                        Reservation reservation = new Reservation();
+                                        reservation.setOrderItemID(orderItem.getOrderItemID());
+                                        reservation.setReservationDate((String)reservationInfo.get("reservationDate"));
+                                        reservation.setStartTime((String)reservationInfo.get("startTime"));
+                                        reservation.setStaffID((Integer)reservationInfo.get("staffID"));
+                                        reservation.setIsExam(false);
+                                        reservation.setHasRecord(false);
+                                        
+                                        ReservationDAO reservationDAO = new ReservationDAO();
+                                        if (reservationDAO.addReservation(reservation)) {
+                                            int newReservationID = reservation.getReservationID();
+                                            System.out.println("Created Reservation with ID: " + newReservationID);
+                                            
+                                            if (newReservationID > 0) {
+                                                // Cập nhật payment
+                                                payment.setPaymentStatus("SUCCESS");
+                                                payment.setOrderId(order.getOrderID());
+                                                payment.setReservationId(newReservationID);
+                                                
+                                                System.out.println("Updating payment:");
+                                                System.out.println("PaymentID: " + payment.getPaymentId());
+                                                System.out.println("OrderID: " + payment.getOrderId());
+                                                System.out.println("ReservationID: " + payment.getReservationId());
+                                                
+                                                if (paymentDAO.updatePayment(payment)) {
+                                                    System.out.println("Payment updated successfully");
+                                                    
+                                                    // Verify the update
+                                                    Payment updatedPayment = paymentDAO.getPaymentByTransactionNo(payment.getTransactionNo());
+                                                    System.out.println("Verified payment - ReservationID: " + updatedPayment.getReservationId());
+                                                    
+                                                    request.setAttribute("paymentSuccess", true);
+                                                    session.removeAttribute("reservationInfo");
+                                                } else {
+                                                    throw new Exception("Failed to update payment");
+                                                }
+                                            } else {
+                                                throw new Exception("Invalid ReservationID generated: " + newReservationID);
+                                            }
+                                        } else {
+                                            throw new Exception("Failed to create reservation");
+                                        }
+                                    }
+                                }
+                                
+                                conn.commit();
+                            } catch (Exception e) {
+                                if (conn != null) {
+                                    try {
+                                        conn.rollback();
+                                    } catch (SQLException ex) {
+                                        ex.printStackTrace();
+                                    }
+                                }
+                                throw e;
+                            } finally {
+                                if (conn != null) {
+                                    try {
+                                        conn.close();
+                                    } catch (SQLException ex) {
+                                        ex.printStackTrace();
+                                    }
+                                }
                             }
                         } catch (Exception e) {
-                            System.out.println("Error creating reservation: " + e.getMessage());
+                            System.out.println("Error processing payment: " + e.getMessage());
                             e.printStackTrace();
-                            throw e;
+                            payment.setPaymentStatus("FAILED");
+                            paymentDAO.updatePayment(payment);
+                            request.setAttribute("paymentSuccess", false);
                         }
-                    } else {
-                        System.out.println("No reservation info found in session");
                     }
                 } else {
-                    System.out.println("Payment failed with response code: " + vnp_ResponseCode);
                     payment.setPaymentStatus("FAILED");
                     paymentDAO.updatePayment(payment);
                     request.setAttribute("paymentSuccess", false);
                 }
-            } else {
-                System.out.println("No payment found for transaction: " + vnp_TxnRef);
-                request.setAttribute("paymentSuccess", false);
             }
             
-            // Đảm bảo đường dẫn JSP chính xác
-            String jspPath = "/Common_JSP/payment-result.jsp";
-            System.out.println("Forwarding to: " + jspPath);
-            request.getRequestDispatcher(jspPath).forward(request, response);
+            request.getRequestDispatcher("/payment-result.jsp").forward(request, response);
             
-            System.out.println("=== VNPayReturnServlet END ===");
-                    
         } catch (Exception e) {
-            System.out.println("CRITICAL ERROR in VNPayReturnServlet: " + e.getMessage());
+            System.out.println("Error in VNPayReturnServlet: " + e.getMessage());
             e.printStackTrace();
             response.sendRedirect(request.getContextPath() + "/error.jsp");
         }

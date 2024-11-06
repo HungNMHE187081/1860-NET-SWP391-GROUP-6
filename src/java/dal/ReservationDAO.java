@@ -278,9 +278,13 @@ public class ReservationDAO extends DBContext {
     }
 
     public boolean addReservation(Reservation reservation) {
-        String sql = "INSERT INTO Reservations (OrderItemID, ReservationDate, StartTime, StaffID, isExam, hasRecord) " +
-                     "VALUES (?, ?, ?, ?, ?, ?)";
-        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+        String sql = "INSERT INTO Reservations (OrderItemID, ReservationDate, StartTime, StaffID, isExam, hasRecord) "
+                   + "OUTPUT INSERTED.ReservationID "
+                   + "VALUES (?, ?, ?, ?, ?, ?)";
+                   
+        try (Connection conn = connection;
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            
             ps.setInt(1, reservation.getOrderItemID());
             ps.setString(2, reservation.getReservationDate());
             ps.setString(3, reservation.getStartTime());
@@ -288,8 +292,21 @@ public class ReservationDAO extends DBContext {
             ps.setBoolean(5, reservation.isIsExam());
             ps.setBoolean(6, reservation.isHasRecord());
             
-            int rowsAffected = ps.executeUpdate();
-            return rowsAffected > 0;
+            System.out.println("Adding reservation with values:");
+            System.out.println("OrderItemID: " + reservation.getOrderItemID());
+            System.out.println("Date: " + reservation.getReservationDate());
+            System.out.println("Time: " + reservation.getStartTime());
+            
+            ResultSet rs = ps.executeQuery();
+            
+            if (rs.next()) {
+                int newId = rs.getInt(1);
+                reservation.setReservationID(newId);
+                System.out.println("Generated ReservationID: " + newId);
+                return true;
+            }
+            return false;
+            
         } catch (SQLException e) {
             System.out.println("Error in addReservation: " + e.getMessage());
             e.printStackTrace();

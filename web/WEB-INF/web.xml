@@ -918,7 +918,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>VNPayReturnServlet</servlet-name>
-        <url-pattern>/vnpayreturn</url-pattern>
+        <url-pattern>/payment/vnpay-return</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CustomerViewReservation</servlet-name>
@@ -935,9 +935,5 @@
     <servlet-mapping>
         <servlet-name>CustomerEditBlogCommentServlet</servlet-name>
         <url-pattern>/customer/editblogcomment</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ManagerEditUserServlet</servlet-name>
-        <url-pattern>/manageredituser</url-pattern>
     </servlet-mapping>
 </web-app>

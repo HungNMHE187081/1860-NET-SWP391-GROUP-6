@@ -17,8 +17,10 @@
                 <p>Cảm ơn bạn đã sử dụng dịch vụ của chúng tôi.</p>
                 <hr>
                 <p class="mb-0">
-                    <a href="${pageContext.request.contextPath}/customer/listreservations" 
-                       class="btn btn-primary">Xem lịch hẹn của bạn</a>
+                    <c:set var="contextPath" value="${pageContext.request.contextPath}" />
+                    <a href="${contextPath}/customer/listreservations" class="btn btn-primary">
+                        Xem lịch hẹn của bạn
+                    </a>
                 </p>
             </div>
         </c:if>

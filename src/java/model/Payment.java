@@ -97,7 +97,7 @@ public class Payment {
     public void setPaymentMethod(String paymentMethod) {
         this.paymentMethod = paymentMethod;
     }
-    
+
     @Override
     public String toString() {
         return "Payment{" + "paymentId=" + paymentId + 

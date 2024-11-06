@@ -4,7 +4,11 @@
  */
 package dal;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import model.Payment;
@@ -16,80 +20,116 @@ import model.Payment;
 public class PaymentDAO extends DBContext {
     
     public boolean createPayment(Payment payment) {
+        String sql = "INSERT INTO Payments (TransactionNo, Amount, PaymentStatus, PaymentMethod, PaymentDate) "
+                   + "VALUES (?, ?, ?, ?, GETDATE())";
+        
+        Connection conn = null;
+        PreparedStatement ps = null;
+        
         try {
-            String sql = "INSERT INTO Payments (ReservationID, OrderID, Amount, PaymentStatus, TransactionNo, PaymentMethod) "
-                      + "VALUES (?, ?, ?, ?, ?, ?)";
-                      
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setInt(1, payment.getReservationId());
-            st.setInt(2, payment.getOrderId());
-            st.setDouble(3, payment.getAmount());
-            st.setString(4, payment.getPaymentStatus());
-            st.setString(5, payment.getTransactionNo());
-            st.setString(6, payment.getPaymentMethod());
+            conn = new DBContext().connection;
+            ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             
-            return st.executeUpdate() > 0;
+            ps.setString(1, payment.getTransactionNo());
+            ps.setDouble(2, payment.getAmount());
+            ps.setString(3, "PENDING");
+            ps.setString(4, "VNPAY");
+            
+            System.out.println("Executing SQL: " + sql);
+            System.out.println("TransactionNo: " + payment.getTransactionNo());
+            System.out.println("Amount: " + payment.getAmount());
+            
+            int result = ps.executeUpdate();
+            
+            if (result > 0) {
+                try (ResultSet rs = ps.getGeneratedKeys()) {
+                    if (rs.next()) {
+                        payment.setPaymentId(rs.getInt(1));
+                        System.out.println("Created payment with ID: " + payment.getPaymentId());
+                    }
+                }
+            }
+            
+            return result > 0;
             
         } catch (SQLException e) {
-            System.out.println("createPayment error: " + e.getMessage());
+            System.out.println("Error creating payment: " + e.getMessage());
+            e.printStackTrace();
             return false;
+        } finally {
+            try {
+                if (ps != null) ps.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                System.out.println("Error closing connection: " + e.getMessage());
+            }
         }
     }
     
     public Payment getPaymentByTransactionNo(String transactionNo) {
+        String sql = "SELECT * FROM Payments WHERE TransactionNo = ?";
+        
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        
         try {
-            String sql = "SELECT * FROM Payments WHERE TransactionNo = ?";
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, transactionNo);
-            ResultSet rs = st.executeQuery();
+            conn = new DBContext().connection; // Tạo kết nối mới
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, transactionNo);
+            rs = ps.executeQuery();
             
             if (rs.next()) {
                 Payment payment = new Payment();
                 payment.setPaymentId(rs.getInt("PaymentID"));
-                payment.setReservationId(rs.getInt("ReservationID"));
-                payment.setOrderId(rs.getInt("OrderID"));
-                payment.setAmount(rs.getDouble("Amount"));
-                payment.setPaymentDate(rs.getTimestamp("PaymentDate"));
-                payment.setPaymentStatus(rs.getString("PaymentStatus"));
                 payment.setTransactionNo(rs.getString("TransactionNo"));
+                payment.setAmount(rs.getDouble("Amount"));
+                payment.setPaymentStatus(rs.getString("PaymentStatus"));
                 payment.setPaymentMethod(rs.getString("PaymentMethod"));
+                payment.setPaymentDate(rs.getTimestamp("PaymentDate"));
+                
+                // Kiểm tra NULL trước khi set
+                int reservationId = rs.getInt("ReservationID");
+                if (!rs.wasNull()) {
+                    payment.setReservationId(reservationId);
+                }
+                
+                int orderId = rs.getInt("OrderID");
+                if (!rs.wasNull()) {
+                    payment.setOrderId(orderId);
+                }
+                
                 return payment;
             }
         } catch (SQLException e) {
-            System.out.println("getPaymentByTransactionNo error: " + e.getMessage());
+            System.out.println("Error getting payment: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (ps != null) ps.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                System.out.println("Error closing connection: " + e.getMessage());
+            }
         }
         return null;
     }
     
     public boolean updatePaymentStatus(String transactionNo, String status) {
-        try {
-            String sql = "UPDATE Payments SET PaymentStatus = ? WHERE TransactionNo = ?";
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, status);
-            st.setString(2, transactionNo);
-            return st.executeUpdate() > 0;
-        } catch (SQLException e) {
-            System.out.println("updatePaymentStatus error: " + e.getMessage());
-            return false;
-        }
-    }
-    
-    public boolean updatePayment(Payment payment) {
-        try {
-            String sql = "UPDATE Payments SET "
-                      + "ReservationID = ?, "
-                      + "PaymentStatus = ? "
-                      + "WHERE PaymentID = ?";
-                      
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setInt(1, payment.getReservationId());
-            st.setString(2, payment.getPaymentStatus());
-            st.setInt(3, payment.getPaymentId());
+        String sql = "UPDATE Payments SET PaymentStatus = ? WHERE TransactionNo = ?";
+        
+        try (Connection conn = connection;
+             PreparedStatement ps = conn.prepareStatement(sql)) {
             
-            return st.executeUpdate() > 0;
+            ps.setString(1, status);
+            ps.setString(2, transactionNo);
+            
+            return ps.executeUpdate() > 0;
             
         } catch (SQLException e) {
-            System.out.println("updatePayment error: " + e.getMessage());
+            System.out.println("Error updating payment status: " + e.getMessage());
+            e.printStackTrace();
             return false;
         }
     }
@@ -120,5 +160,43 @@ public class PaymentDAO extends DBContext {
             System.out.println("getPaymentsByCustomerId error: " + e.getMessage());
         }
         return payments;
+    }
+    
+    public boolean updatePayment(Payment payment) {
+        String sql = "UPDATE Payments SET PaymentStatus = ?, OrderID = ?, ReservationID = ? "
+                   + "WHERE TransactionNo = ?";
+               
+        try (Connection conn = connection;
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            
+            ps.setString(1, payment.getPaymentStatus());
+            
+            if (payment.getOrderId() > 0) {
+                ps.setInt(2, payment.getOrderId());
+            } else {
+                ps.setNull(2, java.sql.Types.INTEGER);
+            }
+            
+            if (payment.getReservationId() > 0) {
+                ps.setInt(3, payment.getReservationId());
+            } else {
+                ps.setNull(3, java.sql.Types.INTEGER);
+            }
+            
+            ps.setString(4, payment.getTransactionNo());
+            
+            System.out.println("Updating payment:");
+            System.out.println("TransactionNo: " + payment.getTransactionNo());
+            System.out.println("Status: " + payment.getPaymentStatus());
+            System.out.println("OrderID: " + payment.getOrderId());
+            System.out.println("ReservationID: " + payment.getReservationId());
+            
+            int result = ps.executeUpdate();
+            return result > 0;
+        } catch (SQLException e) {
+            System.out.println("Error updating payment: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
     }
 }
