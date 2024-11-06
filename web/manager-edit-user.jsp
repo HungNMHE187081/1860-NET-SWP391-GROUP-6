@@ -165,7 +165,8 @@
                             <c:if test="${not empty error}">
                                 <div class="alert alert-danger">${error}</div>
                             </c:if>
-                            <form action="adduser" method="post" enctype="multipart/form-data">
+                            <form action="${pageContext.request.contextPath}/manageredituser" method="post" enctype="multipart/form-data">
+                                <input type="hidden" name="userID" value="${userDetails.userID}">
                                 <div class="row">
                                     <!-- Avatar Section -->
                                     <div class="col-md-3 text-center">
@@ -218,29 +219,37 @@
                                         <div class="row">
                                             <div class="form-group col-md-4">
                                                 <label class="control-label">Tỉnh/Thành phố</label>
-                                                <select class="form-control" id="provinceID" name="provinceID" onchange="loadDistricts()">
-                                                    <option value="">-- Chọn Tỉnh --</option>
+                                                <select class="form-control" id="provinceID" name="provinceID" onchange="loadDistricts()" required>
+                                                    <option value="">Chọn Tỉnh/Thành phố</option>
                                                     <c:forEach var="province" items="${provinces}">
-                                                        <option value="${province.provinceID}"
-                                                                ${userDetails.address.provinces.provinceID == province.provinceID ? 'selected' : ''}>${province.provinceName}</option>
+                                                        <option value="${province.provinceID}" 
+                                                                ${userDetails.address.provinces.provinceID == province.provinceID ? 'selected' : ''}>
+                                                            ${province.provinceName}
+                                                        </option>
                                                     </c:forEach>
                                                 </select>
                                             </div>
                                             <div class="form-group col-md-4">
                                                 <label class="control-label">Quận/Huyện</label>
-                                                <select class="form-control" id="districtSelect" name="districtID" onchange="loadWards()">
-                                                    <option value="">-- Chọn Huyện --</option>
+                                                <select class="form-control" id="districtSelect" name="districtID" onchange="loadWards()" required>
+                                                    <option value="">Chọn Quận/Huyện</option>
                                                     <c:forEach var="district" items="${districts}">
-                                                        <option value="${district.id}" ${userDetails.address.district.id == district.id ? 'selected' : ''}>${district.districtName}</option>
+                                                        <option value="${district.id}"
+                                                                ${userDetails.address.district.id == district.id ? 'selected' : ''}>
+                                                            ${district.districtName}
+                                                        </option>
                                                     </c:forEach>
                                                 </select>
                                             </div>
                                             <div class="form-group col-md-4">
                                                 <label class="control-label">Phường/Xã</label>
-                                                <select class="form-control" id="wardSelect" name="wardID">
-                                                    <option value="">-- Chọn Xã --</option>
+                                                <select class="form-control" id="wardSelect" name="wardID" required>
+                                                    <option value="">Chọn Phường/Xã</option>
                                                     <c:forEach var="ward" items="${wards}">
-                                                        <option value="${ward.id}"  ${userDetails.address.ward.id == ward.id ? 'selected' : ''}>${ward.wardName}</option>
+                                                        <option value="${ward.id}"
+                                                                ${userDetails.address.ward.id == ward.id ? 'selected' : ''}>
+                                                            ${ward.wardName}
+                                                        </option>
                                                     </c:forEach>
                                                 </select>
                                             </div>
@@ -275,56 +284,47 @@
 
         </main>
 
-
-        <!--
-        MODAL
-        -->
-
-        <!--
-        MODAL
-        -->
         <script>
-            function loadDistricts() {
-                var provinceID = document.getElementById('provinceID').value;
-                var xhr = new XMLHttpRequest();
-                xhr.open('GET', contextPath + '/loadDistricts?provinceID=' + provinceID, true);
-                xhr.onload = function () {
-                    if (xhr.status === 200) {
-                        var districts = JSON.parse(xhr.responseText);
-                        var districtSelect = document.getElementById('districtSelect');
-                        districtSelect.innerHTML = '<option value="">-- Chọn Huyện --</option>'; // Reset district dropdown
-                        districts.forEach(function (district) {
-                            var option = document.createElement('option');
-                            option.value = district.id;
-                            option.textContent = district.districtName;
-                            districtSelect.appendChild(option);
-                        });
-                        loadWards(); // Load wards for the first district if any
-                    }
-                };
-                xhr.send();
+         function loadDistricts() {
+            var provinceID = document.getElementById('provinceID').value;
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', 'loadDistricts?provinceID=' + provinceID, true);
+            xhr.onload = function () {
+            if (xhr.status === 200) {
+            var districts = JSON.parse(xhr.responseText);
+            var districtSelect = document.getElementById('districtSelect');
+            districtSelect.innerHTML = '<option value="">-- Chọn Huyện --</option>'; // Reset district dropdown
+            districts.forEach(function (district) {
+            var option = document.createElement('option');
+            option.value = district.id;
+            option.textContent = district.districtName;
+            districtSelect.appendChild(option);
+            });
+            loadWards(); // Load wards for the first district if any
+            }
+            };
+            xhr.send();
             }
 
             function loadWards() {
-                var districtID = document.getElementById('districtSelect').value;
-                var xhr = new XMLHttpRequest();
-                xhr.open('GET', contextPath + '/loadWards?districtID=' + districtID, true);
-                xhr.onload = function () {
-                    if (xhr.status === 200) {
-                        var wards = JSON.parse(xhr.responseText);
-                        var wardSelect = document.getElementById('wardSelect');
-                        wardSelect.innerHTML = '<option value="">-- Chọn xã --</option>'; // Reset ward dropdown
-                        wards.forEach(function (ward) {
-                            var option = document.createElement('option');
-                            option.value = ward.id;
-                            option.textContent = ward.wardName;
-                            wardSelect.appendChild(option);
-                        });
-                    }
-                };
-                xhr.send();
+            var districtID = document.getElementById('districtSelect').value;
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', 'loadWards?districtID=' + districtID, true);
+            xhr.onload = function () {
+            if (xhr.status === 200) {
+            var wards = JSON.parse(xhr.responseText);
+            var wardSelect = document.getElementById('wardSelect');
+            wardSelect.innerHTML = '<option value="">-- Chọn Xã --</option>'; // Reset ward dropdown
+            wards.forEach(function (ward) {
+            var option = document.createElement('option');
+            option.value = ward.id;
+            option.textContent = ward.wardName;
+            wardSelect.appendChild(option);
+            });
             }
-
+            };
+            xhr.send();
+            }
 
 
             function previewImage(event) {

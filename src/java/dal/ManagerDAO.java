@@ -270,6 +270,11 @@ public boolean isDistrictNameExist(int provinceID, String districtName) throws S
     }
 
     public static void main(String[] args) {
+    String pro = "Hà Nội";
+    ManagerDAO dao = new ManagerDAO();
+    Provinces province = new Provinces();
+    province.setProvinceName(pro);
+    dao.addProvinces(province);
     
 }
 

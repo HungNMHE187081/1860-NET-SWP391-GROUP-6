@@ -26,9 +26,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
-        <script src="ckeditor/ckeditor.js" type="text/javascript"></script>
-
-
+        <script src="../ckeditor/ckeditor.js" type="text/javascript"></script>
         <script>
 
             function readURL(input, thumbimage) {
@@ -177,7 +175,7 @@
                                 </div>
                             </div>
 
-                            <form action="/manager/editblog" method="post" enctype="multipart/form-data" ">
+                            <form action="${pageContext.request.contextPath}/manager/editblog" method="post" enctype="multipart/form-data" ">
                                 <input type="hidden" name="blogid" value="${blogDetails.blogID}">
                                 <div class="row">
                                     <!-- Title Field -->
@@ -229,7 +227,7 @@
                                         </div>
                                         <div id="thumbbox">
                                             <img height="200" width="200" alt="Thumb image" id="thumbimage"  style="display: ${not empty blogDetails.thumbnailPath ? 'block' : 'none'};"
-                                                 src="${blogDetails.thumbnailPath}"/>
+                                                 src="${pageContext.request.contextPath}/${blogDetails.thumbnailPath}"/>
 
                                             <a class="removeimg" href="javascript:"></a>
                                         </div>

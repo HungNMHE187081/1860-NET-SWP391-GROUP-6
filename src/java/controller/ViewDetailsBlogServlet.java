@@ -59,7 +59,7 @@ public class ViewDetailsBlogServlet extends HttpServlet {
        int id = Integer.parseInt(request.getParameter("blogid"));
        Blog blogDetails = dao.getBlogById(id);
        request.setAttribute("blogDetails", blogDetails);
-       request.getRequestDispatcher("Manager_JSP/view-details-blog.jsp").forward(request, response);
+       request.getRequestDispatcher("/Manager_JSP/view-details-blog.jsp").forward(request, response);
     } 
 
     /** 

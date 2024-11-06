@@ -12,6 +12,10 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.BlogComment;
 import model.Users;
 
@@ -58,6 +62,15 @@ public class CustomerEditBlogCommentServlet extends HttpServlet {
     throws ServletException, IOException {
          BlogCommentDAO dao = new BlogCommentDAO();
         int commentID = Integer.parseInt(request.getParameter("commentID"));
+        List<BlogComment> replies = null;
+        try {
+            replies = dao.getReplies(commentID);
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerEditBlogCommentServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (!replies.isEmpty()) {
+            dao.deleteReplies(commentID);
+        }
         dao.deleteComment(commentID);
         response.sendRedirect(request.getContextPath() + "/customer/detailcustomerblog?blogID=" + request.getParameter("blogID"));
     } 

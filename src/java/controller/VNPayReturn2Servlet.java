@@ -56,11 +56,11 @@ public class VNPayReturn2Servlet extends HttpServlet {
             Payment payment = paymentDAO.getPaymentByTransactionNo(vnp_TxnRef);
 
             if (payment != null) {
-                // Cập nhật thông tin thanh toán
-//                payment.setPaymentAmount(Double.parseDouble(vnp_Amount) / 100); // Chuyển về đơn vị tiền tệ
-//                payment.setBankCode(vnp_BankCode);
-//                payment.setTransactionNo(vnp_TransactionNo);
-//                payment.setPaymentTime(vnp_PayDate);
+                 Cập nhật thông tin thanh toán
+                payment.setPaymentAmount(Double.parseDouble(vnp_Amount) / 100); // Chuyển về đơn vị tiền tệ
+                payment.setBankCode(vnp_BankCode);
+                payment.setTransactionNo(vnp_TransactionNo);
+                payment.setPaymentTime(vnp_PayDate);
 
                 if ("00".equals(vnp_ResponseCode)) {
                     // Thanh toán thành công

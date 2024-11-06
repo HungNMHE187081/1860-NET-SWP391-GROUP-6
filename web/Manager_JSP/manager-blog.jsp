@@ -120,8 +120,8 @@
                                                     <input type="hidden" name="blogid" value="${blog.blogID}"/>
                                                     <button class="btn btn-primary btn-sm trash" title="Xóa" onclick="confirm('B?n có ch?c ch?n xóa bài này không')"><i class="fas fa-trash-alt"></i></button>
                                                 </form>
-                                                    <a  href="/manager/editblog?blogid=${blog.blogID}" class="btn btn-primary btn-sm edit" title="S?a" id="show-emp" ><i class="fas fa-edit"></i></a>
-                                                <a href="/manager/viewdetailblog?blogid=${blog.blogID}" class="btn btn-primary btn-sm" title="Xem chi ti?t" style="background-color: green; color: white;">
+                                                    <a  href="${pageContext.request.contextPath}/manager/editblog?blogid=${blog.blogID}" class="btn btn-primary btn-sm edit" title="S?a" id="show-emp" ><i class="fas fa-edit"></i></a>
+                                                <a href="${pageContext.request.contextPath}/manager/viewdetailblog?blogid=${blog.blogID}" class="btn btn-primary btn-sm" title="Xem chi ti?t" style="background-color: green; color: white;">
                                                     <i class="fas fa-eye"></i>
                                                 </a>
                                             </td>

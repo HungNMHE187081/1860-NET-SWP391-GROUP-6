@@ -63,7 +63,7 @@ public class BlogCommentDAO extends DBContext {
     }
 
     // Hàm lấy danh sách các trả lời cho một bình luận
-    private List<BlogComment> getReplies(int parentID) throws SQLException {
+    public List<BlogComment> getReplies(int parentID) throws SQLException {
         List<BlogComment> replies = new ArrayList<>();
 
         String query = """
@@ -178,5 +178,15 @@ public class BlogCommentDAO extends DBContext {
         e.printStackTrace();
     }
 }
+    public void deleteReplies(int parentId) {
+        String sql = "DELETE FROM BlogComments WHERE parentID = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, parentId);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
     
 }
