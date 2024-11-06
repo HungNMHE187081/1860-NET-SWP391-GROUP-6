@@ -163,7 +163,12 @@ public class ManagerEditUserServlet extends HttpServlet {
         user.setCitizenIdentification(citizenIdentification);
         user.setProfileImage(img);
         user.getAddress().setWardID(wardID);
-        user.getAddress().setStreetAddress(streetAddress);
+        
+        UserAddresses address = new UserAddresses();
+        address.setUserID(userID);
+        address.setStreetAddress(streetAddress);
+        address.setWardID(wardID);
+        user.setAddress(address);
         // Lưu thông tin cập nhật vào cơ sở dữ liệu
         userDAO.updateUser(user);
 
