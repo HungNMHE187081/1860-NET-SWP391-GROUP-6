@@ -253,10 +253,11 @@
 
   </main>
 <script>
-    // Khởi tạo CKEditor
     CKEDITOR.replace('content', {
-        height: 300,  // Chiều cao của CKEditor (ví dụ: 300px)
-        width: '100%' // Chiều rộng, có thể để '100%' để nó tự động vừa với container
+        height: 300,
+        width: '100%',
+        filebrowserUploadUrl: '${pageContext.request.contextPath}/manager/upload',  // Servlet URL for file uploads
+        filebrowserUploadMethod: 'form'
     });
 </script>
 
