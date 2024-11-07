@@ -497,11 +497,10 @@ public class ReservationDAO extends DBContext {
                      "LEFT JOIN Payments p ON o.OrderID = p.OrderID " +
                      "WHERE u.UserID = ? " +
                      "AND r.ReservationDate >= GETDATE() " +
-                     "AND (p.PaymentStatus = 'SUCCESS' OR o.isCheckOut = 1) " +
+                     "AND (p.PaymentStatus = 'SUCCESS' OR p.PaymentMethod = 'OFFLINE') " +
                      "ORDER BY r.ReservationDate ASC, r.StartTime ASC";
 
-        try {
-            PreparedStatement st = connection.prepareStatement(sql);
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
             st.setInt(1, customerID);
             ResultSet rs = st.executeQuery();
             

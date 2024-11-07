@@ -1,9 +1,8 @@
 package dal;
 
-import dal.DBContext;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.sql.*;
 import model.statistics.*;
 
 public class StatisticsDAO extends DBContext {
@@ -44,7 +43,7 @@ public class StatisticsDAO extends DBContext {
                 + "COUNT(r.ReservationID) as TotalAppointments, "
                 + "COUNT(DISTINCT oi.ServiceID) as UniqueServices, "
                 + "ISNULL(AVG(CAST(f.Rating as FLOAT)), 0) as StaffRating "
-                + "FROM Staff s "
+                + "FROM StaffView s "
                 + "LEFT JOIN Reservations r ON s.StaffID = r.StaffID "
                 + "LEFT JOIN OrderItems oi ON r.OrderItemID = oi.OrderItemID "
                 + "LEFT JOIN Feedback f ON oi.ServiceID = f.ServiceID "

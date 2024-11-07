@@ -20,24 +20,43 @@ import model.Payment;
 public class PaymentDAO extends DBContext {
     
     public boolean createPayment(Payment payment) {
-        String sql = "INSERT INTO Payments (TransactionNo, Amount, PaymentStatus, PaymentMethod, PaymentDate) "
-                   + "VALUES (?, ?, ?, ?, GETDATE())";
+        String sql = "INSERT INTO Payments (TransactionNo, Amount, PaymentStatus, PaymentMethod, PaymentDate, OrderID, ReservationID) "
+                   + "VALUES (?, ?, ?, ?, GETDATE(), ?, ?)";
         
-        Connection conn = null;
-        PreparedStatement ps = null;
-        
-        try {
-            conn = new DBContext().connection;
-            ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        try (Connection conn = new DBContext().connection;
+             PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            
+            // Tạo TransactionNo cho thanh toán offline
+            if (payment.getTransactionNo() == null || payment.getTransactionNo().isEmpty()) {
+                String transactionNo = "OFF_" + System.currentTimeMillis();
+                payment.setTransactionNo(transactionNo);
+            }
             
             ps.setString(1, payment.getTransactionNo());
             ps.setDouble(2, payment.getAmount());
-            ps.setString(3, "PENDING");
-            ps.setString(4, "VNPAY");
+            ps.setString(3, payment.getPaymentStatus());
+            ps.setString(4, payment.getPaymentMethod());
             
-            System.out.println("Executing SQL: " + sql);
+            // Set OrderID và ReservationID
+            if (payment.getOrderId() > 0) {
+                ps.setInt(5, payment.getOrderId());
+            } else {
+                ps.setNull(5, java.sql.Types.INTEGER);
+            }
+            
+            if (payment.getReservationId() > 0) {
+                ps.setInt(6, payment.getReservationId());
+            } else {
+                ps.setNull(6, java.sql.Types.INTEGER);
+            }
+            
+            System.out.println("Creating payment with values:");
             System.out.println("TransactionNo: " + payment.getTransactionNo());
             System.out.println("Amount: " + payment.getAmount());
+            System.out.println("Status: " + payment.getPaymentStatus());
+            System.out.println("Method: " + payment.getPaymentMethod());
+            System.out.println("OrderID: " + payment.getOrderId());
+            System.out.println("ReservationID: " + payment.getReservationId());
             
             int result = ps.executeUpdate();
             
@@ -45,24 +64,15 @@ public class PaymentDAO extends DBContext {
                 try (ResultSet rs = ps.getGeneratedKeys()) {
                     if (rs.next()) {
                         payment.setPaymentId(rs.getInt(1));
-                        System.out.println("Created payment with ID: " + payment.getPaymentId());
                     }
                 }
             }
             
             return result > 0;
-            
         } catch (SQLException e) {
             System.out.println("Error creating payment: " + e.getMessage());
             e.printStackTrace();
             return false;
-        } finally {
-            try {
-                if (ps != null) ps.close();
-                if (conn != null) conn.close();
-            } catch (SQLException e) {
-                System.out.println("Error closing connection: " + e.getMessage());
-            }
         }
     }
     
