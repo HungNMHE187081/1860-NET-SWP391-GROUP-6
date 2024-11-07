@@ -40,7 +40,7 @@
     </head>
 
     <body>
-        <!-- Navbar STart -->
+                <!-- Navbar STart -->
         <%@include file="dashboardtop.jsp" %>
         <!-- Navbar End -->
         <!-- Start Hero -->
@@ -354,14 +354,13 @@
                         <div class="swiper-button-prev"></div>
                     </div>
 
+             
                     <!-- View All Button -->
-                    <div class="view-all-container">
-                        <a href="${pageContext.request.contextPath}/customer/listservices" class="btn-view-all">
-                            <span>Xem tất cả dịch vụ</span>
-                            <i class="bi bi-arrow-right"></i>
+                    <div class="text-center mt-4">
+                        <a href="${pageContext.request.contextPath}/customer/listservices" class="btn btn-primary">
+                            <i class="uil uil-medical-square me-1"></i>Xem tất cả dịch vụ
                         </a>
                     </div>
-                </div>
             </section>
 
             <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
