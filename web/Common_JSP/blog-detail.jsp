@@ -296,8 +296,8 @@
                                     <div class="mt-4">
                                         <c:forEach items="${lastestBlog}" var="latest">
                                         <div class="clearfix post-recent">
-                                            <div class="post-recent-thumb float-start"> <a href="jvascript:void(0)"> <img alt="img" src="${pageContext.request.contextPath}/${latest.thumbnailPath}" class="img-fluid rounded"></a></div>
-                                            <div class="post-recent-content float-start"><a href="jvascript:void(0)">${latest.title}</a><span class="text-muted mt-2">${latest.createdDate}</span></div>
+                                            <div class="post-recent-thumb float-start"> <a href="${pageContext.request.contextPath}/customer/detailcustomerblog?blogID=${latest.blogID}"> <img alt="img" src="${pageContext.request.contextPath}/${latest.thumbnailPath}" class="img-fluid rounded"></a></div>
+                                            <div class="post-recent-content float-start"><a href="${pageContext.request.contextPath}/customer/detailcustomerblog?blogID=${latest.blogID}">${latest.title}</a><span class="text-muted mt-2">${latest.createdDate}</span></div>
                                         </div>      
                                         </c:forEach>
                                     </div>
@@ -352,109 +352,28 @@
                 </div><!--end row-->
 
                 <div class="row">
+                    <c:forEach items="${releatedBlog}" var="releated">
                     <div class="col-lg-12 mt-4 pt-2">
-                        <div class="slider-range-three">
+                        <div class="slider-range-three">                                                   
                             <div class="tiny-slide">
                                 <div class="card blog blog-primary border-0 shadow rounded overflow-hidden m-1">
-                                    <img src="../images/blog/03.jpg" class="img-fluid" alt="">
+                                    <img src="${pageContext.request.contextPath}/${releated.thumbnailPath}" class="img-fluid" alt="">
                                     <div class="card-body p-4">
                                         <ul class="list-unstyled mb-2">
-                                            <li class="list-inline-item text-muted small me-3"><i class="uil uil-calendar-alt text-dark h6 me-1"></i>20th November, 2020</li>
-                                            <li class="list-inline-item text-muted small"><i class="uil uil-clock text-dark h6 me-1"></i>5 min read</li>
+                                            <li class="list-inline-item text-muted small me-3"><i class="uil uil-calendar-alt text-dark h6 me-1"></i>${releated.createdDate}</li>
+                                            <li class="list-inline-item text-muted small"><i class="uil uil-clock text-dark h6 me-1"></i>${releated.views}</li>
                                         </ul>
-                                        <a href="blog-detail.html" class="text-dark title h5">medicine research course for doctors</a>
+                                        <a href="${pageContext.request.contextPath}/customer/detailcustomerblog?blogID=${releated.blogID}" class="text-dark title h5">${releated.title}</a>
                                         <div class="post-meta d-flex justify-content-between mt-3">
-                                            <ul class="list-unstyled mb-0">
-                                                <li class="list-inline-item me-2 mb-0"><a href="#" class="text-muted like"><i class="mdi mdi-heart-outline me-1"></i>33</a></li>
-                                                <li class="list-inline-item"><a href="#" class="text-muted comments"><i class="mdi mdi-comment-outline me-1"></i>08</a></li>
-                                            </ul>
-                                            <a href="blog-detail.html" class="link">Read More <i class="mdi mdi-chevron-right align-middle"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="tiny-slide">
-                                <div class="card blog blog-primary border-0 shadow rounded overflow-hidden m-1">
-                                    <img src="../images/blog/04.jpg" class="img-fluid" alt="">
-                                    <div class="card-body p-4">
-                                        <ul class="list-unstyled mb-2">
-                                            <li class="list-inline-item text-muted small me-3"><i class="uil uil-calendar-alt text-dark h6 me-1"></i>20th November, 2020</li>
-                                            <li class="list-inline-item text-muted small"><i class="uil uil-clock text-dark h6 me-1"></i>5 min read</li>
-                                        </ul>
-                                        <a href="blog-detail.html" class="text-dark title h5">Comparing Nitrogen And Mechanical Freezers</a>
-                                        <div class="post-meta d-flex justify-content-between mt-3">
-                                            <ul class="list-unstyled mb-0">
-                                                <li class="list-inline-item me-2 mb-0"><a href="#" class="text-muted like"><i class="mdi mdi-heart-outline me-1"></i>33</a></li>
-                                                <li class="list-inline-item"><a href="#" class="text-muted comments"><i class="mdi mdi-comment-outline me-1"></i>08</a></li>
-                                            </ul>
-                                            <a href="blog-detail.html" class="link">Read More <i class="mdi mdi-chevron-right align-middle"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="tiny-slide">
-                                <div class="card blog blog-primary border-0 shadow rounded overflow-hidden m-1">
-                                    <img src="../images/blog/05.jpg" class="img-fluid" alt="">
-                                    <div class="card-body p-4">
-                                        <ul class="list-unstyled mb-2">
-                                            <li class="list-inline-item text-muted small me-3"><i class="uil uil-calendar-alt text-dark h6 me-1"></i>20th November, 2020</li>
-                                            <li class="list-inline-item text-muted small"><i class="uil uil-clock text-dark h6 me-1"></i>5 min read</li>
-                                        </ul>
-                                        <a href="blog-detail.html" class="text-dark title h5">It Is Very Important To Wear Proper Clothing</a>
-                                        <div class="post-meta d-flex justify-content-between mt-3">
-                                            <ul class="list-unstyled mb-0">
-                                                <li class="list-inline-item me-2 mb-0"><a href="#" class="text-muted like"><i class="mdi mdi-heart-outline me-1"></i>33</a></li>
-                                                <li class="list-inline-item"><a href="#" class="text-muted comments"><i class="mdi mdi-comment-outline me-1"></i>08</a></li>
-                                            </ul>
-                                            <a href="blog-detail.html" class="link">Read More <i class="mdi mdi-chevron-right align-middle"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="tiny-slide">
-                                <div class="card blog blog-primary border-0 shadow rounded overflow-hidden m-1">
-                                    <img src="../images/blog/06.jpg" class="img-fluid" alt="">
-                                    <div class="card-body p-4">
-                                        <ul class="list-unstyled mb-2">
-                                            <li class="list-inline-item text-muted small me-3"><i class="uil uil-calendar-alt text-dark h6 me-1"></i>20th November, 2020</li>
-                                            <li class="list-inline-item text-muted small"><i class="uil uil-clock text-dark h6 me-1"></i>5 min read</li>
-                                        </ul>
-                                        <a href="blog-detail.html" class="text-dark title h5">Hollowed-Out Faces More Cuts Amid Virus</a>
-                                        <div class="post-meta d-flex justify-content-between mt-3">
-                                            <ul class="list-unstyled mb-0">
-                                                <li class="list-inline-item me-2 mb-0"><a href="#" class="text-muted like"><i class="mdi mdi-heart-outline me-1"></i>33</a></li>
-                                                <li class="list-inline-item"><a href="#" class="text-muted comments"><i class="mdi mdi-comment-outline me-1"></i>08</a></li>
-                                            </ul>
-                                            <a href="blog-detail.html" class="link">Read More <i class="mdi mdi-chevron-right align-middle"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="tiny-slide">
-                                <div class="card blog blog-primary border-0 shadow rounded overflow-hidden m-1">
-                                    <img src="../images/blog/07.jpg" class="img-fluid" alt="">
-                                    <div class="card-body p-4">
-                                        <ul class="list-unstyled mb-2">
-                                            <li class="list-inline-item text-muted small me-3"><i class="uil uil-calendar-alt text-dark h6 me-1"></i>20th November, 2020</li>
-                                            <li class="list-inline-item text-muted small"><i class="uil uil-clock text-dark h6 me-1"></i>5 min read</li>
-                                        </ul>
-                                        <a href="blog-detail.html" class="text-dark title h5">A Researcher Is Research On Coronavirus In Lab</a>
-                                        <div class="post-meta d-flex justify-content-between mt-3">
-                                            <ul class="list-unstyled mb-0">
-                                                <li class="list-inline-item me-2 mb-0"><a href="#" class="text-muted like"><i class="mdi mdi-heart-outline me-1"></i>33</a></li>
-                                                <li class="list-inline-item"><a href="#" class="text-muted comments"><i class="mdi mdi-comment-outline me-1"></i>08</a></li>
-                                            </ul>
-                                            <a href="blog-detail.html" class="link">Read More <i class="mdi mdi-chevron-right align-middle"></i></a>
+                                            
+                                            <a href="${pageContext.request.contextPath}/customer/detailcustomerblog?blogID=${releated.blogID}" class="link">Read More <i class="mdi mdi-chevron-right align-middle"></i></a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div><!--end col-->
+                    </c:forEach>
                 </div><!--end row-->
             </div><!--end container-->
         </section><!--end section-->

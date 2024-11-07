@@ -257,12 +257,92 @@ public List<Blog> getLatestBlogs() throws SQLException {
 
         return latestBlogs;
     }
+public List<Blog> getRelatedBlogs(int blogID) {
+        List<Blog> relatedBlogs = new ArrayList<>();
+
+        String sql = """
+            SELECT b.BlogID, b.Title, b.Content, b.AuthorName, b.CreatedDate, b.UpdatedDate, 
+                   b.IsPublished, b.ThumbnailPath, b.Views
+            FROM Blogs b
+            JOIN BlogCategoryMapping bcm1 ON b.BlogID = bcm1.BlogID
+            JOIN BlogCategoryMapping bcm2 ON bcm1.CategoryID = bcm2.CategoryID
+            WHERE bcm2.BlogID = ? AND b.BlogID != ?
+            GROUP BY b.BlogID, b.Title, b.Content, b.AuthorName, b.CreatedDate, 
+                     b.UpdatedDate, b.IsPublished, b.ThumbnailPath, b.Views
+            """;
+
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, blogID);
+            stmt.setInt(2, blogID);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Blog blog = new Blog();
+                    blog.setBlogID(rs.getInt("BlogID"));
+                    blog.setTitle(rs.getString("Title"));
+                    blog.setContent(rs.getString("Content"));
+                    blog.setAuthorName(rs.getString("AuthorName"));
+                    blog.setCreatedDate(rs.getDate("CreatedDate"));
+                    blog.setUpdatedDate(rs.getDate("UpdatedDate"));
+                    blog.setIsPublished(rs.getBoolean("IsPublished"));
+                    blog.setThumbnailPath(rs.getString("ThumbnailPath"));
+                    blog.setViews(rs.getInt("Views"));
+
+                    // Fetch and set categories for this blog
+                    blog.setCategories(getCategoriesForBlog(blog.getBlogID()));
+
+                    relatedBlogs.add(blog);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return relatedBlogs;
+    }
+
+    private List<BlogCategory> getCategoriesForBlog(int blogID) {
+        List<BlogCategory> categories = new ArrayList<>();
+        String sql = """
+            SELECT bc.CategoryID, bc.CategoryName
+            FROM BlogCategories bc
+            JOIN BlogCategoryMapping bcm ON bc.CategoryID = bcm.CategoryID
+            WHERE bcm.BlogID = ?
+            """;
+
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, blogID);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    BlogCategory category = new BlogCategory();
+                    category.setCategoryID(rs.getInt("CategoryID"));
+                    category.setCategoryName(rs.getString("CategoryName"));
+                    categories.add(category);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return categories;
+    }
+public void increaseView(int blogID) {
+    String sql = "UPDATE Blogs SET Views = Views + 1 WHERE BlogID = ?";
+    try (
+         PreparedStatement stmt = connection.prepareStatement(sql)) {
+        stmt.setInt(1, blogID);
+        stmt.executeUpdate();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
+
   public static void main(String[] args) {
-        BlogDAO blogDAO = new BlogDAO();
-       List<BlogCategory> category = blogDAO.getAllBlogCategory();
-      for (BlogCategory blogCategory : category) {
-          System.out.println(blogCategory.getCategoryName());
-      }
+       int blogID = 2;
+       BlogDAO dao = new BlogDAO();
+       dao.increaseView(blogID);
+       System.out.println("Success");
            
     }
 }

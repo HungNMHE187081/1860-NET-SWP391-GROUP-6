@@ -70,6 +70,7 @@ public class DetailCustomerBlogServlet extends HttpServlet {
         BlogCommentDAO cdao = new BlogCommentDAO();
         List<BlogComment> comments = null;
         List<Blog> lastestBlog = null;
+        List<Blog> releatedBlog = dao.getRelatedBlogs(blogid);
         try {
             lastestBlog = dao.getLatestBlogs();
         } catch (SQLException ex) {
@@ -80,12 +81,13 @@ public class DetailCustomerBlogServlet extends HttpServlet {
         } catch (SQLException ex) {
             Logger.getLogger(DetailCustomerBlogServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
         // Đặt danh sách bình luận vào request attribute
         request.setAttribute("comments", comments);
         Blog blog = dao.getBlogById(blogid);
         request.setAttribute("blog", blog);
         request.setAttribute("lastestBlog", lastestBlog);
+        request.setAttribute("releatedBlog", releatedBlog);
         request.getRequestDispatcher("/Common_JSP/blog-detail.jsp").forward(request, response);
     }
 

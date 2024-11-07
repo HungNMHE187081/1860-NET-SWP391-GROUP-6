@@ -754,8 +754,6 @@ CREATE INDEX IX_Payments_OrderID ON Payments(OrderID);
 CREATE INDEX IX_Payments_ReservationID ON Payments(ReservationID);
 CREATE INDEX IX_Payments_PaymentStatus ON Payments(PaymentStatus);
 
-
-
 -- Tạo view xem lịch sử thanh toán
 /*CREATE VIEW PaymentHistory AS
 SELECT 

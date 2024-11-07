@@ -72,7 +72,15 @@ public class CustomerBlogList extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        String blogID = request.getParameter("blogID");
+        if (blogID != null) {
+            // Tăng view trong cơ sở dữ liệu
+            BlogDAO blogDAO = new BlogDAO();
+            blogDAO.increaseView(Integer.parseInt(blogID));
+            response.setStatus(HttpServletResponse.SC_OK);
+        } else {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        }
     }
 
     /** 
