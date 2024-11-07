@@ -193,15 +193,15 @@
                                             <td>${feedback.status ? 'Đã phản hồi' : 'Chưa phản hồi'}</td>
                                             <td>
                                                 <!-- In manager-feedback-list.jsp -->
-                                                <form id="updateFeedbackForm${feedback.feedbackID}" action="${pageContext.request.contextPath}/manager/feedbacklist" method="post">
-                                                    <input type="hidden" name="feedbackId" value="${feedback.feedbackID}">
-                                                    <input type="hidden" name="action" value="confirm">
-                                                    <button type="button" class="btn btn-excel btn-sm" 
-                                                            ${feedback.status ? "disabled" : ""} 
-                                                            onclick="confirmUpdate(${feedback.feedbackID})">
-                                                        ✓ Xác nhận
-                                                    </button>
-                                                </form>
+                                               <form id="updateFeedbackForm${feedback.feedbackID}" action="${pageContext.request.contextPath}/manager/feedbacklist" method="post">
+    <input type="hidden" name="feedbackId" value="${feedback.feedbackID}">
+    <input type="hidden" name="action" value="confirm">
+    <button type="button" class="btn btn-excel btn-sm" 
+            ${feedback.status ? "disabled" : ""} 
+            onclick="confirmUpdate(${feedback.feedbackID})">
+        ✓ Xác nhận
+    </button>
+</form>
 
                                                 <!-- Add this JavaScript to your JSP -->
                                                 <script>

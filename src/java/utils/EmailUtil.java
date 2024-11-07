@@ -1,66 +1,91 @@
 package utils;
 
+import java.util.Date;
 import java.util.Properties;
 import javax.mail.*;
 import javax.mail.internet.*;
 
 public class EmailUtil {
-//    private static final String FROM_EMAIL = "vuviet.test@gmail.com"; // Replace with your email
-//    private static final String PASSWORD = "jsvotrlguqrbmnwp"; // Replace with your app password
-
-    public static void main(String[] args) {
-        final String from = "vuviet.test@gmail.com";
-        final String password = "jsvotrlguqrbmnwp";
-
-        Properties props = new Properties();
-        props.put("mail.smtp.host", "smtp.gmail.com");
-        props.put("mail.smtp.port", "587");
-        props.put("mail.smtp.auth", true);
-        props.put("mail.smtp.starttls.enable", true);
-
-        // create Auth
-        Authenticator auth = new Authenticator() {
-            @Override
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(from, password);
-            }
-
-        };
-        // Phiên làm việc
-        Session session = Session.getInstance(props, auth);
-
-        // gửi email
-        final String to = "vuviett47@gmail.com";
-
-        //Tạo một tin nhắn
-        MimeMessage msg = new MimeMessage(session);
+    private static final String FROM_EMAIL = "vuviet.test@gmail.com";
+    private static final String PASSWORD = "jsvotrlguqrbmnwp";
+    private static final String SMTP_HOST = "smtp.gmail.com";
+    private static final String SMTP_PORT = "587";
+    
+    /**
+     * Sends a confirmation email to the specified recipient
+     * @param toEmail recipient's email address
+     * @param userName recipient's name
+     * @throws MessagingException if there's an error sending the email
+     */
+    public static void sendConfirmationEmail(String toEmail, String userName) throws MessagingException {
+        // Input validation
+        if (toEmail == null || toEmail.trim().isEmpty()) {
+            throw new IllegalArgumentException("Email address cannot be empty");
+        }
+        if (userName == null || userName.trim().isEmpty()) {
+            throw new IllegalArgumentException("Username cannot be empty");
+        }
+        
+        Session session = createMailSession();
+        
         try {
-            //Kiểu nội dung
+            // Create message
+            MimeMessage msg = new MimeMessage(session);
             msg.addHeader("Content-type", "text/HTML; charset=UTF-8");
-            
-            //Người gửi
-            msg.setFrom(from);
-            
-            //Người nhận
-            msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to, false));
-            
-            //Tiêu đề email
-            msg.setSubject("Thử email");
-            
-            //Quy định ngày gửi
+            msg.setFrom(new InternetAddress(FROM_EMAIL, "System Admin"));
+            msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail, false));
+            msg.setSubject("Feedback Confirmation");
             msg.setSentDate(new Date());
             
-            //Quy định email nhận phản hồi
-            //msg.setReplyTo(InternetAddress.parse(from, false);
+            // Create HTML content
+            String htmlContent = String.format(
+                "<html>" +
+                "<body style='font-family: Arial, sans-serif;'>" +
+                    "<div style='padding: 20px; max-width: 600px; margin: 0 auto;'>" +
+                        "<h2 style='color: #2c3e50;'>Feedback Confirmation</h2>" +
+                        "<p>Dear <strong>%s</strong>,</p>" +
+                        "<p>Thank you for submitting your feedback. We have successfully received it " +
+                        "and will review it shortly.</p>" +
+                        "<p>If you have any questions, please don't hesitate to contact us.</p>" +
+                        "<br>" +
+                        "<p>Best regards,<br>The Support Team</p>" +
+                    "</div>" +
+                "</body>" +
+                "</html>",
+                userName
+            );
             
-            //Nội dung
-            msg.setText("Nội dung", "UTF-8");
+            // Set message content
+            msg.setContent(htmlContent, "text/html; charset=UTF-8");
             
-            //Gửi email
+            // Send message
             Transport.send(msg);
             
+        } catch (MessagingException e) {
+            throw new MessagingException("Failed to send email: " + e.getMessage(), e);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException("Unexpected error while sending email: " + e.getMessage(), e);
         }
+    }
+    
+    /**
+     * Creates and configures the mail session with SMTP settings
+     * @return configured Session object
+     */
+    private static Session createMailSession() {
+        Properties props = new Properties();
+        props.put("mail.smtp.host", SMTP_HOST);
+        props.put("mail.smtp.port", SMTP_PORT);
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.ssl.protocols", "TLSv1.2");
+        props.put("mail.smtp.ssl.trust", SMTP_HOST);
+        
+        return Session.getInstance(props, new Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(FROM_EMAIL, PASSWORD);
+            }
+        });
     }
 }

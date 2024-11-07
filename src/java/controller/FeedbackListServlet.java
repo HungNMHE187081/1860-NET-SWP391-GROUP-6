@@ -77,7 +77,7 @@ public class FeedbackListServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-   @Override
+ @Override
 protected void doPost(HttpServletRequest request, HttpServletResponse response)
 throws ServletException, IOException {
     String action = request.getParameter("action");
@@ -85,16 +85,16 @@ throws ServletException, IOException {
         int feedbackId = Integer.parseInt(request.getParameter("feedbackId"));
         FeedbackDAO feedbackDao = new FeedbackDAO();
         Feedback feedback = feedbackDao.getFeedbackByID(feedbackId);
-        
+
         if (feedback != null) {
             // Update feedback status
             feedbackDao.updatefeedbackstatus(feedbackId, true);
-            
+
             // Send confirmation email
             EmailUtil.sendConfirmationEmail(feedback.getEmail(), feedback.getUserName());
-            
+
             // Redirect back to feedback list
-            response.sendRedirect(request.getContextPath() + "/feedback-list");
+            response.sendRedirect(request.getContextPath() + "/manager/feedbacklist");
         }
     } else {
         doGet(request, response);
