@@ -68,12 +68,12 @@ public class DeleteDistrictsServlet extends HttpServlet {
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         String district = request.getParameter("id");
-        int province = Integer.parseInt(request.getParameter("provinceID"));
+        int provinceID = Integer.parseInt(request.getParameter("provinceID"));
         try{
             int d = Integer.parseInt(district);
             ManagerDAO dao = new ManagerDAO();
             dao.deleteDistricts(d);
-            response.sendRedirect("managedistrict?id="+ province);
+            response.sendRedirect(request.getContextPath()+"/manager/managedistrict?id=" + provinceID); // Chuyển hướng sau khi thêm thành công
         }catch(Exception e){
             e.printStackTrace();
             

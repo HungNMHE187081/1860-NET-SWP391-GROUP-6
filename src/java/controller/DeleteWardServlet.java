@@ -73,7 +73,7 @@ public class DeleteWardServlet extends HttpServlet {
              int w = Integer.parseInt(ward);
              ManagerDAO dao = new ManagerDAO();
              dao.deleteWards(w);
-             response.sendRedirect("manageward?districtid="+district);
+             response.sendRedirect(request.getContextPath()+"/manager/manageward?districtid=" + district); // Chuyển hướng sau khi thêm thành công
          }catch(Exception e){
              e.printStackTrace();
          }

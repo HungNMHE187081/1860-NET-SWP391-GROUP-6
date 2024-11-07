@@ -72,7 +72,7 @@ public class EditWardServlet extends HttpServlet {
         String name = request.getParameter("wardNameInput");
         ManagerDAO dao = new ManagerDAO();
         dao.updateWards(id, name, districtID);
-        response.sendRedirect("manageward?districtid="+districtID);
+         response.sendRedirect(request.getContextPath()+"/manager/manageward?districtid=" + districtID); // Chuyển hướng sau khi thêm thành công
     }
 
     /** 

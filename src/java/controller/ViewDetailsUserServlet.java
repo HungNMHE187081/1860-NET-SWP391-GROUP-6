@@ -59,7 +59,7 @@ public class ViewDetailsUserServlet extends HttpServlet {
         ManagerUserDAO dao = new ManagerUserDAO();
         Users user = dao.getDetailUserByUserID(userID);
         request.setAttribute("user", user);
-        request.getRequestDispatcher("detail-user.jsp").forward(request, response);
+        request.getRequestDispatcher("/detail-user.jsp").forward(request, response);
     } 
 
     /** 

@@ -72,7 +72,7 @@ public class DeleteProvincesServlet extends HttpServlet {
             int provinceID = Integer.parseInt(provinces);
             ManagerDAO dao = new ManagerDAO();
             dao.deleteProvinces(provinceID);
-            response.sendRedirect("manageraddress");
+            response.sendRedirect(request.getContextPath()+"/manager/manageraddress");
         }catch(Exception e){
             e.printStackTrace();
             

@@ -15,7 +15,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Main CSS-->
-        <link rel="stylesheet" type="text/css" href="css/manager/main.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/manager/main.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
         <!-- or -->
         <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
@@ -62,8 +62,8 @@
                             <div class="row element-button">
                                 <div class="col-sm-2">
 
-                                    <a class="btn btn-add btn-sm" href="adduser" title="Thêm"><i class="fas fa-plus"></i>
-                                        Tạo mới nhân viên</a>
+                                    <a class="btn btn-add btn-sm" href="${pageContext.request.contextPath}/manager/adduser" title="Thêm"><i class="fas fa-plus"></i>
+                                        Tạo mới Khách Hàng</a>
                                 </div>
                                 <div class="col-sm-2">
                                     <a class="btn btn-delete btn-sm nhap-tu-file" type="button" title="Nhập" onclick="myFunction(this)"><i
@@ -115,7 +115,7 @@
                                         <tr>
                                             <td width="10"><input type="checkbox" name="check1" value="${user.userID}"></td>
                                             <td>${user.userID}</td>
-                                            <td><a href="viewdetailsuser?userID=${user.userID}">${user.firstName} ${user.middleName} ${user.lastName}</a></td>
+                                            <td><a href="${pageContext.request.contextPath}/manager/viewdetailsuser?userID=${user.userID}">${user.firstName} ${user.middleName} ${user.lastName}</a></td>
                                             <td><img class="img-card-person" src="${user.profileImage}" alt=""></td>
                                             <td>${user.address.streetAddress},${user.address.ward.wardName}, ${user.address.district.districtName}, ${user.address.provinces.provinceName}</td>
                                             <td>${user.dateOfBirth}</td>
@@ -127,17 +127,17 @@
                                                 </c:forEach>
                                             </td>
                                             <td class="table-td-center">
-                                                <form action="deleteuser" method="post" style="display: inline;">
+                                                <form action="${pageContext.request.contextPath}/manager/deleteuser" method="post" style="display: inline;">
                                                     <input type="hidden" name="userid" value="${user.userID}">
                                                     <button class="btn btn-primary btn-sm trash" type="submit" title="Xóa" 
                                                             onclick="return confirm('Bạn có chắc chắn muốn xóa người dùng này không?')">
                                                         <i class="fas fa-trash-alt"></i>
                                                     </button>
                                                 </form>
-                                                    <a href="manageredituser?userID=${user.userID}" class="btn btn-primary btn-sm edit" type="button" title="Sửa" >
+                                                    <a href="${pageContext.request.contextPath}/manager/manageredituser?userID=${user.userID}" class="btn btn-primary btn-sm edit" type="button" title="Sửa" >
                                                     <i class="fas fa-edit"></i>
                                                 </a>
-                                                <a href="viewdetailsuser?userID=${user.userID}" class="btn btn-primary btn-sm" title="Xem chi tiết" style="background-color: green; color: white;">
+                                                <a href="${pageContext.request.contextPath}/manager/viewdetailsuser?userID=${user.userID}" class="btn btn-primary btn-sm" title="Xem chi tiết" style="background-color: green; color: white;">
                                                     <i class="fas fa-eye"></i>
                                                 </a>
                                             </td>

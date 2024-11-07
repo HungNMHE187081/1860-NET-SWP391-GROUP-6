@@ -58,7 +58,7 @@ public class ManageUserServlet extends HttpServlet {
     ManagerUserDAO userDAO = new ManagerUserDAO();
     List<Users> users = userDAO.getAllUsers();
     request.setAttribute("userList", users);
-   request.getRequestDispatcher("manager-user-list.jsp").forward(request, response);
+   request.getRequestDispatcher("/manager-user-list.jsp").forward(request, response);
 }
 
 

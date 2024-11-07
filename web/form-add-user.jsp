@@ -18,7 +18,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Main CSS-->
-        <link rel="stylesheet" type="text/css" href="css/manager/main.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/manager/main.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
         <!-- or -->
         <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
@@ -169,7 +169,7 @@
                             <c:if test="${not empty errorMessage}">
                                 ${errorMessage}
                             </c:if>
-                            <form action="adduser" method="post" enctype="multipart/form-data">
+                            <form action="${pageContext.request.contextPath}/manager/adduser" method="post" enctype="multipart/form-data">
                                 <div class="row">
                                     <!-- Avatar Section -->
                                     <div class="col-md-3 text-center">
@@ -287,7 +287,7 @@
             function loadDistricts() {
                 var provinceID = document.getElementById('provinceID').value;
                 var xhr = new XMLHttpRequest();
-                xhr.open('GET', 'loadDistricts?provinceID=' + provinceID, true);
+                xhr.open('GET', '${pageContext.request.contextPath}/loadDistricts?provinceID=' + provinceID, true);
                 xhr.onload = function () {
                     if (xhr.status === 200) {
                         var districts = JSON.parse(xhr.responseText);
@@ -308,7 +308,7 @@
             function loadWards() {
                 var districtID = document.getElementById('districtSelect').value;
                 var xhr = new XMLHttpRequest();
-                xhr.open('GET', 'loadWards?districtID=' + districtID, true);
+                xhr.open('GET', '${pageContext.request.contextPath}/loadWards?districtID=' + districtID, true);
                 xhr.onload = function () {
                     if (xhr.status === 200) {
                         var wards = JSON.parse(xhr.responseText);
@@ -365,12 +365,12 @@
         </style>
 
         <!-- Essential javascripts for application to work-->
-        <script src="js/manager/jquery-3.2.1.min.js"></script>
-        <script src="js/manager/popper.min.js"></script>
-        <script src="js/manager/bootstrap.min.js"></script>
-        <script src="js/manager/main.js"></script>
+        <script src="${pageContext.request.contextPath}/js/manager/jquery-3.2.1.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/manager/popper.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/manager/bootstrap.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/manager/main.js"></script>
         <!-- The javascript plugin to display page loading on top-->
-        <script src="js/plugins/pace.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/plugins/pace.min.js"></script>
 
     </body>
 
