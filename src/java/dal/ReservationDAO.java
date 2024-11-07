@@ -25,7 +25,7 @@ public class ReservationDAO extends DBContext {
                 + "r.ReservationID, r.ReservationDate, r.StartTime, r.StaffID, r.isExam, r.hasRecord "
                 + "FROM Orders o "
                 + "JOIN OrderItems oi ON o.OrderID = oi.OrderID "
-                + "JOIN Reservations r ON oi.OrderItemID = r.OrderItemID AND isCheckOut = 1";
+                + "JOIN Reservations r ON oi.OrderItemID = r.OrderItemID";
         try {
             PreparedStatement pre = connection.prepareStatement(sql);
             ResultSet rs = pre.executeQuery();
@@ -52,7 +52,7 @@ public class ReservationDAO extends DBContext {
                 + "FROM Orders o "
                 + "JOIN OrderItems oi ON o.OrderID = oi.OrderID "
                 + "JOIN Reservations r ON oi.OrderItemID = r.OrderItemID "
-                + "WHERE r.IsExam = ? AND isCheckOut = 1";
+                + "WHERE r.IsExam = ?";
         try {
             PreparedStatement pre = connection.prepareStatement(sql);
             pre.setBoolean(1, isExam);
@@ -79,7 +79,7 @@ public class ReservationDAO extends DBContext {
                 + "FROM Orders o "
                 + "JOIN OrderItems oi ON o.OrderID = oi.OrderID "
                 + "JOIN Reservations r ON oi.OrderItemID = r.OrderItemID "
-                + "WHERE ReservationID = ? AND isCheckOut = 1";
+                + "WHERE ReservationID = ?";
         try {
             PreparedStatement pre = connection.prepareStatement(sql);
             pre.setInt(1, ReservationID);
@@ -108,7 +108,7 @@ public class ReservationDAO extends DBContext {
                 + "FROM Orders o "
                 + "JOIN OrderItems oi ON o.OrderID = oi.OrderID "
                 + "JOIN Reservations r ON oi.OrderItemID = r.OrderItemID "
-                + "WHERE ServiceID = ? and ChildID = ? AND isCheckOut = 1";
+                + "WHERE ServiceID = ? and ChildID = ?";
         try {
             PreparedStatement pre = connection.prepareStatement(sql);
             pre.setInt(1, ServiceID);
@@ -139,7 +139,7 @@ public class ReservationDAO extends DBContext {
                 + "JOIN Orders o ON oi.OrderID = o.OrderID "
                 + "JOIN Users u ON o.CustomerID = u.UserID "
                 + "JOIN Children c ON oi.ChildID = c.ChildID "
-                + "WHERE u.UserID = ? AND o.isCheckOut = 1 "
+                + "WHERE u.UserID = ?"
                 + "ORDER BY r.ReservationDate ASC, r.StartTime ASC";
         try {
             PreparedStatement pre = connection.prepareStatement(sql);
@@ -184,7 +184,7 @@ public class ReservationDAO extends DBContext {
                 + "JOIN Users u ON o.CustomerID = u.UserID "
                 + "JOIN Children c ON oi.ChildID = c.ChildID "
                 + "WHERE (u.FirstName LIKE ? OR u.MiddleName LIKE ? OR u.LastName LIKE ? OR c.FirstName LIKE ? OR c.MiddleName LIKE ? OR c.LastName LIKE ?) "
-                + "AND r.IsExam = ? AND isCheckOut = 1";
+                + "AND r.IsExam = ?";
         try {
             PreparedStatement pre = connection.prepareStatement(sql);
             pre.setString(1, "%" + keyword + "%");
@@ -219,7 +219,7 @@ public class ReservationDAO extends DBContext {
                 + "FROM Orders o "
                 + "JOIN OrderItems oi ON o.OrderID = oi.OrderID "
                 + "JOIN Reservations r ON oi.OrderItemID = r.OrderItemID "
-                + "WHERE r.StartTime BETWEEN ? AND ? AND r.isExam = ? AND isCheckOut = 1";
+                + "WHERE r.StartTime BETWEEN ? AND ? AND r.isExam = ?";
         try {
             PreparedStatement pre = connection.prepareStatement(sql);
             if ("morning".equalsIgnoreCase(timeOfDay)) {
@@ -258,7 +258,7 @@ public class ReservationDAO extends DBContext {
                 + "JOIN Children c ON oi.ChildID = c.ChildID "
                 + "WHERE (u.FirstName LIKE ? OR u.MiddleName LIKE ? OR u.LastName LIKE ? OR c.FirstName LIKE ? OR c.MiddleName LIKE ? OR c.LastName LIKE ?) "
                 + "AND r.StartTime BETWEEN ? AND ? "
-                + "AND r.IsExam = ? AND isCheckOut = 1";
+                + "AND r.IsExam = ?";
         try {
             PreparedStatement pre = connection.prepareStatement(sql);
             pre.setString(1, "%" + keyword + "%");
@@ -694,4 +694,4 @@ public class ReservationDAO extends DBContext {
         }
         return null;
     }
-}
+            }

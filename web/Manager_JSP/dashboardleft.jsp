@@ -25,9 +25,9 @@
                     class="app-menu__label">Quản lí nhân viên</span></a></li>
         <li><a class="app-menu__item" href="${pageContext.request.contextPath}/manager/reservationslist"><i class='app-menu__icon bx bx-task'></i><span
                     class="app-menu__label">Quản lí lịch khám</span></a></li>
-        <li><a class="app-menu__item" href="${pageContext.request.contextPath}/manageraddress"><i class='app-menu__icon bx bx-id-card'></i>
+        <li><a class="app-menu__item" href="${pageContext.request.contextPath}/manager/manageraddress"><i class='app-menu__icon bx bx-id-card'></i>
                 <span class="app-menu__label">Quản lí địa chỉ</span></a></li>
-        <li><a class="app-menu__item" href="${pageContext.request.contextPath}/manageuser"><i class='app-menu__icon bx bx-user-voice'></i><span
+        <li><a class="app-menu__item" href="${pageContext.request.contextPath}/manager/manageuser"><i class='app-menu__icon bx bx-user-voice'></i><span
                     class="app-menu__label">Quản lí khách hàng</span></a></li>
         <li><a class="app-menu__item" href="manageblog">
                 <i class='app-menu__icon bx bx-purchase-tag-alt'></i><span class="app-menu__label">Quản lý bài viết</span></a>
