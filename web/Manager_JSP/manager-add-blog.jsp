@@ -10,7 +10,7 @@
 <html lang="en">
 
 <head>
-  <title>Thêm nhân viên | Quản trị Admin</title>
+  <title>Thêm bài viết</title>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -162,21 +162,15 @@
     <div class="app-title">
       <ul class="app-breadcrumb breadcrumb">
         <li class="breadcrumb-item">Danh sách nhân viên</li>
-        <li class="breadcrumb-item"><a href="#">Thêm nhân viên</a></li>
+        <li class="breadcrumb-item"><a href="#">Thêm bài viết</a></li>
       </ul>
     </div>
     <div class="row">
   <div class="col-md-12">
     <div class="tile">
-      <h3 class="tile-title">Tạo mới nhân viên</h3>
+      <h3 class="tile-title">Thêm bài viết</h3>
       <div class="tile-body">
-        <div class="row element-button">
-          <div class="col-sm-2">
-            <a class="btn btn-add btn-sm" data-toggle="modal" data-target="#exampleModalCenter">
-              <b><i class="fas fa-folder-plus"></i> Tạo chức vụ mới</b>
-            </a>
-          </div>
-        </div>
+       
 
         <form action="${pageContext.request.contextPath}/manager/addblog" method="post" enctype="multipart/form-data">
           <div class="row">
