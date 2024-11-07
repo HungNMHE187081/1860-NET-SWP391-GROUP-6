@@ -294,18 +294,12 @@
                                 <div class="widget mb-4 pb-2">
                                     <h5 class="widget-title">Recent Post</h5>
                                     <div class="mt-4">
+                                        <c:forEach items="${lastestBlog}" var="latest">
                                         <div class="clearfix post-recent">
-                                            <div class="post-recent-thumb float-start"> <a href="jvascript:void(0)"> <img alt="img" src="../images/blog/07.jpg" class="img-fluid rounded"></a></div>
-                                            <div class="post-recent-content float-start"><a href="jvascript:void(0)">Consultant Business</a><span class="text-muted mt-2">15th June, 2019</span></div>
-                                        </div>
-                                        <div class="clearfix post-recent">
-                                            <div class="post-recent-thumb float-start"> <a href="jvascript:void(0)"> <img alt="img" src="../images/blog/08.jpg" class="img-fluid rounded"></a></div>
-                                            <div class="post-recent-content float-start"><a href="jvascript:void(0)">Look On The Glorious Balance</a> <span class="text-muted mt-2">15th June, 2019</span></div>
-                                        </div>
-                                        <div class="clearfix post-recent">
-                                            <div class="post-recent-thumb float-start"> <a href="jvascript:void(0)"> <img alt="img" src="../images/blog/01.jpg" class="img-fluid rounded"></a></div>
-                                            <div class="post-recent-content float-start"><a href="jvascript:void(0)">Research Financial.</a> <span class="text-muted mt-2">15th June, 2019</span></div>
-                                        </div>
+                                            <div class="post-recent-thumb float-start"> <a href="jvascript:void(0)"> <img alt="img" src="${pageContext.request.contextPath}/${latest.thumbnailPath}" class="img-fluid rounded"></a></div>
+                                            <div class="post-recent-content float-start"><a href="jvascript:void(0)">${latest.title}</a><span class="text-muted mt-2">${latest.createdDate}</span></div>
+                                        </div>      
+                                        </c:forEach>
                                     </div>
                                 </div>
                                 <!-- RECENT POST -->

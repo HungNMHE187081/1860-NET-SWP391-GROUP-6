@@ -69,6 +69,12 @@ public class DetailCustomerBlogServlet extends HttpServlet {
         BlogDAO dao = new BlogDAO();
         BlogCommentDAO cdao = new BlogCommentDAO();
         List<BlogComment> comments = null;
+        List<Blog> lastestBlog = null;
+        try {
+            lastestBlog = dao.getLatestBlogs();
+        } catch (SQLException ex) {
+            Logger.getLogger(DetailCustomerBlogServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
         try {
             comments = cdao.getBlogCommentsByBlogId(blogid);
         } catch (SQLException ex) {
@@ -79,6 +85,7 @@ public class DetailCustomerBlogServlet extends HttpServlet {
         request.setAttribute("comments", comments);
         Blog blog = dao.getBlogById(blogid);
         request.setAttribute("blog", blog);
+        request.setAttribute("lastestBlog", lastestBlog);
         request.getRequestDispatcher("/Common_JSP/blog-detail.jsp").forward(request, response);
     }
 

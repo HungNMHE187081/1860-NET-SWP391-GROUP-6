@@ -419,13 +419,11 @@ CREATE TABLE BlogComments (
     Content NVARCHAR(MAX) NOT NULL,
     CreatedDate DATETIME DEFAULT GETDATE(),
     parentID INT,
-	FOREIGN KEY(parentID) References BlogComments(CommentID),
-    FOREIGN KEY (BlogID) REFERENCES Blogs(BlogID),
-    FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE
+	FOREIGN KEY (BlogID) REFERENCES Blogs(BlogID) ON DELETE CASCADE,  -- Adding ON DELETE CASCADE
+    FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE,
+    FOREIGN KEY (parentID) REFERENCES BlogComments(CommentID) 
 );
-ALTER TABLE BlogComments
-ADD CONSTRAINT FK_BlogComments_Blogs
-FOREIGN KEY (BlogID) REFERENCES Blogs(BlogID) ON DELETE CASCADE;
+
 -- Add indexes to improve query performance
 CREATE INDEX IX_Blogs_CreatedDate ON Blogs(CreatedDate);
 CREATE INDEX IX_BlogComments_BlogID ON BlogComments(BlogID);
@@ -724,15 +722,6 @@ INNER JOIN Specializations sp ON s.SpecializationID = sp.SpecializationID
 INNER JOIN Reservations r ON s.StaffID = r.StaffID
 WHERE r.ReservationDate BETWEEN '2023-10-05' AND DATEADD(day, 6, '2023-10-05')
 ORDER BY r.ReservationDate, r.StartTime
-INSERT INTO BlogComments (BlogID, UserID, Content, parentID)
-VALUES (1, 2, N'Nội dung bình luận đầu tiên', NULL);
-
--- Chèn bình luận trả lời (có cha là CommentID của bình luận chính)
-INSERT INTO BlogComments (BlogID, UserID, Content, parentID)
-VALUES (1, 2, N'Nội dung bình luận trả lời', 3);
-VALUES (1, 2, N'Nội dung bình luận trả lời', 3);
-
-
 
 INSERT INTO Payments (ReservationID, OrderID, Amount, PaymentStatus, PaymentMethod, TransactionNo)
 SELECT 
@@ -764,6 +753,8 @@ CHECK (PaymentMethod IN ('VNPAY', 'OFFLINE'));
 CREATE INDEX IX_Payments_OrderID ON Payments(OrderID);
 CREATE INDEX IX_Payments_ReservationID ON Payments(ReservationID);
 CREATE INDEX IX_Payments_PaymentStatus ON Payments(PaymentStatus);
+
+
 
 -- Tạo view xem lịch sử thanh toán
 /*CREATE VIEW PaymentHistory AS

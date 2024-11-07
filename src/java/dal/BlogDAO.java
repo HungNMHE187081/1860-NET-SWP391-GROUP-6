@@ -228,7 +228,35 @@ public List<Blog> getBlogsByCategory(int categoryId) {
         e.printStackTrace();
     }
 }
+public List<Blog> getLatestBlogs() throws SQLException {
+        List<Blog> latestBlogs = new ArrayList<>();
+        
+        // SQL query to get the top 3 latest blogs
+        String query = "SELECT TOP 3 * FROM Blogs ORDER BY CreatedDate DESC";
+        
+        try (PreparedStatement stmt = connection.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+            
+            // Loop through the result set and create Blog objects
+            while (rs.next()) {
+                Blog blog = new Blog();
+                blog.setBlogID(rs.getInt("BlogID"));
+                blog.setTitle(rs.getString("Title"));
+                blog.setContent(rs.getString("Content"));
+                blog.setAuthorName(rs.getString("AuthorName"));
+                blog.setCreatedDate(rs.getDate("CreatedDate"));
+                blog.setUpdatedDate(rs.getDate("UpdatedDate"));
+                blog.setIsPublished(rs.getBoolean("IsPublished"));
+                blog.setThumbnailPath(rs.getString("ThumbnailPath"));
+                blog.setViews(rs.getInt("Views"));
 
+                // Add the blog to the list
+                latestBlogs.add(blog);
+            }
+        }
+
+        return latestBlogs;
+    }
   public static void main(String[] args) {
         BlogDAO blogDAO = new BlogDAO();
        List<BlogCategory> category = blogDAO.getAllBlogCategory();
