@@ -256,6 +256,14 @@
         <servlet-name>StaffViewReservationServlet</servlet-name>
         <servlet-class>controller.StaffViewReservationServlet</servlet-class>
     </servlet>
+        <servlet>
+        <servlet-name>GuestHomepageServlet</servlet-name>
+        <servlet-class>controller.GuestHomepageServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GuestListServicesServlet</servlet-name>
+        <servlet-class>controller.GuestListServicesServlet</servlet-class>
+    </servlet>
     <servlet>
         <servlet-name>AdminAddUserServlet</servlet-name>
         <servlet-class>controller.AdminAddUserServlet</servlet-class>
@@ -953,5 +961,13 @@
     <servlet-mapping>
         <servlet-name>CustomerReservationDetailServlet</servlet-name>
         <url-pattern>/customer/reservationdetail</url-pattern>
+    </servlet-mapping>
+        <servlet-mapping>
+        <servlet-name>GuestHomepageServlet</servlet-name>
+        <url-pattern>/guest/homepage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GuestListServicesServlet</servlet-name>
+        <url-pattern>/guest/services</url-pattern>
     </servlet-mapping>
 </web-app>
