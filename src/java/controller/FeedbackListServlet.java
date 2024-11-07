@@ -1,4 +1,3 @@
-
 package controller;
 
 import java.io.IOException;
@@ -16,6 +15,7 @@ import model.Feedback;
 import model.Service;
 import model.Users;
 import utils.EmailUtil;
+import javax.mail.MessagingException;
 
 /**
  *
@@ -77,27 +77,31 @@ public class FeedbackListServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
- @Override
-protected void doPost(HttpServletRequest request, HttpServletResponse response)
-throws ServletException, IOException {
-    String action = request.getParameter("action");
-    if ("confirm".equals(action)) {
-        int feedbackId = Integer.parseInt(request.getParameter("feedbackId"));
-        FeedbackDAO feedbackDao = new FeedbackDAO();
-        Feedback feedback = feedbackDao.getFeedbackByID(feedbackId);
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
+        String action = request.getParameter("action");
+        if ("confirm".equals(action)) {
+            int feedbackId = Integer.parseInt(request.getParameter("feedbackId"));
+            FeedbackDAO feedbackDao = new FeedbackDAO();
+            Feedback feedback = feedbackDao.getFeedbackByID(feedbackId);
 
-        if (feedback != null) {
-            // Update feedback status
-            feedbackDao.updatefeedbackstatus(feedbackId, true);
+            if (feedback != null) {
+                // Update feedback status
+                feedbackDao.updatefeedbackstatus(feedbackId, true);
 
-            // Send confirmation email
-            EmailUtil.sendConfirmationEmail(feedback.getEmail(), feedback.getUserName());
+                try {
+                    // Send confirmation email
+                    EmailUtil.sendConfirmationEmail(feedback.getEmail(), feedback.getUserName());
+                } catch (MessagingException e) {
+                    throw new ServletException("Error sending confirmation email", e);
+                }
 
-            // Redirect back to feedback list
-            response.sendRedirect(request.getContextPath() + "/manager/feedbacklist");
+                // Redirect back to feedback list
+                response.sendRedirect(request.getContextPath() + "/manager/feedbacklist");
+            }
+        } else {
+            doGet(request, response);
         }
-    } else {
-        doGet(request, response);
     }
-}
 }

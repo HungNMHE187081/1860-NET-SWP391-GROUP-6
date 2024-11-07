@@ -40,7 +40,7 @@
     </head>
 
     <body>
-                <!-- Navbar STart -->
+        <!-- Navbar STart -->
         <%@include file="dashboardtop.jsp" %>
         <!-- Navbar End -->
         <!-- Start Hero -->
@@ -354,7 +354,7 @@
                         <div class="swiper-button-prev"></div>
                     </div>
 
-             
+
                     <!-- View All Button -->
                     <div class="text-center mt-4">
                         <a href="${pageContext.request.contextPath}/customer/listservices" class="btn btn-primary">
@@ -572,127 +572,127 @@
                     </div>
 
                     <!-- Staff Section -->
-<section class="section bg-light py-5">
-    <div class="container">
-        <div class="section-title text-center mb-4 pb-2">
-            <!-- ... existing title section ... -->
-        </div>
-
-        <!-- Staff Slider -->
-        <div class="swiper staff-slider">
-            <div class="swiper-wrapper">
-                <c:forEach var="staff" items="${staffs}" varStatus="status">
-                    <div class="swiper-slide">
-                        <div class="staff-card shadow-sm rounded overflow-hidden">
-                            <div class="position-relative">
-                                <img src="${pageContext.request.contextPath}/${user.profileImage}" 
-                                     alt="${staff.staffName}" 
-                                     class="staff-image">
-                                <div class="overlay-hover"></div>
+                    <section class="section bg-light py-5">
+                        <div class="container">
+                            <div class="section-title text-center mb-4 pb-2">
+                                <!-- ... existing title section ... -->
                             </div>
-                            <div class="staff-info p-4 bg-white">
-                                <h3 class="h5 mb-2">${staff.staffName}</h3>
-                                <p class="staff-position mb-1 text-primary">
-                                    <i class="fas fa-graduation-cap me-2"></i>
-                                    <c:forEach var="degree" items="${degrees}">
-                                        <c:if test="${degree.degreeID == staff.degreeID}">
-                                            ${degree.degreeName}
-                                        </c:if>
+
+                            <!-- Staff Slider -->
+                            <div class="swiper staff-slider">
+                                <div class="swiper-wrapper">
+                                    <c:forEach var="staff" items="${staffs}" varStatus="status">
+                                        <div class="swiper-slide">
+                                            <div class="staff-card shadow-sm rounded overflow-hidden">
+                                                <div class="position-relative">
+                                                    <img src="${pageContext.request.contextPath}/${user.profileImage}" 
+                                                         alt="${staff.staffName}" 
+                                                         class="staff-image">
+                                                    <div class="overlay-hover"></div>
+                                                </div>
+                                                <div class="staff-info p-4 bg-white">
+                                                    <h3 class="h5 mb-2">${staff.staffName}</h3>
+                                                    <p class="staff-position mb-1 text-primary">
+                                                        <i class="fas fa-graduation-cap me-2"></i>
+                                                        <c:forEach var="degree" items="${degrees}">
+                                                            <c:if test="${degree.degreeID == staff.degreeID}">
+                                                                ${degree.degreeName}
+                                                            </c:if>
+                                                        </c:forEach>
+                                                    </p>
+                                                    <p class="staff-department mb-0 text-muted">
+                                                        <i class="fas fa-stethoscope me-2"></i>
+                                                        <c:forEach var="specialization" items="${specializations}">
+                                                            <c:if test="${specialization.specializationID == staff.specializationID}">
+                                                                ${specialization.specializationName}
+                                                            </c:if>
+                                                        </c:forEach>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </c:forEach>
-                                </p>
-                                <p class="staff-department mb-0 text-muted">
-                                    <i class="fas fa-stethoscope me-2"></i>
-                                    <c:forEach var="specialization" items="${specializations}">
-                                        <c:if test="${specialization.specializationID == staff.specializationID}">
-                                            ${specialization.specializationName}
-                                        </c:if>
-                                    </c:forEach>
-                                </p>
+                                </div>
+                                <div class="swiper-pagination"></div>
+                                <div class="swiper-button-next"></div>
+                                <div class="swiper-button-prev"></div>
+                            </div>
+
+                            <!-- View All Staff Button -->
+                            <div class="text-center mt-4">
+                                <a href="${pageContext.request.contextPath}/customer/view-staffs" class="btn btn-primary">
+                                    <i class="fas fa-users me-2"></i>Xem tất cả đội ngũ bác sĩ
+                                </a>
                             </div>
                         </div>
-                    </div>
-                </c:forEach>
-            </div>
-            <div class="swiper-pagination"></div>
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
-        </div>
 
-        <!-- View All Staff Button -->
-        <div class="text-center mt-4">
-            <a href="${pageContext.request.contextPath}/customer/view-staffs" class="btn btn-primary">
-                <i class="fas fa-users me-2"></i>Xem tất cả đội ngũ bác sĩ
-            </a>
-        </div>
-    </div>
+                        <style>
+                            .staff-slider {
+                                padding: 20px 5px 60px;
+                            }
 
-    <style>
-        .staff-slider {
-            padding: 20px 5px 60px;
-        }
-        
-        .staff-card {
-            transition: transform 0.3s ease;
-            height: 100%;
-        }
-        
-        .staff-card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .staff-image {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-        }
-        
-        .overlay-hover {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.1);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        
-        .staff-card:hover .overlay-hover {
-            opacity: 1;
-        }
-    </style>
+                            .staff-card {
+                                transition: transform 0.3s ease;
+                                height: 100%;
+                            }
 
-    <script>
-        new Swiper('.staff-slider', {
-            slidesPerView: 1,
-            spaceBetween: 20,
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true
-            },
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev'
-            },
-            breakpoints: {
-                640: {
-                    slidesPerView: 1
-                },
-                768: {
-                    slidesPerView: 2
-                },
-                1024: {
-                    slidesPerView: 3
-                }
-            },
-            autoplay: {
-                delay: 3000,
-                disableOnInteraction: false,
-                pauseOnMouseEnter: true
-            }
-        });
-    </script>
-</section>
+                            .staff-card:hover {
+                                transform: translateY(-5px);
+                            }
+
+                            .staff-image {
+                                width: 100%;
+                                height: 250px;
+                                object-fit: cover;
+                            }
+
+                            .overlay-hover {
+                                position: absolute;
+                                top: 0;
+                                left: 0;
+                                right: 0;
+                                bottom: 0;
+                                background: rgba(0,0,0,0.1);
+                                opacity: 0;
+                                transition: opacity 0.3s ease;
+                            }
+
+                            .staff-card:hover .overlay-hover {
+                                opacity: 1;
+                            }
+                        </style>
+
+                        <script>
+                            new Swiper('.staff-slider', {
+                                slidesPerView: 1,
+                                spaceBetween: 20,
+                                pagination: {
+                                    el: '.swiper-pagination',
+                                    clickable: true
+                                },
+                                navigation: {
+                                    nextEl: '.swiper-button-next',
+                                    prevEl: '.swiper-button-prev'
+                                },
+                                breakpoints: {
+                                    640: {
+                                        slidesPerView: 1
+                                    },
+                                    768: {
+                                        slidesPerView: 2
+                                    },
+                                    1024: {
+                                        slidesPerView: 3
+                                    }
+                                },
+                                autoplay: {
+                                    delay: 3000,
+                                    disableOnInteraction: false,
+                                    pauseOnMouseEnter: true
+                                }
+                            });
+                        </script>
+                    </section>
                     <section class="section bg-light py-5">
                         <div class="container">
                             <div class="section-title text-center mb-4 pb-2">

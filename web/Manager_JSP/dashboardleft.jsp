@@ -32,7 +32,7 @@
         <li><a class="app-menu__item" href="manageblog">
                 <i class='app-menu__icon bx bx-purchase-tag-alt'></i><span class="app-menu__label">Quản lý bài viết</span></a>
         </li>
-        <li><a class="app-menu__item" href="${pageContext.request.contextPath}/feedbacklist"><i class='app-menu__icon bx bx-task'></i><span
+        <li><a class="app-menu__item" href="${pageContext.request.contextPath}/manager/feedbacklist"><i class='app-menu__icon bx bx-task'></i><span
                     class="app-menu__label">Quản lí phản hồi</span></a></li>
         <li><a class="app-menu__item" href="${pageContext.request.contextPath}/logout"><i class='app-menu__icon bx bx-log-out'></i><span
                     class="app-menu__label">Logout</span></a></li>            
