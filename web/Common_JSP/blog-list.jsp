@@ -30,6 +30,7 @@
         <!-- Css -->
         <link href="${pageContext.request.contextPath}/css/style.min.css" rel="stylesheet" type="text/css" id="theme-opt" />
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     </head>
 
     <body>
@@ -298,23 +299,7 @@
             </div>
         </div>
         <!-- Offcanvas End -->
-        <script>
-            // Bắt đầu đếm thời gian
-            setTimeout(function () {
-                // Gửi yêu cầu AJAX sau 60 giây
-                $.ajax({
-                    url: '${pageContext.request.contextPath}/customer/bloglist',
-                    type: 'POST',
-                    data: {blogID: '${blog.blogID}'},
-                    success: function (response) {
-                        console.log("View has been updated!");
-                    },
-                    error: function () {
-                        console.log("Error updating view.");
-                    }
-                });
-            }, 30000); // 60 giây
-        </script>
+        
 
 
     </body>

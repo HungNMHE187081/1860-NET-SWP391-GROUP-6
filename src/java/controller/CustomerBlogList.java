@@ -69,19 +69,30 @@ public class CustomerBlogList extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+  @Override
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws ServletException, IOException {
+    try {
         String blogID = request.getParameter("blogID");
-        if (blogID != null) {
-            // Tăng view trong cơ sở dữ liệu
+        if (blogID != null && !blogID.isEmpty()) {
             BlogDAO blogDAO = new BlogDAO();
             blogDAO.increaseView(Integer.parseInt(blogID));
             response.setStatus(HttpServletResponse.SC_OK);
+            // Trả về JSON response
+            response.setContentType("application/json");
+            response.getWriter().write("{\"success\": true}");
         } else {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.getWriter().write("{\"error\": \"Blog ID is required\"}");
         }
+    } catch (NumberFormatException e) {
+        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        response.getWriter().write("{\"error\": \"Invalid Blog ID format\"}");
+    } catch (Exception e) {
+        response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        response.getWriter().write("{\"error\": \"Server error\"}");
     }
+}
 
     /** 
      * Returns a short description of the servlet.
