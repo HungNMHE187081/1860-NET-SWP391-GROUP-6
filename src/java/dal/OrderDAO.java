@@ -241,45 +241,45 @@ public class OrderDAO extends DBContext {
         return list;
     }
     
-    public List<Order> getCheckOutOrdersByCustomerID(int CustomerID) {
-        List<Order> list = new ArrayList<>();
-        String sql = """
-            SELECT DISTINCT o.OrderID, o.CustomerID, o.Quantity, o.TotalPrice, o.OrderDate, o.isCheckOut
-            FROM Orders o
-            JOIN OrderItems oi ON o.OrderID = oi.OrderID
-            JOIN Reservations r ON r.OrderItemID = oi.OrderItemID
-            WHERE o.CustomerID = ? 
-            AND (o.isCheckOut = 0 OR o.isCheckOut = 1)
-            AND r.isExam = 0 
-            AND r.hasRecord = 0
-            ORDER BY o.OrderDate DESC
-        """;
-        
-        try {
-            PreparedStatement pre = connection.prepareStatement(sql);
-            pre.setInt(1, CustomerID);
-            ResultSet rs = pre.executeQuery();
-            
-            while (rs.next()) {
-                int OrderID = rs.getInt("OrderID");
-                int Quantity = rs.getInt("Quantity");
-                double TotalPrice = rs.getDouble("TotalPrice");
-                Date OrderDate = rs.getDate("OrderDate");
-                boolean isCheckOut = rs.getBoolean("isCheckOut");
-                
-                Order order = new Order(OrderID, CustomerID, Quantity, TotalPrice, OrderDate, isCheckOut);
-                list.add(order);
-                
-                // Debug log
-                System.out.println("Found order: ID=" + OrderID + ", CustomerID=" + CustomerID + 
-                                 ", isCheckOut=" + isCheckOut + ", Date=" + OrderDate);
+        public List<Order> getCheckOutOrdersByCustomerID(int CustomerID) {
+            List<Order> list = new ArrayList<>();
+            String sql = """
+                SELECT DISTINCT o.OrderID, o.CustomerID, o.Quantity, o.TotalPrice, o.OrderDate, o.isCheckOut
+                FROM Orders o
+                JOIN OrderItems oi ON o.OrderID = oi.OrderID
+                JOIN Reservations r ON r.OrderItemID = oi.OrderItemID
+                WHERE o.CustomerID = ? 
+                AND (o.isCheckOut = 0 OR o.isCheckOut = 1)
+                AND r.isExam = 0 
+                AND r.hasRecord = 0
+                ORDER BY o.OrderDate DESC
+            """;
+
+            try {
+                PreparedStatement pre = connection.prepareStatement(sql);
+                pre.setInt(1, CustomerID);
+                ResultSet rs = pre.executeQuery();
+
+                while (rs.next()) {
+                    int OrderID = rs.getInt("OrderID");
+                    int Quantity = rs.getInt("Quantity");
+                    double TotalPrice = rs.getDouble("TotalPrice");
+                    Date OrderDate = rs.getDate("OrderDate");
+                    boolean isCheckOut = rs.getBoolean("isCheckOut");
+
+                    Order order = new Order(OrderID, CustomerID, Quantity, TotalPrice, OrderDate, isCheckOut);
+                    list.add(order);
+
+                    // Debug log
+                    System.out.println("Found order: ID=" + OrderID + ", CustomerID=" + CustomerID + 
+                                     ", isCheckOut=" + isCheckOut + ", Date=" + OrderDate);
+                }
+            } catch (SQLException e) {
+                System.out.println("getCheckOutOrdersByCustomerID error: " + e.getMessage());
+                e.printStackTrace();
             }
-        } catch (SQLException e) {
-            System.out.println("getCheckOutOrdersByCustomerID error: " + e.getMessage());
-            e.printStackTrace();
+            return list;
         }
-        return list;
-    }
     
     public int insert(Order order) {
         String sql = "INSERT INTO Orders (CustomerID, Quantity, TotalPrice, OrderDate, isCheckOut) " +

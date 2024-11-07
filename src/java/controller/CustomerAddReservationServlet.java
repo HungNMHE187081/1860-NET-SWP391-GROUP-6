@@ -226,11 +226,15 @@ public class CustomerAddReservationServlet extends HttpServlet {
                         payment.setAmount(service.getPrice());
                         payment.setPaymentStatus("PENDING");
                         payment.setPaymentMethod("OFFLINE");
+                        // Tạo TransactionNo cho thanh toán offline
+                        String transactionNo = "OFF_" + System.currentTimeMillis();
+                        payment.setTransactionNo(transactionNo);
                         
                         System.out.println("Creating payment record:");
                         System.out.println("ReservationID: " + reservationId);
                         System.out.println("OrderID: " + order.getOrderID());
                         System.out.println("Amount: " + service.getPrice());
+                        System.out.println("TransactionNo: " + transactionNo);
                         
                         PaymentDAO paymentDAO = new PaymentDAO();
                         if (paymentDAO.createPayment(payment)) {
