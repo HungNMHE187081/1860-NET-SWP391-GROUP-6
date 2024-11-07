@@ -192,10 +192,34 @@
 
                                             <td>${feedback.status ? 'Đã phản hồi' : 'Chưa phản hồi'}</td>
                                             <td>
-                                                <form id="updateFeedbackForm${feedback.feedbackID}" action="updatefeedbackstatus" method="post">
-                                                    <input type="hidden" name="feedbackID" value="${feedback.feedbackID}">
-                                                    <button type="button" class="btn btn-excel btn-sm" ${feedback.status ? "disabled" : ""} onclick="confirmUpdate(${feedback.feedbackID})">✓ Xác nhận</button>
+                                                <!-- In manager-feedback-list.jsp -->
+                                                <form id="updateFeedbackForm${feedback.feedbackID}" action="${pageContext.request.contextPath}/manager/feedbacklist" method="post">
+                                                    <input type="hidden" name="feedbackId" value="${feedback.feedbackID}">
+                                                    <input type="hidden" name="action" value="confirm">
+                                                    <button type="button" class="btn btn-excel btn-sm" 
+                                                            ${feedback.status ? "disabled" : ""} 
+                                                            onclick="confirmUpdate(${feedback.feedbackID})">
+                                                        ✓ Xác nhận
+                                                    </button>
                                                 </form>
+
+                                                <!-- Add this JavaScript to your JSP -->
+                                                <script>
+                                                    function confirmUpdate(feedbackID) {
+                                                        swal({
+                                                            title: "Xác nhận?",
+                                                            text: "Bạn có chắc chắn muốn xác nhận phản hồi này?",
+                                                            icon: "warning",
+                                                            buttons: ["Hủy", "Đồng ý"],
+                                                            dangerMode: true,
+                                                        })
+                                                                .then((willConfirm) => {
+                                                                    if (willConfirm) {
+                                                                        document.getElementById('updateFeedbackForm' + feedbackID).submit();
+                                                                    }
+                                                                });
+                                                    }
+                                                </script>
                                             </td>
 
                                         </tr>
