@@ -132,54 +132,81 @@ public class AddUserServlet extends HttpServlet {
             String password = request.getParameter("passwordHash");
             java.sql.Date dateOfBirth = java.sql.Date.valueOf(request.getParameter("dateOfBirth"));
             Part filePart = request.getPart("profileImage");
+            String provinceID = request.getParameter("provinceID");
+            String districtID = request.getParameter("districtID");
             String salt = generateSalt();
             String passwordHash = hashPassword(password, salt);
             // Thiết lập đường dẫn upload file
             String uploadPath = getServletContext().getRealPath("") + File.separator + UPLOAD_DIR;
 
+            List<Provinces> provinces = userDAO.getAllProvinces();
+            request.setAttribute("provinces", provinces);
+
+            // Load districts nếu có provinceID
+            if (provinceID != null && !provinceID.isEmpty()) {
+                List<District> districts = userDAO.getDistrictsByProvince(Integer.parseInt(provinceID));
+                request.setAttribute("districts", districts);
+            }
+
+            // Load wards nếu có districtID
+            if (districtID != null && !districtID.isEmpty()) {
+                List<Ward> wards = userDAO.getWardsByDistrict(Integer.parseInt(districtID));
+                request.setAttribute("wards", wards);
+            }
+
             // Kiểm tra các trường không được để null hoặc rỗng
-        if (firstName == null || firstName.trim().isEmpty() || username == null || username.trim().isEmpty()) {   
-            request.setAttribute("errorMessage", "Họ và tên, Username không được để trống");
-            request.getRequestDispatcher("form-add-user.jsp").forward(request, response);
-            return;
-        }
-        if (userDAO.checkUsernameExists(username)) {
-            request.setAttribute("errorMessage", "Username đã tồn tại");
-            request.getRequestDispatcher("form-add-user.jsp").forward(request, response);
-            return;
-        }
+            if (firstName == null || firstName.trim().isEmpty() || username == null || username.trim().isEmpty()) {
+                request.setAttribute("oldData", request.getParameterMap());
+                request.setAttribute("errorMessage", "Họ và tên, Username không được để trống");
+                request.getRequestDispatcher("form-add-user.jsp").forward(request, response);
+                return;
+            }
+            if (userDAO.checkUsernameExists(username)) {
+                request.setAttribute("oldData", request.getParameterMap());
+                request.setAttribute("errorMessage", "Username đã tồn tại");
+                request.getRequestDispatcher("form-add-user.jsp").forward(request, response);
+                return;
+            }
 
-        // Kiểm tra tuổi phải trên 18
-        java.util.Date today = new java.util.Date();
-        long ageInMillis = today.getTime() - dateOfBirth.getTime();
-        long ageInYears = ageInMillis / (1000L * 60 * 60 * 24 * 365);
-        if (ageInYears < 18) {
-            request.setAttribute("errorMessage", "Tuổi phải trên 18");
-            request.getRequestDispatcher("form-add-user.jsp").forward(request, response);
-            return;
-        }
+            // Kiểm tra tuổi phải trên 18
+            java.util.Date today = new java.util.Date();
+            long ageInMillis = today.getTime() - dateOfBirth.getTime();
+            long ageInYears = ageInMillis / (1000L * 60 * 60 * 24 * 365);
+            if (ageInYears < 18) {
+                request.setAttribute("oldData", request.getParameterMap());
+                request.setAttribute("errorMessage", "Tuổi phải trên 18");
+                request.getRequestDispatcher("form-add-user.jsp").forward(request, response);
+                return;
+            }
 
-        // Kiểm tra CCCD phải đủ 12 số và không được trùng
-        if (citizenIdentification == null || citizenIdentification.length() != 12 || !citizenIdentification.matches("\\d+")) {
-            request.setAttribute("errorMessage", "CCCD phải đủ 12 số");
-            request.getRequestDispatcher("form-add-user.jsp").forward(request, response);
-            return;
-        }
-        if (userDAO.isCitizenIdentificationExists(citizenIdentification)) {
-            request.setAttribute("errorMessage", "CCCD đã tồn tại");
-            request.getRequestDispatcher("form-add-user.jsp").forward(request, response);
-            return;
-        }
+            // Kiểm tra CCCD phải đủ 12 số và không được trùng
+            if (citizenIdentification == null || citizenIdentification.length() != 12 || !citizenIdentification.matches("\\d+")) {
+                request.setAttribute("oldData", request.getParameterMap());
+                request.setAttribute("errorMessage", "CCCD phải đủ 12 số");
+                request.getRequestDispatcher("form-add-user.jsp").forward(request, response);
+                return;
+            }
+            if (userDAO.isCitizenIdentificationExists(citizenIdentification)) {
+                request.setAttribute("oldData", request.getParameterMap());
+                request.setAttribute("errorMessage", "CCCD đã tồn tại");
+                request.getRequestDispatcher("form-add-user.jsp").forward(request, response);
+                return;
+            }
 
-        // Kiểm tra số điện thoại phải đủ 10 số
-        if (phoneNumber == null || phoneNumber.length() != 10 || !phoneNumber.matches("\\d+")) {
-            request.setAttribute("errorMessage", "Số điện thoại phải đủ 10 số");
-            request.getRequestDispatcher("form-add-user.jsp").forward(request, response);
-            return;
-        }
+            // Kiểm tra số điện thoại phải đủ 10 số
+            if (phoneNumber == null || phoneNumber.length() != 10 || !phoneNumber.matches("\\d+")) {
+                request.setAttribute("oldData", request.getParameterMap());
+                request.setAttribute("errorMessage", "Số điện thoại phải đủ 10 số");
+                request.getRequestDispatcher("form-add-user.jsp").forward(request, response);
+                return;
+            }
+            if (userDAO.isPhoneNumberExists(phoneNumber)) {
+                request.setAttribute("oldData", request.getParameterMap());
+                request.setAttribute("errorMessage", "SDT đã tồn tại");
+                request.getRequestDispatcher("form-add-user.jsp").forward(request, response);
+                return;
+            }
 
-            
-            
             File uploadDir = new File(uploadPath);
             if (!uploadDir.exists()) {
                 uploadDir.mkdir();
@@ -215,15 +242,30 @@ public class AddUserServlet extends HttpServlet {
             userAuth.setPasswordHash(passwordHash);
             userAuth.setSalt(salt);
             user.setUser(userAuth);
-          
+
             // Gọi phương thức addUser trong ManagerUserDAO
-            
             userDAO.addUser(user);
 
             // Chuyển hướng đến trang quản lý người dùng sau khi thêm thành công
             response.sendRedirect("manageuser");
         } catch (Exception e) {
             e.printStackTrace();
+            // Load lại danh sách trước khi forward về form
+            ManagerUserDAO userDAO = new ManagerUserDAO();
+            List<Provinces> provinces = userDAO.getAllProvinces();
+            request.setAttribute("provinces", provinces);
+
+            String provinceID = request.getParameter("provinceID");
+            if (provinceID != null && !provinceID.isEmpty()) {
+                List<District> districts = userDAO.getDistrictsByProvince(Integer.parseInt(provinceID));
+                request.setAttribute("districts", districts);
+            }
+
+            String districtID = request.getParameter("districtID");
+            if (districtID != null && !districtID.isEmpty()) {
+                List<Ward> wards = userDAO.getWardsByDistrict(Integer.parseInt(districtID));
+                request.setAttribute("wards", wards);
+            }
             // Xử lý lỗi và chuyển hướng đến trang lỗi nếu cần
             request.setAttribute("errorMessage", "Lỗi khi thêm người dùng: " + e.getMessage());
             request.getRequestDispatcher("form-add-user.jsp").forward(request, response);

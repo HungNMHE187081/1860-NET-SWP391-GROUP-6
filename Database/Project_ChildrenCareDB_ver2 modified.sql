@@ -423,7 +423,9 @@ CREATE TABLE BlogComments (
     FOREIGN KEY (BlogID) REFERENCES Blogs(BlogID),
     FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE
 );
-
+ALTER TABLE BlogComments
+ADD CONSTRAINT FK_BlogComments_Blogs
+FOREIGN KEY (BlogID) REFERENCES Blogs(BlogID) ON DELETE CASCADE;
 -- Add indexes to improve query performance
 CREATE INDEX IX_Blogs_CreatedDate ON Blogs(CreatedDate);
 CREATE INDEX IX_BlogComments_BlogID ON BlogComments(BlogID);

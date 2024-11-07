@@ -118,22 +118,9 @@ public class ManagerEditUserServlet extends HttpServlet {
         String gender = request.getParameter("gender");
         String citizenIdentification = request.getParameter("citizenIdentification");
         String streetAddress = request.getParameter("streetAddress");
-        String wardIDStr = request.getParameter("wardID");
-        if (firstName == null || middleName == null || lastName == null || email == null
-                || phoneNumber == null || dateOfBirth == null || gender == null || citizenIdentification == null
-                || streetAddress == null || wardIDStr == null) {
-            request.setAttribute("error", "Vui lòng điền đầy đủ thông tin.");
-            request.getRequestDispatcher("manager-edit-user.jsp").forward(request, response);
-            return;
-        }
-        int wardID;
-        try {
-            wardID = Integer.parseInt(wardIDStr);
-        } catch (NumberFormatException e) {
-            request.setAttribute("error", "Ward ID không hợp lệ.");
-            request.getRequestDispatcher("manager-edit-user.jsp").forward(request, response);
-            return;
-        }
+        int wardID = Integer.parseInt(request.getParameter("wardID"));
+     
+        
         Part filePart = request.getPart("profileImage");
         String img = user.getProfileImage(); // Giữ lại ảnh cũ nếu không có ảnh mới
         if (filePart != null && filePart.getSize() > 0) {

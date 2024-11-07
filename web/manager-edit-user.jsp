@@ -7,6 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
+
 <html lang="en">
     <head>
         <title>Thêm nhân viên | Quản trị Admin</title>
@@ -162,8 +163,8 @@
                     <div class="tile">
                         <h3 class="tile-title">Tạo mới nhân viên</h3>
                         <div class="tile-body">
-                            <c:if test="${not empty error}">
-                                <div class="alert alert-danger">${error}</div>
+                              <c:if test="${not empty errorMessage}">
+                                ${errorMessage}
                             </c:if>
                             <form action="${pageContext.request.contextPath}/manageredituser" method="post" enctype="multipart/form-data">
                                 <input type="hidden" name="userID" value="${userDetails.userID}">

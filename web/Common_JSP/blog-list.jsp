@@ -79,13 +79,13 @@
         <!-- End Hero -->
 
         <!-- Start -->
+        <!-- Blog Section -->
         <section class="section">
             <div class="container">
-                <c:forEach var="blogList" items="${blogList}">
-                    <div class="row">                                                                                 
+                <div class="row">
+                    <c:forEach var="blogList" items="${blogList}">
                         <div class="col-lg-4 col-md-6 col-12 mb-4 pb-2">
                             <div class="card blog blog-primary border-0 shadow rounded overflow-hidden">
-                               
                                 <img src="${pageContext.request.contextPath}/${blogList.thumbnailPath}" class="img-fluid" alt="">
                                 <div class="card-body p-4">
                                     <ul class="list-unstyled mb-2">
@@ -108,14 +108,16 @@
                                                 </li>
                                             </ul>
                                         </ul>
-                                                    <input name="blogID" type="hidden" value="${blogList.blogID}"/>
+                                        <input name="blogID" type="hidden" value="${blogList.blogID}"/>
                                         <a href="${pageContext.request.contextPath}/customer/detailcustomerblog?blogID=${blogList.blogID}" class="link">Read More <i class="mdi mdi-chevron-right align-middle"></i></a>
                                     </div>
                                 </div>
                             </div>
                         </div><!--end col-->
-                    </div><!--end row-->
-                </c:forEach>
+                    </c:forEach>
+                </div><!--end row-->
+
+                <!-- Pagination Section -->
                 <div class="row text-center">
                     <div class="col-12">
                         <ul class="pagination justify-content-center mb-0 list-unstyled">
@@ -127,9 +129,9 @@
                         </ul><!--end pagination-->
                     </div><!--end col-->
                 </div><!--end row-->
-
             </div><!--end container-->
         </section><!--end section-->
+
         <!-- End -->
 
         <!-- Start -->
@@ -297,12 +299,7 @@
         </div>
         <!-- Offcanvas End -->
 
-        <!-- javascript -->
-        <script src="../js/bootstrap.bundle.min.js"></script>
-        <!-- Icons -->
-        <script src="../js/feather.min.js"></script>
-        <!-- Main Js -->
-        <script src="../js/app.js"></script>
+
 
     </body>
 

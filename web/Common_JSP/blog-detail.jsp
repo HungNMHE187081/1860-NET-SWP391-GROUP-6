@@ -632,7 +632,8 @@
         <!-- Offcanvas End -->
 
         <!-- javascript -->
-
+      <script src="${pageContext.request.contextPath}/js/tiny-slider.js"></script>
+    <script src="${pageContext.request.contextPath}/js/tiny-slider-init.js"></script>
 
     </body>
 

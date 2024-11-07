@@ -32,37 +32,37 @@
         <script>
 
             function readURL(input, thumbimage) {
-            if (input.files && input.files[0]) { //Sử dụng  cho Firefox - chrome
-            var reader = new FileReader();
-            reader.onload = function (e) {
-            $("#thumbimage").attr('src', e.target.result);
-            }
-            reader.readAsDataURL(input.files[0]);
-            } else { // Sử dụng cho IE
-            $("#thumbimage").attr('src', input.value);
-            }
-            $("#thumbimage").show();
-            $('.filename').text($("#uploadfile").val());
-            $('.Choicefile').css('background', '#14142B');
-            $('.Choicefile').css('cursor', 'default');
-            $(".removeimg").show();
-            $(".Choicefile").unbind('click');
+                if (input.files && input.files[0]) { //Sử dụng  cho Firefox - chrome
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $("#thumbimage").attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(input.files[0]);
+                } else { // Sử dụng cho IE
+                    $("#thumbimage").attr('src', input.value);
+                }
+                $("#thumbimage").show();
+                $('.filename').text($("#uploadfile").val());
+                $('.Choicefile').css('background', '#14142B');
+                $('.Choicefile').css('cursor', 'default');
+                $(".removeimg").show();
+                $(".Choicefile").unbind('click');
             }
             $(document).ready(function () {
-            $(".Choicefile").bind('click', function () {
-            $("#uploadfile").click();
-            });
-            $(".removeimg").click(function () {
-            $("#thumbimage").attr('src', '').hide();
-            $("#myfileupload").html('<input type="file" id="uploadfile"  onchange="readURL(this);" />');
-            $(".removeimg").hide();
-            $(".Choicefile").bind('click', function () {
-            $("#uploadfile").click();
-            });
-            $('.Choicefile').css('background', '#14142B');
-            $('.Choicefile').css('cursor', 'pointer');
-            $(".filename").text("");
-            });
+                $(".Choicefile").bind('click', function () {
+                    $("#uploadfile").click();
+                });
+                $(".removeimg").click(function () {
+                    $("#thumbimage").attr('src', '').hide();
+                    $("#myfileupload").html('<input type="file" id="uploadfile"  onchange="readURL(this);" />');
+                    $(".removeimg").hide();
+                    $(".Choicefile").bind('click', function () {
+                        $("#uploadfile").click();
+                    });
+                    $('.Choicefile').css('background', '#14142B');
+                    $('.Choicefile').css('cursor', 'pointer');
+                    $(".filename").text("");
+                });
             });
         </script>
     </head>
@@ -162,117 +162,117 @@
                 </ul>
             </div>
             <div class="row">
-    <div class="col-md-12">
-        <div class="tile">
-            <h3 class="tile-title">Tạo mới nhân viên</h3>
-            <div class="tile-body">
-                <c:if test="${not empty errorMessage}">
-                    ${errorMessage}
-                </c:if>
-                <form action="adduser" method="post" enctype="multipart/form-data">
-                    <div class="row">
-                        <!-- Avatar Section -->
-                        <div class="col-md-3 text-center">
-                            <div class="form-group">
-                                <label class="control-label">Ảnh đại diện</label>
-                                <div class="profile-img-container">
-                                    <img id="imagePreview" src="https://via.placeholder.com/150" alt="Image Preview" class="rounded-circle img-fluid">
-                                </div>
-                                <input class="form-control-file mt-3" type="file" name="profileImage" id="profileImage" onchange="previewImage(event)">
-                            </div>
-                        </div>
+                <div class="col-md-12">
+                    <div class="tile">
+                        <h3 class="tile-title">Tạo mới nhân viên</h3>
+                        <div class="tile-body">
+                            <c:if test="${not empty errorMessage}">
+                                ${errorMessage}
+                            </c:if>
+                            <form action="adduser" method="post" enctype="multipart/form-data">
+                                <div class="row">
+                                    <!-- Avatar Section -->
+                                    <div class="col-md-3 text-center">
+                                        <div class="form-group">
+                                            <label class="control-label">Ảnh đại diện</label>
+                                            <div class="profile-img-container">
+                                                <img id="imagePreview" src="https://via.placeholder.com/150" alt="Image Preview" class="rounded-circle img-fluid">
+                                            </div>
+                                            <input class="form-control-file mt-3" type="file" name="profileImage" id="profileImage" onchange="previewImage(event)">
+                                        </div>
+                                    </div>
 
-                        <!-- Information Section -->
-                        <div class="col-md-9">
-                            <div class="row">
-                                <div class="form-group col-md-6">
-                                    <label class="control-label">Username</label>
-                                    <input class="form-control" type="text" name="username" required>
+                                    <!-- Information Section -->
+                                    <div class="col-md-9">
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <label class="control-label">Username</label>
+                                                <input class="form-control" type="text" name="username"  value="${param.username}" required>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label class="control-label">Password</label>
+                                                <input class="form-control" type="password" name="passwordHash" value="${param.passwordHash}" required>
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label class="control-label">Giới tính</label>
+                                                <select class="form-control" name="gender" required>
+                                                    <option value="">-- Chọn giới tính --</option>
+                                                    <option value="Nam" ${param.gender == 'Nam' ? 'selected' : ''}>Nam</option>
+                                                    <option value="Nữ" ${param.gender == 'Nữ' ? 'selected' : ''}>Nữ</option>
+                                                    <option value="Other" ${param.gender == 'Other' ? 'selected' : ''}>Khác</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label class="control-label">Tỉnh/Thành phố</label>
+                                                <select class="form-control" id="provinceID" name="provinceID" onchange="loadDistricts()">
+                                                    <option value="">-- Chọn Tỉnh --</option>
+                                                    <c:forEach var="province" items="${provinces}">
+                                                        <option value="${province.provinceID}" ${param.provinceID == province.provinceID ? 'selected' : ''}>${province.provinceName}</option>
+                                                    </c:forEach>
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label class="control-label">Quận/Huyện</label>
+                                                <select class="form-control" id="districtSelect" name="districtID" onchange="loadWards()">
+                                                    <option value="">-- Chọn Huyện --</option>
+                                                    <c:forEach var="district" items="${districts}">
+                                                        <option value="${district.id}" ${param.id == district.id ? 'selected' : ''}>${district.districtName}</option>
+                                                    </c:forEach>
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label class="control-label">Phường/Xã</label>
+                                                <select class="form-control" id="wardSelect" name="wardID">
+                                                    <option value="">-- Chọn Xã --</option>
+                                                    <c:forEach var="ward" items="${wards}">
+                                                        <option value="${ward.id}" ${param.id == ward.id ? 'selected' : ''}>${ward.wardName}</option>
+                                                    </c:forEach>
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label class="control-label">Địa chỉ</label>
+                                                <input class="form-control" type="text" name="streetAddress" value="${param.streetAddress}" required>
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label class="control-label">Họ</label>
+                                                <input class="form-control" type="text" name="firstName" value="${param.firstName}" required>
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label class="control-label">Tên đệm</label>
+                                                <input class="form-control" type="text" name="middleName" value="${param.middleName}" required>
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label class="control-label">Tên</label>
+                                                <input class="form-control" type="text" name="lastName" value="${param.lastName}" required>
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label class="control-label">Email</label>
+                                                <input class="form-control" type="email" name="email" value="${param.email}" required>
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label class="control-label">Số điện thoại</label>
+                                                <input class="form-control" type="text" name="phoneNumber" value="${param.phoneNumber}" required>
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label class="control-label">Ngày sinh</label>
+                                                <input class="form-control" type="date" name="dateOfBirth" value="${param.dateOfBirth}" required>
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label class="control-label">CMND/CCCD</label>
+                                                <input class="form-control" type="text" name="citizenIdentification"  value="${param.citizenIdentification}" required>
+                                            </div>
+                                            <div class="form-group col-md-12">
+                                                <button type="submit" class="btn btn-primary">Thêm người dùng</button>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="form-group col-md-6">
-                                    <label class="control-label">Password</label>
-                                    <input class="form-control" type="password" name="passwordHash" required>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label class="control-label">Giới tính</label>
-                                    <select class="form-control" name="gender" required>
-                                        <option value="">-- Chọn giới tính --</option>
-                                        <option value="Nam">Nam</option>
-                                        <option value="Nữ">Nữ</option>
-                                        <option value="Other">Khác</option>
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label class="control-label">Tỉnh/Thành phố</label>
-                                    <select class="form-control" id="provinceID" name="provinceID" onchange="loadDistricts()">
-                                        <option value="">-- Chọn Tỉnh --</option>
-                                        <c:forEach var="province" items="${provinces}">
-                                            <option value="${province.provinceID}">${province.provinceName}</option>
-                                        </c:forEach>
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label class="control-label">Quận/Huyện</label>
-                                    <select class="form-control" id="districtSelect" name="districtID" onchange="loadWards()">
-                                        <option value="">-- Chọn Huyện --</option>
-                                        <c:forEach var="district" items="${districts}">
-                                            <option value="${district.id}">${district.districtName}</option>
-                                        </c:forEach>
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label class="control-label">Phường/Xã</label>
-                                    <select class="form-control" id="wardSelect" name="wardID">
-                                        <option value="">-- Chọn Xã --</option>
-                                        <c:forEach var="ward" items="${wards}">
-                                            <option value="${ward.id}">${ward.wardName}</option>
-                                        </c:forEach>
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label class="control-label">Địa chỉ</label>
-                                    <input class="form-control" type="text" name="streetAddress" required>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label class="control-label">Họ</label>
-                                    <input class="form-control" type="text" name="firstName" required>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label class="control-label">Tên đệm</label>
-                                    <input class="form-control" type="text" name="middleName" required>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label class="control-label">Tên</label>
-                                    <input class="form-control" type="text" name="lastName" required>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label class="control-label">Email</label>
-                                    <input class="form-control" type="email" name="email" required>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label class="control-label">Số điện thoại</label>
-                                    <input class="form-control" type="text" name="phoneNumber" required>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label class="control-label">Ngày sinh</label>
-                                    <input class="form-control" type="date" name="dateOfBirth" required>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label class="control-label">CMND/CCCD</label>
-                                    <input class="form-control" type="text" name="citizenIdentification" required>
-                                </div>
-                                <div class="form-group col-md-12">
-                                    <button type="submit" class="btn btn-primary">Thêm người dùng</button>
-                                </div>
-                            </div>
+                            </form>
                         </div>
                     </div>
-                </form>
+                </div>
             </div>
-        </div>
-    </div>
-</div>
-        
+
         </main>
 
 
@@ -285,93 +285,93 @@
         -->
         <script>
             function loadDistricts() {
-            var provinceID = document.getElementById('provinceID').value;
-            var xhr = new XMLHttpRequest();
-            xhr.open('GET', 'loadDistricts?provinceID=' + provinceID, true);
-            xhr.onload = function () {
-            if (xhr.status === 200) {
-            var districts = JSON.parse(xhr.responseText);
-            var districtSelect = document.getElementById('districtSelect');
-            districtSelect.innerHTML = '<option value="">-- Chọn Huyện --</option>'; // Reset district dropdown
-            districts.forEach(function (district) {
-            var option = document.createElement('option');
-            option.value = district.id;
-            option.textContent = district.districtName;
-            districtSelect.appendChild(option);
-            });
-            loadWards(); // Load wards for the first district if any
-            }
-            };
-            xhr.send();
+                var provinceID = document.getElementById('provinceID').value;
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET', 'loadDistricts?provinceID=' + provinceID, true);
+                xhr.onload = function () {
+                    if (xhr.status === 200) {
+                        var districts = JSON.parse(xhr.responseText);
+                        var districtSelect = document.getElementById('districtSelect');
+                        districtSelect.innerHTML = '<option value="">-- Chọn Huyện --</option>'; // Reset district dropdown
+                        districts.forEach(function (district) {
+                            var option = document.createElement('option');
+                            option.value = district.id;
+                            option.textContent = district.districtName;
+                            districtSelect.appendChild(option);
+                        });
+                        loadWards(); // Load wards for the first district if any
+                    }
+                };
+                xhr.send();
             }
 
             function loadWards() {
-            var districtID = document.getElementById('districtSelect').value;
-            var xhr = new XMLHttpRequest();
-            xhr.open('GET', 'loadWards?districtID=' + districtID, true);
-            xhr.onload = function () {
-            if (xhr.status === 200) {
-            var wards = JSON.parse(xhr.responseText);
-            var wardSelect = document.getElementById('wardSelect');
-            wardSelect.innerHTML = '<option value="">-- Chọn Xã --</option>'; // Reset ward dropdown
-            wards.forEach(function (ward) {
-            var option = document.createElement('option');
-            option.value = ward.id;
-            option.textContent = ward.wardName;
-            wardSelect.appendChild(option);
-            });
-            }
-            };
-            xhr.send();
-            }
-
-       
-                function previewImage(event) {
-                    const image = document.getElementById('imagePreview');
-            const file = event.target.files[0];
-            if (file) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-            image.src = e.target.result; // Gán URL ảnh cho thuộc tính src của <img>
-            image.style.display = 'block'; // Hiện ảnh
+                var districtID = document.getElementById('districtSelect').value;
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET', 'loadWards?districtID=' + districtID, true);
+                xhr.onload = function () {
+                    if (xhr.status === 200) {
+                        var wards = JSON.parse(xhr.responseText);
+                        var wardSelect = document.getElementById('wardSelect');
+                        wardSelect.innerHTML = '<option value="">-- Chọn Xã --</option>'; // Reset ward dropdown
+                        wards.forEach(function (ward) {
+                            var option = document.createElement('option');
+                            option.value = ward.id;
+                            option.textContent = ward.wardName;
+                            wardSelect.appendChild(option);
+                        });
+                    }
+                };
+                xhr.send();
             }
 
-            reader.readAsDataURL(file); // Đọc file ảnh
-            } else {
-            image.src = '#'; // Reset nếu không có file
-            image.style.display = 'none'; // Ẩn ảnh
-            }
+
+            function previewImage(event) {
+                const image = document.getElementById('imagePreview');
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        image.src = e.target.result; // Gán URL ảnh cho thuộc tính src của <img>
+                        image.style.display = 'block'; // Hiện ảnh
+                    }
+
+                    reader.readAsDataURL(file); // Đọc file ảnh
+                } else {
+                    image.src = '#'; // Reset nếu không có file
+                    image.style.display = 'none'; // Ẩn ảnh
                 }
-              
-    </script>
-<style>
-    .profile-img-container {
-        width: 150px;
-        height: 150px;
-        overflow: hidden;
-        border-radius: 20%;
-        margin: 0 auto;
-    }
+            }
 
-    .profile-img-container img {
-        width: 100%;
-        height: auto;
-    }
+        </script>
+        <style>
+            .profile-img-container {
+                width: 150px;
+                height: 150px;
+                overflow: hidden;
+                border-radius: 20%;
+                margin: 0 auto;
+            }
 
-    .form-control-file {
-        display: block;
-        margin-top: 10px;
-    }
-</style>
+            .profile-img-container img {
+                width: 100%;
+                height: auto;
+            }
 
-    <!-- Essential javascripts for application to work-->
-    <script src="js/manager/jquery-3.2.1.min.js"></script>
-    <script src="js/manager/popper.min.js"></script>
-    <script src="js/manager/bootstrap.min.js"></script>
-    <script src="js/manager/main.js"></script>
-    <!-- The javascript plugin to display page loading on top-->
-    <script src="js/plugins/pace.min.js"></script>
+            .form-control-file {
+                display: block;
+                margin-top: 10px;
+            }
+        </style>
 
-</body>
+        <!-- Essential javascripts for application to work-->
+        <script src="js/manager/jquery-3.2.1.min.js"></script>
+        <script src="js/manager/popper.min.js"></script>
+        <script src="js/manager/bootstrap.min.js"></script>
+        <script src="js/manager/main.js"></script>
+        <!-- The javascript plugin to display page loading on top-->
+        <script src="js/plugins/pace.min.js"></script>
+
+    </body>
 
 </html>

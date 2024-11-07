@@ -116,7 +116,7 @@
                                             </td>
                                             <td>${blog.views}</td>                                 
                                             <td>
-                                                <form action="/manager/deleteblog" method="post">
+                                                <form action="${pageContext.request.contextPath}/manager/deleteblog" method="post">
                                                     <input type="hidden" name="blogid" value="${blog.blogID}"/>
                                                     <button class="btn btn-primary btn-sm trash" title="Xóa" onclick="confirm('B?n có ch?c ch?n xóa bài này không')"><i class="fas fa-trash-alt"></i></button>
                                                 </form>
