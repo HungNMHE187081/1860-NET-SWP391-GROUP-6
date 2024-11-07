@@ -490,11 +490,11 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>EditProvincesServlet</servlet-name>
-        <url-pattern>/editprovinces</url-pattern>
+        <url-pattern>/manager/editprovinces</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ManagerAddressServlet</servlet-name>
-        <url-pattern>/manageraddress</url-pattern>
+        <url-pattern>/manager/manageraddress</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ManagerDeleteServiceServlet</servlet-name>
@@ -510,23 +510,23 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>DeleteProvincesServlet</servlet-name>
-        <url-pattern>/deleteprovinces</url-pattern>
+        <url-pattern>/manager/deleteprovinces</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ManageDistrictServlet</servlet-name>
-        <url-pattern>/managedistrict</url-pattern>
+        <url-pattern>/manager/managedistrict</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddDistrictServlet</servlet-name>
-        <url-pattern>/adddistrict</url-pattern>
+        <url-pattern>/manager/adddistrict</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>EditDistrictsServlet</servlet-name>
-        <url-pattern>/editdistricts</url-pattern>
+        <url-pattern>/manager/editdistricts</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>DeleteDistrictsServlet</servlet-name>
-        <url-pattern>/deletedistricts</url-pattern>
+        <url-pattern>/manager/deletedistricts</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ManagerSearchServiceServlet</servlet-name>
@@ -578,7 +578,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ManageUserServlet</servlet-name>
-        <url-pattern>/manageuser</url-pattern>
+        <url-pattern>/manager/manageuser</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>StaffServicesListServlet</servlet-name>
@@ -602,11 +602,11 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddUserServlet</servlet-name>
-        <url-pattern>/adduser</url-pattern>
+        <url-pattern>/manager/adduser</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>DeleteUserServlet</servlet-name>
-        <url-pattern>/deleteuser</url-pattern>
+        <url-pattern>/manager/deleteuser</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>DeleteMedicalRecord</servlet-name>
@@ -614,7 +614,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ManageWardServlet</servlet-name>
-        <url-pattern>/manageward</url-pattern>
+        <url-pattern>/manager/manageward</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>FeedbackListServlet</servlet-name>
@@ -646,7 +646,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ViewDetailsUserServlet</servlet-name>
-        <url-pattern>/viewdetailsuser</url-pattern>
+        <url-pattern>/manager/viewdetailsuser</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ManagerStaffsListServlet</servlet-name>
@@ -682,15 +682,15 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddWardServlet</servlet-name>
-        <url-pattern>/addward</url-pattern>
+        <url-pattern>/manager/addward</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>DeleteWardServlet</servlet-name>
-        <url-pattern>/deleteward</url-pattern>
+        <url-pattern>/manager/deleteward</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>EditWardServlet</servlet-name>
-        <url-pattern>/editward</url-pattern>
+        <url-pattern>/manager/editward</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ConfirmFeedbackServlet</servlet-name>
@@ -926,7 +926,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ManagerEditUserServlet</servlet-name>
-        <url-pattern>/manageredituser</url-pattern>
+        <url-pattern>/manager/manageredituser</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CustomerEditBlogCommentServlet</servlet-name>

@@ -11,6 +11,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.sql.SQLException;
+import java.util.List;
 import model.Ward;
 
 /**
@@ -77,11 +79,25 @@ public class AddWardServlet extends HttpServlet {
         ManagerDAO dao = new ManagerDAO();
         int districtID = Integer.parseInt(request.getParameter("districtID"));
         String name = request.getParameter("wardName");
-        Ward ward = new Ward();
-        ward.setDistrictID(districtID);
-        ward.setWardName(name);
-        dao.addWards(ward);
-        response.sendRedirect("manageward?districtid=" + districtID);
+        try {
+            if (dao.isWardNameExist(districtID, name)) {
+                List<Ward> ward = dao.getWardByDistrict(districtID);
+                request.setAttribute("ward", ward);
+                request.setAttribute("districtID", districtID);
+                request.setAttribute("errorMessage", "Tên quận/huyện đã tồn tại!");
+                request.getRequestDispatcher("/Manager_JSP/Address/manage-ward.jsp").forward(request, response);
+            } else {
+                Ward ward = new Ward();
+                ward.setDistrictID(districtID);
+                ward.setWardName(name);
+                dao.addWards(ward);
+                response.sendRedirect(request.getContextPath() + "/manager/manageward?districtid=" + districtID);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            response.sendRedirect("error.jsp"); // Chuyển hướng khi có lỗi
+        }
+
     }
 
     /**

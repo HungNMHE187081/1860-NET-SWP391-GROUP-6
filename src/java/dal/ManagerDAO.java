@@ -244,7 +244,27 @@ public boolean isDistrictNameExist(int provinceID, String districtName) throws S
     }
     return false;
 }
+public boolean isWardNameExist(int districtID, String wardName) throws SQLException {
+    // Loại bỏ dấu và chuyển tên về dạng chữ thường
+    String normalizedWardName = removeAccent(wardName.trim()).toLowerCase();
+    System.out.println("Kiểm tra tên phường/xã: " + wardName + ", Normalized: " + normalizedWardName);
 
+    String query = "SELECT COUNT(*) FROM Wards WHERE DistrictID = ? AND LOWER(dbo.removeAccent(WardName)) = LOWER(?)";
+    try (PreparedStatement ps = connection.prepareStatement(query)) {
+        ps.setInt(1, districtID);
+        ps.setString(2, normalizedWardName);
+
+        try (ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                int count = rs.getInt(1);
+                System.out.println("Số lượng phường/xã có tên tương tự: " + count);
+                return count > 0;
+            }
+        }
+    }
+
+    return false;
+}
     public void addDistricts(District district) {
         String sql = "INSERT INTO Districts(ProvinceID, DistrictName) VALUES (?, ?)";
         try {
@@ -269,12 +289,12 @@ public boolean isDistrictNameExist(int provinceID, String districtName) throws S
         }
     }
 
-    public static void main(String[] args) {
-    String pro = "Hà Nội";
-    ManagerDAO dao = new ManagerDAO();
-    Provinces province = new Provinces();
-    province.setProvinceName(pro);
-    dao.addProvinces(province);
+    public static void main(String[] args) throws SQLException {
+    String pro = "Phường Bến Nghé";
+   int id = 1;
+   ManagerDAO dao = new ManagerDAO();
+   boolean check = dao.isWardNameExist(id, pro);
+        System.out.println(check);
     
 }
 

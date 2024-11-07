@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
+import java.util.List;
 import model.District;
 
 /**
@@ -81,15 +82,20 @@ public class AddDistrictServlet extends HttpServlet {
         // Kiểm tra xem tên quận/huyện đã tồn tại chưa
         if (dao.isDistrictNameExist(provinceID, name)) {
             // Quận/huyện đã tồn tại, xử lý trường hợp này (ví dụ thông báo lỗi)
+            List<District> district = dao.getAllDistricts(provinceID);
+            request.setAttribute("district", district);
+            request.setAttribute("provinceID", provinceID);
             request.setAttribute("errorMessage", "Tên quận/huyện đã tồn tại!");
-            request.getRequestDispatcher("managedistrict?id=" + provinceID).forward(request, response);
+            request.getRequestDispatcher("/Manager_JSP/Address/manager-DistrictWard-form.jsp").forward(request, response);
+        return;
         } else {
             // Nếu chưa tồn tại, tiếp tục thêm mới quận/huyện
             District district = new District();
             district.setDistrictName(name);
             district.setProvinceID(provinceID);
             dao.addDistricts(district);
-            response.sendRedirect("managedistrict?id=" + provinceID); // Chuyển hướng sau khi thêm thành công
+            response.sendRedirect(request.getContextPath()+"/manager/managedistrict?id=" + provinceID); // Chuyển hướng sau khi thêm thành công
+            
         }
     } catch (SQLException e) {
         e.printStackTrace();

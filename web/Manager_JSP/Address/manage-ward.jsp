@@ -14,7 +14,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Main CSS-->
-        <link rel="stylesheet" type="text/css" href="css/manager/main.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/manager/main.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
         <!-- or -->
         <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
@@ -52,7 +52,11 @@
                 </ul>
                 <div id="clock"></div>
             </div>
-
+  <c:if test="${not empty errorMessage}">
+                <div style="color: red;">
+                    ${errorMessage}
+                </div>
+            </c:if>
             <div class="row">
                 <div class="col-md-12">
                     <div class="tile">
@@ -108,7 +112,7 @@
                                             <td>${counter}</td> <!-- Hi?n th? STT -->
                                             <td>${ward.wardName}</td>
                                             <td>
-                                                <form action="deleteward" method="post" onsubmit="return confirm('Are you sure you want to delete this ward?');" style="display:inline;">
+                                                <form action="${pageContext.request.contextPath}/manager/deleteward" method="post" onsubmit="return confirm('Are you sure you want to delete this ward?');" style="display:inline;">
                                                     <input type="hidden" name="id" value="${ward.id}">
                                                     <input type="hidden" name="districtID" value="${ward.districtID}">                             
                                                     <button class="btn btn-primary btn-sm trash" title="Xóa" type="submit"><i
@@ -140,7 +144,7 @@
                 <div class="modal-content">
 
                     <div class="modal-body">       
-                        <form action="editward" method="post">
+                        <form action="${pageContext.request.contextPath}/manager/editward" method="post">
                             <input type="hidden" name="id" id="wardIDInput">
                             <input type="hidden" name="districtID" id="districtIDInput" > <!-- Pass provinceID -->
                             <div class="form-group">
@@ -170,7 +174,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form id="addWardForm" action="addward" method="post">
+                        <form id="addWardForm" action="${pageContext.request.contextPath}/manager/addward" method="post">
                             <input type="hidden" id="districtID" name="districtID" value="${districtID}">
                             <input type="hidden" id="wardID" name="wardID">
                             <div class="form-group">
@@ -186,14 +190,14 @@
         </div>
 
         <!-- Essential javascripts for application to work-->
-        <script src="js/manager/jquery-3.2.1.min.js"></script>
-        <script src="js/manager/popper.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/manager/jquery-3.2.1.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/manager/popper.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script src="src/jquery.table2excel.js"></script>
-        <script src="js/manager/main.js"></script>
+        <script src="${pageContext.request.contextPath}/js/manager/main.js"></script>
         <!-- The javascript plugin to display page loading on top-->
-        <script src="js/plugins/pace.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/plugins/pace.min.js"></script>
         <!-- Page specific javascripts-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
         <!-- Data table plugin-->

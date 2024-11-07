@@ -91,7 +91,7 @@ public class ManagerEditUserServlet extends HttpServlet {
             request.setAttribute("userDetails", user);
             request.setAttribute("districts", districts);
             request.setAttribute("wards", wards);
-            request.getRequestDispatcher("manager-edit-user.jsp").forward(request, response);
+            request.getRequestDispatcher("/manager-edit-user.jsp").forward(request, response);
         }
     }
 
@@ -136,7 +136,7 @@ public class ManagerEditUserServlet extends HttpServlet {
                 img = UPLOAD_DIR + File.separator + fileName;
             } catch (IOException e) {
                 request.setAttribute("error", "Không thể lưu ảnh đại diện. Vui lòng thử lại.");
-                request.getRequestDispatcher("manager-edit-user.jsp").forward(request, response);
+                request.getRequestDispatcher("/manager-edit-user.jsp").forward(request, response);
                 return;
             }
         }
@@ -160,7 +160,7 @@ public class ManagerEditUserServlet extends HttpServlet {
         userDAO.updateUser(user);
 
         // Chuyển hướng về trang hồ sơ
-        response.sendRedirect(request.getContextPath() + "/manageuser");
+        response.sendRedirect(request.getContextPath() + "/manager/manageuser");
     }
 
     /**

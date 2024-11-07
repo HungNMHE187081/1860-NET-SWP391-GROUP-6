@@ -8,11 +8,14 @@ import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.Roles;
 
 public class RegisterServlet extends HttpServlet {
     private UserDAO userDAO;
@@ -55,7 +58,11 @@ public class RegisterServlet extends HttpServlet {
         // Tạo đối tượng Users
         Users user = new Users();
         user.setEmail(email);
-        user.setUser(userAuth); // Liên kết với UserAuthentication
+        user.setUser(userAuth);
+
+        // Khởi tạo danh sách roles rỗng cho user mới
+        List<Roles> roles = new ArrayList<>();
+        user.setRoles(roles);
 
         // Lưu thông tin người dùng vào cơ sở dữ liệu
         userDAO.registerUser(user);

@@ -315,10 +315,12 @@ public class UserDAO extends DBContext {
         String sqlUsers = "INSERT INTO Users (Email) VALUES (?)";
         String sqlUserAuth = "INSERT INTO UserAuthentication (UserID, Username, PasswordHash, Salt, LastLogin) VALUES (?, ?, ?, ?, ?)";
         String sqlAddress = "INSERT INTO UserAddresses (UserID) VALUES (?)";
+        String sqlUserRole = "INSERT INTO UserRoles (UserID, RoleID) VALUES (?, ?)";
 
         try (PreparedStatement stmtUsers = connection.prepareStatement(sqlUsers, Statement.RETURN_GENERATED_KEYS); 
-            PreparedStatement stmtUserAuth = connection.prepareStatement(sqlUserAuth);
-            PreparedStatement stmtAddress = connection.prepareStatement(sqlAddress)) {
+             PreparedStatement stmtUserAuth = connection.prepareStatement(sqlUserAuth);
+             PreparedStatement stmtAddress = connection.prepareStatement(sqlAddress);
+             PreparedStatement stmtUserRole = connection.prepareStatement(sqlUserRole)) {
 
             // Insert into Users table
             stmtUsers.setString(1, user.getEmail());
@@ -341,6 +343,15 @@ public class UserDAO extends DBContext {
 
                     stmtAddress.setInt(1, userID);
                     stmtAddress.executeUpdate();
+
+                    // Thêm role Customer cho user mới
+                    RolesDAO rolesDAO = new RolesDAO();
+                    int customerRoleID = rolesDAO.getRoleIDByName("Customer");
+                    if (customerRoleID != -1) {
+                        stmtUserRole.setInt(1, userID);
+                        stmtUserRole.setInt(2, customerRoleID);
+                        stmtUserRole.executeUpdate();
+                    }
                 }
             }
         } catch (SQLException e) {

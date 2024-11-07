@@ -14,7 +14,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Main CSS-->
-        <link rel="stylesheet" type="text/css" href="css/manager/main.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/manager/main.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
         <!-- or -->
         <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
@@ -280,12 +280,12 @@
 
 
         <!-- Essential javascripts for application to work-->
-        <script src="js/manager/jquery-3.2.1.min.js"></script>
-        <script src="js/manager/popper.min.js"></script>
-        <script src="js/manager/bootstrap.min.js"></script>
-        <script src="js/manager/main.js"></script>
+        <script src="${pageContext.request.contextPath}/js/manager/jquery-3.2.1.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/manager/popper.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/manager/bootstrap.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/manager/main.js"></script>
         <!-- The javascript plugin to display page loading on top-->
-        <script src="js/plugins/pace.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/plugins/pace.min.js"></script>
 
     </body>
 

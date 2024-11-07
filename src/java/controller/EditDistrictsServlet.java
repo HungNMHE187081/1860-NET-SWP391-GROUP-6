@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.District;
 import java.sql.SQLException;
+import java.util.List;
 /**
  *
  * @author LENOVO
@@ -80,12 +81,14 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
         // Kiểm tra tên quận/huyện có tồn tại hay không
         if (dao.isDistrictNameExist(provinceID, name)) {
             // Nếu tên đã tồn tại, gửi lại trang chỉnh sửa với thông báo lỗi
-            request.setAttribute("errorMessage", "Tên quận/huyện đã tồn tại!"); // Thiết lập thông báo lỗi
-         request.getRequestDispatcher("manager-DistrictWard-form.jsp").forward(request, response);
+             List<District> district = dao.getAllDistricts(provinceID);
+                request.setAttribute("district", district);
+        request.setAttribute("errorMessage", "Tên quận/huyện đã tồn tại!"); // Thiết lập thông báo lỗi
+        request.getRequestDispatcher("/Manager_JSP/Address/manager-DistrictWard-form.jsp").forward(request, response);
         } else {
             // Nếu không trùng lặp, tiến hành cập nhật
             dao.updateDistricts(id, name, provinceID);
-            response.sendRedirect("managedistrict?id=" + provinceID); // Điều hướng về trang quản lý quận/huyện
+            response.sendRedirect(request.getContextPath()+"/manager/managedistrict?id=" + provinceID); // Chuyển hướng sau khi thêm thành công
         }
     } catch (SQLException e) {
         e.printStackTrace();

@@ -18,7 +18,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Main CSS-->
-        <link rel="stylesheet" type="text/css" href="css/manager/main.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/manager/main.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
         <!-- or -->
         <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
@@ -116,11 +116,11 @@
                                         <tr>
                                             <td width="10"><input type="checkbox" name="check1" value="1"></td>
                                             <td>${counter}</td> <!-- Hiển thị STT -->
-                                            <td><a href="managedistrict?id=${provinces.provinceID}">${provinces.provinceName}</a></td>
+                                            <td><a href="${pageContext.request.contextPath}/manager/managedistrict?id=${provinces.provinceID}">${provinces.provinceName}</a></td>
                                             <td>${provinces.totalDistricts}</td>
                                             <td>${provinces.totalWards}</td>
                                             <td class="table-td-center">
-                                                <form action="deleteprovinces" method="post" onsubmit="return confirm('Are you sure you want to delete this province?');">
+                                                <form action="${pageContext.request.contextPath}/manager/deleteprovinces" method="post" onsubmit="return confirm('Are you sure you want to delete this province?');">
                                                     <input type="hidden" name="provinceID" value="${provinces.provinceID}">
                                                     <button type="submit" class="btn btn-primary btn-sm trash" title="Xóa">
                                                         <i class="fas fa-trash-alt"></i>
@@ -160,7 +160,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form id="updateProvinceForm" action="editprovinces" method="post">
+                        <form id="updateProvinceForm" action="${pageContext.request.contextPath}/manager/editprovinces" method="post">
                             <input type="hidden" id="provinceID" name="id">
                             <div class="form-group">
                                 <label for="provinceName">Tên Tỉnh Thành</label>
@@ -188,7 +188,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form  action="${pageContext.request.contextPath}/manageraddress" method="post">
+                        <form  action="${pageContext.request.contextPath}/manager/manageraddress" method="post">
                             <input type="hidden" id="provinceID" name="id">
                             <div class="form-group">
                                 <label for="newEmployeeName">Tên tỉnh thành</label>
@@ -204,12 +204,12 @@
 
 
         <!-- Essential javascripts for application to work-->
-        <script src="js/manager/jquery-3.2.1.min.js"></script>
-        <script src="js/manager/popper.min.js"></script>
-        <script src="js/manager/bootstrap.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/manager/jquery-3.2.1.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/manager/popper.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/manager/bootstrap.min.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script src="src/jquery.table2excel.js"></script>
-        <script src="js/manager/main.js"></script>
+        <script src="${pageContext.request.contextPath}/js/manager/main.js"></script>
         <!-- The javascript plugin to display page loading on top-->
         <script src="js/plugins/pace.min.js"></script>
         <!-- Page specific javascripts-->

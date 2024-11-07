@@ -73,7 +73,7 @@ public class DeleteUserServlet extends HttpServlet {
             int userid = Integer.parseInt(id);
             ManagerUserDAO dao = new ManagerUserDAO();
             dao.deleteUser(userid);
-            response.sendRedirect("manageuser");
+           response.sendRedirect(request.getContextPath()+"/manager/manageuser");
         }catch(SQLException e){
             e.printStackTrace();
         }

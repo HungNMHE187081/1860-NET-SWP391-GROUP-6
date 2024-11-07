@@ -102,7 +102,7 @@ public class AddUserServlet extends HttpServlet {
         request.setAttribute("selectedDistrictID", selectedDistrictID);
 
         // Chuyển tiếp đến form JSP
-        request.getRequestDispatcher("form-add-user.jsp").forward(request, response);
+        request.getRequestDispatcher("/form-add-user.jsp").forward(request, response);
     }
 
     /**
@@ -158,13 +158,13 @@ public class AddUserServlet extends HttpServlet {
             if (firstName == null || firstName.trim().isEmpty() || username == null || username.trim().isEmpty()) {
                 request.setAttribute("oldData", request.getParameterMap());
                 request.setAttribute("errorMessage", "Họ và tên, Username không được để trống");
-                request.getRequestDispatcher("form-add-user.jsp").forward(request, response);
+                request.getRequestDispatcher("/form-add-user.jsp").forward(request, response);
                 return;
             }
             if (userDAO.checkUsernameExists(username)) {
                 request.setAttribute("oldData", request.getParameterMap());
                 request.setAttribute("errorMessage", "Username đã tồn tại");
-                request.getRequestDispatcher("form-add-user.jsp").forward(request, response);
+                request.getRequestDispatcher("/form-add-user.jsp").forward(request, response);
                 return;
             }
 
@@ -175,7 +175,7 @@ public class AddUserServlet extends HttpServlet {
             if (ageInYears < 18) {
                 request.setAttribute("oldData", request.getParameterMap());
                 request.setAttribute("errorMessage", "Tuổi phải trên 18");
-                request.getRequestDispatcher("form-add-user.jsp").forward(request, response);
+                request.getRequestDispatcher("/form-add-user.jsp").forward(request, response);
                 return;
             }
 
@@ -183,13 +183,13 @@ public class AddUserServlet extends HttpServlet {
             if (citizenIdentification == null || citizenIdentification.length() != 12 || !citizenIdentification.matches("\\d+")) {
                 request.setAttribute("oldData", request.getParameterMap());
                 request.setAttribute("errorMessage", "CCCD phải đủ 12 số");
-                request.getRequestDispatcher("form-add-user.jsp").forward(request, response);
+                request.getRequestDispatcher("/form-add-user.jsp").forward(request, response);
                 return;
             }
             if (userDAO.isCitizenIdentificationExists(citizenIdentification)) {
                 request.setAttribute("oldData", request.getParameterMap());
                 request.setAttribute("errorMessage", "CCCD đã tồn tại");
-                request.getRequestDispatcher("form-add-user.jsp").forward(request, response);
+                request.getRequestDispatcher("/form-add-user.jsp").forward(request, response);
                 return;
             }
 
@@ -197,13 +197,13 @@ public class AddUserServlet extends HttpServlet {
             if (phoneNumber == null || phoneNumber.length() != 10 || !phoneNumber.matches("\\d+")) {
                 request.setAttribute("oldData", request.getParameterMap());
                 request.setAttribute("errorMessage", "Số điện thoại phải đủ 10 số");
-                request.getRequestDispatcher("form-add-user.jsp").forward(request, response);
+                request.getRequestDispatcher("/form-add-user.jsp").forward(request, response);
                 return;
             }
             if (userDAO.isPhoneNumberExists(phoneNumber)) {
                 request.setAttribute("oldData", request.getParameterMap());
                 request.setAttribute("errorMessage", "SDT đã tồn tại");
-                request.getRequestDispatcher("form-add-user.jsp").forward(request, response);
+                request.getRequestDispatcher("/form-add-user.jsp").forward(request, response);
                 return;
             }
 
@@ -247,7 +247,7 @@ public class AddUserServlet extends HttpServlet {
             userDAO.addUser(user);
 
             // Chuyển hướng đến trang quản lý người dùng sau khi thêm thành công
-            response.sendRedirect("manageuser");
+            response.sendRedirect(request.getContextPath()+"/manager/manageuser");
         } catch (Exception e) {
             e.printStackTrace();
             // Load lại danh sách trước khi forward về form

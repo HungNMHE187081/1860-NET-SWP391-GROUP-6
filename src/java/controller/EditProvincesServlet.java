@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.Provinces;
 import java.sql.SQLException;
+import java.util.List;
 /**
  *
  * @author LENOVO
@@ -78,7 +79,11 @@ public class EditProvincesServlet extends HttpServlet {
         // Check if the province name already exists (case-insensitive and without accents)
         if (dao.isProvinceNameExist(provinceName)) {
             request.setAttribute("errorMessage", "Tên tỉnh thành đã tồn tại.");
-            request.getRequestDispatcher("manager-address.jsp").forward(request, response);
+            List<Provinces> listP = dao.getAllProvinces();
+        request.setAttribute("listP", listP);
+
+        // Chuyển hướng về trang manager-address.jsp
+        request.getRequestDispatcher("/Manager_JSP/Address/manager-address.jsp").forward(request, response);
             return;
         }
 
@@ -91,12 +96,17 @@ public class EditProvincesServlet extends HttpServlet {
         dao.updateProvinces(province);
         
         // Redirect to manageraddress after successful update
-        response.sendRedirect("manageraddress");
+        response.sendRedirect(request.getContextPath() + "/manager/manageraddress");
     } catch (SQLException e) {
         e.printStackTrace();
         request.setAttribute("error", "Có lỗi xảy ra khi cập nhật tỉnh thành.");
-        request.getRequestDispatcher("manageraddress").forward(request, response);
+       List<Provinces> listP = dao.getAllProvinces();
+        request.setAttribute("listP", listP);
+
+        // Chuyển hướng về trang manager-address.jsp
+        request.getRequestDispatcher("/Manager_JSP/Address/manager-address.jsp").forward(request, response);
     }
+    
 }
 
     /** 
