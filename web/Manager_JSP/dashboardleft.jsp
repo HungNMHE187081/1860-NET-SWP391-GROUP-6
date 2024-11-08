@@ -23,8 +23,6 @@
                 <span class="app-menu__label">Quản lí dịch vụ</span></a></li>
         <li><a class="app-menu__item " href="${pageContext.request.contextPath}/manager/staffslist"><i class='app-menu__icon bx bx-tachometer'></i><span
                     class="app-menu__label">Quản lí nhân viên</span></a></li>
-        <li><a class="app-menu__item" href="${pageContext.request.contextPath}/manager/reservationslist"><i class='app-menu__icon bx bx-task'></i><span
-                    class="app-menu__label">Quản lí lịch khám</span></a></li>
         <li><a class="app-menu__item" href="${pageContext.request.contextPath}/manager/manageraddress"><i class='app-menu__icon bx bx-id-card'></i>
                 <span class="app-menu__label">Quản lí địa chỉ</span></a></li>
         <li><a class="app-menu__item" href="${pageContext.request.contextPath}/manager/manageuser"><i class='app-menu__icon bx bx-user-voice'></i><span
