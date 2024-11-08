@@ -10,7 +10,7 @@
 <html lang="en">
 
     <head>
-        <title>Thêm nhân viên | Quản trị Admin</title>
+        <title>Chi tiết bài viết</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -156,14 +156,14 @@
         <main class="app-content">
             <div class="app-title">
                 <ul class="app-breadcrumb breadcrumb">
-                    <li class="breadcrumb-item">Danh sách nhân viên</li>
-                    <li class="breadcrumb-item"><a href="#">Thêm nhân viên</a></li>
+                    <li class="breadcrumb-item">Danh sách bài viết</li>
+                    <li class="breadcrumb-item"><a href="#">Chi tiết bài viết</a></li>
                 </ul>
             </div>
             <div class="row">
                 <div class="col-md-12">
                     <div class="tile">
-                        <h3 class="tile-title">Blog Details</h3>
+                        <h3 class="tile-title">Chi tiết bài viết</h3>
                         <div class="tile-body">
                             <form action="/manager/viewdetailblog" method="get">
                                 <!-- Title ở trên cùng -->
@@ -176,20 +176,20 @@
                                 <!-- CreatedAt và UpdatedAt trên cùng một hàng -->
                                 <div class="row">
                                     <div class="form-group col-md-6">
-                                        <strong>Create at:</strong> ${blogDetails.createdDate}
+                                        <strong>Tạo vào lúc:</strong> ${blogDetails.createdDate}
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <strong>Update at:</strong> ${blogDetails.updatedDate}
+                                        <strong>Cập nhật vào lúc:</strong> ${blogDetails.updatedDate}
                                     </div>
                                 </div>
 
                                 <!-- Author và Views trên cùng một hàng -->
                                 <div class="row">
                                     <div class="form-group col-md-6">
-                                        <strong>Author:</strong> ${blogDetails.authorName}
+                                        <strong>Tác giả:</strong> ${blogDetails.authorName}
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <strong>Views:</strong> ${blogDetails.views}
+                                        <strong>Lượt xem:</strong> ${blogDetails.views}
                                     </div>
                                     <div class="form-group col-md-6">
                                         <strong>Phân Loại</strong> 
@@ -213,7 +213,7 @@
                                 <!-- Status -->
                                 <div class="row">
                                     <div class="form-group col-md-12">
-                                        <strong>Status:</strong>
+                                        <strong>Trạng thái</strong>
                                         <c:if test="${blogDetails.isPublished}">
                                             Active
                                         </c:if>
@@ -226,7 +226,7 @@
                                 <!-- Content ở cuối cùng -->
                                 <div class="row">
                                     <div class="form-group col-md-12">
-                                        <strong>Content:</strong>
+                                        <strong>Nội dung</strong>
                                         <p>${blogDetails.content}</p>
                                     </div>
                                 </div>

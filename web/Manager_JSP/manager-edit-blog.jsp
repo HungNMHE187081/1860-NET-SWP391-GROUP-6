@@ -10,7 +10,7 @@
 <html lang="en">
 
     <head>
-        <title>Thêm bài viết</title>
+        <title>Chỉnh sửa bài viết</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -182,13 +182,13 @@
                                 <div class="row">
                                     <!-- Title Field -->
                                     <div class="form-group col-md-6">
-                                        <label class="control-label">Title</label>
+                                        <label class="control-label">Tiêu đề</label>
                                         <input class="form-control" type="text" name="titleEdit" value="${blogDetails.title}">
                                     </div>
 
                                     <!-- Author Field -->
                                     <div class="form-group col-md-6">
-                                        <label class="control-label">Author</label>
+                                        <label class="control-label">Tác giả</label>
                                         <input class="form-control" type="text" name="author" value="${blogDetails.authorName}" required>
                                     </div>
                                     <div class="form-group col-md-6">
@@ -205,7 +205,7 @@
                                 <!-- Content Field (Full Width) -->
                                 <div class="row">
                                     <div class="form-group col-md-12">
-                                        <label class="control-label">Content</label>
+                                        <label class="control-label">Nội dung</label>
                                         <textarea name="contentedit" id="contentedit" class="form-control">${blogDetails.content}</textarea>
                                     </div>
                                 </div>
@@ -223,7 +223,7 @@
 
                                     <!-- Thumbnail Field -->
                                     <div class="form-group col-md-6">
-                                        <label class="control-label">Thumbnail</label>
+                                        <label class="control-label">Ảnh bìa</label>
                                         <div id="myfileupload">
                                             <input type="file" id="thumbNail" name="thumbNail" onchange="readURL(this);" />
                                         </div>
