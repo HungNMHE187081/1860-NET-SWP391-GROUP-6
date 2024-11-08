@@ -15,7 +15,7 @@ import model.Feedback;
 import model.Service;
 import model.Users;
 import utils.EmailUtil;
-import javax.mail.MessagingException;
+import jakarta.mail.MessagingException;
 
 /**
  *
