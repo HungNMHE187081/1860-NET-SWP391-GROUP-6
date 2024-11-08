@@ -161,4 +161,25 @@ public class ChildrenDAO extends DBContext {
         System.out.println(childrenDAO.getAgeOfChildrenByCustomerID(1));
     }
 
+    public boolean existsChild(Children child) {
+        String sql = "SELECT COUNT(*) FROM Children WHERE CustomerID = ? AND FirstName = ? AND MiddleName = ? AND LastName = ? AND DateOfBirth = ?";
+        
+        try (
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, child.getCustomerID());
+            stmt.setString(2, child.getFirstName());
+            stmt.setString(3, child.getMiddleName());
+            stmt.setString(4, child.getLastName());
+            stmt.setDate(5, child.getDateOfBirth());
+            
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0; // If count > 0, the child exists
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false; // If no matching record is found
+    }
+
 }

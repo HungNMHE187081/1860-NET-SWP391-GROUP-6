@@ -2,8 +2,6 @@ package controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.nio.file.Paths;
 import java.sql.Date;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -57,12 +55,15 @@ public class EditChildren extends HttpServlet {
             String lastName = request.getParameter("lastName");
             Date dateOfBirth = Date.valueOf(request.getParameter("dateOfBirth"));
             String gender = request.getParameter("gender");
-              if (isEmptyOrSpaces(firstName) || isEmptyOrSpaces(middleName) || isEmptyOrSpaces(lastName)) {
-                // Chuyển hướng đến trang lỗi nếu phát hiện trường chỉ chứa dấu cách
+
+            // Check for empty or spaces in name fields
+            if (isEmptyOrSpaces(firstName) || isEmptyOrSpaces(middleName) || isEmptyOrSpaces(lastName)) {
+                // Redirect to error page if any name field contains only spaces
                 request.setAttribute("errorMessage", "Tên không được để trống hoặc chỉ chứa khoảng trắng.");
-                request.getRequestDispatcher("/Staff_JSP/error.jsp").forward(request, response);
+                request.getRequestDispatcher("/error.jsp").forward(request, response);
                 return;
             }
+
             // Handle file upload
             Part filePart = request.getPart("profileImage");
             String fileName = getFileName(filePart);
@@ -74,31 +75,44 @@ public class EditChildren extends HttpServlet {
 
             String childImage = null;
             if (fileName != null && !fileName.isEmpty()) {
-                filePart.write(uploadPath + fileName);
-                childImage = UPLOAD_DIR + "/" + fileName;
+                // Check file type (only image types allowed)
+                String contentType = filePart.getContentType();
+                if (contentType != null && (contentType.startsWith("image/jpeg") || contentType.startsWith("image/png") || contentType.startsWith("image/gif"))) {
+                    // If file is an image, proceed with the upload
+                    filePart.write(uploadPath + fileName);
+                    childImage = UPLOAD_DIR + "/" + fileName;
+                } else {
+                    // If not an image, set an error message and forward to error page
+                    request.setAttribute("errorMessage", "Vui lòng chọn một tệp hình ảnh hợp lệ (JPEG, PNG, GIF).");
+                    request.getRequestDispatcher("/error.jsp").forward(request, response);
+                    return;
+                }
             } else {
-                childImage = request.getParameter("existingImage"); // Keep old image if no new one uploaded
+                // Keep existing image if no new image is uploaded
+                childImage = request.getParameter("existingImage");
             }
 
-            // Create Children object
-            Children child = new Children(childID, customerID ,firstName, middleName, lastName, dateOfBirth, gender, childImage);
+            // Create Children object with updated information
+            Children child = new Children(childID, customerID, firstName, middleName, lastName, dateOfBirth, gender, childImage);
 
             // Update child in database
             boolean isUpdated = childrenDAO.updateChild(child);
-          
+
             if (isUpdated) {
                 response.sendRedirect("listchildren?success=true");
             } else {
-                response.sendRedirect("editchild.jsp?childID=" + childID + "&error=true");
+                response.sendRedirect("/error.jsp");
             }
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect("error.jsp"); // Redirect to error page on failure
+            response.sendRedirect("/error.jsp"); // Redirect to error page on failure
         }
     }
-private boolean isEmptyOrSpaces(String input) {
-    return input == null || input.trim().isEmpty();
-}
+
+    private boolean isEmptyOrSpaces(String input) {
+        return input == null || input.trim().isEmpty();
+    }
+
     private String getFileName(Part part) {
         String header = part.getHeader("content-disposition");
         for (String content : header.split(";")) {
