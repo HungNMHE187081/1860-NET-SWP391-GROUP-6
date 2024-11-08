@@ -281,7 +281,7 @@
                                                 </form>
 
                                                 <!-- Reply Form for Reply -->
-                                                <form action="${pageContext.request.contextPath}/customer/detailcustomerblog" method="post" class="mt-3 reply-form" id="replyForm-${reply.commentID}" style="display: none;">
+                                                <form action="${pageContext.request.contextPath}/guest/detailguestblog" method="post" class="mt-3 reply-form" id="replyForm-${reply.commentID}" style="display: none;">
                                                     <input type="hidden" name="blogID" value="${blog.blogID}" />
                                                     <input type="hidden" name="parentID" value="${comment.commentID}" />
                                                     <div class="mb-3">
@@ -296,30 +296,10 @@
                             </c:forEach>
                         </ul>
 
-                        <h5 class="card-title mt-4 mb-0">Leave A Comment :</h5>
-                         <c:if test="${not empty errors}">
-                                        <div class="alert alert-danger">
-                                            <ul>
-                                                <c:forEach items="${errors}" var="error">
-                                                    <li>${error}</li>
-                                                    </c:forEach>
-                                            </ul>
-                                        </div>
-                                    </c:if>
-                        <form action="${pageContext.request.contextPath}/customer/detailcustomerblog" method="post" class="mt-3">
+                       
+                        <form action="${pageContext.request.contextPath}/guest/detailguestblog" method="post" class="mt-3">
                             <input type="hidden" name="blogID" value="${blog.blogID}" />
                             <div class="row">
-                                <div class="col-md-12">
-                                    <div class="mb-3">
-                                        <label class="form-label">Your Comment</label>
-                                        <textarea id="message" placeholder="Your Comment" rows="5" name="message" class="form-control" required=""></textarea>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="send d-grid">
-                                        <button type="submit" class="btn btn-primary">Send Message</button>
-                                    </div>
-                                </div>
                             </div>
                         </form>
                     </div><!--end col-->
@@ -384,8 +364,8 @@
                                     <div class="mt-4">
                                         <c:forEach items="${lastestBlog}" var="latest">
                                             <div class="clearfix post-recent">
-                                                <div class="post-recent-thumb float-start"> <a href="${pageContext.request.contextPath}/customer/detailcustomerblog?blogID=${latest.blogID}"> <img alt="img" src="${pageContext.request.contextPath}/${latest.thumbnailPath}" class="img-fluid rounded"></a></div>
-                                                <div class="post-recent-content float-start"><a href="${pageContext.request.contextPath}/customer/detailcustomerblog?blogID=${latest.blogID}">${latest.title}</a><span class="text-muted mt-2">${latest.createdDate}</span></div>
+                                                <div class="post-recent-thumb float-start"> <a href="${pageContext.request.contextPath}/guest/detailguestblog?blogID=${latest.blogID}"> <img alt="img" src="${pageContext.request.contextPath}/${latest.thumbnailPath}" class="img-fluid rounded"></a></div>
+                                                <div class="post-recent-content float-start"><a href="${pageContext.request.contextPath}/guest/detailguestblog?blogID=${latest.blogID}">${latest.title}</a><span class="text-muted mt-2">${latest.createdDate}</span></div>
                                             </div>      
                                         </c:forEach>
                                     </div>
@@ -451,10 +431,10 @@
                                                 <li class="list-inline-item text-muted small me-3"><i class="uil uil-calendar-alt text-dark h6 me-1"></i>${releated.createdDate}</li>
                                                 <li class="list-inline-item text-muted small"><i class="uil uil-clock text-dark h6 me-1"></i>${releated.views}</li>
                                             </ul>
-                                            <a href="${pageContext.request.contextPath}/customer/detailcustomerblog?blogID=${releated.blogID}" class="text-dark title h5">${releated.title}</a>
+                                            <a href="${pageContext.request.contextPath}/guest/detailguestblog?blogID=${releated.blogID}" class="text-dark title h5">${releated.title}</a>
                                             <div class="post-meta d-flex justify-content-between mt-3">
 
-                                                <a href="${pageContext.request.contextPath}/customer/detailcustomerblog?blogID=${releated.blogID}" class="link">Read More <i class="mdi mdi-chevron-right align-middle"></i></a>
+                                                <a href="${pageContext.request.contextPath}/guest/detailguestblog?blogID=${releated.blogID}" class="link">Read More <i class="mdi mdi-chevron-right align-middle"></i></a>
                                             </div>
                                         </div>
                                     </div>
@@ -643,7 +623,7 @@
                                             function incrementView(blogId) {
                                                 if (!hasViewBeenCounted) { // Chỉ tăng view một lần
                                                     $.ajax({
-                                                        url: '${pageContext.request.contextPath}/customer/bloglist',
+                                                        url: '${pageContext.request.contextPath}/guest/bloglist',
                                                         type: 'POST',
                                                         data: {blogID: blogId},
                                                         success: function () {

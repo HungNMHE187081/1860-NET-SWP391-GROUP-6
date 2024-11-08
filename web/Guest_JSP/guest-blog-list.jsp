@@ -187,7 +187,7 @@
                                             </ul>
                                         </ul>
                                         <input name="blogID" type="hidden" value="${blogList.blogID}"/>
-                                        <a href="${pageContext.request.contextPath}/customer/detailcustomerblog?blogID=${blogList.blogID}" class="link">Read More <i class="mdi mdi-chevron-right align-middle"></i></a>
+                                        <a href="${pageContext.request.contextPath}/guest/detailguestblog?blogID=${blogList.blogID}" class="link">Read More <i class="mdi mdi-chevron-right align-middle"></i></a>
                                     </div>
                                 </div>
                             </div>

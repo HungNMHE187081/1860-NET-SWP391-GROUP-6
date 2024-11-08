@@ -40,7 +40,8 @@
     </head>
 
     <body>
-        <header id="topnav" class="navigation sticky">
+              <!-- Start Hero -->
+         <header id="topnav" class="navigation sticky">
             <div class="container">
                 <!-- Mobile Toggle -->
                 <div class="menu-extras">
@@ -101,52 +102,24 @@
                         </li>
 
                         <li class="has-submenu parent-menu-item">
-                            <a href="${pageContext.request.contextPath}/customer/view-staffs">
+                            <a href="${pageContext.request.contextPath}/guest/view-staffs">
                                 <i class="uil uil-user-md me-1"></i>Đội ngũ bác sĩ
                             </a>
                         </li>
 
                         <li class="has-submenu parent-menu-item">
-                            <a href="${pageContext.request.contextPath}/customer/bloglist">
+                            <a href="${pageContext.request.contextPath}/guest/bloglist">
                                 <i class="uil uil-newspaper me-1"></i>Blog
                             </a>
                         </li>
 
                         <li class="has-submenu parent-parent-menu-item">
-                            <a href="${pageContext.request.contextPath}/customer/feedback">
+                            <a href="${pageContext.request.contextPath}/guest/feedback">
                                 <i class="uil uil-star me-1"></i>Phản hồi
                             </a>
-                            <span class="menu-arrow"></span>
-                            <ul class="submenu">
-                                <li><a href="${pageContext.request.contextPath}/customer/addfeedback" class="sub-menu-item">
-                                        <i class="uil uil-comment-alt-message me-1"></i>Gửi phản hồi</a>
-                                </li>
-                                <li><a href="${pageContext.request.contextPath}/customer/feedback" class="sub-menu-item">
-                                        <i class="uil uil-comments me-1"></i>Xem phản hồi</a>
-                                </li>
-                            </ul>
                         </li>
 
-                        <li class="has-submenu parent-parent-menu-item">
-                            <a href="${pageContext.request.contextPath}/customer/listreservations">
-                                <i class="uil uil-schedule me-1"></i>Lịch khám
-                            </a>
-                            <span class="menu-arrow"></span>
-                            <ul class="submenu">
-                                <li><a href="${pageContext.request.contextPath}/customer/viewcart" class="sub-menu-item">
-                                        <i class="uil uil-shopping-cart me-1"></i>Giỏ hàng</a>
-                                </li>
-                                <li><a href="${pageContext.request.contextPath}/customer/listreservations" class="sub-menu-item">
-                                        <i class="uil uil-calendar-alt me-1"></i>Lịch hẹn sắp tới</a>
-                                </li>
-                                <li><a href="departments.html" class="sub-menu-item">
-                                        <i class="uil uil-history me-1"></i>Lịch sử khám</a>
-                                </li>
-                                <li><a href="${pageContext.request.contextPath}/customer/listchildren" class="sub-menu-item">
-                                        <i class="uil uil-kid me-1"></i>Hồ sơ trẻ em</a> 
-                                </li>
-                            </ul>
-                        </li>
+                        
                     </ul>
                 </div>
             </div>
@@ -850,7 +823,7 @@
                                                                 </a>
                                                             </li>
                                                         </ul>
-                                                        <a href="${pageContext.request.contextPath}/customer/detailcustomerblog?blogID=${blogList.blogID}" 
+                                                        <a href="${pageContext.request.contextPath}/guest/detailguestblog?blogID=${blogList.blogID}" 
                                                            class="link text-primary">Đọc thêm <i class="uil uil-arrow-right"></i></a>
                                                     </div>
                                                 </div>
@@ -1078,8 +1051,7 @@
 
                                     // Add requires-login class to specific elements
                                     const restrictedElements = [
-                                        '.parent-parent-menu-item:not(.allowed)',
-                                        '.parent-menu-item',
+
                                         '.service-card',
                                         '.feedback-card',
                                         '.staff-card',

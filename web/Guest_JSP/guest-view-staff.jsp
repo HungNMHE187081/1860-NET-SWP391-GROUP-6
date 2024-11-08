@@ -113,7 +113,7 @@
                         </li>
 
                         <li class="has-submenu parent-menu-item">
-                            <a href="${pageContext.request.contextPath}/customer/bloglist">
+                            <a href="${pageContext.request.contextPath}/guest/bloglist">
                                 <i class="uil uil-newspaper me-1"></i>Blog
                             </a>
                         </li>
