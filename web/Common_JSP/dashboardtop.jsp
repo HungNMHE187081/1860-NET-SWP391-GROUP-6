@@ -97,7 +97,7 @@
                 </li>
 
                 <li class="has-submenu parent-menu-item">
-                    <a href="${pageContext.request.contextPath}/customer/bloglist">Blog<span class="menu-arrow"></span></a>
+                    <a href="${pageContext.request.contextPath}/customer/bloglist">Bài viết<span class="menu-arrow"></span></a>
                 </li>
 
                 <li class="has-submenu parent-parent-menu-item">

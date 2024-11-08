@@ -1,9 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
     <head>
-        <title>Danh s·ch nh‚n viÍn | Qu?n tr? Admin</title>
+        <title>Danh s√°ch b√†i vi·∫øt</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -42,7 +43,7 @@
         <main class="app-content">
             <div class="app-title">
                 <ul class="app-breadcrumb breadcrumb side">
-                    <li class="breadcrumb-item active"><a href="#"><b>Danh s·ch nh‚n viÍn</b></a></li>
+                    <li class="breadcrumb-item active"><a href="#"><b>Danh s√°ch b√†i vi·∫øt</b></a></li>
                 </ul>
                 <div id="clock"></div>
             </div>
@@ -55,47 +56,23 @@
                             <div class="row element-button">
                                 <div class="col-sm-2">
 
-                                    <a class="btn btn-add btn-sm" href="${pageContext.request.contextPath}/manager/addblog" title="ThÍm"><i class="fas fa-plus"></i>
-                                        T?o m?i nh‚n viÍn</a>
+                                    <a class="btn btn-add btn-sm" href="${pageContext.request.contextPath}/manager/addblog" title="Th√™m"><i class="fas fa-plus"></i>
+                                        T·∫°o m·ªõi b√†i vi·∫øt</a>
                                 </div>
-                                <div class="col-sm-2">
-                                    <a class="btn btn-delete btn-sm nhap-tu-file" type="button" title="Nh?p" onclick="myFunction(this)"><i
-                                            class="fas fa-file-upload"></i> T?i t? file</a>
-                                </div>
-
-                                <div class="col-sm-2">
-                                    <a class="btn btn-delete btn-sm print-file" type="button" title="In" onclick="myApp.printTable()"><i
-                                            class="fas fa-print"></i> In d? li?u</a>
-                                </div>
-                                <div class="col-sm-2">
-                                    <a class="btn btn-delete btn-sm print-file js-textareacopybtn" type="button" title="Sao chÈp"><i
-                                            class="fas fa-copy"></i> Sao chÈp</a>
-                                </div>
-
-                                <div class="col-sm-2">
-                                    <a class="btn btn-excel btn-sm" href="" title="In"><i class="fas fa-file-excel"></i> Xu?t Excel</a>
-                                </div>
-                                <div class="col-sm-2">
-                                    <a class="btn btn-delete btn-sm pdf-file" type="button" title="In" onclick="myFunction(this)"><i
-                                            class="fas fa-file-pdf"></i> Xu?t PDF</a>
-                                </div>
-                                <div class="col-sm-2">
-                                    <a class="btn btn-delete btn-sm" type="button" title="XÛa" onclick="myFunction(this)"><i
-                                            class="fas fa-trash-alt"></i> XÛa t?t c? </a>
-                                </div>
+                               
                             </div>
                             <table class="table table-hover table-bordered js-copytextarea" cellpadding="0" cellspacing="0" border="0"
                                    id="sampleTable">
                                 <thead>
                                     <tr>
                                         <th width="10"><input type="checkbox" id="all"></th>
-                                        <th>Title</th>
-                                        <th width="150">Author</th>
-                                        <th width="20">Thumbnail</th>
-                                        <th width="300">PublicDate</th>
-                                        <th>IsPublished</th>
-                                        <th>View</th>
-                                        <th width="100">TÌnh n?ng</th>
+                                        <th>Ti√™u ƒë·ªÅ</th>
+                                        <th width="150">T√°c gi·∫£</th>
+                                        <th width="20">·∫¢nh b√¨a</th>
+                                        <th width="300">Ng√†y ra m·∫Øt</th>
+                                        <th>Tr·∫°ng Th√°i</th>
+                                        <th>L∆∞·ª£t xem</th>
+                                        <th width="100">T√≠nh nƒÉng</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -118,7 +95,7 @@
                                             <td>
                                                 <form action="${pageContext.request.contextPath}/manager/deleteblog" method="post">
                                                     <input type="hidden" name="blogid" value="${blog.blogID}"/>
-                                                    <button class="btn btn-primary btn-sm trash" title="XÛa" onclick="confirm('B?n cÛ ch?c ch?n xÛa b‡i n‡y khÙng')"><i class="fas fa-trash-alt"></i></button>
+                                                    <button class="btn btn-primary btn-sm trash" title="X√≥a" onclick="confirm('B?n c√≥ ch?c ch?n x√≥a b√†i n√†y kh√¥ng')"><i class="fas fa-trash-alt"></i></button>
                                                 </form>
                                                     <a  href="${pageContext.request.contextPath}/manager/editblog?blogid=${blog.blogID}" class="btn btn-primary btn-sm edit" title="S?a" id="show-emp" ><i class="fas fa-edit"></i></a>
                                                 <a href="${pageContext.request.contextPath}/manager/viewdetailblog?blogid=${blog.blogID}" class="btn btn-primary btn-sm" title="Xem chi ti?t" style="background-color: green; color: white;">
@@ -149,7 +126,7 @@
                         <div class="row">
                             <div class="form-group  col-md-12">
                                 <span class="thong-tin-thanh-toan">
-                                    <h5>Ch?nh s?a thÙng tin nh‚n viÍn c? b?n</h5>
+                                    <h5>Ch?nh s?a th√¥ng tin nh√¢n vi√™n c? b?n</h5>
                                 </span>
                             </div>
                         </div>
@@ -159,8 +136,8 @@
                                 <input class="form-control" type="text" required value="#CD2187" disabled>
                             </div>
                             <div class="form-group col-md-6">
-                                <label class="control-label">H? v‡ tÍn</label>
-                                <input class="form-control" type="text" required value="Vı Tr??ng">
+                                <label class="control-label">H? v√† t√™n</label>
+                                <input class="form-control" type="text" required value="V√µ Tr??ng">
                             </div>
                             <div class="form-group  col-md-6">
                                 <label class="control-label">S? ?i?n tho?i</label>
@@ -171,19 +148,19 @@
                                 <input class="form-control" type="text" required value="truong.vd2000@gmail.com">
                             </div>
                             <div class="form-group col-md-6">
-                                <label class="control-label">Ng‡y sinh</label>
+                                <label class="control-label">Ng√†y sinh</label>
                                 <input class="form-control" type="date" value="15/03/2000">
                             </div>
                             <div class="form-group  col-md-6">
                                 <label for="exampleSelect1" class="control-label">Ch?c v?</label>
                                 <select class="form-control" id="exampleSelect1">
-                                    <option>B·n h‡ng</option>
+                                    <option>B√°n h√†ng</option>
                                     <option>T? v?n</option>
                                     <option>D?ch v?</option>
-                                    <option>Thu Ng‚n</option>
+                                    <option>Thu Ng√¢n</option>
                                     <option>Qu?n kho</option>
-                                    <option>B?o trÏ</option>
-                                    <option>Ki?m h‡ng</option>
+                                    <option>B?o tr√¨</option>
+                                    <option>Ki?m h√†ng</option>
                                     <option>B?o v?</option>
                                     <option>T?p v?</option>
                                 </select>
@@ -192,7 +169,7 @@
                         <BR>
                         <a href="#" style="    float: right;
                            font-weight: 600;
-                           color: #ea0000;">Ch?nh s?a n‚ng cao</a>
+                           color: #ea0000;">Ch?nh s?a n√¢ng cao</a>
                         <BR>
                         <BR>
                         <button class="btn btn-save" type="button">L?u l?i</button>
@@ -231,14 +208,14 @@
 //            jQuery(function () {
 //                jQuery(".trash").click(function () {
 //                    swal({
-//                        title: "C?nh b·o",
+//                        title: "C?nh b√°o",
 //
-//                        text: "B?n cÛ ch?c ch?n l‡ mu?n xÛa nh‚n viÍn n‡y?",
-//                        buttons: ["H?y b?", "??ng ˝"],
+//                        text: "B?n c√≥ ch?c ch?n l√† mu?n x√≥a nh√¢n vi√™n n√†y?",
+//                        buttons: ["H?y b?", "??ng √Ω"],
 //                    })
 //                            .then((willDelete) => {
 //                                if (willDelete) {
-//                                    swal("?„ xÛa th‡nh cÙng.!", {
+//                                    swal("?√£ x√≥a th√†nh c√¥ng.!", {
 //
 //                                    });
 //                                }
@@ -267,13 +244,13 @@
             function time() {
                 var today = new Date();
                 var weekday = new Array(7);
-                weekday[0] = "Ch? Nh?t";
-                weekday[1] = "Th? Hai";
-                weekday[2] = "Th? Ba";
-                weekday[3] = "Th? T?";
-                weekday[4] = "Th? N?m";
-                weekday[5] = "Th? S·u";
-                weekday[6] = "Th? B?y";
+                weekday[0] = "Ch·ªß Nh·∫≠t";
+                weekday[1] = "Th·ª© Hai";
+                weekday[2] = "Th·ª© Ba";
+                weekday[3] = "Th·ª© T∆∞";
+                weekday[4] = "Th·ª© NƒÉm";
+                weekday[5] = "Th·ª© S√°u";
+                weekday[6] = "Th·ª© B·∫£y";
                 var day = weekday[today.getDay()];
                 var dd = today.getDate();
                 var mm = today.getMonth() + 1;
@@ -283,7 +260,7 @@
                 var s = today.getSeconds();
                 m = checkTime(m);
                 s = checkTime(s);
-                nowTime = h + " gi? " + m + " ph˙t " + s + " gi‚y";
+                nowTime = h + " gi·ªù " + m + " ph√∫t " + s + " gi√¢y";
                 if (dd < 10) {
                     dd = '0' + dd
                 }
@@ -313,7 +290,7 @@
                     win.print();
                 }
             }
-            //     //Sao chÈp d? li?u
+            //     //Sao ch√©p d? li?u
             //     var copyTextareaBtn = document.querySelector('.js-textareacopybtn');
 
             // copyTextareaBtn.addEventListener('click', function(event) {

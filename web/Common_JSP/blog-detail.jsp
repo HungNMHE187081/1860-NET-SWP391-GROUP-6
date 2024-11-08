@@ -89,13 +89,12 @@
                             <p class="text-muted mt-4">${blog.content}</p>
 
                         </form>
-                        <h5 class="card-title mt-4 mb-0">Comments :</h5>
+                        <h5 class="card-title mt-4 mb-0">Bình luận :</h5>
 
                         <ul class="media-list list-unstyled mb-0">
                             <c:if test="${empty comments}">
                                 <p>No comments available.</p>
                             </c:if>
-                            <p>Blog ID: <c:out value="${blogId}"/></p>
                             <c:forEach var="comment" items="${comments}">
                                 <li class="mt-4">
                                     <!-- Comment Header -->
@@ -118,13 +117,13 @@
                                         <div class="d-flex align-items-center">
                                             <!-- Edit/Delete buttons moved here for main comment -->
                                             <c:if test="${comment.user.userID == user.userID}">
-                                                <a href="javascript:void(0)" class="text-muted me-2" onclick="editComment(${comment.commentID})">Edit</a>
-                                                <a href="javascript:void(0)" class="text-muted me-2" onclick="if (confirm('Are you sure you want to delete this comment?')) {
+                                                <a href="javascript:void(0)" class="text-muted me-2" onclick="editComment(${comment.commentID})">Sửa</a>
+                                                <a href="javascript:void(0)" class="text-muted me-2" onclick="if (confirm('Bạn có chắc muốn xóa comment này không?')) {
                                     deleteComment(${comment.commentID}, ${blog.blogID});
-                                }">Delete</a>
+                                }">Xóa</a>
                                             </c:if>
                                             <a href="javascript:void(0)" class="text-muted" onclick="toggleReplyForm(${comment.commentID})">
-                                                <i class="mdi mdi-reply"></i> Reply
+                                                <i class="mdi mdi-reply"></i> Phản hồi
                                             </a>
                                         </div>
                                     </div>
@@ -139,9 +138,9 @@
                                         <input type="hidden" name="blogID" value="${blog.blogID}" />
                                         <input type="hidden" name="commentID" value="${comment.commentID}" />
                                         <div class="mb-3">
-                                            <textarea id="replyMessage-${comment.commentID}" placeholder="Your Reply" rows="3" name="editcontent" class="form-control" required="">${comment.content}</textarea>
+                                            <textarea id="replyMessage-${comment.commentID}" placeholder="Bình luận của bạn" rows="3" name="editcontent" class="form-control" required="">${comment.content}</textarea>
                                         </div>
-                                        <button type="submit" class="btn btn-primary">Save</button>
+                                        <button type="submit" class="btn btn-primary">Lưu</button>
                                     </form>
 
                                     <!-- Reply Form for Main Comment -->
@@ -149,9 +148,9 @@
                                         <input type="hidden" name="blogID" value="${blog.blogID}" />
                                         <input type="hidden" name="parentID" value="${comment.commentID}" />
                                         <div class="mb-3">
-                                            <textarea id="replyMessage-${comment.commentID}" placeholder="Your Reply" rows="3" name="message" class="form-control" required=""></textarea>
+                                            <textarea id="replyMessage-${comment.commentID}" placeholder="Bình luận của bạn" rows="3" name="message" class="form-control" required=""></textarea>
                                         </div>
-                                        <button type="submit" class="btn btn-primary">Reply</button>
+                                        <button type="submit" class="btn btn-primary">Phản hồi</button>
                                     </form>
 
                                     <!-- Replies Section -->
@@ -178,13 +177,13 @@
                                                     <div class="d-flex align-items-center">
                                                         <!-- Edit/Delete buttons moved here for replies -->
                                                         <c:if test="${reply.user.userID == user.userID}">
-                                                            <a href="javascript:void(0)" class="text-muted me-2" onclick="editComment(${reply.commentID})">Edit</a>
-                                                            <a href="javascript:void(0)" class="text-muted me-2" onclick="if (confirm('Are you sure you want to delete this comment?')) {
+                                                            <a href="javascript:void(0)" class="text-muted me-2" onclick="editComment(${reply.commentID})">Sửa</a>
+                                                            <a href="javascript:void(0)" class="text-muted me-2" onclick="if (confirm('Bạn có chắc muốn xóa comment này không?')) {
                                                 deleteComment(${reply.commentID}, ${blog.blogID});
-                                            }">Delete</a>
+                                            }">Xóa</a>
                                                         </c:if>
                                                         <a href="javascript:void(0)" class="text-muted" onclick="toggleReplyForm(${reply.commentID})">
-                                                            <i class="mdi mdi-reply"></i> Reply
+                                                            <i class="mdi mdi-reply"></i> Phản hồi
                                                         </a>
                                                     </div>
                                                 </div>
@@ -199,9 +198,9 @@
                                                     <input type="hidden" name="blogID" value="${blog.blogID}" />
                                                     <input type="hidden" name="commentID" value="${reply.commentID}" />
                                                     <div class="mb-3">
-                                                        <textarea id="replyMessage-${reply.commentID}" placeholder="Your Reply" rows="3" name="editcontent" class="form-control" required="">${reply.content}</textarea>
+                                                        <textarea id="replyMessage-${reply.commentID}" placeholder="Bình luận của bạn" rows="3" name="editcontent" class="form-control" required="">${reply.content}</textarea>
                                                     </div>
-                                                    <button type="submit" class="btn btn-primary">Save</button>
+                                                    <button type="submit" class="btn btn-primary">Lưu</button>
                                                 </form>
 
                                                 <!-- Reply Form for Reply -->
@@ -209,9 +208,9 @@
                                                     <input type="hidden" name="blogID" value="${blog.blogID}" />
                                                     <input type="hidden" name="parentID" value="${comment.commentID}" />
                                                     <div class="mb-3">
-                                                        <textarea id="replyMessage-${reply.commentID}" placeholder="Your Reply" rows="3" name="message" class="form-control" required=""></textarea>
+                                                        <textarea id="replyMessage-${reply.commentID}" placeholder="Bình luận của bạn" rows="3" name="message" class="form-control" required=""></textarea>
                                                     </div>
-                                                    <button type="submit" class="btn btn-primary">Reply</button>
+                                                    <button type="submit" class="btn btn-primary">Phản hồi</button>
                                                 </form>
                                             </li>
                                         </c:forEach>
@@ -220,7 +219,7 @@
                             </c:forEach>
                         </ul>
 
-                        <h5 class="card-title mt-4 mb-0">Leave A Comment :</h5>
+                        <h5 class="card-title mt-4 mb-0">Tạo một bình luận :</h5>
                          <c:if test="${not empty errors}">
                                         <div class="alert alert-danger">
                                             <ul>
@@ -235,13 +234,13 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="mb-3">
-                                        <label class="form-label">Your Comment</label>
-                                        <textarea id="message" placeholder="Your Comment" rows="5" name="message" class="form-control" required=""></textarea>
+                                        <label class="form-label">Bình luận của bạn</label>
+                                        <textarea id="message" placeholder="Bình luận của bạn" rows="5" name="message" class="form-control" required=""></textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="send d-grid">
-                                        <button type="submit" class="btn btn-primary">Send Message</button>
+                                        <button type="submit" class="btn btn-primary">Gửi tin nhắn</button>
                                     </div>
                                 </div>
                             </div>
@@ -290,11 +289,11 @@
                             <div class="card-body">
                                 <!-- SEARCH -->
                                 <div class="widget mb-4 pb-2">
-                                    <h5 class="widget-title">Search</h5>
+                                    <h5 class="widget-title">Tìm kiếm</h5>
                                     <div id="search2" class="widget-search mt-4 mb-0">
                                         <form role="search" method="get" id="searchform" class="searchform">
                                             <div>
-                                                <input type="text" class="border rounded" name="s" id="s" placeholder="Search Keywords...">
+                                                <input type="text" class="border rounded" name="s" id="s" placeholder="Tìm kiếm một từ khóa...">
                                                 <input type="submit" id="searchsubmit" value="Search">
                                             </div>
                                         </form>
@@ -304,7 +303,7 @@
 
                                 <!-- RECENT POST -->
                                 <div class="widget mb-4 pb-2">
-                                    <h5 class="widget-title">Recent Post</h5>
+                                    <h5 class="widget-title">Bài viết gần đây</h5>
                                     <div class="mt-4">
                                         <c:forEach items="${lastestBlog}" var="latest">
                                             <div class="clearfix post-recent">
@@ -315,28 +314,9 @@
                                     </div>
                                 </div>
                                 <!-- RECENT POST -->
-
-                                <!-- TAG CLOUDS -->
-                                <div class="widget mb-4 pb-2">
-                                    <h5 class="widget-title">Tags Cloud</h5>
-                                    <div class="tagcloud mt-4">
-                                        <a href="jvascript:void(0)" class="rounded">Business</a>
-                                        <a href="jvascript:void(0)" class="rounded">Finance</a>
-                                        <a href="jvascript:void(0)" class="rounded">Marketing</a>
-                                        <a href="jvascript:void(0)" class="rounded">Fashion</a>
-                                        <a href="jvascript:void(0)" class="rounded">Bride</a>
-                                        <a href="jvascript:void(0)" class="rounded">Lifestyle</a>
-                                        <a href="jvascript:void(0)" class="rounded">Travel</a>
-                                        <a href="jvascript:void(0)" class="rounded">Beauty</a>
-                                        <a href="jvascript:void(0)" class="rounded">Video</a>
-                                        <a href="jvascript:void(0)" class="rounded">Audio</a>
-                                    </div>
-                                </div>
-                                <!-- TAG CLOUDS -->
-
                                 <!-- SOCIAL -->
                                 <div class="widget">
-                                    <h5 class="widget-title">Follow us</h5>
+                                    <h5 class="widget-title">Theo dõi chúng tôi</h5>
                                     <ul class="list-unstyled social-icon mb-0 mt-4">
                                         <li class="list-inline-item"><a href="javascript:void(0)" class="rounded"><i data-feather="facebook" class="fea icon-sm fea-social"></i></a></li>
                                         <li class="list-inline-item"><a href="javascript:void(0)" class="rounded"><i data-feather="instagram" class="fea icon-sm fea-social"></i></a></li>
@@ -358,7 +338,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="section-title">
-                            <h4 class="title mb-0">Related Post:</h4>
+                            <h4 class="title mb-0">Bài viết liên quan:</h4>
                         </div>
                     </div><!--end col-->
                 </div><!--end row-->

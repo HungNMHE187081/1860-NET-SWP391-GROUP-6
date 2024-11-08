@@ -160,7 +160,7 @@
         <main class="app-content">
             <div class="app-title">
                 <ul class="app-breadcrumb breadcrumb">
-                    <li class="breadcrumb-item">Danh sách nhân viên</li>
+                    <li class="breadcrumb-item">Danh sách bài viết</li>
                     <li class="breadcrumb-item"><a href="#">Thêm bài viết</a></li>
                 </ul>
             </div>
@@ -185,13 +185,13 @@
                                    
                                     <!-- Title Field -->
                                     <div class="form-group col-md-6">
-                                        <label class="control-label">Title</label>
+                                        <label class="control-label">Tiêu đề</label>
                                         <input class="form-control" type="text" name="title" value="${param.title}" required>
                                     </div>
 
                                     <!-- Author Field -->
                                     <div class="form-group col-md-6">
-                                        <label class="control-label">Author</label>
+                                        <label class="control-label">Tác giả</label>
                                         <input class="form-control" type="text" name="author" value="${param.author}" required>
                                     </div>
                                     <div class="form-group col-md-6">
@@ -208,7 +208,7 @@
                                 <!-- Content Field (Full Width) -->
                                 <div class="row">
                                     <div class="form-group col-md-12">
-                                        <label class="control-label">Content</label>
+                                        <label class="control-label">Nội dung</label>
                                         <textarea name="content" id="content" class="form-control">${param.content}</textarea>
                                     </div>
                                 </div>
@@ -226,7 +226,7 @@
 
                                     <!-- Thumbnail Field -->
                                     <div class="form-group col-md-6">
-                                        <label class="control-label">Thumbnail</label>
+                                        <label class="control-label">Ảnh bìa</label>
                                         <div id="myfileupload">
                                             <input type="file" id="thumbNail" name="thumbNail" onchange="readURL(this);" />
                                         </div>
