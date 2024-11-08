@@ -181,6 +181,7 @@ CREATE TABLE Reservations (
 );
 
 -- Create MedicalRecords table
+
 CREATE TABLE MedicalRecords (
     RecordID INT PRIMARY KEY IDENTITY(1,1),
     ChildID INT,
@@ -190,9 +191,9 @@ CREATE TABLE MedicalRecords (
     Treatment NVARCHAR(MAX),
     Notes NVARCHAR(MAX),
     RecordDate DATE,
-    FOREIGN KEY (ChildID) REFERENCES Children(ChildID),
-    FOREIGN KEY (StaffID) REFERENCES Staff(StaffID) ON DELETE CASCADE,
-    FOREIGN KEY (ReservationID) REFERENCES Reservations(ReservationID)
+    FOREIGN KEY (ChildID) REFERENCES Children(ChildID) ON DELETE NO ACTION, 
+    FOREIGN KEY (StaffID) REFERENCES Staff(StaffID) ON DELETE NO ACTION,    
+    FOREIGN KEY (ReservationID) REFERENCES Reservations(ReservationID) ON DELETE NO ACTION
 );
 -- Create MedicineCategory table
 CREATE TABLE MedicineCategory (
@@ -202,15 +203,15 @@ CREATE TABLE MedicineCategory (
 
 -- Create Medicine table
 CREATE TABLE Medicine (
-    MedicineID INT PRIMARY KEY IDENTITY(1,1),  
-    Name NVARCHAR(255) NOT NULL,                  
-    Description NVARCHAR(MAX),                    
-    Uses NVARCHAR(MAX),                           
-    Dosage NVARCHAR(MAX),                         
-    UserManual NVARCHAR(MAX),                     
-    Contraindications NVARCHAR(MAX),              
+    MedicineID INT PRIMARY KEY IDENTITY(1,1),
+    Name NVARCHAR(255) NOT NULL,
+    Description NVARCHAR(MAX),
+    Uses NVARCHAR(MAX),
+    Dosage NVARCHAR(MAX),
+    UserManual NVARCHAR(MAX),
+    Contraindications NVARCHAR(MAX),
     CategoryID INT,
-    FOREIGN KEY (CategoryID) REFERENCES MedicineCategory(CategoryID)
+    FOREIGN KEY (CategoryID) REFERENCES MedicineCategory(CategoryID) ON DELETE SET NULL
 );
 
 -- Create Prescriptions table
@@ -221,8 +222,8 @@ CREATE TABLE Prescriptions (
     Dosage NVARCHAR(50),
     Frequency NVARCHAR(50),
     Duration NVARCHAR(50),
-    FOREIGN KEY (RecordID) REFERENCES MedicalRecords(RecordID),
-    FOREIGN KEY (MedicineID) REFERENCES Medicine(MedicineID)
+    FOREIGN KEY (RecordID) REFERENCES MedicalRecords(RecordID) ON DELETE CASCADE,
+    FOREIGN KEY (MedicineID) REFERENCES Medicine(MedicineID) ON DELETE SET NULL
 );
 
 -- Create Feedback table

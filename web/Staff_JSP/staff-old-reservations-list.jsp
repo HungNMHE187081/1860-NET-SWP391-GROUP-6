@@ -197,7 +197,7 @@
                                                 </a>
                                             </button>
                                             <c:if test="${reservation.hasRecord == false}">
-                                                <button class="btn-primary btn-sm" type="button" title="Thêm" id="show-emp"><a href="${pageContext.request.contextPath}/addmedicalrecord?staffID=${reservation.staffID}&reservationDate=${reservation.reservationDate}&reservationID=${reservation.reservationID}&childID=${childID}&childFirstName=${childFirstName}&childMiddleName=${childMiddleName}&childLastName=${childLastName}" title="Thêm lịch sử khám">
+                                                <button class="btn-primary btn-sm" type="button" title="Thêm" id="show-emp"><a href="${pageContext.request.contextPath}/staff/addmedicalrecord?staffID=${reservation.staffID}&reservationDate=${reservation.reservationDate}&reservationID=${reservation.reservationID}&childID=${childID}&childFirstName=${childFirstName}&childMiddleName=${childMiddleName}&childLastName=${childLastName}" title="Thêm lịch sử khám">
                                                         <i class="fas fa-plus"></i>
                                                     </a>
                                                 </button>

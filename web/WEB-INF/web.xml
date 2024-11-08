@@ -476,6 +476,10 @@
         <servlet-name>CustomerReservationDetailServlet</servlet-name>
         <servlet-class>controller.CustomerReservationDetailServlet</servlet-class>
     </servlet>
+     <servlet>
+        <servlet-name>HomePageMedicalRecordList</servlet-name>
+        <servlet-class>controller.HomePageMedicalRecordList</servlet-class>
+    </servlet>
     <servlet>
         <servlet-name>ChatbotServlet</servlet-name>
         <servlet-class>ChatbotServlet</servlet-class>
@@ -775,6 +779,10 @@
     <servlet-mapping>
         <servlet-name>DeleteBlogServlet</servlet-name>
         <url-pattern>/manager/deleteblog</url-pattern>
+    </servlet-mapping>
+      <servlet-mapping>
+        <servlet-name>HomePageMedicalRecordList</servlet-name>
+        <url-pattern>/customer/homepagemedicalrecordlist</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CustomerListOrdersServlet</servlet-name>
