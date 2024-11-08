@@ -3,13 +3,13 @@
     Created on : Sep 27, 2024, 11:56:18 AM
     Author     : LENOVO
 --%>
-
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
     <head>
-        <title>Danh s·ch nh‚n viÍn | Qu?n tr? Admin</title>
+        <title>Danh s√°ch ph∆∞·ªùng</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -48,7 +48,7 @@
         <main class="app-content">
             <div class="app-title">
                 <ul class="app-breadcrumb breadcrumb side">
-                    <li class="breadcrumb-item active"><a href="#"><b>Danh s·ch nh‚n viÍn</b></a></li>
+                    <li class="breadcrumb-item active"><a href="#"><b>Danh s√°ch ph∆∞·ªùng</b></a></li>
                 </ul>
                 <div id="clock"></div>
             </div>
@@ -65,43 +65,19 @@
                             <div class="row element-button">
                                 <div class="col-sm-2">
 
-                                    <button class="btn btn-add btn-sm" id="show-emp" data-toggle="modal" data-target="#ModalAdd" title="ThÍm"><i class="fas fa-plus"></i>
-                                        T?o m?i Ph??ng</button>
+                                    <button class="btn btn-add btn-sm" id="show-emp" data-toggle="modal" data-target="#ModalAdd" title="Th√™m"><i class="fas fa-plus"></i>
+                                        T·∫°o m·ªõi Ph∆∞·ªùng</button>
                                 </div>
-                                <div class="col-sm-2">
-                                    <a class="btn btn-delete btn-sm nhap-tu-file" type="button" title="Nh?p" onclick="myFunction(this)"><i
-                                            class="fas fa-file-upload"></i> T?i t? file</a>
-                                </div>
-
-                                <div class="col-sm-2">
-                                    <a class="btn btn-delete btn-sm print-file" type="button" title="In" onclick="myApp.printTable()"><i
-                                            class="fas fa-print"></i> In d? li?u</a>
-                                </div>
-                                <div class="col-sm-2">
-                                    <a class="btn btn-delete btn-sm print-file js-textareacopybtn" type="button" title="Sao chÈp"><i
-                                            class="fas fa-copy"></i> Sao chÈp</a>
-                                </div>
-
-                                <div class="col-sm-2">
-                                    <a class="btn btn-excel btn-sm" href="" title="In"><i class="fas fa-file-excel"></i> Xu?t Excel</a>
-                                </div>
-                                <div class="col-sm-2">
-                                    <a class="btn btn-delete btn-sm pdf-file" type="button" title="In" onclick="myFunction(this)"><i
-                                            class="fas fa-file-pdf"></i> Xu?t PDF</a>
-                                </div>
-                                <div class="col-sm-2">
-                                    <a class="btn btn-delete btn-sm" type="button" title="XÛa" onclick="myFunction(this)"><i
-                                            class="fas fa-trash-alt"></i> XÛa t?t c? </a>
-                                </div>
+                               
                             </div>
                             <table class="table table-hover table-bordered js-copytextarea" cellpadding="0" cellspacing="0" border="0"
                                    id="sampleTable">
                                 <thead>
                                     <tr>
                                         <th width="10"><input type="checkbox" id="all"></th>
-                                        <th width="10">ID nh‚n viÍn</th>
-                                        <th width="150">H? v‡ tÍn</th>
-                                        <th width="100">TÌnh n?ng</th>
+                                        <th width="10">STT</th>
+                                        <th width="150">T√™n ph∆∞·ªùng</th>
+                                        <th width="100">T√≠nh nƒÉng</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -115,7 +91,7 @@
                                                 <form action="${pageContext.request.contextPath}/manager/deleteward" method="post" onsubmit="return confirm('Are you sure you want to delete this ward?');" style="display:inline;">
                                                     <input type="hidden" name="id" value="${ward.id}">
                                                     <input type="hidden" name="districtID" value="${ward.districtID}">                             
-                                                    <button class="btn btn-primary btn-sm trash" title="XÛa" type="submit"><i
+                                                    <button class="btn btn-primary btn-sm trash" title="X√≥a" type="submit"><i
                                                             class="fas fa-trash-alt"></i>
                                                     </button>
                                                 </form>
@@ -148,11 +124,11 @@
                             <input type="hidden" name="id" id="wardIDInput">
                             <input type="hidden" name="districtID" id="districtIDInput" > <!-- Pass provinceID -->
                             <div class="form-group">
-                                <label class="control-label">TÍn Qu?n</label>
+                                <label class="control-label">T√™n Qu·∫≠n</label>
                                 <input type="text" class="form-control" name="wardNameInput" id="wardNameInput" required>
                             </div>
-                            <button class="btn btn-save" type="submit">L?u l?i</button>
-                            <a class="btn btn-cancel" data-dismiss="modal" href="#">H?y b?</a>
+                            <button class="btn btn-save" type="submit">L∆∞u l·∫°i</button>
+                            <a class="btn btn-cancel" data-dismiss="modal" href="#">H·ªßy b·ªè</a>
                         </form>
 
                     </div>
@@ -168,7 +144,7 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">T?o m?i Ph??ng</h5>
+                        <h5 class="modal-title">T·∫°o m·ªõi Ph∆∞·ªùng</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -178,11 +154,11 @@
                             <input type="hidden" id="districtID" name="districtID" value="${districtID}">
                             <input type="hidden" id="wardID" name="wardID">
                             <div class="form-group">
-                                <label for="newEmployeeName">TÍn Qu?n</label>
+                                <label for="newEmployeeName">T√™n Qu·∫≠n</label>
                                 <input type="text" class="form-control" id="newWardName" name="wardName" required>
                             </div>
-                            <button type="submit" class="btn btn-save">L?u l?i</button>
-                            <button type="button" class="btn btn-cancel" data-dismiss="modal">H?y b?</button>
+                            <button type="submit" class="btn btn-save">L∆∞u l·∫°i</button>
+                            <button type="button" class="btn btn-cancel" data-dismiss="modal">H·ªßy b·ªè</button>
                         </form>
                     </div>
                 </div>
@@ -212,14 +188,14 @@
 //            jQuery(function () {
 //                jQuery(".trash").click(function () {
 //                    swal({
-//                        title: "C?nh b·o",
+//                        title: "C?nh b√°o",
 //
-//                        text: "B?n cÛ ch?c ch?n l‡ mu?n xÛa nh‚n viÍn n‡y?",
-//                        buttons: ["H?y b?", "??ng ˝"],
+//                        text: "B?n c√≥ ch?c ch?n l√† mu?n x√≥a nh√¢n vi√™n n√†y?",
+//                        buttons: ["H?y b?", "??ng √Ω"],
 //                    })
 //                            .then((willDelete) => {
 //                                if (willDelete) {
-//                                    swal("?„ xÛa th‡nh cÙng.!", {
+//                                    swal("?√£ x√≥a th√†nh c√¥ng.!", {
 //
 //                                    });
 //                                }
@@ -245,16 +221,16 @@
 
 
             //Th?i Gian
-            function time() {
+             function time() {
                 var today = new Date();
                 var weekday = new Array(7);
-                weekday[0] = "Ch? Nh?t";
-                weekday[1] = "Th? Hai";
-                weekday[2] = "Th? Ba";
-                weekday[3] = "Th? T?";
-                weekday[4] = "Th? N?m";
-                weekday[5] = "Th? S·u";
-                weekday[6] = "Th? B?y";
+                weekday[0] = "Ch·ªß Nh·∫≠t";
+                weekday[1] = "Th·ª© Hai";
+                weekday[2] = "Th·ª© Ba";
+                weekday[3] = "Th·ª© T∆∞";
+                weekday[4] = "Th·ª© NƒÉm";
+                weekday[5] = "Th·ª© S√°u";
+                weekday[6] = "Th·ª© B·∫£y";
                 var day = weekday[today.getDay()];
                 var dd = today.getDate();
                 var mm = today.getMonth() + 1;
@@ -264,7 +240,7 @@
                 var s = today.getSeconds();
                 m = checkTime(m);
                 s = checkTime(s);
-                nowTime = h + " gi? " + m + " ph˙t " + s + " gi‚y";
+                nowTime = h + " gi·ªù " + m + " ph√∫t " + s + " gi√¢y";
                 if (dd < 10) {
                     dd = '0' + dd
                 }
@@ -294,7 +270,7 @@
                     win.print();
                 }
             }
-            //     //Sao chÈp d? li?u
+            //     //Sao ch√©p d? li?u
             //     var copyTextareaBtn = document.querySelector('.js-textareacopybtn');
 
             // copyTextareaBtn.addEventListener('click', function(event) {
