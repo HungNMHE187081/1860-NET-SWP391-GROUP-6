@@ -116,7 +116,7 @@
                                             <td width="10"><input type="checkbox" name="check1" value="${user.userID}"></td>
                                             <td>${user.userID}</td>
                                             <td><a href="${pageContext.request.contextPath}/manager/viewdetailsuser?userID=${user.userID}">${user.firstName} ${user.middleName} ${user.lastName}</a></td>
-                                            <td><img class="img-card-person" src="${user.profileImage}" alt=""></td>
+                                            <td><img class="img-card-person" src="${pageContext.request.contextPath}/${user.profileImage}" alt=""></td>
                                             <td>${user.address.streetAddress},${user.address.ward.wardName}, ${user.address.district.districtName}, ${user.address.provinces.provinceName}</td>
                                             <td>${user.dateOfBirth}</td>
                                             <td>${user.gender}</td>

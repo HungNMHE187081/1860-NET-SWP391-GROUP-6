@@ -15,6 +15,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 import java.io.File;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import model.Blog;
 import model.BlogCategory;
@@ -88,22 +89,67 @@ public class EditBlogServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8"); // Đảm bảo mã hóa UTF-8
-        BlogDAO dao = new BlogDAO(); // Khởi tạo BlogDAO
 
-        // Lấy thông tin từ biểu mẫu
+        List<String> errors = new ArrayList<>();
+
+        // Retrieve and validate form fields
         int blogID = Integer.parseInt(request.getParameter("blogid"));
         String title = request.getParameter("titleEdit");
-        String author = request.getParameter("author");
-        String content = request.getParameter("contentedit");
-        boolean isPublished = "true".equals(request.getParameter("isPublished")); // Kiểm tra trạng thái
-        // Lấy đường dẫn ảnh hiện tại từ form (ảnh cũ)
-        // Kiểm tra xem có ảnh mới được tải lên không
-        Part filePart = request.getPart("thumbNail");
-        String finalThumbnailPath;
+        if (title == null || title.trim().isEmpty()) {
+            errors.add("Tiêu đề không được để trống");
+        }
 
+        String content = request.getParameter("contentedit");
+        if (content == null || content.trim().isEmpty()) {
+            errors.add("Nội dung không được để trống");
+        }
+
+        String author = request.getParameter("author");
+        if (author == null || author.trim().isEmpty()) {
+            errors.add("Tên tác giả không được để trống");
+        }
+
+        String isPublished = request.getParameter("isPublished");
+        if (isPublished == null || isPublished.trim().isEmpty()) {
+            errors.add("Trạng thái xuất bản không được để trống");
+        }
+
+        // Validate file upload (if necessary)
+        Part filePart = request.getPart("thumbNail");
+        // Optional: Check if new file is required and validate
+
+        String blogCategoryStr = request.getParameter("blogCategoryEdit");
+        if (blogCategoryStr == null || blogCategoryStr.trim().isEmpty()) {
+            errors.add("Danh mục blog không được để trống");
+        }
+
+        // If there are validation errors, return to the form with error messages
+        if (!errors.isEmpty()) {
+            request.setAttribute("errors", errors);
+            // Preserve the entered values
+            request.setAttribute("title", title);
+            request.setAttribute("content", content);
+            request.setAttribute("author", author);
+            request.setAttribute("isPublished", isPublished);
+
+            // Get blog details and categories again for the form
+            BlogDAO dao = new BlogDAO();
+            Blog blogDetails = dao.getBlogById(blogID);
+            List<BlogCategory> cate = dao.getAllBlogCategory();
+            request.setAttribute("cate", cate);
+            request.setAttribute("blogDetails", blogDetails);
+
+            // Forward back to the form
+            request.getRequestDispatcher("/Manager_JSP/manager-edit-blog.jsp").forward(request, response);
+            return;
+        }
+
+        // Proceed with updating the blog if validation passes
+        BlogDAO dao = new BlogDAO(); // Khởi tạo BlogDAO
+
+        // Process uploaded file (if any new file is uploaded)
+        String finalThumbnailPath;
         if (filePart != null && filePart.getSize() > 0) {
-            // Nếu có ảnh mới, xử lý ảnh mới
             String fileName = extractFileName(filePart);
             String uploadPath = getServletContext().getRealPath("") + File.separator + UPLOAD_DIRECTORY;
 
@@ -115,7 +161,6 @@ public class EditBlogServlet extends HttpServlet {
             String filePath = uploadPath + File.separator + fileName;
             filePart.write(filePath);
 
-            // Sử dụng đường dẫn ảnh mới
             finalThumbnailPath = UPLOAD_DIRECTORY + "/" + fileName;
         } else {
             Blog b = dao.getBlogById(blogID);
@@ -128,13 +173,14 @@ public class EditBlogServlet extends HttpServlet {
         blog.setTitle(title);
         blog.setAuthorName(author);
         blog.setContent(content);
-        blog.setIsPublished(isPublished);
+        blog.setIsPublished("true".equals(isPublished));
         blog.setThumbnailPath(finalThumbnailPath);
-        dao.updateBlog(blog); // Gọi phương thức updateBlog
-        int categoryID = Integer.parseInt(request.getParameter("blogCategoryEdit"));
+        dao.updateBlog(blog);
+        int categoryID = Integer.parseInt(blogCategoryStr);
         dao.updateBlogCategoryMapping(blogID, categoryID);
+
         // Chuyển hướng về trang danh sách blog hoặc thông báo thành công
-        response.sendRedirect(request.getContextPath() + "/manager/manageblog"); // Chỉnh sửa theo đường dẫn thực tế của bạn
+        response.sendRedirect(request.getContextPath() + "/manager/manageblog");
     }
 
     private String extractFileName(Part part) {

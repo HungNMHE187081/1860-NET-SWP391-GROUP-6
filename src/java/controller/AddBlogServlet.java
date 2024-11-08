@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import model.Blog;
 import model.BlogCategory;
@@ -85,18 +86,65 @@ public class AddBlogServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        // Retrieve form fields
+        
+        List<String> errors = new ArrayList<>();
+        
+        // Retrieve and validate form fields
         String title = request.getParameter("title");
-        String content = request.getParameter("content");
-        String author = request.getParameter("author");
-        String isPublished = request.getParameter("isPublished");
+        if (title == null || title.trim().isEmpty()) {
+            errors.add("Tiêu đề không được để trống");
+        }
 
-        // Handling file upload (Thumbnail)
+        String content = request.getParameter("content");
+        if (content == null || content.trim().isEmpty()) {
+            errors.add("Nội dung không được để trống");
+        }
+
+        String author = request.getParameter("author");
+        if (author == null || author.trim().isEmpty()) {
+            errors.add("Tên tác giả không được để trống");
+        }
+
+        String isPublished = request.getParameter("isPublished");
+        if (isPublished == null || isPublished.trim().isEmpty()) {
+            errors.add("Trạng thái xuất bản không được để trống");
+        }
+
+        // Validate file upload
         Part filePart = request.getPart("thumbNail");
+        if (filePart == null || filePart.getSize() == 0) {
+            errors.add("Hình ảnh thumbnail không được để trống");
+        }
+
+        String blogCategoryStr = request.getParameter("blogCategory");
+        if (blogCategoryStr == null || blogCategoryStr.trim().isEmpty()) {
+            errors.add("Danh mục blog không được để trống");
+        }
+
+        // If there are validation errors, return to the form with error messages
+        if (!errors.isEmpty()) {
+            request.setAttribute("errors", errors);
+            // Preserve the entered values
+            request.setAttribute("title", title);
+            request.setAttribute("content", content);
+            request.setAttribute("author", author);
+            request.setAttribute("isPublished", isPublished);
+            
+            // Get categories again for the form
+            BlogDAO blogDAO = new BlogDAO();
+            List<BlogCategory> cate = blogDAO.getAllBlogCategory();
+            request.setAttribute("cate", cate);
+            
+            // Forward back to the form
+            request.getRequestDispatcher("/Manager_JSP/manager-add-blog.jsp").forward(request, response);
+            return;
+        }
+
+        // If validation passes, proceed with saving the blog
         String fileName = extractFileName(filePart);
         String uploadPath = getServletContext().getRealPath("") + File.separator + UPLOAD_DIRECTORY;
-        int blogCategoryID = Integer.parseInt(request.getParameter("blogCategory"));
+        int blogCategoryID = Integer.parseInt(blogCategoryStr);
+
         // Create directory if it does not exist
         File uploadDir = new File(uploadPath);
         if (!uploadDir.exists()) {
@@ -119,9 +167,8 @@ public class AddBlogServlet extends HttpServlet {
         BlogDAO blogDAO = new BlogDAO();
         blogDAO.addBlog(blog, blogCategoryID);
         
-        // Redirect to a success page (or you can show a confirmation message)
+        // Redirect to success page
         response.sendRedirect(request.getContextPath() + "/manager/manageblog");
-
     }
 
     private String extractFileName(Part part) {

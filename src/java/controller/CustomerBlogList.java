@@ -57,7 +57,7 @@ public class CustomerBlogList extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         BlogDAO dao = new BlogDAO();
-        List<Blog> blogList = dao.getAllBlogs();
+        List<Blog> blogList = dao.getAllBlogsWhereActive();
         request.setAttribute("blogList", blogList);
         request.getRequestDispatcher("/Common_JSP/blog-list.jsp").forward(request, response);
     } 

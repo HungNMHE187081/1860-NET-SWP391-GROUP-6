@@ -169,6 +169,35 @@ public List<Blog> getBlogsByCategory(int categoryId) {
 
         return blogList;
     }
+ public List<Blog> getAllBlogsWhereActive() {
+        List<Blog> blogList = new ArrayList<>();
+        String sql = "SELECT * FROM Blogs Where IsPublished = 1";
+
+        try (
+             PreparedStatement pstmt = connection.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+            
+            while (rs.next()) {
+                Blog blog = new Blog();
+                blog.setBlogID(rs.getInt("BlogID"));
+                blog.setTitle(rs.getString("Title"));
+                blog.setContent(rs.getString("Content"));
+                blog.setAuthorName(rs.getString("AuthorName"));
+                blog.setCreatedDate(rs.getDate("CreatedDate"));
+                blog.setUpdatedDate(rs.getDate("UpdatedDate"));
+                blog.setIsPublished(rs.getBoolean("IsPublished"));
+                blog.setThumbnailPath(rs.getString("ThumbnailPath"));
+                System.out.println("Blog ID: " + blog.getBlogID() + ", Is Published: " + blog.getIsPublished()); // Kiểm tra
+                blog.setViews(rs.getInt("Views"));
+
+                blogList.add(blog);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return blogList;
+    }
  public boolean deleteBlog(int blogID) throws SQLException {
         String sql = "DELETE FROM Blogs WHERE blogID = ?";
         String sqlDeleteMapping = "Delete from BlogCategoryMapping Where BlogID = ?";
@@ -202,15 +231,14 @@ public List<Blog> getBlogsByCategory(int categoryId) {
     }
  
   public void updateBlog(Blog blog) {
-        String sql = "UPDATE Blogs SET Title = ?, Content = ?, AuthorName = ?, UpdatedDate = GETDATE(), IsPublished = ?, ThumbnailPath = ?, Views = ? WHERE BlogID = ?";
+        String sql = "UPDATE Blogs SET Title = ?, Content = ?, AuthorName = ?, UpdatedDate = GETDATE(), IsPublished = ?, ThumbnailPath = ? WHERE BlogID = ?";
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
             pstmt.setString(1, blog.getTitle());
             pstmt.setString(2, blog.getContent());
             pstmt.setString(3, blog.getAuthorName());
             pstmt.setBoolean(4, blog.getIsPublished());
             pstmt.setString(5, blog.getThumbnailPath());
-            pstmt.setInt(6, blog.getViews());
-            pstmt.setInt(7, blog.getBlogID());
+            pstmt.setInt(6, blog.getBlogID());
 
             pstmt.executeUpdate(); // Thực thi câu lệnh cập nhật
         } catch (SQLException e) {

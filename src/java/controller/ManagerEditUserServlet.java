@@ -103,65 +103,135 @@ public class ManagerEditUserServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @Override
+   @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int userID = Integer.parseInt(request.getParameter("userID"));
-        ManagerUserDAO userDAO = new ManagerUserDAO();
-        Users user = userDAO.getDetailUserByUserID(userID);
-        String firstName = request.getParameter("firstName");
-        String middleName = request.getParameter("middleName");
-        String lastName = request.getParameter("lastName");
-        String email = request.getParameter("email");
-        String phoneNumber = request.getParameter("phoneNumber");
-        String dateOfBirth = request.getParameter("dateOfBirth");
-        String gender = request.getParameter("gender");
-        String citizenIdentification = request.getParameter("citizenIdentification");
-        String streetAddress = request.getParameter("streetAddress");
-        int wardID = Integer.parseInt(request.getParameter("wardID"));
-     
-        
-        Part filePart = request.getPart("profileImage");
-        String img = user.getProfileImage(); // Giữ lại ảnh cũ nếu không có ảnh mới
-        if (filePart != null && filePart.getSize() > 0) {
-            String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-            String uploadDir = getServletContext().getRealPath("/") + UPLOAD_DIR;
-            File uploadDirFile = new File(uploadDir);
-            if (!uploadDirFile.exists()) {
-                uploadDirFile.mkdir();
-            }
-            String filePath = uploadDir + File.separator + fileName;
-            try {
-                filePart.write(filePath);
-                img = UPLOAD_DIR + File.separator + fileName;
-            } catch (IOException e) {
-                request.setAttribute("error", "Không thể lưu ảnh đại diện. Vui lòng thử lại.");
+        try {
+            int userID = Integer.parseInt(request.getParameter("userID"));
+            ManagerUserDAO userDAO = new ManagerUserDAO();
+            Users user = userDAO.getDetailUserByUserID(userID);
+            
+            // Lấy thông tin từ form
+            String firstName = request.getParameter("firstName");
+            String middleName = request.getParameter("middleName");
+            String lastName = request.getParameter("lastName");
+            String email = request.getParameter("email");
+            String phoneNumber = request.getParameter("phoneNumber");
+            String dateOfBirth = request.getParameter("dateOfBirth");
+            String gender = request.getParameter("gender");
+            String citizenIdentification = request.getParameter("citizenIdentification");
+            String streetAddress = request.getParameter("streetAddress");
+            int wardID = Integer.parseInt(request.getParameter("wardID"));
+            
+            // Load lại data cho form trong trường hợp validation fail
+            List<Provinces> provinces = userDAO.getAllProvinces();
+            request.setAttribute("provinces", provinces);
+            List<District> districts = userDAO.getDistrictsByProvince(user.getAddress().getProvinces().getProvinceID());
+            List<Ward> wards = userDAO.getWardsByDistrict(user.getAddress().getDistrict().getId());
+            request.setAttribute("districts", districts);
+            request.setAttribute("wards", wards);
+            request.setAttribute("userDetails", user);
+
+            // Validate firstName không được để trống
+            if (firstName == null || firstName.trim().isEmpty()) {
+                request.setAttribute("errorMessage", "Họ không được để trống");
                 request.getRequestDispatcher("/manager-edit-user.jsp").forward(request, response);
                 return;
             }
-        }
-        user.setFirstName(firstName);
-        user.setMiddleName(middleName);
-        user.setLastName(lastName);
-        user.setEmail(email);
-        user.setPhoneNumber(phoneNumber);
-        user.setDateOfBirth(java.sql.Date.valueOf(dateOfBirth));
-        user.setGender(gender);
-        user.setCitizenIdentification(citizenIdentification);
-        user.setProfileImage(img);
-        user.getAddress().setWardID(wardID);
-        
-        UserAddresses address = new UserAddresses();
-        address.setUserID(userID);
-        address.setStreetAddress(streetAddress);
-        address.setWardID(wardID);
-        user.setAddress(address);
-        // Lưu thông tin cập nhật vào cơ sở dữ liệu
-        userDAO.updateUser(user);
 
-        // Chuyển hướng về trang hồ sơ
-        response.sendRedirect(request.getContextPath() + "/manager/manageuser");
+            // Validate tuổi phải trên 18
+            java.util.Date today = new java.util.Date();
+            java.sql.Date birthDate = java.sql.Date.valueOf(dateOfBirth);
+            long ageInMillis = today.getTime() - birthDate.getTime();
+            long ageInYears = ageInMillis / (1000L * 60 * 60 * 24 * 365);
+            if (ageInYears < 18) {
+                request.setAttribute("errorMessage", "Tuổi phải trên 18");
+                request.getRequestDispatcher("/manager-edit-user.jsp").forward(request, response);
+                return;
+            }
+
+            // Validate CCCD
+            if (citizenIdentification == null || citizenIdentification.length() != 12 || !citizenIdentification.matches("\\d+")) {
+                request.setAttribute("errorMessage", "CCCD phải đủ 12 số");
+                request.getRequestDispatcher("/manager-edit-user.jsp").forward(request, response);
+                return;
+            }
+            
+            // Kiểm tra CCCD có bị trùng không (trừ CCCD hiện tại của user)
+            if (!citizenIdentification.equals(user.getCitizenIdentification()) && 
+                userDAO.isCitizenIdentificationExists(citizenIdentification)) {
+                request.setAttribute("errorMessage", "CCCD đã tồn tại");
+                request.getRequestDispatcher("/manager-edit-user.jsp").forward(request, response);
+                return;
+            }
+
+            // Validate số điện thoại
+            if (phoneNumber == null || phoneNumber.length() != 10 || !phoneNumber.matches("\\d+")) {
+                request.setAttribute("errorMessage", "Số điện thoại phải đủ 10 số");
+                request.getRequestDispatcher("/manager-edit-user.jsp").forward(request, response);
+                return;
+            }
+            
+            // Kiểm tra số điện thoại có bị trùng không (trừ SDT hiện tại của user)
+            if (!phoneNumber.equals(user.getPhoneNumber()) && 
+                userDAO.isPhoneNumberExists(phoneNumber)) {
+                request.setAttribute("errorMessage", "Số điện thoại đã tồn tại");
+                request.getRequestDispatcher("/manager-edit-user.jsp").forward(request, response);
+                return;
+            }
+
+            // Xử lý upload ảnh
+            Part filePart = request.getPart("profileImage");
+            String img = user.getProfileImage(); // Giữ lại ảnh cũ nếu không có ảnh mới
+            if (filePart != null && filePart.getSize() > 0) {
+                String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+                String uploadDir = getServletContext().getRealPath("/") + UPLOAD_DIR;
+                File uploadDirFile = new File(uploadDir);
+                if (!uploadDirFile.exists()) {
+                    uploadDirFile.mkdir();
+                }
+                String filePath = uploadDir + File.separator + fileName;
+                try {
+                    filePart.write(filePath);
+                    img = UPLOAD_DIR + File.separator + fileName;
+                } catch (IOException e) {
+                    request.setAttribute("errorMessage", "Không thể lưu ảnh đại diện. Vui lòng thử lại.");
+                    request.getRequestDispatcher("/manager-edit-user.jsp").forward(request, response);
+                    return;
+                }
+            }
+
+            // Cập nhật thông tin user
+            user.setFirstName(firstName);
+            user.setMiddleName(middleName);
+            user.setLastName(lastName);
+            user.setEmail(email);
+            user.setPhoneNumber(phoneNumber);
+            user.setDateOfBirth(java.sql.Date.valueOf(dateOfBirth));
+            user.setGender(gender);
+            user.setCitizenIdentification(citizenIdentification);
+            user.setProfileImage(img);
+
+            // Cập nhật địa chỉ
+            UserAddresses address = new UserAddresses();
+            address.setUserID(userID);
+            address.setStreetAddress(streetAddress);
+            address.setWardID(wardID);
+            user.setAddress(address);
+
+            // Lưu thông tin cập nhật vào database
+            userDAO.updateUser(user);
+
+            // Chuyển hướng về trang danh sách user
+            response.sendRedirect(request.getContextPath() + "/manager/manageuser");
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            request.setAttribute("errorMessage", "Lỗi khi cập nhật thông tin: " + e.getMessage());
+            request.getRequestDispatcher("/manager-edit-user.jsp").forward(request, response);
+        }
     }
+
 
     /**
      * Returns a short description of the servlet.

@@ -221,7 +221,15 @@
                         </ul>
 
                         <h5 class="card-title mt-4 mb-0">Leave A Comment :</h5>
-
+                         <c:if test="${not empty errors}">
+                                        <div class="alert alert-danger">
+                                            <ul>
+                                                <c:forEach items="${errors}" var="error">
+                                                    <li>${error}</li>
+                                                    </c:forEach>
+                                            </ul>
+                                        </div>
+                                    </c:if>
                         <form action="${pageContext.request.contextPath}/customer/detailcustomerblog" method="post" class="mt-3">
                             <input type="hidden" name="blogID" value="${blog.blogID}" />
                             <div class="row">

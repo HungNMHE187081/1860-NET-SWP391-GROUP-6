@@ -170,6 +170,15 @@
                           
                             <form action="${pageContext.request.contextPath}/manager/editblog" method="post" enctype="multipart/form-data" ">
                                 <input type="hidden" name="blogid" value="${blogDetails.blogID}">
+                                <c:if test="${not empty errors}">
+                                        <div class="alert alert-danger">
+                                            <ul>
+                                                <c:forEach items="${errors}" var="error">
+                                                    <li>${error}</li>
+                                                    </c:forEach>
+                                            </ul>
+                                        </div>
+                                    </c:if>
                                 <div class="row">
                                     <!-- Title Field -->
                                     <div class="form-group col-md-6">

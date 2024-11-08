@@ -13,6 +13,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -82,20 +83,29 @@ public class CustomerEditBlogCommentServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-         BlogCommentDAO dao = new BlogCommentDAO();
-         BlogComment blogcom = new BlogComment();
-         int commentID = Integer.parseInt(request.getParameter("commentID"));
-         int blogID = Integer.parseInt(request.getParameter("blogID"));
-         Users user = (Users) request.getSession().getAttribute("user");
-         String content = request.getParameter("editcontent");
-         blogcom.setCommentID(commentID);
-         blogcom.setContent(content);
-         dao.updateComment(blogcom);
-         response.sendRedirect(request.getContextPath() +"/customer/detailcustomerblog?blogID=" + blogID);
-    }
+   @Override
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+    List<String> errors = new ArrayList<>();
+
+    int commentID = Integer.parseInt(request.getParameter("commentID"));
+    int blogID = Integer.parseInt(request.getParameter("blogID"));
+    Users user = (Users) request.getSession().getAttribute("user");
+    String content = request.getParameter("editcontent");
+
+     if (user != null && content != null && !content.trim().isEmpty()) {
+        BlogCommentDAO commentDAO = new BlogCommentDAO();
+        BlogComment comment = new BlogComment();
+        comment.setCommentID(commentID);
+        comment.setUser(user);
+        comment.setContent(content);
+        commentDAO.updateComment(comment);
+     }
+
+
+
+    response.sendRedirect(request.getContextPath() + "/customer/detailcustomerblog?blogID=" + blogID);
+}
 
     /** 
      * Returns a short description of the servlet.
