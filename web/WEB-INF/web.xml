@@ -460,6 +460,14 @@
         <servlet-name>VNPayReturnServlet</servlet-name>
         <servlet-class>controller.VNPayReturnServlet</servlet-class>
     </servlet>
+      <servlet>
+        <servlet-name>CustomerViewMedicalRecord</servlet-name>
+        <servlet-class>controller.CustomerViewMedicalRecord</servlet-class>
+    </servlet>
+     <servlet>
+        <servlet-name>CustomerPrescription</servlet-name>
+        <servlet-class>controller.CustomerPrescription</servlet-class>
+    </servlet>
     <servlet>
         <servlet-name>CustomerViewReservation</servlet-name>
         <servlet-class>controller.CustomerViewReservationServlet</servlet-class>
@@ -764,6 +772,10 @@
         <servlet-name>EditMedicalRecord</servlet-name>
         <url-pattern>/staff/updatemedicalrecord</url-pattern>
     </servlet-mapping>
+        <servlet-mapping>
+        <servlet-name>CustomerPrescription</servlet-name>
+        <url-pattern>/customer/listprescription</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>StaffFeedbackListServlet</servlet-name>
         <url-pattern>/staff/feedbacklist</url-pattern>
@@ -827,6 +839,10 @@
     <servlet-mapping>
         <servlet-name>EditBlogServlet</servlet-name>
         <url-pattern>/manager/editblog</url-pattern>
+    </servlet-mapping>
+      <servlet-mapping>
+        <servlet-name>CustomerViewMedicalRecord</servlet-name>
+        <url-pattern>/customer/viewmedicalrecord</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>EditPrescription</servlet-name>
