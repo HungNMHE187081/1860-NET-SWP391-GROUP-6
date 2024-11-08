@@ -78,6 +78,9 @@ throws ServletException, IOException {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+private boolean isEmptyOrSpaces(String input) {
+    return input == null || input.trim().isEmpty();
+}
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
@@ -92,7 +95,12 @@ throws ServletException, IOException {
         String userManual = request.getParameter("userManual");
         String contraindications = request.getParameter("contraindications");
         int categoryID = Integer.parseInt(request.getParameter("categoryID"));
-        
+            if (isEmptyOrSpaces(name) || isEmptyOrSpaces(manufactureName) || isEmptyOrSpaces(uses)||isEmptyOrSpaces(dosage)||isEmptyOrSpaces(userManual)||isEmptyOrSpaces(contraindications)) {
+                // Chuyển hướng đến trang lỗi nếu phát hiện trường chỉ chứa dấu cách
+                request.setAttribute("errorMessage", "Các trường nhập liệu không được để trống hoặc chỉ chứa khoảng trắng.");
+                request.getRequestDispatcher("/Staff_JSP/error.jsp").forward(request, response);
+                return;
+            }
         // Fetch the categoryName using the categoryID
         MedicineDAO medicineDAO = new MedicineDAO();
         String categoryName = medicineDAO.getCategoryById(categoryID);  

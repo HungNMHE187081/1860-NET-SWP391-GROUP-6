@@ -48,7 +48,9 @@ public class EditPrescription extends HttpServlet {
             out.println("</html>");
         }
     } 
-
+private boolean isEmptyOrSpaces(String input) {
+    return input == null || input.trim().isEmpty();
+}
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
      * Handles the HTTP <code>GET</code> method.
@@ -106,7 +108,12 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
         String dosage = request.getParameter("dosage");
         String frequency = request.getParameter("frequency");
         String duration = request.getParameter("duration");
-
+ if (isEmptyOrSpaces(dosage) || isEmptyOrSpaces(frequency) || isEmptyOrSpaces(duration)) {
+                // Chuyển hướng đến trang lỗi nếu phát hiện trường chỉ chứa dấu cách
+                request.setAttribute("errorMessage", "Các trường nhập liệu không được để trống hoặc chỉ chứa khoảng trắng.");
+                request.getRequestDispatcher("/Staff_JSP/error.jsp").forward(request, response);
+                return;
+            }
         // Proceed with updating the prescription
         PrescriptionDAO prescriptionDAO = new PrescriptionDAO();
         boolean isUpdated = prescriptionDAO.updatePrescription(prescriptionID, medicineID, dosage, frequency, duration);

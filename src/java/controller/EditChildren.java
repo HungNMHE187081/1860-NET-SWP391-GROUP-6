@@ -57,7 +57,12 @@ public class EditChildren extends HttpServlet {
             String lastName = request.getParameter("lastName");
             Date dateOfBirth = Date.valueOf(request.getParameter("dateOfBirth"));
             String gender = request.getParameter("gender");
-
+              if (isEmptyOrSpaces(firstName) || isEmptyOrSpaces(middleName) || isEmptyOrSpaces(lastName)) {
+                // Chuyển hướng đến trang lỗi nếu phát hiện trường chỉ chứa dấu cách
+                request.setAttribute("errorMessage", "Tên không được để trống hoặc chỉ chứa khoảng trắng.");
+                request.getRequestDispatcher("/Staff_JSP/error.jsp").forward(request, response);
+                return;
+            }
             // Handle file upload
             Part filePart = request.getPart("profileImage");
             String fileName = getFileName(filePart);
@@ -91,7 +96,9 @@ public class EditChildren extends HttpServlet {
             response.sendRedirect("error.jsp"); // Redirect to error page on failure
         }
     }
-
+private boolean isEmptyOrSpaces(String input) {
+    return input == null || input.trim().isEmpty();
+}
     private String getFileName(Part part) {
         String header = part.getHeader("content-disposition");
         for (String content : header.split(";")) {

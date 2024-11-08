@@ -88,7 +88,12 @@ public class AddMedicineServlet extends HttpServlet {
         String userManual = request.getParameter("userManual");
         String contraindications = request.getParameter("contraindications");
         int categoryID = Integer.parseInt(request.getParameter("categoryID"));
-       
+        if (isEmptyOrSpaces(name) || isEmptyOrSpaces(description) || isEmptyOrSpaces(uses)||isEmptyOrSpaces(dosage)||isEmptyOrSpaces(userManual)||isEmptyOrSpaces(contraindications)) {
+                // Chuyển hướng đến trang lỗi nếu phát hiện trường chỉ chứa dấu cách
+                request.setAttribute("errorMessage", "Các trường nhập liệu không được để trống hoặc chỉ chứa khoảng trắng.");
+                request.getRequestDispatcher("/Staff_JSP/error.jsp").forward(request, response);
+                return;
+            }
         Medicine medicine = new Medicine();
         medicine.setName(name);
         medicine.setManufactureName(description);
@@ -109,4 +114,7 @@ public class AddMedicineServlet extends HttpServlet {
          * @return a String containing servlet description
          */
     }
+    private boolean isEmptyOrSpaces(String input) {
+    return input == null || input.trim().isEmpty();
+}
 }

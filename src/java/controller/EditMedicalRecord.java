@@ -77,7 +77,12 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
         String treatment = request.getParameter("treatment");
         String notes = request.getParameter("notes");
 
-
+  if (isEmptyOrSpaces(diagnosis) || isEmptyOrSpaces(treatment) || isEmptyOrSpaces(notes)) {
+                // Chuyển hướng đến trang lỗi nếu phát hiện trường chỉ chứa dấu cách
+                request.setAttribute("errorMessage", "Các trường nhập liệu không được để trống hoặc chỉ chứa khoảng trắng.");
+                request.getRequestDispatcher("/Staff_JSP/error.jsp").forward(request, response);
+                return;
+            }
         // Create and populate MedicalRecord object
         MedicalRecord record = new MedicalRecord();
         record.setRecordID(recordID);
@@ -104,7 +109,9 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
         request.getRequestDispatcher("errorPage.jsp").forward(request, response);
     }
 }
-
+private boolean isEmptyOrSpaces(String input) {
+    return input == null || input.trim().isEmpty();
+}
 
     /**
      * Converts a date string to java.sql.Date.

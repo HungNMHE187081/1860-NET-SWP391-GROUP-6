@@ -58,6 +58,9 @@ public class AddPrescriptionServlet extends HttpServlet {
             request.getRequestDispatcher("/Staff_JSP/error.jsp").forward(request, response);
         }
     }
+private boolean isEmptyOrSpaces(String input) {
+    return input == null || input.trim().isEmpty();
+}
 
      @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -71,7 +74,12 @@ public class AddPrescriptionServlet extends HttpServlet {
 
                   for (String medicineID_raw : medicineIds) {
             int medicineID = Integer.parseInt(medicineID_raw);
-
+            if (isEmptyOrSpaces(dosage) || isEmptyOrSpaces(frequency) || isEmptyOrSpaces(duration)) {
+                // Chuyển hướng đến trang lỗi nếu phát hiện trường chỉ chứa dấu cách
+                request.setAttribute("errorMessage", "Các trường nhập liệu không được để trống hoặc chỉ chứa khoảng trắng.");
+                request.getRequestDispatcher("/Staff_JSP/error.jsp").forward(request, response);
+                return;
+            }
             // Check for existing prescription
             if (prescriptionDAO.existsPrescription(recordID, medicineID)) {
                 request.setAttribute("errorMessage", "Loại thuốc này đã tồn tại trong lịch sử khám cho bệnh nhân này.");

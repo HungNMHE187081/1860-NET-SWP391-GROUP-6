@@ -65,6 +65,12 @@ public class AddChildren extends HttpServlet {
             Date dateOfBirth = new Date(utilDate.getTime());
             String gender = request.getParameter("gender");
 
+            if (isEmptyOrSpaces(firstName) || isEmptyOrSpaces(middleName) || isEmptyOrSpaces(lastName)) {
+                // Chuyển hướng đến trang lỗi nếu phát hiện trường chỉ chứa dấu cách
+                request.setAttribute("errorMessage", "Tên không được để trống hoặc chỉ chứa khoảng trắng.");
+                request.getRequestDispatcher("/Staff_JSP/error.jsp").forward(request, response);
+                return;
+            }
             // Tạo đối tượng Children
             Children child = new Children(customerID, firstName, middleName, lastName, dateOfBirth, gender, childImage);
 
@@ -77,9 +83,12 @@ public class AddChildren extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("error", "Có lỗi xảy ra khi thêm thông tin. Vui lòng thử lại.");
-            request.getRequestDispatcher("/Common_JSP/add-children.jsp").forward(request, response);
+            request.getRequestDispatcher("error.jsp").forward(request, response);
         }
     }
+private boolean isEmptyOrSpaces(String input) {
+    return input == null || input.trim().isEmpty();
+}
 
     private String getFileName(Part part) {
         String header = part.getHeader("content-disposition");

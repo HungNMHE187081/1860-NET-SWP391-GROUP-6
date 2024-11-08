@@ -126,7 +126,12 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
         String notes = request.getParameter("notes");
         Date recordDate = Date.valueOf(request.getParameter("recordDate")); // yyyy-MM-dd
         Date reservationDate = Date.valueOf(request.getParameter("reservationDate")); // yyyy-MM-dd
-        
+         if (isEmptyOrSpaces(diagnosis) || isEmptyOrSpaces(treatment) || isEmptyOrSpaces(notes)) {
+                // Chuyển hướng đến trang lỗi nếu phát hiện trường chỉ chứa dấu cách
+                request.setAttribute("errorMessage", "Các trường nhập liệu không được để trống hoặc chỉ chứa khoảng trắng.");
+                request.getRequestDispatcher("/Staff_JSP/error.jsp").forward(request, response);
+                return;
+            }
         // Create MedicalRecord object
         MedicalRecord medicalRecord = new MedicalRecord(
             childID, staffID, reservationID, diagnosis, treatment, notes, reservationDate, recordDate
@@ -136,7 +141,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
         MedicalRecordDAO medicalRecordDAO = new MedicalRecordDAO();
         if (medicalRecordDAO.existsMedicalRecord(medicalRecord)) {
             // Redirect back with an error message
-            response.sendRedirect("/G6_ChildrenCare/Staff_JSP/error.jsp");
+            response.sendRedirect("/Staff_JSP/error.jsp");
             return; // Exit the method
         }
 
@@ -148,6 +153,9 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
         e.printStackTrace();
         response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error adding medical record.");
     }
+}
+private boolean isEmptyOrSpaces(String input) {
+    return input == null || input.trim().isEmpty();
 }
 
 
