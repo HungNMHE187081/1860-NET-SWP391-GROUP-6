@@ -496,6 +496,10 @@
         <servlet-name>DetailGuestBlogServlet</servlet-name>
         <servlet-class>controller.DetailGuestBlogServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GuestViewServiceServlet</servlet-name>
+        <servlet-class>controller.GuestViewServiceServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -983,5 +987,9 @@
     <servlet-mapping>
         <servlet-name>DetailGuestBlogServlet</servlet-name>
         <url-pattern>/guest/detailguestblog</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GuestViewServiceServlet</servlet-name>
+        <url-pattern>/guest/viewservice</url-pattern>
     </servlet-mapping>
 </web-app>

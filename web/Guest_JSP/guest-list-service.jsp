@@ -449,6 +449,11 @@ document.addEventListener('DOMContentLoaded', function() {
                                             <i class="bi bi-clock me-1"></i>
                                             ${service.duration} phút
                                         </span>
+                                            <div class="d-flex justify-content-between">
+                                                <a href="${pageContext.request.contextPath}/guest/viewservice?serviceID=${service.serviceID}" class="btn btn-outline-secondary flex-grow-1 me-2 view-details transition-btn">
+                                                    <i class="bi bi-eye"></i>
+                                                </a>
+                                            </div>
                                     </div>
                                 </div>
                             </div>
