@@ -773,3 +773,67 @@ JOIN Orders o ON p.OrderID = o.OrderID
 JOIN Users u ON o.CustomerID = u.UserID
 JOIN OrderItems oi ON o.OrderID = oi.OrderID
 JOIN Services s ON oi.ServiceID = s.ServiceID;*/
+
+
+-- 1. Đầu tiên tạo bảng PasswordResets
+CREATE TABLE PasswordResets (
+    ResetID INT PRIMARY KEY IDENTITY(1,1),
+    UserID INT NOT NULL,
+    VerificationCode VARCHAR(50) NOT NULL,
+    ExpiryTime DATETIME NOT NULL,
+    IsUsed BIT DEFAULT 0,
+    CreatedAt DATETIME DEFAULT GETDATE(),
+    FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE,
+    CONSTRAINT CHK_ExpiryTime CHECK (ExpiryTime > CreatedAt)
+);
+
+-- 2. Tạo các index
+CREATE INDEX IX_PasswordResets_UserID ON PasswordResets(UserID);
+CREATE INDEX IX_PasswordResets_VerificationCode ON PasswordResets(VerificationCode);
+
+-- 3. Tạo các stored procedure
+CREATE PROCEDURE sp_CreatePasswordReset
+    @UserID INT,
+    @VerificationCode VARCHAR(50),
+    @ExpiryHours INT = 24
+AS
+BEGIN
+    INSERT INTO PasswordResets (UserID, VerificationCode, ExpiryTime)
+    VALUES (@UserID, @VerificationCode, DATEADD(HOUR, @ExpiryHours, GETDATE()));
+END;
+GO
+
+CREATE PROCEDURE sp_ValidatePasswordReset
+    @VerificationCode VARCHAR(50)
+AS
+BEGIN
+    SELECT UserID 
+    FROM PasswordResets
+    WHERE VerificationCode = @VerificationCode
+    AND ExpiryTime > GETDATE()
+    AND IsUsed = 0;
+END;
+GO
+
+-- 4. Tạo trigger
+CREATE TRIGGER trg_Users_UpdatedAt
+ON Users
+AFTER UPDATE
+AS
+BEGIN
+    UPDATE Users
+    SET UpdatedAt = GETDATE()
+    FROM Users u
+    INNER JOIN inserted i ON u.UserID = i.UserID;
+END;
+GO
+
+-- 5. Tạo procedure cleanup
+CREATE PROCEDURE sp_CleanupPasswordResets
+AS
+BEGIN
+    DELETE FROM PasswordResets
+    WHERE ExpiryTime < GETDATE()
+    OR IsUsed = 1;
+END;
+GO

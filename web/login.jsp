@@ -1,3 +1,5 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,7 +34,10 @@
             </div>
             <div class="mb-6">
                 <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" type="password" name="password" placeholder="Password" required>
-                <a href="${pageContext.request.contextPath}/forgot-password.jsp" class="text-blue-500 hover:text-blue-700 text-sm float-right">Forgot Password?</a>
+            </div>
+            <div class="text-center mt-4">
+                <a href="${pageContext.request.contextPath}/forgotpassword" 
+                   class="text-blue-500 hover:text-blue-700">Quên mật khẩu?</a>
             </div>
             <div class="mb-6">
                 <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 w-full rounded focus:outline-none focus:shadow-outline" type="submit">Login</button>

@@ -10,6 +10,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
+import java.util.Random;
 import model.District;
 import model.Provinces;
 import model.Roles;
@@ -336,10 +337,12 @@ public List<Integer> getChildrenByUserId(int userId) {
         String sqlUsers = "INSERT INTO Users (Email) VALUES (?)";
         String sqlUserAuth = "INSERT INTO UserAuthentication (UserID, Username, PasswordHash, Salt, LastLogin) VALUES (?, ?, ?, ?, ?)";
         String sqlAddress = "INSERT INTO UserAddresses (UserID) VALUES (?)";
+        String sqlUserRole = "INSERT INTO UserRoles (UserID, RoleID) VALUES (?, ?)";
 
         try (PreparedStatement stmtUsers = connection.prepareStatement(sqlUsers, Statement.RETURN_GENERATED_KEYS); 
-            PreparedStatement stmtUserAuth = connection.prepareStatement(sqlUserAuth);
-            PreparedStatement stmtAddress = connection.prepareStatement(sqlAddress)) {
+            PreparedStatement stmtUserAuth = connection.prepareStatement(sqlUserAuth); 
+            PreparedStatement stmtAddress = connection.prepareStatement(sqlAddress); 
+            PreparedStatement stmtUserRole = connection.prepareStatement(sqlUserRole)) {
 
             // Insert into Users table
             stmtUsers.setString(1, user.getEmail());
@@ -362,6 +365,15 @@ public List<Integer> getChildrenByUserId(int userId) {
 
                     stmtAddress.setInt(1, userID);
                     stmtAddress.executeUpdate();
+
+                    // Thêm role Customer cho user mới
+                    RolesDAO rolesDAO = new RolesDAO();
+                    int customerRoleID = rolesDAO.getRoleIDByName("Customer");
+                    if (customerRoleID != -1) {
+                        stmtUserRole.setInt(1, userID);
+                        stmtUserRole.setInt(2, customerRoleID);
+                        stmtUserRole.executeUpdate();
+                    }
                 }
             }
         } catch (SQLException e) {
@@ -619,9 +631,9 @@ public List<Integer> getChildrenByUserId(int userId) {
             stmt.setString(8, user.getCitizenIdentification());
             stmt.setString(9, user.getProfileImage());
             stmt.setInt(10, user.getUserID());
-    
+
             int affectedRows = stmt.executeUpdate();
-    
+
             if (affectedRows > 0) {
                 // Update address
                 String addressSql = "UPDATE UserAddresses SET StreetAddress = ?, WardID = ? WHERE UserID = ?";
@@ -638,6 +650,94 @@ public List<Integer> getChildrenByUserId(int userId) {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public Users findUserByEmail(String email) {
+        String sql = "SELECT * FROM Users WHERE Email = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, email);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    Users user = new Users();
+                    user.setUserID(rs.getInt("UserID"));
+                    user.setEmail(rs.getString("Email"));
+                    // Set các thông tin khác nếu cần
+                    return user;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public boolean createPasswordReset(int userID, String verificationCode) {
+        String sql = "EXEC sp_CreatePasswordReset @UserID = ?, @VerificationCode = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, userID);
+            stmt.setString(2, verificationCode);
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public Integer validatePasswordReset(String verificationCode) {
+        String sql = "EXEC sp_ValidatePasswordReset @VerificationCode = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, verificationCode);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("UserID");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public boolean updatePassword(int userID, String newPassword) {
+        // Tạo salt mới và hash password mới
+        String salt = generateSalt();
+        String passwordHash = hashPassword(newPassword, salt);
+
+        String sql = "UPDATE UserAuthentication SET PasswordHash = ?, Salt = ? WHERE UserID = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, passwordHash);
+            stmt.setString(2, salt);
+            stmt.setInt(3, userID);
+
+            if (stmt.executeUpdate() > 0) {
+                // Đánh dấu mã xác nhận đã được sử dụng
+                String updateResetSql = "UPDATE PasswordResets SET IsUsed = 1 WHERE UserID = ? AND IsUsed = 0";
+                try (PreparedStatement resetStmt = connection.prepareStatement(updateResetSql)) {
+                    resetStmt.setInt(1, userID);
+                    resetStmt.executeUpdate();
+                }
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public void cleanupPasswordResets() {
+        try (PreparedStatement stmt = connection.prepareStatement("EXEC sp_CleanupPasswordResets")) {
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+// Tạo mã xác nhận ngẫu nhiên
+    public String generateVerificationCode() {
+        // Tạo mã 6 chữ số
+        Random random = new Random();
+        int code = 100000 + random.nextInt(900000);
+        return String.valueOf(code);
     }
 
 }

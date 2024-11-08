@@ -1,12 +1,11 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quên mật khẩu</title>
+    <title>Reset Password</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
@@ -28,19 +27,21 @@
         <div class="flex justify-center mb-6">
             <div class="logo rounded-full"></div>
         </div>
-        <h2 class="text-center text-3xl font-bold text-gray-700 mb-4">Quên mật khẩu</h2>
-        <form action="${pageContext.request.contextPath}/forgotpassword" method="POST">
+        <h2 class="text-center text-3xl font-bold text-gray-700 mb-4">Đặt lại mật khẩu</h2>
+        <form action="${pageContext.request.contextPath}/resetpassword" method="POST">
+            <input type="hidden" name="code" value="${param.code}">
             <div class="mb-4">
-                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="email" name="email" placeholder="Nhập địa chỉ email" required>
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+                       type="password" name="password" placeholder="Mật khẩu mới" required>
+            </div>
+            <div class="mb-4">
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+                       type="password" name="confirmPassword" placeholder="Xác nhận mật khẩu" required>
             </div>
             <div class="mb-6">
-                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 w-full rounded focus:outline-none focus:shadow-outline" type="submit">Submit</button>
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 w-full rounded focus:outline-none focus:shadow-outline" 
+                        type="submit">Đặt lại mật khẩu</button>
             </div>
-            <% if (request.getParameter("message") != null) { %>
-                <p class="text-center text-green-500 text-sm">
-                    <%= java.net.URLDecoder.decode(request.getParameter("message"), "UTF-8") %>
-                </p>
-            <% } %>
             <% if (request.getParameter("error") != null) { %>
                 <p class="text-center text-red-500 text-sm">
                     <%= java.net.URLDecoder.decode(request.getParameter("error"), "UTF-8") %>
