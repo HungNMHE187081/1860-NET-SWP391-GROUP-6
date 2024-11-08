@@ -5,6 +5,7 @@
 package controller;
 
 import dal.ChildrenDAO;
+import dal.ReservationDAO;
 import java.sql.*;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -22,6 +23,7 @@ import model.MedicalRecord;
 import model.MedicalRecordDAO;
 import model.Staff;
 import dal.StaffDAO;
+import model.Reservation;
 
 /**
  *
@@ -117,7 +119,7 @@ public class AddMedicalRecord extends HttpServlet {
 protected void doPost(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
     try {
-        // Get data from the form
+        // Lấy dữ liệu từ form
         int childID = Integer.parseInt(request.getParameter("childID"));
         int staffID = Integer.parseInt(request.getParameter("staffID"));
         int reservationID = Integer.parseInt(request.getParameter("reservationID"));
@@ -126,32 +128,47 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
         String notes = request.getParameter("notes");
         Date recordDate = Date.valueOf(request.getParameter("recordDate")); // yyyy-MM-dd
         Date reservationDate = Date.valueOf(request.getParameter("reservationDate")); // yyyy-MM-dd
-         if (isEmptyOrSpaces(diagnosis) || isEmptyOrSpaces(treatment) || isEmptyOrSpaces(notes)) {
-                // Chuyển hướng đến trang lỗi nếu phát hiện trường chỉ chứa dấu cách
-                request.setAttribute("errorMessage", "Các trường nhập liệu không được để trống hoặc chỉ chứa khoảng trắng.");
-                request.getRequestDispatcher("/Staff_JSP/error.jsp").forward(request, response);
-                return;
-            }
-        // Create MedicalRecord object
+ReservationDAO rDAO = new ReservationDAO();
+        // Kiểm tra các trường nhập liệu
+        if (isEmptyOrSpaces(diagnosis) || isEmptyOrSpaces(treatment) || isEmptyOrSpaces(notes)) {
+            // Chuyển hướng đến trang lỗi nếu phát hiện trường chỉ chứa dấu cách
+            request.setAttribute("errorMessage", "Các trường nhập liệu không được để trống hoặc chỉ chứa khoảng trắng.");
+            request.getRequestDispatcher("/Staff_JSP/error.jsp").forward(request, response);
+            return;
+        }
+
+        // Truy vấn thông tin Reservation từ cơ sở dữ liệu
+        Reservation reservation = rDAO.getReservationById(reservationID);
+
+        // Kiểm tra nếu hasRecord = 1 thì không cho phép thêm mới
+        if (reservation != null && reservation.isHasRecord() == true) {
+            request.setAttribute("errorMessage", "Đã có hồ sơ khám bệnh cho cuộc hẹn này.");
+            request.getRequestDispatcher("/Staff_JSP/error.jsp").forward(request, response);
+            return;
+        }
+
+        // Tạo đối tượng MedicalRecord
         MedicalRecord medicalRecord = new MedicalRecord(
             childID, staffID, reservationID, diagnosis, treatment, notes, reservationDate, recordDate
         );
 
-        // Check if the medical record already exists
+        // Kiểm tra nếu hồ sơ khám bệnh đã tồn tại
         MedicalRecordDAO medicalRecordDAO = new MedicalRecordDAO();
         if (medicalRecordDAO.existsMedicalRecord(medicalRecord)) {
-            // Redirect back with an error message
-            response.sendRedirect("/Staff_JSP/error.jsp");
-            return; // Exit the method
+            request.setAttribute("errorMessage", "Trùng thông tin lịch sử khám");
+            request.getRequestDispatcher("/Staff_JSP/error.jsp").forward(request, response);
+            return;
         }
 
-        // Call DAO to add the new record
+        // Gọi DAO để thêm hồ sơ khám và cập nhật reservation
         medicalRecordDAO.addMedicalRecordAndUpdateReservation(medicalRecord);
-        // Redirect to the medical record list
+
+        // Redirect đến danh sách hồ sơ khám bệnh
         response.sendRedirect("medicalrecordlist");
     } catch (Exception e) {
         e.printStackTrace();
-        response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error adding medical record.");
+        request.setAttribute("errorMessage", "Lỗi thêm lịch sử khám");
+        request.getRequestDispatcher("/Staff_JSP/error.jsp").forward(request, response);
     }
 }
 private boolean isEmptyOrSpaces(String input) {

@@ -78,7 +78,7 @@ public class AddMedicineServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @Override
+      @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String name = request.getParameter("name");
@@ -88,12 +88,14 @@ public class AddMedicineServlet extends HttpServlet {
         String userManual = request.getParameter("userManual");
         String contraindications = request.getParameter("contraindications");
         int categoryID = Integer.parseInt(request.getParameter("categoryID"));
-        if (isEmptyOrSpaces(name) || isEmptyOrSpaces(description) || isEmptyOrSpaces(uses)||isEmptyOrSpaces(dosage)||isEmptyOrSpaces(userManual)||isEmptyOrSpaces(contraindications)) {
-                // Chuyển hướng đến trang lỗi nếu phát hiện trường chỉ chứa dấu cách
-                request.setAttribute("errorMessage", "Các trường nhập liệu không được để trống hoặc chỉ chứa khoảng trắng.");
-                request.getRequestDispatcher("/Staff_JSP/error.jsp").forward(request, response);
-                return;
-            }
+        
+        if (isEmptyOrSpaces(name) || isEmptyOrSpaces(description) || isEmptyOrSpaces(uses) || isEmptyOrSpaces(dosage) || isEmptyOrSpaces(userManual) || isEmptyOrSpaces(contraindications)) {
+            // Redirect to error page if any input field is empty or contains only spaces
+            request.setAttribute("errorMessage", "Các trường nhập liệu không được để trống hoặc chỉ chứa khoảng trắng.");
+            request.getRequestDispatcher("/Staff_JSP/error.jsp").forward(request, response);
+            return;
+        }
+        
         Medicine medicine = new Medicine();
         medicine.setName(name);
         medicine.setManufactureName(description);
@@ -102,17 +104,22 @@ public class AddMedicineServlet extends HttpServlet {
         medicine.setUserManual(userManual);
         medicine.setContraindications(contraindications);
         medicine.setCategoryID(categoryID);
+
         MedicineDAO medicineDAO = new MedicineDAO();
+
+        // Check if the medicine already exists
+        if (medicineDAO.isMedicineExist(medicine)) {
+            // Redirect to error page if the medicine already exists
+            request.setAttribute("errorMessage", "Thuốc này đã tồn tại trong hệ thống.");
+            request.getRequestDispatcher("/Staff_JSP/error.jsp").forward(request, response);
+            return;
+        }
+
+        // Add the medicine if it doesn't exist
         medicineDAO.addMedicine(medicine);
 
-        // Redirect or forward to a success page or medicine list
-        response.sendRedirect("medicinelist"); // Adjust this as needed    }
-
-        /**
-         * Returns a short description of the servlet.
-         *
-         * @return a String containing servlet description
-         */
+        // Redirect to success page or list page
+        response.sendRedirect("medicinelist"); 
     }
     private boolean isEmptyOrSpaces(String input) {
     return input == null || input.trim().isEmpty();

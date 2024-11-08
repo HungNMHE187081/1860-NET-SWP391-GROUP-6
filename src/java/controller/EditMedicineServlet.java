@@ -82,9 +82,9 @@ private boolean isEmptyOrSpaces(String input) {
     return input == null || input.trim().isEmpty();
 }
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-  String action = request.getParameter("action");
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+    String action = request.getParameter("action");
     
     if ("update".equals(action)) {
         int medicineID = Integer.parseInt(request.getParameter("medicineID"));
@@ -95,26 +95,39 @@ private boolean isEmptyOrSpaces(String input) {
         String userManual = request.getParameter("userManual");
         String contraindications = request.getParameter("contraindications");
         int categoryID = Integer.parseInt(request.getParameter("categoryID"));
-            if (isEmptyOrSpaces(name) || isEmptyOrSpaces(manufactureName) || isEmptyOrSpaces(uses)||isEmptyOrSpaces(dosage)||isEmptyOrSpaces(userManual)||isEmptyOrSpaces(contraindications)) {
-                // Chuyển hướng đến trang lỗi nếu phát hiện trường chỉ chứa dấu cách
-                request.setAttribute("errorMessage", "Các trường nhập liệu không được để trống hoặc chỉ chứa khoảng trắng.");
-                request.getRequestDispatcher("/Staff_JSP/error.jsp").forward(request, response);
-                return;
-            }
-        // Fetch the categoryName using the categoryID
+        
+        // Kiểm tra các trường nhập liệu có trống hoặc chứa khoảng trắng
+        if (isEmptyOrSpaces(name) || isEmptyOrSpaces(manufactureName) || isEmptyOrSpaces(uses) || isEmptyOrSpaces(dosage) || isEmptyOrSpaces(userManual) || isEmptyOrSpaces(contraindications)) {
+            // Chuyển hướng đến trang lỗi nếu phát hiện trường chỉ chứa dấu cách
+            request.setAttribute("errorMessage", "Các trường nhập liệu không được để trống hoặc chỉ chứa khoảng trắng.");
+            request.getRequestDispatcher("/Staff_JSP/error.jsp").forward(request, response);
+            return;
+        }
+
+        // Tạo đối tượng Medicine từ thông tin nhập vào
+        Medicine medicine = new Medicine(medicineID, name, manufactureName, uses, dosage, userManual, contraindications, "", categoryID);
+
+        // Kiểm tra nếu thuốc đã tồn tại trong cơ sở dữ liệu
         MedicineDAO medicineDAO = new MedicineDAO();
-        String categoryName = medicineDAO.getCategoryById(categoryID);  
+        if (medicineDAO.isMedicineExist(medicine)) {
+            // Nếu thông tin thuốc đã tồn tại, chuyển hướng đến trang lỗi
+            request.setAttribute("errorMessage", "Thông tin thuốc đã tồn tại trong cơ sở dữ liệu.");
+            request.getRequestDispatcher("/Staff_JSP/error.jsp").forward(request, response);
+            return;
+        }
 
-        // Pass the categoryName to the constructor
-        Medicine medicine = new Medicine(medicineID, name, manufactureName, uses, dosage, userManual, contraindications, categoryName, categoryID);
+        // Lấy tên danh mục từ categoryID
+        String categoryName = medicineDAO.getCategoryById(categoryID);
 
-        // Update the medicine
+        // Cập nhật thuốc vào cơ sở dữ liệu
+        medicine.setCategoryName(categoryName);
         medicineDAO.updateMedicine(medicine);
         
-        // Redirect to the list page
-        response.sendRedirect("medicinedetail?id=" +medicineID);
+        // Redirect đến trang chi tiết thuốc sau khi cập nhật thành công
+        response.sendRedirect("medicinedetail?id=" + medicineID);
     }
-    }
+}
+
 
     /** 
      * Returns a short description of the servlet.

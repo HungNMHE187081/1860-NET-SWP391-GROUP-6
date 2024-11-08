@@ -196,7 +196,7 @@
 
                 <button type="submit">Thêm lịch sử khám</button>
                 <center>
-                    <a href="staff/oldreservationslist"> Quay lại danh sách đã khám </a>
+                    <a href="oldreservationslist"> Quay lại danh sách đã khám </a>
                 </center>
 
             </form>

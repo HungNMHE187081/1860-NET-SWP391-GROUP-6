@@ -18,6 +18,32 @@ import model.MedicineCategory;
  */
 public class MedicineDAO extends DBContext {
 
+
+public boolean isMedicineExist(Medicine medicine) {
+        String sql = "SELECT COUNT(*) FROM Medicine WHERE Name = ? AND Description = ? AND Uses = ? AND Dosage = ? AND UserManual = ? AND Contraindications = ? AND CategoryID = ?";
+        
+        try (
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
+            
+            stmt.setString(1, medicine.getName());
+            stmt.setString(2, medicine.getManufactureName());
+            stmt.setString(3, medicine.getUses());
+            stmt.setString(4, medicine.getDosage());
+            stmt.setString(5, medicine.getUserManual());
+            stmt.setString(6, medicine.getContraindications());
+            stmt.setInt(7, medicine.getCategoryID());
+            
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0; // If the count is greater than 0, the medicine exists
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        
+        return false;
+    }
+
     public List<Medicine> getAllMedicines() {
         List<Medicine> medicines = new ArrayList<>();
         String sql = "SELECT MedicineID, Name FROM Medicine";
