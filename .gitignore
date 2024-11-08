@@ -13,3 +13,6 @@ nbdist/
 **/nbproject/Package-*.properties
 **/nbproject/Package-*.targets.LCKVNPayReturnServlet.java~
 .LCKReservationDAO.java~
+
+/nbproject/genfiles.properties
+/nbproject/build-impl.xml
