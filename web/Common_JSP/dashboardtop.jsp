@@ -127,7 +127,7 @@
                         <li><a href="${pageContext.request.contextPath}/customer/listreservations" class="sub-menu-item">
                                 <i class="uil uil-calendar-alt me-1"></i>Lịch hẹn sắp tới</a>
                         </li>
-                        <li><a href="departments.html" class="sub-menu-item">
+                        <li><a href="${pageContext.request.contextPath}/customer/homepagemedicalrecordlist" class="sub-menu-item">
                                 <i class="uil uil-history me-1"></i>Lịch sử khám</a>
                         </li>
                         <li><a href="${pageContext.request.contextPath}/customer/listchildren" class="sub-menu-item">

@@ -4,24 +4,25 @@
  */
 
 package controller;
-
-import dal.ChildrenDAO;
-import java.io.IOException;
-import java.io.PrintWriter;
+import dal.MedicineDAO;
+import dal.StaffDAO;
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import java.util.List;
-import model.Children;
-import model.Users;
+import model.MedicalRecord;
+import model.MedicalRecordDAO;
+import model.Staff;
+
+import java.io.IOException;
+import java.io.PrintWriter;
 
 /**
  *
  * @author User
  */
-public class ListChildren extends HttpServlet {
+public class CustomerViewMedicalRecord extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -38,10 +39,10 @@ public class ListChildren extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ListChildren</title>");  
+            out.println("<title>Servlet CustomerViewMedicalRecord</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ListChildren at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet CustomerViewMedicalRecord at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -56,28 +57,10 @@ public class ListChildren extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-protected void doGet(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
-    HttpSession session = request.getSession();
-    Users user = (session != null) ? (Users) session.getAttribute("user") : null;
-
-    if (user != null) {
-        ChildrenDAO cDAO = new ChildrenDAO();
-        List<Children> listChild = cDAO.getChildrenByCustomerID(user.getUserID());
-
-        // Log kiểm tra dữ liệu
-        System.out.println("Number of Children: " + listChild.size());
-        for (Children child : listChild) {
-            System.out.println("Child ID: " + child.getChildID() + ", Image: " + child.getChildImage());
-        }
-        
-        request.setAttribute("listChild", listChild);
-        request.getRequestDispatcher("/Common_JSP/user-children.jsp").forward(request, response);
-    } else {
-        response.sendRedirect(request.getContextPath() + "/login");  // Dùng sendRedirect thay vì forward để chuyển hướng rõ ràng
-    }
-}
- 
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
+        processRequest(request, response);
+    } 
 
     /** 
      * Handles the HTTP <code>POST</code> method.
@@ -89,7 +72,48 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response)
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+         String recordID_raw = request.getParameter("recordID"); // Thay đổi để lấy "recordID"
+
+        try {
+            // Validate the input parameter
+            if (recordID_raw == null || recordID_raw.isEmpty()) {
+                request.setAttribute("errorMessage", "Invalid record ID.");
+                
+                return; // Stop further processing
+            }
+
+            // Parse recordID from the request parameter
+            int recordID = Integer.parseInt(recordID_raw);
+
+            // Retrieve the medical record
+            MedicalRecordDAO dao = new MedicalRecordDAO();
+            MedicalRecord medicalRecord = dao.getMedicalRecordByID(recordID);
+
+            // Check if the medical record exists
+            if (medicalRecord == null) {
+                request.setAttribute("errorMessage", "Medical record not found.");
+             
+                return; // Stop further processing
+            }
+
+            // Retrieve the associated staff
+            StaffDAO staffDAO = new StaffDAO();
+            Staff staff = staffDAO.getStaffByID(medicalRecord.getStaffID());
+
+            // Set attributes for JSP
+            request.setAttribute("staff", staff);
+            request.setAttribute("medicalRecord", medicalRecord);
+
+            // Forward to the view page
+            request.getRequestDispatcher("/Common_JSP/customer-view-medical-record.jsp").forward(request, response);
+
+        } catch (NumberFormatException e) {
+            request.setAttribute("errorMessage", "Record ID must be a valid number.");
+           
+        } catch (Exception e) {
+            request.setAttribute("errorMessage", "An unexpected error occurred: " + e.getMessage());
+           
+        }
     }
 
     /** 

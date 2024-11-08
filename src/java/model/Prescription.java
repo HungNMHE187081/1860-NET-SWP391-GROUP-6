@@ -12,6 +12,7 @@ public class Prescription {
     private int prescriptionID;
     private int recordID;
     private int medicineID;
+    private int userID;
     private String dosage;
     private String frequency;
     private String duration;
@@ -25,6 +26,14 @@ public class Prescription {
     private String diagnosis;
     private String medicineName;
     public Prescription() {
+    }
+
+    public int getUserID() {
+        return userID;
+    }
+
+    public void setUserID(int userID) {
+        this.userID = userID;
     }
 
 

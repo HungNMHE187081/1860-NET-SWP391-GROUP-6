@@ -5,7 +5,7 @@
 
 package controller;
 
-import dal.ChildrenDAO;
+import dal.PrescriptionDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,15 +13,20 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import model.Children;
+import java.util.Map;
+import model.MedicalRecord;
+import model.MedicalRecordDAO;
+import model.Prescription;
 import model.Users;
 
 /**
  *
  * @author User
  */
-public class ListChildren extends HttpServlet {
+public class CustomerPrescription extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -38,10 +43,10 @@ public class ListChildren extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ListChildren</title>");  
+            out.println("<title>Servlet CustomerPrescription</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ListChildren at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet CustomerPrescription at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -55,29 +60,52 @@ public class ListChildren extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @Override
+ @Override
 protected void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
     HttpSession session = request.getSession();
     Users user = (session != null) ? (Users) session.getAttribute("user") : null;
 
     if (user != null) {
-        ChildrenDAO cDAO = new ChildrenDAO();
-        List<Children> listChild = cDAO.getChildrenByCustomerID(user.getUserID());
+        try {
+            PrescriptionDAO dao = new PrescriptionDAO();
+            MedicalRecordDAO mDAO = new MedicalRecordDAO();
 
-        // Log kiểm tra dữ liệu
-        System.out.println("Number of Children: " + listChild.size());
-        for (Children child : listChild) {
-            System.out.println("Child ID: " + child.getChildID() + ", Image: " + child.getChildImage());
+            // Retrieve the search parameter from the request
+            String search = request.getParameter("search");
+            if (search == null) search = "";  // Default to empty if no search query is provided
+
+            // Retrieve the list of prescriptions based on the search input
+            List<Prescription> listPre = dao.getAllPrescriptions(search);
+
+            // Tạo Map để nhóm các Prescription theo recordID
+            Map<Integer, List<Prescription>> groupedPrescriptions = new HashMap<>();
+            for (Prescription pre : listPre) {
+                groupedPrescriptions.computeIfAbsent(pre.getRecordID(), k -> new ArrayList<>()).add(pre);
+            }
+
+            // Lấy thông tin MedicalRecord cho từng recordID
+            Map<Integer, MedicalRecord> medicalRecords = new HashMap<>();
+            for (Integer recordID : groupedPrescriptions.keySet()) {
+                MedicalRecord medicalRecord = mDAO.getMedicalRecordByID(recordID);
+                if (medicalRecord != null) {
+                    medicalRecords.put(recordID, medicalRecord);
+                }
+            }
+
+            // Set the grouped list and medical records as request attributes
+            request.setAttribute("user", user);
+            request.setAttribute("groupedPrescriptions", groupedPrescriptions);
+            request.setAttribute("medicalRecords", medicalRecords); // Thêm medicalRecords vào thuộc tính request
+            request.getRequestDispatcher("/Common_JSP/customer-prescription-list.jsp").forward(request, response);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        
-        request.setAttribute("listChild", listChild);
-        request.getRequestDispatcher("/Common_JSP/user-children.jsp").forward(request, response);
     } else {
-        response.sendRedirect(request.getContextPath() + "/login");  // Dùng sendRedirect thay vì forward để chuyển hướng rõ ràng
+        response.sendRedirect(request.getContextPath() + "/login.jsp");
     }
 }
- 
+
 
     /** 
      * Handles the HTTP <code>POST</code> method.

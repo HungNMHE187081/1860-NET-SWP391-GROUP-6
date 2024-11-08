@@ -23,6 +23,27 @@ import model.Ward;
  * @author HÙNG
  */
 public class UserDAO extends DBContext {
+public List<Integer> getChildrenByUserId(int userId) {
+    List<Integer> childIds = new ArrayList<>();
+    String sql = "SELECT c.ChildID " +
+                 "FROM Users u " +
+                 "JOIN Children c ON u.UserID = c.CustomerID " +
+                 "WHERE u.UserID = ?";
+
+    try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+        preparedStatement.setInt(1, userId);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
+            childIds.add(resultSet.getInt("ChildID"));
+        }
+    } catch (SQLException e) {
+        // Xử lý lỗi: có thể ghi log lỗi hoặc ném ngoại lệ để thông báo cho lớp gọi
+        e.printStackTrace(); // In ra lỗi vào console
+        // Bạn có thể ném ngoại lệ hoặc xử lý theo cách khác tùy thuộc vào nhu cầu của bạn
+    }
+
+    return childIds;
+}
 
     public List<Users> getAllUsers() {
         List<Users> users = new ArrayList<>();
@@ -315,12 +336,10 @@ public class UserDAO extends DBContext {
         String sqlUsers = "INSERT INTO Users (Email) VALUES (?)";
         String sqlUserAuth = "INSERT INTO UserAuthentication (UserID, Username, PasswordHash, Salt, LastLogin) VALUES (?, ?, ?, ?, ?)";
         String sqlAddress = "INSERT INTO UserAddresses (UserID) VALUES (?)";
-        String sqlUserRole = "INSERT INTO UserRoles (UserID, RoleID) VALUES (?, ?)";
 
         try (PreparedStatement stmtUsers = connection.prepareStatement(sqlUsers, Statement.RETURN_GENERATED_KEYS); 
-             PreparedStatement stmtUserAuth = connection.prepareStatement(sqlUserAuth);
-             PreparedStatement stmtAddress = connection.prepareStatement(sqlAddress);
-             PreparedStatement stmtUserRole = connection.prepareStatement(sqlUserRole)) {
+            PreparedStatement stmtUserAuth = connection.prepareStatement(sqlUserAuth);
+            PreparedStatement stmtAddress = connection.prepareStatement(sqlAddress)) {
 
             // Insert into Users table
             stmtUsers.setString(1, user.getEmail());
@@ -343,15 +362,6 @@ public class UserDAO extends DBContext {
 
                     stmtAddress.setInt(1, userID);
                     stmtAddress.executeUpdate();
-
-                    // Thêm role Customer cho user mới
-                    RolesDAO rolesDAO = new RolesDAO();
-                    int customerRoleID = rolesDAO.getRoleIDByName("Customer");
-                    if (customerRoleID != -1) {
-                        stmtUserRole.setInt(1, userID);
-                        stmtUserRole.setInt(2, customerRoleID);
-                        stmtUserRole.executeUpdate();
-                    }
                 }
             }
         } catch (SQLException e) {

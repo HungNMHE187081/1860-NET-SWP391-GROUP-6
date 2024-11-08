@@ -134,7 +134,7 @@ public class PrescriptionDAO extends DBContext {
     String SQL_SELECT_PRESCRIPTIONS
             = "SELECT p.PrescriptionID, mr.RecordID, p.MedicineID, "
             + "c.FirstName AS ChildFirstName, c.MiddleName AS ChildMiddleName, c.LastName AS ChildLastName, "
-            + "u.FirstName AS UserFirstName, u.MiddleName AS UserMiddleName, u.LastName AS UserLastName, "
+            + "u.UserID as UserID, u.FirstName AS UserFirstName, u.MiddleName AS UserMiddleName, u.LastName AS UserLastName, "
             + "mr.Diagnosis, m.Name AS MedicineName, s.StaffName, p.Dosage, p.Frequency, p.Duration "
             + "FROM Prescriptions p "
             + "JOIN MedicalRecords mr ON p.RecordID = mr.RecordID "
@@ -157,6 +157,7 @@ public class PrescriptionDAO extends DBContext {
                 detail.setPrescriptionID(resultSet.getInt("PrescriptionID"));
                 detail.setRecordID(resultSet.getInt("RecordID"));
                 detail.setMedicineID(resultSet.getInt("MedicineID"));
+                detail.setUserID(resultSet.getInt("UserID"));
                 detail.setChildFirstName(resultSet.getString("ChildFirstName"));
                 detail.setChildMiddleName(resultSet.getString("ChildMiddleName"));
                 detail.setChildLastName(resultSet.getString("ChildLastName"));

@@ -89,6 +89,89 @@ public boolean existsMedicalRecord(MedicalRecord medicalRecord) {
             }
         }
     }
+public List<MedicalRecord> getMedicalRecordsByMonthAndChildName(String childName, String month) {
+    List<MedicalRecord> medicalRecords = new ArrayList<>();
+    StringBuilder sql = new StringBuilder("""
+        SELECT 
+            mr.recordID, 
+            mr.childID, 
+            mr.staffID, 
+            mr.reservationID, 
+            mr.diagnosis, 
+            mr.treatment, 
+            mr.notes, 
+            mr.recordDate, 
+            r.reservationDate, 
+            c.firstName AS firstNameChild, 
+            c.middleName AS middleNameChild, 
+            c.lastName AS lastNameChild, 
+            c.childImage
+        FROM 
+            MedicalRecords mr
+        JOIN 
+            Children c ON mr.childID = c.childID
+        LEFT JOIN 
+            Reservations r ON mr.reservationID = r.reservationID
+        WHERE 1=1
+        """);
+
+    if (childName != null && !childName.isEmpty()) {
+        sql.append("""
+            AND (
+                CONCAT(c.firstName, ' ', c.middleName, ' ', c.lastName) LIKE ? 
+                OR CONCAT(c.firstName, ' ', c.lastName) LIKE ? 
+                OR c.firstName LIKE ? 
+                OR c.middleName LIKE ? 
+                OR c.lastName LIKE ?
+            ) 
+        """);
+    }
+
+    if (month != null && !month.isEmpty()) {
+        sql.append("AND MONTH(r.reservationDate) = ? ");
+    }
+
+    try (PreparedStatement ps = connection.prepareStatement(sql.toString())) {
+        int paramIndex = 1;
+
+        if (childName != null && !childName.isEmpty()) {
+            String searchPattern = "%" + childName + "%";
+            ps.setString(paramIndex++, searchPattern);  // For full name with middle name
+            ps.setString(paramIndex++, searchPattern);  // For full name without middle name
+            ps.setString(paramIndex++, searchPattern);  // For first name only
+            ps.setString(paramIndex++, searchPattern);  // For middle name only
+            ps.setString(paramIndex++, searchPattern);  // For last name only
+        }
+
+        if (month != null && !month.isEmpty()) {
+            ps.setInt(paramIndex++, Integer.parseInt(month));
+        }
+
+        try (ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                MedicalRecord record = new MedicalRecord(
+                        rs.getInt("recordID"),
+                        rs.getInt("childID"),
+                        rs.getInt("staffID"),
+                        rs.getInt("reservationID"),
+                        rs.getString("diagnosis"),
+                        rs.getString("treatment"),
+                        rs.getString("notes"),
+                        rs.getString("childImage"),
+                        rs.getString("firstNameChild"),
+                        rs.getString("middleNameChild"),
+                        rs.getString("lastNameChild"),
+                        rs.getDate("recordDate")
+                );
+                record.setReservationDate(rs.getDate("reservationDate"));
+                medicalRecords.add(record);
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return medicalRecords;
+}
 
     public MedicalRecord getMedicalRecordByID(int recordID) {
         MedicalRecord medicalRecord = null;

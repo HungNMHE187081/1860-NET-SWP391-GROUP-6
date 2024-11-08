@@ -1,7 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -184,13 +184,7 @@
                     <form action="${pageContext.request.contextPath}/customer/homepagemedicalrecordlist" method="get" class="filter-form">
                         <div class="filter-group">
                             <input type="text" name="search" value="${param.search}" placeholder="Tìm theo tên trẻ" />
-                            <select name="month" class="month-select">
-                                <option value="">Lọc theo tháng khám</option>
-                                <c:forEach var="i" begin="1" end="12">
-                                    <option value="${i}" <c:if test="${i == param.month}">selected</c:if>>Tháng ${i}</option>
-                                </c:forEach>
-                            </select>
-
+                           
                             <button type="submit"><i class="fas fa-filter"></i> Lọc và tìm kiếm</button>
 
                         </div>
@@ -203,45 +197,74 @@
                                     <tr>
                                         <th class="text-center py-4" style="min-width: 100px;">Số thứ tự</th>
                                         <th class="text-center py-4" style="min-width: 200px;">Tên con của bạn</th>
+                                        <th class="text-center py-4" style="min-width: 200px;">Tên phụ huynh</th>
                                         <th class="text-center py-4" style="min-width: 200px;">Chẩn đoán</th>
-                                        <th class="text-center py-4" style="min-width: 200px;">Điều trị</th>
-                                        <th class="text-center py-4" style="min-width: 200px;">Ghi chú</th>
+                                        <th class="text-center py-4" style="min-width: 200px;">Loại thuốc</th>
+                                        <th class="text-center py-4" style="min-width: 200px;">Nhân viên khám</th>
+
+                                        <th class="text-center py-4" style="min-width: 200px;">Liều dùng</th>
+                                        <th class="text-center py-4" style="min-width: 200px;">Tần suất</th>
+                                        <th class="text-center py-4" style="min-width: 200px;">Thời điểm sử dụng</th>
                                         <th class="text-center py-4" style="min-width: 200px;">Ngày khám</th>
 
-                                        <th class="text-center py-4" style="min-width: 150px;">Xem chi tiết</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <c:if test="${not empty records}">
-                                        <c:forEach var="record" items="${records}" varStatus="status">
-                                            <c:if test="${fn:contains(childrens, record.childID)}"> <!-- Kiểm tra nếu childID có trong childrens -->
+                                    <c:if test="${not empty groupedPrescriptions}">
+                                        <c:forEach var="entry" items="${groupedPrescriptions}" varStatus="status">
+                                            <c:set var="recordID" value="${entry.key}" />
+                                            <c:set var="prescriptionList" value="${entry.value}" />
+
+                                            <!-- Kiểm tra nếu userID của prescriptionList[0] trùng với user.userID -->
+                                            <c:if test="${prescriptionList[0].userID == user.userID}">
                                                 <tr>
                                                     <td>${status.index + 1}</td>
-                                                    <td><c:out value="${record.firstNameChild} ${record.middleNameChild} ${record.lastNameChild}" /></td>
-                                                    <td><c:out value="${record.diagnosis}" /></td>
-                                                    <td><c:out value="${record.treatment}" /></td>
-                                                    <td><c:out value="${record.notes}" /></td>
                                                     <td>
-                                                        <fmt:formatDate value="${record.reservationDate}" pattern="dd-MM-yyyy" />
+                                                        <c:out value="${prescriptionList[0].childFirstName} ${prescriptionList[0].childMiddleName} ${prescriptionList[0].childLastName}" />
                                                     </td>
-                                                    <td class="function-column" style="display: flex; align-items: center;">
-                                                        <form action="${pageContext.request.contextPath}/customer/viewmedicalrecord" method="post" style="display: inline;">
-                                                            <input type="hidden" name="recordID" value="${record.recordID}">
-                                                            <button class="btn" title="Xem chi tiết" style="margin-right: 1px; padding: 5px 20px; font-size: 14px;">
-                                                                <i class="fas fa-eye" style="margin: 0;"></i>
-                                                            </button>
-                                                        </form>
+                                                    <td>
+                                                        <c:out value="${prescriptionList[0].userFirstName} ${prescriptionList[0].userMiddleName} ${prescriptionList[0].userLastName}" />
                                                     </td>
+                                                    <td>
+                                                        <c:out value="${prescriptionList[0].diagnosis}" />
+                                                    </td>
+                                                    <td>
+                                                        <!-- Hiển thị danh sách các loại thuốc cho recordID này -->
+                                                        <c:forEach var="med" items="${prescriptionList}">
+                                                            <c:out value="${med.medicineName}" /><br/>
+                                                        </c:forEach>
+                                                    </td>
+                                                    <td>
+                                                        <!-- Hiển thị tên nhân viên -->
+                                                        ${prescriptionList[0].staffName}
+                                                    </td>
+                                                    <td>
+                                                        <c:out value="${prescriptionList[0].dosage}" />
+                                                    </td>
+                                                    <td>
+                                                        <c:out value="${prescriptionList[0].frequency}" />
+                                                    </td>
+                                                    <td>
+                                                        <c:out value="${prescriptionList[0].duration}" />
+                                                    </td>
+                                                    <td>
+                                                        <!-- Lấy medicalRecord tương ứng với recordID -->
+                                                        <c:set var="medicalRecord" value="${medicalRecords[recordID]}" />
+                                                        <fmt:formatDate value="${medicalRecord.reservationDate}" pattern="dd-MM-yyyy" />
+                                                    </td>
+
                                                 </tr>
                                             </c:if>
                                         </c:forEach>
+
                                     </c:if>
-                                    <c:if test="${empty records}">
+                                    <c:if test="${empty groupedPrescriptions}">
                                         <tr>
                                             <td colspan="7" style="text-align: center;">Không tìm thấy hồ sơ</td>
                                         </tr>
                                     </c:if>
                                 </tbody>
+
 
                             </table>
 

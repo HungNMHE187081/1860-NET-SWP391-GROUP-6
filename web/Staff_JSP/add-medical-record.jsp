@@ -166,7 +166,7 @@
             <c:if test="${param.error == 'true'}">
                 <p style="color: red;">Error adding medical record. Please try again.</p>
             </c:if>
-            <form action="${pageContext.request.contextPath}/addmedicalrecord" method="post">
+            <form action="${pageContext.request.contextPath}/staff/addmedicalrecord" method="post">
                 <input type="hidden" name="reservationID" value="${reservationID}">
                 <input type="hidden" name="childID" value="${childID}">
                 <label for="childName">Tên trẻ được khám:</label>

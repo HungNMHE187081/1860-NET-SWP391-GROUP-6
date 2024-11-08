@@ -734,7 +734,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddMedicalRecord</servlet-name>
-        <url-pattern>/addmedicalrecord</url-pattern>
+        <url-pattern>/staff/addmedicalrecord</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>StaffSearchNewReservationServlet</servlet-name>
