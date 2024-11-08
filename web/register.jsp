@@ -1,9 +1,12 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
+    <title>Đăng kí</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
@@ -25,22 +28,22 @@
         <div class="flex justify-center mb-6">
             <div class="logo rounded-full"></div>
         </div>
-        <h2 class="text-center text-3xl font-bold text-gray-700 mb-4">Register</h2>
+        <h2 class="text-center text-3xl font-bold text-gray-700 mb-4">Đăng kí</h2>
         <form action="${pageContext.request.contextPath}/register" method="post">
             <div class="mb-4">
-                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" id="username" name="username" placeholder="Username" required>
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" id="username" name="username" placeholder="Tên đăng nhập" required>
             </div>
             <div class="mb-4">
                 <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="email" id="email" name="email" placeholder="Email" required>
             </div>
             <div class="mb-4">
-                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="password" id="password" name="password" placeholder="Password" required>
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="password" id="password" name="password" placeholder="Mật khẩu" required>
             </div>
             <div class="mb-6">
-                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="password" id="repassword" name="repassword" placeholder="Re-enter Password" required>
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="password" id="repassword" name="repassword" placeholder="Nhập lại mật khẩu" required>
             </div>
             <div class="mb-6">
-                <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 w-full rounded focus:outline-none focus:shadow-outline" type="submit">Register</button>
+                <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 w-full rounded focus:outline-none focus:shadow-outline" type="submit">Đăng kí</button>
             </div>
             <% if (request.getParameter("error") != null) { %>
                 <p class="text-center text-red-500 text-sm"><%= request.getParameter("error") %></p>

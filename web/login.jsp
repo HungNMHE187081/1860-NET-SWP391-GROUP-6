@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Đăng nhập</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
@@ -27,26 +27,26 @@
         <div class="flex justify-center mb-6">
             <div class="logo rounded-full"></div>
         </div>
-        <h2 class="text-center text-3xl font-bold text-gray-700 mb-4">Login</h2>
+        <h2 class="text-center text-3xl font-bold text-gray-700 mb-4">Đăng nhập</h2>
         <form action="${pageContext.request.contextPath}/login" method="POST">
             <div class="mb-4">
-                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name="username" placeholder="Username" required>
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name="username" placeholder="Tên đăng nhập" required>
             </div>
             <div class="mb-6">
-                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" type="password" name="password" placeholder="Password" required>
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" type="password" name="password" placeholder="Mật khẩu" required>
             </div>
             <div class="text-center mt-4">
                 <a href="${pageContext.request.contextPath}/forgotpassword" 
                    class="text-blue-500 hover:text-blue-700">Quên mật khẩu?</a>
             </div>
             <div class="mb-6">
-                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 w-full rounded focus:outline-none focus:shadow-outline" type="submit">Login</button>
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 w-full rounded focus:outline-none focus:shadow-outline" type="submit">Đăng nhập</button>
             </div> 
             <div class="flex items-center justify-between mb-6">
-                <hr class="w-full" /> <span class="p-2 text-gray-400 mb-1">OR</span> <hr class="w-full" />
+                <hr class="w-full" /> <span class="p-2 text-gray-400 mb-1">Hoặc</span> <hr class="w-full" />
             </div>
             <p class="text-center text-gray-600 text-sm">
-                Don't have an account? <a href="${pageContext.request.contextPath}/register" class="text-blue-500 hover:text-blue-700">Register</a>
+                Chưa có tài khoản? <a href="${pageContext.request.contextPath}/register" class="text-blue-500 hover:text-blue-700">Đăng kí</a>
             </p>
             <% if (request.getParameter("error") != null) { %>
                 <p class="text-center text-red-500 text-sm"><%= request.getParameter("error") %></p>
