@@ -200,8 +200,8 @@
                             </div>
                             <div class="form-group col-md-4">
                                 <label class="control-label">Giá (VNĐ)</label>
-                                <input class="form-control" type="text" id="price" name="price"
-                                       value="<fmt:formatNumber value='${service.price}' type='number' groupingUsed='true' />" required="">
+                                <input class="form-control" type="number" id="price" name="price"
+                                       value="${service.price}" required="">
                             </div>
                             <div class="form-group col-md-4">
                                 <label class="control-label">Thời gian khám tối đa (Phút)</label>

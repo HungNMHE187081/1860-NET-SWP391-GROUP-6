@@ -15,7 +15,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Main CSS-->
-                <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/manager/services.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/manager/services.css">
 
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
         <!-- or -->
@@ -168,7 +168,12 @@
                     <div class="tile">
 
                         <h3 class="tile-title">Tạo mới dịch vụ</h3>
-
+                        <c:if test="${not empty param.message}">
+                            <div class="alert alert-success">${param.message}</div>
+                        </c:if>
+                        <c:if test="${not empty param.error}">
+                            <div class="alert alert-danger">${param.error}</div>
+                        </c:if>
                         <div class="tile-body">
                             <form class="row" method="post" action="addservice" enctype="multipart/form-data">
                                 <div class="form-group col-md-12">
@@ -210,7 +215,7 @@
                                     <label class="control-label">Thời gian khám tối đa (Phút)</label>
                                     <input class="form-control" type="number" id="duration" name="duration" required>
                                 </div>
-                                
+
 
                                 <div class="form-group col-md-4">
                                     <label for="exampleSelect1" class="control-label">Tình trạng hoạt động</label>
@@ -226,7 +231,7 @@
                                     <textarea class="form-control" type="text" id="description" name="description" required=""
                                               style="resize: none; overflow-y: auto; min-height: 300px;"></textarea>
                                 </div>
-                                
+
                                 <div class="form-group col-md-12">
                                     <label class="control-label">Ảnh dịch vụ</label>
                                     <div id="myfileupload">

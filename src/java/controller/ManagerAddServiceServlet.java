@@ -50,7 +50,7 @@ public class ManagerAddServiceServlet extends HttpServlet {
                 break;
             }
         }
-        
+
         CategoryDAO categoryDAO = new CategoryDAO();
         List<Category> categories = categoryDAO.getAllCategories();
 
@@ -60,7 +60,7 @@ public class ManagerAddServiceServlet extends HttpServlet {
                 break;
             }
         }
-        
+
         DegreeDAO degreeDAO = new DegreeDAO();
         List<Degree> degrees = degreeDAO.getAllDegrees();
 
@@ -93,6 +93,16 @@ public class ManagerAddServiceServlet extends HttpServlet {
         String filePath = uploadDir + File.separator + fileName;
         filePart.write(filePath);
         String img = "uploads" + File.separator + fileName;
+        if (price < 100000) {
+            response.sendRedirect(request.getContextPath() + "/manager/addservice?error=Giá dịch vụ tối thiểu là 100,000 đồng");
+            return;
+        }
+        else if (duration < 10) {
+            response.sendRedirect(request.getContextPath() + "/manager/addservice?error=Thời gian khám tối đa tối thiểu là 10 phút");
+            return;
+        }
+        else{
+        
 
         Service service = new Service();
         service.setServiceName(serviceName);
@@ -109,6 +119,7 @@ public class ManagerAddServiceServlet extends HttpServlet {
         serviceDAO.insertService(service);
 
         response.sendRedirect(request.getContextPath() + "/manager/serviceslist");
+        }
     }
 
     @Override

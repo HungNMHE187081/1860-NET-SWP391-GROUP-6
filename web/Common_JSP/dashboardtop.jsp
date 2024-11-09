@@ -97,7 +97,7 @@
                 </li>
 
                 <li class="has-submenu parent-menu-item">
-                    <a href="${pageContext.request.contextPath}/customer/bloglist">Bài viết<span class="menu-arrow"></span></a>
+                    <a href="${pageContext.request.contextPath}/customer/bloglist">Bài viết</a>
                 </li>
 
                 <li class="has-submenu parent-parent-menu-item">
@@ -121,9 +121,6 @@
                     </a>
                     <span class="menu-arrow"></span>
                     <ul class="submenu">
-                        <li><a href="${pageContext.request.contextPath}/customer/viewcart" class="sub-menu-item">
-                                <i class="uil uil-shopping-cart me-1"></i>Giỏ hàng</a>
-                        </li>
                         <li><a href="${pageContext.request.contextPath}/customer/listreservations" class="sub-menu-item">
                                 <i class="uil uil-calendar-alt me-1"></i>Lịch hẹn sắp tới</a>
                         </li>

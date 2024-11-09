@@ -102,6 +102,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <c:if test="${not empty reservations}">
                                     <c:forEach var="reservation" items="${reservations}" varStatus="status">
                                         <tr>
                                             <td class="p-3">${status.index + 1}</td>
@@ -127,6 +128,12 @@
                                             </td>
                                         </tr>
                                     </c:forEach>
+                                        </c:if>
+                                    <c:if test="${empty reservations}">
+                                        <tr>
+                                            <td colspan="7" style="text-align: center;">Không có lịch khám mới</td>
+                                        </tr>
+                                    </c:if>
                                 </tbody>
                             </table>
                         </div>

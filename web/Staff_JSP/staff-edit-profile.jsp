@@ -181,19 +181,7 @@
     </head>
 
     <body class="app sidebar-mini rtl">
-        <header class="app-header">
-            <a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a>
-            <ul class="app-nav">
-                <li><a class="app-nav__item" href="/index.html"><i class='bx bx-log-out bx-rotate-180'></i></a></li>
-            </ul>
-        </header>
-
-        
-        <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
-        <aside class="app-sidebar">
-            <!-- Sidebar content remains the same -->
-        </aside>
-
+        <%@ include file="dashboardtop.jsp" %>
         <main class="app-content">
             <div class="row">
                 <div class="col-md-12">

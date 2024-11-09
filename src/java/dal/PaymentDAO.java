@@ -251,6 +251,24 @@ public class PaymentDAO extends DBContext {
         return null;
     }
     
-    
+    public void updatePaymentStatusByReservationId(int reservationId) {
+        String sql = "UPDATE Payments SET PaymentStatus = 'SUCCESS' " +
+                     "WHERE ReservationID = ? AND PaymentStatus = 'PENDING'";
+        try (Connection conn = this.connection;
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+             
+            ps.setInt(1, reservationId);
+            int rowsUpdated = ps.executeUpdate();
+            
+            if (rowsUpdated > 0) {
+                System.out.println("Payment status updated to 'SUCCESS' for ReservationID: " + reservationId);
+            } else {
+                System.out.println("No payments found with ReservationID: " + reservationId + " and PaymentStatus: 'PENDING'");
+            }
+        } catch (SQLException e) {
+            System.out.println("Error updating payment status: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
     
 }

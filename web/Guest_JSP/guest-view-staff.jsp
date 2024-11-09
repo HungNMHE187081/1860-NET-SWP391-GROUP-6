@@ -395,6 +395,7 @@
                 margin-bottom: 1rem;
             }
         }
+        </style>
     <!-- Back to top -->
     <a href="#" onclick="topFunction()" id="back-to-top" class="btn btn-icon btn-pills btn-primary back-to-top"><i data-feather="arrow-up" class="icons"></i></a>
     <!-- Back to top -->

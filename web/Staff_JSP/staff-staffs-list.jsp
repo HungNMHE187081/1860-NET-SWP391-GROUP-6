@@ -60,21 +60,7 @@
         </style>
     </head>
     <body>
-        <!-- Header -->
-        <header>
-            <div class="container">
-                <h1><i class="fas fa-hospital"></i> Child Care</h1>
-                <nav>
-                    <ul>
-                        <li><a href="staff/staffhomepage"><i class="fas fa-home"></i> Trang chủ</a></li>
-                        <li><a href="profile.jsp"><i class="fas fa-user"></i> Thông tin cá nhân</a></li>
-                        <li><a href="logout.jsp" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </header>
-
-        <!-- Main Wrapper -->
+        <%@ include file="dashboardtop.jsp" %>
         <div class="main-wrapper">
             <!-- Sidebar -->
             <%@ include file="leftside.jsp" %>

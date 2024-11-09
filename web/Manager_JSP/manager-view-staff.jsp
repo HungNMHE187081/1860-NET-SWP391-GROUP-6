@@ -193,20 +193,32 @@
                                     </div>
                                     <div class="form-group col-md-4">
                                         <label class="control-label">Chức vụ</label>
+                                        <c:set var="degreeFound" value="false" />
                                         <c:forEach var="degree" items="${degrees}">
                                             <c:if test="${degree.degreeID == staff.degreeID}">
-                                                <input class="form-control" type="text" id="degree" name="degree" value="${degree.degreeName}" readonly="">
+                                                <input class="form-control" type="text" id="degree" name="degree" value="${degree.degreeName}" readonly>
+                                                <c:set var="degreeFound" value="true" />
                                             </c:if>
                                         </c:forEach>
+                                        <c:if test="${!degreeFound}">
+                                            <input class="form-control" type="text" id="degree" name="degree" value="" readonly>
+                                        </c:if>
                                     </div>
+                                    
                                     <div class="form-group col-md-4">
                                         <label class="control-label">Khoa</label>
+                                        <c:set var="specializationFound" value="false" />
                                         <c:forEach var="specialization" items="${specializations}">
                                             <c:if test="${specialization.specializationID == staff.specializationID}">
-                                                <input class="form-control" type="text" id="specialization" name="specialization" value="${specialization.specializationName}" readonly="">
+                                                <input class="form-control" type="text" id="specialization" name="specialization" value="${specialization.specializationName}" readonly>
+                                                <c:set var="specializationFound" value="true" />
                                             </c:if>
                                         </c:forEach>
+                                        <c:if test="${!specializationFound}">
+                                            <input class="form-control" type="text" id="specialization" name="specialization" value="" readonly>
+                                        </c:if>
                                     </div>
+                                    
                                     <div class="form-group col-md-4">
                                         <label class="control-label">Tỉnh/Thành phố</label>
                                         <input class="form-control" type="text" id="province" name="province" value="${user.address.provinces.provinceName}" readonly="">

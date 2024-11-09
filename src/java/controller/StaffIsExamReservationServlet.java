@@ -5,6 +5,7 @@
 
 package controller;
 
+import dal.PaymentDAO;
 import dal.ReservationDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -23,13 +24,28 @@ public class StaffIsExamReservationServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        int reservationID = Integer.parseInt(request.getParameter("reservationID"));
-                
-        ReservationDAO reservationDAO = new ReservationDAO();
-
-        reservationDAO.updateIsExamReservation(reservationID);
-        
-        response.sendRedirect(request.getContextPath() + "/staff/newreservationslist");
+        try {
+            int reservationID = Integer.parseInt(request.getParameter("reservationID"));
+            
+            // Update the reservation status to indicate exam completion
+            ReservationDAO reservationDAO = new ReservationDAO();
+            reservationDAO.updateIsExamReservation(reservationID);
+            
+            // Update the payment status from 'PENDING' to 'SUCCESS'
+            PaymentDAO paymentDAO = new PaymentDAO();
+            paymentDAO.updatePaymentStatusByReservationId(reservationID);
+            
+            // Redirect back to the new reservations list
+            response.sendRedirect(request.getContextPath() + "/staff/newreservationslist");
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid ReservationID format.");
+            e.printStackTrace();
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid ReservationID.");
+        } catch (Exception e) {
+            System.out.println("Error processing reservation confirmation: " + e.getMessage());
+            e.printStackTrace();
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred while processing your request.");
+        }
     } 
 
     /** 

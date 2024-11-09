@@ -30,21 +30,31 @@ public class ManagerEditStaffServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        int StaffID = Integer.parseInt(request.getParameter("staffID"));
-        StaffDAO staffDAO = new StaffDAO();
-        Staff staff = staffDAO.getStaffByID(StaffID);
-        ManagerUserDAO userDAO = new ManagerUserDAO();
-        Users user = userDAO.getDetailUserByUserID(StaffID);
-        DegreeDAO degreeDAO = new DegreeDAO();
-        List<Degree> degrees = degreeDAO.getAllDegrees();
-        SpecializationDAO specializationDAO = new SpecializationDAO();
-        List<Specialization> specializations = specializationDAO.getAllSpecializations();
+        try {
+            int staffID = Integer.parseInt(request.getParameter("staffID"));
+            StaffDAO staffDAO = new StaffDAO();
+            Staff staff = staffDAO.getStaffByID(staffID);
 
-        request.setAttribute("staff", staff);
-        request.setAttribute("user", user);
-        request.setAttribute("degrees", degrees);
-        request.setAttribute("specializations", specializations);
-        request.getRequestDispatcher("/Manager_JSP/manager-edit-staff.jsp").forward(request, response);
+            ManagerUserDAO userDAO = new ManagerUserDAO();
+            Users user = userDAO.getDetailUserByUserID(staffID);
+
+            DegreeDAO degreeDAO = new DegreeDAO();
+            List<Degree> degrees = degreeDAO.getAllDegrees();
+
+            SpecializationDAO specializationDAO = new SpecializationDAO();
+            List<Specialization> specializations = specializationDAO.getAllSpecializations();
+
+            request.setAttribute("staff", staff);
+            request.setAttribute("user", user);
+            request.setAttribute("degrees", degrees);
+            request.setAttribute("specializations", specializations);
+            request.getRequestDispatcher("/Manager_JSP/manager-edit-staff.jsp").forward(request, response);
+        } catch (NumberFormatException e) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid Staff ID.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred while processing your request.");
+        }
     } 
 
     /** 
@@ -57,16 +67,34 @@ public class ManagerEditStaffServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        int StaffID = Integer.parseInt(request.getParameter("staffID"));
-        int degree = Integer.parseInt(request.getParameter("degree"));
-        int specialization = Integer.parseInt(request.getParameter("specialization"));
-        int yearsOfExperience = Integer.parseInt(request.getParameter("yearsOfExperience"));
-        String hireDate = request.getParameter("hireDate");
-        double salary = Double.parseDouble(request.getParameter("salary"));
-        
-        StaffDAO staffDAO = new StaffDAO();
-        staffDAO.updateStaff(StaffID, degree, specialization, yearsOfExperience, hireDate, salary);
-        response.sendRedirect(request.getContextPath() + "/manager/staffslist");
+        try {
+            // Retrieve form parameters
+            int staffID = Integer.parseInt(request.getParameter("staffID"));
+            String staffName = request.getParameter("staffName");
+            int yearsOfExperience = Integer.parseInt(request.getParameter("yearsOfExperience"));
+            int specializationID = Integer.parseInt(request.getParameter("specializationID"));
+            int degreeID = Integer.parseInt(request.getParameter("degreeID"));
+            String hireDate = request.getParameter("hireDate");
+            double salary = Double.parseDouble(request.getParameter("salary"));
+
+            // Optionally, retrieve user-related parameters if needed
+            String username = request.getParameter("username");
+            String email = request.getParameter("email");
+            // Add more user fields as necessary
+
+            // Update staff information
+            StaffDAO staffDAO = new StaffDAO();
+            staffDAO.updateStaff(staffID, degreeID, specializationID, yearsOfExperience, hireDate, salary);
+
+            response.sendRedirect(request.getContextPath() + "/manager/staffslist");
+        } catch (NumberFormatException e) {
+            request.setAttribute("error", "Invalid input format.");
+            doGet(request, response);
+        } catch (Exception e) {
+            e.printStackTrace();
+            request.setAttribute("error", "An error occurred while updating the staff.");
+            doGet(request, response);
+        }
     }
 
     /** 
