@@ -740,4 +740,21 @@ public List<Integer> getChildrenByUserId(int userId) {
         return String.valueOf(code);
     }
 
+    public boolean isEmailExists(String email) throws SQLException {
+        String sql = "SELECT COUNT(*) FROM Users WHERE Email = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, email);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1) > 0;
+                }
+            }
+        } catch (SQLException e) {
+            // Log lỗi và ném ngoại lệ để xử lý ở tầng trên
+            e.printStackTrace();
+            throw new SQLException("Lỗi khi kiểm tra email: " + e.getMessage());
+        }
+        return false;
+    }
+
 }

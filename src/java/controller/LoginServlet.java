@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import model.Users;
+import java.util.ArrayList;
 
 public class LoginServlet extends HttpServlet {
 
@@ -38,18 +39,44 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         System.out.println("=== LoginServlet doPost START ===");
+        
+        // Lấy thông tin đăng nhập
         String username = request.getParameter("username");
-        System.out.println("Login attempt for username: " + username);
+        String password = request.getParameter("password");
+        
+        // Tạo list để lưu các lỗi
+        List<String> errors = new ArrayList<>();
+
+        // 1. Validate username
+        if (username == null || username.trim().isEmpty()) {
+            errors.add("Vui lòng nhập tên đăng nhập");
+        } else if (username.length() < 3 || username.length() > 50) {
+            errors.add("Tên đăng nhập phải từ 3-50 ký tự");
+        }
+
+        // 2. Validate password
+        if (password == null || password.trim().isEmpty()) {
+            errors.add("Vui lòng nhập mật khẩu");
+        }
+
+        // Nếu có lỗi validate, trả về trang login với thông báo
+        if (!errors.isEmpty()) {
+            request.setAttribute("errors", errors);
+            request.setAttribute("username", username); // Giữ lại username đã nhập
+            request.getRequestDispatcher("/login.jsp").forward(request, response);
+            return;
+        }
 
         try {
-            UserAuthentication userAuth = userDAO.loginUser(username, request.getParameter("password"));
+            HttpSession session = request.getSession();
+            UserAuthentication userAuth = userDAO.loginUser(username, password);
+            
             if (userAuth != null) {
                 System.out.println("Authentication successful for UserID: " + userAuth.getUserID());
                 
                 Users user = userDAO.getUserWithAddressById(userAuth.getUserID());
                 System.out.println("Retrieved user details: " + user.getUserID());
 
-                HttpSession session = request.getSession(true);
                 session.setAttribute("user", user);
                 System.out.println("User set in session with ID: " + user.getUserID());
 
@@ -71,19 +98,19 @@ public class LoginServlet extends HttpServlet {
                 System.out.println("Redirecting to: " + redirectPath);
                 response.sendRedirect(request.getContextPath() + redirectPath);
                 
-                // Kiểm tra lại session sau khi set
-                Users sessionUser = (Users) session.getAttribute("user");
-                System.out.println("Verified user in session: " + 
-                    (sessionUser != null ? sessionUser.getUserID() : "null"));
-                
             } else {
                 System.out.println("Login failed for username: " + username);
-                response.sendRedirect("login.jsp?error=Invalid username or password");
+                errors.add("Tên đăng nhập hoặc mật khẩu không chính xác");
+                request.setAttribute("errors", errors);
+                request.setAttribute("username", username);
+                request.getRequestDispatcher("/login.jsp").forward(request, response);
             }
         } catch (Exception e) {
             System.out.println("Error in LoginServlet: " + e.getMessage());
             e.printStackTrace();
-            response.sendRedirect("login.jsp?error=System error occurred");
+            errors.add("Đã xảy ra lỗi hệ thống. Vui lòng thử lại sau");
+            request.setAttribute("errors", errors);
+            request.getRequestDispatcher("/login.jsp").forward(request, response);
         }
         
         System.out.println("=== LoginServlet doPost END ===");
