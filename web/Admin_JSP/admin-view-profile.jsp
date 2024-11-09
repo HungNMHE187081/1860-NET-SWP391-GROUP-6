@@ -24,176 +24,238 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/manager/main.css">
         <style>
             :root {
-                --primary-color: #4e73df;
-                --secondary-color: #858796;
-                --success-color: #1cc88a;
-                --gradient-1: linear-gradient(135deg, #6B73FF 0%, #000DFF 100%);
-                --gradient-2: linear-gradient(135deg, #97ABFF 10%, #123597 100%);
+                --primary-color: #2563eb;
+                --secondary-color: #1e40af;
+                --background-color: #f8fafc;
+                --card-background: #ffffff;
+                --text-color: #1e293b;
+                --border-radius: 16px;
+                --transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
+            }
+
+            body {
+                font-family: 'Inter', system-ui, -apple-system, sans-serif;
+                background-color: var(--background-color);
+                color: var(--text-color);
+                line-height: 1.6;
             }
 
             .profile-wrapper {
-                padding: 2rem;
-                background-color: #f8f9fc;
-                min-height: calc(100vh - 60px);
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 24px;
+                animation: fadeIn 0.6s var(--transition-timing);
             }
 
             .profile-header {
-                background: var(--gradient-1);
-                border-radius: 15px;
-                padding: 3rem 2rem;
+                background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
                 color: white;
-                margin-bottom: 2rem;
+                padding: 32px;
+                text-align: center;
                 position: relative;
                 overflow: hidden;
+                border-radius: var(--border-radius);
+                margin-bottom: 24px;
             }
 
             .profile-header::before {
                 content: '';
                 position: absolute;
                 top: 0;
+                left: 0;
                 right: 0;
                 bottom: 0;
-                left: 0;
-                background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><path fill="%23FFFFFF20" d="M 0 0 L 200 0 L 200 200 Z"/></svg>');
-                opacity: 0.1;
+                background: linear-gradient(45deg, rgba(255,255,255,0.1) 25%, transparent 25%),
+                            linear-gradient(-45deg, rgba(255,255,255,0.1) 25%, transparent 25%);
+                background-size: 60px 60px;
+                animation: headerPattern 60s linear infinite;
+            }
+
+            .user-name {
+                font-size: 28px;
+                font-weight: 700;
+                margin-bottom: 8px;
+                position: relative;
+            }
+
+            .user-title {
+                font-size: 18px;
+                opacity: 0.9;
+                position: relative;
             }
 
             .profile-content {
                 display: flex;
-                gap: 2rem;
+                flex-wrap: wrap;
+                gap: 24px;
             }
 
             .profile-sidebar {
-                flex: 0 0 300px;
-            }
-
-            .profile-main {
                 flex: 1;
+                min-width: 300px;
+                max-width: 350px;
             }
 
             .profile-image-card {
-                background: white;
-                border-radius: 15px;
-                padding: 1.5rem;
+                background-color: var(--card-background);
+                border-radius: var(--border-radius);
+                padding: 24px;
                 text-align: center;
-                box-shadow: 0 0.15rem 1.75rem rgba(33, 40, 50, 0.15);
-                margin-top: -100px;
-                position: relative;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
             }
 
             .profile-image {
                 width: 200px;
                 height: 200px;
                 border-radius: 50%;
-                border: 5px solid white;
-                box-shadow: 0 0 20px rgba(0,0,0,0.15);
-                margin-bottom: 1.5rem;
                 object-fit: cover;
+                border: 4px solid white;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                margin-bottom: 20px;
+                transition: transform 0.3s var(--transition-timing);
             }
 
-            .profile-card {
-                background: white;
-                border-radius: 15px;
-                padding: 1.5rem;
-                box-shadow: 0 0.15rem 1.75rem rgba(33, 40, 50, 0.15);
-                margin-bottom: 1.5rem;
-            }
-
-            .card-title {
-                font-size: 1.1rem;
-                font-weight: 600;
-                color: var(--primary-color);
-                margin-bottom: 1.5rem;
-                padding-bottom: 0.5rem;
-                border-bottom: 2px solid #e3e6f0;
-            }
-
-            .info-row {
-                display: flex;
-                margin-bottom: 1rem;
-                padding: 0.5rem 0;
-                border-bottom: 1px solid #f8f9fc;
-            }
-
-            .info-label {
-                flex: 0 0 150px;
-                font-weight: 600;
-                color: var(--secondary-color);
-            }
-
-            .info-value {
-                flex: 1;
-                color: #5a5c69;
+            .profile-image:hover {
+                transform: scale(1.05);
             }
 
             .contact-info {
-                display: flex;
-                flex-direction: column;
-                gap: 0.5rem;
-                margin-top: 1rem;
+                margin: 20px 0;
             }
 
             .contact-item {
                 display: flex;
                 align-items: center;
-                gap: 0.5rem;
-                color: #5a5c69;
+                justify-content: center;
+                margin-bottom: 12px;
+                padding: 8px;
+                border-radius: 8px;
+                transition: background-color 0.3s var(--transition-timing);
+            }
+
+            .contact-item:hover {
+                background-color: #f1f5f9;
             }
 
             .contact-item i {
-                width: 20px;
+                margin-right: 12px;
                 color: var(--primary-color);
+                font-size: 18px;
             }
 
             .edit-button {
-                display: inline-block;
-                padding: 0.75rem 1.5rem;
-                background: var(--gradient-2);
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                background-color: var(--primary-color);
                 color: white;
-                border-radius: 50px;
+                padding: 12px 20px;
+                border-radius: 12px;
                 text-decoration: none;
-                transition: all 0.3s ease;
-                border: none;
-                cursor: pointer;
-                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-                margin-top: 1rem;
-                text-align: center;
+                font-weight: 500;
+                transition: all 0.3s var(--transition-timing);
             }
 
             .edit-button:hover {
+                background-color: var(--secondary-color);
                 transform: translateY(-2px);
-                box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+                box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
                 color: white;
                 text-decoration: none;
             }
 
-            .user-name {
-                font-size: 2.5rem;
-                font-weight: 700;
-                margin-bottom: 0.5rem;
-                text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            .profile-main {
+                flex: 2;
+                min-width: 300px;
             }
 
-            .user-title {
-                font-size: 1.1rem;
-                opacity: 0.9;
+            .profile-card {
+                background-color: var(--card-background);
+                border-radius: var(--border-radius);
+                padding: 24px;
+                margin-bottom: 24px;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+                transition: transform 0.3s var(--transition-timing);
+                animation: slideUp 0.5s var(--transition-timing);
             }
 
-            @media (max-width: 992px) {
+            .profile-card:hover {
+                transform: translateY(-4px);
+            }
+
+            .card-title {
+                font-size: 20px;
+                font-weight: 600;
+                margin-bottom: 20px;
+                color: var(--primary-color);
+                display: flex;
+                align-items: center;
+                gap: 12px;
+            }
+
+            .info-row {
+                display: flex;
+                margin-bottom: 16px;
+                padding: 8px;
+                border-radius: 8px;
+                transition: background-color 0.3s var(--transition-timing);
+            }
+
+            .info-row:hover {
+                background-color: #f1f5f9;
+            }
+
+            .info-label {
+                flex: 0 0 150px;
+                font-weight: 500;
+                color: #64748b;
+            }
+
+            .info-value {
+                flex: 1;
+                color: #0f172a;
+            }
+
+            /* Animations */
+            @keyframes fadeIn {
+                from { opacity: 0; }
+                to { opacity: 1; }
+            }
+
+            @keyframes slideDown {
+                from {
+                    transform: translateY(-20px);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateY(0);
+                    opacity: 1;
+                }
+            }
+
+            @keyframes slideUp {
+                from {
+                    transform: translateY(20px);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateY(0);
+                    opacity: 1;
+                }
+            }
+
+            @keyframes headerPattern {
+                from { background-position: 0 0; }
+                to { background-position: 1000px 0; }
+            }
+
+            @media (max-width: 768px) {
                 .profile-content {
                     flex-direction: column;
                 }
 
                 .profile-sidebar {
-                    flex: 0 0 auto;
-                }
-
-                .profile-image-card {
-                    margin-top: 0;
-                }
-
-                .profile-header {
-                    padding: 2rem 1.5rem;
+                    max-width: 100%;
                 }
             }
         </style>

@@ -23,30 +23,47 @@
         <meta name="viewport"
               content="width=device-width, initial-scale=1.0">
         <title>View Profile</title>
-        <link rel="stylesheet"
-              href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-        <link rel="stylesheet"
-              href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-        <link rel="stylesheet"
-              href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
-        <link rel="stylesheet"
-              href="${pageContext.request.contextPath}/css/manager/main.css">
+        <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="${pageContext.request.contextPath}/css/materialdesignicons.min.css" rel="stylesheet" type="text/css"/>
+        <link href="${pageContext.request.contextPath}/css/remixicon.css" rel="stylesheet" type="text/css"/>
         <style>
             :root {
-                --primary-color: #4e73df;
-                --secondary-color: #858796;
-                --success-color: #1cc88a;
+                --primary-color: #2563eb;
+                --secondary-color: #1e40af;
+                --background-color: #f8fafc;
+                --card-background: #ffffff;
+                --text-color: #1e293b;
+                --border-radius: 16px;
+                --transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
                 --gradient-1: linear-gradient(135deg, #6B73FF 0%, #000DFF 100%);
                 --gradient-2: linear-gradient(135deg, #97ABFF 10%, #123597 100%);
             }
 
-            .profile-wrapper {
-                padding: 2rem;
-                background-color: #f8f9fc;
-                min-height: calc(100vh - 60px);
+            body {
+                font-family: 'Inter', system-ui, -apple-system, sans-serif;
+                background-color: var(--background-color);
+                color: var(--text-color);
+                line-height: 1.6;
+                margin: 0;
+                padding: 0;
             }
 
-            .profile-header {
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 24px;
+                animation: fadeIn 0.6s var(--transition-timing);
+            }
+
+            .profile {
+                background-color: var(--card-background);
+                border-radius: var(--border-radius);
+                padding: 2rem;
+                box-shadow: 0 0.15rem 1.75rem rgba(33, 40, 50, 0.15);
+                margin-bottom: 1.5rem;
+            }
+
+            .profile__header {
                 background: var(--gradient-1);
                 border-radius: 15px;
                 padding: 3rem 2rem;
@@ -56,31 +73,33 @@
                 overflow: hidden;
             }
 
-            .profile-header::before {
-                content: '';
-                position: absolute;
-                top: 0;
-                right: 0;
-                bottom: 0;
-                left: 0;
-                background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><path fill="%23FFFFFF20" d="M 0 0 L 200 0 L 200 200 Z"/></svg>');
-                opacity: 0.1;
+            .profile__name {
+                font-size: 2.5rem;
+                font-weight: 700;
+                margin-bottom: 0.5rem;
+                color: white;
             }
 
-            .profile-content {
+            .profile__title {
+                font-size: 1.1rem;
+                opacity: 0.9;
+                color: white;
+            }
+
+            .profile__content {
                 display: flex;
                 gap: 2rem;
             }
 
-            .profile-sidebar {
+            .profile__sidebar {
                 flex: 0 0 300px;
             }
 
-            .profile-main {
+            .profile__main {
                 flex: 1;
             }
 
-            .profile-image-card {
+            .profile__image-card {
                 background: white;
                 border-radius: 15px;
                 padding: 1.5rem;
@@ -90,7 +109,12 @@
                 position: relative;
             }
 
-            .profile-image {
+            .profile__image-container {
+                position: relative;
+                margin-bottom: 1.5rem;
+            }
+
+            .profile__image {
                 width: 200px;
                 height: 200px;
                 border-radius: 50%;
@@ -100,7 +124,7 @@
                 object-fit: cover;
             }
 
-            .profile-card {
+            .profile__card {
                 background: white;
                 border-radius: 15px;
                 padding: 1.5rem;
@@ -108,7 +132,7 @@
                 margin-bottom: 1.5rem;
             }
 
-            .card-title {
+            .profile__card-title {
                 font-size: 1.1rem;
                 font-weight: 600;
                 color: var(--primary-color);
@@ -117,44 +141,44 @@
                 border-bottom: 2px solid #e3e6f0;
             }
 
-            .info-row {
+            .profile__info-row {
                 display: flex;
                 margin-bottom: 1rem;
                 padding: 0.5rem 0;
                 border-bottom: 1px solid #f8f9fc;
             }
 
-            .info-label {
+            .profile__info-label {
                 flex: 0 0 150px;
                 font-weight: 600;
                 color: var(--secondary-color);
             }
 
-            .info-value {
+            .profile__info-value {
                 flex: 1;
                 color: #5a5c69;
             }
 
-            .contact-info {
+            .profile__contact-info {
                 display: flex;
                 flex-direction: column;
                 gap: 0.5rem;
                 margin-top: 1rem;
             }
 
-            .contact-item {
+            .profile__contact-item {
                 display: flex;
                 align-items: center;
                 gap: 0.5rem;
                 color: #5a5c69;
             }
 
-            .contact-item i {
+            .profile__contact-item i {
                 width: 20px;
                 color: var(--primary-color);
             }
 
-            .edit-button {
+            .profile__edit-button {
                 display: inline-block;
                 padding: 0.75rem 1.5rem;
                 background: var(--gradient-2);
@@ -169,39 +193,39 @@
                 text-align: center;
             }
 
-            .edit-button:hover {
+            .profile__edit-button:hover {
                 transform: translateY(-2px);
                 box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
                 color: white;
                 text-decoration: none;
             }
 
-            .user-name {
+            .profile__user-name {
                 font-size: 2.5rem;
                 font-weight: 700;
                 margin-bottom: 0.5rem;
                 text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             }
 
-            .user-title {
+            .profile__user-title {
                 font-size: 1.1rem;
                 opacity: 0.9;
             }
 
             @media (max-width: 992px) {
-                .profile-content {
+                .profile__content {
                     flex-direction: column;
                 }
 
-                .profile-sidebar {
+                .profile__sidebar {
                     flex: 0 0 auto;
                 }
 
-                .profile-image-card {
+                .profile__image-card {
                     margin-top: 0;
                 }
 
-                .profile-header {
+                .profile__header {
                     padding: 2rem 1.5rem;
                 }
             }
@@ -212,32 +236,35 @@
 
         <%@ include file="dashboardtop.jsp" %>
 
-        <main class="app-content">
-            <div class="profile-wrapper">
-                <div class="profile-header">
-                    <div class="user-name">
+        <div class="container">
+            <main class="profile">
+                <div class="profile__header">
+                    <div class="profile__name">
                         <%= userDetails.getFirstName() %>
                         <%= userDetails.getMiddleName() %>
                         <%= userDetails.getLastName() %>
                     </div>
-                    <div class="user-title">Thông tin cá nhân</div>
+                    <div class="profile__title">Thông tin cá nhân</div>
                 </div>
 
-                <div class="profile-content">
-                    <div class="profile-sidebar">
-                        <div class="profile-image-card">
-                            <img src="${pageContext.request.contextPath}/${userDetails.profileImage}"
-                                 alt="Profile Image"
-                                 class="profile-image">
-                            <div class="contact-info">
-                                <div class="contact-item">
+                <div class="profile__content">
+                    <div class="profile__sidebar">
+                        <div class="profile__image-card">
+                            <div class="profile__image-container">
+                                <img src="${pageContext.request.contextPath}/${userDetails.profileImage}"
+                                     alt="Ảnh đại diện"
+                                     class="profile__image">
+                                <div class="profile__image-overlay"></div>
+                            </div>
+                            <div class="profile__contact-info">
+                                <div class="profile__contact-item">
                                     <i class="fas fa-envelope"></i>
                                     <span>
                                         <%= userDetails.getEmail()
                                         %>
                                     </span>
                                 </div>
-                                <div class="contact-item">
+                                <div class="profile__contact-item">
                                     <i class="fas fa-phone"></i>
                                     <span>
                                         <%= userDetails.getPhoneNumber()
@@ -246,7 +273,7 @@
                                 </div>
                             </div>
                             <a href="${pageContext.request.contextPath}/staff/editprofile"
-                               class="edit-button">
+                               class="profile__edit-button">
                                 <i
                                     class="fas fa-edit mr-2"></i>Chỉnh
                                 sửa hồ sơ
@@ -254,87 +281,87 @@
                         </div>
                     </div>
 
-                    <div class="profile-main">
-                        <div class="profile-card">
-                            <div class="card-title">
+                    <div class="profile__main">
+                        <div class="profile__card">
+                            <div class="profile__card-title">
                                 <i
                                     class="fas fa-user mr-2"></i>Thông
                                 tin cơ bản
                             </div>
-                            <div class="info-row">
-                                <div class="info-label">Ngày sinh
+                            <div class="profile__info-row">
+                                <div class="profile__info-label">Ngày sinh
                                 </div>
-                                <div class="info-value">
+                                <div class="profile__info-value">
                                     <%= userDetails.getDateOfBirth()
                                     %>
                                 </div>
                             </div>
-                            <div class="info-row">
-                                <div class="info-label">Giới tính
+                            <div class="profile__info-row">
+                                <div class="profile__info-label">Giới tính
                                 </div>
-                                <div class="info-value">
+                                <div class="profile__info-value">
                                     <%= userDetails.getGender() %>
                                 </div>
                             </div>
-                            <div class="info-row">
-                                <div class="info-label">CCCD/CMND
+                            <div class="profile__info-row">
+                                <div class="profile__info-label">CCCD/CMND
                                 </div>
-                                <div class="info-value">
+                                <div class="profile__info-value">
                                     <%= userDetails.getCitizenIdentification()
                                     %>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="profile-card">
-                            <div class="card-title">
+                        <div class="profile__card">
+                            <div class="profile__card-title">
                                 <i
                                     class="fas fa-map-marker-alt mr-2"></i>Thông
                                 tin địa chỉ
                             </div>
-                            <div class="info-row">
-                                <div class="info-label">Địa chỉ
+                            <div class="profile__info-row">
+                                <div class="profile__info-label">Địa chỉ
                                 </div>
-                                <div class="info-value">
+                                <div class="profile__info-value">
                                     <%= address.getStreetAddress()
                                     %>
                                 </div>
                             </div>
-                            <div class="info-row">
-                                <div class="info-label">Phường/Xã
+                            <div class="profile__info-row">
+                                <div class="profile__info-label">Phường/Xã
                                 </div>
-                                <div class="info-value">
+                                <div class="profile__info-value">
                                     <%= ward.getWardName() %>
                                 </div>
                             </div>
-                            <div class="info-row">
-                                <div class="info-label">Quận/Huyện
+                            <div class="profile__info-row">
+                                <div class="profile__info-label">Quận/Huyện
                                 </div>
-                                <div class="info-value">
+                                <div class="profile__info-value">
                                     <%= district.getDistrictName()
                                     %>
                                 </div>
                             </div>
-                            <div class="info-row">
-                                <div class="info-label">Tỉnh/Thành
+                            <div class="profile__info-row">
+                                <div class="profile__info-label">Tỉnh/Thành
                                     phố</div>
-                                <div class="info-value">
+                                <div class="profile__info-value">
                                     <%= province.getProvinceName()
                                     %>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="profile-card">
-                            <div class="card-title">
+                        <div class="profile__card">
+                            <div class="profile__card-title">
                                 <i
                                     class="fas fa-graduation-cap mr-2"></i>Chuyên
                                 ngành
                             </div>
-                            <div class="info-row">
-                                <div class="info-label">Chuyên ngành
+                            <div class="profile__info-row">
+                                <div class="profile__info-label">Chuyên ngành
                                 </div>
-                                <div class="info-value">
+                                <div class="profile__info-value">
                                     <ul>
                                         <!-- Hiển thị chuyên ngành -->
                                         <c:if
@@ -348,16 +375,16 @@
                             </div>
                         </div>
 
-                        <div class="profile-card">
-                            <div class="card-title">
+                        <div class="profile__card">
+                            <div class="profile__card-title">
                                 <i
                                     class="fas fa-briefcase-medical mr-2"></i>Chuyên
                                 môn
                             </div>
-                            <div class="info-row">
-                                <div class="info-label">Chuyên môn
+                            <div class="profile__info-row">
+                                <div class="profile__info-label">Chuyên môn
                                 </div>
-                                <div class="info-value">
+                                <div class="profile__info-value">
                                     <ul>
                                         <!-- Hiển thị chuyên môn -->
                                         <c:if
@@ -373,8 +400,8 @@
 
                     </div>
                 </div>
-            </div>
-        </main>
+            </main>
+        </div>
 
         <!-- Essential javascripts for application to work-->
         <script

@@ -48,43 +48,41 @@
 
         <style>
             :root {
-                --primary-color: #4e73df;
-                --secondary-color: #858796;
-                --success-color: #1cc88a;
-                --gradient-1: linear-gradient(135deg, #6B73FF 0%, #000DFF 100%);
-                --gradient-2: linear-gradient(135deg, #97ABFF 10%, #123597 100%);
+                --primary-color: #2563eb;
+                --secondary-color: #1e40af;
+                --background-color: #f8fafc;
+                --card-background: #ffffff;
+                --text-color: #1e293b;
+                --border-radius: 16px;
+                --transition: all 0.3s ease;
             }
 
-            /* Header Styling */
-            .app-header {
-                background: var(--gradient-1);
-                border-bottom: none;
-                box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
-                position: fixed;
-                width: 100%;
-                z-index: 1000;
-            }
-
-            .app-header::after {
-                content: '';
-                position: absolute;
-                left: 0;
-                right: 0;
-                bottom: -50px;
-                height: 50px;
-                background: var(--gradient-1);
-                opacity: 0.3;
-                z-index: -1;
-            }
-
-            /* Profile Image Section */
-            .profile-image-section {
-                background: white;
-                border-radius: 15px;
+            .profile-wrapper {
                 padding: 2rem;
-                text-align: center;
-                box-shadow: 0 0.15rem 1.75rem rgba(33, 40, 50, 0.15);
+                background-color: var(--background-color);
+                min-height: calc(100vh - 60px);
+            }
+
+            .profile-header {
+                background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+                padding: 2rem;
+                border-radius: var(--border-radius);
+                color: white;
                 margin-bottom: 2rem;
+                text-align: center;
+            }
+
+            .profile-content {
+                display: grid;
+                grid-template-columns: 300px 1fr;
+                gap: 2rem;
+            }
+
+            .profile-sidebar {
+                background: var(--card-background);
+                border-radius: var(--border-radius);
+                padding: 1.5rem;
+                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
             }
 
             .profile-image-container {
@@ -92,90 +90,92 @@
                 height: 200px;
                 margin: 0 auto 1.5rem;
                 position: relative;
-                border-radius: 50%;
-                border: 5px solid white;
-                box-shadow: 0 0 20px rgba(0,0,0,0.15);
-                overflow: hidden;
             }
 
-            .profile-image-container img {
+            .profile-image {
                 width: 100%;
                 height: 100%;
+                border-radius: 50%;
                 object-fit: cover;
+                border: 4px solid white;
+                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
             }
 
-            .image-upload-wrapper {
-                position: relative;
-                margin-top: 1rem;
-            }
-
-            .custom-file-upload {
-                display: inline-block;
-                padding: 0.75rem 1.5rem;
-                background: var(--gradient-2);
+            .profile-upload-btn {
+                position: absolute;
+                bottom: 0;
+                right: 0;
+                background: var(--primary-color);
                 color: white;
-                border-radius: 50px;
+                border: none;
+                border-radius: 50%;
+                width: 40px;
+                height: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
                 cursor: pointer;
-                transition: all 0.3s ease;
-                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+                transition: var(--transition);
             }
 
-            .custom-file-upload:hover {
-                transform: translateY(-2px);
-                box-shadow: 0 6px 20px rgba(0,0,0,0.25);
-            }
-
-            input[type="file"] {
-                display: none;
-            }
-
-            /* Main Content Adjustments */
-            .app-content {
-                margin-top: 100px;
-                padding: 2rem;
-                background-color: #f8f9fc;
-                min-height: calc(100vh - 60px);
-            }
-
-            .tile {
-                background: white;
-                border-radius: 15px;
-                box-shadow: 0 0.15rem 1.75rem rgba(33, 40, 50, 0.15);
+            .profile-card {
+                background: var(--card-background);
+                border-radius: var(--border-radius);
                 padding: 1.5rem;
+                margin-bottom: 1.5rem;
+                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
             }
 
-            .tile-title {
-                color: var(--primary-color);
-                font-size: 1.5rem;
+            .card-title {
+                font-size: 1.25rem;
+                color: var(--text-color);
                 font-weight: 600;
-                margin-bottom: 2rem;
-                padding-bottom: 1rem;
-                border-bottom: 2px solid #e3e6f0;
+                margin-bottom: 1.5rem;
+                padding-bottom: 0.5rem;
+                border-bottom: 2px solid #e2e8f0;
             }
 
-            /* Form Styling */
+            .form-group {
+                margin-bottom: 1.5rem;
+            }
+
             .form-control {
+                border: 1px solid #e2e8f0;
                 border-radius: 8px;
-                border: 1px solid #e3e6f0;
                 padding: 0.75rem;
+                width: 100%;
+                transition: var(--transition);
             }
 
             .form-control:focus {
                 border-color: var(--primary-color);
-                box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25);
+                box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
             }
 
-            .btn-primary {
-                background: var(--gradient-1);
+            .btn-submit {
+                background: var(--primary-color);
+                color: white;
                 border: none;
-                border-radius: 8px;
                 padding: 0.75rem 1.5rem;
-                transition: all 0.3s ease;
+                border-radius: 8px;
+                cursor: pointer;
+                transition: var(--transition);
             }
 
-            .btn-primary:hover {
-                transform: translateY(-2px);
-                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            .btn-submit:hover {
+                background: var(--secondary-color);
+                transform: translateY(-1px);
+            }
+
+            .btn-back {
+                background: #64748b;
+                margin-left: 1rem;
+            }
+
+            @media (max-width: 768px) {
+                .profile-content {
+                    grid-template-columns: 1fr;
+                }
             }
         </style>
     </head>
@@ -192,159 +192,166 @@
                                 <div class="alert alert-danger">${error}</div>
                             </c:if>
 
-                            <form action="${pageContext.request.contextPath}/staff/editprofile" method="post" enctype="multipart/form-data">
-                                <div class="row">
-                                    <!-- Profile Image Section -->
-                                    <div class="col-md-3">
-                                        <div class="profile-image-section">
+                            <div class="profile-wrapper">
+                                <div class="profile-header">
+                                    <h2>Chỉnh sửa hồ sơ</h2>
+                                </div>
+
+                                <form action="${pageContext.request.contextPath}/staff/editprofile" method="post" enctype="multipart/form-data">
+                                    <div class="profile-content">
+                                        <!-- Sidebar with Image -->
+                                        <div class="profile-sidebar">
                                             <div class="profile-image-container">
-                                                <c:choose>
-                                                    <c:when test="${not empty userDetails.profileImage}">
-                                                        <img id="imagePreview" src="${pageContext.request.contextPath}/${userDetails.profileImage}" alt="Profile Image">
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        <img id="imagePreview" src="${pageContext.request.contextPath}/UserProfilesImages/default-avatar.jpg" alt="Default Profile Image">
-                                                    </c:otherwise>
-                                                </c:choose>
-                                            </div>
-                                            <div class="image-upload-wrapper">
-                                                <label for="profileImage" class="custom-file-upload">
-                                                    <i class="fas fa-camera"></i> Chọn ảnh mới
+                                                <img id="imagePreview" class="profile-image" 
+                                                     src="${pageContext.request.contextPath}/${userDetails.profileImage}" 
+                                                     alt="Profile Image">
+                                                <label for="profileImage" class="profile-upload-btn">
+                                                    <i class="fas fa-camera"></i>
                                                 </label>
-                                                <input type="file" name="profileImage" id="profileImage" onchange="previewImage(event)">
+                                                <input type="file" id="profileImage" name="profileImage" 
+                                                       onchange="previewImage(event)" style="display: none">
                                             </div>
                                         </div>
-                                    </div>
 
-                                    <!-- Personal Information Section -->
-                                    <div class="col-md-9">
-                                        <div class="row">
-                                            <!-- Name Fields -->
-                                            <div class="form-group col-md-4">
-                                                <label class="control-label">Họ</label>
-                                                <input class="form-control" type="text" name="firstName" value="${userDetails.firstName}" required>
-                                            </div>
-                                            <div class="form-group col-md-4">
-                                                <label class="control-label">Tên đệm</label>
-                                                <input class="form-control" type="text" name="middleName" value="${userDetails.middleName}">
-                                            </div>
-                                            <div class="form-group col-md-4">
-                                                <label class="control-label">Tên</label>
-                                                <input class="form-control" type="text" name="lastName" value="${userDetails.lastName}" required>
-                                            </div>
+                                        <!-- Main Form Content -->
+                                        <div class="profile-main">
+                                            <!-- Personal Information -->
+                                            <div class="profile-card">
+                                                <div class="row">
+                                                    <!-- Name Fields -->
+                                                    <div class="form-group col-md-4">
+                                                        <label class="control-label">Họ</label>
+                                                        <input class="form-control" type="text" name="firstName" value="${userDetails.firstName}" required>
+                                                    </div>
+                                                    <div class="form-group col-md-4">
+                                                        <label class="control-label">Tên đệm</label>
+                                                        <input class="form-control" type="text" name="middleName" value="${userDetails.middleName}">
+                                                    </div>
+                                                    <div class="form-group col-md-4">
+                                                        <label class="control-label">Tên</label>
+                                                        <input class="form-control" type="text" name="lastName" value="${userDetails.lastName}" required>
+                                                    </div>
 
-                                            <!-- Contact Information -->
-                                            <div class="form-group col-md-6">
-                                                <label class="control-label">Email</label>
-                                                <input class="form-control" type="email" name="email" value="${userDetails.email}" required>
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label class="control-label">Số điện thoại</label>
-                                                <input class="form-control" type="tel" name="phoneNumber" value="${userDetails.phoneNumber}" required>
-                                            </div>
+                                                    <!-- Contact Information -->
+                                                    <div class="form-group col-md-6">
+                                                        <label class="control-label">Email</label>
+                                                        <input class="form-control" type="email" name="email" value="${userDetails.email}" required>
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label class="control-label">Số điện thoại</label>
+                                                        <input class="form-control" type="tel" name="phoneNumber" value="${userDetails.phoneNumber}" required>
+                                                    </div>
 
-                                            <!-- Personal Details -->
-                                            <div class="form-group col-md-4">
-                                                <label class="control-label">Ngày sinh</label>
-                                                <input class="form-control" type="date" name="dateOfBirth" value="${userDetails.dateOfBirth}" required>
-                                            </div>
-                                            <div class="form-group col-md-4">
-                                                <label class="control-label">Giới tính</label>
-                                                <select class="form-control" name="gender" required>
-                                                    <option value="">Chọn giới tính</option>
-                                                    <option value="Male" ${userDetails.gender == 'Male' ? 'selected' : ''}>Nam</option>
-                                                    <option value="Female" ${userDetails.gender == 'Female' ? 'selected' : ''}>Nữ</option>
-                                                    <option value="Other" ${userDetails.gender == 'Other' ? 'selected' : ''}>Khác</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group col-md-4">
-                                                <label class="control-label">CCCD/CMND</label>
-                                                <input class="form-control" type="text" name="citizenIdentification" value="${userDetails.citizenIdentification}" required>
-                                            </div>
+                                                    <!-- Personal Details -->
+                                                    <div class="form-group col-md-4">
+                                                        <label class="control-label">Ngày sinh</label>
+                                                        <input class="form-control" type="date" name="dateOfBirth" value="${userDetails.dateOfBirth}" required>
+                                                    </div>
+                                                    <div class="form-group col-md-4">
+                                                        <label class="control-label">Giới tính</label>
+                                                        <select class="form-control" name="gender" required>
+                                                            <option value="">Chọn giới tính</option>
+                                                            <option value="Male" ${userDetails.gender == 'Male' ? 'selected' : ''}>Nam</option>
+                                                            <option value="Female" ${userDetails.gender == 'Female' ? 'selected' : ''}>Nữ</option>
+                                                            <option value="Other" ${userDetails.gender == 'Other' ? 'selected' : ''}>Khác</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group col-md-4">
+                                                        <label class="control-label">CCCD/CMND</label>
+                                                        <input class="form-control" type="text" name="citizenIdentification" value="${userDetails.citizenIdentification}" required>
+                                                    </div>
 
-                                            <!-- Address Fields -->
-                                            <div class="form-group col-md-4">
-                                                <label class="control-label">Tỉnh/Thành phố</label>
-                                                <select class="form-control" id="provinceID" name="provinceID" onchange="loadDistricts()" required>
-                                                    <option value="">Chọn Tỉnh/Thành phố</option>
-                                                    <c:forEach var="province" items="${provinces}">
-                                                        <option value="${province.provinceID}" 
-                                                                ${userDetails.address.provinces.provinceID == province.provinceID ? 'selected' : ''}>
-                                                            ${province.provinceName}
-                                                        </option>
-                                                    </c:forEach>
-                                                </select>
-                                            </div>
-                                            <div class="form-group col-md-4">
-                                                <label class="control-label">Quận/Huyện</label>
-                                                <select class="form-control" id="districtSelect" name="districtID" onchange="loadWards()" required>
-                                                    <option value="">Chọn Quận/Huyện</option>
-                                                    <c:forEach var="district" items="${districts}">
-                                                        <option value="${district.id}"
-                                                                ${userDetails.address.district.id == district.id ? 'selected' : ''}>
-                                                            ${district.districtName}
-                                                        </option>
-                                                    </c:forEach>
-                                                </select>
-                                            </div>
-                                            <div class="form-group col-md-4">
-                                                <label class="control-label">Phường/Xã</label>
-                                                <select class="form-control" id="wardSelect" name="wardID" required>
-                                                    <option value="">Chọn Phường/Xã</option>
-                                                    <c:forEach var="ward" items="${wards}">
-                                                        <option value="${ward.id}"
-                                                                ${userDetails.address.ward.id == ward.id ? 'selected' : ''}>
-                                                            ${ward.wardName}
-                                                        </option>
-                                                    </c:forEach>
-                                                </select>
-                                            </div>
-                                            <div class="form-group col-md-12">
-                                                <label class="control-label">Địa chỉ cụ thể</label>
-                                                <input class="form-control" type="text" name="streetAddress" 
-                                                       value="${userDetails.address.streetAddress}" required>
+                                                    <!-- Thêm vào form sau phần địa chỉ -->
+                                                    <div class="form-group col-md-6">
+                                                        <label class="control-label">Chuyên ngành</label>
+                                                        <select class="form-control" name="degree" required>
+                                                            <option value="">Chọn chuyên ngành</option>
+                                                            <c:forEach var="degree" items="${allDegrees}">
+                                                                <option value="${degree.degreeID}" 
+                                                                        ${userDegree.degreeID == degree.degreeID ? 'selected' : ''}>
+                                                                    ${degree.degreeName}
+                                                                </option>
+                                                            </c:forEach>
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="form-group col-md-6">
+                                                        <label class="control-label">Chuyên môn</label>
+                                                        <select class="form-control" name="specialization" required>
+                                                            <option value="">Chọn chuyên môn</option>
+                                                            <c:forEach var="spec" items="${allSpecializations}">
+                                                                <option value="${spec.specializationID}" 
+                                                                        ${userSpecialization.specializationID == spec.specializationID ? 'selected' : ''}>
+                                                                    ${spec.specializationName}
+                                                                </option>
+                                                            </c:forEach>
+                                                        </select>
+                                                    </div>
+                                                </div>
                                             </div>
 
-                                            <!-- Thêm vào form sau phần địa chỉ -->
-                                            <div class="form-group col-md-6">
-                                                <label class="control-label">Chuyên ngành</label>
-                                                <select class="form-control" name="degree" required>
-                                                    <option value="">Chọn chuyên ngành</option>
-                                                    <c:forEach var="degree" items="${allDegrees}">
-                                                        <option value="${degree.degreeID}" 
-                                                                ${userDegree.degreeID == degree.degreeID ? 'selected' : ''}>
-                                                            ${degree.degreeName}
-                                                        </option>
-                                                    </c:forEach>
-                                                </select>
+                                            <!-- Address Information -->
+                                            <div class="profile-card">
+                                                <div class="row">
+                                                    <!-- Address Fields -->
+                                                    <div class="form-group col-md-4">
+                                                        <label class="control-label">Tỉnh/Thành phố</label>
+                                                        <select class="form-control" id="provinceID" name="provinceID" onchange="loadDistricts()" required>
+                                                            <option value="">Chọn Tỉnh/Thành phố</option>
+                                                            <c:forEach var="province" items="${provinces}">
+                                                                <option value="${province.provinceID}" 
+                                                                        ${userDetails.address.provinces.provinceID == province.provinceID ? 'selected' : ''}>
+                                                                    ${province.provinceName}
+                                                                </option>
+                                                            </c:forEach>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group col-md-4">
+                                                        <label class="control-label">Quận/Huyện</label>
+                                                        <select class="form-control" id="districtSelect" name="districtID" onchange="loadWards()" required>
+                                                            <option value="">Chọn Quận/Huyện</option>
+                                                            <c:forEach var="district" items="${districts}">
+                                                                <option value="${district.id}"
+                                                                        ${userDetails.address.district.id == district.id ? 'selected' : ''}>
+                                                                    ${district.districtName}
+                                                                </option>
+                                                            </c:forEach>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group col-md-4">
+                                                        <label class="control-label">Phường/Xã</label>
+                                                        <select class="form-control" id="wardSelect" name="wardID" required>
+                                                            <option value="">Chọn Phường/Xã</option>
+                                                            <c:forEach var="ward" items="${wards}">
+                                                                <option value="${ward.id}"
+                                                                        ${userDetails.address.ward.id == ward.id ? 'selected' : ''}>
+                                                                    ${ward.wardName}
+                                                                </option>
+                                                            </c:forEach>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group col-md-12">
+                                                        <label class="control-label">Địa chỉ cụ thể</label>
+                                                        <input class="form-control" type="text" name="streetAddress" 
+                                                               value="${userDetails.address.streetAddress}" required>
+                                                    </div>
+                                                </div>
                                             </div>
 
-                                            <div class="form-group col-md-6">
-                                                <label class="control-label">Chuyên môn</label>
-                                                <select class="form-control" name="specialization" required>
-                                                    <option value="">Chọn chuyên môn</option>
-                                                    <c:forEach var="spec" items="${allSpecializations}">
-                                                        <option value="${spec.specializationID}" 
-                                                                ${userSpecialization.specializationID == spec.specializationID ? 'selected' : ''}>
-                                                            ${spec.specializationName}
-                                                        </option>
-                                                    </c:forEach>
-                                                </select>
-                                            </div>
-
-                                            <!-- Submit Button -->
-                                            <div class="form-group col-md-12">
-                                                <button class="btn btn-primary" type="submit">
-                                                    <i class="fa fa-save"></i> Lưu thay đổi
+                                            <!-- Buttons -->
+                                            <div class="profile-card" style="text-align: right;">
+                                                <button type="submit" class="btn-submit">
+                                                    <i class="fas fa-save"></i> Lưu thay đổi
                                                 </button>
-                                                <a class="btn btn-secondary" href="${pageContext.request.contextPath}/staff/viewprofile">
-                                                    <i class="fa fa-backward"></i> Quay lại
+                                                <a href="${pageContext.request.contextPath}/staff/viewprofile" 
+                                                   class="btn-submit btn-back">
+                                                    <i class="fas fa-arrow-left"></i> Quay lại
                                                 </a>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </form>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
