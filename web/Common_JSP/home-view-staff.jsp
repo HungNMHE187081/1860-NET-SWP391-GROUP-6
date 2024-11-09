@@ -78,38 +78,37 @@
             </div>
 
             <!-- Search and Filter Section -->
-            <!-- Search and Filter Section -->
-            <div class="search-filter-section mb-4">
-                <form action="${pageContext.request.contextPath}/customer/view-staffs" method="get" class="filter-form">
-                    <div class="row g-3">
-                        <div class="col-md-4">
-                            <div class="search-box">
-                                <i class="fas fa-search search-icon"></i>
-                                <input type="text" id="doctorSearch" name="keyword" class="form-control" placeholder="Tìm kiếm theo tên...">
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <select class="form-select" id="degreeFilter" name="degreeID">
-                                <option value="">Tất cả bằng cấp</option>
-                                <c:forEach var="degree" items="${degrees}">
-                                    <option value="${degree.degreeID}">${degree.degreeName}</option>
-                                </c:forEach>
-                            </select>
-                        </div>
-                        <div class="col-md-3">
-                            <select class="form-select" id="specializationFilter" name="specializationID">
-                                <option value="">Tất cả chuyên môn</option>
-                                <c:forEach var="specialization" items="${specializations}">
-                                    <option value="${specialization.specializationID}">${specialization.specializationName}</option>
-                                </c:forEach>
-                            </select>
-                        </div>
-                        <div class="col-md-2">
-                            <button type="submit" class="btn btn-primary">Tìm kiếm</button>
-                        </div>
-                    </div>
-                </form>
+<div class="search-filter-section mb-4">
+    <form action="${pageContext.request.contextPath}/customer/searchstaff" method="get" class="filter-form">
+        <div class="row g-3">
+            <div class="col-md-4">
+                <div class="search-box">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="doctorSearch" name="keyword" class="form-control" placeholder="Tìm kiếm theo tên...">
+                </div>
             </div>
+            <div class="col-md-3">
+                <select class="form-select" id="degreeFilter" name="degreeID">
+                    <option value="">Tất cả bằng cấp</option>
+                    <c:forEach var="degree" items="${degrees}">
+                        <option value="${degree.degreeID}">${degree.degreeName}</option>
+                    </c:forEach>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <select class="form-select" id="specializationFilter" name="specializationID">
+                    <option value="">Tất cả chuyên môn</option>
+                    <c:forEach var="specialization" items="${specializations}">
+                        <option value="${specialization.specializationID}">${specialization.specializationName}</option>
+                    </c:forEach>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+            </div>
+        </div>
+    </form>
+</div>
             <!-- Doctors Grid -->
             <div class="doctors-grid">
                 <div class="row g-4">

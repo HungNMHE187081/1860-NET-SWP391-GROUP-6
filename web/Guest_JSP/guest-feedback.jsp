@@ -472,7 +472,11 @@
                                                 <!-- Feedback Content -->
                                                 <div class="feedback-content">
                                                     <div class="mb-3">
-                                                        <strong>Dịch vụ:</strong> ${serviceName}
+                                                        <strong>Dịch vụ:</strong>  <c:forEach var="service" items="${service}">
+                                            <c:if test="${service.serviceID == feedback.serviceID}">
+                                                ${service.serviceName}
+                                            </c:if>
+                                        </c:forEach>
                                                     </div>
 
                                                     <div class="mb-3">
@@ -501,7 +505,7 @@
 
                                                     <c:if test="${not empty feedback.attachmentPath}">
                                                         <div class="attachment-preview mt-3">
-                                                            <img src="${feedback.attachmentPath}" alt="Attachment" 
+                                                            <img src="${pageContext.request.contextPath}/${feedback.attachmentPath}" alt="${feedback.attachmentPath}" alt="Attachment" 
                                                                  class="img-fluid rounded" style="max-height: 150px; width: 100%; object-fit: cover;">
                                                         </div>
                                                     </c:if>
