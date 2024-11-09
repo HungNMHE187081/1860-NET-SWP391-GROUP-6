@@ -1,6 +1,7 @@
 package controller;
 
 import dal.DegreeDAO;
+import dal.ManagerUserDAO;
 import dal.SpecializationDAO;
 import dal.StaffDAO;
 import dal.UserDAO;
@@ -16,6 +17,7 @@ import java.util.List;
 import model.Degree;
 import model.Specialization;
 import model.Staff;
+import model.Users;
 
 public class ManagerStaffsListServlet extends HttpServlet {
 
@@ -28,22 +30,24 @@ public class ManagerStaffsListServlet extends HttpServlet {
         List<Degree> degrees = degreeDAO.getAllDegrees();
         SpecializationDAO specializationDAO = new SpecializationDAO();
         List<Specialization> specializations = specializationDAO.getAllSpecializations();
+        ManagerUserDAO managerUserDAO = new ManagerUserDAO();
+        List<Users> users = new ArrayList<>();
         List<Staff> staffs = new ArrayList<>();
         for (Staff staff : stafflist){
-            if (staff.getStaffName() != null
-                    || staff.getHireDate() != null)
+            if (staff.getStaffName() != null)
                 staffs.add(staff);
+            users.add(managerUserDAO.getDetailUserByUserID(staff.getStaffID()));
         }
-        if (staffs.size() > 1){
+        
         Collections.sort(staffs, new Comparator<Staff>() {
             @Override
             public int compare(Staff s1, Staff s2) {
                 return s1.getStaffName().compareTo(s2.getStaffName());
             }
         });
-        }
 
         request.setAttribute("staffs", staffs);
+        request.setAttribute("users", users);
         request.setAttribute("degrees", degrees);
         request.setAttribute("specializations", specializations);
         request.getRequestDispatcher("/Manager_JSP/manager-staffs-list.jsp").forward(request, response);

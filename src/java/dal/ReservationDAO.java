@@ -516,7 +516,7 @@ public String getServiceNameByReservationID(int reservationID) {
                      "JOIN Children c ON oi.ChildID = c.ChildID " +
                      "JOIN Services s ON oi.ServiceID = s.ServiceID " +
                      "LEFT JOIN Payments p ON o.OrderID = p.OrderID " +
-                     "WHERE u.UserID = ? " +
+                     "WHERE u.UserID = ? AND r.isExam = 0 " +
                      "AND r.ReservationDate >= GETDATE() " +
                      "AND (p.PaymentStatus = 'SUCCESS' OR p.PaymentMethod = 'OFFLINE') " +
                      "ORDER BY r.ReservationDate ASC, r.StartTime ASC";

@@ -181,9 +181,9 @@ public class StaffDAO extends DBContext {
                 + " WHERE staffID = ?";
         try{
             PreparedStatement pre = connection.prepareStatement(sql);
-            pre.setInt(1, degreeID);
+            pre.setInt(1, yearsOfExperience);
             pre.setInt(2, specializationID);
-            pre.setInt(3, yearsOfExperience);
+            pre.setInt(3, degreeID);
             pre.setString(4, hireDate);
             pre.setDouble(5, salary);
             pre.setInt(6, staffID);

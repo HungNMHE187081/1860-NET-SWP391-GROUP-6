@@ -220,7 +220,7 @@
                             <div class="form-group col-md-4">
                                 <label for="exampleSelect1" class="control-label">Tình trạng hoạt động</label>
                                 <select class="form-control" id="isActive" name="isActive" required>
-                                    <option value="Hoạt động" ${service.isActive ? 'selected' : ''}>Đang hoạt động</option>
+                                    <option value="Đang hoạt động" ${service.isActive ? 'selected' : ''}>Đang hoạt động</option>
                                     <option value="Chưa hoạt động" ${!service.isActive ? 'selected' : ''}>Chưa hoạt động</option>
                                 </select>
                             </div>
