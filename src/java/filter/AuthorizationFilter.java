@@ -30,7 +30,9 @@ public class AuthorizationFilter implements Filter {
             "/logout",
             "/login",
             "/loadDistricts", 
-            "/loadWards"
+            "/loadWards",
+            "/payment",
+            "/payment/vnpay-return"
     );
 
     @Override
