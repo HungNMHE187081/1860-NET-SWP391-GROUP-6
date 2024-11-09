@@ -225,7 +225,7 @@
                         </div>
                         <div class="detail-item">
                             <label>Nhân viên: </label>
-                            <span>${pres.staffName}</span>
+                            <span>${staff.staffName}</span>
                         </div>
                          <div class="detail-item">
                             <label>Liều dùng: </label>

@@ -223,7 +223,7 @@ public boolean updatePrescription(int prescriptionID, int medicineID, String dos
                 + "FROM Prescriptions p "
                 + "JOIN MedicalRecords mr ON p.RecordID = mr.RecordID "
                 + "JOIN Children c ON mr.ChildID = c.ChildID "
-                + "JOIN Users u ON mr.StaffID = u.UserID "
+                + "JOIN Users u ON c.CustomerID = u.UserID "
                 + "JOIN Medicine m ON p.MedicineID = m.MedicineID "
                 + "JOIN Staff s ON mr.StaffID = s.StaffID "
                 + "WHERE p.PrescriptionID = ?"; // Use parameterized query to prevent SQL injection

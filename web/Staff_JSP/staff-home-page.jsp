@@ -1,5 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <link rel="stylesheet" href="../css/styles.css">
 <!DOCTYPE html>
@@ -42,7 +44,10 @@
                                             <td>${status.index + 1}</td>
                                             <td>${reservation.customerFirstName} ${reservation.customerMiddleName} ${reservation.customerLastName}</td>
                                             <td>${reservation.childFirstName} ${reservation.childMiddleName} ${reservation.childLastName}</td>
-                                            <td>${reservation.appointmentDate}</td>
+                                            <td>
+                                                <fmt:formatDate value="${reservation.appointmentDate}" pattern="dd/MM/yyyy" />
+                                            </td>
+
                                             <td>${reservation.serviceName}</td>
                                             <td>${fn:substring(reservation.appointmentStartTime, 0, 8)}</td>
 
