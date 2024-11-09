@@ -268,7 +268,7 @@ public class AddUserServlet extends HttpServlet {
             }
             // Xử lý lỗi và chuyển hướng đến trang lỗi nếu cần
             request.setAttribute("errorMessage", "Lỗi khi thêm người dùng: " + e.getMessage());
-            request.getRequestDispatcher("form-add-user.jsp").forward(request, response);
+            request.getRequestDispatcher("/form-add-user.jsp").forward(request, response);
         }
     }
 
