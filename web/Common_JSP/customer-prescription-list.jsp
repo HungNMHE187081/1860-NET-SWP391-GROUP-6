@@ -174,8 +174,8 @@
                 <div class="row justify-content-center">
                     <div class="col-12">
                         <div class="section-title text-center mb-4 pb-2">
-                            <h4 class="title mb-4">Lịch sử khám</h4>
-                            <p class="text-muted mx-auto para-desc mb-0">Dưới đây là danh sách lịch sử khám.</p>
+                            <h4 class="title mb-4">Đơn thuốc</h4>
+                            <p class="text-muted mx-auto para-desc mb-0">Dưới đây là danh sách đơn thuốc.</p>
                         </div>
                     </div><!--end col-->
                 </div><!--end row-->
@@ -189,13 +189,12 @@
 
                         </div>
                     </form>
-                    <a href="${pageContext.request.contextPath}/customer/listprescription" class="btn"><i class="fas fa-save"></i> Danh sách đơn thuốc</a>
+                    <a href="${pageContext.request.contextPath}/customer/homepagemedicalrecordlist" class="btn"><i class="fas fa-save"></i> Danh sách lịch sử khám</a>
                     <div class="col-12 mt-4 pt-2">
                         <div class="table-responsive shadow rounded">
                             <table class="table table-center table-bordered bg-white mb-0">
                                 <thead>
                                     <tr>
-                                        <th class="text-center py-4" style="min-width: 100px;">Số thứ tự</th>
                                         <th class="text-center py-4" style="min-width: 200px;">Tên con của bạn</th>
                                         <th class="text-center py-4" style="min-width: 200px;">Tên phụ huynh</th>
                                         <th class="text-center py-4" style="min-width: 200px;">Chẩn đoán</th>
@@ -211,14 +210,13 @@
                                 </thead>
                                 <tbody>
                                     <c:if test="${not empty groupedPrescriptions}">
-                                        <c:forEach var="entry" items="${groupedPrescriptions}" varStatus="status">
+                                        <c:forEach var="entry" items="${groupedPrescriptions}" >
                                             <c:set var="recordID" value="${entry.key}" />
                                             <c:set var="prescriptionList" value="${entry.value}" />
 
                                             <!-- Kiểm tra nếu userID của prescriptionList[0] trùng với user.userID -->
                                             <c:if test="${prescriptionList[0].userID == user.userID}">
                                                 <tr>
-                                                    <td>${status.index + 1}</td>
                                                     <td>
                                                         <c:out value="${prescriptionList[0].childFirstName} ${prescriptionList[0].childMiddleName} ${prescriptionList[0].childLastName}" />
                                                     </td>

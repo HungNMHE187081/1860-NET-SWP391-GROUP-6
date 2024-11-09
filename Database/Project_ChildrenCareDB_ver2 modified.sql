@@ -105,7 +105,8 @@ CREATE TABLE Staff (
     FOREIGN KEY (StaffID) REFERENCES Users(UserID) ON DELETE CASCADE,
     FOREIGN KEY (SpecializationID) REFERENCES Specializations(SpecializationID),
     FOREIGN KEY (DegreeID) REFERENCES Degrees(DegreeID)
-); 
+);
+
 -- Create Children table
 CREATE TABLE Children (
     ChildID INT PRIMARY KEY IDENTITY(1,1),
@@ -194,8 +195,6 @@ CREATE TABLE MedicalRecords (
     FOREIGN KEY (StaffID) REFERENCES Staff(StaffID) ON DELETE NO ACTION,    
     FOREIGN KEY (ReservationID) REFERENCES Reservations(ReservationID) ON DELETE NO ACTION
 );
-
-
 -- Create MedicineCategory table
 CREATE TABLE MedicineCategory (
     CategoryID INT PRIMARY KEY IDENTITY(1,1),  
@@ -397,6 +396,7 @@ CREATE TABLE Blogs (
     Views INT DEFAULT 0
 
 );
+select * from BlogComments
 -- Create BlogCategories table
 CREATE TABLE BlogCategories (
     CategoryID INT PRIMARY KEY IDENTITY(1,1),
@@ -466,35 +466,35 @@ INSERT INTO Categories (CategoryName) VALUES (N'Khám và điều trị bệnh')
 
 
 INSERT INTO Services (ServiceName, CategoryID, DegreeID, Description, Price, Duration, ServiceImage, IsActive, AgeLimitID) VALUES
-(N'Khám sức khỏe tổng quát cho trẻ sơ sinh', 1, 1, N'Kiểm tra sức khỏe tổng quát cho trẻ sơ sinh, bao gồm đo chiều cao, cân nặng, vòng đầu, kiểm tra tim phổi, và tư vấn dinh dưỡng cơ bản để đảm bảo sự phát triển toàn diện của trẻ.', 200000, 40, 'img/kham-suc-khoe-tong-quat-cho-tre-so-sinh.jpg', 1, 1),
-(N'Tiêm chủng cho trẻ sơ sinh', 2, 2, N'Tiêm các loại vắc xin cần thiết cho trẻ sơ sinh theo lịch tiêm chủng quốc gia, theo dõi phản ứng sau tiêm để đảm bảo an toàn cho trẻ.', 150000, 30, 'img/tiem-chung-cho-tre-so-sinh.png', 1, 1),
-(N'Tư vấn về chăm sóc trẻ sơ sinh', 3, 4, N'Tư vấn về các vấn đề thường gặp ở trẻ sơ sinh như giấc ngủ, dinh dưỡng, và các tình huống cần lưu ý trong giai đoạn phát triển đầu đời.', 200000, 60, 'img/tu-van-cham-soc-tre-so-sinh.jpg', 1, 1),
-(N'Gói chăm sóc trẻ sơ sinh trọn gói (1 tháng) cho trẻ sơ sinh', 5, 1, N'Gói dịch vụ trọn gói bao gồm khám sức khỏe định kỳ, chăm sóc tại nhà, tư vấn dinh dưỡng và tiêm chủng, giúp phụ huynh chăm sóc trẻ toàn diện trong tháng đầu tiên.', 5000000, 60, 'img/kham-suc-khoe-tong-quat-cho-tre-so-sinh.jpg', 0, 1),
-(N'Massage sơ sinh', 4, 3, N'Dịch vụ massage giúp trẻ sơ sinh thư giãn, cải thiện tuần hoàn máu và phát triển các giác quan, mang lại cảm giác thoải mái cho bé.', 200000, 45, 'img/massage-cho-tre-so-sinh.jpg', 1, 1),
-(N'Tắm bé sơ sinh bằng thảo dược', 4, 3, N'Sử dụng các loại thảo dược tự nhiên để tắm cho trẻ sơ sinh, giúp làm sạch da, giảm ngứa và mang lại cảm giác dễ chịu cho bé.', 250000, 45, 'img/tam-thao-duoc-cho-tre-so-sinh.jpg', 1, 1),
-(N'Khám và điều trị rôm sảy, mẩn ngứa ở trẻ sơ sinh', 1, 1, N'Dịch vụ khám và điều trị các bệnh lý ngoài da ở trẻ sơ sinh như rôm sảy, mẩn ngứa, giúp làm dịu da bé và phòng tránh các vấn đề về da trong giai đoạn đầu đời.', 300000, 45, 'img/kham-benh-rom-say-cho-tre-so-sinh.jpg', 0, 1),
-(N'Khám và điều trị vàng da ở trẻ sơ sinh', 1, 1, N'Dịch vụ khám và theo dõi mức độ bilirubin, điều trị vàng da ở trẻ sơ sinh và tư vấn phương pháp chăm sóc tại nhà.', 300000, 45, 'img/kham-benh-vang-da-cho-tre-so-sinh.jpg', 0, 1),
+(N'Khám sức khỏe tổng quát cho trẻ sơ sinh', 1, 1, N'Đo chiều cao, cân nặng, vòng đầu, kiểm tra tim phổi, tư vấn dinh dưỡng, tiêm chủng', 200000, 40, 'img/kham-suc-khoe-tong-quat-cho-tre-so-sinh.jpg', 1, 1),
+(N'Tiêm chủng cho trẻ sơ sinh', 2, 2, N'Tiêm các loại vắc xin theo lịch tiêm chủng, theo dõi phản ứng sau tiêm', 150000, 30, 'img/tiem-chung-cho-tre-so-sinh.png', 1, 1),
+(N'Tư vấn về chăm sóc trẻ sơ sinh', 3, 4, N'Tư vấn về giấc ngủ, dinh dưỡng, các vấn đề thường gặp ở trẻ sơ sinh', 200000, 60, 'img/tu-van-cham-soc-tre-so-sinh.jpg', 1, 1),
+(N'Gói chăm sóc trẻ sơ sinh trọn gói (1 tháng) cho trẻ sơ sinh', 5, 1, N'Bao gồm khám sức khỏe định kỳ, chăm sóc tại nhà, tư vấn dinh dưỡng, tiêm chủng', 5000000, 60, 'img/kham-suc-khoe-tong-quat-cho-tre-so-sinh.jpg', 0, 1),
+(N'Massage sơ sinh', 4, 3, N'Giúp bé thư giãn, tăng cường tuần hoàn máu, phát triển các giác quan', 200000, 45, 'img/massage-cho-tre-so-sinh.jpg', 1, 1),
+(N'Tắm bé sơ sinh bằng thảo dược', 4, 3, N'Làm sạch da, giảm ngứa, tạo cảm giác dễ chịu cho bé', 250000, 45, 'img/tam-thao-duoc-cho-tre-so-sinh.jpg', 1, 1),
+(N'Khám và điều trị rôm sảy, mẩn ngứa ở trẻ sơ sinh', 1, 1, N'Khám, chẩn đoán và điều trị các bệnh về da ở trẻ sơ sinh', 300000, 45, 'img/kham-benh-rom-say-cho-tre-so-sinh.jpg', 0, 1),
+(N'Khám và điều trị vàng da ở trẻ sơ sinh', 1, 1, N'Theo dõi mức bilirubin, tư vấn điều trị tại nhà', 300000, 45, 'img/kham-benh-vang-da-cho-tre-so-sinh.jpg', 0, 1),
 
-(N'Khám sức khỏe tổng quát cho trẻ từ 1 đến 5 tuổi', 1, 1, N'Kiểm tra sức khỏe tổng quát cho trẻ trong độ tuổi từ 1 đến 5, bao gồm đo chiều cao, cân nặng, kiểm tra thị lực, và tư vấn phát triển để đảm bảo sự phát triển khỏe mạnh của trẻ.', 250000, 45, 'img/kham-suc-khoe-tong-quat-cho-tre-tu-1-den-5.jpg', 1, 2),
-(N'Khám và điều trị các bệnh thông thường cho trẻ từ 1 đến 5 tuổi', 1, 1, N'Khám và điều trị các bệnh thông thường như sốt, ho, cảm cúm, tiêu chảy, viêm tai giữa, giúp trẻ phục hồi nhanh chóng.', 300000, 45, 'img/kham-va-dieu-tri-cac-benh-thong-thuong-cho-tre-tu-1-den-5.jpg', 1, 2),
-(N'Gói khám sức khỏe định kỳ 6 tháng cho trẻ từ 1 đến 5 tuổi', 5, 1, N'Gói khám sức khỏe định kỳ bao gồm 2 lần khám tổng quát trong năm, tư vấn dinh dưỡng và tiêm chủng đầy đủ.', 1200000, 60, 'img/kham-suc-khoe-tong-quat-cho-tre-tu-1-den-5.jpg', 0, 2),
-(N'Tiêm chủng cho trẻ từ 1 đến 5 tuổi', 2, 2, N'Tiêm các vắc xin cần thiết cho trẻ từ 1 đến 5 tuổi theo lịch tiêm chủng quốc gia, giúp bảo vệ trẻ khỏi các bệnh nguy hiểm.', 150000, 30, 'img/tiem-chung-cho-tre-tu-1-den-5.png', 1, 2),
-(N'Tư vấn tâm lý cho trẻ từ 1 đến 5 tuổi', 3, 4, N'Dịch vụ tư vấn tâm lý giúp trẻ từ 1 đến 5 tuổi vượt qua các vấn đề về cảm xúc và hành vi, tạo nền tảng vững chắc cho sự phát triển tâm lý sau này.', 300000, 60, 'img/tu-van-tam-ly-cho-tre-tu-1-den-5.jpg', 1, 2),
-(N'Gói chăm sóc răng miệng cho trẻ từ 1 đến 5 tuổi', 5, 3, N'Gói chăm sóc răng miệng bao gồm kiểm tra và vệ sinh răng miệng, tư vấn cách chăm sóc răng miệng đúng cách cho trẻ nhỏ.', 200000, 45, 'img/cham-soc-rang-mieng-cho-tre-tu-1-den-5.jpg', 1, 2),
+(N'Khám sức khỏe tổng quát cho trẻ từ 1 đến 5 tuổi', 1, 1, N'Đo chiều cao, cân nặng, kiểm tra thị lực, tư vấn phát triển, tiêm chủng', 250000, 45, 'img/kham-suc-khoe-tong-quat-cho-tre-tu-1-den-5.jpg', 1, 2),
+(N'Khám và điều trị các bệnh thông thường cho trẻ từ 1 đến 5 tuổi', 1, 1, N'Sốt, ho, cảm cúm, tiêu chảy, viêm tai giữa...', 300000, 45, 'img/kham-va-dieu-tri-cac-benh-thong-thuong-cho-tre-tu-1-den-5.jpg', 1, 2),
+(N'Gói khám sức khỏe định kỳ 6 tháng cho trẻ từ 1 đến 5 tuổi', 5, 1, N'Bao gồm 2 lần khám sức khỏe tổng quát, tư vấn dinh dưỡng, tiêm chủng', 1200000, 60, 'img/kham-suc-khoe-tong-quat-cho-tre-tu-1-den-5.jpg', 0, 2),
+(N'Tiêm chủng cho trẻ từ 1 đến 5 tuổi', 2, 2, N'Tiêm các loại vắc xin theo lịch tiêm chủng, theo dõi phản ứng sau tiêm', 150000, 30, 'img/tiem-chung-cho-tre-tu-1-den-5.png', 1, 2),
+(N'Tư vấn tâm lý cho trẻ từ 1 đến 5 tuổi', 3, 4, N'Hỗ trợ trẻ vượt qua các vấn đề về cảm xúc, hành vi', 300000, 60, 'img/tu-van-tam-ly-cho-tre-tu-1-den-5.jpg', 1, 2),
+(N'Gói chăm sóc răng miệng cho trẻ từ 1 đến 5 tuổi', 5, 3, N'Khám răng, vệ sinh răng miệng, tư vấn chăm sóc răng miệng', 200000, 45, 'img/cham-soc-rang-mieng-cho-tre-tu-1-den-5.jpg', 1, 2),
 
-(N'Khám sức khỏe tổng quát cho trẻ từ 6 đến 12 tuổi', 1, 1, N'Dịch vụ khám sức khỏe tổng quát cho trẻ từ 6 đến 12 tuổi, bao gồm đo chiều cao, cân nặng, kiểm tra thị lực, tư vấn dậy thì và tiêm chủng.', 300000, 45, 'img/kham-suc-khoe-tong-quat-cho-tre-tu-6-den-12.jpg', 1, 3),
-(N'Tư vấn tâm lý cho trẻ em từ 6 đến 12 tuổi', 3, 4, N'Tư vấn giúp trẻ em vượt qua các vấn đề tâm lý như căng thẳng học tập, các vấn đề về gia đình hoặc bạn bè, giúp trẻ phát triển mạnh mẽ về mặt tinh thần.', 300000, 60, 'img/tu-van-tam-ly-cho-tre-tu-6-den-12.jpg', 1, 3),
-(N'Gói khám sức khỏe định kỳ hàng năm cho trẻ từ 6 đến 12 tuổi', 5, 1, N'Gói dịch vụ khám sức khỏe hàng năm bao gồm khám tổng quát, tiêm chủng, và tư vấn dinh dưỡng, giúp trẻ khỏe mạnh trong suốt năm.', 1500000, 60, 'img/kham-suc-khoe-tong-quat-cho-tre-tu-6-den-12.jpg', 0, 3),
-(N'Tư vấn về dinh dưỡng cho trẻ em từ 6 đến 12 tuổi', 3, 4, N'Dịch vụ tư vấn dinh dưỡng giúp xây dựng chế độ ăn uống hợp lý, hỗ trợ sự phát triển thể chất và trí tuệ của trẻ trong độ tuổi học đường.', 250000, 60, 'img/tu-van-dinh-duong-cho-tre-tu-6-den-12.png', 1, 3),
-(N'Khám và điều trị các vấn đề về mắt cho trẻ từ 6 đến 12 tuổi', 1, 1, N'Khám mắt định kỳ và điều trị các vấn đề về thị lực như cận thị, viễn thị, giúp phát hiện sớm và điều trị kịp thời.', 250000, 45, 'img/kham-va-dieu-tri-cac-van-de-ve-mat-cho-tre-tu-6-den-12.png', 1, 3),
-(N'Tiêm chủng cho trẻ từ 6 đến 12 tuổi', 2, 2, N'Dịch vụ tiêm chủng cho trẻ từ 6 đến 12 tuổi, cung cấp các vắc xin cần thiết để bảo vệ sức khỏe trẻ em trong giai đoạn học đường.', 150000, 30, 'img/tiem-chung-cho-tre-tu-6-den-12.png', 1, 3),
+(N'Khám sức khỏe tổng quát cho trẻ từ 6 đến 12 tuổi', 1, 1, N'Đo chiều cao, cân nặng, kiểm tra thị lực, tư vấn dậy thì, tiêm chủng', 300000, 45, 'img/kham-suc-khoe-tong-quat-cho-tre-tu-6-den-12.jpg', 1, 3),
+(N'Tư vấn tâm lý cho trẻ em từ 6 đến 12 tuổi', 3, 4, N'Hỗ trợ trẻ vượt qua các vấn đề tâm lý, căng thẳng học tập...', 300000, 60, 'img/tu-van-tam-ly-cho-tre-tu-6-den-12.jpg', 1, 3),
+(N'Gói khám sức khỏe định kỳ hàng năm cho trẻ từ 6 đến 12 tuổi', 5, 1, N'Bao gồm khám sức khỏe tổng quát, tư vấn dinh dưỡng, tiêm chủng, khám chuyên khoa (nếu cần)', 1500000, 60, 'img/kham-suc-khoe-tong-quat-cho-tre-tu-6-den-12.jpg', 0, 3),
+(N'Tư vấn về dinh dưỡng cho trẻ em từ 6 đến 12 tuổi', 3, 4, N'Tư vấn chế độ ăn uống cân đối, lành mạnh', 250000, 60, 'img/tu-van-dinh-duong-cho-tre-tu-6-den-12.png', 1, 3),
+(N'Khám và điều trị các vấn đề về mắt cho trẻ từ 6 đến 12 tuổi', 1, 1, N'Khám mắt, điều trị cận thị, viễn thị...', 250000, 45, 'img/kham-va-dieu-tri-cac-van-de-ve-mat-cho-tre-tu-6-den-12.png', 1, 3),
+(N'Tiêm chủng cho trẻ từ 6 đến 12 tuổi', 2, 2, N'Tiêm các loại vắc xin theo lịch tiêm chủng, theo dõi phản ứng sau tiêm', 150000, 30, 'img/tiem-chung-cho-tre-tu-6-den-12.png', 1, 3),
 
-(N'Khám sức khỏe tổng quát cho trẻ từ 13 đến 18 tuổi', 1, 1, N'Dịch vụ khám sức khỏe tổng quát cho thanh thiếu niên, bao gồm đo chiều cao, cân nặng, kiểm tra thị lực, tư vấn về sức khỏe sinh sản và tiêm chủng.', 350000, 45, 'img/kham-suc-khoe-tong-quat-cho-tre-tu-13-den-18.jpg', 1, 4),
-(N'Khám và điều trị các bệnh lý tuổi dậy thì cho trẻ từ 13 đến 18 tuổi', 1, 1, N'Dịch vụ khám và điều trị các bệnh lý liên quan đến tuổi dậy thì như rối loạn kinh nguyệt, dậy thì sớm, dậy thì muộn, giúp thanh thiếu niên vượt qua giai đoạn chuyển tiếp này một cách khỏe mạnh.', 400000, 60, 'img/kham-va-dieu-tri-benh-ly-tuoi-day-thi.jpg', 1, 4),
-(N'Tư vấn tâm lý cho thanh thiếu niên', 3, 4, N'Tư vấn tâm lý cho thanh thiếu niên giúp họ vượt qua căng thẳng học tập, tìm kiếm định hướng nghề nghiệp, và giải quyết các vấn đề tâm lý trong giai đoạn tuổi dậy thì.', 350000, 60, 'img/tu-van-tam-ly-cho-tre-tu-13-den-18.jpg', 1, 4),
-(N'Gói khám sức khỏe định kỳ hàng năm cho trẻ từ 13 đến 18 tuổi', 5, 1, N'Gói khám sức khỏe định kỳ hàng năm bao gồm khám tổng quát, tư vấn sức khỏe sinh sản, tiêm chủng, và khám chuyên khoa nếu cần thiết.', 1800000, 60, 'img/kham-suc-khoe-tong-quat-cho-tre-tu-13-den-18.jpg', 0, 4),
-(N'Tiêm chủng cho trẻ từ 13 đến 18 tuổi', 2, 2, N'Dịch vụ tiêm vắc xin cho thanh thiếu niên từ 13 đến 18 tuổi, bao gồm các vắc xin cần thiết cho độ tuổi này như vắc xin ngừa ung thư cổ tử cung và các bệnh khác.', 150000, 30, 'img/tiem-chung-cho-tre-tu-13-den-18.png', 1, 4),
-(N'Tư vấn về sức khỏe sinh sản cho trẻ từ 13 đến 18 tuổi', 3, 4, N'Dịch vụ tư vấn về sức khỏe sinh sản cung cấp kiến thức về giới tính, tình dục an toàn, và các vấn đề liên quan đến tránh thai cho thanh thiếu niên.', 300000, 60, 'img/tu-van-suc-khoe-sinh-san.jpg', 1, 4)
+(N'Khám sức khỏe tổng quát cho trẻ từ 13 đến 18 tuổi', 1, 1, N'Đo chiều cao, cân nặng, kiểm tra thị lực, tư vấn sức khỏe sinh sản, tiêm chủng', 350000, 45, 'img/kham-suc-khoe-tong-quat-cho-tre-tu-13-den-18.jpg', 1, 4),
+(N'Khám và điều trị các bệnh lý tuổi dậy thì cho trẻ từ 13 đến 18 tuổi', 1, 1, N'Rối loạn kinh nguyệt, dậy thì sớm, dậy thì muộn...', 400000, 60, 'img/kham-va-dieu-tri-benh-ly-tuoi-day-thi.jpg', 1, 4),
+(N'Tư vấn tâm lý cho thanh thiếu niên', 3, 4, N'Hỗ trợ thanh thiếu niên vượt qua các vấn đề tâm lý, căng thẳng học tập, định hướng nghề nghiệp...', 350000, 60, 'img/tu-van-tam-ly-cho-tre-tu-13-den-18.jpg', 1, 4),
+(N'Gói khám sức khỏe định kỳ hàng năm cho trẻ từ 13 đến 18 tuổi', 5, 1, N'Bao gồm khám sức khỏe tổng quát, tư vấn sức khỏe sinh sản, tiêm chủng, khám chuyên khoa (nếu cần)', 1800000, 60, 'img/kham-suc-khoe-tong-quat-cho-tre-tu-13-den-18.jpg', 0, 4),
+(N'Tiêm chủng cho trẻ từ 13 đến 18 tuổi', 2, 2, N'Tiêm các loại vắc xin theo lịch tiêm chủng, theo dõi phản ứng sau tiêm', 150000, 30, 'img/tiem-chung-cho-tre-tu-13-den-18.png', 1, 4),
+(N'Tư vấn về sức khỏe sinh sản cho trẻ từ 13 đến 18 tuổi', 3, 4, N'Tư vấn về các vấn đề liên quan đến giới tính, tình dục an toàn, tránh thai', 300000, 60, 'img/tu-van-suc-khoe-sinh-san.jpg', 1, 4)
 
 
 
@@ -516,55 +516,24 @@ VALUES
 INSERT INTO Medicine (Name, Description, Uses, Dosage, UserManual, Contraindications, CategoryID) 
 VALUES 
 -- Thuốc da liễu
-(N'Kem chống hăm', N'Dược Phẩm ABC', N'Dùng để điều trị hăm tã ở trẻ em', 
- N'Trẻ sơ sinh: 1-2 lần/ngày\nTrẻ 5-10 tuổi: 1-2 lần/ngày\nTrẻ 10-18 tuổi: 2-3 lần/ngày', 
- N'Thoa trực tiếp lên vùng da bị tổn thương', 
- N'Không sử dụng cho trẻ em dưới 1 tháng tuổi', 1),
-(N'Thuốc mỡ Hydrocortisone', N'Dược Phẩm XYZ', N'Điều trị viêm da cơ địa và dị ứng', 
- N'Trẻ sơ sinh: 1 lần/ngày\nTrẻ 5-10 tuổi: 1-2 lần/ngày\nTrẻ 10-18 tuổi: 2 lần/ngày', 
- N'Sử dụng theo chỉ dẫn của bác sĩ', 
- N'Không dùng cho trẻ dưới 2 tuổi', 1),
+(N'Kem chống hăm', N'Dược Phẩm ABC', N'Dùng để điều trị hăm tã ở trẻ em', N'Thoa 2 lần/ngày', N'Thoa trực tiếp lên vùng da bị tổn thương', N'Không sử dụng cho trẻ em dưới 1 tháng tuổi', 1),
+(N'Thuốc mỡ Hydrocortisone', N'Dược Phẩm XYZ', N'Điều trị viêm da cơ địa và dị ứng', N'Thoa 1-2 lần/ngày', N'Sử dụng theo chỉ dẫn của bác sĩ', N'Không dùng cho trẻ dưới 2 tuổi', 1),
 
 -- Thuốc hạ sốt
-(N'Paracetamol', N'Dược Phẩm DEF', N'Hạ sốt, giảm đau', 
- N'Trẻ sơ sinh: 10 mg/kg, mỗi 4-6 giờ\nTrẻ 5-10 tuổi: 10-15 mg/kg, mỗi 4-6 giờ\nTrẻ 10-18 tuổi: 500 mg - 1g mỗi 4-6 giờ', 
- N'Uống với nước hoặc sữa', 
- N'Không dùng quá liều quy định', 2),
-(N'Ibuprofen', N'Dược Phẩm GHI', N'Giảm đau, hạ sốt, kháng viêm', 
- N'Trẻ sơ sinh: 5-10 mg/kg, mỗi 6-8 giờ\nTrẻ 5-10 tuổi: 5-10 mg/kg, mỗi 6-8 giờ\nTrẻ 10-18 tuổi: 200-400 mg mỗi 6-8 giờ', 
- N'Dùng sau bữa ăn để tránh kích ứng dạ dày', 
- N'Không sử dụng cho trẻ em có bệnh về gan', 2),
+(N'Paracetamol', N'Dược Phẩm DEF', N'Hạ sốt, giảm đau', N'10-15 mg/kg, mỗi 4-6 giờ', N'Uống với nước hoặc sữa', N'Không dùng quá liều quy định', 2),
+(N'Ibuprofen', N'Dược Phẩm GHI', N'Giảm đau, hạ sốt, kháng viêm', N'5-10 mg/kg, mỗi 6-8 giờ', N'Dùng sau bữa ăn để tránh kích ứng dạ dày', N'Không sử dụng cho trẻ em có bệnh về gan', 2),
 
 -- Thuốc tiêm chủng
-(N'Vắc xin Sởi', N'Viện Vắc Xin Việt Nam', N'Ngừa bệnh sởi cho trẻ em', 
- N'0.5 ml tiêm bắp tay cho trẻ từ 9 tháng tuổi', 
- N'Tiêm theo lịch trình tiêm chủng quốc gia', 
- N'Không dùng cho trẻ em có tiền sử dị ứng nặng với vắc xin', 3),
-(N'Vắc xin Viêm gan B', N'Viện Vắc Xin Việt Nam', N'Ngừa viêm gan B cho trẻ sơ sinh', 
- N'0.5 ml tiêm bắp đùi cho trẻ sơ sinh, tiêm ngay sau khi sinh trong vòng 24 giờ', 
- N'Tiêm ngay sau khi sinh trong vòng 24 giờ', 
- N'Không sử dụng nếu trẻ bị dị ứng với thành phần của vắc xin', 3),
+(N'Vắc xin Sởi', N'Viện Vắc Xin Việt Nam', N'Ngừa bệnh sởi cho trẻ em', N'0.5 ml tiêm bắp tay', N'Tiêm theo lịch trình tiêm chủng quốc gia', N'Không dùng cho trẻ em có tiền sử dị ứng nặng với vắc xin', 3),
+(N'Vắc xin Viêm gan B', N'Viện Vắc Xin Việt Nam', N'Ngừa viêm gan B cho trẻ sơ sinh', N'0.5 ml tiêm bắp đùi', N'Tiêm ngay sau khi sinh trong vòng 24 giờ', N'Không sử dụng nếu trẻ bị dị ứng với thành phần của vắc xin', 3),
 
 -- Thuốc kháng sinh
-(N'Amoxicillin', N'Dược Phẩm LMN', N'Điều trị nhiễm khuẩn hô hấp, tai mũi họng', 
- N'Trẻ sơ sinh: 25 mg/kg/ngày, chia 2-3 lần\nTrẻ 5-10 tuổi: 250 mg mỗi 8 giờ\nTrẻ 10-18 tuổi: 500 mg mỗi 8 giờ', 
- N'Dùng trước hoặc sau bữa ăn', 
- N'Không dùng cho trẻ em dị ứng với penicillin', 4),
-(N'Azithromycin', N'Dược Phẩm PQR', N'Điều trị nhiễm khuẩn da, đường hô hấp', 
- N'Trẻ sơ sinh: 10 mg/kg/ngày trong 3 ngày\nTrẻ 5-10 tuổi: 200 mg/ngày trong 3 ngày\nTrẻ 10-18 tuổi: 500 mg/ngày trong 3 ngày', 
- N'Uống trước bữa ăn 1 giờ hoặc sau bữa ăn 2 giờ', 
- N'Không dùng cho trẻ em có bệnh gan nặng', 4),
+(N'Amoxicillin', N'Dược Phẩm LMN', N'Điều trị nhiễm khuẩn hô hấp, tai mũi họng', N'25-50 mg/kg/ngày, chia 2-3 lần', N'Dùng trước hoặc sau bữa ăn', N'Không dùng cho trẻ em dị ứng với penicillin', 4),
+(N'Azithromycin', N'Dược Phẩm PQR', N'Điều trị nhiễm khuẩn da, đường hô hấp', N'10 mg/kg/ngày, dùng trong 3 ngày', N'Uống trước bữa ăn 1 giờ hoặc sau bữa ăn 2 giờ', N'Không dùng cho trẻ em có bệnh gan nặng', 4),
 
 -- Thuốc giảm đau
-(N'Acetaminophen', N'Dược Phẩm STU', N'Giảm đau nhẹ và vừa, hạ sốt', 
- N'Trẻ sơ sinh: 10 mg/kg, mỗi 6 giờ nếu cần\nTrẻ 5-10 tuổi: 200-300 mg mỗi 6 giờ nếu cần\nTrẻ 10-18 tuổi: 500 mg mỗi 6 giờ nếu cần', 
- N'Uống với nước', 
- N'Không dùng quá liều quy định', 5),
-(N'Diclofenac', N'Dược Phẩm VWX', N'Giảm đau và viêm, thường dùng trong trường hợp đau sau phẫu thuật', 
- N'Trẻ sơ sinh: 1 mg/kg/ngày\nTrẻ 5-10 tuổi: 2 mg/kg/ngày\nTrẻ 10-18 tuổi: 50-100 mg/ngày', 
- N'Dùng theo chỉ định của bác sĩ', 
- N'Không dùng cho trẻ có bệnh dạ dày, ruột', 5);
-
+(N'Acetaminophen', N'Dược Phẩm STU', N'Giảm đau nhẹ và vừa, hạ sốt', N'15 mg/kg, mỗi 6 giờ nếu cần', N'Uống với nước', N'Không dùng quá liều quy định', 5),
+(N'Diclofenac', N'Dược Phẩm VWX', N'Giảm đau và viêm, thường dùng trong trường hợp đau sau phẫu thuật', N'1-2 mg/kg/ngày', N'Dùng theo chỉ định của bác sĩ', N'Không dùng cho trẻ có bệnh dạ dày, ruột', 5);
 
 INSERT INTO Provinces (ProvinceName) 
 VALUES (N'Thành phố Hồ Chí Minh');
@@ -786,6 +755,7 @@ CHECK (PaymentMethod IN ('VNPAY', 'OFFLINE'));
 CREATE INDEX IX_Payments_OrderID ON Payments(OrderID);
 CREATE INDEX IX_Payments_ReservationID ON Payments(ReservationID);
 CREATE INDEX IX_Payments_PaymentStatus ON Payments(PaymentStatus);
+
 -- Tạo view xem lịch sử thanh toán
 /*CREATE VIEW PaymentHistory AS
 SELECT 
@@ -823,7 +793,7 @@ CREATE INDEX IX_PasswordResets_UserID ON PasswordResets(UserID);
 CREATE INDEX IX_PasswordResets_VerificationCode ON PasswordResets(VerificationCode);
 
 -- 3. Tạo các stored procedure
-/*CREATE PROCEDURE sp_CreatePasswordReset
+CREATE PROCEDURE sp_CreatePasswordReset
     @UserID INT,
     @VerificationCode VARCHAR(50),
     @ExpiryHours INT = 24
@@ -833,6 +803,7 @@ BEGIN
     VALUES (@UserID, @VerificationCode, DATEADD(HOUR, @ExpiryHours, GETDATE()));
 END;
 GO
+
 CREATE PROCEDURE sp_ValidatePasswordReset
     @VerificationCode VARCHAR(50)
 AS
@@ -843,8 +814,8 @@ BEGIN
     AND ExpiryTime > GETDATE()
     AND IsUsed = 0;
 END;
-GO*/
-/*
+GO
+
 -- 4. Tạo trigger
 CREATE TRIGGER trg_Users_UpdatedAt
 ON Users
@@ -866,4 +837,4 @@ BEGIN
     WHERE ExpiryTime < GETDATE()
     OR IsUsed = 1;
 END;
-GO*/
+GO

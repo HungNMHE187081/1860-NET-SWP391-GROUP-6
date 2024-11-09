@@ -201,7 +201,6 @@
                             <table class="table table-center table-bordered bg-white mb-0">
                                 <thead>
                                     <tr>
-                                        <th class="text-center py-4" style="min-width: 100px;">Số thứ tự</th>
                                         <th class="text-center py-4" style="min-width: 200px;">Tên con của bạn</th>
                                         <th class="text-center py-4" style="min-width: 200px;">Chẩn đoán</th>
                                         <th class="text-center py-4" style="min-width: 200px;">Điều trị</th>
@@ -214,11 +213,10 @@
                                 <tbody>
                                     <c:if test="${not empty records}">
                                         <c:set var="recordFound" value="false" />
-                                        <c:forEach var="record" items="${records}" varStatus="status">
+                                        <c:forEach var="record" items="${records}" >
                                             <c:if test="${fn:contains(childrens, record.childID)}">
                                                 <c:set var="recordFound" value="true" />
                                                 <tr>
-                                                    <td>${status.index + 1}</td>
                                                     <td><c:out value="${record.firstNameChild} ${record.middleNameChild} ${record.lastNameChild}" /></td>
                                                     <td><c:out value="${record.diagnosis}" /></td>
                                                     <td><c:out value="${record.treatment}" /></td>
