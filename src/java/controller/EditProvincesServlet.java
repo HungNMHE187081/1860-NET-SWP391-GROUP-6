@@ -77,7 +77,7 @@ public class EditProvincesServlet extends HttpServlet {
 
     try {
         // Check if the province name already exists (case-insensitive and without accents)
-        if (dao.isProvinceNameExist(provinceName)) {
+        if (dao.isProvinceNameExist(provinceName) || provinceName.trim().isEmpty()) {
             request.setAttribute("errorMessage", "Tên tỉnh thành đã tồn tại.");
             List<Provinces> listP = dao.getAllProvinces();
         request.setAttribute("listP", listP);

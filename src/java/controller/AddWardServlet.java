@@ -80,7 +80,7 @@ public class AddWardServlet extends HttpServlet {
         int districtID = Integer.parseInt(request.getParameter("districtID"));
         String name = request.getParameter("wardName");
         try {
-            if (dao.isWardNameExist(districtID, name)) {
+            if (dao.isWardNameExist(districtID, name) || name.trim().isEmpty()) {
                 List<Ward> ward = dao.getWardByDistrict(districtID);
                 request.setAttribute("ward", ward);
                 request.setAttribute("districtID", districtID);

@@ -80,7 +80,7 @@ public class AddDistrictServlet extends HttpServlet {
     
     try {
         // Kiểm tra xem tên quận/huyện đã tồn tại chưa
-        if (dao.isDistrictNameExist(provinceID, name)) {
+        if (dao.isDistrictNameExist(provinceID, name) || name.trim().isEmpty()) {
             // Quận/huyện đã tồn tại, xử lý trường hợp này (ví dụ thông báo lỗi)
             List<District> district = dao.getAllDistricts(provinceID);
             request.setAttribute("district", district);

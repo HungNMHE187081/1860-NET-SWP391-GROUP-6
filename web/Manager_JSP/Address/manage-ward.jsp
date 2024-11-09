@@ -88,13 +88,6 @@
                                             <td>${counter}</td> <!-- Hi?n th? STT -->
                                             <td>${ward.wardName}</td>
                                             <td>
-                                                <form action="${pageContext.request.contextPath}/manager/deleteward" method="post" onsubmit="return confirm('Are you sure you want to delete this ward?');" style="display:inline;">
-                                                    <input type="hidden" name="id" value="${ward.id}">
-                                                    <input type="hidden" name="districtID" value="${ward.districtID}">                             
-                                                    <button class="btn btn-primary btn-sm trash" title="Xóa" type="submit"><i
-                                                            class="fas fa-trash-alt"></i>
-                                                    </button>
-                                                </form>
                                                 <button class="btn btn-primary btn-sm edit" title="S?a" id="show-emp" data-toggle="modal"
                                                         data-target="#ModalUP" onclick="openEditModal(${ward.id}, '${ward.wardName}', '${ward.districtID}')">
                                                     <i class="fas fa-edit"></i>
