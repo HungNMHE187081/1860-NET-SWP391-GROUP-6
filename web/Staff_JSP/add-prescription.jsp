@@ -180,29 +180,48 @@
                     <option value="" disabled>Chọn thuốc:</option>
                     <c:forEach var="medicine" items="${medicineList}">
                         <option value="${medicine.medicineID}" 
-                                <c:if test="${not empty prescription && prescription.medicineID == medicine.medicineID}">
-                                    selected
-                                </c:if>
+                                <c:forEach var="prescription" items="${prescriptions}">
+                                    <c:if test="${prescription.medicineID == medicine.medicineID}">
+                                        selected
+                                    </c:if>
+                                </c:forEach>
                                 >${medicine.name}</option>
                     </c:forEach>
                 </select>
+
 
                 <br>
 
                 <label for="dosage">Liều dùng:</label>
                 <textarea id="dosage" name="dosage" 
-                          <c:if test="${empty prescription}">required</c:if>
-                          >${not empty prescription ? prescription.dosage : ''}</textarea>
+                          <c:if test="${empty prescriptions}">
+                              required
+                          </c:if>
+                          <c:if test="${not empty prescriptions}">
+                              readonly
+                          </c:if>
+                          >${not empty prescriptions ? prescriptions[0].dosage : ''}</textarea>
 
                 <label for="frequency">Tần suất:</label>
                 <textarea id="frequency" name="frequency" 
-                          <c:if test="${empty prescription}">required</c:if>
-                          >${not empty prescription ? prescription.frequency : ''}</textarea>
+                          <c:if test="${empty prescriptions}">
+                              required
+                          </c:if>
+                          <c:if test="${not empty prescriptions}">
+                              readonly
+                          </c:if>
+                          >${not empty prescriptions ? prescriptions[0].frequency : ''}</textarea>
 
                 <label for="duration">Thời điểm sử dụng:</label>
                 <textarea id="duration" name="duration" 
-                          <c:if test="${empty prescription}">required</c:if>
-                          >${not empty prescription ? prescription.duration : ''}</textarea>
+                          <c:if test="${empty prescriptions}">
+                              required
+                          </c:if>
+                          <c:if test="${not empty prescriptions}">
+                              readonly
+                          </c:if>
+                          >${not empty prescriptions ? prescriptions[0].duration : ''}</textarea>
+
 
                 <button type="submit">Thêm đơn thuốc</button>
 

@@ -35,34 +35,35 @@ public class AddPrescriptionServlet extends HttpServlet {
         childrenDAO = new ChildrenDAO();
     }
 
- @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-         HttpSession session = request.getSession();
+@Override
+protected void doGet(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+    HttpSession session = request.getSession();
+    
+    try {
+        Integer recordID = (Integer) session.getAttribute("recordID"); // Lấy ID từ session
+        MedicalRecord record = medicalRecordDAO.getMedicalRecordByID(recordID);
+        Staff staff = staffDAO.getStaffByID(record.getStaffID());
+        List<Medicine> medicineList = medicineDAO.getAllMedicines();
+        Children children = childrenDAO.getChildrenByID(record.getChildID());
         
-        try {
-            Integer recordID = (Integer) session.getAttribute("recordID"); // Lấy ID từ session
-            MedicalRecord record = medicalRecordDAO.getMedicalRecordByID(recordID);
-            Staff staff = staffDAO.getStaffByID(record.getStaffID());
-            List<Medicine> medicineList = medicineDAO.getAllMedicines();
-            Children children = childrenDAO.getChildrenByID(record.getChildID());
-            PrescriptionDAO pDAO = new PrescriptionDAO();
-            Prescription prescription = pDAO.getPrescriptionByRecordID(recordID);
-            if(prescription!=null)
-            {
-                  request.setAttribute("prescription", prescription);
-            }
-            request.setAttribute("children", children);
-            request.setAttribute("medicineList", medicineList);
-            request.setAttribute("record", record);
-            request.setAttribute("staff", staff);
-            request.getRequestDispatcher("/Staff_JSP/add-prescription.jsp").forward(request, response);
-        } catch (Exception e) {
-            log("Error retrieving medical record: " + e.getMessage());
-            request.setAttribute("errorMessage", "Lỗi truy vấn dữ liệu.");
-            request.getRequestDispatcher("/Staff_JSP/error.jsp").forward(request, response);
-        }
+        // Thay vì lấy một Prescription, lấy danh sách Prescription
+        PrescriptionDAO pDAO = new PrescriptionDAO();
+        List<Prescription> prescriptions = pDAO.getPrescriptionsByRecordID2(recordID);
+        
+        request.setAttribute("prescriptions", prescriptions); // Đặt danh sách đơn thuốc vào request
+        request.setAttribute("children", children);
+        request.setAttribute("medicineList", medicineList);
+        request.setAttribute("record", record);
+        request.setAttribute("staff", staff);
+        request.getRequestDispatcher("/Staff_JSP/add-prescription.jsp").forward(request, response);
+    } catch (Exception e) {
+        log("Error retrieving medical record: " + e.getMessage());
+        request.setAttribute("errorMessage", "Lỗi truy vấn dữ liệu.");
+        request.getRequestDispatcher("/Staff_JSP/error.jsp").forward(request, response);
     }
+}
+
 private boolean isEmptyOrSpaces(String input) {
     return input == null || input.trim().isEmpty();
 }
@@ -124,6 +125,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
         request.setAttribute("error", "Lỗi trong quá trình thêm đơn thuốc.");
         request.getRequestDispatcher("/staff/errorPage.jsp").forward(request, response);
     }
+   
 }
 
 
@@ -132,5 +134,13 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
     @Override
     public String getServletInfo() {
         return "Servlet for adding prescriptions";
+    }
+    public static void main(String[] args) {
+        MedicineDAO medicineDAO = new MedicineDAO();
+        List<Medicine> list = medicineDAO.getAllMedicines();
+        for(Medicine m : list)
+        {
+            System.out.println(m);
+        }
     }
 }

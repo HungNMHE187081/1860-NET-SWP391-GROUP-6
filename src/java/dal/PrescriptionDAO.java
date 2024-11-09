@@ -257,34 +257,35 @@ public boolean updatePrescription(int prescriptionID, int medicineID, String dos
 
         return prescription; // Return null if not found
     }
-   public Prescription getPrescriptionByRecordID(int recordID) {
-        Prescription prescription = null;
-        String query = "SELECT p.PrescriptionID, p.RecordID, p.MedicineID, p.Dosage, p.Frequency, p.Duration " +
-                       "FROM Prescriptions p " +
-                       "WHERE p.RecordID = ?";
+   public List<Prescription> getPrescriptionsByRecordID2(int recordID) {
+    List<Prescription> prescriptions = new ArrayList<>();
+    String query = "SELECT p.PrescriptionID, p.RecordID, p.MedicineID, p.Dosage, p.Frequency, p.Duration " +
+                   "FROM Prescriptions p " +
+                   "WHERE p.RecordID = ?";
 
-        try (
-             PreparedStatement stmt = connection.prepareStatement(query)) {
-            
-            stmt.setInt(1, recordID);
-            
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    prescription = new Prescription();
-                    prescription.setPrescriptionID(rs.getInt("PrescriptionID"));
-                    prescription.setRecordID(rs.getInt("RecordID"));
-                    prescription.setMedicineID(rs.getInt("MedicineID"));
-                    prescription.setDosage(rs.getString("Dosage"));
-                    prescription.setFrequency(rs.getString("Frequency"));
-                    prescription.setDuration(rs.getString("Duration"));
-                }
+    try (PreparedStatement stmt = connection.prepareStatement(query)) {
+        stmt.setInt(1, recordID);
+
+        try (ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                Prescription prescription = new Prescription();
+                prescription.setPrescriptionID(rs.getInt("PrescriptionID"));
+                prescription.setRecordID(rs.getInt("RecordID"));
+                prescription.setMedicineID(rs.getInt("MedicineID"));
+                prescription.setDosage(rs.getString("Dosage"));
+                prescription.setFrequency(rs.getString("Frequency"));
+                prescription.setDuration(rs.getString("Duration"));
+                
+                prescriptions.add(prescription); // Thêm đơn thuốc vào danh sách
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
-        
-        return prescription;
+    } catch (SQLException e) {
+        e.printStackTrace();
     }
+    
+    return prescriptions;
+}
+
     public boolean existsPrescription(int recordID, int medicineID) throws SQLException {
         String sql = "SELECT COUNT(*) FROM Prescriptions WHERE recordID = ? AND medicineID = ? ";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
