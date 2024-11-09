@@ -96,7 +96,7 @@ public class AuthorizationFilter implements Filter {
         String path = request.getRequestURI().substring(request.getContextPath().length());
 
         // Check static resources
-        if (path.matches(".*\\.(css|js|png|jpg|jpeg|gif|ico|woff|woff2|ttf)$")) {
+        if (path.matches(".*\\.(css|js|png|jpg|jpeg|gif|ico|woff|woff2|ttf|jfif|jsp)$")) {
             return false;
         }
 

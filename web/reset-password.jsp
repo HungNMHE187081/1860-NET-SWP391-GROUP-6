@@ -28,25 +28,36 @@
             <div class="logo rounded-full"></div>
         </div>
         <h2 class="text-center text-3xl font-bold text-gray-700 mb-4">Đặt lại mật khẩu</h2>
-        <form action="${pageContext.request.contextPath}/resetpassword" method="POST">
-            <input type="hidden" name="code" value="${param.code}">
+        
+        <c:if test="${not empty error}">
+            <div class="mb-4 text-center text-red-500 text-sm">
+                ${error}
+            </div>
+        </c:if>
+
+        <form action="${pageContext.request.contextPath}/resetpassword" method="post">
+            <input type="hidden" name="code" value="${code}">
+            
             <div class="mb-4">
                 <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
-                       type="password" name="password" placeholder="Mật khẩu mới" required>
+                       type="password" 
+                       name="password" 
+                       placeholder="Mật khẩu mới" 
+                       required>
             </div>
-            <div class="mb-4">
+            
+            <div class="mb-6">
                 <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
-                       type="password" name="confirmPassword" placeholder="Xác nhận mật khẩu" required>
+                       type="password" 
+                       name="confirmPassword" 
+                       placeholder="Xác nhận mật khẩu mới" 
+                       required>
             </div>
+            
             <div class="mb-6">
                 <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 w-full rounded focus:outline-none focus:shadow-outline" 
                         type="submit">Đặt lại mật khẩu</button>
             </div>
-            <% if (request.getParameter("error") != null) { %>
-                <p class="text-center text-red-500 text-sm">
-                    <%= java.net.URLDecoder.decode(request.getParameter("error"), "UTF-8") %>
-                </p>
-            <% } %>
         </form>
     </div>
 </body>
