@@ -109,7 +109,7 @@
 
                         <li class="has-submenu parent-menu-item">
                             <a href="${pageContext.request.contextPath}/guest/bloglist">
-                                <i class="uil uil-newspaper me-1"></i>Blog
+                                <i class="uil uil-newspaper me-1"></i>Bài viết
                             </a>
                         </li>
 
@@ -783,7 +783,7 @@
                         <div class="container">
                             <div class="section-title text-center mb-4 pb-2">
                                 <span class="badge badge-pill badge-soft-primary mb-3">
-                                    <i class="uil uil-newspaper me-1"></i>Blog
+                                    <i class="uil uil-newspaper me-1"></i>Bài viết
                                 </span>
                                 <h4 class="title mb-4">Cập Nhật Mới Nhất Từ Trung Tâm</h4>
                                 <p class="text-muted mx-auto para-desc mb-0" style="max-width: 600px;">
