@@ -213,9 +213,10 @@
                                         onclick="return confirm('Bạn có chắc chắn muốn đặt lịch khám không?')"
                                         class="btn btn-primary btn-submit">Đặt Lịch Khám</button>
                             </form>
-                            <div class="form-group col-md-12" style="align-items: center">
-                                <a class="btn btn-cancel" href="${pageContext.request.contextPath}/customer/homepage">
-                                    <button type="submit" class="btn btn-primary btn-submit">
+                            <br>
+                            <div class="form-group col-md-12 text-center">
+                                <a href="${pageContext.request.contextPath}/customer/homepage">
+                                    <button type="button" class="btn btn-primary">
                                         Hủy bỏ
                                     </button>
                                 </a>
