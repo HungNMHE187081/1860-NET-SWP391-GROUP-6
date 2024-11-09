@@ -97,7 +97,7 @@
                                 <thead>
                                     <tr>
                                         <th width="10"><input type="checkbox" id="all"></th>
-                                        <th>ID nhân viên</th>
+                                        <th>ID Khách hàng</th>
                                         <th width="150">Họ và tên</th>
                                         <th width="20">Ảnh thẻ</th>
                                         <th width="300">Địa chỉ</th>

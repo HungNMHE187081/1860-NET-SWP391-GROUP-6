@@ -26,6 +26,7 @@ import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
+import utils.EmailService;
 
 /**
  *
@@ -245,7 +246,7 @@ public class AddUserServlet extends HttpServlet {
 
             // Gọi phương thức addUser trong ManagerUserDAO
             userDAO.addUser(user);
-
+            EmailService.sendEmail(email, firstName, middleName, lastName,username, password);
             // Chuyển hướng đến trang quản lý người dùng sau khi thêm thành công
             response.sendRedirect(request.getContextPath()+"/manager/manageuser");
         } catch (Exception e) {
