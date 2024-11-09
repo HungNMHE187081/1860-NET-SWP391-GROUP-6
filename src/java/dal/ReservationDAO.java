@@ -17,16 +17,17 @@ import model.Reservation;
  * @author LENOVO
  */
 public class ReservationDAO extends DBContext {
-public String getServiceNameByReservationID(int reservationID) {
+
+    public String getServiceNameByReservationID(int reservationID) {
         String serviceName = null;
         String sql = "SELECT s.ServiceName "
-                   + "FROM Reservations r "
-                   + "JOIN OrderItems oi ON r.OrderItemID = oi.OrderItemID "
-                   + "JOIN Services s ON oi.ServiceID = s.ServiceID "
-                   + "WHERE r.ReservationID = ?";
+                + "FROM Reservations r "
+                + "JOIN OrderItems oi ON r.OrderItemID = oi.OrderItemID "
+                + "JOIN Services s ON oi.ServiceID = s.ServiceID "
+                + "WHERE r.ReservationID = ?";
 
         try (
-             PreparedStatement ps = connection.prepareStatement(sql)) {
+                PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setInt(1, reservationID);
 
             try (ResultSet rs = ps.executeQuery()) {
@@ -39,6 +40,7 @@ public String getServiceNameByReservationID(int reservationID) {
         }
         return serviceName;
     }
+
     public List<Reservation> getAllReservations() {
         List<Reservation> list = new ArrayList<>();
         String sql = "SELECT o.OrderID, o.CustomerID, o.isCheckOut, "
@@ -154,39 +156,44 @@ public String getServiceNameByReservationID(int reservationID) {
 
     public List<Reservation> getReservationByCustomerID(int CustomerID) {
         List<Reservation> list = new ArrayList<>();
-        String sql = "SELECT r.*, oi.ServiceID, oi.ChildID, c.FirstName, c.MiddleName, c.LastName "
-                + "FROM Reservations r "
-                + "JOIN OrderItems oi ON r.OrderItemID = oi.OrderItemID "
-                + "JOIN Orders o ON oi.OrderID = o.OrderID "
-                + "JOIN Users u ON o.CustomerID = u.UserID "
-                + "JOIN Children c ON oi.ChildID = c.ChildID "
-                + "WHERE u.UserID = ?"
-                + "ORDER BY r.ReservationDate ASC, r.StartTime ASC";
-        try {
-            PreparedStatement pre = connection.prepareStatement(sql);
+        String sql = """
+        SELECT r.ReservationID, r.OrderItemID, r.ReservationDate, r.StartTime, 
+               r.StaffID, r.isExam, r.hasRecord,
+               c.FirstName, c.MiddleName, c.LastName
+        FROM Reservations r
+        JOIN OrderItems oi ON r.OrderItemID = oi.OrderItemID
+        JOIN Orders o ON oi.OrderID = o.OrderID
+        JOIN Users u ON o.CustomerID = u.UserID
+        JOIN Children c ON oi.ChildID = c.ChildID
+        WHERE o.CustomerID = ?
+        ORDER BY r.ReservationDate ASC, r.StartTime ASC
+        """;
+
+        try (PreparedStatement pre = connection.prepareStatement(sql)) {
             pre.setInt(1, CustomerID);
+
             try (ResultSet rs = pre.executeQuery()) {
                 while (rs.next()) {
                     Reservation reservation = new Reservation();
                     reservation.setReservationID(rs.getInt("ReservationID"));
                     reservation.setOrderItemID(rs.getInt("OrderItemID"));
-                    reservation.setReservationDate(rs.getString("ReservationDate"));
-                    reservation.setStartTime(rs.getString("StartTime"));
+
+                    Date reservationDate = rs.getDate("ReservationDate");
+                    if (reservationDate != null) {
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                        reservation.setReservationDate(dateFormat.format(reservationDate));
+                    }
+
+                    Time startTime = rs.getTime("StartTime");
+                    if (startTime != null) {
+                        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+                        reservation.setStartTime(timeFormat.format(startTime));
+                    }
+
                     reservation.setStaffID(rs.getInt("StaffID"));
                     reservation.setIsExam(rs.getBoolean("isExam"));
                     reservation.setHasRecord(rs.getBoolean("hasRecord"));
-                    
-                    // Thêm thông tin tên trẻ
-                    String childName = rs.getString("FirstName");
-                    if (rs.getString("MiddleName") != null) {
-                        childName += " " + rs.getString("MiddleName");
-                    }
-                    childName += " " + rs.getString("LastName");
-                    
-                    System.out.println("Found reservation: ID=" + reservation.getReservationID() 
-                        + ", Child=" + childName 
-                        + ", Date=" + reservation.getReservationDate());
-                    
+
                     list.add(reservation);
                 }
             }
@@ -317,8 +324,8 @@ public String getServiceNameByReservationID(int reservationID) {
 
     public int addReservation(Reservation reservation) {
         String sql = "INSERT INTO Reservations (OrderItemID, ReservationDate, StartTime, StaffID, isExam, HasRecord) "
-                    + "VALUES (?, ?, ?, ?, ?, ?); "
-                    + "SELECT CAST(SCOPE_IDENTITY() AS INT) AS ReservationID;";
+                + "VALUES (?, ?, ?, ?, ?, ?); "
+                + "SELECT CAST(SCOPE_IDENTITY() AS INT) AS ReservationID;";
         try {
             PreparedStatement st = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             st.setInt(1, reservation.getOrderItemID());
@@ -336,7 +343,7 @@ public String getServiceNameByReservationID(int reservationID) {
             System.out.println("isExam: " + reservation.isIsExam());
 
             st.executeUpdate();
-            
+
             // Lấy ID vừa tạo
             try (ResultSet rs = st.getGeneratedKeys()) {
                 if (rs.next()) {
@@ -500,38 +507,37 @@ public String getServiceNameByReservationID(int reservationID) {
 
     public List<Map<String, Object>> getReservationsByCustomerID(int customerID) {
         List<Map<String, Object>> reservations = new ArrayList<>();
-        String sql = "SELECT DISTINCT r.ReservationID, r.ReservationDate, r.StartTime, " +
-                     "c.FirstName, c.MiddleName, c.LastName, " +
-                     "s.Price as TotalPrice, " +
-                     "o.CustomerID, " +
-                     "CASE " +
-                     "    WHEN p.PaymentStatus = 'SUCCESS' THEN 1 " +
-                     "    ELSE 0 " +
-                     "END as isCheckOut " +
-                     "FROM Users u " +
-                     "JOIN UserRoles ur ON u.UserID = ur.UserID " +
-                     "JOIN Orders o ON u.UserID = o.CustomerID " +
-                     "JOIN OrderItems oi ON o.OrderID = oi.OrderID " +
-                     "JOIN Reservations r ON oi.OrderItemID = r.OrderItemID " +
-                     "JOIN Children c ON oi.ChildID = c.ChildID " +
-                     "JOIN Services s ON oi.ServiceID = s.ServiceID " +
-                     "LEFT JOIN Payments p ON o.OrderID = p.OrderID " +
-                     "WHERE u.UserID = ? AND r.isExam = 0 " +
-                     "AND r.ReservationDate >= GETDATE() " +
-                     "AND (p.PaymentStatus = 'SUCCESS' OR p.PaymentMethod = 'OFFLINE') " +
-                     "ORDER BY r.ReservationDate ASC, r.StartTime ASC";
+        String sql = "SELECT DISTINCT r.ReservationID, r.ReservationDate, r.StartTime, "
+                + "c.FirstName, c.MiddleName, c.LastName, "
+                + "s.Price as TotalPrice, "
+                + "o.CustomerID, "
+                + "CASE "
+                + "    WHEN p.PaymentStatus = 'SUCCESS' THEN 1 "
+                + "    ELSE 0 "
+                + "END as isCheckOut "
+                + "FROM Users u "
+                + "JOIN UserRoles ur ON u.UserID = ur.UserID "
+                + "JOIN Orders o ON u.UserID = o.CustomerID "
+                + "JOIN OrderItems oi ON o.OrderID = oi.OrderID "
+                + "JOIN Reservations r ON oi.OrderItemID = r.OrderItemID "
+                + "JOIN Children c ON oi.ChildID = c.ChildID "
+                + "JOIN Services s ON oi.ServiceID = s.ServiceID "
+                + "LEFT JOIN Payments p ON o.OrderID = p.OrderID "
+                + "WHERE u.UserID = ? AND r.isExam = 0 "
+                + "AND (p.PaymentStatus = 'SUCCESS' OR p.PaymentMethod = 'OFFLINE') "
+                + "ORDER BY r.ReservationDate ASC, r.StartTime ASC";
 
         try (PreparedStatement st = connection.prepareStatement(sql)) {
             st.setInt(1, customerID);
             ResultSet rs = st.executeQuery();
-            
+
             while (rs.next()) {
                 Map<String, Object> reservation = new HashMap<>();
                 reservation.put("reservationID", rs.getInt("ReservationID"));
                 reservation.put("reservationDate", rs.getString("ReservationDate"));
                 reservation.put("startTime", rs.getString("StartTime"));
-                reservation.put("childName", rs.getString("FirstName") + " " + 
-                              rs.getString("MiddleName") + " " + rs.getString("LastName"));
+                reservation.put("childName", rs.getString("FirstName") + " "
+                        + rs.getString("MiddleName") + " " + rs.getString("LastName"));
                 reservation.put("totalPrice", rs.getDouble("TotalPrice"));
                 reservation.put("isCheckOut", rs.getBoolean("isCheckOut"));
                 reservations.add(reservation);
@@ -697,7 +703,7 @@ public String getServiceNameByReservationID(int reservationID) {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, reservationId);
             ResultSet rs = st.executeQuery();
-            
+
             if (rs.next()) {
                 Reservation reservation = new Reservation();
                 reservation.setReservationID(rs.getInt("ReservationID"));
@@ -715,4 +721,4 @@ public String getServiceNameByReservationID(int reservationID) {
         }
         return null;
     }
-            }
+}

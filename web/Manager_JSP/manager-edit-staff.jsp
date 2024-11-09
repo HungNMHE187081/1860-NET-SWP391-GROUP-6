@@ -1,10 +1,6 @@
-<%-- 
-    Document   : manager-edit-staff
-    Created on : Oct 6, 2024, 12:59:58 PM
-    Author     : LENOVO
---%>
+<%-- Document : manager-edit-staff Created on : Oct 6, 2024, 12:59:58 PM Author : LENOVO --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
@@ -17,7 +13,8 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Main CSS-->
-        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/manager/main.css">
+        <link rel="stylesheet" type="text/css"
+              href="${pageContext.request.contextPath}/css/manager/main.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
         <!-- or -->
         <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
@@ -27,7 +24,8 @@
         <script src="http://code.jquery.com/jquery.min.js" type="text/javascript"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+        <link rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
         <script>
 
             function readURL(input, thumbimage) {
@@ -149,115 +147,151 @@
         <header class="app-header">
             <!-- Sidebar toggle button--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar"
                                             aria-label="Hide Sidebar"></a>
-            <!-- Navbar Right Menu-->
-            <ul class="app-nav">
-                <!-- User Menu-->
-                <li><a class="app-nav__item" href="/index.html"><i class='bx bx-log-out bx-rotate-180'></i> </a>
-                </li>
-            </ul>
         </header>
         <!-- Sidebar menu-->
         <%@include file="dashboardleft.jsp" %>
         <main class="app-content">
             <div class="app-title">
                 <ul class="app-breadcrumb breadcrumb">
-                    <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/manager/staffslist">Danh sách nhân viên</a></li>
-                    <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/manager/editstaff?staffID=${staff.staffID}">Chỉnh sửa nhân viên</a></li>
+                    <li class="breadcrumb-item"><a
+                            href="${pageContext.request.contextPath}/manager/staffslist">Danh sách nhân
+                            viên</a></li>
+                    <li class="breadcrumb-item"><a
+                            href="${pageContext.request.contextPath}/manager/editstaff?staffID=${staff.staffID}">Chỉnh
+                            sửa nhân viên</a></li>
                 </ul>
             </div>
             <div class="row">
                 <div class="col-md-12">
                     <div class="container">
                         <h2>Chỉnh sửa nhân viên</h2>
-                        <form id="editStaffForm" method="POST" action="${pageContext.request.contextPath}/manager/editstaff">
+                        <c:if test="${not empty errorMessages}">
+                            <div class="alert-danger">
+                                <ul>
+                                    <c:forEach var="error" items="${errorMessages}">
+                                        ${error}<br>
+                                    </c:forEach>
+                                </ul>
+                            </div>
+                        </c:if>
+                        <form id="editStaffForm" method="POST"
+                              action="${pageContext.request.contextPath}/manager/editstaff">
                             <input type="hidden" name="staffID" value="${staff.staffID}">
                             <div class="row">
                                 <div class="col-md-3 text-center">
                                     <div class="form-group">
                                         <label class="control-label">Ảnh đại diện</label>
                                         <div class="profile-img-container">
-                                            <img id="imagePreview" src="${user.profileImage}" alt="${staff.staffName}" class="rounded-circle img-fluid">
+                                            <img id="imagePreview" src="${user.profileImage}"
+                                                 alt="${staff.staffName}"
+                                                 class="rounded-circle img-fluid">
                                         </div>
-
                                     </div>
                                 </div>
-
                                 <div class="col-md-9">
                                     <div class="row">
                                         <div class="form-group col-md-4">
                                             <label class="control-label">Tên nhân viên</label>
-                                            <input class="form-control" type="text" id="staffName" name="staffName" value="${staff.staffName}" readonly="">
+                                            <input class="form-control" type="text" id="staffName"
+                                                   name="staffName" value="${staff.staffName}" readonly="">
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label class="control-label">Giới tính</label>
-                                            <input class="form-control" type="text" id="gender" name="gender" value="${user.gender}" readonly="">
+                                            <input class="form-control" type="text" id="gender"
+                                                   name="gender" value="${user.gender}" readonly="">
                                         </div>
                                         <div class="form-group col-md-4">
-                                            <label class="control-label">Chức vụ</label>
-                                            <select class="form-control" id="degree" name="degree" required>
-                                                <c:forEach var="degree" items="${degrees}">
-                                                    <option value="${degree.degreeID}" ${degree.degreeID == staff.degreeID ? 'selected' : ''}>${degree.degreeName}</option>
+                                            <label class="control-label">Degree</label>
+                                            <select name="degree" class="form-control">
+                                                <option value="">Chọn bằng cấp</option>
+                                                <c:forEach items="${degrees}" var="degree">
+                                                    <option value="${degree.degreeID}"${staff.degreeID==degree.degreeID ? 'selected' : '' }>
+                                                        ${degree.degreeName}
+                                                    </option>
                                                 </c:forEach>
                                             </select>
                                         </div>
                                         <div class="form-group col-md-4">
-                                            <label class="control-label">Khoa</label>
-                                            <select class="form-control" id="specialization" name="specialization" required>
-                                                <c:forEach var="specialization" items="${specializations}">
-                                                    <option value="${specialization.specializationID}" ${specialization.specializationID == staff.specializationID ? 'selected' : ''}>${specialization.specializationName}</option>
+                                            <label class="control-label">Specialization</label>
+                                            <select name="specialization" class="form-control">
+                                                <option value="">Chọn chuyên môn</option>
+                                                <c:forEach items="${specializations}" var="spec">
+                                                    <option value="${spec.specializationID}" ${staff.specializationID==spec.specializationID ? 'selected' : '' }>
+                                                        ${spec.specializationName}
+                                                    </option>
                                                 </c:forEach>
                                             </select>
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label class="control-label">Tỉnh/Thành phố</label>
-                                            <input class="form-control" type="text" id="province" name="province" value="${user.address.provinces.provinceName}" readonly="">
+                                            <input class="form-control" type="text" id="province"
+                                                   name="province"
+                                                   value="${user.address.provinces.provinceName}"
+                                                   readonly="">
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label class="control-label">Quận/Huyện</label>
-                                            <input class="form-control" type="text" id="district" name="district" value="${user.address.district.districtName}" readonly="">
+                                            <input class="form-control" type="text" id="district"
+                                                   name="district"
+                                                   value="${user.address.district.districtName}"
+                                                   readonly="">
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label class="control-label">Phường/Xã</label>
-                                            <input class="form-control" type="text" id="ward" name="ward" value="${user.address.ward.wardName}" readonly="">
+                                            <input class="form-control" type="text" id="ward"
+                                                   name="ward" value="${user.address.ward.wardName}"
+                                                   readonly="">
                                         </div>
                                         <div class="form-group col-md-4">
-                                            <label class="control-label">Địa chỉ</label>    
-                                            <input class="form-control" type="text" id="province" name="province" value="${user.address.streetAddress}" readonly="">
+                                            <label class="control-label">Địa chỉ</label>
+                                            <input class="form-control" type="text" id="province"
+                                                   name="province" value="${user.address.streetAddress}"
+                                                   readonly="">
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label class="control-label">Email</label>
-                                            <input class="form-control" type="text" id="email" name="email" value="${user.email}" readonly="">
+                                            <input class="form-control" type="text" id="email"
+                                                   name="email" value="${user.email}" readonly="">
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label class="control-label">Số điện thoại</label>
-                                            <input class="form-control" type="text" id="phoneNumber" name="phoneNumber" value="${user.phoneNumber}" readonly="">
+                                            <input class="form-control" type="text" id="phoneNumber"
+                                                   name="phoneNumber" value="${user.phoneNumber}"
+                                                   readonly="">
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label class="control-label">Ngày sinh</label>
-                                            <input class="form-control" type="text" id="dateOfBirth" name="dateOfBirth" value="${user.dateOfBirth}" readonly="">
+                                            <input class="form-control" type="text" id="dateOfBirth"
+                                                   name="dateOfBirth" value="${user.dateOfBirth}"
+                                                   readonly="">
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label class="control-label">CMND/CCCD</label>
-                                            <input class="form-control" type="text" id="citizenIdentification" name="citizenIdentification" value="${user.citizenIdentification}" readonly="">
-                                        </div>  
-                                        <div class="form-group col-md-4">
-                                            <label class="control-label">Số năm kinh nghiệm</label>
-                                            <input class="form-control" type="number" id="yearsOfExperience" name="yearsOfExperience" value="${staff.yearsOfExperience}">
+                                            <input class="form-control" type="text"
+                                                   id="citizenIdentification" name="citizenIdentification"
+                                                   value="${user.citizenIdentification}" readonly="">
                                         </div>
                                         <div class="form-group col-md-4">
-                                            <label class="control-label">Ngày được nhận</label>
-                                            <input class="form-control" type="date" id="hireDate" name="hireDate" value="${staff.hireDate}">
+                                            <label class="control-label">Years of Experience</label>
+                                            <input type="number" name="yearsOfExperience" class="form-control"
+                                                   value="${staff.yearsOfExperience != null ? staff.yearsOfExperience : ''}" required>
                                         </div>
                                         <div class="form-group col-md-4">
-                                            <label class="control-label">Lương(VNĐ)</label>
+                                            <label class="control-label">Hire Date</label>
+                                            <input type="date" name="hireDate" class="form-control"
+                                                   value="${staff.hireDate}" required>
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label class="control-label">Salary</label>
                                             <input class="form-control" type="text" id="salary" name="salary"
-                                                   value="<fmt:formatNumber value='${staff.salary}' type='number' groupingUsed='true'/>">
+                                                   value="<fmt:formatNumber value='${staff.salary != 0 ? staff.salary : 0}' type='number' groupingUsed='true'/>">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group col-md-12 right-align">
                                     <button type="submit" class="btn btn-save">Lưu thay đổi</button>
-                                    <a class="btn btn-cancel" href="${pageContext.request.contextPath}/manager/staffslist">Trở về</a>
+                                    <a class="btn btn-cancel"
+                                       href="${pageContext.request.contextPath}/manager/staffslist">Trở về</a>
                                 </div>
                             </div>
                         </form>

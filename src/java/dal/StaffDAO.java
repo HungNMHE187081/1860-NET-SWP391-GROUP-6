@@ -170,40 +170,57 @@ public class StaffDAO extends DBContext {
         return listStaff;
     }
 
-    public void updateStaff(int staffID, int degreeID, int specializationID, int yearsOfExperience,
-            String hireDate, double salary) {
-        String sql = "UPDATE [dbo].[Staff]\n"
-                + "   SET [YearsOfExperience] = ? \n"
-                + "      ,[SpecializationID] = ? \n"
-                + "      ,[DegreeID] = ? \n"
-                + "      ,[HireDate] = ? \n"
-                + "      ,[Salary] = ? \n"
-                + " WHERE staffID = ?";
-        try{
-            PreparedStatement pre = connection.prepareStatement(sql);
-            pre.setInt(1, yearsOfExperience);
-            pre.setInt(2, specializationID);
-            pre.setInt(3, degreeID);
-            pre.setString(4, hireDate);
-            pre.setDouble(5, salary);
-            pre.setInt(6, staffID);
-            pre.executeUpdate();
-        }
-        catch(SQLException e){
-            
-        }
-    }
+public void updateStaff(int staffID, int degreeID, int specializationID, int yearsOfExperience,
+        String hireDate, double salary) throws SQLException {
+    // Check if staff exists
+    String checkSql = "SELECT COUNT(*) FROM Staff WHERE StaffID = ?";
+    String insertSql = "INSERT INTO Staff (StaffID, DegreeID, SpecializationID, YearsOfExperience, HireDate, Salary) "
+            + "VALUES (?, ?, ?, ?, ?, ?)";
+    String updateSql = "UPDATE Staff SET "
+            + "YearsOfExperience = ?, "
+            + "SpecializationID = ?, "
+            + "DegreeID = ?, "
+            + "HireDate = ?, "
+            + "Salary = ? "
+            + "WHERE StaffID = ?";
 
-    public static void main(String[] args) {
-        StaffDAO dao = new StaffDAO();
-        List<Staff> list = dao.getAllStaff();
-        for(Staff x : list)
-        {
-            System.out.println(x.getStaffID());
-        }
-    }
+    try {
+        // Check if staff exists
+        try (PreparedStatement checkStmt = connection.prepareStatement(checkSql)) {
+            checkStmt.setInt(1, staffID);
+            ResultSet rs = checkStmt.executeQuery();
+            rs.next();
+            int count = rs.getInt(1);
 
-    public List<Staff> getAllStaff() {
+            if (count == 0) {
+                // Insert new staff
+                try (PreparedStatement insertStmt = connection.prepareStatement(insertSql)) {
+                    insertStmt.setInt(1, staffID);
+                    insertStmt.setInt(2, degreeID);
+                    insertStmt.setInt(3, specializationID);
+                    insertStmt.setInt(4, yearsOfExperience);
+                    insertStmt.setString(5, hireDate);
+                    insertStmt.setDouble(6, salary);
+                    insertStmt.executeUpdate();
+                }
+            } else {
+                // Update existing staff
+                try (PreparedStatement updateStmt = connection.prepareStatement(updateSql)) {
+                    updateStmt.setInt(1, yearsOfExperience);
+                    updateStmt.setInt(2, specializationID);
+                    updateStmt.setInt(3, degreeID);
+                    updateStmt.setString(4, hireDate);
+                    updateStmt.setDouble(5, salary);
+                    updateStmt.setInt(6, staffID);
+                    updateStmt.executeUpdate();
+                }
+            }
+        }
+    } catch (SQLException e) {
+        throw new SQLException("Error updating/inserting staff: " + e.getMessage());
+    }
+}
+        public List<Staff> getAllStaff() {
       List<Staff> staffList = new ArrayList<>();
         String sql = "SELECT StaffID, StaffName FROM StaffView";
 
@@ -219,5 +236,9 @@ public class StaffDAO extends DBContext {
         }
         return staffList;
     }
- 
+    
+    public static void main(String[] args) {
+        StaffDAO dao = new StaffDAO();
+        System.out.println(dao.getStaffByDegreeID(1).size());
+    }
 }

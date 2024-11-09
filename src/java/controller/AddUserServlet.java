@@ -26,6 +26,7 @@ import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
+import java.util.Random;
 import utils.EmailService;
 
 /**
@@ -130,13 +131,14 @@ public class AddUserServlet extends HttpServlet {
             String streetAddress = request.getParameter("streetAddress");
             int wardID = Integer.parseInt(request.getParameter("wardID"));
             String username = request.getParameter("username");
-            String password = request.getParameter("passwordHash");
             java.sql.Date dateOfBirth = java.sql.Date.valueOf(request.getParameter("dateOfBirth"));
             Part filePart = request.getPart("profileImage");
             String provinceID = request.getParameter("provinceID");
             String districtID = request.getParameter("districtID");
+            String password = generateRandomPassword();
             String salt = generateSalt();
             String passwordHash = hashPassword(password, salt);
+            request.setAttribute("password", password);
             // Thiết lập đường dẫn upload file
             String uploadPath = getServletContext().getRealPath("") + File.separator + UPLOAD_DIR;
 
@@ -289,7 +291,41 @@ public class AddUserServlet extends HttpServlet {
             throw new RuntimeException(e);
         }
     }
-
+   private String generateRandomPassword() {
+        String upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        String lowerCase = "abcdefghijklmnopqrstuvwxyz";
+        String numbers = "0123456789";
+        String specialChars = "!@#$%^&*";
+        String allChars = upperCase + lowerCase + numbers + specialChars;
+        
+        StringBuilder password = new StringBuilder();
+        Random random = new Random();
+        
+        // Đảm bảo có ít nhất 1 ký tự viết hoa
+        password.append(upperCase.charAt(random.nextInt(upperCase.length())));
+        // Đảm bảo có ít nhất 1 ký tự viết thường
+        password.append(lowerCase.charAt(random.nextInt(lowerCase.length())));
+        // Đảm bảo có ít nhất 1 số
+        password.append(numbers.charAt(random.nextInt(numbers.length())));
+        // Đảm bảo có ít nhất 1 ký tự đặc biệt
+        password.append(specialChars.charAt(random.nextInt(specialChars.length())));
+        
+        // Thêm 4 ký tự ngẫu nhiên nữa để đủ 8 ký tự
+        for (int i = 0; i < 4; i++) {
+            password.append(allChars.charAt(random.nextInt(allChars.length())));
+        }
+        
+        // Trộn các ký tự
+        char[] passwordArray = password.toString().toCharArray();
+        for (int i = passwordArray.length - 1; i > 0; i--) {
+            int j = random.nextInt(i + 1);
+            char temp = passwordArray[i];
+            passwordArray[i] = passwordArray[j];
+            passwordArray[j] = temp;
+        }
+        
+        return new String(passwordArray);
+    }
     /**
      * Returns a short description of the servlet.
      *

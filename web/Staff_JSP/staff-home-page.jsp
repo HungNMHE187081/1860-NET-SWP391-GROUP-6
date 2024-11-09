@@ -33,7 +33,6 @@
                                     <th>Ngày khám</th>
                                     <th>Tên dịch vụ</th>
                                     <th>Thời gian khám</th>
-                                    <th>Tên nhân viên</th>
 
                                 </tr>
                             </thead>
@@ -50,8 +49,6 @@
 
                                             <td>${reservation.serviceName}</td>
                                             <td>${fn:substring(reservation.appointmentStartTime, 0, 8)}</td>
-
-                                            <td>${staff.staffName}</td>
                                         </tr>
                                     </c:forEach>
                                 </c:if>
