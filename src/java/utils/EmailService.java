@@ -36,7 +36,7 @@ public class EmailService {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(USERNAME));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipientEmail));
-            message.setSubject("Welcome to Medicine Shop");
+            message.setSubject("Welcome to ChildCare");
 
             String fullName = firstName + " " + (middleName != null ? middleName + " " : "") + lastName;
             String emailContent = generateHtmlContent(fullName, username, password);
