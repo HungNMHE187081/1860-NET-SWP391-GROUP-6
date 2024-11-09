@@ -21,12 +21,12 @@ public class BlogComment {
     private List<BlogComment> replies;
     private Timestamp createdDate;
     private BlogComment parent;
-
+   private int isApproved;
     public BlogComment() {
 
     }
 
-    public BlogComment(int commentID, int blogID, Users user, String content, List<BlogComment> replies, Timestamp createdDate, BlogComment parent) {
+    public BlogComment(int commentID, int blogID, Users user, String content, List<BlogComment> replies, Timestamp createdDate, BlogComment parent, int isApproved) {
         this.commentID = commentID;
         this.blogID = blogID;
         this.user = user;
@@ -34,6 +34,7 @@ public class BlogComment {
         this.replies = replies;
         this.createdDate = createdDate;
         this.parent = parent;
+        this.isApproved = isApproved;
     }
 
     public int getCommentID() {
@@ -92,6 +93,14 @@ public class BlogComment {
         this.parent = parent;
     }
 
-    
+    public int getIsApproved() {
+        return isApproved;
+    }
+
+    public void setIsApproved(int isApproved) {
+        this.isApproved = isApproved;
+    }
+
+   
 
 }

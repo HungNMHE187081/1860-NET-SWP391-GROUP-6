@@ -196,10 +196,10 @@
                                         <c:if test="${not empty blogDetails.categories}">
                                             ${blogDetails.categories[0].categoryName} <!-- Assuming categories is a List<BlogCategory> -->
                                         </c:if>
-                                            <c:if test="${empty blogDetails.categories}">
-                                                Chưa có phân loại
-                                            </c:if>
-                                         
+                                        <c:if test="${empty blogDetails.categories}">
+                                            Chưa có phân loại
+                                        </c:if>
+
                                     </div>
                                 </div>
 
@@ -235,53 +235,155 @@
                     </div>
                 </div>
             </div>
-
-        </main>
-
-
-        <!--
-        MODAL
-        -->
-        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-             data-backdrop="static" data-keyboard="false">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="form-group  col-md-12">
-                                <span class="thong-tin-thanh-toan">
-                                    <h5>Tạo chức vụ mới</h5>
-                                </span>
-                            </div>
-                            <div class="form-group col-md-12">
-                                <label class="control-label">Nhập tên chức vụ mới</label>
-                                <input class="form-control" type="text" required>
-                            </div>
+            <!-- Comments Section -->
+            <div class="row mt-4">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h4>Bình luận (${comments.size()})</h4>
                         </div>
-                        <BR>
-                        <button class="btn btn-save" type="button">Lưu lại</button>
-                        <a class="btn btn-cancel" data-dismiss="modal" href="#">Hủy bỏ</a>
-                        <BR>
                     </div>
-                    <div class="modal-footer">
+                    <div class="card-body">
+                        <!-- Comments List -->
+                        <div class="comments-list">
+                            <c:forEach items="${comments}" var="comment">
+                                <div class="comment-item border-bottom pb-3 mb-3">
+                                    <div class="d-flex">
+                                        <div class="comment-avatar">
+                                            <img src="${pageContext.request.contextPath}/${comment.user.profileImage}" 
+                                                 alt="user avatar" class="rounded-circle" width="40" height="40"
+                                                 onerror="this.src='${pageContext.request.contextPath}/img/default-avatar.jpg'">
+                                        </div>
+                                        <div class="comment-content ml-3 flex-grow-1">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <h6 class="mb-1">${comment.user.firstName} ${comment.user.lastName}</h6>
+                                                <small class="text-muted">${comment.createdDate}</small>
+                                            </div>
+                                            <p class="mb-1">${comment.content}</p>
+                                            <form action="${pageContext.request.contextPath}/manager/viewdetailblog" method="POST">
+                                                <input type="hidden" name="commentId" value="${comment.commentID}" />
+                                                <input type="hidden" name="currentStatus" value="${comment.isApproved}" />
+                                                <button type="submit">
+                                                    <c:choose>
+                                                        <c:when test="${comment.isApproved == 1}">
+                                                            Ẩn
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            Công khai
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                </button>
+                                            </form>
+                                            <!-- Replies List -->
+                                            <c:if test="${not empty comment.replies}">
+                                                <div class="replies-list ml-4 mt-3">
+                                                    <c:forEach items="${comment.replies}" var="reply">
+                                                        <div class="reply-item border-left pl-3 mb-2">
+                                                            <div class="d-flex">
+                                                                <div class="reply-avatar">
+                                                                    <img src="${pageContext.request.contextPath}/${reply.user.profileImage}" 
+                                                                         alt="user avatar" class="rounded-circle" width="30" height="30"
+                                                                         onerror="this.src='${pageContext.request.contextPath}/img/default-avatar.jpg'">
+                                                                </div>
+                                                                <div class="reply-content ml-2 flex-grow-1">
+                                                                    <div class="d-flex justify-content-between align-items-center">
+                                                                        <h6 class="mb-1">${reply.user.firstName} ${reply.user.lastName}</h6>
+                                                                        <small class="text-muted">${reply.createdDate}</small>
+                                                                    </div>
+                                                                    <p class="mb-1">${reply.content}</p>
+                                                                    <form action="${pageContext.request.contextPath}/manager/viewdetailblog" method="POST">
+                                                                        <input type="hidden" name="commentId" value="${reply.commentID}" />
+                                                                        <input type="hidden" name="currentStatus" value="${reply.isApproved}" />
+                                                                        <button type="submit">
+                                                                            <c:choose>
+                                                                                <c:when test="${reply.isApproved==1}">
+                                                                                    Ẩn
+                                                                                </c:when>
+                                                                                <c:otherwise>
+                                                                                    Công khai
+                                                                                </c:otherwise>
+                                                                            </c:choose>
+                                                                        </button>
+                                                                    </form>    
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </c:forEach>
+                                                </div>
+                                            </c:if>
+                                        </div>
+                                    </div>
+                                </div>
+                            </c:forEach>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!--
-        MODAL
-        -->
+
+    </main>
 
 
-        <!-- Essential javascripts for application to work-->
-        <script src="${pageContext.request.contextPath}/js/manager/jquery-3.2.1.min.js" type="text/javascript"></script>
-        <script src="${pageContext.request.contextPath}/js/manager/popper.min.js" type="text/javascript"></script>
-        <script src="${pageContext.request.contextPath}/js/manager/bootstrap.min.js"></script>
-        <script src="${pageContext.request.contextPath}/js/manager/main.js"></script>
-        <!-- The javascript plugin to display page loading on top-->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
 
-    </body>
+    <!--
+    MODAL
+    -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+         data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="form-group  col-md-12">
+                            <span class="thong-tin-thanh-toan">
+                                <h5>Tạo chức vụ mới</h5>
+                            </span>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label class="control-label">Nhập tên chức vụ mới</label>
+                            <input class="form-control" type="text" required>
+                        </div>
+                    </div>
+                    <BR>
+                    <button class="btn btn-save" type="button">Lưu lại</button>
+                    <a class="btn btn-cancel" data-dismiss="modal" href="#">Hủy bỏ</a>
+                    <BR>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--
+    MODAL
+    -->
+
+
+    <!-- Essential javascripts for application to work-->
+    <script src="${pageContext.request.contextPath}/js/manager/jquery-3.2.1.min.js" type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath}/js/manager/popper.min.js" type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath}/js/manager/bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js/manager/main.js"></script>
+    <!-- The javascript plugin to display page loading on top-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+    <style>
+        .comment-item {
+            transition: background-color 0.2s;
+        }
+        .comment-item:hover {
+            background-color: #f8f9fa;
+        }
+        .reply-item {
+            border-left: 2px solid #dee2e6;
+        }
+        .comment-avatar img, .reply-avatar img {
+            object-fit: cover;
+        }
+        .reply-content {
+            font-size: 0.95em;
+        }
+    </style>
+</body>
 
 </html>
