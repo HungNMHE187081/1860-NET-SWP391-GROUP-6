@@ -38,12 +38,12 @@ public class ForgotPasswordServlet extends HttpServlet {
         LOGGER.log(Level.INFO, "Email received: {0}", email);
         
         try {
-            // Tìm user theo email
+            // Sử dụng findUserByEmail từ UserDAO
             Users user = userDAO.findUserByEmail(email);
             System.out.println("User found: " + (user != null ? "yes" : "no"));
             
             if (user != null) {
-                // Tạo mã xác nhận
+                // Sử dụng generateVerificationCode từ UserDAO
                 String verificationCode = userDAO.generateVerificationCode();
                 System.out.println("Generated verification code: " + verificationCode);
                 
@@ -75,20 +75,21 @@ public class ForgotPasswordServlet extends HttpServlet {
                     EmailUtil.sendEmail(email, "Đặt lại mật khẩu", emailContent);
                     System.out.println("Email sent successfully");
                     
-                    String message = java.net.URLEncoder.encode("Vui lòng kiểm tra email của bạn để đặt lại mật khẩu", "UTF-8");
-                    response.sendRedirect("forgot-password.jsp?message=" + message);
+                    // Sử dụng forward thay vì redirect để giữ thông báo
+                    request.setAttribute("message", "Vui lòng kiểm tra email của bạn để đặt lại mật khẩu");
+                    request.getRequestDispatcher("forgot-password.jsp").forward(request, response);
                 } else {
-                    String error = java.net.URLEncoder.encode("Có lỗi xảy ra. Vui lòng thử lại sau", "UTF-8");
-                    response.sendRedirect("forgot-password.jsp?error=" + error);
+                    request.setAttribute("error", "Có lỗi xảy ra. Vui lòng thử lại sau");
+                    request.getRequestDispatcher("forgot-password.jsp").forward(request, response);
                 }
             } else {
-                String error = java.net.URLEncoder.encode("Email không tồn tại trong hệ thống", "UTF-8");
-                response.sendRedirect("forgot-password.jsp?error=" + error);
+                request.setAttribute("error", "Email không tồn tại trong hệ thống");
+                request.getRequestDispatcher("forgot-password.jsp").forward(request, response);
             }
             
         } catch (MessagingException e) {
-            String error = java.net.URLEncoder.encode("Không thể gửi email. Vui lòng thử lại sau", "UTF-8");
-            response.sendRedirect("forgot-password.jsp?error=" + error);
+            request.setAttribute("error", "Không thể gửi email. Vui lòng thử lại sau");
+            request.getRequestDispatcher("forgot-password.jsp").forward(request, response);
         }
     }
 }

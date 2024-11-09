@@ -6,6 +6,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.logging.Logger;
 
 /**
  *
@@ -13,11 +14,11 @@ import jakarta.servlet.http.HttpServletResponse;
  */
 public class ResetPasswordServlet extends HttpServlet {
     private UserDAO userDAO;
+    private static final Logger LOGGER = Logger.getLogger(ResetPasswordServlet.class.getName());
     
     @Override
     public void init() {
         userDAO = new UserDAO();
-        System.out.println("ResetPasswordServlet initialized");
     }
     
     @Override
@@ -27,11 +28,7 @@ public class ResetPasswordServlet extends HttpServlet {
         String code = request.getParameter("code");
         System.out.println("Reset code received: " + code);
         
-        if (code == null || code.trim().isEmpty()) {
-            String error = java.net.URLEncoder.encode("Mã xác nhận không hợp lệ", "UTF-8");
-            response.sendRedirect("login.jsp?error=" + error);
-            return;
-        }
+        request.setAttribute("code", code);
         request.getRequestDispatcher("reset-password.jsp").forward(request, response);
     }
     
@@ -39,6 +36,7 @@ public class ResetPasswordServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
         System.out.println("ResetPasswordServlet - doPost started");
+        
         String code = request.getParameter("code");
         String password = request.getParameter("password");
         String confirmPassword = request.getParameter("confirmPassword");
@@ -47,30 +45,29 @@ public class ResetPasswordServlet extends HttpServlet {
         System.out.println("Password match: " + password.equals(confirmPassword));
         
         if (!password.equals(confirmPassword)) {
+            System.out.println("Password match: false");
             System.out.println("Passwords do not match");
-            String error = java.net.URLEncoder.encode("Mật khẩu không khớp", "UTF-8");
-            response.sendRedirect("reset-password.jsp?code=" + code + "&error=" + error);
+            
+            request.setAttribute("code", code);
+            request.setAttribute("error", "Mật khẩu không khớp!");
+            request.getRequestDispatcher("reset-password.jsp").forward(request, response);
             return;
         }
         
         Integer userID = userDAO.validatePasswordReset(code);
-        System.out.println("UserID from validation: " + userID);
-        
         if (userID != null) {
-            boolean updated = userDAO.updatePassword(userID, password);
-            System.out.println("Password update result: " + updated);
-            
-            if (updated) {
-                String message = java.net.URLEncoder.encode("Mật khẩu đã được đặt lại thành công", "UTF-8");
-                response.sendRedirect("login.jsp?message=" + message);
+            if (userDAO.updatePassword(userID, password)) {
+                request.setAttribute("message", "Đặt lại mật khẩu thành công!");
+                response.sendRedirect(request.getContextPath() + "/login");
             } else {
-                String error = java.net.URLEncoder.encode("Không thể cập nhật mật khẩu", "UTF-8");
-                response.sendRedirect("reset-password.jsp?code=" + code + "&error=" + error);
+                request.setAttribute("code", code);
+                request.setAttribute("error", "Không thể cập nhật mật khẩu. Vui lòng thử lại.");
+                request.getRequestDispatcher("reset-password.jsp").forward(request, response);
             }
         } else {
-            System.out.println("Invalid or expired reset code");
-            String error = java.net.URLEncoder.encode("Mã xác nhận không hợp lệ hoặc đã hết hạn", "UTF-8");
-            response.sendRedirect("forgot-password.jsp?error=" + error);
+            request.setAttribute("code", code);
+            request.setAttribute("error", "Mã xác nhận không hợp lệ hoặc đã hết hạn.");
+            request.getRequestDispatcher("reset-password.jsp").forward(request, response);
         }
     }
 }

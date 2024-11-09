@@ -36,16 +36,16 @@
             <div class="mb-6">
                 <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 w-full rounded focus:outline-none focus:shadow-outline" type="submit">Submit</button>
             </div>
-            <% if (request.getParameter("message") != null) { %>
+            <c:if test="${not empty message}">
                 <p class="text-center text-green-500 text-sm">
-                    <%= java.net.URLDecoder.decode(request.getParameter("message"), "UTF-8") %>
+                    ${message}
                 </p>
-            <% } %>
-            <% if (request.getParameter("error") != null) { %>
+            </c:if>
+            <c:if test="${not empty error}">
                 <p class="text-center text-red-500 text-sm">
-                    <%= java.net.URLDecoder.decode(request.getParameter("error"), "UTF-8") %>
+                    ${error}
                 </p>
-            <% } %>
+            </c:if>
         </form>
     </div>
 </body>
