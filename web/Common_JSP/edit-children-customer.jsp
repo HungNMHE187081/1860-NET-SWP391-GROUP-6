@@ -191,14 +191,14 @@
         <%@ include file="/Common_JSP/dashboardtop.jsp" %>
 
         <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
-       
+
 
         <main class="app-content">
             <div class="row">
                 <div class="col-md-12">
                     <div class="tile">
                         <h3 class="tile-title">Chỉnh sửa hồ sơ</h3>
-                        
+
                         <div class="tile-body">
                             <c:if test="${not empty error}">
                                 <div class="alert alert-danger">${error}</div>
@@ -249,8 +249,14 @@
                                             <!-- Personal Details -->
                                             <div class="form-group col-md-4">
                                                 <label class="control-label">Ngày sinh</label>
-                                                <input class="form-control" type="date" name="dateOfBirth" value="${children.dateOfBirth}" required>
+                                                <input class="form-control" type="date" name="dateOfBirth" value="${children.dateOfBirth}" required id="dateOfBirth">
                                             </div>
+
+                                            <script>
+                                                // Thiết lập giá trị tối đa cho trường date là ngày hiện tại
+                                                document.getElementById('dateOfBirth').max = new Date().toISOString().split("T")[0];
+                                            </script>
+
                                             <div class="form-group col-md-4">
                                                 <label class="control-label">Giới tính</label>
                                                 <select class="form-control" name="gender" required>
@@ -258,7 +264,7 @@
                                                     <option value="Nữ" ${children.gender == 'Nữ' ? 'selected' : ''}>Nữ</option>
                                                 </select>
                                             </div>
-                                         
+
                                             <!-- Submit Button -->
                                             <div class="form-group col-md-12">
                                                 <button class="btn btn-primary" type="submit">

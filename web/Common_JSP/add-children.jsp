@@ -235,7 +235,7 @@
                                     <!-- Phần Ảnh Đại Diện -->
                                     <div class="col-md-3">
                                         <label for="childImage">Tải ảnh trẻ:</label>
-                                    <input type="file" name="childImage" id="childImage" accept="image/*" style="display: none;" onchange="previewImage();" />
+                                        <input type="file" name="childImage" id="childImage" accept="image/*" style="display: none;" onchange="previewImage();" />
 
                                         <button type="button" class="upload-button" onclick="document.getElementById('childImage').click();">
                                             Chọn ảnh
@@ -260,11 +260,16 @@
                                                 <input type="text" name="lastName" required />
                                             </div>
 
-                                            <!-- Chi Tiết Cá Nhân -->
                                             <div class="form-group col-md-4">
                                                 <label for="dateOfBirth">Ngày sinh:</label>
-                                                <input type="date" name="dateOfBirth" required />
+                                                <input type="date" name="dateOfBirth" required id="dateOfBirth" />
                                             </div>
+
+                                            <script>
+                                                document.getElementById('dateOfBirth').max = new Date().toISOString().split("T")[0];
+                                            </script>
+
+
                                             <!-- Chọn Giới Tính -->
                                             <div class="form-group col-md-4">
                                                 <label for="gender">Giới tính:</label>
@@ -338,8 +343,8 @@
                 }
             });
 
-           
-         
+
+
 //            document.querySelector('form').addEventListener('submit', function (e) {
 //                var fileInput = document.getElementById('childImage');
 //                if (!fileInput.files || fileInput.files.length === 0) {
