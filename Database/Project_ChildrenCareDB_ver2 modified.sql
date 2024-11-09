@@ -396,7 +396,7 @@ CREATE TABLE Blogs (
     Views INT DEFAULT 0
 
 );
-
+select * from BlogComments
 -- Create BlogCategories table
 CREATE TABLE BlogCategories (
     CategoryID INT PRIMARY KEY IDENTITY(1,1),
@@ -420,6 +420,7 @@ CREATE TABLE BlogComments (
     Content NVARCHAR(MAX) NOT NULL,
     CreatedDate DATETIME DEFAULT GETDATE(),
     parentID INT,
+	IsApproved BIT DEFAULT 1,
 	FOREIGN KEY (BlogID) REFERENCES Blogs(BlogID) ON DELETE CASCADE,  -- Adding ON DELETE CASCADE
     FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE,
     FOREIGN KEY (parentID) REFERENCES BlogComments(CommentID) 
