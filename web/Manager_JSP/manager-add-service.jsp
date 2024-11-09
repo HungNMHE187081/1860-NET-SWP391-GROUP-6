@@ -168,17 +168,21 @@
                     <div class="tile">
 
                         <h3 class="tile-title">Tạo mới dịch vụ</h3>
-                        <c:if test="${not empty param.message}">
-                            <div class="alert alert-success">${param.message}</div>
-                        </c:if>
-                        <c:if test="${not empty param.error}">
-                            <div class="alert alert-danger">${param.error}</div>
+                        <c:if test="${not empty errorMessages}">
+                            <div class="alert-danger">
+                                <ul>
+                                    <c:forEach var="error" items="${errorMessages}">
+                                        ${error}
+                                        <br>
+                                        </c:forEach>
+                                </ul>
+                            </div>
                         </c:if>
                         <div class="tile-body">
                             <form class="row" method="post" action="addservice" enctype="multipart/form-data">
                                 <div class="form-group col-md-12">
                                     <label class="control-label">Tên dịch vụ</label>
-                                    <input class="form-control" type="text" id="serviceName" name="serviceName" required>
+                                    <input class="form-control" type="text" id="serviceName" name="serviceName" value="${param.serviceName}" required>
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label class="control-label">Độ tuổi</label>
@@ -209,11 +213,11 @@
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label class="control-label">Giá (VNĐ)</label>
-                                    <input class="form-control" type="number" id="price" name="price" required>
+                                    <input class="form-control" type="number" id="price" name="price" value="${param.price}" required>
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label class="control-label">Thời gian khám tối đa (Phút)</label>
-                                    <input class="form-control" type="number" id="duration" name="duration" required>
+                                    <input class="form-control" type="number" id="duration" name="duration" value="${param.duration}" required>
                                 </div>
 
 
@@ -221,7 +225,7 @@
                                     <label for="exampleSelect1" class="control-label">Tình trạng hoạt động</label>
                                     <select class="form-control" id="isActive" name="isActive" required>
                                         <option value="" disabled selected>Chọn trạng thái</option>
-                                        <option>Hoạt động</option>
+                                        <option>Đang hoạt động</option>
                                         <option>Chưa hoạt động</option>
                                     </select>
                                 </div>
@@ -229,7 +233,7 @@
                                 <div class="form-group col-md-12">
                                     <label class="control-label">Mô tả chi tiết dịch vụ</label>
                                     <textarea class="form-control" type="text" id="description" name="description" required=""
-                                              style="resize: none; overflow-y: auto; min-height: 300px;"></textarea>
+                                              style="resize: none; overflow-y: auto; min-height: 300px;">${param.description}</textarea>
                                 </div>
 
                                 <div class="form-group col-md-12">
