@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-     <head>
+    <head>
         <title>Manager | Services List</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -29,7 +29,10 @@
 
     <body onload="time()" class="app sidebar-mini rtl">
 
-
+        <header class="app-header">
+            <!-- Sidebar toggle button--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar"
+                                            aria-label="Hide Sidebar"></a>
+        </header>
         <!-- Sidebar menu-->
         <%@ include file="/Manager_JSP/dashboardleft.jsp" %>
         <main class="app-content">
