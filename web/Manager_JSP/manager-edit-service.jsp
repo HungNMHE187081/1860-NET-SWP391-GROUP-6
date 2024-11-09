@@ -168,6 +168,16 @@
 
                     <div class="container">
                         <h2>Sửa dịch vụ</h2>
+                        <c:if test="${not empty errorMessages}">
+                            <div class="alert-danger">
+                                <ul>
+                                    <c:forEach var="error" items="${errorMessages}">
+                                        ${error}
+                                        <br>
+                                        </c:forEach>
+                                </ul>
+                            </div>
+                        </c:if>
                         <form class="row" method="post" action="${pageContext.request.contextPath}/manager/editservice" enctype="multipart/form-data">
                             <input type="hidden" name="serviceID" value="${service.serviceID}">
                             <div class="form-group col-md-12">
@@ -210,7 +220,7 @@
                             <div class="form-group col-md-4">
                                 <label for="exampleSelect1" class="control-label">Tình trạng hoạt động</label>
                                 <select class="form-control" id="isActive" name="isActive" required>
-                                    <option value="Hoạt động" ${service.isActive ? 'selected' : ''}>Hoạt động</option>
+                                    <option value="Đang hoạt động" ${service.isActive ? 'selected' : ''}>Đang hoạt động</option>
                                     <option value="Chưa hoạt động" ${!service.isActive ? 'selected' : ''}>Chưa hoạt động</option>
                                 </select>
                             </div>

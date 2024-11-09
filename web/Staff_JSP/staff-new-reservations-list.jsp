@@ -108,7 +108,7 @@
                                                     <c:forEach var="child" items="${children}">
                                                         <c:if test="${child.childID == orderItem.childID}">
                                                             <img src="${pageContext.request.contextPath}/${child.childImage}" 
-                                                                 alt="${child.firstName} ${child.middleName} ${child.lastName}" class="child-image">
+                                                                 alt="${child.firstName} ${child.middleName} ${child.lastName}" class="child-image" width="150px" height="100px">
                                                         </c:if>
                                                     </c:forEach>
                                                 </c:if>

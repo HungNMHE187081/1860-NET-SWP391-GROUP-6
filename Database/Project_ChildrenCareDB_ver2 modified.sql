@@ -755,7 +755,6 @@ CHECK (PaymentMethod IN ('VNPAY', 'OFFLINE'));
 CREATE INDEX IX_Payments_OrderID ON Payments(OrderID);
 CREATE INDEX IX_Payments_ReservationID ON Payments(ReservationID);
 CREATE INDEX IX_Payments_PaymentStatus ON Payments(PaymentStatus);
-
 -- Tạo view xem lịch sử thanh toán
 /*CREATE VIEW PaymentHistory AS
 SELECT 
@@ -803,7 +802,6 @@ BEGIN
     VALUES (@UserID, @VerificationCode, DATEADD(HOUR, @ExpiryHours, GETDATE()));
 END;
 GO
-
 CREATE PROCEDURE sp_ValidatePasswordReset
     @VerificationCode VARCHAR(50)
 AS
@@ -837,4 +835,4 @@ BEGIN
     WHERE ExpiryTime < GETDATE()
     OR IsUsed = 1;
 END;
-GO
+GO 

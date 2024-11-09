@@ -13,6 +13,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 import java.io.File;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import model.AgeLimits;
 import model.Category;
@@ -34,7 +35,8 @@ public class ManagerAddServiceServlet extends HttpServlet {
         String ageLimitIDStr = request.getParameter("ageLimit");
         String categoryIDStr = request.getParameter("category");
         String degreeIDStr = request.getParameter("degree");
-
+        
+        List<String> errors = new ArrayList<>();
         double price = Double.parseDouble(priceStr);
         int duration = Integer.parseInt(durationStr);
         int ageLimitID = -1;
@@ -80,8 +82,7 @@ public class ManagerAddServiceServlet extends HttpServlet {
                 || ageLimitIDStr == null || ageLimitIDStr.trim().isEmpty()
                 || categoryIDStr == null || categoryIDStr.trim().isEmpty()
                 || degreeIDStr == null || degreeIDStr.trim().isEmpty()) {
-            response.sendRedirect(request.getContextPath() + "/Manager_JSP/manager-add-service.jsp");
-            return;
+            errors.add("Các thông tin không được để trống hoặc khoảng trắng");
         }
 
         String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
@@ -93,17 +94,18 @@ public class ManagerAddServiceServlet extends HttpServlet {
         String filePath = uploadDir + File.separator + fileName;
         filePart.write(filePath);
         String img = "uploads" + File.separator + fileName;
-        if (price < 100000) {
-            response.sendRedirect(request.getContextPath() + "/manager/addservice?error=Giá dịch vụ tối thiểu là 100,000 đồng");
-            return;
+        if(price < 100000){
+            errors.add("Dịch vụ có giá tối thiểu là 100,000VNĐ");
         }
-        else if (duration < 10) {
-            response.sendRedirect(request.getContextPath() + "/manager/addservice?error=Thời gian khám tối đa tối thiểu là 10 phút");
+        if(duration < 10){
+            errors.add("Thời gian khám tối thiểu là 10 phút");
+        }
+        if (!errors.isEmpty()) {
+            request.setAttribute("errorMessages", errors);
+            doGet(request, response);            
             return;
         }
         else{
-        
-
         Service service = new Service();
         service.setServiceName(serviceName);
         service.setCategoryID(categoryID);

@@ -108,7 +108,7 @@
 
                         <li class="has-submenu parent-menu-item">
                             <a href="${pageContext.request.contextPath}/guest/bloglist">
-                                <i class="uil uil-newspaper me-1"></i>Blog
+                                <i class="uil uil-newspaper me-1"></i>Bài viết
                             </a>
                         </li>
 

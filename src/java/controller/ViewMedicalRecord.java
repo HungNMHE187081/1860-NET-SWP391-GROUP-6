@@ -1,6 +1,7 @@
 package controller;
 
 import dal.MedicineDAO;
+import dal.ReservationDAO;
 import dal.StaffDAO;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -33,8 +34,9 @@ public class ViewMedicalRecord extends HttpServlet {
 
             // Retrieve the medical record
             MedicalRecordDAO dao = new MedicalRecordDAO();
+            ReservationDAO rDAO = new ReservationDAO();
             MedicalRecord medicalRecord = dao.getMedicalRecordByID(recordID);
-
+            String serviceName = rDAO.getServiceNameByReservationID(medicalRecord.getReservationID());
             // Check if the medical record exists
             if (medicalRecord == null) {
                 request.setAttribute("errorMessage", "Medical record not found.");
@@ -47,6 +49,7 @@ public class ViewMedicalRecord extends HttpServlet {
             Staff staff = staffDAO.getStaffByID(medicalRecord.getStaffID());
 
             // Set attributes for JSP
+            request.setAttribute("serviceName", serviceName);
             request.setAttribute("staff", staff);
             request.setAttribute("medicalRecord", medicalRecord);
 

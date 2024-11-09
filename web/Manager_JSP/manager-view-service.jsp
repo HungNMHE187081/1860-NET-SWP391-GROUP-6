@@ -200,7 +200,7 @@
                             </div>
                             <div class="form-group col-md-4">
                                 <label class="control-label">Tình trạng hoạt động</label>
-                                <input class="form-control" type="text" id="isActive" name="isActive" value="${service.isActive ? 'Hoạt động' : 'Chưa hoạt động'}" readonly="">
+                                <input class="form-control" type="text" id="isActive" name="isActive" value="${service.isActive ? 'Đang hoạt động' : 'Chưa hoạt động'}" readonly="">
                             </div>
                         </div>
 

@@ -121,14 +121,14 @@
                                                     <i class="fas fa-eye" style="margin: 0;"></i>
                                                 </button>
                                             </form>
-                                            <c:if test="${record.hasPres == false}">
+                                            
                                                 <form action="${pageContext.request.contextPath}/staff/saveRecordId" method="post" style="display: inline;">
                                                     <input type="hidden" name="recordID" value="${record.recordID}"> 
                                                     <button class="btn" type="submit" title="Thêm đơn thuốc" style="padding: 5px 20px; font-size: 14px; display: flex; justify-content: center; align-items: center;">
                                                         <i class="fas fa-plus"></i>
                                                     </button>
                                                 </form>
-                                            </c:if>
+                                            
                                         </td>
                                     </tr>
                                 </c:forEach>

@@ -36,7 +36,7 @@ public class EmailUtil {
             msg.addHeader("Content-type", "text/HTML; charset=UTF-8");
             msg.setFrom(new InternetAddress(FROM_EMAIL, MimeUtility.encodeText("Hỗ trợ ChildCare", "UTF-8", "B")));
             msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail, false));
-            msg.setSubject("Xác nhận phản hồi");
+            msg.setSubject("Xác nhận phản hồi", "UTF-8");
             msg.setSentDate(new Date());
 
             // Create HTML content

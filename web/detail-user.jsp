@@ -171,7 +171,7 @@
                                         <div class="form-group">
                                             <label class="control-label">Ảnh đại diện</label>
                                             <div class="profile-img-container">
-                                                <img id="imagePreview" src="${user.profileImage}" alt="Image Preview" class="rounded-circle img-fluid">
+                                                <img id="imagePreview" src="${pageContext.request.contextPath}/${user.profileImage}" alt="Image Preview" class="rounded-circle img-fluid">
                                             </div>
 
                                         </div>

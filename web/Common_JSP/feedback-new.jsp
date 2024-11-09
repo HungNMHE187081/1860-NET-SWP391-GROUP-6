@@ -159,10 +159,35 @@ body {
 <body>
     
     <div class="form-container">
+         <style>
+             .back-button {
+            padding: 8px 16px;
+            font-size: 19px;
+            background-color: #000; /* Black background */
+            color: #fff; /* White text */
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 40px; /* Adjust the width to make it longer */
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .back-button i {
+            margin-right: 8px; /* Space between icon and text */
+        }
+    </style>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <button type="button" class="back-button" onclick="history.back()">
+            <i class="fas fa-arrow-left"></i>
+        </button>
         <h1>
-            <span class="material-symbols-outlined" style="font-size: 40px; margin-right: 10px;">
+            <span class="material-symbols-outlined" style="font-size: 40px;">
                 edit_document
             </span>
+            <br>
             Phản Hồi Dịch Vụ
         </h1>
         <p>Chúng tôi coi trọng phản hồi của bạn. Vui lòng chia sẻ trải nghiệm của bạn với chúng tôi.</p>

@@ -315,14 +315,14 @@
                     <h1>${service.serviceName}</h1>
                     <div class="service-details">
                         <div class="detail-item" data-tooltip="Tên cụ thể của trẻ được thêm lịch sử khám>
-                            <i class="fas fa-info-circle info-icon"></i>
+                             <i class="fas fa-info-circle info-icon"></i>
                             <div class="detail-content">
                                 <h2><i class="fas fa-child icon"></i>Tên trẻ</h2>
                                 <p>
                                     ${medicalRecord.firstNameChild} ${medicalRecord.middleNameChild} ${medicalRecord.lastNameChild}
                                 </p>
                                 <div class="expandable-info">
-                                  Lịch sử khám dựa trên kết quả của riêng từng trẻ cho từng phụ huynh
+                                    Lịch sử khám dựa trên kết quả của riêng từng trẻ cho từng phụ huynh
                                 </div>
                             </div>
                         </div>
@@ -339,11 +339,22 @@
                                 </div>
                             </div>
                         </div>
-
-                        <div class="detail-item" data-tooltip="Chẩn đoán">
+                        <div class="detail-item" data-tooltip="Tên dịch vụ">
                             <i class="fas fa-info-circle info-icon"></i>
                             <div class="detail-content">
-                                <h2><i class="fas fa-user-tie icon"></i>Chẩn đoán</h2>
+                                <h2><i class="fas fa-concierge-bell icon"></i>Tên dịch vụ</h2>
+                                <p>
+                                    ${serviceName}
+                                </p>
+                                <div class="expandable-info">
+                                    Chúng tôi sẽ cố gắng cung cấp cho con trẻ của bạn những trải nghiệm tốt nhất khi được thăm khám
+                                </div>
+                            </div>
+                        </div>
+                        <div class="detail-item" data-tooltip="Chẩn đoán">
+                            <i class="fas fa-stethoscope info-icon"></i> <!-- Thay icon -->
+                            <div class="detail-content">
+                                <h2><i class="fas fa-stethoscope icon"></i>Chẩn đoán</h2> <!-- Thay icon -->
                                 <p>
                                     ${medicalRecord.diagnosis}
                                 </p>
@@ -354,9 +365,9 @@
                         </div>
 
                         <div class="detail-item" data-tooltip="Phương pháp điều trị">
-                            <i class="fas fa-info-circle info-icon"></i>
+                            <i class="fas fa-cogs info-icon"></i> <!-- Thay icon -->
                             <div class="detail-content">
-                                <h2><i class="fas fa-user-tie icon"></i>Phương pháp điều trị</h2>
+                                <h2><i class="fas fa-cogs icon"></i>Phương pháp điều trị</h2> <!-- Thay icon -->
                                 <p>
                                     ${medicalRecord.treatment}
                                 </p>
@@ -364,23 +375,22 @@
                                     Đội ngũ nhân viên được đào tạo chuyên sâu và có chứng chỉ phù hợp để đảm bảo phương pháp điều trị.
                                 </div>
                             </div>
-
                         </div>
-                                
-                       <div class="detail-item" data-tooltip="Trình độ chuyên môn của nhân viên">
-                            <i class="fas fa-info-circle info-icon"></i>
+
+                        <div class="detail-item" data-tooltip="Trình độ chuyên môn của nhân viên">
+                            <i class="fas fa-calendar-day info-icon"></i> <!-- Thay icon -->
                             <div class="detail-content">
-                                <h2><i class="fas fa-user-tie icon"></i>Ngày khám</h2>
+                                <h2><i class="fas fa-calendar-day icon"></i>Ngày khám</h2> <!-- Thay icon -->
                                 <p>
                                     <fmt:parseDate value="${medicalRecord.reservationDate}" pattern="yyyy-MM-dd" var="parsedReservationDate" />
-                                <fmt:formatDate value="${parsedReservationDate}" pattern="dd-MM-yyyy" />
+                                    <fmt:formatDate value="${parsedReservationDate}" pattern="dd-MM-yyyy" />
                                 </p>
                                 <div class="expandable-info">
                                     Ngày khám dựa trên ngày đặt lịch
                                 </div>
                             </div>
-
                         </div>
+
                     </div>
 
                 </div>

@@ -6,6 +6,8 @@
 package controller;
 
 import dal.DegreeDAO;
+import dal.ManagerDAO;
+import dal.ManagerUserDAO;
 import dal.SpecializationDAO;
 import dal.StaffDAO;
 import java.io.IOException;
@@ -14,12 +16,14 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import model.Degree;
 import model.Specialization;
 import model.Staff;
+import model.Users;
 
 /**
  *
@@ -27,38 +31,38 @@ import model.Staff;
  */
 public class HomeViewStaffServlet extends HttpServlet {
    
-  @Override
-protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-    StaffDAO staffDAO = new StaffDAO();
-    DegreeDAO degreeDAO = new DegreeDAO();
-    SpecializationDAO specializationDAO = new SpecializationDAO();
+        StaffDAO staffDAO = new StaffDAO();
+        List<Staff> stafflist = staffDAO.getAllStaffs();
+        DegreeDAO degreeDAO = new DegreeDAO();
+        List<Degree> degrees = degreeDAO.getAllDegrees();
+        SpecializationDAO specializationDAO = new SpecializationDAO();
+        List<Specialization> specializations = specializationDAO.getAllSpecializations();
+        ManagerUserDAO managerUserDAO = new ManagerUserDAO();
+        List<Users> users = new ArrayList<>();
+        List<Staff> staffs = new ArrayList<>();
+        for (Staff staff : stafflist){
+            if (staff.getStaffName() != null)
+                staffs.add(staff);
+            users.add(managerUserDAO.getDetailUserByUserID(staff.getStaffID()));
+        }
+        
+        Collections.sort(staffs, new Comparator<Staff>() {
+            @Override
+            public int compare(Staff s1, Staff s2) {
+                return s1.getStaffName().compareTo(s2.getStaffName());
+            }
+        });
 
-    String keyword = request.getParameter("keyword");
-    String specializationIDStr = request.getParameter("specializationID");
-    int specializationID = specializationIDStr != null && !specializationIDStr.isEmpty() ? Integer.parseInt(specializationIDStr) : -1;
+        request.setAttribute("staffs", staffs);
+        request.setAttribute("users", users);
+        request.setAttribute("degrees", degrees);
+        request.setAttribute("specializations", specializations);
+        request.getRequestDispatcher("/Common_JSP/home-view-staff.jsp").forward(request, response);
+    } 
 
-    List<Staff> staffs;
-    if (keyword != null && !keyword.isEmpty() && specializationID != -1) {
-        staffs = staffDAO.searchStaffByKeywordAndSpecialization(keyword, specializationID);
-    } else if (keyword != null && !keyword.isEmpty()) {
-        staffs = staffDAO.searchStaffByKeyword(keyword);
-    } else if (specializationID != -1) {
-        staffs = staffDAO.searchStaffBySpecializationID(specializationID);
-    } else {
-        staffs = staffDAO.getAllStaffs();
-    }
-
-    List<Degree> degrees = degreeDAO.getAllDegrees();
-    List<Specialization> specializations = specializationDAO.getAllSpecializations();
-
-Collections.sort(staffs, Comparator.comparing(Staff::getStaffName, Comparator.nullsFirst(String::compareTo)));
-
-    request.setAttribute("staffs", staffs);
-    request.setAttribute("degrees", degrees);
-    request.setAttribute("specializations", specializations);
-    request.getRequestDispatcher("/Common_JSP/home-view-staff.jsp").forward(request, response);
-}
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {

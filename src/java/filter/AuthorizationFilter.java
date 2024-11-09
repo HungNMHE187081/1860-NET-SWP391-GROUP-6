@@ -22,6 +22,7 @@ public class AuthorizationFilter implements Filter {
             "/guest/services",
             "/guest/feedback",
             "/guest/view-staffs",
+            "/guest/searchstaff",
             "/guest/bloglist",
             "/guest/detailguestblog",
             "/guest/viewservice",

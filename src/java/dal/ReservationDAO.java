@@ -17,7 +17,28 @@ import model.Reservation;
  * @author LENOVO
  */
 public class ReservationDAO extends DBContext {
+public String getServiceNameByReservationID(int reservationID) {
+        String serviceName = null;
+        String sql = "SELECT s.ServiceName "
+                   + "FROM Reservations r "
+                   + "JOIN OrderItems oi ON r.OrderItemID = oi.OrderItemID "
+                   + "JOIN Services s ON oi.ServiceID = s.ServiceID "
+                   + "WHERE r.ReservationID = ?";
 
+        try (
+             PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, reservationID);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    serviceName = rs.getString("ServiceName");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return serviceName;
+    }
     public List<Reservation> getAllReservations() {
         List<Reservation> list = new ArrayList<>();
         String sql = "SELECT o.OrderID, o.CustomerID, o.isCheckOut, "
@@ -495,7 +516,7 @@ public class ReservationDAO extends DBContext {
                      "JOIN Children c ON oi.ChildID = c.ChildID " +
                      "JOIN Services s ON oi.ServiceID = s.ServiceID " +
                      "LEFT JOIN Payments p ON o.OrderID = p.OrderID " +
-                     "WHERE u.UserID = ? " +
+                     "WHERE u.UserID = ? AND r.isExam = 0 " +
                      "AND r.ReservationDate >= GETDATE() " +
                      "AND (p.PaymentStatus = 'SUCCESS' OR p.PaymentMethod = 'OFFLINE') " +
                      "ORDER BY r.ReservationDate ASC, r.StartTime ASC";

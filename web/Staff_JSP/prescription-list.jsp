@@ -1,5 +1,6 @@
 <%@ page contentType="text/html" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css"/>
 <!DOCTYPE html>
 <html lang="en">
@@ -76,7 +77,7 @@
                             <tr>
                                 <th>STT</th>
                                 <th>Tên trẻ</th>
-                                <th>Tên khách hàng</th>
+                                <th>Ngày khám</th>
                                 <th>Chẩn đoán</th>
                                 <th>Tên thuốc</th>
                                 <th>Chức năng</th>
@@ -88,16 +89,23 @@
                                     <tr>
                                         <td>${status.index + 1}</td>
                                         <td><c:out value="${pre.childFirstName} ${pre.childMiddleName} ${pre.childLastName}" /></td>
-                                        <td><c:out value="${pre.userFirstName} ${pre.userMiddleName} ${pre.userLastName}" /></td>
+                                        <td>
+                                            <script type="text/javascript">
+                                                // Lấy ngày từ reservationDates
+                                                var dateStr = "${reservationDates[status.index]}";
+                                                // Chuyển đổi ngày từ yyyy-MM-dd thành dd/MM/yyyy
+                                                var dateParts = dateStr.split("-");
+                                                var formattedDate = dateParts[2] + "/" + dateParts[1] + "/" + dateParts[0];
+                                                document.write(formattedDate);
+                                            </script>
+                                        </td>
                                         <td><c:out value="${pre.diagnosis}" /></td>
                                         <td><c:out value="${pre.medicineName}" /></td>
                                         <td style="display: flex; align-items: center;">
                                             <a href="${pageContext.request.contextPath}/staff/viewprescription?id=${pre.prescriptionID}" class="btn" title="Xem chi tiết" style="margin-right: 5px; padding: 5px 10px; font-size: 14px; display: flex; justify-content: center; align-items: center;">
                                                 <i class="fas fa-eye" style="margin: 0;"></i>
                                             </a>
-
                                         </td>
-
                                     </tr>
                                 </c:forEach>
                             </c:if>
@@ -108,6 +116,7 @@
                             </c:if>
                         </tbody>
                     </table>
+
                 </section>
             </main>
         </div>

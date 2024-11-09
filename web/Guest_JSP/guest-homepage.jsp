@@ -109,7 +109,7 @@
 
                         <li class="has-submenu parent-menu-item">
                             <a href="${pageContext.request.contextPath}/guest/bloglist">
-                                <i class="uil uil-newspaper me-1"></i>Blog
+                                <i class="uil uil-newspaper me-1"></i>Bài viết
                             </a>
                         </li>
 
@@ -665,40 +665,44 @@
                             </div>
 
                             <!-- Staff Slider -->
-                            <div class="swiper staff-slider">
-                                <div class="swiper-wrapper">
-                                    <c:forEach var="staff" items="${staffs}" varStatus="status">
-                                        <div class="swiper-slide">
-                                            <div class="staff-card shadow-sm rounded overflow-hidden">
-                                                <div class="position-relative">
-                                                    <img src="${pageContext.request.contextPath}/${user.profileImage}" 
-                                                         alt="${staff.staffName}" 
-                                                         class="staff-image">
-                                                    <div class="overlay-hover"></div>
-                                                </div>
-                                                <div class="staff-info p-4 bg-white">
-                                                    <h3 class="h5 mb-2">${staff.staffName}</h3>
-                                                    <p class="staff-position mb-1 text-primary">
-                                                        <i class="fas fa-graduation-cap me-2"></i>
-                                                        <c:forEach var="degree" items="${degrees}">
-                                                            <c:if test="${degree.degreeID == staff.degreeID}">
-                                                                ${degree.degreeName}
-                                                            </c:if>
-                                                        </c:forEach>
-                                                    </p>
-                                                    <p class="staff-department mb-0 text-muted">
-                                                        <i class="fas fa-stethoscope me-2"></i>
-                                                        <c:forEach var="specialization" items="${specializations}">
-                                                            <c:if test="${specialization.specializationID == staff.specializationID}">
-                                                                ${specialization.specializationName}
-                                                            </c:if>
-                                                        </c:forEach>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </c:forEach>
+                             <div class="swiper staff-slider">
+            <div class="swiper-wrapper">
+                <c:forEach var="staff" items="${staffs}" varStatus="status">
+                    <c:forEach var="user" items="${users}">
+                        <c:if test="${user.userID == staff.staffID}">
+                            <div class="swiper-slide">
+                                <div class="staff-card shadow-sm rounded overflow-hidden">
+                                    <div class="position-relative">
+                                        <img src="${pageContext.request.contextPath}/${user.profileImage}" 
+                                             alt="${staff.staffName}" 
+                                             class="staff-image">
+                                        <div class="overlay-hover"></div>
+                                    </div>
+                                    <div class="staff-info p-4 bg-white">
+                                        <h3 class="h5 mb-2">${staff.staffName}</h3>
+                                        <p class="staff-position mb-1 text-primary">
+                                            <i class="fas fa-graduation-cap me-2"></i>
+                                            <c:forEach var="degree" items="${degrees}">
+                                                <c:if test="${degree.degreeID == staff.degreeID}">
+                                                    ${degree.degreeName}
+                                                </c:if>
+                                            </c:forEach>
+                                        </p>
+                                        <p class="staff-department mb-0 text-muted">
+                                            <i class="fas fa-stethoscope me-2"></i>
+                                            <c:forEach var="specialization" items="${specializations}">
+                                                <c:if test="${specialization.specializationID == staff.specializationID}">
+                                                    ${specialization.specializationName}
+                                                </c:if>
+                                            </c:forEach>
+                                        </p>
+                                    </div>
                                 </div>
+                            </div>
+                        </c:if>
+                    </c:forEach>
+                </c:forEach>
+            </div>
                                 <div class="swiper-pagination"></div>
                                 <div class="swiper-button-next"></div>
                                 <div class="swiper-button-prev"></div>
@@ -783,7 +787,7 @@
                         <div class="container">
                             <div class="section-title text-center mb-4 pb-2">
                                 <span class="badge badge-pill badge-soft-primary mb-3">
-                                    <i class="uil uil-newspaper me-1"></i>Blog
+                                    <i class="uil uil-newspaper me-1"></i>Bài viết
                                 </span>
                                 <h4 class="title mb-4">Cập Nhật Mới Nhất Từ Trung Tâm</h4>
                                 <p class="text-muted mx-auto para-desc mb-0" style="max-width: 600px;">

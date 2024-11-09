@@ -93,7 +93,7 @@
                         <div class="tile-body">
                             <div class="row mb-3 d-flex justify-content-between align-items-center">
                                 <div class="d-flex">
-                                    
+
                                 </div>
                                 <div>
                                     <form action="${pageContext.request.contextPath}/manager/searchstaff" method="get" class="filter-form">
@@ -124,36 +124,40 @@
                                 </thead>
                                 <tbody>
                                     <c:forEach var="staff" items="${staffs}" varStatus="status">
-                                        <tr>
-                                            <td>${status.index + 1}</td>
-                                            <td>${staff.staffName}</td>
-                                            <td>
-                                                <img src="${pageContext.request.contextPath}/${user.profileImage}" alt="${staff.staffName}" width="75" height="50">
-                                            </td>
-                                            <td>
-                                                <c:forEach var="degree" items="${degrees}">
-                                                    <c:if test="${degree.degreeID == staff.degreeID}">
-                                                        ${degree.degreeName}
-                                                    </c:if>
-                                                </c:forEach>
-                                            </td>
-                                            <td>
-                                                <c:forEach var="specialization" items="${specializations}">
-                                                    <c:if test="${specialization.specializationID == staff.specializationID}">
-                                                        ${specialization.specializationName}
-                                                    </c:if>
-                                                </c:forEach>
-                                            </td>
-                                            <td>${staff.hireDate}</td>
-                                            <td class="table-td-center">
-                                                <button class="btn btn-primary btn-sm" type="button" title="detail" id="show-emp">
-                                                    <a href="${pageContext.request.contextPath}/manager/viewstaff?staffID=${staff.staffID}"><i class="fas fa-eye"></i></a>
-                                                </button>
-                                                <button class="btn btn-close btn-sm edit" type="button" title="edit" id="show-emp">
-                                                    <a href="${pageContext.request.contextPath}/manager/editstaff?staffID=${staff.staffID}"><i class="fas fa-edit"></i></a>
-                                                </button>
-                                            </td>
-                                        </tr>
+                                        <c:forEach var="user" items="${users}">
+                                            <c:if test="${user.userID == staff.staffID}">
+                                                <tr>
+                                                    <td>${status.index + 1}</td>
+                                                    <td>${staff.staffName}</td>
+                                                    <td>
+                                                        <img src="${pageContext.request.contextPath}/${user.profileImage}" alt="${staff.staffName}" width="75" height="50">
+                                                    </td>
+                                                    <td>
+                                                        <c:forEach var="degree" items="${degrees}">
+                                                            <c:if test="${degree.degreeID == staff.degreeID}">
+                                                                ${degree.degreeName}
+                                                            </c:if>
+                                                        </c:forEach>
+                                                    </td>
+                                                    <td>
+                                                        <c:forEach var="specialization" items="${specializations}">
+                                                            <c:if test="${specialization.specializationID == staff.specializationID}">
+                                                                ${specialization.specializationName}
+                                                            </c:if>
+                                                        </c:forEach>
+                                                    </td>
+                                                    <td>${staff.hireDate}</td>
+                                                    <td class="table-td-center">
+                                                        <button class="btn btn-primary btn-sm" type="button" title="detail" id="show-emp">
+                                                            <a href="${pageContext.request.contextPath}/manager/viewstaff?staffID=${staff.staffID}"><i class="fas fa-eye"></i></a>
+                                                        </button>
+                                                        <button class="btn btn-close btn-sm edit" type="button" title="edit" id="show-emp">
+                                                            <a href="${pageContext.request.contextPath}/manager/editstaff?staffID=${staff.staffID}"><i class="fas fa-edit"></i></a>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            </c:if>
+                                        </c:forEach>
                                     </c:forEach>
                                 </tbody>
                             </table>
