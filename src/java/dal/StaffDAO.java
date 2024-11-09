@@ -196,6 +196,28 @@ public class StaffDAO extends DBContext {
 
     public static void main(String[] args) {
         StaffDAO dao = new StaffDAO();
-        System.out.println(dao.getStaffByDegreeID(1).size());
+        List<Staff> list = dao.getAllStaff();
+        for(Staff x : list)
+        {
+            System.out.println(x.getStaffID());
+        }
     }
+
+    public List<Staff> getAllStaff() {
+      List<Staff> staffList = new ArrayList<>();
+        String sql = "SELECT StaffID, StaffName FROM StaffView";
+
+        try (PreparedStatement ps = connection.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                Staff staff = new Staff();
+                staff.setStaffID(rs.getInt("StaffID"));
+                staff.setStaffName(rs.getString("StaffName"));
+                staffList.add(staff);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return staffList;
+    }
+ 
 }

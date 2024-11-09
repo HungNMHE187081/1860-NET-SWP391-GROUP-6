@@ -354,12 +354,12 @@
                         <div class="detail-item" data-tooltip="Chẩn đoán">
                             <i class="fas fa-stethoscope info-icon"></i> <!-- Thay icon -->
                             <div class="detail-content">
-                                <h2><i class="fas fa-stethoscope icon"></i>Chẩn đoán</h2> <!-- Thay icon -->
+                                <h2><i class="fas fa-stethoscope icon"></i>Ghi chú</h2> <!-- Thay icon -->
                                 <p>
-                                    ${medicalRecord.diagnosis}
+                                    ${medicalRecord.notes}
                                 </p>
                                 <div class="expandable-info">
-                                    Đội ngũ nhân viên được đào tạo chuyên sâu và có chứng chỉ phù hợp để kết luận chẩn đoán.
+                                    Đội ngũ nhân viên được đào tạo chuyên sâu và có chứng chỉ phù hợp để khuyến nghị giải pháp.
                                 </div>
                             </div>
                         </div>
@@ -394,8 +394,8 @@
                     </div>
 
                 </div>
-                <h2>Mô tả</h2>
-                <p class="description">${medicalRecord.notes}</p>
+                <h2>Chẩn đoán</h2>
+                <p class="description">${medicalRecord.diagnosis}</p>
             </div>
         </div>
     </div>

@@ -163,13 +163,13 @@ public boolean updatePrescription(int prescriptionID, int medicineID, String dos
                 = "SELECT p.PrescriptionID, mr.RecordID, p.MedicineID, "
                 + "c.FirstName AS ChildFirstName, c.MiddleName AS ChildMiddleName, c.LastName AS ChildLastName, "
                 + "u.UserID as UserID, u.FirstName AS UserFirstName, u.MiddleName AS UserMiddleName, u.LastName AS UserLastName, "
-                + "mr.Diagnosis, m.Name AS MedicineName, s.StaffName, p.Dosage, p.Frequency, p.Duration "
+                + "mr.Diagnosis, m.Name AS MedicineName, s.StaffName as StaffName, p.Dosage, p.Frequency, p.Duration "
                 + "FROM Prescriptions p "
                 + "JOIN MedicalRecords mr ON p.RecordID = mr.RecordID "
                 + "JOIN Children c ON mr.ChildID = c.ChildID "
                 + "JOIN Users u ON c.CustomerID = u.UserID "
                 + "JOIN Medicine m ON p.MedicineID = m.MedicineID "
-                + "JOIN Staff s ON mr.StaffID = s.StaffID "
+                + "JOIN StaffView s ON mr.StaffID = s.StaffID "
                 + "WHERE (CONCAT(c.FirstName, ' ', c.MiddleName, ' ', c.LastName) LIKE ? "
                 + "OR CONCAT(u.FirstName, ' ', u.MiddleName, ' ', u.LastName) LIKE ?)";
 

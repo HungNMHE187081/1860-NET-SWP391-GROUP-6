@@ -76,33 +76,37 @@
                                 </c:forEach>
                             </select>
 
-                            <!-- Sắp xếp theo ngày ghi nhận -->
-                            <select name="sortBy" class="sort-select">
-                                <option value="">Sắp xếp theo</option>
-                                <option value="dateAdded" <c:if test="${param.sortBy == 'dateAdded'}">selected</c:if>>Ngày ghi nhận</option>
-                                </select>
+                            <select name="staffID" class="staff-select">
+                                <option value="">Lọc theo nhân viên</option>
+                                <c:forEach var="staff" items="${staffList}">
+                                    <option value="${staff.staffID}">${staff.staffName}</option>
 
-                                <button type="submit"><i class="fas fa-filter"></i> Lọc và tìm kiếm</button>
-                                <a href="${pageContext.request.contextPath}/staff/oldreservationslist" class="btn"><i class="fas fa-plus"></i> Thêm bản ghi</a>
-                                <a href="${pageContext.request.contextPath}/staff/listprescription" class="btn"><i class="fas fa-save"></i> Danh sách đơn thuốc</a>
-                            </div>
-                        </form>
 
-                        <!-- Medicine List Table -->
-                        <table>
-                            <!-- Table Header -->
-                            <thead>
-                                <tr>
-                                    <th>STT</th>
-                                    <th>Tên trẻ</th>
-                                    <th>Chẩn đoán</th>
-                                    <th>Điều trị</th>
-                                    <th>Ghi chú</th>
-                                    <th>Ngày khám</th>
-                                    <th class="function-column">Chức năng</th> <!-- Add a class here -->
-                                </tr>
-                            </thead>
-                            <tbody>
+                                </c:forEach>
+                            </select>
+
+                            <button type="submit"><i class="fas fa-filter"></i> Lọc và tìm kiếm</button>
+                            <a href="${pageContext.request.contextPath}/staff/oldreservationslist" class="btn"><i class="fas fa-plus"></i> Thêm bản ghi</a>
+                            <a href="${pageContext.request.contextPath}/staff/listprescription" class="btn"><i class="fas fa-save"></i> Danh sách đơn thuốc</a>
+                        </div>
+                    </form>
+
+
+                    <!-- Medicine List Table -->
+                    <table>
+                        <!-- Table Header -->
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Tên trẻ</th>
+                                <th>Chẩn đoán</th>
+                                <th>Điều trị</th>
+                                <th>Ghi chú</th>
+                                <th>Ngày khám</th>
+                                <th class="function-column">Chức năng</th> <!-- Add a class here -->
+                            </tr>
+                        </thead>
+                        <tbody>
                             <c:if test="${not empty records}">
                                 <c:forEach var="record" items="${records}" varStatus="status">
                                     <tr>
@@ -121,14 +125,14 @@
                                                     <i class="fas fa-eye" style="margin: 0;"></i>
                                                 </button>
                                             </form>
-                                            
-                                                <form action="${pageContext.request.contextPath}/staff/saveRecordId" method="post" style="display: inline;">
-                                                    <input type="hidden" name="recordID" value="${record.recordID}"> 
-                                                    <button class="btn" type="submit" title="Thêm đơn thuốc" style="padding: 5px 20px; font-size: 14px; display: flex; justify-content: center; align-items: center;">
-                                                        <i class="fas fa-plus"></i>
-                                                    </button>
-                                                </form>
-                                            
+
+                                            <form action="${pageContext.request.contextPath}/staff/saveRecordId" method="post" style="display: inline;">
+                                                <input type="hidden" name="recordID" value="${record.recordID}"> 
+                                                <button class="btn" type="submit" title="Thêm đơn thuốc" style="padding: 5px 20px; font-size: 14px; display: flex; justify-content: center; align-items: center;">
+                                                    <i class="fas fa-plus"></i>
+                                                </button>
+                                            </form>
+
                                         </td>
                                     </tr>
                                 </c:forEach>

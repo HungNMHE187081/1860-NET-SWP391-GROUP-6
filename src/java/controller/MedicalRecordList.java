@@ -2,6 +2,7 @@ package controller;
 
 
 import dal.ReservationDAO;
+import dal.StaffDAO;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,6 +13,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 import model.MedicalRecord;
 import model.MedicalRecordDAO;
+import model.Staff;
 
 /**
  *
@@ -50,44 +52,55 @@ public class MedicalRecordList extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-   @Override
+@Override
 protected void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
     MedicalRecordDAO dao = new MedicalRecordDAO();
     ReservationDAO rDAO = new ReservationDAO();
+    StaffDAO sDAO = new StaffDAO();
     
-    // Get the child's name from the request parameter
+    // Lấy danh sách nhân viên
+    List<Staff> staffList = sDAO.getAllStaff();
+    
+    // Các tham số tìm kiếm
     String childName = request.getParameter("search");
     String month = request.getParameter("month");
-    String sortBy = request.getParameter("sortBy"); // sortBy can be "dateAdded" or null
-
-    // Initialize childID with default value
+    String sortBy = request.getParameter("sortBy"); 
     Integer childID = null;
+    Integer staffID = null;  // Thêm biến staffID
+    
+    // Lấy giá trị staffID từ request
+    String staffIDParam = request.getParameter("staffID");
+    if (staffIDParam != null && !staffIDParam.isEmpty()) {
+        try {
+            staffID = Integer.parseInt(staffIDParam);
+        } catch (NumberFormatException e) {
+            System.err.println("Invalid staffID: " + staffIDParam);
+        }
+    }
 
-    // Get childID from request parameter and handle potential exceptions
+    // Parse childID nếu có
     String childIDParam = request.getParameter("childID");
     if (childIDParam != null && !childIDParam.isEmpty()) {
         try {
             childID = Integer.parseInt(childIDParam);
         } catch (NumberFormatException e) {
-            // Log the error or handle invalid childID case
             System.err.println("Invalid childID: " + childIDParam);
         }
     }
 
-    // Determine sorting option
-    boolean sortByDateAdded = "dateAdded".equals(sortBy); // Check if sorting is required
+    // Gọi DAO để lấy dữ liệu
+    List<MedicalRecord> records = dao.getAllMedicalRecords(childName, childID, month, staffID);
 
-    // Retrieve the list of medical records, potentially filtered by child's name and month
-    List<MedicalRecord> records = dao.getAllMedicalRecords(childName, childID, month, sortByDateAdded);
-
-    // Set attribute for the request
+    // Thêm danh sách nhân viên vào request
+    request.setAttribute("staffList", staffList);
     request.setAttribute("records", records);
     
-    // Forward to the JSP
     RequestDispatcher dispatcher = request.getRequestDispatcher("/Staff_JSP/medical-record-list.jsp");
     dispatcher.forward(request, response);
 }
+
+
 
     /** 
      * Handles the HTTP <code>POST</code> method.

@@ -242,7 +242,7 @@ public List<MedicalRecord> getMedicalRecordsByMonthAndChildName(String childName
 }
 
 
- public List<MedicalRecord> getAllMedicalRecords(String childName, Integer childID, String month, boolean sortByDateAdded) {
+ public List<MedicalRecord> getAllMedicalRecords(String childName, Integer childID, String month, Integer staffID) {
     List<MedicalRecord> medicalRecords = new ArrayList<>();
     StringBuilder sql = new StringBuilder("""
         SELECT 
@@ -258,13 +258,16 @@ public List<MedicalRecord> getMedicalRecordsByMonthAndChildName(String childName
             c.firstName AS firstNameChild, 
             c.middleName AS middleNameChild, 
             c.lastName AS lastNameChild, 
-            c.childImage
+            c.childImage,
+            s.StaffName AS staffName
         FROM 
             MedicalRecords mr
         JOIN 
             Children c ON mr.childID = c.childID
         LEFT JOIN 
             Reservations r ON mr.reservationID = r.reservationID
+        LEFT JOIN 
+            Staff s ON mr.staffID = s.StaffID
         WHERE 1=1
         """);
 
@@ -281,15 +284,15 @@ public List<MedicalRecord> getMedicalRecordsByMonthAndChildName(String childName
     }
 
     if (childID != null) {
-        sql.append("AND c.childID = ? "); // Add condition for childID
+        sql.append("AND c.childID = ? ");
     }
 
     if (month != null && !month.isEmpty()) {
         sql.append("AND MONTH(r.reservationDate) = ? ");
     }
 
-    if (sortByDateAdded) {
-        sql.append("ORDER BY mr.recordID DESC ");
+    if (staffID != null) {
+        sql.append("AND mr.staffID = ? ");
     }
 
     try (PreparedStatement ps = connection.prepareStatement(sql.toString())) {
@@ -297,19 +300,23 @@ public List<MedicalRecord> getMedicalRecordsByMonthAndChildName(String childName
 
         if (childName != null && !childName.isEmpty()) {
             String searchPattern = "%" + childName + "%";
-            ps.setString(paramIndex++, searchPattern);  // For full name with middle name
-            ps.setString(paramIndex++, searchPattern);  // For full name without middle name
-            ps.setString(paramIndex++, searchPattern);  // For first name only
-            ps.setString(paramIndex++, searchPattern);  // For middle name only
-            ps.setString(paramIndex++, searchPattern);  // For last name only
+            ps.setString(paramIndex++, searchPattern);  
+            ps.setString(paramIndex++, searchPattern);  
+            ps.setString(paramIndex++, searchPattern);  
+            ps.setString(paramIndex++, searchPattern);  
+            ps.setString(paramIndex++, searchPattern);  
         }
 
         if (childID != null) {
-            ps.setInt(paramIndex++, childID); // Set the childID parameter
+            ps.setInt(paramIndex++, childID);
         }
 
         if (month != null && !month.isEmpty()) {
             ps.setInt(paramIndex++, Integer.parseInt(month));
+        }
+
+        if (staffID != null) {
+            ps.setInt(paramIndex++, staffID);
         }
 
         try (ResultSet rs = ps.executeQuery()) {
@@ -337,6 +344,7 @@ public List<MedicalRecord> getMedicalRecordsByMonthAndChildName(String childName
     }
     return medicalRecords;
 }
+
 
  
 

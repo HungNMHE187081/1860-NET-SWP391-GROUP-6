@@ -128,5 +128,12 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response)
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
+public static void main(String[] args) {
+          PrescriptionDAO dao = new PrescriptionDAO();
+            List<Prescription> listPre = dao.getAllPrescriptions("");
+            for(Prescription pre : listPre)
+            {
+                System.out.println(pre.getStaffName());
+            }
+    }
 }

@@ -105,8 +105,7 @@ CREATE TABLE Staff (
     FOREIGN KEY (StaffID) REFERENCES Users(UserID) ON DELETE CASCADE,
     FOREIGN KEY (SpecializationID) REFERENCES Specializations(SpecializationID),
     FOREIGN KEY (DegreeID) REFERENCES Degrees(DegreeID)
-);
-
+); 
 -- Create Children table
 CREATE TABLE Children (
     ChildID INT PRIMARY KEY IDENTITY(1,1),
@@ -195,6 +194,8 @@ CREATE TABLE MedicalRecords (
     FOREIGN KEY (StaffID) REFERENCES Staff(StaffID) ON DELETE NO ACTION,    
     FOREIGN KEY (ReservationID) REFERENCES Reservations(ReservationID) ON DELETE NO ACTION
 );
+
+
 -- Create MedicineCategory table
 CREATE TABLE MedicineCategory (
     CategoryID INT PRIMARY KEY IDENTITY(1,1),  
@@ -396,7 +397,6 @@ CREATE TABLE Blogs (
     Views INT DEFAULT 0
 
 );
-select * from BlogComments
 -- Create BlogCategories table
 CREATE TABLE BlogCategories (
     CategoryID INT PRIMARY KEY IDENTITY(1,1),
@@ -792,7 +792,7 @@ CREATE INDEX IX_PasswordResets_UserID ON PasswordResets(UserID);
 CREATE INDEX IX_PasswordResets_VerificationCode ON PasswordResets(VerificationCode);
 
 -- 3. Tạo các stored procedure
-CREATE PROCEDURE sp_CreatePasswordReset
+/*CREATE PROCEDURE sp_CreatePasswordReset
     @UserID INT,
     @VerificationCode VARCHAR(50),
     @ExpiryHours INT = 24
@@ -812,8 +812,8 @@ BEGIN
     AND ExpiryTime > GETDATE()
     AND IsUsed = 0;
 END;
-GO
-
+GO*/
+/*
 -- 4. Tạo trigger
 CREATE TRIGGER trg_Users_UpdatedAt
 ON Users
@@ -835,4 +835,4 @@ BEGIN
     WHERE ExpiryTime < GETDATE()
     OR IsUsed = 1;
 END;
-GO 
+GO*/
