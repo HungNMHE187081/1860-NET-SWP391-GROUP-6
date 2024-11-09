@@ -33,7 +33,6 @@
                                     <th>Ngày khám</th>
                                     <th>Tên dịch vụ</th>
                                     <th>Thời gian khám</th>
-
                                 </tr>
                             </thead>
                             <tbody>
