@@ -154,6 +154,11 @@ body {
                 gap: 20px;
             }
         }
+
+        input[readonly] {
+            background-color: #f0f0f0;
+            cursor: not-allowed;
+        }
     </style>
 </head>
 <body>
@@ -196,13 +201,16 @@ body {
             <input type="hidden" name="userID" value="${user.userID}">
 
             <label for="name">Tên của bạn</label>
-            <input type="text" id="name" name="userName" value="${user.firstName} ${user.middleName} ${user.lastName}" readonly>
+            <input type="text" id="name" name="userName" 
+                value="${user.firstName} ${user.middleName} ${user.lastName}" readonly>
 
             <label for="email">Địa chỉ Email</label>
-            <input type="email" id="email" name="emailAddress" value="${user.email}" readonly>
+            <input type="email" id="email" name="emailAddress" 
+                value="${user.email}" readonly>
 
             <label for="phone">Số Điện Thoại</label>
-            <input type="tel" id="phone" name="phoneNumber" value="${user.phoneNumber}" readonly>
+            <input type="tel" id="phone" name="phoneNumber" 
+                value="${user.phoneNumber}" readonly>
 
             <label for="serviceName">Chọn dịch vụ đã sử dụng</label>
             <select id="serviceName" name="serviceID">

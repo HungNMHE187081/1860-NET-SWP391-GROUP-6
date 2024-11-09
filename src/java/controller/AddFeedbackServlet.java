@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
+import jakarta.servlet.http.HttpSession;
 import model.Feedback;
 import model.Service;
 import model.Users;
@@ -24,8 +25,15 @@ public class AddFeedbackServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        UserDAO userDAO = new UserDAO();
-        Users user = userDAO.getUserById(1);
+        // Lấy thông tin user từ session
+        HttpSession session = request.getSession();
+        Users user = (Users) session.getAttribute("user");
+        
+        
+        if (user == null) {
+            response.sendRedirect(request.getContextPath() + "/login");
+            return;
+        }
         ServiceDAO serviceDAO = new ServiceDAO();
         List<Service> serviceList = serviceDAO.getAllServices();
         request.setAttribute("user", user);
