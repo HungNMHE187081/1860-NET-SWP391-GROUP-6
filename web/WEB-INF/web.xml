@@ -97,6 +97,14 @@
         <servlet-class>controller.StaffServicesListServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>CustomerSearchStaffServlet</servlet-name>
+        <servlet-class>controller.CustomerSearchStaffServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GuestSearchStaffServlet</servlet-name>
+        <servlet-class>controller.GuestSearchStaffServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>StaffViewServiceServlet</servlet-name>
         <servlet-class>controller.StaffViewServiceServlet</servlet-class>
     </servlet>
@@ -1003,6 +1011,14 @@
     <servlet-mapping>
         <servlet-name>GuestViewServiceServlet</servlet-name>
         <url-pattern>/guest/viewservice</url-pattern>
+    </servlet-mapping>
+     <servlet-mapping>
+        <servlet-name>CustomerSearchStaffServlet</servlet-name>
+        <url-pattern>/customer/searchstaff</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GuestSearchStaffServlet</servlet-name>
+        <url-pattern>/guest/searchstaff</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ResetPasswordServlet</servlet-name>

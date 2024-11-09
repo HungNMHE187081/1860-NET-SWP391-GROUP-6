@@ -187,7 +187,7 @@
                                             <td>${feedback.rating}</td>     
                                             <td>${feedback.comment}</td>
                                             <td>${feedback.suggestion}</td>
-                                            <td><img src="${feedback.attachmentPath}" alt="${feedback.attachmentPath}" width="75" height="50"></td>
+                                            <td>  <span><img src="${pageContext.request.contextPath}/${feedback.attachmentPath}" alt="${feedback.attachmentPath}"" alt="Attachment" width="100"></span></td>
                                             <td>${feedback.experienceRating}</td>    
 
                                             <td>${feedback.status ? 'Đã phản hồi' : 'Chưa phản hồi'}</td>

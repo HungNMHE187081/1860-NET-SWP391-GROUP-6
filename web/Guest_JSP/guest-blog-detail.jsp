@@ -32,8 +32,8 @@
     </head>
 
     <body>
-             <!-- Start Hero -->
-         <header id="topnav" class="navigation sticky">
+        <!-- Start Hero -->
+        <header id="topnav" class="navigation sticky">
             <div class="container">
                 <!-- Mobile Toggle -->
                 <div class="menu-extras">
@@ -111,7 +111,7 @@
                             </a>
                         </li>
 
-                        
+
                     </ul>
                 </div>
             </div>
@@ -196,8 +196,8 @@
                                             <c:if test="${comment.user.userID == user.userID}">
                                                 <a href="javascript:void(0)" class="text-muted me-2" onclick="editComment(${comment.commentID})">Edit</a>
                                                 <a href="javascript:void(0)" class="text-muted me-2" onclick="if (confirm('Are you sure you want to delete this comment?')) {
-                                    deleteComment(${comment.commentID}, ${blog.blogID});
-                                }">Delete</a>
+                                                            deleteComment(${comment.commentID}, ${blog.blogID});
+                                                        }">Delete</a>
                                             </c:if>
                                             <a href="javascript:void(0)" class="text-muted" onclick="toggleReplyForm(${comment.commentID})">
                                                 <i class="mdi mdi-reply"></i> Reply
@@ -256,8 +256,8 @@
                                                         <c:if test="${reply.user.userID == user.userID}">
                                                             <a href="javascript:void(0)" class="text-muted me-2" onclick="editComment(${reply.commentID})">Edit</a>
                                                             <a href="javascript:void(0)" class="text-muted me-2" onclick="if (confirm('Are you sure you want to delete this comment?')) {
-                                                deleteComment(${reply.commentID}, ${blog.blogID});
-                                            }">Delete</a>
+                                                                        deleteComment(${reply.commentID}, ${blog.blogID});
+                                                                    }">Delete</a>
                                                         </c:if>
                                                         <a href="javascript:void(0)" class="text-muted" onclick="toggleReplyForm(${reply.commentID})">
                                                             <i class="mdi mdi-reply"></i> Reply
@@ -296,7 +296,7 @@
                             </c:forEach>
                         </ul>
 
-                       
+
                         <form action="${pageContext.request.contextPath}/guest/detailguestblog" method="post" class="mt-3">
                             <input type="hidden" name="blogID" value="${blog.blogID}" />
                             <div class="row">
@@ -617,34 +617,34 @@
         <script src="${pageContext.request.contextPath}/js/tiny-slider-init.js"></script>
 
         <script>
-                                            let hasViewBeenCounted = false; // Biến để kiểm tra xem đã tính view chưa
+                                        let hasViewBeenCounted = false; // Biến để kiểm tra xem đã tính view chưa
 
-                                            // Hàm để tăng view
-                                            function incrementView(blogId) {
-                                                if (!hasViewBeenCounted) { // Chỉ tăng view một lần
-                                                    $.ajax({
-                                                        url: '${pageContext.request.contextPath}/guest/bloglist',
-                                                        type: 'POST',
-                                                        data: {blogID: blogId},
-                                                        success: function () {
-                                                            console.log("View has been counted!");
-                                                            hasViewBeenCounted = true;
-                                                        },
-                                                        error: function () {
-                                                            console.log("Error updating view.");
-                                                        }
-                                                    });
-                                                }
+                                        // Hàm để tăng view
+                                        function incrementView(blogId) {
+                                            if (!hasViewBeenCounted) { // Chỉ tăng view một lần
+                                                $.ajax({
+                                                    url: '${pageContext.request.contextPath}/guest/bloglist',
+                                                    type: 'POST',
+                                                    data: {blogID: blogId},
+                                                    success: function () {
+                                                        console.log("View has been counted!");
+                                                        hasViewBeenCounted = true;
+                                                    },
+                                                    error: function () {
+                                                        console.log("Error updating view.");
+                                                    }
+                                                });
                                             }
+                                        }
 
-                                            // Bắt đầu đếm thời gian khi trang được load
-                                            document.addEventListener('DOMContentLoaded', function () {
-                                                // Chờ 1 phút (60000 milliseconds) trước khi tăng view
-                                                setTimeout(function () {
-                                                    const blogId = '${blog.blogID}'; // Lấy ID của blog đang đọc
-                                                    incrementView(blogId);
-                                                }, 2000);
-                                            });
+                                        // Bắt đầu đếm thời gian khi trang được load
+                                        document.addEventListener('DOMContentLoaded', function () {
+                                            // Chờ 1 phút (60000 milliseconds) trước khi tăng view
+                                            setTimeout(function () {
+                                                const blogId = '${blog.blogID}'; // Lấy ID của blog đang đọc
+                                                incrementView(blogId);
+                                            }, 2000);
+                                        });
         </script>
 
     </body>
