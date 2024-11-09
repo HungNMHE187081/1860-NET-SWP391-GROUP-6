@@ -28,8 +28,7 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Chuyển hướng đến trang đăng ký
-        response.sendRedirect("register.jsp");
+        request.getRequestDispatcher("register.jsp").forward(request, response);
     }
 
     @Override
@@ -41,33 +40,45 @@ public class RegisterServlet extends HttpServlet {
         String repassword = request.getParameter("repassword");
 
         if (!password.equals(repassword)) {
-            response.sendRedirect("register.jsp?error=Passwords do not match");
+            request.setAttribute("username", username);
+            request.setAttribute("email", email);
+            request.setAttribute("error", "Mật khẩu không khớp!");
+            request.getRequestDispatcher("register.jsp").forward(request, response);
             return;
         }
 
-        String salt = generateSalt();
-        String passwordHash = hashPassword(password, salt);
+        try {
+            String salt = generateSalt();
+            String passwordHash = hashPassword(password, salt);
 
-        // Tạo đối tượng UserAuthentication
-        UserAuthentication userAuth = new UserAuthentication();
-        userAuth.setUsername(username);
-        userAuth.setPasswordHash(passwordHash);
-        userAuth.setSalt(salt);
-        userAuth.setLastLogin(new Timestamp(System.currentTimeMillis()));
+            // Tạo đối tượng UserAuthentication
+            UserAuthentication userAuth = new UserAuthentication();
+            userAuth.setUsername(username);
+            userAuth.setPasswordHash(passwordHash);
+            userAuth.setSalt(salt);
+            userAuth.setLastLogin(new Timestamp(System.currentTimeMillis()));
 
-        // Tạo đối tượng Users
-        Users user = new Users();
-        user.setEmail(email);
-        user.setUser(userAuth);
+            // Tạo đối tượng Users
+            Users user = new Users();
+            user.setEmail(email);
+            user.setUser(userAuth);
 
-        // Khởi tạo danh sách roles rỗng cho user mới
-        List<Roles> roles = new ArrayList<>();
-        user.setRoles(roles);
+            // Khởi tạo danh sách roles rỗng cho user mới
+            List<Roles> roles = new ArrayList<>();
+            user.setRoles(roles);
 
-        // Lưu thông tin người dùng vào cơ sở dữ liệu
-        userDAO.registerUser(user);
+            // Lưu thông tin người dùng vào cơ sở dữ liệu
+            userDAO.registerUser(user);
 
-        response.sendRedirect(request.getContextPath() + "/login");
+            // Chuyển hướng đến trang login khi đăng ký thành công
+            response.sendRedirect(request.getContextPath() + "/login");
+            
+        } catch (Exception e) {
+            request.setAttribute("username", username);
+            request.setAttribute("email", email);
+            request.setAttribute("error", "Có lỗi xảy ra: " + e.getMessage());
+            request.getRequestDispatcher("register.jsp").forward(request, response);
+        }
     }
 
     private String generateSalt() {

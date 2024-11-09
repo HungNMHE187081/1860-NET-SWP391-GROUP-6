@@ -775,7 +775,7 @@ JOIN OrderItems oi ON o.OrderID = oi.OrderID
 JOIN Services s ON oi.ServiceID = s.ServiceID;*/
 
 
--- 1. Đầu tiên tạo bảng PasswordResets
+-- 1.Tạo bảng PasswordResets
 CREATE TABLE PasswordResets (
     ResetID INT PRIMARY KEY IDENTITY(1,1),
     UserID INT NOT NULL,

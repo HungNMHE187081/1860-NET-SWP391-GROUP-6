@@ -29,25 +29,52 @@
             <div class="logo rounded-full"></div>
         </div>
         <h2 class="text-center text-3xl font-bold text-gray-700 mb-4">Đăng kí</h2>
+        
+        <c:if test="${not empty error}">
+            <div class="mb-4 text-center text-red-500 text-sm">
+                ${error}
+            </div>
+        </c:if>
+
         <form action="${pageContext.request.contextPath}/register" method="post">
             <div class="mb-4">
-                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" id="username" name="username" placeholder="Tên đăng nhập" required>
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+                       type="text" 
+                       id="username" 
+                       name="username" 
+                       placeholder="Tên đăng nhập"
+                       value="${username}"
+                       required>
             </div>
             <div class="mb-4">
-                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="email" id="email" name="email" placeholder="Email" required>
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+                       type="email" 
+                       id="email" 
+                       name="email" 
+                       placeholder="Email"
+                       value="${email}"
+                       required>
             </div>
             <div class="mb-4">
-                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="password" id="password" name="password" placeholder="Mật khẩu" required>
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+                       type="password" 
+                       id="password" 
+                       name="password" 
+                       placeholder="Mật khẩu" 
+                       required>
             </div>
             <div class="mb-6">
-                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="password" id="repassword" name="repassword" placeholder="Nhập lại mật khẩu" required>
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+                       type="password" 
+                       id="repassword" 
+                       name="repassword" 
+                       placeholder="Nhập lại mật khẩu" 
+                       required>
             </div>
             <div class="mb-6">
-                <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 w-full rounded focus:outline-none focus:shadow-outline" type="submit">Đăng kí</button>
+                <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 w-full rounded focus:outline-none focus:shadow-outline" 
+                        type="submit">Đăng kí</button>
             </div>
-            <% if (request.getParameter("error") != null) { %>
-                <p class="text-center text-red-500 text-sm"><%= request.getParameter("error") %></p>
-            <% } %>
         </form>
     </div>
 </body>
