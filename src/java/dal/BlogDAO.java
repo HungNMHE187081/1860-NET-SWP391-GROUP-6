@@ -260,7 +260,7 @@ public List<Blog> getLatestBlogs() throws SQLException {
         List<Blog> latestBlogs = new ArrayList<>();
         
         // SQL query to get the top 3 latest blogs
-        String query = "SELECT TOP 3 * FROM Blogs ORDER BY CreatedDate DESC";
+        String query = "SELECT TOP 3 * FROM Blogs where IsPublished = 1 ORDER BY CreatedDate DESC";
         
         try (PreparedStatement stmt = connection.prepareStatement(query);
              ResultSet rs = stmt.executeQuery()) {
@@ -294,7 +294,7 @@ public List<Blog> getRelatedBlogs(int blogID) {
             FROM Blogs b
             JOIN BlogCategoryMapping bcm1 ON b.BlogID = bcm1.BlogID
             JOIN BlogCategoryMapping bcm2 ON bcm1.CategoryID = bcm2.CategoryID
-            WHERE bcm2.BlogID = ? AND b.BlogID != ?
+            WHERE bcm2.BlogID = ? AND b.BlogID != ? AND b.isPublished = 1
             GROUP BY b.BlogID, b.Title, b.Content, b.AuthorName, b.CreatedDate, 
                      b.UpdatedDate, b.IsPublished, b.ThumbnailPath, b.Views
             """;

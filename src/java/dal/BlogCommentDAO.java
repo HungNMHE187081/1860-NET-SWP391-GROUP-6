@@ -109,37 +109,6 @@ public class BlogCommentDAO extends DBContext {
         return replies;
     }
 
-    public static void main(String[] args) {
-        BlogCommentDAO dao = new BlogCommentDAO();
-        int blogId = 1; // Thay đổi ID của bài viết để kiểm tra
-
-        try {
-            // Lấy danh sách bình luận theo blogID
-            List<BlogComment> comments = dao.getBlogCommentsByBlogId(blogId);
-
-            // In ra thông tin của các bình luận
-            for (BlogComment comment : comments) {
-                System.out.println("Bình luận ID: " + comment.getCommentID());
-                System.out.println("Người dùng: " + comment.getUser().getFirstName() + " " + comment.getUser().getLastName());
-                System.out.println("Nội dung: " + comment.getContent());
-                System.out.println("Ngày tạo: " + comment.getCreatedDate());
-
-                // In ra các trả lời cho bình luận này
-                if (comment.getReplies() != null && !comment.getReplies().isEmpty()) {
-                    System.out.println("Các trả lời:");
-                    for (BlogComment reply : comment.getReplies()) {
-                        System.out.println("  - Trả lời ID: " + reply.getCommentID());
-                        System.out.println("    Người dùng: " + reply.getUser().getFirstName() + " " + reply.getUser().getLastName());
-                        System.out.println("    Nội dung: " + reply.getContent());
-                        System.out.println("    Ngày tạo: " + reply.getCreatedDate());
-                    }
-                }
-                System.out.println(); // Dòng trống để dễ đọc
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 
     public void addComment(BlogComment comment) {
         String sql = "INSERT INTO BlogComments(CreatedDate, Content, BlogID, UserID, parentID,IsApproved) VALUES (GETDATE(), ?, ?, ?, ?, 1)";

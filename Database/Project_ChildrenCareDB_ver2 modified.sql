@@ -396,7 +396,7 @@ CREATE TABLE Blogs (
     Views INT DEFAULT 0
 
 );
-
+select * from BlogComments
 -- Create BlogCategories table
 CREATE TABLE BlogCategories (
     CategoryID INT PRIMARY KEY IDENTITY(1,1),
