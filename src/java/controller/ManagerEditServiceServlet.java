@@ -5,7 +5,7 @@ import dal.CategoryDAO;
 import dal.DegreeDAO;
 import dal.ServiceDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 import java.io.File;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import model.AgeLimits;
 import model.Category;
@@ -29,63 +30,127 @@ public class ManagerEditServiceServlet extends HttpServlet {
         AgeLimitDAO ageLimitDAO = new AgeLimitDAO();
         List<AgeLimits> ageLimits = ageLimitDAO.getAllAgeLimits();
         request.setAttribute("ageLimits", ageLimits);
+        
         CategoryDAO categoryDAO = new CategoryDAO();
         List<Category> categories = categoryDAO.getAllCategories();
         request.setAttribute("categories", categories);
+        
         DegreeDAO degreeDAO = new DegreeDAO();
         List<Degree> degrees = degreeDAO.getAllDegrees();
         request.setAttribute("degrees", degrees);
         
-        int serviceID = Integer.parseInt(request.getParameter("serviceID"));
         ServiceDAO serviceDAO = new ServiceDAO();
-        Service service = serviceDAO.getServiceByID(serviceID);
-        request.setAttribute("service", service);
+        String serviceIDStr = request.getParameter("serviceID");
+        if(serviceIDStr != null){
+            try {
+                int serviceID = Integer.parseInt(serviceIDStr);
+                Service service = serviceDAO.getServiceByID(serviceID);
+                request.setAttribute("service", service);
+            } catch (NumberFormatException e) {
+                List<String> errors = new ArrayList<>();
+                errors.add("Dịch vụ có ID không hợp lệ.");
+                request.setAttribute("errorMessages", errors);
+            }
+        }
 
-
-        request.getRequestDispatcher("/Manager_JSP/manager-edit-service.jsp").forward(request, response);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/Manager_JSP/manager-edit-service.jsp");
+        dispatcher.forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int serviceID = Integer.parseInt(request.getParameter("serviceID"));
+        List<String> errors = new ArrayList<>();
+
+        String serviceIDStr = request.getParameter("serviceID");
         String serviceName = request.getParameter("serviceName");
         String description = request.getParameter("description");
-        double price = Double.parseDouble(request.getParameter("price"));
-        int duration = Integer.parseInt(request.getParameter("duration"));
-        boolean isActive = request.getParameter("isActive").equals("Hoạt động");
-        int ageLimitID = Integer.parseInt(request.getParameter("ageLimit"));
-        int categoryID = Integer.parseInt(request.getParameter("category"));
-        int degreeID = Integer.parseInt(request.getParameter("degree"));
-
+        String priceStr = request.getParameter("price");
+        String durationStr = request.getParameter("duration");
         Part filePart = request.getPart("serviceImage");
-        String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-        String serviceImage = null;
+        String isActive = request.getParameter("isActive");
+        String ageLimitIDStr = request.getParameter("ageLimit");
+        String categoryIDStr = request.getParameter("category");
+        String degreeIDStr = request.getParameter("degree");
 
-        if (fileName != null && !fileName.isEmpty()) {
-            String uploadDir = getServletContext().getRealPath("/") + "uploads";
-            File uploadDirFile = new File(uploadDir);
-            if (!uploadDirFile.exists()) {
-                uploadDirFile.mkdir();
-            }
-            String filePath = uploadDir + File.separator + fileName;
-            filePart.write(filePath);
-            serviceImage = "uploads" + File.separator + fileName;
-        } else {
-            // Nếu không có ảnh mới, giữ nguyên ảnh cũ
-            ServiceDAO serviceDAO = new ServiceDAO();
-            Service service = serviceDAO.getServiceByID(serviceID);
-            serviceImage = service.getServiceImage();
+        int serviceID = 0;
+        try {
+            serviceID = Integer.parseInt(serviceIDStr);
+        } catch (NumberFormatException e) {
+            errors.add("Invalid service ID.");
         }
 
+        if (serviceName == null || serviceName.trim().isEmpty()
+                || description == null || description.trim().isEmpty()
+                || priceStr == null || priceStr.trim().isEmpty()
+                || durationStr == null || durationStr.trim().isEmpty()
+                || isActive == null || isActive.trim().isEmpty()
+                || ageLimitIDStr == null || ageLimitIDStr.trim().isEmpty()
+                || categoryIDStr == null || categoryIDStr.trim().isEmpty()
+                || degreeIDStr == null || degreeIDStr.trim().isEmpty()) {
+            errors.add("Các thông tin không được để trống hoặc khoảng trắng");
+        }
+
+        double price = 0;
+        try {
+            price = Double.parseDouble(priceStr);
+            if(price < 100000){
+                errors.add("Dịch vụ có giá tối thiểu là 100,000VNĐ");
+            }
+        } catch (NumberFormatException e) {
+            errors.add("Sai format giá tiền");
+        }
+
+        int duration = 0;
+        try {
+            duration = Integer.parseInt(durationStr);
+            if(duration < 10){
+                errors.add("Thời gian khám tối thiểu là 10 phút");
+            }
+        } catch (NumberFormatException e) {
+            errors.add("Sai format");
+        }
+
+        String serviceImage = null;
         ServiceDAO serviceDAO = new ServiceDAO();
-        serviceDAO.editService(serviceID, categoryID, degreeID, serviceName, description, price, duration, serviceImage, isActive, ageLimitID);
+        Service existingService = null;
+        if(serviceID != 0){
+            existingService = serviceDAO.getServiceByID(serviceID);
+        }
+
+        if (filePart != null && filePart.getSize() > 0) {
+            String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+            String uploadPath = getServletContext().getRealPath("") + File.separator + "uploads";
+            File uploadDir = new File(uploadPath);
+            if (!uploadDir.exists()) uploadDir.mkdir();
+            filePart.write(uploadPath + File.separator + fileName);
+            serviceImage = "uploads/" + fileName;
+        } else {
+            if(existingService != null){
+                serviceImage = existingService.getServiceImage();
+            }
+        }
+
+        if (!errors.isEmpty()) {
+            request.setAttribute("errorMessages", errors);
+            doGet(request, response);            
+            return;
+        }
+
+        // Update the service using DAO's editService method
+        serviceDAO.editService(
+                serviceID,
+                Integer.parseInt(categoryIDStr),
+                Integer.parseInt(degreeIDStr),
+                serviceName,
+                description,
+                price,
+                duration,
+                serviceImage,
+                isActive.equalsIgnoreCase("Đang hoạt động"),
+                Integer.parseInt(ageLimitIDStr)
+        );
 
         response.sendRedirect(request.getContextPath() + "/manager/serviceslist");
-    }
-
-    @Override
-    public String getServletInfo() {
-        return "Short description";
     }
 }

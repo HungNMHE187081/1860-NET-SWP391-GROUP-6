@@ -110,21 +110,6 @@
                                             <i class="fas fa-plus"></i> Thêm dịch vụ
                                         </a>
                                     </div>
-                                    <div class="col-sm-2">
-                                        <a class="btn btn-delete btn-sm nhap-tu-file" type="button" title="Nhập" onclick="myFunction(this)">
-                                            <i class="fas fa-file-upload"></i> Tải từ file
-                                        </a>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <a class="btn btn-excel btn-sm" href="" title="In">
-                                            <i class="fas fa-file-excel"></i> Xuất Excel
-                                        </a>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <a class="btn btn-delete btn-sm pdf-file" type="button" title="In" onclick="myFunction(this)">
-                                            <i class="fas fa-file-pdf"></i> Xuất PDF
-                                        </a>
-                                    </div>
                                 </div>
                                 <div>
                                     <form action="${pageContext.request.contextPath}/manager/searchservice" method="get" class="filter-form">
@@ -237,10 +222,10 @@
                                             </td>
                                             <td>
                                                 <c:if test="${service.isActive}">
-                                                    Active
+                                                    Đang hoạt động
                                                 </c:if>
                                                 <c:if test="${!service.isActive}">
-                                                    Inactive
+                                                    Chưa hoạt động
                                                 </c:if>
                                             </td>
                                             <td class="table-td-center">

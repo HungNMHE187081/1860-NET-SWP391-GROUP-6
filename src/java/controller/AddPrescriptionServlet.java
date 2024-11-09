@@ -35,7 +35,7 @@ public class AddPrescriptionServlet extends HttpServlet {
         childrenDAO = new ChildrenDAO();
     }
 
-    @Override
+ @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
          HttpSession session = request.getSession();
@@ -46,7 +46,12 @@ public class AddPrescriptionServlet extends HttpServlet {
             Staff staff = staffDAO.getStaffByID(record.getStaffID());
             List<Medicine> medicineList = medicineDAO.getAllMedicines();
             Children children = childrenDAO.getChildrenByID(record.getChildID());
-
+            PrescriptionDAO pDAO = new PrescriptionDAO();
+            Prescription prescription = pDAO.getPrescriptionByRecordID(recordID);
+            if(prescription!=null)
+            {
+                  request.setAttribute("prescription", prescription);
+            }
             request.setAttribute("children", children);
             request.setAttribute("medicineList", medicineList);
             request.setAttribute("record", record);
@@ -54,7 +59,7 @@ public class AddPrescriptionServlet extends HttpServlet {
             request.getRequestDispatcher("/Staff_JSP/add-prescription.jsp").forward(request, response);
         } catch (Exception e) {
             log("Error retrieving medical record: " + e.getMessage());
-            request.setAttribute("errorMessage", "Unable to retrieve medical record. Please try again.");
+            request.setAttribute("errorMessage", "Lỗi truy vấn dữ liệu.");
             request.getRequestDispatcher("/Staff_JSP/error.jsp").forward(request, response);
         }
     }
@@ -62,44 +67,66 @@ private boolean isEmptyOrSpaces(String input) {
     return input == null || input.trim().isEmpty();
 }
 
-     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try {
-            // Lấy thông tin từ form
-            int recordID = Integer.parseInt(request.getParameter("recordID"));
-            String[] medicineIds = request.getParameterValues("medicineIds"); // Nhiều giá trị
-            String dosage = request.getParameter("dosage");
-            String frequency = request.getParameter("frequency");
-            String duration = request.getParameter("duration");
 
-                  for (String medicineID_raw : medicineIds) {
-            int medicineID = Integer.parseInt(medicineID_raw);
-            if (isEmptyOrSpaces(dosage) || isEmptyOrSpaces(frequency) || isEmptyOrSpaces(duration)) {
-                // Chuyển hướng đến trang lỗi nếu phát hiện trường chỉ chứa dấu cách
-                request.setAttribute("errorMessage", "Các trường nhập liệu không được để trống hoặc chỉ chứa khoảng trắng.");
-                request.getRequestDispatcher("/Staff_JSP/error.jsp").forward(request, response);
-                return;
-            }
-            // Check for existing prescription
-            if (prescriptionDAO.existsPrescription(recordID, medicineID)) {
-                request.setAttribute("errorMessage", "Loại thuốc này đã tồn tại trong lịch sử khám cho bệnh nhân này.");
-                request.getRequestDispatcher("/Staff_JSP/error.jsp").forward(request, response);
-                return;
-            }
+    @Override
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+    try {
+        // Lấy thông tin từ form
+        int recordID = Integer.parseInt(request.getParameter("recordID"));
+        String[] medicineIds = request.getParameterValues("medicineIds"); // Nhiều giá trị
+        String dosage = request.getParameter("dosage");
+        String frequency = request.getParameter("frequency");
+        String duration = request.getParameter("duration");
 
-            // Create prescription object and add to the database
-             Prescription prescription = new Prescription(recordID, Integer.parseInt(medicineID_raw), dosage, frequency, duration);
+        // Kiểm tra các trường không được để trống hoặc chỉ chứa dấu cách
+        if (isEmptyOrSpaces(dosage) || isEmptyOrSpaces(frequency) || isEmptyOrSpaces(duration)) {
+            // Chuyển hướng đến trang lỗi nếu phát hiện trường chỉ chứa dấu cách
+            request.setAttribute("errorMessage", "Các trường nhập liệu không được để trống hoặc chỉ chứa khoảng trắng.");
+            request.getRequestDispatcher("/Staff_JSP/error.jsp").forward(request, response);
+            return;
+        }
+
+        // Kiểm tra xem Prescription đã tồn tại hay chưa
+        PrescriptionDAO prescriptionDAO = new PrescriptionDAO();
+
+        if (medicineIds != null) {
+            boolean isMedicineSelected = false;
+
+            // Duyệt qua các thuốc người dùng chọn
+            for (String medicineID_raw : medicineIds) {
+                int medicineID = Integer.parseInt(medicineID_raw);
+
+                // Kiểm tra xem thuốc này đã có trong Prescription cho bệnh nhân này chưa
+                if (prescriptionDAO.existsPrescription(recordID, medicineID)) {
+                    continue; // Bỏ qua thuốc đã tồn tại trong Prescription
+                }
+
+                // Nếu có thuốc mới được chọn, thêm vào Prescription
+                isMedicineSelected = true;
+                Prescription prescription = new Prescription(recordID, medicineID, dosage, frequency, duration);
                 prescriptionDAO.addPrescription(prescription);
+            }
+
+            // Nếu không có thuốc mới được chọn, báo lỗi
+            if (!isMedicineSelected) {
+                request.setAttribute("errorMessage", "Không có thuốc mới nào được chọn để thêm.");
+                request.getRequestDispatcher("/Staff_JSP/error.jsp").forward(request, response);
+                return;
+            }
         }
-          
-            // Chuyển hướng về trang danh sách đơn thuốc sau khi thêm thành công
-            response.sendRedirect(request.getContextPath() + "/staff/listprescription");
-        } catch (Exception e) {
-            e.printStackTrace();
-            request.setAttribute("error", "Lỗi trong quá trình thêm đơn thuốc.");
-            request.getRequestDispatcher("/staff/errorPage.jsp").forward(request, response);
-        }
+
+        // Chuyển hướng về trang danh sách đơn thuốc sau khi thêm thành công
+        response.sendRedirect(request.getContextPath() + "/staff/listprescription");
+
+    } catch (Exception e) {
+        e.printStackTrace();
+        request.setAttribute("error", "Lỗi trong quá trình thêm đơn thuốc.");
+        request.getRequestDispatcher("/staff/errorPage.jsp").forward(request, response);
     }
+}
+
+
 
 
     @Override

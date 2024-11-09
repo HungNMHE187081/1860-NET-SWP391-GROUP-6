@@ -17,6 +17,8 @@ import dal.PrescriptionDAO;
 import model.MedicalRecordDAO;
 import model.MedicalRecord;
 import dal.PrescriptionDAO;
+import dal.StaffDAO;
+import model.Staff;
 /**
  *
  * @author User
@@ -65,6 +67,9 @@ public class ViewPrescription extends HttpServlet {
             Prescription pres = dao.getPrescriptionById(presID);
             MedicalRecordDAO mDAO = new MedicalRecordDAO();
             MedicalRecord medicalRecord = mDAO.getMedicalRecordByID(pres.getRecordID());
+            StaffDAO sDAO = new StaffDAO();
+            Staff staff = sDAO.getStaffByID(medicalRecord.getStaffID());
+            request.setAttribute("staff", staff);
             request.setAttribute("medicalRecord", medicalRecord);
             request.setAttribute("pres", pres);
             request.getRequestDispatcher("/Staff_JSP/view-prescription.jsp").forward(request, response);
@@ -94,5 +99,11 @@ public class ViewPrescription extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
+public static void main(String[] args) {
+         PrescriptionDAO dao = new PrescriptionDAO();
+            Prescription pres = dao.getPrescriptionById(12);
+            MedicalRecordDAO mDAO = new MedicalRecordDAO();
+            MedicalRecord record = mDAO.getMedicalRecordByID(8);
+            System.out.println(record.getStaffID());
+    }
 }
