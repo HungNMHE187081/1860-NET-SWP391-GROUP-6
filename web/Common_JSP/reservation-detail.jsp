@@ -6,7 +6,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Chi tiết đặt lịch | Tiny Tots</title>
+        <title>ChildCare</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- Favicon -->
         <link rel="shortcut icon" href="${pageContext.request.contextPath}/images/favicon.ico.png">
