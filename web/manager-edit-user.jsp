@@ -144,9 +144,7 @@
 
 
                 <!-- User Menu-->
-                <li><a class="app-nav__item" href="/index.html"><i class='bx bx-log-out bx-rotate-180'></i> </a>
 
-                </li>
             </ul>
         </header>
         <!-- Sidebar menu-->
@@ -213,7 +211,7 @@
 
                                             <div class="form-group col-md-4">
                                                 <label class="control-label">Email</label>
-                                                <input class="form-control" type="email" name="email" value="${userDetails.email}" required>
+                                                <input class="form-control" type="email" name="email" value="${userDetails.email}" readonly>
                                             </div>
                                         </div>
                                         <div class="row">

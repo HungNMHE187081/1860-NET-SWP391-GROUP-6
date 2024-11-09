@@ -146,10 +146,7 @@
             <ul class="app-nav">
 
 
-                <!-- User Menu-->
-                <li><a class="app-nav__item" href="/index.html"><i class='bx bx-log-out bx-rotate-180'></i> </a>
 
-                </li>
             </ul>
         </header>
         <!-- Sidebar menu-->
@@ -188,11 +185,7 @@
                                             <div class="form-group col-md-6">
                                                 <label class="control-label">Username</label>
                                                 <input class="form-control" type="text" name="username"  value="${param.username}" required>
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label class="control-label">Password</label>
-                                                <input class="form-control" type="password" name="passwordHash" value="${param.passwordHash}" required>
-                                            </div>
+                                            </div>              
                                             <div class="form-group col-md-4">
                                                 <label class="control-label">Giới tính</label>
                                                 <select class="form-control" name="gender" required>
