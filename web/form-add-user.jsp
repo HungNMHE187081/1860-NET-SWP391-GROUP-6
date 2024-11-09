@@ -216,7 +216,7 @@
                                                 <select class="form-control" id="districtSelect" name="districtID" onchange="loadWards()">
                                                     <option value="">-- Chọn Huyện --</option>
                                                     <c:forEach var="district" items="${districts}">
-                                                        <option value="${district.id}" ${param.id == district.id ? 'selected' : ''}>${district.districtName}</option>
+                                                        <option value="${district.id}" ${district.id == param.districtID ? 'selected' : ''}>${district.districtName}</option>
                                                     </c:forEach>
                                                 </select>
                                             </div>
@@ -225,7 +225,7 @@
                                                 <select class="form-control" id="wardSelect" name="wardID">
                                                     <option value="">-- Chọn Xã --</option>
                                                     <c:forEach var="ward" items="${wards}">
-                                                        <option value="${ward.id}" ${param.id == ward.id ? 'selected' : ''}>${ward.wardName}</option>
+                                                        <option value="${ward.id}" ${ward.id == param.wardID ? 'selected' : ''}>${ward.wardName}</option>
                                                     </c:forEach>
                                                 </select>
                                             </div>

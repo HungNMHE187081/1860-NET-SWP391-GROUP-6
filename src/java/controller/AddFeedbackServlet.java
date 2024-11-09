@@ -34,34 +34,36 @@ public class AddFeedbackServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        int userID = Integer.parseInt(request.getParameter("userID"));
-        String userName = request.getParameter("userName");
-        String emailAddress = request.getParameter("emailAddress");
-        String phoneNumber = request.getParameter("phoneNumber");
-        int serviceID = Integer.parseInt(request.getParameter("serviceID"));
-        int rating = Integer.parseInt(request.getParameter("rating"));
-        String comment = request.getParameter("comment");
-        String suggestion = request.getParameter("suggestion");
-        String experienceRating = request.getParameter("experienceRating");
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+    int userID = Integer.parseInt(request.getParameter("userID"));
+    String userName = request.getParameter("userName");
+    String emailAddress = request.getParameter("emailAddress");
+    String phoneNumber = request.getParameter("phoneNumber");
+    int serviceID = Integer.parseInt(request.getParameter("serviceID"));
+    int rating = Integer.parseInt(request.getParameter("rating"));
+    String comment = request.getParameter("comment");
+    String suggestion = request.getParameter("suggestion");
+    String experienceRating = request.getParameter("experienceRating");
 
-        Part filePart = request.getPart("attachment");
-        String attachmentPath = null;
-        if (filePart != null && filePart.getSize() > 0) {
-            String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-            InputStream fileContent = filePart.getInputStream();
-            // Save the file to a specific location
-            // For simplicity, let's assume the file is saved to "uploads" directory
-            attachmentPath = "uploads/" + fileName;
-            // Save the file content to the specified path
-            // (You need to implement the file saving logic)
+    Part filePart = request.getPart("attachment");
+    String attachmentPath = null;
+    if (filePart != null && filePart.getSize() > 0) {
+        String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+        String uploadDir = getServletContext().getRealPath("/") + "uploads";
+        java.io.File uploadDirFile = new java.io.File(uploadDir);
+        if (!uploadDirFile.exists()) {
+            uploadDirFile.mkdirs();
         }
-
-        Feedback feedback = new Feedback(0, userID, serviceID, userName, emailAddress, phoneNumber, rating, experienceRating, comment, suggestion, attachmentPath, false);
-        FeedbackDAO feedbackDAO = new FeedbackDAO();
-        feedbackDAO.insertFeedback(feedback);
-
-        response.sendRedirect("feedback");
+        attachmentPath = uploadDir + java.io.File.separator + fileName;
+        filePart.write(attachmentPath);
+        attachmentPath = "uploads/" + fileName;
     }
+
+    Feedback feedback = new Feedback(0, userID, serviceID, userName, emailAddress, phoneNumber, rating, experienceRating, comment, suggestion, attachmentPath, false);
+    FeedbackDAO feedbackDAO = new FeedbackDAO();
+    feedbackDAO.insertFeedback(feedback);
+
+    response.sendRedirect("feedback");
+}
 }

@@ -79,7 +79,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
     
     try {
         // Kiểm tra tên quận/huyện có tồn tại hay không
-        if (dao.isDistrictNameExist(provinceID, name)) {
+        if (dao.isDistrictNameExist(provinceID, name) || name.trim().isEmpty()) {
             // Nếu tên đã tồn tại, gửi lại trang chỉnh sửa với thông báo lỗi
              List<District> district = dao.getAllDistricts(provinceID);
                 request.setAttribute("district", district);

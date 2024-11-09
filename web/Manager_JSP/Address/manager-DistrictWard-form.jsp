@@ -92,12 +92,6 @@
                                         <td>${districts.totalWards}</td>
 
                                         <td class="table-td-center">
-                                            <form action="${pageContext.request.contextPath}/manager/deletedistricts" method="post" onsubmit="return confirm('Are you sure you want to delete this district?');"style="display:inline;" >
-                                                <input type="hidden" name="id" value="${districts.id}">
-                                                <input type="hidden" name="provinceID" value="${districts.provinceID}"> <!-- Thêm dòng này -->
-                                                <button class="btn btn-primary btn-sm trash" type="submit" title="Xóa"
-                                                       ><i class="fas fa-trash-alt"></i></button>
-                                            </form>
                                             <button class="btn btn-primary btn-sm edit" type="button" title="Sửa"
                                                     data-toggle="modal" data-target="#ModalUP" onclick="openEditModal(${districts.id}, '${districts.districtName}', '${districts.provinceID}')">
                                                 <i class="fas fa-edit"></i>

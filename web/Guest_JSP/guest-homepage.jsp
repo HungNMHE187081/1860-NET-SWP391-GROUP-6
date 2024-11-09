@@ -109,7 +109,7 @@
 
                         <li class="has-submenu parent-menu-item">
                             <a href="${pageContext.request.contextPath}/guest/bloglist">
-                                <i class="uil uil-newspaper me-1"></i>Blog
+                                <i class="uil uil-newspaper me-1"></i>Bài viết
                             </a>
                         </li>
 
@@ -148,7 +148,7 @@
                             <p class="para-desc text-white-50 mb-0">Bác sĩ tận tâm sẽ hỗ trợ ngay lập tức cho con bạn, dù là trong trường hợp khẩn cấp hay chỉ là tư vấn đơn giản.</p>
 
                             <div class="mt-4 pt-2">
-                                <a href="${pageContext.request.contextPath}/customer/listservices" class="btn btn-primary requires-login">Đặt Dịch Vụ</a>
+                                <a href="${pageContext.request.contextPath}/guest/listservices" class="btn btn-primary requires-login">Đặt Dịch Vụ</a>
                                 <p class="text-white-50 mb-0 mt-2">Điều khoản áp dụng. Vui lòng đọc Điều Khoản và Điều Kiện </p>
                             </div>
                         </div>
@@ -561,7 +561,7 @@
 
                     <!-- View All Button -->
                     <div class="text-center mt-4">
-                        <a href="${pageContext.request.contextPath}/customer/feedback" class="btn btn-primary requires-login">
+                        <a href="${pageContext.request.contextPath}/guest/feedback" class="btn btn-primary">
                             <i class="fas fa-comments me-2"></i>Xem tất cả phản hồi
                         </a>
                     </div>
@@ -706,7 +706,7 @@
 
                             <!-- View All Staff Button -->
                             <div class="text-center mt-4">
-                                <a href="${pageContext.request.contextPath}/customer/view-staffs" class="btn btn-primary requires-login">
+                                <a href="${pageContext.request.contextPath}/guest/view-staffs" class="btn btn-primary">
                                     <i class="fas fa-users me-2"></i>Xem tất cả đội ngũ bác sĩ
                                 </a>
                             </div>
@@ -783,7 +783,7 @@
                         <div class="container">
                             <div class="section-title text-center mb-4 pb-2">
                                 <span class="badge badge-pill badge-soft-primary mb-3">
-                                    <i class="uil uil-newspaper me-1"></i>Blog
+                                    <i class="uil uil-newspaper me-1"></i>Bài viết
                                 </span>
                                 <h4 class="title mb-4">Cập Nhật Mới Nhất Từ Trung Tâm</h4>
                                 <p class="text-muted mx-auto para-desc mb-0" style="max-width: 600px;">
@@ -840,7 +840,7 @@
                             <!-- Buttons Container -->
                             <div class="row mt-4">
                                 <div class="col-12 text-center">
-                                    <a href="${pageContext.request.contextPath}/customer/bloglist" class="btn btn-primary me-2 requires-login">
+                                    <a href="${pageContext.request.contextPath}/guest/bloglist" class="btn btn-primary me-2">
                                         <i class="uil uil-newspaper me-1"></i>Xem tất cả blog
                                     </a>
                                 </div>

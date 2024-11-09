@@ -97,7 +97,8 @@
                 </li>
 
                 <li class="has-submenu parent-menu-item">
-                    <a href="${pageContext.request.contextPath}/customer/bloglist">Bài viết</a>
+                    <a href="${pageContext.request.contextPath}/customer/bloglist">
+                         <i class="uil uil-newspaper me-1"></i>Bài viết</a>
                 </li>
 
                 <li class="has-submenu parent-parent-menu-item">

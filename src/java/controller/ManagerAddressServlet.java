@@ -87,7 +87,7 @@ public class ManagerAddressServlet extends HttpServlet {
 
         try {
             // Kiểm tra xem tên tỉnh thành có tồn tại không
-            if (dao.isProvinceNameExist(provinceName)) {
+            if (dao.isProvinceNameExist(provinceName) || provinceName.trim().isEmpty()) {
                 // Truyền thông báo lỗi về trang addProvince.jsp
                 List<Provinces> listP = dao.getAllProvinces();
                 request.setAttribute("listP", listP);
