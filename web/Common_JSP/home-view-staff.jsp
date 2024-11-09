@@ -70,7 +70,7 @@
         </div><!--end container-->
     </section><!--end section-->
     <br>
-    <div class="doctor-section py-5">
+      <div class="doctor-section py-5">
         <div class="container">
             <div class="section-header text-center mb-5">
                 <h2 class="section-title fw-bold">Đội Ngũ Bác Sĩ</h2>
@@ -88,14 +88,6 @@
                 </div>
             </div>
             <div class="col-md-3">
-                <select class="form-select" id="degreeFilter" name="degreeID">
-                    <option value="">Tất cả bằng cấp</option>
-                    <c:forEach var="degree" items="${degrees}">
-                        <option value="${degree.degreeID}">${degree.degreeName}</option>
-                    </c:forEach>
-                </select>
-            </div>
-            <div class="col-md-3">
                 <select class="form-select" id="specializationFilter" name="specializationID">
                     <option value="">Tất cả chuyên môn</option>
                     <c:forEach var="specialization" items="${specializations}">
@@ -110,9 +102,12 @@
     </form>
 </div>
             <!-- Doctors Grid -->
-            <div class="doctors-grid">
-                <div class="row g-4">
-                    <c:forEach var="staff" items="${staffs}" varStatus="status">
+        <div class="doctors-grid">
+    <div class="row g-4">
+        <c:forEach var="staff" items="${staffs}" varStatus="status">
+            <c:if test="${staff.degreeID != null && staff.specializationID != null}">
+                <c:forEach var="user" items="${users}">
+                    <c:if test="${user.userID == staff.staffID}">
                         <div class="col-lg-4 col-md-6 doctor-item">
                             <div class="doctor-card">
                                 <div class="doctor-image-wrapper">
@@ -143,11 +138,12 @@
                                 </div>
                             </div>
                         </div>
-                    </c:forEach>
-                </div>
-            </div>
-        </div>
+                    </c:if>
+                </c:forEach>
+            </c:if>
+        </c:forEach>
     </div>
+</div>
     <style>/* Doctor Section Styles */
         .doctor-section {
             background-color: #f8f9fa;
@@ -301,8 +297,8 @@
             .stat-card {
                 margin-bottom: 1rem;
             }
-        }</style>
-        <%@include file="footer.jsp" %>
+        }
+        </style>
     <!-- Back to top -->
     <a href="#" onclick="topFunction()" id="back-to-top" class="btn btn-icon btn-pills btn-primary back-to-top"><i data-feather="arrow-up" class="icons"></i></a>
     <!-- Back to top -->

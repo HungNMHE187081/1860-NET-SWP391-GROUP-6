@@ -179,14 +179,7 @@
                     <input type="text" id="doctorSearch" name="keyword" class="form-control" placeholder="Tìm kiếm theo tên...">
                 </div>
             </div>
-            <div class="col-md-3">
-                <select class="form-select" id="degreeFilter" name="degreeID">
-                    <option value="">Tất cả bằng cấp</option>
-                    <c:forEach var="degree" items="${degrees}">
-                        <option value="${degree.degreeID}">${degree.degreeName}</option>
-                    </c:forEach>
-                </select>
-            </div>
+           
             <div class="col-md-3">
                 <select class="form-select" id="specializationFilter" name="specializationID">
                     <option value="">Tất cả chuyên môn</option>
@@ -203,43 +196,45 @@
 </div>
             <!-- Doctors Grid -->
             <div class="doctors-grid">
-                <div class="row g-4">
-                    <c:forEach var="staff" items="${staffs}" varStatus="status">
-                        <div class="col-lg-4 col-md-6 doctor-item">
-                            <div class="doctor-card">
-                                <div class="doctor-image-wrapper">
-                                    <img src="${pageContext.request.contextPath}/${user.profileImage}" 
-                                         alt="${staff.staffName}" 
-                                         class="doctor-image">
-                                </div>
-                                <div class="doctor-info">
-                                    <h3 class="doctor-name">${staff.staffName}</h3>
-                                    <div class="doctor-credentials">
-                                        <span class="doctor-degree">
-                                            <i class="fas fa-graduation-cap"></i>
-                                            <c:forEach var="degree" items="${degrees}">
-                                                <c:if test="${degree.degreeID == staff.degreeID}">
-                                                    ${degree.degreeName}
-                                                </c:if>
-                                            </c:forEach>
-                                        </span>
-                                        <span class="doctor-specialization">
-                                            <i class="fas fa-stethoscope"></i>
-                                            <c:forEach var="specialization" items="${specializations}">
-                                                <c:if test="${specialization.specializationID == staff.specializationID}">
-                                                    ${specialization.specializationName}
-                                                </c:if>
-                                            </c:forEach>
-                                        </span>
-                                    </div>
+    <div class="row g-4">
+        <c:forEach var="staff" items="${staffs}" varStatus="status">
+            <c:forEach var="user" items="${users}">
+                <c:if test="${user.userID == staff.staffID}">
+                    <div class="col-lg-4 col-md-6 doctor-item">
+                        <div class="doctor-card">
+                            <div class="doctor-image-wrapper">
+                                <img src="${pageContext.request.contextPath}/${user.profileImage}" 
+                                     alt="${staff.staffName}" 
+                                     class="doctor-image">
+                            </div>
+                            <div class="doctor-info">
+                                <h3 class="doctor-name">${staff.staffName}</h3>
+                                <div class="doctor-credentials">
+                                    <span class="doctor-degree">
+                                        <i class="fas fa-graduation-cap"></i>
+                                        <c:forEach var="degree" items="${degrees}">
+                                            <c:if test="${degree.degreeID == staff.degreeID}">
+                                                ${degree.degreeName}
+                                            </c:if>
+                                        </c:forEach>
+                                    </span>
+                                    <span class="doctor-specialization">
+                                        <i class="fas fa-stethoscope"></i>
+                                        <c:forEach var="specialization" items="${specializations}">
+                                            <c:if test="${specialization.specializationID == staff.specializationID}">
+                                                ${specialization.specializationName}
+                                            </c:if>
+                                        </c:forEach>
+                                    </span>
                                 </div>
                             </div>
                         </div>
-                    </c:forEach>
-                </div>
-            </div>
-        </div>
+                    </div>
+                </c:if>
+            </c:forEach>
+        </c:forEach>
     </div>
+</div>
     <style>/* Doctor Section Styles */
         .doctor-section {
             background-color: #f8f9fa;
