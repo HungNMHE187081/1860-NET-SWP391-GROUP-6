@@ -24,6 +24,7 @@ import model.UserAddresses;
 import model.Users;
 import model.Ward;
 import org.apache.catalina.User;
+import utils.EmailService;
 
 /**
  *
@@ -82,8 +83,9 @@ public class ManagerEditUserServlet extends HttpServlet {
             if (user.getAddress() == null) {
                 UserAddresses address = new UserAddresses();
                 address.setUserID(user.getUserID());
+                address.setWardID(user.getAddress().getWardID());
                 user.setAddress(address);
-                userDAO.addUserAddress(address);
+                userDAO.updateUserAddress(address);
             }
 
             List<District> districts = userDAO.getDistrictsByProvince(user.getAddress().getProvinces().getProvinceID());
@@ -103,14 +105,14 @@ public class ManagerEditUserServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-   @Override
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
             int userID = Integer.parseInt(request.getParameter("userID"));
             ManagerUserDAO userDAO = new ManagerUserDAO();
             Users user = userDAO.getDetailUserByUserID(userID);
-            
+
             // Lấy thông tin từ form
             String firstName = request.getParameter("firstName");
             String middleName = request.getParameter("middleName");
@@ -122,12 +124,14 @@ public class ManagerEditUserServlet extends HttpServlet {
             String citizenIdentification = request.getParameter("citizenIdentification");
             String streetAddress = request.getParameter("streetAddress");
             int wardID = Integer.parseInt(request.getParameter("wardID"));
-            
+
             // Load lại data cho form trong trường hợp validation fail
             List<Provinces> provinces = userDAO.getAllProvinces();
             request.setAttribute("provinces", provinces);
-            List<District> districts = userDAO.getDistrictsByProvince(user.getAddress().getProvinces().getProvinceID());
-            List<Ward> wards = userDAO.getWardsByDistrict(user.getAddress().getDistrict().getId());
+            List<District> districts = userDAO.getDistrictsByProvince(user.getAddress() != null
+                    ? user.getAddress().getProvinces().getProvinceID() : 0);
+            List<Ward> wards = userDAO.getWardsByDistrict(user.getAddress() != null
+                    ? user.getAddress().getDistrict().getId() : 0);
             request.setAttribute("districts", districts);
             request.setAttribute("wards", wards);
             request.setAttribute("userDetails", user);
@@ -156,10 +160,10 @@ public class ManagerEditUserServlet extends HttpServlet {
                 request.getRequestDispatcher("/manager-edit-user.jsp").forward(request, response);
                 return;
             }
-            
+
             // Kiểm tra CCCD có bị trùng không (trừ CCCD hiện tại của user)
-            if (!citizenIdentification.equals(user.getCitizenIdentification()) && 
-                userDAO.isCitizenIdentificationExists(citizenIdentification)) {
+            if (!citizenIdentification.equals(user.getCitizenIdentification())
+                    && userDAO.isCitizenIdentificationExists(citizenIdentification)) {
                 request.setAttribute("errorMessage", "CCCD đã tồn tại");
                 request.getRequestDispatcher("/manager-edit-user.jsp").forward(request, response);
                 return;
@@ -171,10 +175,10 @@ public class ManagerEditUserServlet extends HttpServlet {
                 request.getRequestDispatcher("/manager-edit-user.jsp").forward(request, response);
                 return;
             }
-            
+
             // Kiểm tra số điện thoại có bị trùng không (trừ SDT hiện tại của user)
-            if (!phoneNumber.equals(user.getPhoneNumber()) && 
-                userDAO.isPhoneNumberExists(phoneNumber)) {
+            if (!phoneNumber.equals(user.getPhoneNumber())
+                    && userDAO.isPhoneNumberExists(phoneNumber)) {
                 request.setAttribute("errorMessage", "Số điện thoại đã tồn tại");
                 request.getRequestDispatcher("/manager-edit-user.jsp").forward(request, response);
                 return;
@@ -211,27 +215,34 @@ public class ManagerEditUserServlet extends HttpServlet {
             user.setGender(gender);
             user.setCitizenIdentification(citizenIdentification);
             user.setProfileImage(img);
-
-            // Cập nhật địa chỉ
-            UserAddresses address = new UserAddresses();
-            address.setUserID(userID);
-            address.setStreetAddress(streetAddress);
-            address.setWardID(wardID);
-            user.setAddress(address);
+             UserAddresses address;
+            if (user.getAddress() == null) {
+                address = new UserAddresses();
+                address.setUserID(userID); // Gán UserID vào địa chỉ
+                address.setWardID(wardID);  // Gán WardID từ form
+                address.setStreetAddress(streetAddress); // Gán StreetAddress từ form
+                userDAO.addUserAddress(address); // Lưu vào database
+                user.setAddress(address); // Gán lại địa chỉ cho user
+            } else {
+                // Nếu đã có địa chỉ, chỉ cần cập nhật
+                address = user.getAddress();
+                address.setStreetAddress(streetAddress);
+                address.setWardID(wardID); // Cập nhật ID của ward
+                user.setAddress(address); // Gán lại cho user
+            }
 
             // Lưu thông tin cập nhật vào database
             userDAO.updateUser(user);
-
+            EmailService.sendEmailForEdit(email, firstName, middleName, lastName);
             // Chuyển hướng về trang danh sách user
             response.sendRedirect(request.getContextPath() + "/manager/manageuser");
-            
+
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("errorMessage", "Lỗi khi cập nhật thông tin: " + e.getMessage());
             request.getRequestDispatcher("/manager-edit-user.jsp").forward(request, response);
         }
     }
-
 
     /**
      * Returns a short description of the servlet.

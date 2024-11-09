@@ -239,7 +239,7 @@ public class ManagerUserDAO extends DBContext {
 
             // Thêm thông tin đăng nhập vào bảng UserAuthentication
             try (PreparedStatement psAuth = connection.prepareStatement(sqlAuth)) {
-                 psAuth.setInt(1, user.getUserID());
+                psAuth.setInt(1, user.getUserID());
                 psAuth.setString(2, user.getUser().getUsername());
                 psAuth.setString(3, user.getUser().getPasswordHash());
                 psAuth.setString(4, user.getUser().getSalt());
@@ -249,7 +249,7 @@ public class ManagerUserDAO extends DBContext {
             }
 
             // Thêm vai trò vào bảng UserRoles
-             // Lấy RoleID của Customer
+            // Lấy RoleID của Customer
             try (PreparedStatement psRole = connection.prepareStatement(sqlRole)) {
                 psRole.setInt(1, user.getUserID()); // Sử dụng UserID vừa tạo
                 psRole.executeUpdate();
@@ -422,75 +422,88 @@ public class ManagerUserDAO extends DBContext {
         return null;
     }
 
-   public void updateUser(Users user) {
-    String sqlUser = "UPDATE Users SET FirstName = ?, MiddleName = ?, LastName = ?, Email = ?, PhoneNumber = ?, DateOfBirth = ?, Gender = ?, CitizenIdentification = ?, ProfileImage = ? WHERE UserID = ?";
-    String sqlAddress = "UPDATE UserAddresses SET StreetAddress = ?, WardID = ? WHERE UserID = ?";
+    public void updateUser(Users user) {
+        String sqlUser = "UPDATE Users SET FirstName = ?, MiddleName = ?, LastName = ?, Email = ?, PhoneNumber = ?, DateOfBirth = ?, Gender = ?, CitizenIdentification = ?, ProfileImage = ? WHERE UserID = ?";
+        String sqlAddress = "UPDATE UserAddresses SET StreetAddress = ?, WardID = ? WHERE UserID = ?";
 
-    try {
-        // Bắt đầu transaction
-        connection.setAutoCommit(false);
+        try {
+            // Bắt đầu transaction
+            connection.setAutoCommit(false);
 
-        // Cập nhật thông tin người dùng trong bảng Users
-        try (PreparedStatement psUser = connection.prepareStatement(sqlUser)) {
-            psUser.setString(1, user.getFirstName());
-            psUser.setString(2, user.getMiddleName());
-            psUser.setString(3, user.getLastName());
-            psUser.setString(4, user.getEmail());
-            psUser.setString(5, user.getPhoneNumber());
-            psUser.setDate(6, new java.sql.Date(user.getDateOfBirth().getTime()));
-            psUser.setString(7, user.getGender());
-            psUser.setString(8, user.getCitizenIdentification());
-            psUser.setString(9, user.getProfileImage());
-            psUser.setInt(10, user.getUserID()); // Sử dụng UserID để xác định người dùng cần cập nhật
+            // Cập nhật thông tin người dùng trong bảng Users
+            try (PreparedStatement psUser = connection.prepareStatement(sqlUser)) {
+                psUser.setString(1, user.getFirstName());
+                psUser.setString(2, user.getMiddleName());
+                psUser.setString(3, user.getLastName());
+                psUser.setString(4, user.getEmail());
+                psUser.setString(5, user.getPhoneNumber());
+                psUser.setDate(6, new java.sql.Date(user.getDateOfBirth().getTime()));
+                psUser.setString(7, user.getGender());
+                psUser.setString(8, user.getCitizenIdentification());
+                psUser.setString(9, user.getProfileImage());
+                psUser.setInt(10, user.getUserID()); // Sử dụng UserID để xác định người dùng cần cập nhật
 
-            int affectedRows = psUser.executeUpdate();
-            if (affectedRows == 0) {
-                throw new SQLException("Updating user failed, no rows affected.");
+                int affectedRows = psUser.executeUpdate();
+                if (affectedRows == 0) {
+                    throw new SQLException("Updating user failed, no rows affected.");
+                }
+            }
+
+            // Cập nhật địa chỉ trong bảng UserAddresses
+            try (PreparedStatement psAddress = connection.prepareStatement(sqlAddress)) {
+                psAddress.setString(1, user.getAddress().getStreetAddress());
+                psAddress.setInt(2, user.getAddress().getWardID());
+                psAddress.setInt(3, user.getUserID()); // Sử dụng UserID để xác định địa chỉ cần cập nhật
+
+                psAddress.executeUpdate();
+            }
+
+            // Commit transaction
+            connection.commit();
+        } catch (SQLException e) {
+            // Rollback transaction nếu có lỗi xảy ra
+            try {
+                connection.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+            e.printStackTrace();
+        } finally {
+            try {
+                connection.setAutoCommit(true); // Trở về chế độ tự động commit
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
         }
-
-        // Cập nhật địa chỉ trong bảng UserAddresses
-        try (PreparedStatement psAddress = connection.prepareStatement(sqlAddress)) {
-            psAddress.setString(1, user.getAddress().getStreetAddress());
-            psAddress.setInt(2, user.getAddress().getWardID());
-            psAddress.setInt(3, user.getUserID()); // Sử dụng UserID để xác định địa chỉ cần cập nhật
-
-            psAddress.executeUpdate();
-        }
-
-        // Commit transaction
-        connection.commit();
+    }
+public void updateUserAddress(UserAddresses address) {
+    String sql = "UPDATE UserAddresses SET StreetAddress = ?, WardID = ? WHERE UserID = ?";
+    try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+        stmt.setString(1, address.getStreetAddress());
+        stmt.setInt(2, address.getWardID());
+        stmt.setInt(3, address.getUserID());
+        stmt.executeUpdate();
     } catch (SQLException e) {
-        // Rollback transaction nếu có lỗi xảy ra
-        try {
-            connection.rollback();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
         e.printStackTrace();
-    } finally {
-        try {
-            connection.setAutoCommit(true); // Trở về chế độ tự động commit
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 }
 
-
     public void addUserAddress(UserAddresses address) {
-        String sql = "INSERT INTO UserAddresses (UserID) VALUES (?)";
+        String sql = "INSERT INTO UserAddresses (UserID, WardID, StreetAddress) VALUES (?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setInt(1, address.getUserID());
+            stmt.setInt(1, address.getUserID());           // Gán UserID
+            stmt.setInt(2, address.getWardID());           // Gán WardID
+            stmt.setString(3, address.getStreetAddress()); // Gán StreetAddress
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-     public boolean isCitizenIdentificationExists(String citizenIdentification) {
+
+    public boolean isCitizenIdentificationExists(String citizenIdentification) {
         String query = "SELECT COUNT(*) FROM Users WHERE citizenIdentification = ?";
         try (
-             PreparedStatement stmt = connection.prepareStatement(query)) {
+                PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setString(1, citizenIdentification);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
@@ -506,7 +519,7 @@ public class ManagerUserDAO extends DBContext {
     public boolean isPhoneNumberExists(String phoneNumber) {
         String query = "SELECT COUNT(*) FROM Users WHERE phoneNumber = ?";
         try (
-             PreparedStatement stmt = connection.prepareStatement(query)) {
+                PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setString(1, phoneNumber);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
@@ -517,26 +530,27 @@ public class ManagerUserDAO extends DBContext {
         }
         return false;
     }
+
     public boolean checkUsernameExists(String username) {
-    String sql = "SELECT COUNT(*) FROM UserAuthentication WHERE Username = ?";
-    try (
-         PreparedStatement ps = connection.prepareStatement(sql)) {
-        ps.setString(1, username);
-        ResultSet rs = ps.executeQuery();
-        if (rs.next()) {
-            return rs.getInt(1) > 0;
+        String sql = "SELECT COUNT(*) FROM UserAuthentication WHERE Username = ?";
+        try (
+                PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, username);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-    } catch (SQLException e) {
-        e.printStackTrace();
+        return false;
     }
-    return false;
-}
 
     public static void main(String[] args) {
         ManagerUserDAO dao = new ManagerUserDAO();
-    String phone = "user";
-    boolean check = dao.checkUsernameExists(phone);
+        String phone = "user";
+        boolean check = dao.checkUsernameExists(phone);
         System.out.println(check);
-}
-    
+    }
+
 }
