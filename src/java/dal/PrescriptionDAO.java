@@ -55,34 +55,61 @@ public class PrescriptionDAO extends DBContext {
         }
     }
 
-    public boolean updatePrescription(int prescriptionID, int medicineID, String dosage, String frequency, String duration) {
-        // Retrieve the RecordID associated with the prescription
-        int recordID = getRecordIDByPrescriptionID(prescriptionID); // Implement this method to fetch the RecordID
+public boolean updatePrescription(int prescriptionID, int medicineID, String dosage, String frequency, String duration) {
+    // Lấy RecordID và MedicineID hiện tại của prescription
+    int recordID = getRecordIDByPrescriptionID(prescriptionID);
+    int currentMedicineID = getCurrentMedicineID(prescriptionID); // Implement this method to fetch the current MedicineID
 
-        // Check if there is a duplicate prescription with the same medicine for the same record
-        if (hasDuplicatePrescription(recordID, medicineID, prescriptionID)) {
-            System.out.println("This medicine is already assigned to another prescription for this record.");
-            return false; // Return false if a duplicate exists
-        }
-
-        // Update all prescriptions with the same recordID
-        String sql = "UPDATE Prescriptions SET MedicineID = ?, Dosage = ?, Frequency = ?, Duration = ? WHERE RecordID = ?";
-        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
-            pstmt.setInt(1, medicineID);
-            pstmt.setString(2, dosage);
-            pstmt.setString(3, frequency);
-            pstmt.setString(4, duration);
-            pstmt.setInt(5, recordID);
-            int rowsAffected = pstmt.executeUpdate();
-            return rowsAffected > 0; // Return true if the update was successful
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false; // Return false in case of an error
-        }
+    // Kiểm tra trùng lặp thuốc trong cùng một recordID nếu thay đổi thuốc
+    if (medicineID != currentMedicineID && hasDuplicatePrescription(recordID, medicineID, prescriptionID)) {
+        System.out.println("This medicine is already assigned to another prescription for this record.");
+        return false; // Trả về false nếu có trùng lặp
     }
+
+    try {
+        // Nếu đổi thuốc, chỉ cập nhật medicine cho prescription hiện tại
+        if (medicineID != currentMedicineID) {
+            String updateMedicineSql = "UPDATE Prescriptions SET MedicineID = ? WHERE PrescriptionID = ?";
+            try (PreparedStatement pstmtMedicine = connection.prepareStatement(updateMedicineSql)) {
+                pstmtMedicine.setInt(1, medicineID);
+                pstmtMedicine.setInt(2, prescriptionID);
+                pstmtMedicine.executeUpdate();
+            }
+        }
+
+        // Cập nhật dosage, frequency, và duration cho tất cả các prescription có cùng recordID
+        String updateDosageSql = "UPDATE Prescriptions SET Dosage = ?, Frequency = ?, Duration = ? WHERE RecordID = ?";
+        try (PreparedStatement pstmtDosage = connection.prepareStatement(updateDosageSql)) {
+            pstmtDosage.setString(1, dosage);
+            pstmtDosage.setString(2, frequency);
+            pstmtDosage.setString(3, duration);
+            pstmtDosage.setInt(4, recordID);
+            int rowsAffected = pstmtDosage.executeUpdate();
+            return rowsAffected > 0; // Trả về true nếu cập nhật thành công
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return false; // Trả về false nếu có lỗi xảy ra
+    }
+}
+
 
     private int getRecordIDByPrescriptionID(int prescriptionID) {
         String sql = "SELECT RecordID FROM Prescriptions WHERE PrescriptionID = ?";
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setInt(1, prescriptionID);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("RecordID");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1; // Return -1 if not found or an error occurs
+    }
+
+    private int getCurrentMedicineID(int prescriptionID) {
+        String sql = "SELECT MedicineID FROM Medicine WHERE PrescriptionID = ?";
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
             pstmt.setInt(1, prescriptionID);
             ResultSet rs = pstmt.executeQuery();
