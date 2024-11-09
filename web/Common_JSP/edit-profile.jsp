@@ -6,7 +6,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>ChildCare</title>
+        <title>Chỉnh sửa hồ sơ</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/manager/main.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
@@ -17,13 +17,10 @@
         <script src="http://code.jquery.com/jquery.min.js" type="text/javascript"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
         <link rel="shortcut icon" href="../images/favicon.ico.png">
+        <!-- favicon -->
+        <link rel="shortcut icon" href="${pageContext.request.contextPath}/images/favicon.ico.png">
         <!-- Bootstrap -->
         <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
         <!-- Icons -->
         <link href="${pageContext.request.contextPath}/css/materialdesignicons.min.css" rel="stylesheet" type="text/css"/>
         <link href="${pageContext.request.contextPath}/css/remixicon.css" rel="stylesheet" type="text/css"/>
@@ -44,369 +41,545 @@
         <link href="${pageContext.request.contextPath}/css/style.min.css" rel="stylesheet" type="text/css"/>
         <link href="${pageContext.request.contextPath}/css/tiny-slider.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=ecg_heart" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
-        <style>
-            :root {
-                --primary-color: #4e73df;
-                --secondary-color: #858796;
-                --success-color: #1cc88a;
-                --gradient-1: linear-gradient(135deg, #6B73FF 0%, #000DFF 100%);
-                --gradient-2: linear-gradient(135deg, #97ABFF 10%, #123597 100%);
-            }
-
-            /* Header Styling */
-            .app-header {
-                background: var(--gradient-1);
-                border-bottom: none;
-                box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
-                position: fixed;
-                width: 100%;
-                z-index: 1000;
-            }
-
-            .app-header::after {
-                content: '';
-                position: absolute;
-                left: 0;
-                right: 0;
-                bottom: -50px;
-                height: 50px;
-                background: var(--gradient-1);
-                opacity: 0.3;
-                z-index: -1;
-            }
-
-            /* Profile Image Section */
-            .profile-image-section {
-                background: white;
-                border-radius: 15px;
-                padding: 2rem;
-                text-align: center;
-                box-shadow: 0 0.15rem 1.75rem rgba(33, 40, 50, 0.15);
-                margin-bottom: 2rem;
-            }
-
-            .profile-image-container {
-                width: 200px;
-                height: 200px;
-                margin: 0 auto 1.5rem;
-                position: relative;
-                border-radius: 50%;
-                border: 5px solid white;
-                box-shadow: 0 0 20px rgba(0,0,0,0.15);
-                overflow: hidden;
-            }
-
-            .profile-image-container img {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-            }
-
-            .image-upload-wrapper {
-                position: relative;
-                margin-top: 1rem;
-            }
-
-            .custom-file-upload {
-                display: inline-block;
-                padding: 0.75rem 1.5rem;
-                background: var(--gradient-2);
-                color: white;
-                border-radius: 50px;
-                cursor: pointer;
-                transition: all 0.3s ease;
-                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            }
-
-            .custom-file-upload:hover {
-                transform: translateY(-2px);
-                box-shadow: 0 6px 20px rgba(0,0,0,0.25);
-            }
-
-            input[type="file"] {
-                display: none;
-            }
-
-            /* Main Content Adjustments */
-            .app-content {
-                margin-top: 100px;
-                padding: 2rem;
-                background-color: #f8f9fc;
-                min-height: calc(100vh - 60px);
-            }
-
-            .tile {
-                background: white;
-                border-radius: 15px;
-                box-shadow: 0 0.15rem 1.75rem rgba(33, 40, 50, 0.15);
-                padding: 1.5rem;
-            }
-
-            .tile-title {
-                color: var(--primary-color);
-                font-size: 1.5rem;
-                font-weight: 600;
-                margin-bottom: 2rem;
-                padding-bottom: 1rem;
-                border-bottom: 2px solid #e3e6f0;
-            }
-
-            /* Form Styling */
-            .form-control {
-                border-radius: 8px;
-                border: 1px solid #e3e6f0;
-                padding: 0.75rem;
-            }
-
-            .form-control:focus {
-                border-color: var(--primary-color);
-                box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25);
-            }
-
-            .btn-primary {
-                background: var(--gradient-1);
-                border: none;
-                border-radius: 8px;
-                padding: 0.75rem 1.5rem;
-                transition: all 0.3s ease;
-            }
-
-            .btn-primary:hover {
-                transform: translateY(-2px);
-                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            }
-        </style>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+        <link href="https://unpkg.com/@phosphor-icons/web@2.0.3/src/regular/style.css" rel="stylesheet">
     </head>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --background-color: #f8fafc;
+            --card-background: #ffffff;
+            --text-color: #1e293b;
+            --border-radius: 16px;
+            --transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
+        }
 
-    <body class="app sidebar-mini rtl">
-        <header class="app-header">
-            <a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a>
-            <ul class="app-nav">
-                <li><a class="app-nav__item" href="/index.html"><i class='bx bx-log-out bx-rotate-180'></i></a></li>
-            </ul>
-        </header>
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
 
-        <%@ include file="/Common_JSP/dashboardtop.jsp" %>
-        
-        <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
-        <aside class="app-sidebar">
-            <!-- Sidebar content remains the same -->
-        </aside>
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 24px;
+            animation: fadeIn 0.6s var(--transition-timing);
+        }
 
-        <main class="app-content">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="tile">
-                        <h3 class="tile-title">Chỉnh sửa hồ sơ</h3>
-                        <div class="tile-body">
-                            <c:if test="${not empty error}">
-                                <div class="alert alert-danger">${error}</div>
-                            </c:if>
+        .profile {
+            background-color: var(--card-background);
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            overflow: hidden;
+            transform-origin: top;
+            animation: slideDown 0.5s var(--transition-timing);
+        }
 
-                            <form action="${pageContext.request.contextPath}/customer/editprofile" method="post" enctype="multipart/form-data">
-                                <div class="row">
-                                    <!-- Profile Image Section -->
-                                    <div class="col-md-3">
-                                        <div class="profile-image-section">
-                                            <div class="profile-image-container">
-                                                <c:choose>
-                                                    <c:when test="${not empty userDetails.profileImage}">
-                                                        <img id="imagePreview" src="${pageContext.request.contextPath}/${userDetails.profileImage}" alt="Profile Image">
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        <img id="imagePreview" src="${pageContext.request.contextPath}/images/default-avatar.jpg" alt="Default Profile Image">
-                                                    </c:otherwise>
-                                                </c:choose>
-                                            </div>
-                                            <div class="image-upload-wrapper">
-                                                <label for="profileImage" class="custom-file-upload">
-                                                    <i class="fas fa-camera"></i> Chọn ảnh mới
-                                                </label>
-                                                <input type="file" name="profileImage" id="profileImage" onchange="previewImage(event)">
-                                            </div>
-                                        </div>
-                                    </div>
+        .profile__header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 32px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
 
-                                    <!-- Personal Information Section -->
-                                    <div class="col-md-9">
-                                        <div class="row">
-                                            <!-- Name Fields -->
-                                            <div class="form-group col-md-4">
-                                                <label class="control-label">Họ</label>
-                                                <input class="form-control" type="text" name="firstName" value="${userDetails.firstName}" required>
-                                            </div>
-                                            <div class="form-group col-md-4">
-                                                <label class="control-label">Tên đệm</label>
-                                                <input class="form-control" type="text" name="middleName" value="${userDetails.middleName}">
-                                            </div>
-                                            <div class="form-group col-md-4">
-                                                <label class="control-label">Tên</label>
-                                                <input class="form-control" type="text" name="lastName" value="${userDetails.lastName}" required>
-                                            </div>
+        .profile__header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(255,255,255,0.1) 25%, transparent 25%),
+                linear-gradient(-45deg, rgba(255,255,255,0.1) 25%, transparent 25%);
+            background-size: 60px 60px;
+            animation: headerPattern 60s linear infinite;
+        }
 
-                                            <!-- Contact Information -->
-                                            <div class="form-group col-md-6">
-                                                <label class="control-label">Email</label>
-                                                <input class="form-control" type="email" name="email" value="${userDetails.email}" required>
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label class="control-label">Số điện thoại</label>
-                                                <input class="form-control" type="tel" name="phoneNumber" value="${userDetails.phoneNumber}" required>
-                                            </div>
+        .profile__name {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            position: relative;
+        }
 
-                                            <!-- Personal Details -->
-                                            <div class="form-group col-md-4">
-                                                <label class="control-label">Ngày sinh</label>
-                                                <input class="form-control" type="date" name="dateOfBirth" value="${userDetails.dateOfBirth}" required>
-                                            </div>
-                                            <div class="form-group col-md-4">
-                                                <label class="control-label">Giới tính</label>
-                                                <select class="form-control" name="gender" required>
-                                                    <option value="">Chọn giới tính</option>
-                                                    <option value="Male" ${userDetails.gender == 'Male' ? 'selected' : ''}>Nam</option>
-                                                    <option value="Female" ${userDetails.gender == 'Female' ? 'selected' : ''}>Nữ</option>
-                                                    <option value="Other" ${userDetails.gender == 'Other' ? 'selected' : ''}>Khác</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group col-md-4">
-                                                <label class="control-label">CCCD/CMND</label>
-                                                <input class="form-control" type="text" name="citizenIdentification" value="${userDetails.citizenIdentification}" required>
-                                            </div>
+        .profile__title {
+            font-size: 18px;
+            opacity: 0.9;
+            position: relative;
+        }
 
-                                            <!-- Address Fields -->
-                                            <div class="form-group col-md-4">
-                                                <label class="control-label">Tỉnh/Thành phố</label>
-                                                <select class="form-control" id="provinceID" name="provinceID" onchange="loadDistricts()" required>
-                                                    <option value="">Chọn Tỉnh/Thành phố</option>
-                                                    <c:forEach var="province" items="${provinces}">
-                                                        <option value="${province.provinceID}" 
-                                                                ${userDetails.address.provinces.provinceID == province.provinceID ? 'selected' : ''}>
-                                                            ${province.provinceName}
-                                                        </option>
-                                                    </c:forEach>
-                                                </select>
-                                            </div>
-                                            <div class="form-group col-md-4">
-                                                <label class="control-label">Quận/Huyện</label>
-                                                <select class="form-control" id="districtSelect" name="districtID" onchange="loadWards()" required>
-                                                    <option value="">Chọn Quận/Huyện</option>
-                                                    <c:forEach var="district" items="${districts}">
-                                                        <option value="${district.id}"
-                                                                ${userDetails.address.district.id == district.id ? 'selected' : ''}>
-                                                            ${district.districtName}
-                                                        </option>
-                                                    </c:forEach>
-                                                </select>
-                                            </div>
-                                            <div class="form-group col-md-4">
-                                                <label class="control-label">Phường/Xã</label>
-                                                <select class="form-control" id="wardSelect" name="wardID" required>
-                                                    <option value="">Chọn Phường/Xã</option>
-                                                    <c:forEach var="ward" items="${wards}">
-                                                        <option value="${ward.id}"
-                                                                ${userDetails.address.ward.id == ward.id ? 'selected' : ''}>
-                                                            ${ward.wardName}
-                                                        </option>
-                                                    </c:forEach>
-                                                </select>
-                                            </div>
-                                            <div class="form-group col-md-12">
-                                                <label class="control-label">Địa chỉ cụ thể</label>
-                                                <input class="form-control" type="text" name="streetAddress" 
-                                                       value="${userDetails.address.streetAddress}" required>
-                                            </div>
+        .profile__content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            padding: 24px;
+        }
 
-                                            <!-- Submit Button -->
-                                            <div class="form-group col-md-12">
-                                                <button class="btn btn-primary" type="submit">
-                                                    <i class="fa fa-save"></i> Lưu thay đổi
-                                                </button>
-                                                <a class="btn btn-secondary" href="${pageContext.request.contextPath}/customer/viewprofile">
-                                                    <i class="fa fa-backward"></i> Quay lại
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
+        .profile__sidebar {
+            flex: 1;
+            min-width: 280px;
+        }
+
+        .profile__image-card {
+            background-color: var(--card-background);
+            border-radius: var(--border-radius);
+            padding: 24px;
+            text-align: center;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s var(--transition-timing);
+        }
+
+        .profile__image-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .profile__image {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border: 4px solid white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s var(--transition-timing);
+        }
+
+        .profile__image:hover {
+            transform: scale(1.05);
+        }
+
+        .profile__contact-info {
+            margin: 20px 0;
+        }
+
+        .profile__contact-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+            padding: 8px;
+            border-radius: 8px;
+            transition: background-color 0.3s var(--transition-timing);
+        }
+
+        .profile__contact-item:hover {
+            background-color: #f1f5f9;
+        }
+
+        .profile__contact-item i {
+            margin-right: 12px;
+            color: var(--primary-color);
+            font-size: 18px;
+        }
+
+        .profile__edit-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s var(--transition-timing);
+        }
+
+        .profile__edit-button:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+        }
+
+        .profile__main {
+            flex: 2;
+            min-width: 300px;
+        }
+
+        .profile__card {
+            background-color: var(--card-background);
+            border-radius: var(--border-radius);
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s var(--transition-timing);
+            animation: slideUp 0.5s var(--transition-timing);
+        }
+
+        .profile__card:hover {
+            transform: translateY(-4px);
+        }
+
+        .profile__card-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .profile__info-row {
+            display: flex;
+            margin-bottom: 16px;
+            padding: 8px;
+            border-radius: 8px;
+            transition: background-color 0.3s var(--transition-timing);
+        }
+
+        .profile__info-row:hover {
+            background-color: #f1f5f9;
+        }
+
+        .profile__info-label {
+            flex: 0 0 150px;
+            font-weight: 500;
+            color: #64748b;
+        }
+
+        .profile__info-value {
+            flex: 1;
+            color: #0f172a;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes headerPattern {
+            from {
+                background-position: 0 0;
+            }
+            to {
+                background-position: 1000px 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .profile__content {
+                flex-direction: column;
+            }
+
+            .profile__sidebar {
+                margin-right: 0;
+                margin-bottom: 24px;
+            }
+
+            .container {
+                padding: 16px;
+            }
+        }
+        /* Add these to your existing CSS */
+        .form-control {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            margin-top: 4px;
+            transition: all 0.3s var(--transition-timing);
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+        }
+
+        .form-control:hover {
+            border-color: var(--primary-color);
+        }
+
+        select.form-control {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%232563eb'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 16px;
+            padding-right: 40px;
+        }
+
+        .profile__info-row {
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .profile__info-label {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .profile__info-label label {
+            display: block;
+            margin-bottom: 4px;
+            color: #64748b;
+            font-weight: 500;
+        }
+    </style>
+    <%@ include file="/Common_JSP/dashboardtop.jsp" %>
+    <br>
+    <br>
+    <br>
+    <main class="container">
+        <div class="profile">
+            <div class="profile__header">
+                <h3 class="profile__name">Chỉnh sửa hồ sơ</h3>
+            </div>
+
+            <c:if test="${not empty error}">
+                <div class="profile__card" style="margin: 20px; background-color: #fee2e2; color: #dc2626;">
+                    ${error}
+                </div>
+            </c:if>
+
+            <form action="${pageContext.request.contextPath}/customer/editprofile" method="post" enctype="multipart/form-data">
+                <div class="profile__content">
+                    <!-- Profile Image Section -->
+                    <div class="profile__sidebar">
+                        <div class="profile__image-card">
+                            <div class="profile__image-container">
+                                <c:choose>
+                                    <c:when test="${not empty userDetails.profileImage}">
+                                        <img id="imagePreview" class="profile__image" 
+                                             src="${pageContext.request.contextPath}/${userDetails.profileImage}" 
+                                             alt="Profile Image">
+                                    </c:when>
+                                    <c:otherwise>
+                                        <img id="imagePreview" class="profile__image"
+                                             src="${pageContext.request.contextPath}/images/default-avatar.jpg" 
+                                             alt="Default Profile Image">
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
+                            <div class="profile__contact-info">
+                                <label for="profileImage" class="profile__edit-button">
+                                    <i class="fas fa-camera"></i> Chọn ảnh mới
+                                </label>
+                                <input type="file" name="profileImage" id="profileImage" 
+                                       style="display: none;" onchange="previewImage(event)">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Personal Information Section -->
+                    <div class="profile__main">
+                        <div class="profile__card">
+                            <h4 class="profile__card-title">Thông tin cá nhân</h4>
+                            <div class="profile__info-row">
+                                <div class="profile__info-label">
+                                    <label>Họ</label>
+                                    <input class="form-control" type="text" name="firstName" 
+                                           value="${userDetails.firstName}" required>
                                 </div>
-                            </form>
+                                <div class="profile__info-label">
+                                    <label>Tên đệm</label>
+                                    <input class="form-control" type="text" name="middleName" 
+                                           value="${userDetails.middleName}">
+                                </div>
+                                <div class="profile__info-label">
+                                    <label>Tên</label>
+                                    <input class="form-control" type="text" name="lastName" 
+                                           value="${userDetails.lastName}" required>
+                                </div>
+                            </div>
+
+                            <div class="profile__info-row">
+                                <div class="profile__info-label">
+                                    <label>Email</label>
+                                    <input class="form-control" type="email" name="email" 
+                                           value="${userDetails.email}" required>
+                                </div>
+                                <div class="profile__info-label">
+                                    <label>Số điện thoại</label>
+                                    <input class="form-control" type="tel" name="phoneNumber" 
+                                           value="${userDetails.phoneNumber}" required>
+                                </div>
+                            </div>
+
+                            <div class="profile__info-row">
+                                <div class="profile__info-label">
+                                    <label>Ngày sinh</label>
+                                    <input class="form-control" type="date" name="dateOfBirth" 
+                                           value="${userDetails.dateOfBirth}" required>
+                                </div>
+                                <div class="profile__info-label">
+                                    <label>Giới tính</label>
+                                    <select class="form-control" name="gender" required>
+                                        <option value="">Chọn giới tính</option>
+                                        <option value="Male" ${userDetails.gender == 'Male' ? 'selected' : ''}>Nam</option>
+                                        <option value="Female" ${userDetails.gender == 'Female' ? 'selected' : ''}>Nữ</option>
+                                        <option value="Other" ${userDetails.gender == 'Other' ? 'selected' : ''}>Khác</option>
+                                    </select>
+                                </div>
+                                <div class="profile__info-label">
+                                    <label>CCCD/CMND</label>
+                                    <input class="form-control" type="text" name="citizenIdentification" 
+                                           value="${userDetails.citizenIdentification}" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="profile__card">
+                            <h4 class="profile__card-title">Địa chỉ</h4>
+                            <div class="profile__info-row">
+                                <div class="profile__info-label">
+                                    <label>Tỉnh/Thành phố</label>
+                                    <select class="form-control" id="provinceID" name="provinceID" 
+                                            onchange="loadDistricts()" required>
+                                        <option value="">Chọn Tỉnh/Thành phố</option>
+                                        <c:forEach var="province" items="${provinces}">
+                                            <option value="${province.provinceID}" 
+                                                    ${userDetails.address.provinces.provinceID == province.provinceID ? 'selected' : ''}>
+                                                ${province.provinceName}
+                                            </option>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+                                <div class="profile__info-label">
+                                    <label>Quận/Huyện</label>
+                                    <select class="form-control" id="districtSelect" name="districtID" 
+                                            onchange="loadWards()" required>
+                                        <option value="">Chọn Quận/Huyện</option>
+                                        <c:forEach var="district" items="${districts}">
+                                            <option value="${district.id}"
+                                                    ${userDetails.address.district.id == district.id ? 'selected' : ''}>
+                                                ${district.districtName}
+                                            </option>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+                                <div class="profile__info-label">
+                                    <label>Phường/Xã</label>
+                                    <select class="form-control" id="wardSelect" name="wardID" required>
+                                        <option value="">Chọn Phường/Xã</option>
+                                        <c:forEach var="ward" items="${wards}">
+                                            <option value="${ward.id}"
+                                                    ${userDetails.address.ward.id == ward.id ? 'selected' : ''}>
+                                                ${ward.wardName}
+                                            </option>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="profile__info-row">
+                                <div class="profile__info-label" style="width: 100%;">
+                                    <label>Địa chỉ cụ thể</label>
+                                    <input class="form-control" type="text" name="streetAddress" 
+                                           value="${userDetails.address.streetAddress}" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="profile__card">
+                            <div class="profile__info-row" style="justify-content: flex-end;">
+                                <button class="profile__edit-button" type="submit" style="margin-right: 10px;">
+                                    <i class="fa fa-save"></i> Lưu thay đổi
+                                </button>
+                                <a class="profile__edit-button" href="${pageContext.request.contextPath}/customer/viewprofile" 
+                                   style="background-color: var(--secondary-color);">
+                                    <i class="fa fa-backward"></i> Quay lại
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </main>
-
-        <script type="text/javascript">
-            var contextPath = '<%= request.getContextPath() %>';
-        </script>
-        <script>
-            function loadDistricts() {
-                var provinceID = document.getElementById('provinceID').value;
-                var xhr = new XMLHttpRequest();
-                xhr.open('GET', contextPath + '/loadDistricts?provinceID=' + provinceID, true);
-                xhr.onload = function () {
-                    if (xhr.status === 200) {
-                        var districts = JSON.parse(xhr.responseText);
-                        var districtSelect = document.getElementById('districtSelect');
-                        districtSelect.innerHTML = '<option value="">-- Chọn Huyện --</option>'; // Reset district dropdown
-                        districts.forEach(function (district) {
-                            var option = document.createElement('option');
-                            option.value = district.id;
-                            option.textContent = district.districtName;
-                            districtSelect.appendChild(option);
-                        });
-                        loadWards(); // Load wards for the first district if any
-                    }
-                };
-                xhr.send();
-            }
-
-            function loadWards() {
-                var districtID = document.getElementById('districtSelect').value;
-                var xhr = new XMLHttpRequest();
-                xhr.open('GET', contextPath + '/loadWards?districtID=' + districtID, true);
-                xhr.onload = function () {
-                    if (xhr.status === 200) {
-                        var wards = JSON.parse(xhr.responseText);
-                        var wardSelect = document.getElementById('wardSelect');
-                        wardSelect.innerHTML = '<option value="">-- Chọn xã --</option>'; // Reset ward dropdown
-                        wards.forEach(function (ward) {
-                            var option = document.createElement('option');
-                            option.value = ward.id;
-                            option.textContent = ward.wardName;
-                            wardSelect.appendChild(option);
-                        });
-                    }
-                };
-                xhr.send();
-            }
-
-            function previewImage(event) {
-                const image = document.getElementById('imagePreview');
-                const file = event.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function (e) {
-                        image.src = e.target.result; // Gán URL ảnh cho thuộc tính src của <img>
-                        image.style.display = 'block'; // Hiện ảnh
-                    }
-
-                    reader.readAsDataURL(file); // Đọc file ảnh
-                } else {
-                    image.src = '#'; // Reset nếu không có file
-                    image.style.display = 'none'; // Ẩn ảnh
+            </form>
+        </div>
+    </main>
+    <script type="text/javascript">
+        var contextPath = '<%= request.getContextPath() %>';
+    </script>
+    <script>
+        function loadDistricts() {
+            var provinceID = document.getElementById('provinceID').value;
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', contextPath + '/loadDistricts?provinceID=' + provinceID, true);
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    var districts = JSON.parse(xhr.responseText);
+                    var districtSelect = document.getElementById('districtSelect');
+                    districtSelect.innerHTML = '<option value="">-- Chọn Huyện --</option>'; // Reset district dropdown
+                    districts.forEach(function (district) {
+                        var option = document.createElement('option');
+                        option.value = district.id;
+                        option.textContent = district.districtName;
+                        districtSelect.appendChild(option);
+                    });
+                    loadWards(); // Load wards for the first district if any
                 }
+            };
+            xhr.send();
+        }
+        function loadWards() {
+            var districtID = document.getElementById('districtSelect').value;
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', contextPath + '/loadWards?districtID=' + districtID, true);
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    var wards = JSON.parse(xhr.responseText);
+                    var wardSelect = document.getElementById('wardSelect');
+                    wardSelect.innerHTML = '<option value="">-- Chọn xã --</option>'; // Reset ward dropdown
+                    wards.forEach(function (ward) {
+                        var option = document.createElement('option');
+                        option.value = ward.id;
+                        option.textContent = ward.wardName;
+                        wardSelect.appendChild(option);
+                    });
+                }
+            };
+            xhr.send();
+        }
+        function previewImage(event) {
+            const image = document.getElementById('imagePreview');
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    image.src = e.target.result; // Gán URL ảnh cho thuộc tính src của <img>
+                    image.style.display = 'block'; // Hiện ảnh
+                }
+                reader.readAsDataURL(file); // Đọc file ảnh
+            } else {
+                image.src = '#'; // Reset nếu không có file
+                image.style.display = 'none'; // Ẩn ảnh
             }
-        </script>
-
-        <!-- Essential javascripts for application to work-->
-        <script src="${pageContext.request.contextPath}/js/manager/jquery-3.2.1.min.js"></script>
-        <script src="${pageContext.request.contextPath}/js/manager/popper.min.js"></script>
-        <script src="${pageContext.request.contextPath}/js/manager/bootstrap.min.js"></script>
-        <script src="${pageContext.request.contextPath}/js/manager/main.js"></script>
-        <!-- The javascript plugin to display page loading on top-->
-        <script src="${pageContext.request.contextPath}/js/plugins/pace.min.js"></script>
-    </body>
-
+        }
+    </script>
+</body>
 </html>
+

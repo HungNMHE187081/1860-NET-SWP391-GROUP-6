@@ -13,7 +13,6 @@
 %>
 <!DOCTYPE html>
 <html lang="en">
-
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,13 +24,10 @@
         <meta name="website" content="../../../homepage.jsp" />
         <meta name="Version" content="v1.2.0" />
         <link rel="shortcut icon" href="../images/favicon.ico.png">
+        <!-- favicon -->
+        <link rel="shortcut icon" href="${pageContext.request.contextPath}/images/favicon.ico.png">
         <!-- Bootstrap -->
         <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
         <!-- Icons -->
         <link href="${pageContext.request.contextPath}/css/materialdesignicons.min.css" rel="stylesheet" type="text/css"/>
         <link href="${pageContext.request.contextPath}/css/remixicon.css" rel="stylesheet" type="text/css"/>
@@ -52,294 +48,360 @@
         <link href="${pageContext.request.contextPath}/css/style.min.css" rel="stylesheet" type="text/css"/>
         <link href="${pageContext.request.contextPath}/css/tiny-slider.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=ecg_heart" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <title>View Profile</title>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/manager/main.css">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
-        <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
-        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
-
-        <script src="http://code.jquery.com/jquery.min.js" type="text/javascript"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
-
-        <style>
-            :root {
-                --primary-color: #4e73df;
-                --secondary-color: #858796;
-                --success-color: #1cc88a;
-                --gradient-1: linear-gradient(135deg, #6B73FF 0%, #000DFF 100%);
-                --gradient-2: linear-gradient(135deg, #97ABFF 10%, #123597 100%);
-            }
-
-            .profile-wrapper {
-                padding: 2rem;
-                background-color: #f8f9fc;
-                min-height: calc(100vh - 60px);
-            }
-
-            .profile-header {
-                background: var(--gradient-1);
-                border-radius: 15px;
-                padding: 3rem 2rem;
-                color: white;
-                margin-bottom: 2rem;
-                position: relative;
-                overflow: hidden;
-            }
-
-            .profile-header::before {
-                content: '';
-                position: absolute;
-                top: 0;
-                right: 0;
-                bottom: 0;
-                left: 0;
-                background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><path fill="%23FFFFFF20" d="M 0 0 L 200 0 L 200 200 Z"/></svg>');
-                opacity: 0.1;
-            }
-
-            .profile-content {
-                display: flex;
-                gap: 2rem;
-            }
-
-            .profile-sidebar {
-                flex: 0 0 300px;
-            }
-
-            .profile-main {
-                flex: 1;
-            }
-
-            .profile-image-card {
-                background: white;
-                border-radius: 15px;
-                padding: 1.5rem;
-                text-align: center;
-                box-shadow: 0 0.15rem 1.75rem rgba(33, 40, 50, 0.15);
-                margin-top: -100px;
-                position: relative;
-            }
-
-            .profile-image {
-                width: 200px;
-                height: 200px;
-                border-radius: 50%;
-                border: 5px solid white;
-                box-shadow: 0 0 20px rgba(0,0,0,0.15);
-                margin-bottom: 1.5rem;
-                object-fit: cover;
-            }
-
-            .profile-card {
-                background: white;
-                border-radius: 15px;
-                padding: 1.5rem;
-                box-shadow: 0 0.15rem 1.75rem rgba(33, 40, 50, 0.15);
-                margin-bottom: 1.5rem;
-            }
-
-            .card-title {
-                font-size: 1.1rem;
-                font-weight: 600;
-                color: var(--primary-color);
-                margin-bottom: 1.5rem;
-                padding-bottom: 0.5rem;
-                border-bottom: 2px solid #e3e6f0;
-            }
-
-            .info-row {
-                display: flex;
-                margin-bottom: 1rem;
-                padding: 0.5rem 0;
-                border-bottom: 1px solid #f8f9fc;
-            }
-
-            .info-label {
-                flex: 0 0 150px;
-                font-weight: 600;
-                color: var(--secondary-color);
-            }
-
-            .info-value {
-                flex: 1;
-                color: #5a5c69;
-            }
-
-            .contact-info {
-                display: flex;
-                flex-direction: column;
-                gap: 0.5rem;
-                margin-top: 1rem;
-            }
-
-            .contact-item {
-                display: flex;
-                align-items: center;
-                gap: 0.5rem;
-                color: #5a5c69;
-            }
-
-            .contact-item i {
-                width: 20px;
-                color: var(--primary-color);
-            }
-
-            .edit-button {
-                display: inline-block;
-                padding: 0.75rem 1.5rem;
-                background: var(--gradient-2);
-                color: white;
-                border-radius: 50px;
-                text-decoration: none;
-                transition: all 0.3s ease;
-                border: none;
-                cursor: pointer;
-                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-                margin-top: 1rem;
-                text-align: center;
-            }
-
-            .edit-button:hover {
-                transform: translateY(-2px);
-                box-shadow: 0 6px 20px rgba(0,0,0,0.25);
-                color: white;
-                text-decoration: none;
-            }
-
-            .user-name {
-                font-size: 2.5rem;
-                font-weight: 700;
-                margin-bottom: 0.5rem;
-                text-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            }
-
-            .user-title {
-                font-size: 1.1rem;
-                opacity: 0.9;
-            }
-
-            @media (max-width: 992px) {
-                .profile-content {
-                    flex-direction: column;
-                }
-
-                .profile-sidebar {
-                    flex: 0 0 auto;
-                }
-
-                .profile-image-card {
-                    margin-top: 0;
-                }
-
-                .profile-header {
-                    padding: 2rem 1.5rem;
-                }
-            }
-        </style>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+        <link href="https://unpkg.com/@phosphor-icons/web@2.0.3/src/regular/style.css" rel="stylesheet">
     </head>
+    <style>
+  :root {
+    --primary-color: #2563eb;
+    --secondary-color: #1e40af;
+    --background-color: #f8fafc;
+    --card-background: #ffffff;
+    --text-color: #1e293b;
+    --border-radius: 16px;
+    --transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
+}
 
-    <body class="app sidebar-mini rtl">
+body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
 
-        <header class="app-header">
-            <!-- Sidebar toggle button--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a>
-            <!-- Navbar Right Menu-->
-            <ul class="app-nav">
-                <!-- User Menu-->
-                <li><a class="app-nav__item" href="/index.html"><i class='bx bx-log-out bx-rotate-180'></i> </a></li>
-            </ul>
-        </header>
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px;
+    animation: fadeIn 0.6s var(--transition-timing);
+}
 
-        <%@ include file="/Common_JSP/dashboardtop.jsp" %>
+.profile {
+    background-color: var(--card-background);
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    overflow: hidden;
+    transform-origin: top;
+    animation: slideDown 0.5s var(--transition-timing);
+}
 
-        <main class="app-content">
-            <div class="profile-wrapper">
-                <div class="profile-header">
-                    <div class="user-name">
-                        <%= userDetails.getFirstName() %> <%= userDetails.getMiddleName() %> <%= userDetails.getLastName() %>
-                    </div>
-                    <div class="user-title">Thông tin cá nhân</div>
+.profile__header {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    padding: 32px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.profile__header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(255,255,255,0.1) 25%, transparent 25%),
+                linear-gradient(-45deg, rgba(255,255,255,0.1) 25%, transparent 25%);
+    background-size: 60px 60px;
+    animation: headerPattern 60s linear infinite;
+}
+
+.profile__name {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    position: relative;
+}
+
+.profile__title {
+    font-size: 18px;
+    opacity: 0.9;
+    position: relative;
+}
+
+.profile__content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    padding: 24px;
+}
+
+.profile__sidebar {
+    flex: 1;
+    min-width: 280px;
+}
+
+.profile__image-card {
+    background-color: var(--card-background);
+    border-radius: var(--border-radius);
+    padding: 24px;
+    text-align: center;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s var(--transition-timing);
+}
+
+.profile__image-card:hover {
+    transform: translateY(-4px);
+}
+
+.profile__image {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 20px;
+    border: 4px solid white;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s var(--transition-timing);
+}
+
+.profile__image:hover {
+    transform: scale(1.05);
+}
+
+.profile__contact-info {
+    margin: 20px 0;
+}
+
+.profile__contact-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+    padding: 8px;
+    border-radius: 8px;
+    transition: background-color 0.3s var(--transition-timing);
+}
+
+.profile__contact-item:hover {
+    background-color: #f1f5f9;
+}
+
+.profile__contact-item i {
+    margin-right: 12px;
+    color: var(--primary-color);
+    font-size: 18px;
+}
+
+.profile__edit-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s var(--transition-timing);
+}
+
+.profile__edit-button:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+}
+
+.profile__main {
+    flex: 2;
+    min-width: 300px;
+}
+
+.profile__card {
+    background-color: var(--card-background);
+    border-radius: var(--border-radius);
+    padding: 24px;
+    margin-bottom: 24px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s var(--transition-timing);
+    animation: slideUp 0.5s var(--transition-timing);
+}
+
+.profile__card:hover {
+    transform: translateY(-4px);
+}
+
+.profile__card-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.profile__info-row {
+    display: flex;
+    margin-bottom: 16px;
+    padding: 8px;
+    border-radius: 8px;
+    transition: background-color 0.3s var(--transition-timing);
+}
+
+.profile__info-row:hover {
+    background-color: #f1f5f9;
+}
+
+.profile__info-label {
+    flex: 0 0 150px;
+    font-weight: 500;
+    color: #64748b;
+}
+
+.profile__info-value {
+    flex: 1;
+    color: #0f172a;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes headerPattern {
+    from {
+        background-position: 0 0;
+    }
+    to {
+        background-position: 1000px 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .profile__content {
+        flex-direction: column;
+    }
+
+    .profile__sidebar {
+        margin-right: 0;
+        margin-bottom: 24px;
+    }
+
+    .container {
+        padding: 16px;
+    }
+}
+</style>
+</head>
+    <%@ include file="/Common_JSP/dashboardtop.jsp" %>
+    <br>
+     <br>
+      <br>
+       <br>
+<body>
+    <div class="container">
+        <main class="profile">
+            <div class="profile__header">
+                <div class="profile__name">
+                    <%= userDetails.getFirstName() %> <%= userDetails.getMiddleName() %> <%= userDetails.getLastName() %>
                 </div>
+                <div class="profile__title">Thông tin cá nhân</div>
+            </div>
 
-                <div class="profile-content">
-                    <div class="profile-sidebar">
-                        <div class="profile-image-card">
-                            <img src="${pageContext.request.contextPath}/${userDetails.profileImage}" 
-                                 alt="Profile Image" 
-                                 class="profile-image">
-                            <div class="contact-info">
-                                <div class="contact-item">
-                                    <i class="fas fa-envelope"></i>
-                                    <span><%= userDetails.getEmail() %></span>
-                                </div>
-                                <div class="contact-item">
-                                    <i class="fas fa-phone"></i>
-                                    <span><%= userDetails.getPhoneNumber() %></span>
-                                </div>
+            <div class="profile__content">
+    <div class="profile__sidebar">
+        <div class="profile__image-card">
+            <div class="profile__image-container">
+                <img src="${pageContext.request.contextPath}/${userDetails.profileImage}" 
+                     alt="Ảnh đại diện" 
+                     class="profile__image">
+                <div class="profile__image-overlay">
+   
+                </div>
+            </div>
+            <div class="profile__contact-info">
+                <div class="profile__contact-item" data-tooltip="Email">
+                    <i class="fas fa-envelope"></i>
+                    <span><%= userDetails.getEmail() %></span>
+                </div>
+                <div class="profile__contact-item" data-tooltip="Điện thoại">
+                    <i class="fas fa-phone"></i>
+                    <span><%= userDetails.getPhoneNumber() %></span>
+                </div>
+            </div>
+            <a href="${pageContext.request.contextPath}/customer/editprofile" 
+               class="profile__edit-button">
+                <i class="fas fa-edit"></i> Chỉnh sửa hồ sơ
+            </a>
+        </div>
+                <div class="profile__main">
+                    <div class="profile__card">
+                        <div class="profile__card-title">
+                            <i class="fas fa-user"></i>Thông tin cơ bản
+                        </div>
+                        <div class="profile__info-row">
+                            <div class="profile__info-label">Ngày sinh</div>
+                            <div class="profile__info-value"><%= userDetails.getDateOfBirth() %></div>
+                        </div>
+                        <div class="profile__info-row">
+                            <div class="profile__info-label">Giới tính</div>
+                            <div class="profile__info-value">
+                              <%= userDetails.getGender().equals("Male") ? "Nam" : (userDetails.getGender().equals("Female") ? "Nữ" : "Khác") %>
+
                             </div>
-                            <a href="${pageContext.request.contextPath}/customer/editprofile" 
-                               class="edit-button">
-                                <i class="fas fa-edit mr-2"></i>Chỉnh sửa hồ sơ
-                            </a>
+                        </div>
+                        <div class="profile__info-row">
+                            <div class="profile__info-label">CCCD/CMND</div>
+                            <div class="profile__info-value"><%= userDetails.getCitizenIdentification() %></div>
                         </div>
                     </div>
 
-                    <div class="profile-main">
-                        <div class="profile-card">
-                            <div class="card-title">
-                                <i class="fas fa-user mr-2"></i>Thông tin cơ bản
-                            </div>
-                            <div class="info-row">
-                                <div class="info-label">Ngày sinh</div>
-                                <div class="info-value"><%= userDetails.getDateOfBirth() %></div>
-                            </div>
-                            <div class="info-row">
-                                <div class="info-label">Giới tính</div>
-                                <div class="info-value"><%= userDetails.getGender() %></div>
-                            </div>
-                            <div class="info-row">
-                                <div class="info-label">CCCD/CMND</div>
-                                <div class="info-value"><%= userDetails.getCitizenIdentification() %></div>
+                    <div class="profile__card">
+                        <div class="profile__card-title">
+                            <i class="fas fa-map-marker-alt"></i>Thông tin địa chỉ
+                        </div>
+                        <div class="profile__info-row">
+                            <div class="profile__info-label">Địa chỉ</div>
+                            <div class="profile__info-value">
+                                <%= address.getStreetAddress() %>
                             </div>
                         </div>
-
-                        <div class="profile-card">
-                            <div class="card-title">
-                                <i class="fas fa-map-marker-alt mr-2"></i>Thông tin địa chỉ
-                            </div>
-                            <div class="info-row">
-                                <div class="info-label">Địa chỉ</div>
-                                <div class="info-value">
-                                    <%= address.getStreetAddress() %>
-                                </div>
-                            </div>
-                            <div class="info-row">
-                                <div class="info-label">Phường/Xã</div>
-                                <div class="info-value"><%= ward.getWardName() %></div>
-                            </div>
-                            <div class="info-row">
-                                <div class="info-label">Quận/Huyện</div>
-                                <div class="info-value"><%= district.getDistrictName() %></div>
-                            </div>
-                            <div class="info-row">
-                                <div class="info-label">Tỉnh/Thành phố</div>
-                                <div class="info-value"><%= province.getProvinceName() %></div>
-                            </div>
+                        <div class="profile__info-row">
+                            <div class="profile__info-label">Phường/Xã</div>
+                            <div class="profile__info-value"><%= ward.getWardName() %></div>
+                        </div>
+                        <div class="profile__info-row">
+                            <div class="profile__info-label">Quận/Huyện</div>
+                            <div class="profile__info-value"><%= district.getDistrictName() %></div>
+                        </div>
+                        <div class="profile__info-row">
+                            <div class="profile__info-label">Tỉnh/Thành phố</div>
+                            <div class="profile__info-value"><%= province.getProvinceName() %></div>
                         </div>
                     </div>
                 </div>
             </div>
         </main>
-
-        <!-- Essential javascripts for application to work-->
-        <script src="${pageContext.request.contextPath}/js/manager/jquery-3.2.1.min.js"></script>
-        <script src="${pageContext.request.contextPath}/js/manager/popper.min.js"></script>
-        <script src="${pageContext.request.contextPath}/js/manager/bootstrap.min.js"></script>
-        <script src="${pageContext.request.contextPath}/js/manager/main.js"></script>
-        <!-- The javascript plugin to display page loading on top-->
-        <script src="${pageContext.request.contextPath}/js/plugins/pace.min.js"></script>
-    </body>
-
+    </div>
+</body>
 </html>
