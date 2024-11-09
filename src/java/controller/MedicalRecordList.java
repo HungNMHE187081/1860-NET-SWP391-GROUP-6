@@ -1,6 +1,7 @@
 package controller;
 
 
+import dal.ReservationDAO;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -53,7 +54,8 @@ public class MedicalRecordList extends HttpServlet {
 protected void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
     MedicalRecordDAO dao = new MedicalRecordDAO();
-
+    ReservationDAO rDAO = new ReservationDAO();
+    
     // Get the child's name from the request parameter
     String childName = request.getParameter("search");
     String month = request.getParameter("month");

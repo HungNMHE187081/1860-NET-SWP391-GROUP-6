@@ -1,5 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <link rel="stylesheet" href="../css/styles.css">
 <!DOCTYPE html>
 <html lang="en">
@@ -31,11 +32,11 @@
                                     <th>Tên dịch vụ</th>
                                     <th>Thời gian khám</th>
                                     <th>Tên nhân viên</th>
-                                    <th>Hành động</th>
+
                                 </tr>
                             </thead>
                             <tbody>
-                                <c:if test="${not empty listReservation} ">
+                                <c:if test="${not empty listReservation}">
                                     <c:forEach var="reservation" items="${listReservation}" varStatus="status">
                                         <tr>
                                             <td>${status.index + 1}</td>
@@ -43,17 +44,19 @@
                                             <td>${reservation.childFirstName} ${reservation.childMiddleName} ${reservation.childLastName}</td>
                                             <td>${reservation.appointmentDate}</td>
                                             <td>${reservation.serviceName}</td>
-                                            <td>${reservation.appointmentStartTime}</td>
-                                            <td>${reservation.staffName}</td>
-                                            <td><a href="reservation-details.html?id=${reservation.id}" class="btn"><i class="fas fa-eye"></i> Xem chi tiết</a></td>
+                                            <td>${fn:substring(reservation.appointmentStartTime, 0, 8)}</td>
+
+                                            <td>${staff.staffName}</td>
                                         </tr>
                                     </c:forEach>
                                 </c:if>
+
                                 <c:if test="${empty listReservation}">
                                     <tr>
-                                        <td colspan="8" style="text-align: center;color: #4bac4d ">Hôm nay không có lịch khám nha ^.^</td>
+                                        <td colspan="7" style="text-align: center; color: #4bac4d;">Hôm nay không có lịch khám nha ^.^</td>
                                     </tr>
                                 </c:if>
+
                             </tbody>
                         </table>
                     </section>

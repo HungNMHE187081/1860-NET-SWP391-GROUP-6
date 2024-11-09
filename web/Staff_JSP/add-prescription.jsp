@@ -179,26 +179,42 @@
                 <select id="medicineSelect" name="medicineIds" multiple style="width: 100%;" required>
                     <option value="" disabled>Chọn thuốc:</option>
                     <c:forEach var="medicine" items="${medicineList}">
-                        <option value="${medicine.medicineID}">${medicine.name}</option>
+                        <option value="${medicine.medicineID}" 
+                                <c:if test="${not empty prescription && prescription.medicineID == medicine.medicineID}">
+                                    selected
+                                </c:if>
+                                >${medicine.name}</option>
                     </c:forEach>
                 </select>
 
                 <br>
 
                 <label for="dosage">Liều dùng:</label>
-                <textarea id="dosage" name="dosage" required></textarea>
+                <textarea id="dosage" name="dosage" 
+                          <c:if test="${empty prescription}">required</c:if>
+                          >${not empty prescription ? prescription.dosage : ''}</textarea>
 
                 <label for="frequency">Tần suất:</label>
-                <textarea id="frequency" name="frequency" required></textarea>
+                <textarea id="frequency" name="frequency" 
+                          <c:if test="${empty prescription}">required</c:if>
+                          >${not empty prescription ? prescription.frequency : ''}</textarea>
 
                 <label for="duration">Thời điểm sử dụng:</label>
-                <textarea id="duration" name="duration" required></textarea>
+                <textarea id="duration" name="duration" 
+                          <c:if test="${empty prescription}">required</c:if>
+                          >${not empty prescription ? prescription.duration : ''}</textarea>
 
                 <button type="submit">Thêm đơn thuốc</button>
+
                 <center>
                     <a href="${pageContext.request.contextPath}/staff/medicalrecordlist">Quay lại lịch sử khám</a>
                 </center>
             </form>
+
+
+
+
+
             <script>
                 $(document).ready(function () {
                     $('#medicineSelect').select2({

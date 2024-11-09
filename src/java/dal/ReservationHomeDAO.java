@@ -16,24 +16,25 @@ public class ReservationHomeDAO extends DBContext{
      public List<ReservationHome> getReservationsByStaffID(int staffID) {
     List<ReservationHome> reservations = new ArrayList<>();
     String query = "SELECT " +
-            "u.FirstName AS CustomerFirstName, " +
-            "u.MiddleName AS CustomerMiddleName, " +
-            "u.LastName AS CustomerLastName, " +
-            "c.FirstName AS ChildFirstName, " +
-            "c.MiddleName AS ChildMiddleName, " +
-            "c.LastName AS ChildLastName, " +
-            "r.ReservationDate AS AppointmentDate, " +
-            "s.ServiceName AS ServiceName, " +
-            "r.StartTime AS AppointmentStartTime, " +
-            "st.StaffName AS StaffName " +
-            "FROM Reservations r " +
-            "JOIN OrderItems oi ON r.OrderItemID = oi.OrderItemID " +
-            "JOIN Orders o ON oi.OrderID = o.OrderID " +
-            "JOIN Users u ON o.CustomerID = u.UserID " +
-            "JOIN Children c ON oi.ChildID = c.ChildID " +
-            "JOIN Services s ON oi.ServiceID = s.ServiceID " +
-            "JOIN Staff st ON r.StaffID = st.StaffID " +
-            "WHERE r.StaffID = ? AND DATE(r.ReservationDate) = CURDATE()";
+                "u.FirstName AS CustomerFirstName, " +
+                "u.MiddleName AS CustomerMiddleName, " +
+                "u.LastName AS CustomerLastName, " +
+                "c.FirstName AS ChildFirstName, " +
+                "c.MiddleName AS ChildMiddleName, " +
+                "c.LastName AS ChildLastName, " +
+                "r.ReservationDate AS AppointmentDate, " +
+                "s.ServiceName AS ServiceName, " +
+                "r.StartTime AS AppointmentStartTime, " +
+                "st.StaffName AS StaffName " +
+                "FROM Reservations r " +
+                "JOIN OrderItems oi ON r.OrderItemID = oi.OrderItemID " +
+                "JOIN Orders o ON oi.OrderID = o.OrderID " +
+                "JOIN Users u ON o.CustomerID = u.UserID " +
+                "JOIN Children c ON oi.ChildID = c.ChildID " +
+                "JOIN Services s ON oi.ServiceID = s.ServiceID " +
+                "JOIN Staff st ON r.StaffID = st.StaffID " +
+                "WHERE r.StaffID = ? " +
+                "AND CAST(r.ReservationDate AS DATE) = CAST(GETDATE() AS DATE);";
 
     try (PreparedStatement statement = connection.prepareStatement(query)) {
         statement.setInt(1, staffID);

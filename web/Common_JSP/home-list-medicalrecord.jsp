@@ -213,8 +213,10 @@
                                 </thead>
                                 <tbody>
                                     <c:if test="${not empty records}">
+                                        <c:set var="recordFound" value="false" />
                                         <c:forEach var="record" items="${records}" varStatus="status">
-                                            <c:if test="${fn:contains(childrens, record.childID)}"> <!-- Kiểm tra nếu childID có trong childrens -->
+                                            <c:if test="${fn:contains(childrens, record.childID)}">
+                                                <c:set var="recordFound" value="true" />
                                                 <tr>
                                                     <td>${status.index + 1}</td>
                                                     <td><c:out value="${record.firstNameChild} ${record.middleNameChild} ${record.lastNameChild}" /></td>
@@ -235,12 +237,21 @@
                                                 </tr>
                                             </c:if>
                                         </c:forEach>
+
+                                        <!-- Nếu không có record nào được tìm thấy -->
+                                        <c:if test="${not recordFound}">
+                                            <tr>
+                                                <td colspan="7" style="text-align: center;">Không tìm thấy hồ sơ</td>
+                                            </tr>
+                                        </c:if>
                                     </c:if>
+
                                     <c:if test="${empty records}">
                                         <tr>
                                             <td colspan="7" style="text-align: center;">Không tìm thấy hồ sơ</td>
                                         </tr>
                                     </c:if>
+
                                 </tbody>
 
                             </table>

@@ -236,6 +236,10 @@
                             <span>${medicalRecord.notes}</span>
                         </div>
                         <div class="detail-item">
+                            <label>Tên dịch vụ: </label>
+                            <span>${serviceName}</span>
+                        </div>
+                        <div class="detail-item">
                             <label>Ngày khám:</label>
                             <span>
                                 <fmt:parseDate value="${medicalRecord.reservationDate}" pattern="yyyy-MM-dd" var="parsedReservationDate" />

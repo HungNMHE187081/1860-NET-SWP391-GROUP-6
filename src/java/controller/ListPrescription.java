@@ -17,6 +17,7 @@ import model.MedicalRecordDAO;
 import dal.ChildrenDAO;
 import dal.UserDAO;
 import dal.PrescriptionDAO;
+import java.util.ArrayList;
 import model.Children;
 import model.Users;
 import model.Prescription;
@@ -30,7 +31,6 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response)
     try {
         PrescriptionDAO dao = new PrescriptionDAO();
         
-        
         // Retrieve the search parameter from the request
         String search = request.getParameter("search");
         if (search == null) search = "";  // Default to empty if no search query is provided
@@ -38,13 +38,36 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response)
         // Retrieve the list of prescriptions based on the search input
         List<Prescription> listPre = dao.getAllPrescriptions(search);
 
-        // Set the list as a request attribute and forward to the JSP
+        // Create an instance of MedicalRecordDAO to fetch MedicalRecord data
+        MedicalRecordDAO mDAO = new MedicalRecordDAO();
+
+        // Tạo danh sách lưu trữ thông tin ngày khám tương ứng với từng đơn thuốc
+        List<String> reservationDates = new ArrayList<>();
+
+        // Loop through each prescription and get the corresponding medical record
+        for (Prescription pres : listPre) {
+            // Fetch MedicalRecord by recordID from each prescription
+            MedicalRecord medicalRecord = mDAO.getMedicalRecordByID(pres.getRecordID());
+            
+            // Lưu reservationDate vào danh sách
+            if (medicalRecord != null) {
+                reservationDates.add(medicalRecord.getReservationDate().toString()); // Giả sử reservationDate là kiểu Date
+            } else {
+                reservationDates.add("N/A");  // Nếu không tìm thấy MedicalRecord
+            }
+        }
+
+        // Đưa danh sách ngày khám vào request
         request.setAttribute("listPre", listPre);
+        request.setAttribute("reservationDates", reservationDates);
+
+        // Forward tới JSP
         request.getRequestDispatcher("/Staff_JSP/prescription-list.jsp").forward(request, response);
     } catch (Exception e) {
         e.printStackTrace();
     }
 }
+
 
 
     @Override
