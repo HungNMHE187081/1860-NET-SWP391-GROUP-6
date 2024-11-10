@@ -1,4 +1,4 @@
-<%@ page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -11,6 +11,11 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
+    <!-- Boxicons CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    <!-- Main CSS-->
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/manager/services.css">
+    
     <style>
         :root {
             --primary-color: #4e73df;
@@ -27,6 +32,8 @@
         }
         
         .dashboard-header {
+            margin-top: 50px;
+            
             background: white;
             padding: 1rem 2rem;
             box-shadow: 0 .15rem 1.75rem 0 rgba(58,59,69,.15);
@@ -129,113 +136,139 @@
     </style>
 </head>
 <body>
-    <!-- Dashboard Header -->
-    <div class="dashboard-header">
-        <h1 class="dashboard-title">Dashboard</h1>
-    </div>
-    
-    <!-- Stats Cards -->
-    <div class="stats-row">
-        <div class="stats-card primary">
-            <div class="stats-card-title">Total Services</div>
-            <div class="stats-card-value" id="totalServices">0</div>
-            <i class="fas fa-calendar fa-2x text-gray-300 position-absolute end-0 top-50 translate-middle-y me-3"></i>
-        </div>
-        
-        <div class="stats-card success">
-            <div class="stats-card-title">Total Staff</div>
-            <div class="stats-card-value" id="totalStaff">0</div>
-            <i class="fas fa-users fa-2x text-gray-300 position-absolute end-0 top-50 translate-middle-y me-3"></i>
-        </div>
-        
-        <div class="stats-card info">
-            <div class="stats-card-title">Average Rating</div>
-            <div class="stats-card-value" id="avgRating">0</div>
-            <i class="fas fa-star fa-2x text-gray-300 position-absolute end-0 top-50 translate-middle-y me-3"></i>
-        </div>
-        
-        <div class="stats-card warning">
-            <div class="stats-card-title">Total Children</div>
-            <div class="stats-card-value" id="totalChildren">0</div>
-            <i class="fas fa-child fa-2x text-gray-300 position-absolute end-0 top-50 translate-middle-y me-3"></i>
-        </div>
-    </div>
-    
-    <!-- Charts Grid -->
-    <div class="dashboard-grid">
-        <!-- Service Statistics Chart -->
-        <div class="chart-container">
-            <div class="chart-header">
-                <h2 class="chart-title">
-                    <i class="fas fa-chart-bar me-2"></i>
-                    Service Statistics
-                </h2>
-            </div>
-            <div id="serviceChart"></div>
-        </div>
-        
-        <!-- Staff Performance Chart -->
-        <div class="chart-container">
-            <div class="chart-header">
-                <h2 class="chart-title">
-                    <i class="fas fa-user-tie me-2"></i>
-                    Staff Performance
-                </h2>
-            </div>
-            <div id="staffChart"></div>
-        </div>
-        
-        <!-- Children Age Distribution Chart -->
-        <div class="chart-container">
-            <div class="chart-header">
-                <h2 class="chart-title">
-                    <i class="fas fa-child me-2"></i>
-                    Children Age Distribution
-                </h2>
-            </div>
-            <div id="childrenAgeChart"></div>
-        </div>
-        
-        <!-- Category Distribution Chart -->
-        <div class="chart-container">
-            <div class="chart-header">
-                <h2 class="chart-title">
-                    <i class="fas fa-th-list me-2"></i>
-                    Service Category Distribution
-                </h2>
-            </div>
-            <div id="categoryChart"></div>
-        </div>
-        
-        <!-- Feedback Distribution Chart -->
-        <div class="chart-container">
-            <div class="chart-header">
-                <h2 class="chart-title">
-                    <i class="fas fa-star me-2"></i>
-                    Feedback Ratings
-                </h2>
-            </div>
-            <div id="feedbackChart"></div>
-        </div>
-        
-        <!-- Monthly Order Statistics Chart -->
-        <div class="chart-container">
-            <div class="chart-header">
-                <h2 class="chart-title">
-                    <i class="fas fa-chart-line me-2"></i>
-                    Monthly Orders
-                </h2>
-            </div>
-            <div id="monthlyChart"></div>
-        </div>
-    </div>
+    <!-- Navbar-->
+    <header class="app-header">
+        <!-- Sidebar toggle button-->
+        <a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a>
+        <!-- Navbar Right Menu-->
+        <ul class="app-nav">
+            <!-- User Menu-->
+            <li><a class="app-nav__item" href="${pageContext.request.contextPath}/logout">
+                <i class='bx bx-log-out bx-rotate-180'></i>
+            </a></li>
+        </ul>
+    </header>
 
+    <!-- Include dashboardleft -->
+    <%@ include file="dashboardleft.jsp" %>
+
+    <!-- Main Content -->
+    <main class="app-content">
+        <!-- Dashboard Header -->
+        <div class="dashboard-header">
+            <h1 class="dashboard-title">Dashboard</h1>
+        </div>
+        
+        <!-- Stats Cards -->
+        <div class="stats-row">
+            <div class="stats-card primary">
+                <div class="stats-card-title">Tồng số dịch vụ</div>
+                <div class="stats-card-value" id="totalServices">0</div>
+                <i class="fas fa-calendar fa-2x text-gray-300 position-absolute end-0 top-50 translate-middle-y me-3"></i>
+            </div>
+            
+            <div class="stats-card success">
+                <div class="stats-card-title">Tổng số nhân viên</div>
+                <div class="stats-card-value" id="totalStaff">0</div>
+                <i class="fas fa-users fa-2x text-gray-300 position-absolute end-0 top-50 translate-middle-y me-3"></i>
+            </div>
+            
+            <div class="stats-card info">
+                <div class="stats-card-title">Đánh giá trung bình</div>
+                <div class="stats-card-value" id="avgRating">0</div>
+                <i class="fas fa-star fa-2x text-gray-300 position-absolute end-0 top-50 translate-middle-y me-3"></i>
+            </div>
+            
+            <div class="stats-card warning">
+                <div class="stats-card-title">Tổng số trẻ em</div>
+                <div class="stats-card-value" id="totalChildren">0</div>
+                <i class="fas fa-child fa-2x text-gray-300 position-absolute end-0 top-50 translate-middle-y me-3"></i>
+            </div>
+        </div>
+        
+        <!-- Charts Grid -->
+        <div class="dashboard-grid">
+            <!-- Service Statistics Chart -->
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h2 class="chart-title">
+                        <i class="fas fa-chart-bar me-2"></i>
+                        Thống kê dịch vụ
+                    </h2>
+                </div>
+                <div id="serviceChart"></div>
+            </div>
+            
+            <!-- Staff Performance Chart -->
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h2 class="chart-title">
+                        <i class="fas fa-user-tie me-2"></i>
+                        Thống kê nhân viên
+                    </h2>
+                </div>
+                <div id="staffChart"></div>
+            </div>
+            
+            <!-- Children Age Distribution Chart -->
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h2 class="chart-title">
+                        <i class="fas fa-child me-2"></i>
+                        Thống kê độ tuổi trẻ em
+                    </h2>
+                </div>
+                <div id="childrenAgeChart"></div>
+            </div>
+            
+            <!-- Category Distribution Chart -->
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h2 class="chart-title">
+                        <i class="fas fa-th-list me-2"></i>
+                        Thống kê danh mục dịch vụ
+                    </h2>
+                </div>
+                <div id="categoryChart"></div>
+            </div>
+            
+            <!-- Feedback Distribution Chart -->
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h2 class="chart-title">
+                        <i class="fas fa-star me-2"></i>
+                        Thống kê đánh giá
+                    </h2>
+                </div>
+                <div id="feedbackChart"></div>
+            </div>
+            
+            <!-- Monthly Order Statistics Chart -->
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h2 class="chart-title">
+                        <i class="fas fa-chart-line me-2"></i>
+                        Thống kê đơn hàng
+                    </h2>
+                </div>
+                <div id="monthlyChart"></div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js/main.js"></script>
+    <script src="${pageContext.request.contextPath}/js/plugins/pace.min.js"></script>
+    
     <!-- Existing Chart Scripts -->
     <script>
         // Parse JSON data from server
         const serviceStats = ${serviceStats};
         const staffStats = ${staffStats};
-        const childrenAgeStats = ${childrenAgeStats};
+        const childrenAgeStats = JSON.parse('${childrenAgeStats}');
         const categoryStats = ${categoryStats};
         const feedbackStats = ${feedbackStats};
         const monthlyStats = ${monthlyStats};
@@ -342,34 +375,94 @@
         }
 
         // Children Age Distribution Chart
-        new ApexCharts(document.querySelector("#childrenAgeChart"), {
-            ...chartOptions,
-            chart: {
-                type: 'pie',
-                height: 350
-            },
-            series: childrenAgeStats.map(stat => stat.childCount),
-            labels: childrenAgeStats.map(stat => `Age ${stat.age}`),
-            colors: ['#4e73df', '#1cc88a', '#36b9cc', '#f6c23e', '#e74a3b'],
-            legend: {
-                position: 'bottom'
-            }
-        }).render();
+        if (childrenAgeStats && childrenAgeStats.length > 0) {
+            new ApexCharts(document.querySelector("#childrenAgeChart"), {
+                chart: {
+                    type: 'pie',
+                    height: 350
+                },
+                series: childrenAgeStats.map(stat => stat.childCount),
+                labels: childrenAgeStats.map(stat => 
+                    `${stat.age} tuổi (${stat.childCount} trẻ em)`
+                ),
+                colors: ['#4e73df', '#1cc88a', '#36b9cc', '#f6c23e', '#e74a3b', 
+                        '#6610f2', '#fd7e14', '#20c997', '#6f42c1', '#dc3545'],
+                legend: {
+                    position: 'bottom',
+                    formatter: function(seriesName, opts) {
+                        const stat = childrenAgeStats[opts.seriesIndex];
+                        return `${stat.age} tuổi - ${stat.childCount} trẻ em (${stat.percentage.toFixed(1)}%)`;
+                    }
+                },
+                tooltip: {
+                    y: {
+                        formatter: function(value, { seriesIndex, w }) {
+                            const stat = childrenAgeStats[seriesIndex];
+                            return `${stat.age} tuổi: ${value} trẻ em (${stat.percentage.toFixed(1)}%)`;
+                        }
+                    }
+                },
+                plotOptions: {
+                    pie: {
+                        dataLabels: {
+                            offset: -5,
+                            minAngleToShowLabel: 10
+                        }
+                    }
+                },
+                dataLabels: {
+                    enabled: true,
+                    formatter: function(val, opts) {
+                        const stat = childrenAgeStats[opts.seriesIndex];
+                        return [
+                            `${stat.age} tuổi`,
+                            `${stat.childCount} trẻ em`,
+                            `${stat.percentage.toFixed(1)}%`
+                        ];
+                    },
+                    style: {
+                        fontSize: '12px',
+                        fontFamily: 'Helvetica, Arial, sans-serif',
+                        fontWeight: 'bold'
+                    }
+                }
+            }).render();
+        } else {
+            document.querySelector("#childrenAgeChart").innerHTML = 
+                '<div class="text-center p-3">Không có dữ liệu về độ tuổi</div>';
+        }
 
         // Category Distribution Chart
-        new ApexCharts(document.querySelector("#categoryChart"), {
-            ...chartOptions,
-            chart: {
-                type: 'pie',
-                height: 350
-            },
-            series: categoryStats.map(stat => stat.serviceCount),
-            labels: categoryStats.map(stat => stat.categoryName),
-            colors: ['#4e73df', '#1cc88a', '#36b9cc', '#f6c23e', '#e74a3b'],
-            legend: {
-                position: 'bottom'
-            }
-        }).render();
+        if (categoryStats && categoryStats.length > 0) {
+            new ApexCharts(document.querySelector("#categoryChart"), {
+                chart: {
+                    type: 'pie',
+                    height: 350
+                },
+                series: categoryStats.map(stat => parseInt(stat.serviceCount)),
+                labels: categoryStats.map(stat => stat.categoryName),
+                colors: ['#4e73df', '#1cc88a', '#36b9cc', '#f6c23e', '#e74a3b'],
+                legend: {
+                    position: 'bottom'
+                },
+                tooltip: {
+                    y: {
+                        formatter: function(value) {
+                            return value + " dịch vụ";
+                        }
+                    }
+                },
+                dataLabels: {
+                    formatter(val, opts) {
+                        const name = opts.w.globals.labels[opts.seriesIndex];
+                        return [name, val.toFixed(1) + '%'];
+                    }
+                }
+            }).render();
+        } else {
+            document.querySelector("#categoryChart").innerHTML = 
+                '<div class="text-center p-3">Không có dữ liệu về danh mục</div>';
+        }
 
         // Feedback Distribution Chart
         new ApexCharts(document.querySelector("#feedbackChart"), {

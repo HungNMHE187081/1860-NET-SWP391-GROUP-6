@@ -78,24 +78,32 @@ public class StatisticsDAO extends DBContext {
     
     public List<ChildrenAgeStatistics> getChildrenAgeStatistics() {
         List<ChildrenAgeStatistics> list = new ArrayList<>();
-        String sql = "SELECT DATEDIFF(YEAR, DateOfBirth, GETDATE()) as Age, "
-                + "COUNT(*) as ChildCount "
-                + "FROM Children "
-                + "GROUP BY DATEDIFF(YEAR, DateOfBirth, GETDATE()) "
-                + "ORDER BY Age";
+        String sql = "SELECT " +
+                     "DATEDIFF(YEAR, DateOfBirth, GETDATE()) as Age, " +
+                     "COUNT(*) as ChildCount, " +
+                     "CAST(COUNT(*) * 100.0 / SUM(COUNT(*)) OVER() as DECIMAL(5,1)) as Percentage " +
+                     "FROM Children " +
+                     "GROUP BY DATEDIFF(YEAR, DateOfBirth, GETDATE()) " +
+                     "ORDER BY Age";
         
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
+                System.out.println("Age: " + rs.getInt("Age") + 
+                                     ", Count: " + rs.getInt("ChildCount") + 
+                                     ", Percentage: " + rs.getDouble("Percentage"));
+                
                 ChildrenAgeStatistics stat = new ChildrenAgeStatistics(
                     rs.getInt("Age"),
-                    rs.getInt("ChildCount")
+                    rs.getInt("ChildCount"),
+                    rs.getDouble("Percentage")
                 );
                 list.add(stat);
             }
         } catch (SQLException e) {
             System.out.println("getChildrenAgeStatistics: " + e.getMessage());
+            e.printStackTrace();
         }
         return list;
     }

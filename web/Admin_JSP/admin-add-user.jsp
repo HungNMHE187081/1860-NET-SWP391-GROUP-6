@@ -16,92 +16,127 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
         <script src="http://code.jquery.com/jquery.min.js" type="text/javascript"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
-    </head>
-
-    <body class="app sidebar-mini rtl">
         <style>
-            .Choicefile {
-                display: block;
-                background: #14142B;
-                border: 1px solid #fff;
-                color: #fff;
-                width: 150px;
+            :root {
+                --primary-color: #4e73df;
+            }
+            
+            /* Profile Image Section */
+            .profile-image-section {
+                background: white;
+                border-radius: 15px;
+                padding: 2rem;
                 text-align: center;
-                text-decoration: none;
-                cursor: pointer;
-                padding: 5px 0px;
-                border-radius: 5px;
-                font-weight: 500;
-                align-items: center;
-                justify-content: center;
+                box-shadow: 0 0.15rem 1.75rem rgba(33, 40, 50, 0.15);
+                margin-bottom: 2rem;
             }
 
-            .Choicefile:hover {
-                text-decoration: none;
+            .profile-image-container {
+                width: 200px;
+                height: 200px;
+                margin: 0 auto 1.5rem;
+                position: relative;
+                border-radius: 50%;
+                border: 5px solid #f8f9fc;
+                box-shadow: 0 0 20px rgba(0,0,0,0.1);
+                overflow: hidden;
+                background-color: #fff;
+            }
+
+            .profile-image-container img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                display: block;
+            }
+
+            .image-upload-wrapper {
+                margin-top: 1rem;
+                text-align: center;
+            }
+
+            .custom-file-upload {
+                background: var(--primary-color);
                 color: white;
+                padding: 10px 20px;
+                border-radius: 5px;
+                cursor: pointer;
+                display: inline-block;
+                transition: all 0.3s ease;
+                font-size: 14px;
+                border: none;
             }
 
-            #uploadfile,
-            .removeimg {
+            .custom-file-upload:hover {
+                background: #2e59d9;
+                transform: translateY(-1px);
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            }
+
+            .custom-file-upload i {
+                margin-right: 8px;
+            }
+
+            input[type="file"] {
                 display: none;
             }
 
-            #thumbbox {
-                position: relative;
-                width: 100%;
+            /* Thêm animation cho preview ảnh */
+            @keyframes fadeIn {
+                from { opacity: 0; }
+                to { opacity: 1; }
+            }
+
+            #imagePreview {
+                animation: fadeIn 0.3s ease-in-out;
+            }
+
+            .alert-danger {
+                background-color: #f8d7da;
+                border-color: #f5c6cb;
+                color: #721c24;
+                padding: 15px;
                 margin-bottom: 20px;
+                border-radius: 5px;
             }
 
-            .removeimg {
-                height: 25px;
-                position: absolute;
-                background-repeat: no-repeat;
-                top: 5px;
-                left: 5px;
-                background-size: 25px;
-                width: 25px;
-                border-radius: 50%;
+            .alert-danger ul {
+                margin-bottom: 0;
+                padding-left: 20px;
             }
 
-            .removeimg::before {
-                box-sizing: border-box;
-                content: '';
-                border: 1px solid red;
-                background: red;
-                text-align: center;
-                display: block;
-                margin-top: 11px;
-                transform: rotate(45deg);
+            .alert-danger {
+                background-color: #f8d7da;
+                border-color: #f5c6cb;
+                color: #721c24;
+                padding: 15px;
+                margin-bottom: 20px;
+                border: 1px solid transparent;
+                border-radius: 8px;
             }
 
-            .removeimg::after {
-                content: '';
-                background: red;
-                border: 1px solid red;
-                text-align: center;
-                display: block;
-                transform: rotate(-45deg);
-                margin-top: -2px;
+            .alert-danger i {
+                margin-right: 8px;
+                color: #dc3545;
             }
 
-            .profile-img-container {
-                width: 150px;
-                height: 150px;
-                overflow: hidden;
-                border-radius: 20%;
-                margin: 0 auto;
+            .alert-danger div {
+                margin-bottom: 5px;
             }
 
-            .profile-img-container img {
-                width: 100%;
-                height: auto;
+            .alert-danger div:last-child {
+                margin-bottom: 0;
             }
 
-            .form-control-file {
-                display: block;
-                margin-top: 10px;
+            /* Thêm style cho required fields */
+            .text-danger {
+                color: #dc3545;
             }
         </style>
+    </head>
+
+    <body class="app sidebar-mini rtl">
+       
 
         <header class="app-header">
             <!-- Sidebar toggle button--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar"
@@ -115,44 +150,12 @@
         </header>
         <!-- Sidebar menu-->
         <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
-        <aside class="app-sidebar">
-            <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" src="/images/hay.jpg" width="50px"
-                                                alt="User Image">
-                <div>
-                    <p class="app-sidebar__user-name"><b>User name</b></p>
-                    <p class="app-sidebar__user-designation">Chào mừng bạn trở lại</p>
-                </div>
-            </div>
-            <hr>
-            <ul class="app-menu">
-                <li><a class="app-menu__item haha" href="phan-mem-ban-hang.html"><i
-                            class='app-menu__icon bx bx-cart-alt'></i>
-                        <span class="app-menu__label">POS Bán Hàng</span></a></li>
-                <li><a class="app-menu__item " href="index.html"><i
-                            class='app-menu__icon bx bx-tachometer'></i><span class="app-menu__label">Bảng điều
-                            khiển</span></a></li>
-                <li><a class="app-menu__item active" href="serviceslist"><i
-                            class='app-menu__icon bx bx-id-card'></i>
-                        <span class="app-menu__label">Quản lý dịch vụ</span></a></li>
-                <li><a class="app-menu__item" href="#"><i class='app-menu__icon bx bx-user-voice'></i><span
-                            class="app-menu__label">Quản lý khách hàng</span></a></li>
-                <li><a class="app-menu__item" href="table-data-product.html"><i
-                            class='app-menu__icon bx bx-purchase-tag-alt'></i><span class="app-menu__label">Quản lý
-                            sản phẩm</span></a>
-                </li>
-                <li><a class="app-menu__item" href="table-data-oder.html"><i
-                            class='app-menu__icon bx bx-task'></i><span class="app-menu__label">Quản lý đơn
-                            hàng</span></a></li>
-                <li><a class="app-menu__item" href="table-data-banned.html"><i
-                            class='app-menu__icon bx bx-run'></i><span class="app-menu__label">Quản lý tài khoản bị
-                            cấm</span></a></li>
-            </ul>
-        </aside>
+        <%@ include file="dashboardleft.jsp" %>
         <!-- Sidebar menu-->
         <main class="app-content">
             <div class="app-title">
                 <ul class="app-breadcrumb breadcrumb">
-                    <li class="breadcrumb-item">Danh sách nhân viên </li>
+                    <li class="breadcrumb-item">Danh sách người dùng</li>
                     <li class="breadcrumb-item"><a href="#">Thêm nhân viên</a></li>
                 </ul>
             </div>
@@ -168,73 +171,116 @@
                                 </div>
                             </c:if>
 
-                            <form action="${pageContext.request.contextPath}/admin/adminadduser" method="post" enctype="multipart/form-data">
+                            <c:if test="${not empty errors}">
+                                <div class="alert alert-danger" role="alert" style="margin-bottom: 20px;">
+                                    <c:forEach items="${errors}" var="error">
+                                        <div><i class="fas fa-exclamation-circle"></i> ${error}</div>
+                                    </c:forEach>
+                                </div>
+                            </c:if>
+
+                            <form action="${pageContext.request.contextPath}/admin/adminadduser" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
                                 <div class="row">
-                                    <!-- Avatar Section -->
-                                    <div class="col-md-3 text-center">
-                                        <div class="form-group">
-                                            <label class="control-label">Ảnh đại diện</label>
-                                            <div class="profile-img-container">
-                                                <img id="imagePreview" src="https://via.placeholder.com/150" alt="Image Preview" class="rounded-circle img-fluid">
+                                    <!-- Profile Image Section -->
+                                    <div class="col-md-3">
+                                        <div class="profile-image-section">
+                                            <div class="profile-image-container">
+                                                <img id="imagePreview" 
+                                                     src="${pageContext.request.contextPath}/UserProfilesImages/default-avatar.jpg" 
+                                                     alt="Profile Image">
                                             </div>
-                                            <input class="form-control-file mt-3" type="file" name="profileImage" id="profileImage" onchange="previewImage(event)">
+                                            <div class="image-upload-wrapper">
+                                                <label for="profileImage" class="custom-file-upload">
+                                                    <i class="fas fa-camera"></i> Chọn ảnh
+                                                </label>
+                                                <input type="file" 
+                                                       name="profileImage" 
+                                                       id="profileImage" 
+                                                       accept="image/*"
+                                                       onchange="previewImage(event)">
+                                            </div>
                                         </div>
                                     </div>
 
-                                    <!-- Information Section -->
+                                    <!-- Personal Information Section -->
                                     <div class="col-md-9">
                                         <div class="row">
                                             <div class="form-group col-md-6">
-                                                <label class="control-label">First Name:</label>
-                                                <input class="form-control" type="text" name="firstName" required>
+                                                <label>Họ <span class="text-danger">*</span></label>
+                                                <input class="form-control" type="text" name="firstName" 
+                                                       value="${firstName}"
+                                                       pattern="^[A-Za-zÀ-ỹ\s]{2,50}$"
+                                                       title="Họ phải từ 2-50 ký tự và không chứa số hoặc ký tự đặc biệt"
+                                                       required>
                                             </div>
                                             <div class="form-group col-md-6">
-                                                <label class="control-label">Middle Name:</label>
-                                                <input class="form-control" type="text" name="middleName">
+                                                <label>Tên <span class="text-danger">*</span></label>
+                                                <input class="form-control" type="text" name="lastName" 
+                                                       value="${lastName}"
+                                                       pattern="^[A-Za-zÀ-ỹ\s]{2,50}$"
+                                                       title="Tên phải từ 2-50 ký tự và không chứa số hoặc ký tự đặc biệt"
+                                                       required>
                                             </div>
                                             <div class="form-group col-md-6">
-                                                <label class="control-label">Last Name:</label>
-                                                <input class="form-control" type="text" name="lastName" required>
+                                                <label>Email <span class="text-danger">*</span></label>
+                                                <input class="form-control" type="email" name="email" 
+                                                       value="${email}"
+                                                       pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                                                       title="Vui lòng nhập email hợp lệ"
+                                                       required>
                                             </div>
                                             <div class="form-group col-md-6">
-                                                <label class="control-label">Email:</label>
-                                                <input class="form-control" type="email" name="email" required>
+                                                <label>Số điện thoại <span class="text-danger">*</span></label>
+                                                <input class="form-control" type="tel" name="phoneNumber" 
+                                                       value="${phoneNumber}"
+                                                       pattern="(84|0[3|5|7|8|9])+([0-9]{8})\b"
+                                                       title="Số điện thoại phải có 10 số"
+                                                       required>
                                             </div>
                                             <div class="form-group col-md-6">
-                                                <label class="control-label">Phone Number:</label>
-                                                <input class="form-control" type="text" name="phoneNumber" required>
+                                                <label class="control-label">Ngày sinh <span class="text-danger">*</span></label>
+                                                <input class="form-control" type="date" name="dateOfBirth" 
+                                                       value="${dateOfBirth}"
+                                                       max="<%= java.time.LocalDate.now().minusYears(18) %>"
+                                                       title="Người dùng phải từ 18 tuổi trở lên"
+                                                       required>
                                             </div>
                                             <div class="form-group col-md-6">
-                                                <label class="control-label">Date of Birth:</label>
-                                                <input class="form-control" type="date" name="dateOfBirth" required>
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label class="control-label">Gender:</label>
+                                                <label class="control-label">Giới tính <span class="text-danger">*</span></label>
                                                 <select class="form-control" name="gender" required>
-                                                    <option value="Male">Male</option>
-                                                    <option value="Female">Female</option>
-                                                    <option value="Other">Other</option>
+                                                    <option value="Male" ${gender == 'Male' ? 'selected' : ''}>Nam</option>
+                                                    <option value="Female" ${gender == 'Female' ? 'selected' : ''}>Nữ</option>
+                                                    <option value="Other" ${gender == 'Other' ? 'selected' : ''}>Khác</option>
                                                 </select>
                                             </div>
                                             <div class="form-group col-md-6">
-                                                <label class="control-label">Citizen Identification:</label>
-                                                <input class="form-control" type="text" name="citizenIdentification" required>
+                                                <label class="control-label">Số CMND/CCCD <span class="text-danger">*</span></label>
+                                                <input class="form-control" type="text" name="citizenIdentification" 
+                                                       value="${citizenIdentification}"
+                                                       pattern="^[0-9]{9}$|^[0-9]{12}$"
+                                                       title="CMND phải có 9 số hoặc CCCD phải có 12 số"
+                                                       required>
                                             </div>
                                             <div class="form-group col-md-6">
-                                                <label class="control-label">Username:</label>
-                                                <input class="form-control" type="text" name="username" required>
+                                                <label class="control-label">Tên đăng nhập <span class="text-danger">*</span></label>
+                                                <input class="form-control" type="text" name="username" 
+                                                       value="${username}"
+                                                       pattern="^[a-zA-Z0-9_]{6,20}$"
+                                                       title="Tên đăng nhập phải từ 6-20 ký tự, chỉ bao gồm chữ cái, số và dấu gạch dưới"
+                                                       required>
                                             </div>
                                             <div class="form-group col-md-6">
-                                                <label class="control-label">Password:</label>
-                                                <input class="form-control" type="password" name="password" required>
+                                                <label class="control-label">Mật khẩu <span class="text-danger">*</span></label>
+                                                <input class="form-control" type="password" name="password" 
+                                                       pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
+                                                       title="Mật khẩu phải có ít nhất 8 ký tự, bao gồm cả chữ và số"
+                                                       required>
                                             </div>
                                             <div class="form-group col-md-6">
-                                                <label class="control-label">Role:</label>
+                                                <label class="control-label">Chức vụ:</label>
                                                 <select class="form-control" name="role" required>
                                                     <option value="Manager">Manager</option>
-                                                    <option value="Doctor">Doctor</option>
-                                                    <option value="Nurse">Nurse</option>
-
+                                                    <option value="Staff">Staff</option>
                                                 </select>
                                             </div>
                                             <div class="form-group col-md-4">
@@ -269,7 +315,7 @@
                                                 <input class="form-control" type="text" name="streetAddress" required>
                                             </div>
                                             <div class="form-group col-md-12">
-                                                <button type="submit" class="btn btn-primary">Thêm người dùng</button>
+                                                <button type="submit" class="btn btn-primary">Thêm nhân viên</button>
                                             </div>
                                         </div>
                                     </div>
@@ -330,18 +376,61 @@
             function previewImage(event) {
                 const image = document.getElementById('imagePreview');
                 const file = event.target.files[0];
+                
                 if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function (e) {
-                        image.src = e.target.result; // GÃ¡n URL áº£nh cho thuá»c tÃ­nh src cá»§a <img>
-                        image.style.display = 'block'; // Hiá»n áº£nh
+                    // Kiểm tra file type
+                    if (!file.type.startsWith('image/')) {
+                        alert('Vui lòng chọn file ảnh');
+                        return;
                     }
-
-                    reader.readAsDataURL(file); // Äá»c file áº£nh
+                    
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        image.style.opacity = '0';
+                        image.src = e.target.result;
+                        // Thêm animation fade in
+                        setTimeout(() => {
+                            image.style.opacity = '1';
+                        }, 50);
+                    }
+                    reader.readAsDataURL(file);
                 } else {
-                    image.src = '#'; // Reset náº¿u khÃ´ng cÃ³ file
-                    image.style.display = 'none'; // áº¨n áº£nh
+                    image.src = '${pageContext.request.contextPath}/UserProfilesImages/default-avatar.jpg';
                 }
+            }
+
+            function validateForm() {
+                const errorDiv = document.getElementById('errorMessages');
+                let errors = [];
+                
+                // Validate họ tên
+                const firstName = document.getElementsByName('firstName')[0].value;
+                const lastName = document.getElementsByName('lastName')[0].value;
+                if (!/^[A-Za-zÀ-ỹ\s]{2,50}$/.test(firstName)) {
+                    errors.push("Họ không hợp lệ");
+                }
+                if (!/^[A-Za-zÀ-ỹ\s]{2,50}$/.test(lastName)) {
+                    errors.push("Tên không hợp lệ");
+                }
+
+                // Validate email
+                const email = document.getElementsByName('email')[0].value;
+                if (!/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/.test(email)) {
+                    errors.push("Email không hợp lệ");
+                }
+
+                // Validate số điện thoại
+                const phone = document.getElementsByName('phoneNumber')[0].value;
+                if (!/(84|0[3|5|7|8|9])+([0-9]{8})\b/.test(phone)) {
+                    errors.push("Số điện thoại không hợp lệ");
+                }
+
+                if (errors.length > 0) {
+                    errorDiv.style.display = 'block';
+                    errorDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> Vui lòng điền đầy đủ thông tin';
+                    return false;
+                }
+                return true;
             }
         </script>
 

@@ -1,4 +1,4 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page import="model.Users"%>
 <%@page import="model.UserAddresses"%>
 <%@page import="model.Provinces"%>
@@ -271,6 +271,7 @@
                 <li><a class="app-nav__item" href="/index.html"><i class='bx bx-log-out bx-rotate-180'></i> </a></li>
             </ul>
         </header>
+        <%@ include file="dashboardleft.jsp" %>
 
         <main class="app-content">
             <div class="profile-wrapper">

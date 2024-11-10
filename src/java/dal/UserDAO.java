@@ -290,29 +290,74 @@ public List<Integer> getChildrenByUserId(int userId) {
         }
     }
 
-    public boolean updateUser(Users user) {
-        String sql = "UPDATE Users SET FirstName = ?, MiddleName = ?, LastName = ?, Email = ?, "
-                + "PhoneNumber = ?, DateOfBirth = ?, Gender = ?, CitizenIdentification = ?, "
-                + "ProfileImage = ? WHERE UserID = ?";
+    public void updateUser(Users user) {
+        String sql = "UPDATE Users SET FirstName=?, MiddleName=?, LastName=?, " +
+                     "Email=?, PhoneNumber=?, DateOfBirth=?, Gender=?, " +
+                     "CitizenIdentification=?, ProfileImage=?, UpdatedAt=GETDATE() " +
+                     "WHERE UserID=?";
+                 
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, user.getFirstName());
             stmt.setString(2, user.getMiddleName());
             stmt.setString(3, user.getLastName());
             stmt.setString(4, user.getEmail());
             stmt.setString(5, user.getPhoneNumber());
-            stmt.setDate(6, new java.sql.Date(user.getDateOfBirth().getTime()));
+            stmt.setDate(6, user.getDateOfBirth());
             stmt.setString(7, user.getGender());
             stmt.setString(8, user.getCitizenIdentification());
             stmt.setString(9, user.getProfileImage());
             stmt.setInt(10, user.getUserID());
-
-            int affectedRows = stmt.executeUpdate();
-            return affectedRows > 0;
+            
+            stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-            // Consider logging the error or throwing a custom exception
-            return false;
+            System.out.println("Error updating user: " + e.getMessage());
         }
+    }
+
+    // Thêm phương thức mới để cập nhật user với ảnh
+    public void updateUserWithImage(Users user, String profileImage) {
+        String sql = "UPDATE Users SET FirstName=?, MiddleName=?, LastName=?, " +
+                     "Email=?, PhoneNumber=?, DateOfBirth=?, Gender=?, " +
+                     "CitizenIdentification=?, ProfileImage=?, UpdatedAt=GETDATE() " +
+                     "WHERE UserID=?";
+                 
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, user.getFirstName());
+            stmt.setString(2, user.getMiddleName());
+            stmt.setString(3, user.getLastName());
+            stmt.setString(4, user.getEmail());
+            stmt.setString(5, user.getPhoneNumber());
+            stmt.setDate(6, user.getDateOfBirth());
+            stmt.setString(7, user.getGender());
+            stmt.setString(8, user.getCitizenIdentification());
+            stmt.setString(9, profileImage);
+            stmt.setInt(10, user.getUserID());
+            
+            int rowsAffected = stmt.executeUpdate();
+            if (rowsAffected == 0) {
+                throw new SQLException("Cập nhật thông tin người dùng thất bại");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Lỗi khi cập nhật thông tin người dùng: " + e.getMessage());
+        }
+    }
+
+    // Thêm phương thức để lấy ảnh hiện tại của user
+    public String getCurrentProfileImage(int userId) {
+        String sql = "SELECT ProfileImage FROM Users WHERE UserID = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, userId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getString("ProfileImage");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public List<String> getUserRoles(int userID) {

@@ -1,4 +1,4 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -57,7 +57,7 @@
 
             /* Header Styling */
             .app-header {
-                background: var(--gradient-1);
+                
                 border-bottom: none;
                 box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
                 position: fixed;
@@ -65,17 +65,7 @@
                 z-index: 1000;
             }
 
-            .app-header::after {
-                content: '';
-                position: absolute;
-                left: 0;
-                right: 0;
-                bottom: -50px;
-                height: 50px;
-                background: var(--gradient-1);
-                opacity: 0.3;
-                z-index: -1;
-            }
+            
 
             /* Profile Image Section */
             .profile-image-section {
@@ -184,15 +174,14 @@
         <header class="app-header">
             <a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a>
             <ul class="app-nav">
-                <li><a class="app-nav__item" href="/index.html"><i class='bx bx-log-out bx-rotate-180'></i></a></li>
+                <li><a class="app-nav__item" href="${pageContext.request.contextPath}/logout">
+                    <i class='bx bx-log-out bx-rotate-180'></i>
+                </a></li>
             </ul>
         </header>
-
-        
+        <%@ include file="dashboardleft.jsp" %>
         <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
-        <aside class="app-sidebar">
-            <!-- Sidebar content remains the same -->
-        </aside>
+        
 
         <main class="app-content">
             <div class="row">

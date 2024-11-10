@@ -60,43 +60,18 @@
             <li><a class="app-nav__item" href="${pageContext.request.contextPath}/logout"><i class='bx bx-log-out bx-rotate-180'></i> </a></li>
         </ul>
     </header>
-    <!-- Sidebar menu-->
-    <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
-    <aside class="app-sidebar">
-        <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" src="/images/hay.jpg" width="50px" alt="User Image">
-            <div>
-                <p class="app-sidebar__user-name"><b>User name</b></p>
-                <p class="app-sidebar__user-designation">Chào mừng bạn trở lại</p>
-            </div>
-        </div>
-        <hr>
-        <ul class="app-menu">
-            <li><a class="app-menu__item haha" href="${pageContext.request.contextPath}/admin/viewprofile"><i class='app-menu__icon bx bx-cart-alt'></i>
-                    <span class="app-menu__label">View Profile</span></a></li>
-            <li><a class="app-menu__item " href="index.html"><i class='app-menu__icon bx bx-tachometer'></i><span class="app-menu__label">Bảng điều
-                    khiển</span></a></li>
-            <li><a class="app-menu__item active" href="serviceslist"><i class='app-menu__icon bx bx-id-card'></i>
-                    <span class="app-menu__label">Quản lý dịch vụ</span></a></li>
-            <li><a class="app-menu__item" href="#"><i class='app-menu__icon bx bx-user-voice'></i><span class="app-menu__label">Quản lý khách hàng</span></a></li>
-            <li><a class="app-menu__item" href="table-data-product.html"><i class='app-menu__icon bx bx-purchase-tag-alt'></i><span class="app-menu__label">Quản lý
-                    sản phẩm</span></a>
-            </li>
-            <li><a class="app-menu__item" href="table-data-oder.html"><i class='app-menu__icon bx bx-task'></i><span class="app-menu__label">Quản lý đơn
-                    hàng</span></a></li>
-            <li><a class="app-menu__item" href="table-data-banned.html"><i class='app-menu__icon bx bx-run'></i><span class="app-menu__label">Quản lý tài khoản bị
-                    cấm</span></a></li>
-        </ul>
-    </aside>
+        
+            <%@ include file="dashboardleft.jsp" %>
 
     <main class="app-content">
         <div class="app-title">
             <div>
-                <h1><i class="fa fa-th-list"></i> User List</h1>
+                <h1><i class="fa fa-th-list"></i> Danh sách người dùng</h1>
             </div>
             <ul class="app-breadcrumb breadcrumb side">
                 <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
                 <li class="breadcrumb-item">Admin</li>
-                <li class="breadcrumb-item active"><a href="#">User List</a></li>
+                <li class="breadcrumb-item active"><a href="#">Danh sách người dùng</a></li>
             </ul>
         </div>
         <div class="row">
@@ -106,11 +81,11 @@
                         <!-- Search form -->
                         <form action="${pageContext.request.contextPath}/admin/adminsearchuser" method="GET" class="mb-3" id="searchForm" style="position: relative; display: flex; align-items: center;">
                             <div style="position: relative; flex-grow: 1;">
-                                <input type="text" class="form-control" placeholder="Enter FirstName, LastName, Email Address,...." name="searchTerm" value="${searchTerm}" id="searchInput" style="padding-right: 30px;">
+                                <input type="text" class="form-control" placeholder="Tên, Email, ..." name="searchTerm" value="${searchTerm}" id="searchInput" style="padding-right: 30px;">
                                 <button type="button" id="clearSearch" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); border: none; background: none; font-size: 16px; cursor: pointer;">&times;
                                 </button>
                             </div>
-                            <button class="btn btn-primary" type="submit" style="margin-left: 10px;">Search</button>
+                            <button class="btn btn-primary" type="submit" style="margin-left: 10px;">Tìm kiếm</button>
                         </form>
 
                         <!-- Display messages -->
@@ -123,17 +98,17 @@
 
                         <!-- Search results or all users -->
                         <c:if test="${not empty searchTerm}">
-                            <p>Search results for: ${searchTerm}</p>
+                            <p>Kết quả tìm kiếm: ${searchTerm}</p>
                         </c:if>
 
                         <table class="table table-hover table-bordered" id="sampleTable">
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Name</th>
+                                    <th>Họ và tên</th>
                                     <th>Email</th>
-                                    <th>Roles</th>
-                                    <th>Actions</th>
+                                    <th>Chức vụ</th>
+                                    <th>Hành động</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -152,7 +127,7 @@
                                         <td class="action-icons">
                                             <c:choose>
                                                 <c:when test="${not empty user.roles}">
-                                                    <a href="${pageContext.request.contextPath}/admin/removerole?userId=${user.userID}" class="btn btn-danger" title="Remove Role">
+                                                    <a href="${pageContext.request.contextPath}/admin/removerole?userId=${user.userID}" class="btn btn-danger" title="Xóa chức vụ">
                                                         <i class="fa fa-user-times"></i>
                                                     </a>
                                                 </c:when>
@@ -165,7 +140,7 @@
                                             <a href="${pageContext.request.contextPath}/admin/adminedituser?userId=${user.userID}" class="btn btn-warning" title="Edit">
                                                 <i class="fa fa-edit"></i>
                                             </a>
-                                            <button onclick="confirmDelete('${user.userID}')" class="btn btn-danger" title="Delete User">
+                                            <button onclick="confirmDelete('${user.userID}')" class="btn btn-danger" title="Xóa người dùng">
                                                 <i class="fa fa-trash"></i>
                                             </button>
                                         </td>
@@ -202,7 +177,7 @@
     <!-- Add this script for delete confirmation -->
     <script>
         function confirmDelete(userId) {
-            if (confirm('Are you sure you want to delete this user?')) {
+            if (confirm('Bạn có chắc chắn muốn xóa người dùng này không?')) {
                 var form = document.createElement('form');
                 form.method = 'POST';
                 form.action = '${pageContext.request.contextPath}/admin/deleteUser';

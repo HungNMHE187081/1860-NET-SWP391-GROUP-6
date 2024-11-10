@@ -45,7 +45,7 @@ public class Users {
         this.user = user;
     }
 
-    public Users(int userID, String firstName, String middleName, String lastName, String email, String phoneNumber, Date dateOfBirth, String gender, String citizenIdentification) {
+    public Users(int userID, String firstName, String middleName, String lastName, String email, String phoneNumber, Date dateOfBirth, String gender, String citizenIdentification, String profileImage) {
         this.userID = userID;
         this.firstName = firstName;
         this.middleName = middleName;
@@ -55,6 +55,7 @@ public class Users {
         this.dateOfBirth = dateOfBirth;
         this.gender = gender;
         this.citizenIdentification = citizenIdentification;
+        this.profileImage = profileImage;
     }
 
     public int getUserID() {
