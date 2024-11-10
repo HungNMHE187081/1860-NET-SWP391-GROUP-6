@@ -114,7 +114,7 @@ public class ManagerAddServiceServlet extends HttpServlet {
         service.setPrice(price);
         service.setDuration(duration);
         service.setServiceImage(img);
-        service.setIsActive(isActive.equals("Hoạt động"));
+        service.setIsActive(isActive.equals("Đang hoạt động"));
         service.setAgeLimitID(ageLimitID);
 
         ServiceDAO serviceDAO = new ServiceDAO();

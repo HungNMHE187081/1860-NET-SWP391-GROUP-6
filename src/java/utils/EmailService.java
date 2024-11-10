@@ -13,8 +13,8 @@ import java.util.Properties;
 public class EmailService {
     private static final String HOST = "smtp.gmail.com";
     private static final int PORT = 587;
-    private static final String USERNAME = "hunghbhe187115@fpt.edu.vn"; // Replace with your email
-    private static final String APP_PASSWORD = "ngpx dkpz lqio beqv"; // Replace with your App Password
+    private static final String USERNAME = "childrencare.test@gmail.com"; // Replace with your email
+    private static final String APP_PASSWORD = "mltn ufeq ljec oods"; // Replace with your App Password
 
     public static void sendEmail(String recipientEmail, String firstName, String middleName, String lastName, String username, String password) throws MessagingException {
         Properties props = new Properties();

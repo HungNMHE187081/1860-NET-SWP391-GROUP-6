@@ -111,9 +111,9 @@ public class AdminAddUserServlet extends HttpServlet {
                 errors.add("Số CMND phải có 9 hoặc 12 chữ số");
             }
             if (username == null || username.trim().isEmpty()) {
-                errors.add("Tên đăng nhập không được ể trống");
-            } else if (username.length() < 6) {
-                errors.add("Tên đăng nhập phải có ít nhất 6 ký tự");
+                errors.add("Tên đăng nhập không được để trống");
+            } else if (username.length() <= 3) {
+                errors.add("Tên đăng nhập phải có ít nhất 3 ký tự");
             }
             if (password == null || password.trim().isEmpty()) {
                 errors.add("Mật khẩu không được để trống");

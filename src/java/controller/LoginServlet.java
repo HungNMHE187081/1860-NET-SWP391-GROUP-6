@@ -86,7 +86,7 @@ public class LoginServlet extends HttpServlet {
 
                 String redirectPath = "";
                 if (roles.contains("Administrator")) {
-                    redirectPath = "/admin/adminuserslist";
+                    redirectPath = "/admin/dashboard";
                 } else if (roles.contains("Manager")) {
                     redirectPath = "/manager/serviceslist";
                 } else if (roles.contains("Staff")) {

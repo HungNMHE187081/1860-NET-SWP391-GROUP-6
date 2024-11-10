@@ -182,7 +182,7 @@
                                     <div class="form-group">
                                         <label class="control-label">Ảnh đại diện</label>
                                         <div class="profile-img-container">
-                                            <img id="imagePreview" src="${user.profileImage}"
+                                            <img id="imagePreview" src="${pageContext.request.contextPath}/${user.profileImage}"
                                                  alt="${staff.staffName}"
                                                  class="rounded-circle img-fluid">
                                         </div>
@@ -201,7 +201,7 @@
                                                    name="gender" value="${user.gender}" readonly="">
                                         </div>
                                         <div class="form-group col-md-4">
-                                            <label class="control-label">Degree</label>
+                                            <label class="control-label">Bằng cấp</label>
                                             <select name="degree" class="form-control">
                                                 <option value="">Chọn bằng cấp</option>
                                                 <c:forEach items="${degrees}" var="degree">
@@ -212,7 +212,7 @@
                                             </select>
                                         </div>
                                         <div class="form-group col-md-4">
-                                            <label class="control-label">Specialization</label>
+                                            <label class="control-label">Chuyên môn</label>
                                             <select name="specialization" class="form-control">
                                                 <option value="">Chọn chuyên môn</option>
                                                 <c:forEach items="${specializations}" var="spec">
@@ -272,17 +272,17 @@
                                                    value="${user.citizenIdentification}" readonly="">
                                         </div>
                                         <div class="form-group col-md-4">
-                                            <label class="control-label">Years of Experience</label>
+                                            <label class="control-label">Số năm kinh nghiệm</label>
                                             <input type="number" name="yearsOfExperience" class="form-control"
                                                    value="${staff.yearsOfExperience != null ? staff.yearsOfExperience : ''}" required>
                                         </div>
                                         <div class="form-group col-md-4">
-                                            <label class="control-label">Hire Date</label>
+                                            <label class="control-label">Ngày được nhận</label>
                                             <input type="date" name="hireDate" class="form-control"
                                                    value="${staff.hireDate}" required>
                                         </div>
                                         <div class="form-group col-md-4">
-                                            <label class="control-label">Salary</label>
+                                            <label class="control-label">Lương</label>
                                             <input class="form-control" type="text" id="salary" name="salary"
                                                    value="<fmt:formatNumber value='${staff.salary != 0 ? staff.salary : 0}' type='number' groupingUsed='true'/>">
                                         </div>

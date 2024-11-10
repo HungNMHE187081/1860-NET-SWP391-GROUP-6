@@ -59,7 +59,7 @@
         <h1><i class="fas fa-exclamation-triangle"></i> Đã xảy ra lỗi!</h1>
         <p>${errorMessage != null ? errorMessage : "Xin vui lòng thử lại sau."}</p>
         <div class="button-group">
-            <a href="staffhomepage" class="btn"><i class="fas fa-home"></i> Quay lại Trang Chủ</a>
+            <a href="homepage" class="btn"><i class="fas fa-home"></i> Quay lại Trang Chủ</a>
             <a href="javascript:history.back()" class="btn"><i class="fas fa-arrow-left"></i> Quay lại</a>
         </div>
     </div>

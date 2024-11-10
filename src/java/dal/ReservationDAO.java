@@ -444,17 +444,14 @@ public class ReservationDAO extends DBContext {
         String sql = "SELECT COUNT(*) FROM Reservations r "
                 + "JOIN OrderItems oi ON r.OrderItemID = oi.OrderItemID "
                 + "JOIN Services s ON oi.ServiceID = s.ServiceID "
-                + "WHERE r.ReservationDate = ? " // Same date
-                + "AND oi.ChildID = ? " // Same child
+                + "WHERE r.ReservationDate = ? " 
+                + "AND oi.ChildID = ? "
                 + "AND ("
-                // Case 1: New appointment starts during an existing appointment
                 + "    (CAST(? AS time) >= CAST(r.StartTime AS time) "
                 + "     AND CAST(? AS time) < DATEADD(MINUTE, s.Duration, CAST(r.StartTime AS time)))"
-                // Case 2: New appointment ends during an existing appointment
                 + "    OR "
                 + "    (DATEADD(MINUTE, ?, CAST(? AS time)) > CAST(r.StartTime AS time) "
                 + "     AND DATEADD(MINUTE, ?, CAST(? AS time)) <= DATEADD(MINUTE, s.Duration, CAST(r.StartTime AS time)))"
-                // Case 3: New appointment completely contains an existing appointment
                 + "    OR "
                 + "    (CAST(? AS time) <= CAST(r.StartTime AS time) "
                 + "     AND DATEADD(MINUTE, ?, CAST(? AS time)) >= DATEADD(MINUTE, s.Duration, CAST(r.StartTime AS time)))"
@@ -463,15 +460,12 @@ public class ReservationDAO extends DBContext {
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, reservationDate);
             ps.setInt(2, childID);
-            // Case 1
             ps.setString(3, startTime);
             ps.setString(4, startTime);
-            // Case 2
             ps.setInt(5, serviceDuration);
             ps.setString(6, startTime);
             ps.setInt(7, serviceDuration);
             ps.setString(8, startTime);
-            // Case 3
             ps.setString(9, startTime);
             ps.setInt(10, serviceDuration);
             ps.setString(11, startTime);
@@ -574,11 +568,9 @@ public class ReservationDAO extends DBContext {
                 r.setReservationID(rs.getInt("ReservationID"));
                 r.setOrderItemID(rs.getInt("OrderItemID"));
 
-                // Chuyển đổi Date sang String
                 Date reservationDate = rs.getDate("ReservationDate");
                 Time startTime = rs.getTime("StartTime");
 
-                // Format date và time thành String
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
 
@@ -590,7 +582,6 @@ public class ReservationDAO extends DBContext {
                 r.setHasRecord(rs.getBoolean("hasRecord"));
                 list.add(r);
 
-                // Debug log
                 System.out.println("Found reservation: ID=" + r.getReservationID()
                         + ", Date=" + r.getReservationDate()
                         + ", Time=" + r.getStartTime());
@@ -631,10 +622,8 @@ public class ReservationDAO extends DBContext {
             ResultSet rs = st.executeQuery();
 
             if (rs.next()) {
-                // Thông tin cơ bản
                 details.put("reservationID", rs.getInt("ReservationID"));
 
-                // Format date and time
                 java.sql.Date reservationDate = rs.getDate("ReservationDate");
                 java.sql.Time startTime = rs.getTime("StartTime");
                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
@@ -643,7 +632,6 @@ public class ReservationDAO extends DBContext {
                 details.put("reservationDate", dateFormat.format(reservationDate));
                 details.put("startTime", timeFormat.format(startTime));
 
-                // Child info
                 String childName = rs.getString("ChildFirstName");
                 if (rs.getString("ChildMiddleName") != null) {
                     childName += " " + rs.getString("ChildMiddleName");
@@ -651,12 +639,10 @@ public class ReservationDAO extends DBContext {
                 childName += " " + rs.getString("ChildLastName");
                 details.put("childName", childName);
 
-                // Service info
                 details.put("serviceName", rs.getString("ServiceName"));
                 details.put("serviceDescription", rs.getString("Description"));
                 details.put("totalPrice", rs.getDouble("TotalPrice"));
 
-                // Staff info
                 String staffName = "";
                 if (rs.getString("StaffFirstName") != null) {
                     staffName = rs.getString("StaffFirstName") + " " + rs.getString("StaffLastName");

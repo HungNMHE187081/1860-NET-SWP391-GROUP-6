@@ -205,7 +205,7 @@
                                     <!-- Personal Information Section -->
                                     <div class="col-md-9">
                                         <div class="row">
-                                            <div class="form-group col-md-4">
+                                            <div class="form-group col-md-6">
                                                 <label>Họ <span class="text-danger">*</span></label>
                                                 <input class="form-control" type="text" name="firstName" 
                                                        value="${firstName}"
@@ -213,14 +213,15 @@
                                                        title="Họ phải từ 2-50 ký tự và không chứa số hoặc ký tự đặc biệt"
                                                        required>
                                             </div>
-                                            <div class="form-group col-md-4">
-                                                <label>Tên đệm</label>
+                                            <div class="form-group col-md-6">
+                                                <label>Tên đệm<span class="text-danger">*</span></label>
                                                 <input class="form-control" type="text" name="middleName" 
                                                        value="${middleName}"
-                                                       pattern="^[A-Za-zÀ-ỹ\s]{0,50}$"
-                                                       title="Tên đệm không được chứa số hoặc ký tự đặc biệt">
+                                                       pattern="^[A-Za-zÀ-ỹ\s]{2,50}$"
+                                                       title="Tên phải từ 2-50 ký tự và không chứa số hoặc ký tự đặc biệt"
+                                                       required>
                                             </div>
-                                            <div class="form-group col-md-4">
+                                            <div class="form-group col-md-6">
                                                 <label>Tên <span class="text-danger">*</span></label>
                                                 <input class="form-control" type="text" name="lastName" 
                                                        value="${lastName}"
@@ -272,8 +273,8 @@
                                                 <label class="control-label">Tên đăng nhập <span class="text-danger">*</span></label>
                                                 <input class="form-control" type="text" name="username" 
                                                        value="${username}"
-                                                       pattern="^[a-zA-Z0-9_]{6,20}$"
-                                                       title="Tên đăng nhập phải từ 6-20 ký tự, chỉ bao gồm chữ cái, số và dấu gạch dưới"
+                                                       pattern="^[a-zA-Z0-9_]{3,20}$"
+                                                       title="Tên đăng nhập phải từ 3-20 ký tự, chỉ bao gồm chữ cái, số và dấu gạch dưới"
                                                        required>
                                             </div>
                                             <div class="form-group col-md-6">

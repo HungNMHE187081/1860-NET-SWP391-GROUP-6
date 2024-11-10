@@ -69,7 +69,6 @@ public class CustomerAddReservationServlet extends HttpServlet {
             List<Children> allChildren = childrenDAO.getAgeOfChildrenByCustomerID(user.getUserID());
             List<Children> childrenByAge = new ArrayList<>();
 
-            // Filtering logic based on service's age limit
             for (Children child : allChildren) {
                 int age = child.getAge();
                 if (ageLimitID == 1 && age < 1) {
@@ -104,7 +103,6 @@ public class CustomerAddReservationServlet extends HttpServlet {
 
         if (user != null) {
             try {
-                // Get and validate parameters
                 Integer serviceID = getServiceID(request);
                 String childIDStr = request.getParameter("childID");
                 String startTime = request.getParameter("startTime") + ":00";
@@ -112,7 +110,6 @@ public class CustomerAddReservationServlet extends HttpServlet {
                 String staffIDStr = request.getParameter("staffID");
                 String paymentMethod = request.getParameter("isCheckOut");
 
-                // Check parameters
                 if (serviceID == null || childIDStr == null || startTime == null || 
                     reservationDate == null || staffIDStr == null || 
                     childIDStr.isEmpty() || startTime.isEmpty() || 
@@ -126,13 +123,11 @@ public class CustomerAddReservationServlet extends HttpServlet {
                 int childID = Integer.parseInt(childIDStr);
                 int staffID = Integer.parseInt(staffIDStr);
                 
-                // Get service and child details
                 ServiceDAO serviceDAO = new ServiceDAO();
                 ChildrenDAO childrenDAO = new ChildrenDAO();
                 Service service = serviceDAO.getServiceByID(serviceID);
                 Children child = childrenDAO.getChildrenByID(childID);
                 
-                // Validate child's age against service age limit
                 int ageLimitID = service.getAgeLimitID();
                 int childAge = child.getAge();
                 
@@ -141,33 +136,26 @@ public class CustomerAddReservationServlet extends HttpServlet {
                 } else if (ageLimitID == 3 && childAge >= 6 && childAge < 13) {
                 } else if (ageLimitID == 4 && childAge >= 13 && childAge < 18) {
                 }
-                // Check for time conflicts
                 ReservationDAO reservationDAO = new ReservationDAO();
 
-                // Check if child has any conflicting appointments
                 if (reservationDAO.hasChildTimeConflict(reservationDate, startTime, childID, service.getDuration())) {
                     request.setAttribute("errorMessage", "Trẻ đã có lịch khám trong khoảng thời gian này. Vui lòng chọn thời gian khác.");
                     reloadFormData(request, response, user, service);
                     return;
                 }
                 
-                // Check if staff is already booked for this exact time on this date
                 if (!reservationDAO.isStaffAvailable(reservationDate, startTime, staffID)) {
                     request.setAttribute("errorMessage", "Bác sĩ đã có lịch hẹn vào thời điểm này. Vui lòng chọn bác sĩ khác hoặc thời gian khác.");
-                    // Reload necessary data for the form
                     reloadFormData(request, response, user, service);
                     return;
                 }
 
-                // Only check for time conflicts if it's the same date and same staff
                 if (reservationDAO.hasTimeConflict(reservationDate, startTime, staffID, service.getDuration())) {
                     request.setAttribute("errorMessage", "Bác sĩ đã có lịch hẹn trong khoảng thời gian này. Vui lòng chọn thời gian khác.");
-                    // Reload necessary data for the form
                     reloadFormData(request, response, user, service);
                     return;
                 }
 
-                // Lưu thông tin vào session để dùng cho thanh toán
                 session.setAttribute("reservationInfo", new HashMap<String, Object>() {{
                     put("serviceID", serviceID);
                     put("service", service);
@@ -178,7 +166,6 @@ public class CustomerAddReservationServlet extends HttpServlet {
                 }});
 
                 if ("CheckOut".equals(paymentMethod)) {
-                    // Thanh toán offline - tạo reservation ngay
                     OrderDAO orderDAO = new OrderDAO();
                     Order order = new Order();
                     order.setCustomerID(user.getUserID());
@@ -247,7 +234,6 @@ public class CustomerAddReservationServlet extends HttpServlet {
                         throw new Exception("Failed to create reservation");
                     }
                 } else {
-                    // Thanh toán online - chuyển đến trang thanh toán
                     response.sendRedirect(request.getContextPath() + "/payment");
                 }
 

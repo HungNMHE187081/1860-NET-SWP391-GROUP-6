@@ -109,14 +109,6 @@
                            onclick="return confirm('Bạn có muốn xác nhận rằng đã hoàn thành lịch khám này không?')"
                            class="back-link">Đã khám</a>
                     </c:if>
-                    <c:if test="${reservation.isExam == true}">
-                        <c:if test="${reservation.hasRecord == false}">
-                            <a href="${pageContext.request.contextPath}/addmedicalrecord?staffID=${reservation.staffID}&reservationDate=${reservation.reservationDate}&reservationID=${reservation.reservationID}&childID=${childID}" class="back-link">Thêm kết quả khám</a>
-                        </c:if>
-                        <c:if test="${reservation.hasRecord == true}">
-                            <a href="${pageContext.request.contextPath}/staff/medicalrecordlist?childID=${child.childID}" class="back-link">Xem kết quả khám</a>
-                        </c:if>
-                    </c:if>
 
                     <style>
                         .detail-container {
